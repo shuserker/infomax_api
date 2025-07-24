@@ -1,0 +1,189 @@
+[
+  /* 1) 조회 조건 */
+  {
+    $match: {
+      path: "/api/bond/market/code_info",
+      createDate: {
+        $gte: new Date(
+          "2025-01-01T00:00:00+09:00"
+        ),
+        $lte: new Date(
+          "2025-02-20T23:59:59+09:00"
+        )
+      }
+    }
+  },
+  /* 2) 날짜(YYYY-MM-DD)·1 분 슬롯 생성 */
+  {
+    $addFields: {
+      minute_slot: {
+        $dateTrunc: {
+          date: "$createDate",
+          unit: "minute",
+          binSize: 1,
+          timezone: "Asia/Seoul"
+        }
+      },
+      dateOnly: {
+        $dateToString: {
+          format: "%Y-%m-%d",
+          date: "$createDate",
+          timezone: "Asia/Seoul"
+        }
+      }
+    }
+  },
+  /* 3) 사용자별·날짜별·1 분 단위 집계 */
+  {
+    $group: {
+      _id: {
+        package: "$path",
+        userid: "$userid",
+        date: "$dateOnly",
+        minute_slot: "$minute_slot"
+      },
+      minute_usage: {
+        $sum: "$size"
+      },
+      count: {
+        $sum: 1
+      }
+    }
+  },
+  /* 4) 시간순 정렬 */
+  {
+    $sort: {
+      "_id.minute_slot": 1
+    }
+  },
+  /* 5) 날짜 단위로 묶기 */
+  {
+    $group: {
+      _id: {
+        package: "$_id.package",
+        userid: "$_id.userid",
+        date: "$_id.date"
+      },
+      minute_data: {
+        $push: {
+          /* 시간 슬롯 */
+          time_slot: {
+            $dateToString: {
+              format: "%H:%M",
+              date: "$_id.minute_slot",
+              timezone: "Asia/Seoul"
+            }
+          },
+          /* 사용량 (MB) */
+          minute_usage: {
+            $concat: [
+              {
+                $toString: {
+                  $round: [
+                    { $divide: ["$minute_usage", 1024] },
+                    2
+                  ]
+                }
+              },
+              " MB"
+            ]
+          },
+          /* 호출 수 */
+          minute_count: {
+            $concat: [
+              {
+                $toString: "$count"
+              },
+              " calls"
+            ]
+          },
+          /* 분당 호출 수 */
+          count_per_minute: {
+            $concat: [
+              {
+                $toString: {
+                  $round: [
+                    "$count",
+                    2
+                  ]
+                }
+              },
+              " calls/min"
+            ]
+          }
+        }
+      },
+      /* 일일 총 사용량 (바이트) */
+      daily_usage: {
+        $sum: "$minute_usage"
+      },
+      /* 일일 총 호출 수 */
+      total_count: {
+        $sum: "$count"
+      }
+    }
+  },
+  /* 6) 사용자별 일자별 통계 정리 */
+  {
+    $group: {
+      _id: {
+        package: "$_id.package",
+        userid: "$_id.userid"
+      },
+      daily_stats: {
+        $push: {
+          date: "$_id.date",
+          /* 분 단위 통계 */
+          minute_data: "$minute_data",
+          /* 일일 사용량 (MB) */
+          daily_usage: {
+            $concat: [
+              {
+                $toString: {
+                  $round: [
+                    { $divide: ["$daily_usage", 1024] },
+                    2
+                  ]
+                }
+              },
+              " MB"
+            ]
+          },
+          /* 일일 호출 수 */
+          total_count: {
+            $concat: [
+              {
+                $toString: "$total_count"
+              },
+              " calls"
+            ]
+          }
+        }
+      }
+    }
+  },
+  /* 7) 패키지별 사용자 그룹화 */
+  {
+    $group: {
+      _id: "$_id.package",
+      users: {
+        $push: {
+          /* 사용자 ID */
+          userid: "$_id.userid",
+          /* 사용 내역 */
+          usage_details: "$daily_stats"
+        }
+      }
+    }
+  },
+  /* 8) 최종 출력 */
+  {
+    $project: {
+      _id: 0,
+      /* 패키지 경로 */
+      package: "$_id",
+      /* 사용자 목록 */
+      users: 1
+    }
+  }
+]
