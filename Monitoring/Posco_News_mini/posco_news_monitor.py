@@ -228,56 +228,65 @@ class PoscoNewsMonitor:
             print(f"❌ 상태 알림 전송 오류: {e}")
     
     def send_change_notification(self, news_type, old_data, new_data):
-        """변경사항 알림 전송 (개선된 가독성)"""
+        """변경사항 알림 전송 (신규입력/파라미터별 변경 상세 표기)"""
         # 뉴스 타입별 이모지 매핑
         type_emojis = {
             "exchange-rate": "",
             "newyork-market-watch": "", 
             "kospi-close": ""
         }
-        
         emoji = type_emojis.get(news_type, "📰")
         type_display = news_type.replace("-", " ").upper()
-        
-        # 변경 유형 분석
-        if not old_data:
-            change_type = "🆕 새로운 뉴스"
+
+        # 변경 항목 분석
+        changed_fields = []
+        field_names = [
+            ("title", "제목"),
+            ("content", "본문"),
+            ("date", "날짜"),
+            ("time", "시간")
+        ]
+        if not old_data or not any(old_data.get(f) for f, _ in field_names):
+            change_type = "🆕 신규입력"
             change_icon = "🆕"
+            changed_fields = [n for _, n in field_names if new_data.get(_)]
         else:
-            if old_data.get('title') != new_data.get('title'):
-                change_type = "📝 제목 변경"
+            for f, n in field_names:
+                if old_data.get(f) != new_data.get(f):
+                    changed_fields.append(n)
+            if changed_fields:
+                change_type = f"{', '.join(changed_fields)} 변경"
                 change_icon = "📝"
-            elif old_data.get('content') != new_data.get('content'):
-                change_type = "📄 내용 업데이트"
-                change_icon = "📄"
             else:
                 change_type = "⏰ 시간 업데이트"
                 change_icon = "⏰"
-        
+
         message = f"{change_icon} {type_display} 업데이트\n"
         message += f"┌ 변경: {change_type}\n"
-        
+
         # 최신 데이터 정보
         new_datetime = self.format_datetime(new_data.get('date', ''), new_data.get('time', ''))
         message += f"├ 시간: {new_datetime}\n"
-        
+
         # 제목 정보
         new_title = new_data.get('title', '')
         if new_title:
             title_preview = new_title[:60] + "..." if len(new_title) > 60 else new_title
             message += f"├ 제목: {title_preview}\n"
-        
+
         # 작성자 및 카테고리
         writers = new_data.get('writer', [])
         categories = new_data.get('category', [])
-        
         if writers:
             message += f"├ 작성자: {', '.join(writers)}\n"
         if categories:
             message += f"└ 카테고리: {', '.join(categories[:3])}{'...' if len(categories) > 3 else ''}"
         else:
-            message = message.rstrip('\n├ 작성자: ' + ', '.join(writers) + '\n') + f"└ 작성자: {', '.join(writers)}" if writers else message.rstrip('\n')
-        
+            if writers:
+                message = message.rstrip('\n├ 작성자: ' + ', '.join(writers) + '\n') + f"└ 작성자: {', '.join(writers)}"
+            else:
+                message = message.rstrip('\n')
+
         payload = {
             "botName": "POSCO 뉴스 🔔",
             "text": f"{change_icon} {type_display} 업데이트",
@@ -286,7 +295,6 @@ class PoscoNewsMonitor:
                 "text": message.split('\n', 1)[1] if '\n' in message else message
             }]
         }
-        
         try:
             response = requests.post(
                 self.dooray_webhook,
@@ -323,35 +331,86 @@ class PoscoNewsMonitor:
             "changes": changes
         }
     
-    def check_once(self):
-        """한 번 체크"""
+    def send_simple_status_notification(self, current_data):
+        """간결 상태 알림 전송 (ex: POSCO 뉴스 🟢2/3 + 갱신 데이터 없음)"""
+        today_kr = datetime.now().strftime('%Y%m%d')
+        status_count = sum(1 for _, news_data in current_data.items() 
+                         if news_data.get('date') == today_kr)
+        total_count = len(current_data) if current_data else 0
+        if status_count == total_count:
+            status_emoji = '🟢'
+        elif status_count > 0:
+            status_emoji = '🟡'
+        else:
+            status_emoji = '🔴'
+        bot_name = f"POSCO 뉴스 {status_emoji}{status_count}/{total_count}"
+        payload = {
+            "botName": bot_name,
+            "text": "갱신 데이터 없음",
+            "attachments": []
+        }
+        try:
+            response = requests.post(
+                self.dooray_webhook,
+                json=payload,
+                headers={'Content-Type': 'application/json'},
+                timeout=10
+            )
+            if response.status_code == 200:
+                print(f"✅ 간결 상태 알림 전송 성공")
+        except Exception as e:
+            print(f"❌ 간결 상태 알림 전송 오류: {e}")
+
+    def send_monitoring_stopped_notification(self):
+        """자동 모니터링 프로세스 중지 알림 (오류/빨간칸)"""
+        payload = {
+            "botName": "POSCO 뉴스 ❌",
+            "text": "❌ 오류",
+            "attachments": [
+                {
+                    "color": "#ff4444",
+                    "text": "자동 모니터링 프로세스 중지됨"
+                }
+            ]
+        }
+        try:
+            response = requests.post(
+                self.dooray_webhook,
+                json=payload,
+                headers={'Content-Type': 'application/json'},
+                timeout=10
+            )
+            if response.status_code == 200:
+                print(f"✅ 모니터링 중단 알림 전송 성공")
+        except Exception as e:
+            print(f"❌ 모니터링 중단 알림 전송 오류: {e}")
+
+    def check_once(self, simple_status=False):
+        """한 번 체크 (simple_status=True면 간결 알림)"""
         print(f"🔍 뉴스 데이터 체크 중... {datetime.now()}")
-        
         current_data = self.get_news_data()
         if not current_data:
             self.send_dooray_notification("API 호출 실패", is_error=True)
             return False
-        
         current_hash = self.get_data_hash(current_data)
         cached_data = self.load_cache()
-        
         if self.last_hash != current_hash:
             print("📢 데이터 변경 감지!")
-            
             change_result = self.detect_changes(cached_data, current_data)
-            
             if change_result["changes"]:
                 for news_type in change_result["changes"]:
                     old_item = cached_data.get(news_type) if cached_data else None
                     new_item = current_data[news_type]
                     self.send_change_notification(news_type, old_item, new_item)
-            
             self.save_cache(current_data, current_hash)
             self.last_hash = current_hash
             return True
         else:
             print("📝 변경사항 없음")
-            self.send_status_notification(current_data)
+            if simple_status:
+                self.send_simple_status_notification(current_data)
+            else:
+                self.send_status_notification(current_data)
             return False
     
     def check_basic(self):
@@ -574,24 +633,35 @@ class PoscoNewsMonitor:
         return True
     
     def start_monitoring(self, interval_minutes=5):
-        """모니터링 시작"""
+        """모니터링 시작 (08, 16, 17시 전일비교 자동 알림 포함)"""
+        import pytz
+        KST = pytz.timezone('Asia/Seoul')
         print(f"🚀 POSCO 뉴스 모니터링 시작 (체크 간격: {interval_minutes}분)")
-        
         self.load_cache()
-        
         self.send_dooray_notification(
             f"🚀 POSCO 뉴스 모니터링 시작\n체크 간격: {interval_minutes}분"
         )
-        
+        last_comparison_sent = None
+        comparison_hours = {8, 16, 17}
         try:
             while True:
-                self.check_once()
+                self.check_once(simple_status=True)
+                now_kst = datetime.now(KST)
+                hour = now_kst.hour
+                minute = now_kst.minute
+                key = f"{now_kst.strftime('%Y%m%d')}-{hour}"
+                if hour in comparison_hours and minute == 0:
+                    if last_comparison_sent != key:
+                        print(f"[전일비교] {hour}시 자동 알림 발송")
+                        current_data = self.get_news_data()
+                        if current_data:
+                            self.send_comparison_notification(current_data)
+                        last_comparison_sent = key
                 print(f"⏰ {interval_minutes}분 후 다시 체크...")
                 time.sleep(interval_minutes * 60)
-                
         except KeyboardInterrupt:
             print("\n🛑 모니터링 중단")
-            self.send_dooray_notification("자동 모니터링 프로세스 중지됨", is_error=True)
+            self.send_monitoring_stopped_notification()
         except Exception as e:
             print(f"❌ 모니터링 오류: {e}")
             self.send_dooray_notification(f"모니터링 오류 발생: {e}", is_error=True)
