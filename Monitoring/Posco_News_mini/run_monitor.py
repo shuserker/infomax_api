@@ -7,7 +7,7 @@ import sys
 import os
 
 # ⚙️ 모니터링 간격 설정 (분 단위) - 여기서만 수정하면 모든 메시지가 자동 업데이트됩니다
-MONITORING_INTERVAL_MINUTES = 1
+MONITORING_INTERVAL_MINUTES = 60
 
 # Windows 환경에서 UTF-8 출력 설정
 if sys.platform == "win32":

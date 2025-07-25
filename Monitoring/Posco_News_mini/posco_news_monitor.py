@@ -642,23 +642,53 @@ class PoscoNewsMonitor:
             f"🚀 POSCO 뉴스 모니터링 시작\n체크 간격: {interval_minutes}분"
         )
         last_comparison_sent = None
+        last_status_sent = None  # 상태 알림 중복 방지
+        last_extended_sent = None  # 확장확인 중복 방지
         comparison_hours = {8, 16, 17}
+        status_hours = {11, 13, 15, 17}
+        extended_hours = {11, 13, 15, 17}
         try:
             while True:
-                self.check_once(simple_status=True)
                 now_kst = datetime.now(KST)
                 hour = now_kst.hour
                 minute = now_kst.minute
-                key = f"{now_kst.strftime('%Y%m%d')}-{hour}"
-                if hour in comparison_hours and minute == 0:
-                    if last_comparison_sent != key:
-                        print(f"[전일비교] {hour}시 자동 알림 발송")
-                        current_data = self.get_news_data()
-                        if current_data:
-                            self.send_comparison_notification(current_data)
-                        last_comparison_sent = key
-                print(f"⏰ {interval_minutes}분 후 다시 체크...")
-                time.sleep(interval_minutes * 60)
+                # 11시~17시(포함)만 동작
+                if 11 <= hour <= 17:
+                    self.check_once(simple_status=True)
+                    key = f"{now_kst.strftime('%Y%m%d')}-{hour}"
+                    # 비교 알림
+                    if hour in comparison_hours and minute == 0:
+                        if last_comparison_sent != key:
+                            print(f"[전일비교] {hour}시 자동 알림 발송")
+                            current_data = self.get_news_data()
+                            if current_data:
+                                self.send_comparison_notification(current_data)
+                            last_comparison_sent = key
+                    # 상태 알림
+                    if hour in status_hours and minute == 0:
+                        if last_status_sent != key:
+                            print(f"[상태알림] {hour}시 정각 상태 알림 발송")
+                            current_data = self.get_news_data()
+                            if current_data:
+                                self.send_status_notification(current_data)
+                            last_status_sent = key
+                    # 확장 확인
+                    if hour in extended_hours and minute == 0:
+                        if last_extended_sent != key:
+                            print(f"[확장확인] {hour}시 정각 확장 확인 실행")
+                            self.check_extended()
+                            last_extended_sent = key
+                    print(f"⏰ {interval_minutes}분 후 다시 체크...")
+                    time.sleep(interval_minutes * 60)
+                else:
+                    # 17시 이후 또는 11시 이전이면 다음 11시까지 대기
+                    if hour < 11:
+                        next_run = now_kst.replace(hour=11, minute=0, second=0, microsecond=0)
+                    else:
+                        next_run = (now_kst + timedelta(days=1)).replace(hour=11, minute=0, second=0, microsecond=0)
+                    wait_seconds = (next_run - now_kst).total_seconds()
+                    print(f"⏸️ 모니터링 시간대(11~17시)가 아님. 다음 11시까지 대기: {int(wait_seconds//3600)}시간 {int((wait_seconds%3600)//60)}분")
+                    time.sleep(wait_seconds)
         except KeyboardInterrupt:
             print("\n🛑 모니터링 중단")
             self.send_monitoring_stopped_notification()
