@@ -7,7 +7,7 @@ import sys
 import os
 
 # ⚙️ 모니터링 간격 설정 (분 단위) - 여기서만 수정하면 모든 메시지가 자동 업데이트됩니다
-MONITORING_INTERVAL_MINUTES = 5
+MONITORING_INTERVAL_MINUTES = 1
 
 # Windows 환경에서 UTF-8 출력 설정
 if sys.platform == "win32":
@@ -56,7 +56,7 @@ def main():
     print(f"실행 모드: {choice}")
     print("1. 기본 확인 (변경사항 있을 때만 알림)")
     print(f"2. 백그라운드 모니터링 ({MONITORING_INTERVAL_MINUTES}분 간격 무한실행)")
-    print("3. 확장 확인 (현재/이전 데이터 상세 표시)")
+    print("3. 확장 확인 (현재/직전 영업일 데이터 비교)")
     print("4. 테스트 알림 전송")
     print()
     
