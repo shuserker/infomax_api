@@ -3,7 +3,7 @@ from requests.auth import HTTPBasicAuth
 import json
 import time
 import hashlib
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 
 class PoscoNewsMonitor:
@@ -14,13 +14,60 @@ class PoscoNewsMonitor:
         self.dooray_webhook = dooray_webhook_url
         self.last_hash = None
         self.cache_file = "posco_news_cache.json"
+    
+    def format_datetime(self, date_str, time_str):
+        """날짜 시간 포맷 변환: 20250724 163916 -> 2025_07_24 16:39:19"""
+        try:
+            # 날짜 포맷: YYYYMMDD -> YYYY_MM_DD
+            formatted_date = f"{date_str[:4]}_{date_str[4:6]}_{date_str[6:8]}"
+            
+            # 시간 포맷 처리
+            if len(time_str) >= 6:
+                # 정상적인 HHMMSS 형식
+                formatted_time = f"{time_str[:2]}:{time_str[2:4]}:{time_str[4:6]}"
+            elif len(time_str) == 5:
+                # 5자리인 경우 (예: 61844 -> 06:18:44)
+                if time_str.startswith('6'):
+                    # 6으로 시작하는 경우 0을 앞에 붙여서 처리
+                    time_str = '0' + time_str
+                    formatted_time = f"{time_str[:2]}:{time_str[2:4]}:{time_str[4:6]}"
+                else:
+                    # 다른 5자리 형식 처리
+                    formatted_time = f"0{time_str[:1]}:{time_str[1:3]}:{time_str[3:5]}"
+            elif len(time_str) == 4:
+                # 4자리인 경우 (예: 1234 -> 12:34:00)
+                formatted_time = f"{time_str[:2]}:{time_str[2:4]}:00"
+            else:
+                # 기타 형식은 그대로 표시
+                formatted_time = time_str
+            
+            return f"{formatted_date} {formatted_time}"
+        except:
+            return f"{date_str} {time_str}"
+    
+    def get_previous_date(self, date_str):
+        """최신 날짜에서 1일을 뺀 날짜 계산"""
+        try:
+            # YYYYMMDD 형식을 datetime으로 변환
+            date_obj = datetime.strptime(date_str, "%Y%m%d")
+            # 1일 빼기
+            prev_date = date_obj - timedelta(days=1)
+            # 다시 YYYYMMDD 형식으로 변환
+            return prev_date.strftime("%Y%m%d")
+        except:
+            return date_str
         
-    def get_news_data(self):
+    def get_news_data(self, date=None):
         """POSCO 뉴스 데이터 가져오기"""
         try:
+            params = {}
+            if date:
+                params['date'] = date
+                
             resp = requests.get(
                 self.api_url,
                 auth=HTTPBasicAuth(self.api_user, self.api_pwd),
+                params=params,
                 timeout=10
             )
             resp.raise_for_status()
@@ -66,7 +113,6 @@ class PoscoNewsMonitor:
             
             payload = {
                 "botName": "POSCO 뉴스 모니터",
-                "botIconImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAaVBMVEUAWJEAVpAAUo4ATYsAS4oAUY0AT4xwk7WpvdHCzty0w9SIpMATX5UASIl+nrz///8AR4jk7PL1+fwAQoZGeaXL2OQwa50AVI9Ofadjiq+UrcY6caC4ydmctMvm7fKOqcQnZ5rW4OoAWpLTJOO6AAAAwUlEQVR4AWKgPQC0PhcGEMJAEACJ4uzhrv33+O7+wMUzUcaFFIq9NC1My3ZcT74wP8AxHP20maw9hNG+4g+m9vsCojgJgZTujIkIyMSul/s7LfJbzEugksduDTTiFnULeOzYjzuE/i0KB9AnlCkiesTzTgpf7OyPF+UZYMtHxKD3RiNQ5k+IknzKdjaS8YyIxm5fT+wJexwjZXt7QJ27dpq29fGlDzjlSkp5/O0znvr/oXI/INMjjPchivyDMmPF2AKOpw0Hjgjp3QAAAABJRU5ErkJggg==",
                 "attachments": [{
                     "color": color,
                     "title": title,
@@ -90,8 +136,8 @@ class PoscoNewsMonitor:
         except Exception as e:
             print(f"❌ Dooray 웹훅 오류: {e}")
     
-    def send_news_type_notification(self, news_type, change_detail, news_data):
-        """뉴스 타입별 개별 알림 전송"""
+    def send_news_type_notification(self, news_type, change_detail, news_data, old_data=None):
+        """뉴스 타입별 개별 알림 전송 (이전 데이터 포함)"""
         title_emoji = {
             "exchange-rate": "💱",
             "newyork-market-watch": "🗽", 
@@ -104,24 +150,30 @@ class PoscoNewsMonitor:
         if change_detail["change_type"] == "new":
             message = f"새로운 뉴스가 추가되었습니다.\n\n"
             message += f"제목: {change_detail['title']}\n"
-            message += f"날짜: {change_detail['date']} {change_detail['time']}"
+            message += f"최신 데이터: {self.format_datetime(change_detail['date'], change_detail['time'])}"
         else:
             message = f"변경사항: {', '.join(change_detail['changes'])}\n\n"
             
-            if "제목" in change_detail['changes']:
-                message += f"이전 제목: {change_detail['old_title']}\n"
-                message += f"새 제목: {change_detail['new_title']}\n\n"
+            # 이전 데이터 정보 추가
+            if old_data and news_type in old_data:
+                old_news = old_data[news_type]
+                message += f"📅 직전 데이터: {self.format_datetime(old_news['date'], old_news['time'])}\n"
+                message += f"📅 최신 데이터: {self.format_datetime(change_detail['date'], change_detail['time'])}\n\n"
             else:
-                message += f"제목: {change_detail['new_title']}\n\n"
+                message += f"📅 최신 데이터: {self.format_datetime(change_detail['date'], change_detail['time'])}\n\n"
             
-            message += f"날짜: {change_detail['date']} {change_detail['time']}\n"
-            message += f"작성자: {', '.join(news_data['writer'])}\n"
-            message += f"카테고리: {', '.join(news_data['category'])}"
+            if "제목" in change_detail['changes']:
+                message += f"📰 이전 제목: {change_detail['old_title']}\n"
+                message += f"📰 새 제목: {change_detail['new_title']}\n\n"
+            else:
+                message += f"📰 제목: {change_detail['new_title']}\n\n"
+            
+            message += f"✍️ 작성자: {', '.join(news_data['writer'])}\n"
+            message += f"🏷️ 카테고리: {', '.join(news_data['category'])}"
         
         # 개별 알림 전송
         payload = {
             "botName": "POSCO 뉴스 모니터",
-            "botIconImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAaVBMVEUAWJEAVpAAUo4ATYsAS4oAUY0AT4xwk7WpvdHCzty0w9SIpMATX5UASIl+nrz///8AR4jk7PL1+fwAQoZGeaXL2OQwa50AVI9Ofadjiq+UrcY6caC4ydmctMvm7fKOqcQnZ5rW4OoAWpLTJOO6AAAAwUlEQVR4AWKgPQC0PhcGEMJAEACJ4uzhrv33+O7+wMUzUcaFFIq9NC1My3ZcT74wP8AxHP20maw9hNG+4g+m9vsCojgJgZTujIkIyMSul/s7LfJbzEugksduDTTiFnULeOzYjzuE/i0KB9AnlCkiesTzTgpf7OyPF+UZYMtHxKD3RiNQ5k+IknzKdjaS8YyIxm5fT+wJexwjZXt7QJ27dpq29fGlDzjlSkp5/O0znvr/oXI/INMjjPchivyDMmPF2AKOpw0Hjgjp3QAAAABJRU5ErkJggg==",
             "attachments": [{
                 "color": "#0066cc",
                 "title": title,
@@ -163,7 +215,6 @@ class PoscoNewsMonitor:
         
         payload = {
             "botName": "POSCO 뉴스 모니터",
-            "botIconImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAaVBMVEUAWJEAVpAAUo4ATYsAS4oAUY0AT4xwk7WpvdHCzty0w9SIpMATX5UASIl+nrz///8AR4jk7PL1+fwAQoZGeaXL2OQwa50AVI9Ofadjiq+UrcY6caC4ydmctMvm7fKOqcQnZ5rW4OoAWpLTJOO6AAAAwUlEQVR4AWKgPQC0PhcGEMJAEACJ4uzhrv33+O7+wMUzUcaFFIq9NC1My3ZcT74wP8AxHP20maw9hNG+4g+m9vsCojgJgZTujIkIyMSul/s7LfJbzEugksduDTTiFnULeOzYjzuE/i0KB9AnlCkiesTzTgpf7OyPF+UZYMtHxKD3RiNQ5k+IknzKdjaS8YyIxm5fT+wJexwjZXt7QJ27dpq29fGlDzjlSkp5/O0znvr/oXI/INMjjPchivyDMmPF2AKOpw0Hjgjp3QAAAABJRU5ErkJggg==",
             "attachments": [{
                 "color": "#28a745",  # 녹색
                 "title": "✅ 상태 정상",
@@ -274,9 +325,9 @@ class PoscoNewsMonitor:
             change_result = self.detect_changes(cached_data, current_data)
             
             if change_result["type"] == "changed":
-                # 각 뉴스 타입별로 개별 알림 전송
+                # 각 뉴스 타입별로 개별 알림 전송 (이전 데이터 포함)
                 for news_type, change_detail in change_result["changes"].items():
-                    self.send_news_type_notification(news_type, change_detail, current_data[news_type])
+                    self.send_news_type_notification(news_type, change_detail, current_data[news_type], cached_data)
             else:
                 # 새로운 데이터인 경우 전체 알림
                 self.send_general_notification(change_result, current_data)
@@ -316,6 +367,264 @@ class PoscoNewsMonitor:
         except Exception as e:
             print(f"❌ 모니터링 오류: {e}")
             self.send_dooray_notification(f"모니터링 오류 발생: {e}", is_error=True)
+    
+    def check_basic(self):
+        """기본 확인 - 변경사항 있을 때만 알림"""
+        print(f"🔍 뉴스 데이터 체크 중... {datetime.now()}")
+        
+        # 현재 데이터 가져오기
+        current_data = self.get_news_data()
+        if not current_data:
+            self.send_dooray_notification("API 호출 실패", is_error=True)
+            return False
+        
+        # 해시 계산
+        current_hash = self.get_data_hash(current_data)
+        
+        # 캐시된 데이터 로드
+        cached_data = self.load_cache()
+        
+        # 변경사항 확인
+        if self.last_hash != current_hash:
+            print("📢 데이터 변경 감지!")
+            
+            # 변경사항 분석
+            change_result = self.detect_changes(cached_data, current_data)
+            
+            if change_result["type"] == "changed":
+                # 각 뉴스 타입별로 개별 알림 전송 (이전 데이터 포함)
+                for news_type, change_detail in change_result["changes"].items():
+                    self.send_news_type_notification(news_type, change_detail, current_data[news_type], cached_data)
+            else:
+                # 새로운 데이터인 경우 전체 알림
+                self.send_general_notification(change_result, current_data)
+            
+            # 캐시 업데이트
+            self.save_cache(current_data, current_hash)
+            self.last_hash = current_hash
+            
+            return True
+        else:
+            print("📝 변경사항 없음 - 알림 전송하지 않음")
+            return False
+    
+    def check_extended(self):
+        """확장 확인 - 현재/이전 데이터 상세 표시"""
+        print(f"🔍 확장 뉴스 데이터 체크 중... {datetime.now()}")
+        
+        # 현재 데이터 가져오기
+        current_data = self.get_news_data()
+        if not current_data:
+            self.send_dooray_notification("API 호출 실패", is_error=True)
+            return False
+        
+        # 해시 계산
+        current_hash = self.get_data_hash(current_data)
+        
+        # 캐시된 데이터 로드
+        cached_data = self.load_cache()
+        
+        # 항상 상세 정보 전송 (변경사항 유무와 관계없이)
+        if self.last_hash != current_hash:
+            print("📢 데이터 변경 감지!")
+            
+            # 변경사항 분석
+            change_result = self.detect_changes(cached_data, current_data)
+            
+            if change_result["type"] == "changed":
+                # 각 뉴스 타입별로 개별 알림 전송
+                for news_type, change_detail in change_result["changes"].items():
+                    self.send_news_type_notification(news_type, change_detail, current_data[news_type], cached_data)
+            else:
+                # 새로운 데이터인 경우 전체 알림
+                self.send_general_notification(change_result, current_data)
+            
+            # 캐시 업데이트
+            self.save_cache(current_data, current_hash)
+            self.last_hash = current_hash
+        else:
+            print("📝 변경사항 없음 - 현재 상태 상세 표시")
+            # 변경사항이 없어도 현재 상태와 1일 전 데이터 비교 표시
+            self.cached_data = cached_data  # 임시 저장
+            self.send_detailed_comparison(current_data)
+        
+        return True
+    
+    def send_current_status_notification(self, current_data, cached_data):
+        """현재 상태 상세 알림 (확장 모드용)"""
+        for news_type, news_data in current_data.items():
+            title_emoji = {
+                "exchange-rate": "💱",
+                "newyork-market-watch": "🗽", 
+                "kospi-close": "📈"
+            }
+            
+            emoji = title_emoji.get(news_type, "📰")
+            title = f"{emoji} {news_type.upper()} 현재 상태"
+            
+            message = f"📊 현재 데이터 상태\n\n"
+            message += f"📰 제목: {news_data['title'][:60]}{'...' if len(news_data['title']) > 60 else ''}\n"
+            message += f"📅 최신 데이터: {self.format_datetime(news_data['date'], news_data['time'])}\n"
+            
+            # 이전 데이터와 비교
+            if cached_data and news_type in cached_data:
+                old_news = cached_data[news_type]
+                message += f"📅 직전 데이터: {self.format_datetime(old_news['date'], old_news['time'])}\n"
+                
+                if old_news['title'] != news_data['title']:
+                    message += f"📰 직전 제목: {old_news['title'][:60]}{'...' if len(old_news['title']) > 60 else ''}\n"
+            else:
+                message += f"📅 직전 데이터: 없음\n"
+            
+            message += f"\n✍️ 작성자: {', '.join(news_data['writer'])}\n"
+            message += f"🏷️ 카테고리: {', '.join(news_data['category'])}"
+            
+            # 개별 알림 전송
+            payload = {
+                "botName": "POSCO 뉴스 모니터",
+                "attachments": [{
+                    "color": "#17a2b8",  # 청록색 (정보 표시용)
+                    "title": title,
+                    "text": message,
+                    "ts": int(time.time())
+                }]
+            }
+            
+            try:
+                response = requests.post(
+                    self.dooray_webhook,
+                    json=payload,
+                    headers={'Content-Type': 'application/json'},
+                    timeout=10
+                )
+                if response.status_code == 200:
+                    print(f"✅ {news_type} 상태 정보 전송 성공")
+            except Exception as e:
+                print(f"❌ {news_type} 상태 정보 전송 오류: {e}")
+    
+    def get_previous_day_data(self, current_data):
+        """영업일 기준으로 실제 다른 데이터가 있는 직전 날짜 조회"""
+        previous_data = {}
+        
+        for news_type, news_data in current_data.items():
+            current_date = news_data['date']
+            current_time = news_data['time']
+            current_title = news_data['title']
+            
+            print(f"📅 {news_type}: 최신 {self.format_datetime(current_date, current_time)}")
+            print(f"📅 {news_type}: 직전 영업일 데이터 검색 중...")
+            
+            # 최대 10일까지 역순으로 검색하여 다른 데이터 찾기
+            found_different_data = False
+            for days_back in range(1, 11):  # 1일 전부터 10일 전까지
+                try:
+                    # N일 전 날짜 계산
+                    check_date_obj = datetime.strptime(current_date, "%Y%m%d") - timedelta(days=days_back)
+                    check_date = check_date_obj.strftime("%Y%m%d")
+                    
+                    # API에서 해당 날짜 데이터 조회
+                    prev_api_data = self.get_news_data(date=check_date)
+                    
+                    if prev_api_data and news_type in prev_api_data:
+                        prev_item = prev_api_data[news_type]
+                        prev_title = prev_item.get('title', '')
+                        prev_date = prev_item.get('date', '')
+                        prev_time = prev_item.get('time', '')
+                        
+                        # 빈 데이터가 아니고 제목이 다르면 실제 다른 데이터로 판단
+                        if prev_title and prev_title != current_title:
+                            previous_data[news_type] = prev_item
+                            print(f"📅 {news_type}: 직전 데이터 발견 ({days_back}일 전) {self.format_datetime(prev_date, prev_time)}")
+                            found_different_data = True
+                            break
+                        elif prev_title == current_title:
+                            print(f"📅 {news_type}: {days_back}일 전 - 동일한 제목 (영업일 아님)")
+                        else:
+                            print(f"📅 {news_type}: {days_back}일 전 - 빈 데이터")
+                    else:
+                        print(f"📅 {news_type}: {days_back}일 전 - 데이터 없음")
+                        
+                except Exception as e:
+                    print(f"❌ {news_type}: {days_back}일 전 데이터 조회 오류 - {e}")
+                    continue
+            
+            if not found_different_data:
+                print(f"📅 {news_type}: 10일 내 직전 데이터를 찾을 수 없음")
+                previous_data[news_type] = None
+        
+        return previous_data
+    
+    def send_detailed_comparison(self, current_data):
+        """현재 데이터와 실제 1일 전 데이터 상세 비교 알림"""
+        previous_data = self.get_previous_day_data(current_data)
+        
+        for news_type, current_news in current_data.items():
+            title_emoji = {
+                "exchange-rate": "💱",
+                "newyork-market-watch": "🗽", 
+                "kospi-close": "📈"
+            }
+            
+            emoji = title_emoji.get(news_type, "📰")
+            title = f"{emoji} {news_type.upper()} 상세 비교"
+            
+            message = f"📊 현재 vs 직전 영업일 데이터 비교\n\n"
+            
+            # 최신 데이터
+            message += f"📅 최신 데이터: {self.format_datetime(current_news['date'], current_news['time'])}\n"
+            message += f"📰 최신 제목: {current_news['title'][:50]}{'...' if len(current_news['title']) > 50 else ''}\n\n"
+            
+            # 직전 영업일 데이터
+            if previous_data.get(news_type):
+                prev_news = previous_data[news_type]
+                
+                # 날짜 차이 계산
+                try:
+                    current_date_obj = datetime.strptime(current_news['date'], "%Y%m%d")
+                    prev_date_obj = datetime.strptime(prev_news['date'], "%Y%m%d")
+                    days_diff = (current_date_obj - prev_date_obj).days
+                except:
+                    days_diff = "?"
+                
+                message += f"📅 직전 영업일: {self.format_datetime(prev_news['date'], prev_news['time'])} ({days_diff}일 전)\n"
+                message += f"📰 직전 제목: {prev_news['title'][:50]}{'...' if len(prev_news['title']) > 50 else ''}\n\n"
+                
+                # 변경사항 분석
+                if current_news['title'] != prev_news['title']:
+                    message += f"🔄 제목 변경됨 (영업일 기준)\n"
+                elif current_news['time'] != prev_news['time']:
+                    message += f"🔄 시간 변경됨\n"
+                else:
+                    message += f"✅ 제목 동일 (시간만 다름)\n"
+            else:
+                message += f"📅 직전 영업일: 데이터 없음\n\n"
+                message += f"ℹ️ 10일 내 직전 영업일 데이터를 찾을 수 없습니다\n"
+            
+            message += f"\n✍️ 작성자: {', '.join(current_news['writer'])}\n"
+            message += f"🏷️ 카테고리: {', '.join(current_news['category'])}"
+            
+            # 개별 알림 전송
+            payload = {
+                "botName": "POSCO 뉴스 모니터",
+                "attachments": [{
+                    "color": "#6f42c1",  # 보라색 (상세 비교용)
+                    "title": title,
+                    "text": message,
+                    "ts": int(time.time())
+                }]
+            }
+            
+            try:
+                response = requests.post(
+                    self.dooray_webhook,
+                    json=payload,
+                    headers={'Content-Type': 'application/json'},
+                    timeout=10
+                )
+                if response.status_code == 200:
+                    print(f"✅ {news_type} 상세 비교 전송 성공")
+            except Exception as e:
+                print(f"❌ {news_type} 상세 비교 전송 오류: {e}")
 
 # 사용 예시
 if __name__ == "__main__":

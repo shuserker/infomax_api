@@ -6,6 +6,9 @@ POSCO 뉴스 모니터 실행 스크립트
 import sys
 import os
 
+# ⚙️ 모니터링 간격 설정 (분 단위) - 여기서만 수정하면 모든 메시지가 자동 업데이트됩니다
+MONITORING_INTERVAL_MINUTES = 5
+
 # Windows 환경에서 UTF-8 출력 설정
 if sys.platform == "win32":
     import codecs
@@ -51,23 +54,30 @@ def main():
         choice = "1"
     
     print(f"실행 모드: {choice}")
-    print("1. 한 번만 체크")
-    print("2. 지속적 모니터링") 
-    print("3. 테스트 알림 전송")
+    print("1. 기본 확인 (변경사항 있을 때만 알림)")
+    print(f"2. 백그라운드 모니터링 ({MONITORING_INTERVAL_MINUTES}분 간격 무한실행)")
+    print("3. 확장 확인 (현재/이전 데이터 상세 표시)")
+    print("4. 테스트 알림 전송")
     print()
     
     try:
         if choice == "1":
-            print("[CHECK] 한 번 체크 실행...")
-            monitor.check_once()
+            print("[BASIC] 기본 확인 실행...")
+            print("변경사항이 있을 때만 알림을 전송합니다.")
+            monitor.check_basic()
             
         elif choice == "2":
-            interval = MONITOR_CONFIG["check_interval_minutes"]
-            print(f"[MONITOR] 지속적 모니터링 시작 ({interval}분 간격)")
+            print(f"[BACKGROUND] 백그라운드 모니터링 시작 ({MONITORING_INTERVAL_MINUTES}분 간격)")
+            print(f"[DEBUG] interval 값: {MONITORING_INTERVAL_MINUTES}")
             print("중단하려면 Ctrl+C를 누르세요")
-            monitor.start_monitoring(interval_minutes=interval)
+            monitor.start_monitoring(interval_minutes=MONITORING_INTERVAL_MINUTES)
             
         elif choice == "3":
+            print("[EXTENDED] 확장 확인 실행...")
+            print("현재 데이터와 이전 데이터를 상세히 표시합니다.")
+            monitor.check_extended()
+            
+        elif choice == "4":
             print("[TEST] 테스트 알림 전송...")
             monitor.send_dooray_notification(
                 "POSCO 뉴스 모니터 테스트 알림입니다.\n설정이 정상적으로 완료되었습니다!"
@@ -75,7 +85,7 @@ def main():
             
         else:
             print("[ERROR] 잘못된 선택입니다.")
-            print("사용법: python run_monitor.py [1|2|3]")
+            print("사용법: python run_monitor.py [1|2|3|4]")
             
     except KeyboardInterrupt:
         print("\n\n[STOP] 사용자에 의해 중단되었습니다.")
