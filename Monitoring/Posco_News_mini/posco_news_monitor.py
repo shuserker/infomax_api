@@ -111,13 +111,33 @@ class PoscoNewsMonitor:
             color = "#ff4444" if is_error else "#0066cc"
             title = "⚠️ 오류 알림" if is_error else "🔔 POSCO 뉴스 알림"
             
+            # 미리보기용 botName 생성
+            if is_error:
+                bot_name = "POSCO 뉴스 ❌"
+            else:
+                # 메시지에서 핵심 정보 추출
+                if "변경 감지" in message:
+                    bot_name = "POSCO 뉴스 🔔"
+                elif "시작" in message:
+                    bot_name = "POSCO 뉴스 🚀"
+                elif "중단" in message:
+                    bot_name = "POSCO 뉴스 🛑"
+                else:
+                    bot_name = "POSCO 뉴스 📢"
+            
+            # 미리보기용 짧은 텍스트 추출
+            preview_text = message.split('\n')[0] if '\n' in message else message[:50]
+            
+            # 상세 내용에서 첫 줄 제거 (중복 방지)
+            lines = message.split('\n')
+            detail_message = '\n'.join(lines[1:]) if len(lines) > 1 else ""
+            
             payload = {
-                "botName": "POSCO 뉴스 모니터",
+                "botName": bot_name,
+                "text": preview_text,
                 "attachments": [{
                     "color": color,
-                    "title": title,
-                    "text": message,
-                    "ts": int(time.time())
+                    "text": detail_message
                 }]
             }
             
@@ -172,13 +192,19 @@ class PoscoNewsMonitor:
             message += f"🏷️ 카테고리: {', '.join(news_data['category'])}"
         
         # 개별 알림 전송
+        # 미리보기용 짧은 텍스트 (첫 줄만)
+        preview_text = message.split('\n')[0] if '\n' in message else message[:50]
+        
+        # 상세 내용에서 첫 줄 제거 (중복 방지)
+        lines = message.split('\n')
+        detail_message = '\n'.join(lines[1:]) if len(lines) > 1 else ""
+        
         payload = {
-            "botName": "POSCO 뉴스 모니터",
+            "botName": f"POSCO 뉴스 🔔",
+            "text": preview_text,
             "attachments": [{
                 "color": "#0066cc",
-                "title": title,
-                "text": message,
-                "ts": int(time.time())
+                "text": detail_message
             }]
         }
         
@@ -195,22 +221,117 @@ class PoscoNewsMonitor:
             print(f"❌ {news_type} 알림 전송 오류: {e}")
     
     def send_general_notification(self, change_result, current_data):
-        """일반 알림 전송 (새 데이터 등)"""
-        message = f"{change_result['summary']}\n\n"
+        """일반 알림 전송 (새 데이터 등) - send_no_change_notification과 동일한 형태"""
+        message = f"📊 갱신 정보:\n"
         
-        for news_type, news_data in current_data.items():
-            title = news_data['title'][:50] + "..." if len(news_data['title']) > 50 else news_data['title']
-            message += f"📰 {news_type.upper()}\n"
-            message += f"제목: {title}\n"
-            message += f"날짜: {news_data['date']} {news_data['time']}\n\n"
+        # 각 타입별 최신 갱신 정보 추가 (send_no_change_notification과 동일한 로직)
+        if current_data:
+            title_emoji = {
+                "exchange-rate": "💱",
+                "newyork-market-watch": "🗽", 
+                "kospi-close": "📈"
+            }
+            
+            # 오늘 날짜 (한국 시간 기준)
+            today_kr = datetime.now().strftime('%Y%m%d')
+            
+            news_items = []
+            for news_type, news_data in current_data.items():
+                emoji = title_emoji.get(news_type, "📰")
+                
+                # 날짜와 시간 분리
+                news_date = news_data['date']
+                news_time = news_data['time']
+                
+                # 날짜 포맷팅 (YYYY-MM-DD) - 빈 데이터 처리
+                if news_date and news_date.strip() and len(news_date) >= 8:
+                    formatted_date = f"{news_date[:4]}-{news_date[4:6]}-{news_date[6:8]}"
+                else:
+                    formatted_date = "데이터 없음"
+                
+                # 시간 포맷팅 (HH:MM:SS) - 빈 데이터 처리
+                if news_time and news_time.strip() and len(news_time) >= 4:
+                    if len(news_time) >= 6:
+                        formatted_time = f"{news_time[:2]}:{news_time[2:4]}:{news_time[4:6]}"
+                    elif len(news_time) == 5:
+                        if news_time.startswith('6'):
+                            news_time = '0' + news_time
+                            formatted_time = f"{news_time[:2]}:{news_time[2:4]}:{news_time[4:6]}"
+                        else:
+                            formatted_time = f"0{news_time[:1]}:{news_time[1:3]}:{news_time[3:5]}"
+                    elif len(news_time) == 4:
+                        formatted_time = f"{news_time[:2]}:{news_time[2:4]}:00"
+                    else:
+                        formatted_time = news_time
+                else:
+                    formatted_time = ""
+                
+                # 오늘 날짜인지 체크
+                status = "🟢" if news_date == today_kr else "🔴"
+                
+                # 빈 데이터 처리
+                if formatted_date == "데이터 없음" and formatted_time == "":
+                    date_time_display = "데이터 없음"
+                elif formatted_time == "":
+                    date_time_display = formatted_date
+                else:
+                    date_time_display = f"{formatted_date}  ·  {formatted_time}"
+                
+                news_items.append(f"{emoji}{status} {news_type.upper()}\n    {date_time_display}")
+            
+            # 각 뉴스 항목을 개별 줄에 표시 (구분선 포함)
+            for i, item in enumerate(news_items):
+                message += f"{item}\n"
+                if i < len(news_items) - 1:  # 마지막 항목이 아니면 구분선 추가
+                    message += "─────────────────────\n"
         
-        message += f"업데이트 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        # 현재 시간
+        now = datetime.now()
+        current_datetime = now.strftime('%Y-%m-%d  ·  %H:%M:%S')
+        message += f"\n최종 확인: {current_datetime}"
         
-        self.send_dooray_notification(message)
+        # 미리보기용 요약 정보 생성
+        preview_info = ""
+        if current_data:
+            status_count = sum(1 for _, news_data in current_data.items() 
+                             if news_data['date'] == datetime.now().strftime('%Y%m%d'))
+            total_count = len(current_data)
+            if status_count > 0:
+                preview_info = f" 🟢{status_count}/{total_count}"
+            else:
+                preview_info = f" 🔴{total_count}개 과거"
+        
+        # 미리보기용 짧은 텍스트
+        preview_text = "데이터 갱신 없음"
+        
+        # 상세 내용에서 첫 줄 제거 (중복 방지)
+        detail_message = message.replace("📊 갱신 정보:\n", "")
+        
+        # 상세 내용은 attachments에
+        payload = {
+            "botName": f"POSCO 뉴스{preview_info}",
+            "text": preview_text,
+            "attachments": [{
+                "color": "#28a745",
+                "text": detail_message
+            }]
+        }
+        
+        try:
+            response = requests.post(
+                self.dooray_webhook,
+                json=payload,
+                headers={'Content-Type': 'application/json'},
+                timeout=10
+            )
+            if response.status_code == 200:
+                print(f"✅ 일반 알림 전송 성공")
+        except Exception as e:
+            print(f"❌ 일반 알림 전송 오류: {e}")
     
     def send_no_change_notification(self, current_data=None):
         """변경사항 없음 알림 (각 타입별 최신 갱신 정보 포함)"""
-        message = f"변경사항이 없습니다.\n\n📊 갱신 정보:\n"
+        message = f"📊 갱신 정보:\n\n"
         
         # 각 타입별 최신 갱신 정보를 한 줄에 모두 표시
         if current_data:
@@ -231,44 +352,77 @@ class PoscoNewsMonitor:
                 news_date = news_data['date']
                 news_time = news_data['time']
                 
-                # 날짜 포맷팅 (YYYY-MM-DD)
-                formatted_date = f"{news_date[:4]}-{news_date[4:6]}-{news_date[6:8]}"
-                
-                # 시간 포맷팅 (HH:MM:SS)
-                if len(news_time) >= 6:
-                    formatted_time = f"{news_time[:2]}:{news_time[2:4]}:{news_time[4:6]}"
-                elif len(news_time) == 5:
-                    if news_time.startswith('6'):
-                        news_time = '0' + news_time
-                        formatted_time = f"{news_time[:2]}:{news_time[2:4]}:{news_time[4:6]}"
-                    else:
-                        formatted_time = f"0{news_time[:1]}:{news_time[1:3]}:{news_time[3:5]}"
-                elif len(news_time) == 4:
-                    formatted_time = f"{news_time[:2]}:{news_time[2:4]}:00"
+                # 날짜 포맷팅 (YYYY-MM-DD) - 빈 데이터 처리
+                if news_date and news_date.strip() and len(news_date) >= 8:
+                    formatted_date = f"{news_date[:4]}-{news_date[4:6]}-{news_date[6:8]}"
                 else:
-                    formatted_time = news_time
+                    formatted_date = "데이터 없음"
+                
+                # 시간 포맷팅 (HH:MM:SS) - 빈 데이터 처리
+                if news_time and news_time.strip() and len(news_time) >= 4:
+                    if len(news_time) >= 6:
+                        formatted_time = f"{news_time[:2]}:{news_time[2:4]}:{news_time[4:6]}"
+                    elif len(news_time) == 5:
+                        if news_time.startswith('6'):
+                            news_time = '0' + news_time
+                            formatted_time = f"{news_time[:2]}:{news_time[2:4]}:{news_time[4:6]}"
+                        else:
+                            formatted_time = f"0{news_time[:1]}:{news_time[1:3]}:{news_time[3:5]}"
+                    elif len(news_time) == 4:
+                        formatted_time = f"{news_time[:2]}:{news_time[2:4]}:00"
+                    else:
+                        formatted_time = news_time
+                else:
+                    formatted_time = ""
                 
                 # 오늘 날짜인지 체크
                 status = "🟢" if news_date == today_kr else "🔴"
                 
-                news_items.append(f"{emoji}{status} {news_type.upper()}: {formatted_date}  ·  {formatted_time}")
+                # 빈 데이터 처리
+                if formatted_date == "데이터 없음" and formatted_time == "":
+                    date_time_display = "데이터 없음"
+                elif formatted_time == "":
+                    date_time_display = formatted_date
+                else:
+                    date_time_display = f"{formatted_date}  ·  {formatted_time}"
+                
+                news_items.append(f"{emoji}{status} {news_type.upper()}\n    {date_time_display}")
             
-            # 각 뉴스 항목을 개별 줄에 표시
-            for item in news_items:
+            # 각 뉴스 항목을 개별 줄에 표시 (구분선 포함)
+            for i, item in enumerate(news_items):
                 message += f"{item}\n"
+                if i < len(news_items) - 1:  # 마지막 항목이 아니면 구분선 추가
+                    message += "─────────────────────\n"
         
         # 현재 시간
         now = datetime.now()
         current_datetime = now.strftime('%Y-%m-%d  ·  %H:%M:%S')
         message += f"\n최종 확인: {current_datetime}"
         
+        # 미리보기용 요약 정보 생성
+        preview_info = ""
+        if current_data:
+            status_count = sum(1 for _, news_data in current_data.items() 
+                             if news_data['date'] == datetime.now().strftime('%Y%m%d'))
+            total_count = len(current_data)
+            if status_count > 0:
+                preview_info = f" 🟢{status_count}/{total_count}"
+            else:
+                preview_info = f" 🔴{total_count}개 과거"
+        
+        # 미리보기용 짧은 텍스트
+        preview_text = "데이터 갱신 없음."
+        
+        # 상세 내용에서 첫 줄 제거 (중복 방지)
+        detail_message = message.replace("데이터 갱신 없음.\n\n", "")
+        
+        # 상세 내용은 attachments에
         payload = {
-            "botName": "POSCO 뉴스 모니터",
+            "botName": f"POSCO 뉴스{preview_info}",
+            "text": preview_text,
             "attachments": [{
-                "color": "#28a745",  # 녹색
-                "title": "✅ 상태 정상",
-                "text": message,
-                "ts": int(time.time())
+                "color": "#28a745",
+                "text": detail_message
             }]
         }
         
@@ -589,13 +743,19 @@ class PoscoNewsMonitor:
             message += f"🏷️ 카테고리: {', '.join(current_news['category'])}"
             
             # 개별 알림 전송
+            # 미리보기용 짧은 텍스트
+            preview_text = message.split('\n')[0] if '\n' in message else message[:50]
+            
+            # 상세 내용에서 첫 줄 제거 (중복 방지)
+            lines = message.split('\n')
+            detail_message = '\n'.join(lines[1:]) if len(lines) > 1 else ""
+            
             payload = {
-                "botName": "POSCO 뉴스 모니터",
+                "botName": f"POSCO 뉴스 📊",
+                "text": preview_text,
                 "attachments": [{
-                    "color": "#6f42c1",  # 보라색 (상세 비교용)
-                    "title": title,
-                    "text": message,
-                    "ts": int(time.time())
+                    "color": "#6f42c1",
+                    "text": detail_message
                 }]
             }
             
