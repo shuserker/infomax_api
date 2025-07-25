@@ -21,7 +21,7 @@ sys.path.insert(0, current_dir)
 
 try:
     from posco_news_monitor import PoscoNewsMonitor
-    from config import DOORAY_WEBHOOK_URL, MONITOR_CONFIG
+    from config import DOORAY_WEBHOOK_URL
 except ImportError as e:
     print(f"[ERROR] 모듈 import 오류: {e}")
     print("Monitoring/Posco_News_mini 폴더에서 실행해주세요.")

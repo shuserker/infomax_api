@@ -208,10 +208,59 @@ class PoscoNewsMonitor:
         
         self.send_dooray_notification(message)
     
-    def send_no_change_notification(self):
-        """변경사항 없음 알림"""
-        message = f"변경사항이 없습니다.\n\n"
-        message += f"체크 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+    def send_no_change_notification(self, current_data=None):
+        """변경사항 없음 알림 (각 타입별 최신 갱신 정보 포함)"""
+        message = f"변경사항이 없습니다.\n\n📊 갱신 정보:\n"
+        
+        # 각 타입별 최신 갱신 정보를 한 줄에 모두 표시
+        if current_data:
+            title_emoji = {
+                "exchange-rate": "💱",
+                "newyork-market-watch": "🗽", 
+                "kospi-close": "📈"
+            }
+            
+            # 오늘 날짜 (한국 시간 기준)
+            today_kr = datetime.now().strftime('%Y%m%d')
+            
+            news_items = []
+            for news_type, news_data in current_data.items():
+                emoji = title_emoji.get(news_type, "📰")
+                
+                # 날짜와 시간 분리
+                news_date = news_data['date']
+                news_time = news_data['time']
+                
+                # 날짜 포맷팅 (YYYY-MM-DD)
+                formatted_date = f"{news_date[:4]}-{news_date[4:6]}-{news_date[6:8]}"
+                
+                # 시간 포맷팅 (HH:MM:SS)
+                if len(news_time) >= 6:
+                    formatted_time = f"{news_time[:2]}:{news_time[2:4]}:{news_time[4:6]}"
+                elif len(news_time) == 5:
+                    if news_time.startswith('6'):
+                        news_time = '0' + news_time
+                        formatted_time = f"{news_time[:2]}:{news_time[2:4]}:{news_time[4:6]}"
+                    else:
+                        formatted_time = f"0{news_time[:1]}:{news_time[1:3]}:{news_time[3:5]}"
+                elif len(news_time) == 4:
+                    formatted_time = f"{news_time[:2]}:{news_time[2:4]}:00"
+                else:
+                    formatted_time = news_time
+                
+                # 오늘 날짜인지 체크
+                status = "🟢" if news_date == today_kr else "🔴"
+                
+                news_items.append(f"{emoji}{status} {news_type.upper()}: {formatted_date}  ·  {formatted_time}")
+            
+            # 각 뉴스 항목을 개별 줄에 표시
+            for item in news_items:
+                message += f"{item}\n"
+        
+        # 현재 시간
+        now = datetime.now()
+        current_datetime = now.strftime('%Y-%m-%d  ·  %H:%M:%S')
+        message += f"\n최종 확인: {current_datetime}"
         
         payload = {
             "botName": "POSCO 뉴스 모니터",
@@ -235,20 +284,7 @@ class PoscoNewsMonitor:
         except Exception as e:
             print(f"❌ 상태 알림 전송 오류: {e}")
     
-    def format_news_summary(self, data):
-        """뉴스 요약 포맷팅"""
-        summary = "📰 **POSCO 뉴스 업데이트**\n\n"
-        
-        for news_type, news_data in data.items():
-            title = news_data['title'][:50] + "..." if len(news_data['title']) > 50 else news_data['title']
-            summary += f"🔹 **{news_type.upper()}**\n"
-            summary += f"   제목: {title}\n"
-            summary += f"   날짜: {news_data['date']} {news_data['time']}\n"
-            summary += f"   작성자: {', '.join(news_data['writer'])}\n"
-            summary += f"   카테고리: {', '.join(news_data['category'])}\n\n"
-        
-        summary += f"⏰ 업데이트 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-        return summary
+
     
     def detect_changes(self, old_data, new_data):
         """변경사항 감지 및 상세 분석"""
@@ -339,8 +375,8 @@ class PoscoNewsMonitor:
             return True
         else:
             print("📝 변경사항 없음")
-            # 변경사항 없음 알림 전송
-            self.send_no_change_notification()
+            # 변경사항 없음 알림 전송 (현재 데이터 포함)
+            self.send_no_change_notification(current_data)
             return False
     
     def start_monitoring(self, interval_minutes=5):
@@ -450,58 +486,7 @@ class PoscoNewsMonitor:
         
         return True
     
-    def send_current_status_notification(self, current_data, cached_data):
-        """현재 상태 상세 알림 (확장 모드용)"""
-        for news_type, news_data in current_data.items():
-            title_emoji = {
-                "exchange-rate": "💱",
-                "newyork-market-watch": "🗽", 
-                "kospi-close": "📈"
-            }
-            
-            emoji = title_emoji.get(news_type, "📰")
-            title = f"{emoji} {news_type.upper()} 현재 상태"
-            
-            message = f"📊 현재 데이터 상태\n\n"
-            message += f"📰 제목: {news_data['title'][:60]}{'...' if len(news_data['title']) > 60 else ''}\n"
-            message += f"📅 최신 데이터: {self.format_datetime(news_data['date'], news_data['time'])}\n"
-            
-            # 이전 데이터와 비교
-            if cached_data and news_type in cached_data:
-                old_news = cached_data[news_type]
-                message += f"📅 직전 데이터: {self.format_datetime(old_news['date'], old_news['time'])}\n"
-                
-                if old_news['title'] != news_data['title']:
-                    message += f"📰 직전 제목: {old_news['title'][:60]}{'...' if len(old_news['title']) > 60 else ''}\n"
-            else:
-                message += f"📅 직전 데이터: 없음\n"
-            
-            message += f"\n✍️ 작성자: {', '.join(news_data['writer'])}\n"
-            message += f"🏷️ 카테고리: {', '.join(news_data['category'])}"
-            
-            # 개별 알림 전송
-            payload = {
-                "botName": "POSCO 뉴스 모니터",
-                "attachments": [{
-                    "color": "#17a2b8",  # 청록색 (정보 표시용)
-                    "title": title,
-                    "text": message,
-                    "ts": int(time.time())
-                }]
-            }
-            
-            try:
-                response = requests.post(
-                    self.dooray_webhook,
-                    json=payload,
-                    headers={'Content-Type': 'application/json'},
-                    timeout=10
-                )
-                if response.status_code == 200:
-                    print(f"✅ {news_type} 상태 정보 전송 성공")
-            except Exception as e:
-                print(f"❌ {news_type} 상태 정보 전송 오류: {e}")
-    
+
     def get_previous_day_data(self, current_data):
         """영업일 기준으로 실제 다른 데이터가 있는 직전 날짜 조회"""
         previous_data = {}
