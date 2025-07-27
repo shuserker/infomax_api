@@ -283,7 +283,7 @@ class PoscoMonitorWatchdog:
     
     def run(self):
         """워치햄스터 🛡️ 메인 실행 루프"""
-        self.log("🐹 POSCO 뉴스 모니터 워치햄스터 🛡️ 시작")
+        self.log("POSCO 뉴스 모니터 워치햄스터 시작")
         self.send_notification(
             f"🐹 POSCO 모니터 워치햄스터 🛡️ 시작\n\n"
             f"📅 시작 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
