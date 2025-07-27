@@ -28,7 +28,12 @@ API_CONFIG = {
 # ==========================================
 # Dooray 웹훅 설정
 # ==========================================
-DOORAY_WEBHOOK_URL = "https://infomax.dooray.com/services/3262462484277387103/4121380745073081229/5FbudzTwTki4wCeBszBrAg"
+DOORAY_WEBHOOK_URL = "https://infomax.dooray.com/services/3262462484277387103/3281274580264701322/nKUfZnjtRS2rHh-E9i9uZQ"
+
+# 봇 프로필 이미지 URL (POSCO 로고) - GitHub Raw URL 사용
+# GitHub 저장소에 posco-logo.png 파일을 업로드한 후 아래 URL 형식으로 설정
+# 형식: https://raw.githubusercontent.com/사용자명/저장소명/브랜치명/경로/파일명
+BOT_PROFILE_IMAGE_URL = "https://raw.githubusercontent.com/shuserker/infomax_api/main/Monitoring/Posco_News_mini/posco-logo.png"
 
 # ==========================================
 # 모니터링 동작 설정

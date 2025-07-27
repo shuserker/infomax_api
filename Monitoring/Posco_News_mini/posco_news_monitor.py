@@ -21,7 +21,7 @@ import hashlib
 from datetime import datetime, timedelta
 import os
 
-from config import API_CONFIG, MONITORING_CONFIG, STATUS_CONFIG, NEWS_TYPES
+from config import API_CONFIG, MONITORING_CONFIG, STATUS_CONFIG, NEWS_TYPES, BOT_PROFILE_IMAGE_URL
 
 
 class PoscoNewsMonitor:
@@ -304,6 +304,7 @@ class PoscoNewsMonitor:
             
             payload = {
                 "botName": bot_name,
+                "botIconImage": BOT_PROFILE_IMAGE_URL,
                 "text": preview_text,
                 "attachments": [{
                     "color": color,
@@ -414,6 +415,7 @@ class PoscoNewsMonitor:
         
         payload = {
             "botName": f"POSCO 뉴스{preview_info}",
+            "botIconImage": BOT_PROFILE_IMAGE_URL,
             "text": "데이터 갱신 없음",
             "attachments": [{
                 "color": "#28a745",
@@ -505,6 +507,7 @@ class PoscoNewsMonitor:
 
         payload = {
             "botName": "POSCO 뉴스 🔔",
+            "botIconImage": BOT_PROFILE_IMAGE_URL,
             "text": f"{change_icon} {type_display} 업데이트",
             "attachments": [{
                 "color": "#0066cc",
@@ -572,6 +575,7 @@ class PoscoNewsMonitor:
         bot_name = f"POSCO 뉴스{status_info}"
         payload = {
             "botName": bot_name,
+            "botIconImage": BOT_PROFILE_IMAGE_URL,
             "text": "갱신 데이터 없음",
             "attachments": []
         }
@@ -596,6 +600,7 @@ class PoscoNewsMonitor:
         """
         payload = {
             "botName": "POSCO 뉴스 ❌",
+            "botIconImage": BOT_PROFILE_IMAGE_URL,
             "text": "❌ 오류",
             "attachments": [
                 {
@@ -871,6 +876,7 @@ class PoscoNewsMonitor:
             status_info = self._get_status_info(current_data)
             payload = {
                 "botName": f"POSCO 뉴스{status_info}",
+                "botIconImage": BOT_PROFILE_IMAGE_URL,
                 "attachments": [{
                     "color": "#17a2b8",
                     "text": message
@@ -998,6 +1004,7 @@ class PoscoNewsMonitor:
         
         payload = {
             "botName": "POSCO 뉴스 📊",
+            "botIconImage": BOT_PROFILE_IMAGE_URL,
             "text": "현재 vs 직전 영업일 데이터 비교",
             "attachments": [{
                 "color": "#6f42c1",
@@ -1341,6 +1348,7 @@ class PoscoNewsMonitor:
         # Dooray 전송
         payload = {
             "botName": "POSCO 뉴스 📋 일일요약",
+            "botIconImage": BOT_PROFILE_IMAGE_URL,
             "attachments": [{
                 "color": "#9c27b0",
                 "text": message
