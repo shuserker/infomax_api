@@ -28,7 +28,7 @@ API_CONFIG = {
 # ==========================================
 # Dooray 웹훅 설정
 # ==========================================
-DOORAY_WEBHOOK_URL = "https://infomax.dooray.com/services/3262462484277387103/3281274580264701322/nKUfZnjtRS2rHh-E9i9uZQ"
+DOORAY_WEBHOOK_URL = "https://infomax.dooray.com/services/3262462484277387103/4121380745073081229/5FbudzTwTki4wCeBszBrAg"
 
 # ==========================================
 # 모니터링 동작 설정
