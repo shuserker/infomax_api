@@ -2,21 +2,21 @@
 
 ## 🎨 봇 프로필 이미지 설정 방법
 
-### 1. 이미지 파일 준비
-- 제공된 POSCO 로고 이미지를 `posco-logo.png` 파일명으로 저장
-- 이 폴더(`Monitoring/Posco_News_mini/`)에 저장
+### 1. 이미지 파일 준비 ✅ 완료
+- POSCO 로고 이미지를 `posco_logo_mini.jpg` 파일명으로 업로드 완료
+- 경로: `Monitoring/Posco_News_mini/posco_logo_mini.jpg`
 
-### 2. GitHub에 커밋 및 푸시
+### 2. GitHub에 커밋 및 푸시 ✅ 완료
 ```bash
-git add Monitoring/Posco_News_mini/posco-logo.png
+git add Monitoring/Posco_News_mini/posco_logo_mini.jpg
 git commit -m "Add POSCO logo for bot profile"
 git push origin main
 ```
 
-### 3. 설정 확인
-- `config.py`에 이미 설정된 GitHub Raw URL:
+### 3. 설정 확인 ✅ 완료
+- `config.py`에 설정된 GitHub Raw URL:
 ```
-https://raw.githubusercontent.com/shuserker/infomax_api/main/Monitoring/Posco_News_mini/posco-logo.png
+https://raw.githubusercontent.com/shuserker/infomax_api/main/Monitoring/Posco_News_mini/posco_logo_mini.jpg
 ```
 
 ### 4. 테스트
