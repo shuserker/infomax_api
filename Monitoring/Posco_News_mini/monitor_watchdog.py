@@ -47,8 +47,8 @@ class PoscoMonitorWatchdog:
         self.status_file = os.path.join(self.script_dir, "watchdog_status.json")
         self.monitor_process = None
         self.last_git_check = datetime.now() - timedelta(hours=1)  # 초기 체크 강제
-        self.git_check_interval = 30  # 30분마다 Git 체크
-        self.process_check_interval = 60  # 1분마다 프로세스 체크
+        self.git_check_interval = 60  # 1시간마다 Git 체크 (POSCO 뉴스 특성상 급한 업데이트 드뭄)
+        self.process_check_interval = 300  # 5분마다 프로세스 체크 (뉴스 발행 간격 고려)
         
     def log(self, message):
         """로그 메시지 기록"""
