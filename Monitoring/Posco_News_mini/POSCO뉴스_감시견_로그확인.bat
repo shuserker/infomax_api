@@ -5,20 +5,20 @@ echo ========================================
 echo POSCO News Monitor - Watchdog Log
 echo ========================================
 
-if exist watchdog.log (
-    echo Watchdog Log (Last 30 lines):
+if exist WatchHamster.log (
+    echo WatchHamster Log (Last 30 lines):
     echo ----------------------------------------
-    powershell "Get-Content watchdog.log -Tail 30"
+    powershell "Get-Content WatchHamster.log -Tail 30"
     echo ----------------------------------------
 ) else (
-    echo No watchdog log file found.
+    echo No WatchHamster log file found.
 )
 
 echo.
-if exist watchdog_status.json (
+if exist WatchHamster_status.json (
     echo Current Status:
     echo ----------------------------------------
-    type watchdog_status.json
+    type WatchHamster_status.json
     echo ----------------------------------------
 ) else (
     echo No status file found.

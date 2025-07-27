@@ -14,7 +14,7 @@ echo.
 echo Press Ctrl+C to stop
 echo.
 
-python monitor_watchdog.py
+python monitor_WatchHamster.py
 
 echo.
 echo Watchdog stopped.
