@@ -1,13 +1,36 @@
 # -*- coding: utf-8 -*-
 """
-POSCO 뉴스 모니터 실행 스크립트
+POSCO 뉴스 모니터링 시스템 - 실행 스크립트
+
+6가지 모니터링 옵션을 제공하는 통합 실행 스크립트입니다.
+
+사용법:
+    python run_monitor.py [옵션번호]
+    
+옵션 상세:
+    1 (기본값): 📊 현재 상태 체크 - 빠른 일회성 상태 확인
+    2: 📈 영업일 비교 체크 - 현재 vs 직전 영업일 상세 비교
+    3: 🧠 스마트 모니터링 - 적응형 간격 + 자동 리포트 (추천)
+    4: 🔄 기본 모니터링 - 60분 고정 간격 무한 실행
+    5: 📋 일일 요약 리포트 - 오늘 뉴스 + 직전 데이터 비교
+    6: 🧪 테스트 알림 - Dooray 웹훅 연결 테스트
+
+추천 사용법:
+    python run_monitor.py 3  # 일상 운영용 (24시간 자동)
+    python run_monitor.py 1  # 빠른 상태 확인
+    python run_monitor.py 5  # 하루 마무리 요약
+
+작성자: AI Assistant
+최종 수정: 2025-07-27
 """
 
 import sys
 import os
 
-# ⚙️ 모니터링 간격 설정 (분 단위) - 여기서만 수정하면 모든 메시지가 자동 업데이트됩니다
-MONITORING_INTERVAL_MINUTES = 60
+from config import MONITORING_CONFIG
+
+# ⚙️ 모니터링 간격 설정 (분 단위) - config.py에서 관리
+MONITORING_INTERVAL_MINUTES = MONITORING_CONFIG["default_interval_minutes"]
 
 # Windows 환경에서 UTF-8 출력 설정
 if sys.platform == "win32":
@@ -28,6 +51,12 @@ except ImportError as e:
     sys.exit(1)
 
 def main():
+    """
+    메인 실행 함수
+    
+    명령행 인수를 분석하여 적절한 모니터링 모드를 실행합니다.
+    웹훅 URL 검증, 모니터 객체 생성, 옵션별 실행을 담당합니다.
+    """
     print("[START] POSCO 뉴스 모니터 시작")
     print("=" * 50)
     
@@ -50,42 +79,58 @@ def main():
     if len(sys.argv) > 1:
         choice = sys.argv[1]
     else:
-        # 기본값: 한 번 체크
+        # 기본값: 현재 상태 체크 (가장 유용한 옵션)
         choice = "1"
     
     print(f"실행 모드: {choice}")
-    print("1. 기본 확인 (변경사항 있을 때만 알림)")
-    print(f"2. 백그라운드 모니터링 ({MONITORING_INTERVAL_MINUTES}분 간격 무한실행)")
-    print("3. 확장 확인 (현재/직전 영업일 데이터 비교)")
-    print("4. 테스트 알림 전송")
+    print("1. 📊 현재 상태 체크 (변경사항 없어도 상태 알림)")
+    print("2. 📈 영업일 비교 체크 (현재 vs 직전 영업일 상세 비교)")
+    print("3. 🧠 스마트 모니터링 (뉴스 발행 패턴 기반 적응형)")
+    print(f"4. 🔄 기본 모니터링 ({MONITORING_INTERVAL_MINUTES}분 간격 무한실행)")
+    print("5. 📋 일일 요약 리포트 (오늘 발행 뉴스 요약)")
+    print("6. 🧪 테스트 알림 전송")
     print()
     
     try:
         if choice == "1":
-            print("[BASIC] 기본 확인 실행...")
-            print("변경사항이 있을 때만 알림을 전송합니다.")
-            monitor.check_basic()
+            print("[📊 현재 상태] 상태 체크 실행...")
+            print("변경사항 없어도 현재 상태를 알림으로 전송합니다.")
+            monitor.check_once()
             
         elif choice == "2":
-            print(f"[BACKGROUND] 백그라운드 모니터링 시작 ({MONITORING_INTERVAL_MINUTES}분 간격)")
-            print(f"[DEBUG] interval 값: {MONITORING_INTERVAL_MINUTES}")
+            print("[📈 영업일 비교] 영업일 비교 실행...")
+            print("현재 데이터와 직전 영업일 데이터를 상세 비교합니다.")
+            monitor.check_extended()
+            
+        elif choice == "3":
+            print("[🧠 스마트 모니터링] 뉴스 발행 패턴 기반 적응형 모니터링 시작")
+            print("📅 운영시간: 07:00-18:00")
+            print("⚡ 집중시간: 06:00-08:00, 15:00-17:00 (20분 간격)")
+            print("📊 일반시간: 07:00-18:00 (2시간 간격)")
+            print("💤 야간 조용한 모드: 18:00-07:00 (변경사항 있을 때만 알림)")
+            print("🎯 특별이벤트: 08:00 전일비교, 18:00 일일요약")
+            print("중단하려면 Ctrl+C를 누르세요")
+            monitor.start_smart_monitoring()
+            
+        elif choice == "4":
+            print(f"[🔄 기본 모니터링] 기본 모니터링 시작 ({MONITORING_INTERVAL_MINUTES}분 간격)")
             print("중단하려면 Ctrl+C를 누르세요")
             monitor.start_monitoring(interval_minutes=MONITORING_INTERVAL_MINUTES)
             
-        elif choice == "3":
-            print("[EXTENDED] 확장 확인 실행...")
-            print("현재 데이터와 이전 데이터를 상세히 표시합니다.")
-            monitor.check_extended()
+        elif choice == "5":
+            print("[📋 일일 요약] 일일 요약 리포트 전송...")
+            print("오늘 발행된 뉴스들을 요약하여 전송합니다.")
+            monitor.send_daily_summary()
             
-        elif choice == "4":
-            print("[TEST] 테스트 알림 전송...")
+        elif choice == "6":
+            print("[🧪 테스트] 테스트 알림 전송...")
             monitor.send_dooray_notification(
                 "POSCO 뉴스 모니터 테스트 알림입니다.\n설정이 정상적으로 완료되었습니다!"
             )
             
         else:
             print("[ERROR] 잘못된 선택입니다.")
-            print("사용법: python run_monitor.py [1|2|3|4]")
+            print("사용법: python run_monitor.py [1|2|3|4|5|6]")
             
     except KeyboardInterrupt:
         print("\n\n[STOP] 사용자에 의해 중단되었습니다.")
