@@ -66,7 +66,7 @@ class PoscoMonitorWatchdog:
         """Dooray 알림 전송"""
         try:
             color = "#ff4444" if is_error else "#28a745"
-            bot_name = "POSCO 감시 햄스터 ❌" if is_error else "POSCO 감시 햄스터 🐹👁️"
+            bot_name = "POSCO 워치햄스터 ❌" if is_error else "POSCO 워치햄스터 🐹🛡️"
             
             payload = {
                 "botName": bot_name,
@@ -282,10 +282,10 @@ class PoscoMonitorWatchdog:
             self.log(f"❌ 상태 저장 오류: {e}")
     
     def run(self):
-        """감시 햄스터 👁️ 메인 실행 루프"""
-        self.log("🐹 POSCO 뉴스 모니터 감시 햄스터 👁️ 시작")
+        """워치햄스터 🛡️ 메인 실행 루프"""
+        self.log("🐹 POSCO 뉴스 모니터 워치햄스터 🛡️ 시작")
         self.send_notification(
-            f"🐹 POSCO 모니터 감시 햄스터 👁️ 시작\n\n"
+            f"🐹 POSCO 모니터 워치햄스터 🛡️ 시작\n\n"
             f"📅 시작 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
             f"🔍 프로세스 감시: {self.process_check_interval}초 간격\n"
             f"🔄 Git 업데이트 체크: {self.git_check_interval}분 간격\n"
@@ -338,16 +338,16 @@ class PoscoMonitorWatchdog:
                 time.sleep(self.process_check_interval)
                 
         except KeyboardInterrupt:
-            self.log("🛑 감시 햄스터 👁️ 중단 요청 받음")
+            self.log("🛑 워치햄스터 🛡️ 중단 요청 받음")
             self.send_notification(
-                f"🛑 POSCO 모니터 감시 햄스터 👁️ 중단\n\n"
+                f"🛑 POSCO 모니터 워치햄스터 🛡️ 중단\n\n"
                 f"📅 중단 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
                 f"⚠️ 자동 복구 기능이 비활성화됩니다."
             )
         except Exception as e:
-            self.log(f"❌ 감시 햄스터 👁️ 오류: {e}")
+            self.log(f"❌ 워치햄스터 🛡️ 오류: {e}")
             self.send_notification(
-                f"❌ POSCO 모니터 감시 햄스터 👁️ 오류\n\n"
+                f"❌ POSCO 모니터 워치햄스터 🛡️ 오류\n\n"
                 f"📅 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
                 f"❌ 오류: {str(e)}\n"
                 f"🔧 수동 확인이 필요합니다.",
