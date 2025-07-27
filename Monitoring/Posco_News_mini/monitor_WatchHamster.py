@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-POSCO 뉴스 모니터 - 감시 햄스터 🛡️ (Watchdog)
+POSCO 뉴스 모니터 - 워치햄스터 🛡️ (WatchHamster)
 
-모니터링 프로세스를 감시하고 자동으로 재시작하는 햄스터 시스템
+모니터링 프로세스를 감시하고 자동으로 재시작하는 워치햄스터 🛡️ 시스템
 - 프로세스 상태 감시
 - 자동 Git 업데이트 체크
 - 오류 시 자동 복구
@@ -31,7 +31,7 @@ except ImportError:
 
 class PoscoMonitorWatchdog:
     """
-    POSCO 뉴스 모니터링 감시 햄스터 👁️ 클래스
+    POSCO 뉴스 모니터링 워치햄스터 🛡️ 클래스
     
     주요 기능:
     - 모니터링 프로세스 상태 감시

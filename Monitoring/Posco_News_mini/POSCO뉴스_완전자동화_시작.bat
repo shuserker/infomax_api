@@ -5,7 +5,7 @@ echo ========================================
 echo POSCO News Monitor - Complete Automation
 echo ========================================
 echo.
-echo Watchdog Functions:
+echo WatchHamster Functions:
 echo - Auto monitoring process supervision
 echo - Git update check (1 hour interval)
 echo - Auto restart on process error
@@ -17,5 +17,5 @@ echo.
 python monitor_WatchHamster.py
 
 echo.
-echo Watchdog stopped.
+echo WatchHamster stopped.
 pause

@@ -4,7 +4,7 @@ echo ========================================
 echo POSCO News Monitor - Stop Automation
 echo ========================================
 
-echo Stopping watchdog process...
+echo Stopping WatchHamster process...
 taskkill /f /im python.exe /fi "WINDOWTITLE eq *watchdog*" 2>nul
 taskkill /f /im python.exe /fi "COMMANDLINE eq *monitor_WatchHamster.py*" 2>nul
 
