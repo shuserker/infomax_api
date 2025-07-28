@@ -73,10 +73,11 @@ echo 6. ⚙️ 환경 검증
 echo 7. 📁 파일 관리
 echo 8. 📋 상세 일일 요약 (제목+본문 비교)
 echo 9. 📊 고급 분석 (30일 추이 + 주단위 분석 + 향후 예상)
-echo 10. ❌ 종료
+echo 10. 📦 패키지 강제 재설치
+echo 11. ❌ 종료
 echo.
 echo ========================================
-set /p "choice=선택하세요 (1-10): "
+set /p "choice=선택하세요 (1-11): "
 
 if "%choice%"=="1" goto start_watchhamster
 if "%choice%"=="2" goto stop_watchhamster
@@ -87,7 +88,8 @@ if "%choice%"=="6" goto verify_environment
 if "%choice%"=="7" goto file_management
 if "%choice%"=="8" goto detailed_summary
 if "%choice%"=="9" goto advanced_analysis
-if "%choice%"=="10" goto exit_program
+if "%choice%"=="10" goto force_install_packages
+if "%choice%"=="11" goto exit_program
 goto main_menu
 
 :start_watchhamster
@@ -127,21 +129,34 @@ if %errorlevel% == 0 (
     )
 )
 
-REM 필요한 모듈 확인
+REM 필요한 모듈 확인 및 자동 설치
 echo 📦 의존성 모듈 확인 중...
-%PYTHON_CMD% -c "import requests, psutil, json, subprocess, time, os, sys" >nul 2>&1
+%PYTHON_CMD% -c "import requests, psutil, json, subprocess, time, os, sys, numpy, pandas, textblob, nltk, sklearn" >nul 2>&1
 if %errorlevel% neq 0 (
     echo ⚠️ 필요한 모듈이 설치되지 않았습니다.
-    echo 📦 자동으로 설치를 시도합니다...
+    echo 📦 자동으로 모든 패키지를 설치합니다...
+    echo 🔄 pip 업그레이드 중...
+    %PYTHON_CMD% -m pip install --upgrade pip
+    echo 📦 requirements.txt 설치 중...
     %PYTHON_CMD% -m pip install -r requirements.txt
     if %errorlevel% neq 0 (
         echo ❌ 모듈 설치 실패!
-        echo 💡 수동으로 'pip install requests psutil' 실행 후 다시 시도해주세요.
-        echo.
-        pause
-        goto main_menu
+        echo 💡 수동으로 설치를 시도합니다...
+        echo 📦 개별 패키지 설치 중...
+        %PYTHON_CMD% -m pip install requests psutil numpy pandas textblob nltk scikit-learn
+        if %errorlevel% neq 0 (
+            echo ❌ 모든 설치 시도 실패!
+            echo 💡 인터넷 연결을 확인하고 다시 시도해주세요.
+            echo.
+            pause
+            goto main_menu
+        )
     )
-    echo ✅ 모듈 설치 완료!
+    echo ✅ 모든 패키지 설치 완료!
+    echo 🔄 설치된 패키지 확인 중...
+    %PYTHON_CMD% -c "import requests, psutil, json, subprocess, time, os, sys, numpy, pandas, textblob, nltk, sklearn; print('✅ 모든 모듈 정상 로드됨')"
+) else (
+    echo ✅ 모든 필수 모듈이 이미 설치되어 있습니다.
 )
 
 REM 기존 프로세스 확인 및 정리
@@ -647,6 +662,97 @@ if "%analysis_forecast_choice%"=="1" (
 echo.
 pause
 goto advanced_analysis_forecast
+
+:force_install_packages
+cls
+echo.
+echo ========================================
+echo   📦 패키지 강제 재설치
+echo ========================================
+echo.
+
+cd /d "%~dp0"
+
+echo 🔍 Python 환경 확인 중...
+
+REM Python 설치 확인 (python, python3 모두 체크)
+set PYTHON_CMD=
+python --version >nul 2>&1
+if %errorlevel% == 0 (
+    set PYTHON_CMD=python
+    echo ✅ Python 발견: python
+) else (
+    python3 --version >nul 2>&1
+    if %errorlevel% == 0 (
+        set PYTHON_CMD=python3
+        echo ✅ Python 발견: python3
+    ) else (
+        echo ❌ Python이 설치되지 않았습니다!
+        echo 💡 Python 3.9+ 설치 후 다시 실행해주세요.
+        echo.
+        pause
+        goto main_menu
+    )
+)
+
+echo.
+echo 📦 현재 설치된 패키지 확인 중...
+%PYTHON_CMD% -m pip list
+
+echo.
+echo ⚠️ 모든 패키지를 강제로 재설치합니다.
+echo 💡 이 작업은 시간이 걸릴 수 있습니다.
+echo.
+set /p "confirm=계속하시겠습니까? (y/N): "
+
+if /i not "%confirm%"=="y" (
+    echo ❌ 취소되었습니다.
+    pause
+    goto main_menu
+)
+
+echo.
+echo 🔄 pip 업그레이드 중...
+%PYTHON_CMD% -m pip install --upgrade pip
+
+echo.
+echo 📦 기존 패키지 제거 중...
+%PYTHON_CMD% -m pip uninstall -y requests psutil numpy pandas textblob nltk scikit-learn
+
+echo.
+echo 📦 requirements.txt 재설치 중...
+%PYTHON_CMD% -m pip install -r requirements.txt
+
+if %errorlevel% neq 0 (
+    echo.
+    echo ❌ requirements.txt 설치 실패!
+    echo 📦 개별 패키지 설치를 시도합니다...
+    %PYTHON_CMD% -m pip install requests
+    %PYTHON_CMD% -m pip install psutil
+    %PYTHON_CMD% -m pip install numpy
+    %PYTHON_CMD% -m pip install pandas
+    %PYTHON_CMD% -m pip install textblob
+    %PYTHON_CMD% -m pip install nltk
+    %PYTHON_CMD% -m pip install scikit-learn
+)
+
+echo.
+echo 🔄 설치된 패키지 확인 중...
+%PYTHON_CMD% -c "import requests, psutil, json, subprocess, time, os, sys, numpy, pandas, textblob, nltk, sklearn; print('✅ 모든 모듈 정상 로드됨')"
+
+if %errorlevel% == 0 (
+    echo.
+    echo ✅ 패키지 재설치 완료!
+    echo 💡 이제 워치햄스터를 실행할 수 있습니다.
+) else (
+    echo.
+    echo ❌ 패키지 재설치 실패!
+    echo 💡 인터넷 연결을 확인하고 다시 시도해주세요.
+)
+
+echo.
+pause
+goto main_menu
 
 :exit_program
 cls
