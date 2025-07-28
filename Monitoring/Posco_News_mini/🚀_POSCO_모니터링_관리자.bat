@@ -74,10 +74,11 @@ echo 7. 📁 파일 관리
 echo 8. 📋 상세 일일 요약 (제목+본문 비교)
 echo 9. 📊 고급 분석 (30일 추이 + 주단위 분석 + 향후 예상)
 echo 10. 📦 패키지 강제 재설치
-echo 11. ❌ 종료
+echo 11. 🔧 수동 설치 가이드
+echo 12. ❌ 종료
 echo.
 echo ========================================
-set /p "choice=선택하세요 (1-11): "
+set /p "choice=선택하세요 (1-12): "
 
 if "%choice%"=="1" goto start_watchhamster
 if "%choice%"=="2" goto stop_watchhamster
@@ -89,7 +90,8 @@ if "%choice%"=="7" goto file_management
 if "%choice%"=="8" goto detailed_summary
 if "%choice%"=="9" goto advanced_analysis
 if "%choice%"=="10" goto force_install_packages
-if "%choice%"=="11" goto exit_program
+if "%choice%"=="11" goto manual_install_guide
+if "%choice%"=="12" goto exit_program
 goto main_menu
 
 :start_watchhamster
@@ -135,21 +137,39 @@ echo 📦 의존성 모듈 확인 중...
 if %errorlevel% neq 0 (
     echo ⚠️ 필요한 모듈이 설치되지 않았습니다.
     echo 📦 자동으로 모든 패키지를 설치합니다...
+    
     echo 🔄 pip 업그레이드 중...
-    %PYTHON_CMD% -m pip install --upgrade pip
-    echo 📦 requirements.txt 설치 중...
-    %PYTHON_CMD% -m pip install -r requirements.txt
+    %PYTHON_CMD% -m pip install --upgrade pip --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org
+    
+    echo 📦 requirements.txt 설치 중 (방법 1)...
+    %PYTHON_CMD% -m pip install -r requirements.txt --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org
     if %errorlevel% neq 0 (
-        echo ❌ 모듈 설치 실패!
-        echo 💡 수동으로 설치를 시도합니다...
+        echo ⚠️ 방법 1 실패, 방법 2 시도 중...
         echo 📦 개별 패키지 설치 중...
-        %PYTHON_CMD% -m pip install requests psutil numpy pandas textblob nltk scikit-learn
+        %PYTHON_CMD% -m pip install requests --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org
+        %PYTHON_CMD% -m pip install psutil --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org
+        %PYTHON_CMD% -m pip install numpy --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org
+        %PYTHON_CMD% -m pip install pandas --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org
+        %PYTHON_CMD% -m pip install textblob --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org
+        %PYTHON_CMD% -m pip install nltk --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org
+        %PYTHON_CMD% -m pip install scikit-learn --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org
+        
         if %errorlevel% neq 0 (
-            echo ❌ 모든 설치 시도 실패!
-            echo 💡 인터넷 연결을 확인하고 다시 시도해주세요.
-            echo.
-            pause
-            goto main_menu
+            echo ⚠️ 방법 2 실패, 방법 3 시도 중...
+            echo 📦 대체 미러 사용 중...
+            %PYTHON_CMD% -m pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple/
+            if %errorlevel% neq 0 (
+                echo ❌ 모든 설치 시도 실패!
+                echo.
+                echo 🔍 문제 해결 방법:
+                echo 1. 인터넷 연결 확인
+                echo 2. 방화벽/프록시 설정 확인
+                echo 3. 관리자 권한으로 실행
+                echo 4. 수동 설치: %PYTHON_CMD% -m pip install requests psutil numpy
+                echo.
+                pause
+                goto main_menu
+            )
         )
     )
     echo ✅ 모든 패키지 설치 완료!
@@ -713,27 +733,34 @@ if /i not "%confirm%"=="y" (
 
 echo.
 echo 🔄 pip 업그레이드 중...
-%PYTHON_CMD% -m pip install --upgrade pip
+%PYTHON_CMD% -m pip install --upgrade pip --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org
 
 echo.
 echo 📦 기존 패키지 제거 중...
 %PYTHON_CMD% -m pip uninstall -y requests psutil numpy pandas textblob nltk scikit-learn
 
 echo.
-echo 📦 requirements.txt 재설치 중...
-%PYTHON_CMD% -m pip install -r requirements.txt
+echo 📦 requirements.txt 재설치 중 (방법 1)...
+%PYTHON_CMD% -m pip install -r requirements.txt --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org
 
 if %errorlevel% neq 0 (
     echo.
-    echo ❌ requirements.txt 설치 실패!
+    echo ⚠️ 방법 1 실패, 방법 2 시도 중...
     echo 📦 개별 패키지 설치를 시도합니다...
-    %PYTHON_CMD% -m pip install requests
-    %PYTHON_CMD% -m pip install psutil
-    %PYTHON_CMD% -m pip install numpy
-    %PYTHON_CMD% -m pip install pandas
-    %PYTHON_CMD% -m pip install textblob
-    %PYTHON_CMD% -m pip install nltk
-    %PYTHON_CMD% -m pip install scikit-learn
+    %PYTHON_CMD% -m pip install requests --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org
+    %PYTHON_CMD% -m pip install psutil --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org
+    %PYTHON_CMD% -m pip install numpy --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org
+    %PYTHON_CMD% -m pip install pandas --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org
+    %PYTHON_CMD% -m pip install textblob --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org
+    %PYTHON_CMD% -m pip install nltk --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org
+    %PYTHON_CMD% -m pip install scikit-learn --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org
+    
+    if %errorlevel% neq 0 (
+        echo.
+        echo ⚠️ 방법 2 실패, 방법 3 시도 중...
+        echo 📦 대체 미러 사용 중...
+        %PYTHON_CMD% -m pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple/
+    )
 )
 
 echo.
@@ -750,6 +777,79 @@ if %errorlevel% == 0 (
     echo 💡 인터넷 연결을 확인하고 다시 시도해주세요.
 )
 
+echo.
+pause
+goto main_menu
+
+:manual_install_guide
+cls
+echo.
+echo ========================================
+echo   🔧 수동 설치 가이드
+echo ========================================
+echo.
+
+cd /d "%~dp0"
+
+echo 🔍 Python 환경 확인 중...
+
+REM Python 설치 확인 (python, python3 모두 체크)
+set PYTHON_CMD=
+python --version >nul 2>&1
+if %errorlevel% == 0 (
+    set PYTHON_CMD=python
+    echo ✅ Python 발견: python
+) else (
+    python3 --version >nul 2>&1
+    if %errorlevel% == 0 (
+        set PYTHON_CMD=python3
+        echo ✅ Python 발견: python3
+    ) else (
+        echo ❌ Python이 설치되지 않았습니다!
+        echo 💡 Python 3.9+ 설치 후 다시 실행해주세요.
+        echo.
+        pause
+        goto main_menu
+    )
+)
+
+echo.
+echo 📋 수동 설치 명령어:
+echo ========================================
+echo.
+echo 1️⃣ 기본 패키지 설치:
+echo %PYTHON_CMD% -m pip install requests psutil
+echo.
+echo 2️⃣ 데이터 분석 패키지:
+echo %PYTHON_CMD% -m pip install numpy pandas
+echo.
+echo 3️⃣ 텍스트 처리 패키지:
+echo %PYTHON_CMD% -m pip install textblob nltk
+echo.
+echo 4️⃣ 머신러닝 패키지:
+echo %PYTHON_CMD% -m pip install scikit-learn
+echo.
+echo 5️⃣ 한번에 설치 (권장):
+echo %PYTHON_CMD% -m pip install -r requirements.txt
+echo.
+echo ========================================
+echo.
+echo 🔧 문제 해결 방법:
+echo.
+echo ❓ SSL 오류 발생 시:
+echo %PYTHON_CMD% -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org requests psutil numpy
+echo.
+echo ❓ 프록시 환경인 경우:
+echo set HTTP_PROXY=http://proxy.company.com:8080
+echo set HTTPS_PROXY=http://proxy.company.com:8080
+echo %PYTHON_CMD% -m pip install requests psutil numpy
+echo.
+echo ❓ 관리자 권한 필요 시:
+echo 관리자 권한으로 CMD 실행 후 위 명령어 실행
+echo.
+echo ========================================
+echo.
+echo 💡 설치 완료 후 메뉴 1번으로 워치햄스터를 시작하세요.
 echo.
 pause
 goto main_menu
