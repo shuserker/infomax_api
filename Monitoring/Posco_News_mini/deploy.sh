@@ -6,11 +6,11 @@ echo "🚀 POSCO 뉴스 AI 분석 시스템 배포 시작..."
 
 # 1. 의존성 설치
 echo "📦 의존성 설치 중..."
-pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 
 # 2. 분석 리포트 생성
 echo "📊 분석 리포트 생성 중..."
-python run_monitor.py 8
+python3 run_monitor.py 8
 
 # 3. Git 상태 확인
 echo "🔍 Git 상태 확인 중..."
