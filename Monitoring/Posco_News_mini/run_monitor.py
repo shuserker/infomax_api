@@ -131,7 +131,7 @@ def main():
             
         elif choice == "6":
             print("[🧪 테스트] 테스트 알림 전송...")
-            monitor.send_dooray_notification(
+            monitor.notifier.send_notification(
                 "POSCO 뉴스 모니터 테스트 알림입니다.\n설정이 정상적으로 완료되었습니다!"
             )
             

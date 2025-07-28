@@ -24,6 +24,25 @@ from core.monitor import PoscoNewsMonitor
 # 기존 코드와의 호환성을 위해 클래스를 다시 export
 __all__ = ['PoscoNewsMonitor']
 
+# 호환성을 위한 래퍼 클래스
+class PoscoNewsMonitorWrapper(PoscoNewsMonitor):
+    """
+    기존 코드와의 호환성을 위한 래퍼 클래스
+    """
+    
+    def send_dooray_notification(self, message, is_error=False):
+        """
+        기존 코드와의 호환성을 위한 메서드
+        
+        Args:
+            message (str): 전송할 메시지
+            is_error (bool): 오류 알림 여부
+        """
+        return self.notifier.send_notification(message, is_error=is_error)
+
+# 기존 코드와의 호환성을 위해 클래스를 다시 export
+PoscoNewsMonitor = PoscoNewsMonitorWrapper
+
 # 리팩토링 정보 출력 (개발 시에만)
 import os
 if os.environ.get('POSCO_DEBUG'):

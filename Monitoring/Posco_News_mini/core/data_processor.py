@@ -67,7 +67,7 @@ class NewsDataProcessor:
         
         colors = STATUS_CONFIG["colors"]
         
-        # 예상 뉴스 수 기준으로 상태 판단
+        # 예상 뉴스 수 기준으로 상태 판단 (간결한 표기)
         if today_count == expected_today and expected_today > 0:
             return f" {colors['all_latest']}{today_count} of {expected_today}"
         elif today_count > 0:
@@ -81,6 +81,9 @@ class NewsDataProcessor:
     def get_expected_news_count_today(self):
         """
         오늘 요일에 예상되는 뉴스 수 계산
+        
+        NEWS_TYPES 설정의 publish_days를 기반으로 
+        오늘 요일에 발행 예상되는 뉴스 개수를 계산합니다.
         
         Returns:
             int: 예상 뉴스 개수
@@ -99,7 +102,7 @@ class NewsDataProcessor:
         현재 요일을 한글로 반환
         
         Returns:
-            str: 요일 문자열
+            str: 요일 문자열 ('월', '화', '수', '목', '금', '토', '일')
         """
         return self._get_today_info()['weekday_name']
     
@@ -117,7 +120,7 @@ class NewsDataProcessor:
                   - changes: 변경된 뉴스 타입 리스트
         """
         if not old_data:
-            return {"type": "new", "changes": list(new_data.keys()) if new_data else []}
+            return {"type": "new", "changes": []}
         
         changes = []
         for news_type in new_data:
@@ -127,7 +130,6 @@ class NewsDataProcessor:
                 old_item = old_data[news_type]
                 new_item = new_data[news_type]
                 
-                # 주요 필드 변경 확인
                 if (old_item.get('title') != new_item.get('title') or 
                     old_item.get('content') != new_item.get('content') or
                     old_item.get('date') != new_item.get('date') or 
@@ -143,54 +145,73 @@ class NewsDataProcessor:
         """
         직전 영업일 데이터 조회
         
+        현재 데이터와 비교할 직전 영업일 데이터를 조회합니다.
+        주말과 공휴일을 고려하여 실제 영업일을 찾습니다.
+        
         Args:
             api_client: API 클라이언트 인스턴스
             current_data (dict): 현재 뉴스 데이터
-            max_retry_days (int): 최대 검색 일수
+            max_retry_days (int): 최대 조회 시도 일수
             
         Returns:
-            dict: 뉴스 타입별 직전 영업일 데이터
+            dict: 직전 영업일 뉴스 데이터
         """
-        previous_data = {}
+        today = datetime.now()
         
-        for news_type, news_data in current_data.items():
-            current_date = news_data.get('date', '')
-            current_title = news_data.get('title', '')
+        for i in range(1, max_retry_days + 1):
+            check_date = today - timedelta(days=i)
+            check_date_str = check_date.strftime('%Y%m%d')
             
-            if not current_date or not current_title:
-                print(f"📅 {news_type}: 현재 데이터 없음")
-                previous_data[news_type] = None
+            # 주말 제외 (토요일=5, 일요일=6)
+            if check_date.weekday() >= 5:
                 continue
             
-            print(f"📅 {news_type}: 직전 영업일 데이터 검색 중...")
+            # 해당 날짜 데이터 조회
+            previous_data = api_client.get_news_data(check_date_str)
             
-            # 최대 설정된 일수까지 역순으로 검색
-            found_different_data = False
-            for days_back in range(1, max_retry_days + 1):
-                try:
-                    check_date_obj = datetime.strptime(current_date, "%Y%m%d") - timedelta(days=days_back)
-                    check_date = check_date_obj.strftime("%Y%m%d")
-                    
-                    prev_api_data = api_client.get_news_data(date=check_date)
-                    
-                    if prev_api_data and news_type in prev_api_data:
-                        prev_item = prev_api_data[news_type]
-                        prev_title = prev_item.get('title', '')
-                        prev_date = prev_item.get('date', '')
-                        
-                        # 실제 다른 데이터인지 확인
-                        if prev_title and (prev_title != current_title or prev_date != current_date):
-                            previous_data[news_type] = prev_item
-                            print(f"📅 {news_type}: 직전 데이터 발견 ({days_back}일 전)")
-                            found_different_data = True
-                            break
-                        
-                except Exception as e:
-                    print(f"❌ {news_type}: {days_back}일 전 데이터 조회 오류 - {e}")
-                    continue
-            
-            if not found_different_data:
-                print(f"📅 {news_type}: {max_retry_days}일 내 직전 데이터를 찾을 수 없음")
-                previous_data[news_type] = None
+            if previous_data:
+                # 데이터가 있는지 확인
+                has_data = False
+                for news_type, news_data in previous_data.items():
+                    if news_data.get('date') == check_date_str:
+                        has_data = True
+                        break
+                
+                if has_data:
+                    return previous_data
         
-        return previous_data
+        return None
+    
+    def format_datetime(self, date_str, time_str):
+        """
+        날짜와 시간을 포맷팅
+        
+        Args:
+            date_str (str): 날짜 문자열 (YYYYMMDD)
+            time_str (str): 시간 문자열 (HHMMSS)
+            
+        Returns:
+            str: 포맷팅된 날짜시간 문자열
+        """
+        if not date_str:
+            return "날짜 없음"
+        
+        formatted_date = f"{date_str[:4]}-{date_str[4:6]}-{date_str[6:8]}"
+        
+        if not time_str:
+            return formatted_date
+        
+        if len(time_str) >= 6:
+            formatted_time = f"{time_str[:2]}:{time_str[2:4]}:{time_str[4:6]}"
+        elif len(time_str) == 5:
+            if time_str.startswith('6'):
+                time_str = '0' + time_str
+                formatted_time = f"{time_str[:2]}:{time_str[2:4]}:{time_str[4:6]}"
+            else:
+                formatted_time = f"{time_str[:2]}:{time_str[2:4]}:{time_str[4:5]}"
+        elif len(time_str) >= 4:
+            formatted_time = f"{time_str[:2]}:{time_str[2:4]}"
+        else:
+            formatted_time = time_str
+        
+        return f"{formatted_date} {formatted_time}"

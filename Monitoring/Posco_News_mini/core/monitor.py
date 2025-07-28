@@ -99,14 +99,13 @@ class PoscoNewsMonitor:
         
         current_data = self.api_client.get_news_data()
         if not current_data:
-            log_with_timestamp("API 호출 실패 (야간 모드 - 알림 없음)", "ERROR")
             return False
         
         current_hash = get_data_hash(current_data)
         cached_data, cached_hash = load_cache(self.cache_file)
         
         if cached_hash != current_hash:
-            log_with_timestamp("데이터 변경 감지! (야간에도 알림 전송)", "SUCCESS")
+            log_with_timestamp("데이터 변경 감지! (조용한 모드)", "SUCCESS")
             
             change_result = self.data_processor.detect_changes(cached_data, current_data)
             
@@ -119,115 +118,171 @@ class PoscoNewsMonitor:
             save_cache(self.cache_file, current_data, current_hash)
             self.last_hash = current_hash
             return True
-        else:
-            log_with_timestamp("변경사항 없음 - 야간 모드로 알림 없음", "INFO")
-            return False
+        
+        return False
     
     def check_extended(self):
         """
-        영업일 비교 체크 - 현재 vs 직전 영업일 상세 비교
+        확장 체크 - 영업일 비교 분석
+        
+        Returns:
+            bool: 성공 여부
         """
-        log_with_timestamp("영업일 비교 체크 시작", "INFO")
+        log_with_timestamp("영업일 비교 분석 중...", "INFO")
         
         current_data = self.api_client.get_news_data()
         if not current_data:
             self.notifier.send_notification("API 호출 실패", is_error=True)
-            return
+            return False
         
+        # 직전 영업일 데이터 조회
         previous_data = self.data_processor.get_previous_day_data(
             self.api_client, current_data, self.max_retry_days
         )
         
-        self._send_comparison_notification(current_data, previous_data)
+        if previous_data:
+            self._send_comparison_notification(current_data, previous_data)
+        else:
+            log_with_timestamp("직전 영업일 데이터를 찾을 수 없음", "WARNING")
+        
+        return True
     
     def send_daily_summary(self):
         """
         일일 요약 리포트 전송
+        
+        오늘 발행된 뉴스와 직전 데이터를 비교한 요약 리포트를 전송합니다.
+        
+        Returns:
+            bool: 성공 여부
         """
-        log_with_timestamp("일일 요약 리포트 생성 중", "INFO")
+        log_with_timestamp("일일 요약 리포트 생성 중...", "INFO")
         
         current_data = self.api_client.get_news_data()
         if not current_data:
             self.notifier.send_notification("API 호출 실패", is_error=True)
-            return
+            return False
         
-        # 일일 요약 메시지 생성
         today_kr = datetime.now().strftime('%Y%m%d')
+        today_weekday = datetime.now().weekday()
         weekday_name = self.data_processor.get_weekday_display()
         
-        message = f"📋 {weekday_name}요일 POSCO 뉴스 일일 요약\n\n"
-        
-        today_news = []
+        # 오늘 발행된 뉴스 수집
+        today_news = {}
         for news_type, news_data in current_data.items():
             if news_data.get('date') == today_kr:
-                title = news_data.get('title', '제목 없음')[:50]
-                time_str = news_data.get('time', '')
-                if len(time_str) >= 4:
-                    formatted_time = f"{time_str[:2]}:{time_str[2:4]}"
-                else:
-                    formatted_time = time_str
-                
-                today_news.append(f"📰 {news_type.upper()}\n⏰ {formatted_time} | {title}")
+                today_news[news_type] = news_data
+        
+        # 직전 영업일 데이터 조회
+        previous_data = self.data_processor.get_previous_day_data(
+            self.api_client, current_data, self.max_retry_days
+        )
+        
+        # 요약 메시지 생성
+        message = f"📋 {weekday_name}요일 일일 요약 리포트\n\n"
         
         if today_news:
-            message += "\n\n".join(today_news)
+            message += f"📅 오늘 발행 뉴스 ({len(today_news)}개)\n"
+            message += "━━━━━━━━━━━━━━━━━━━━━\n"
+            
+            for news_type, news_data in today_news.items():
+                from config import NEWS_TYPES
+                news_config = NEWS_TYPES.get(news_type, {"display_name": news_type.upper(), "emoji": "📰"})
+                emoji = news_config["emoji"]
+                type_display = news_config["display_name"]
+                
+                title = news_data.get('title', '')
+                time_str = news_data.get('time', '')
+                
+                if time_str and len(time_str) >= 4:
+                    formatted_time = f"{time_str[:2]}:{time_str[2:4]}"
+                else:
+                    formatted_time = "시간 없음"
+                
+                title_preview = title[:50] + "..." if len(title) > 50 else title
+                
+                message += f"┌ {emoji} {type_display}\n"
+                message += f"├ 시간: {formatted_time}\n"
+                message += f"└ 제목: {title_preview}\n\n"
         else:
-            message += f"오늘({weekday_name}요일)은 새로운 뉴스가 발행되지 않았습니다."
+            message += "📅 오늘 발행 뉴스: 없음\n\n"
         
-        message += f"\n\n📅 요약 생성 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        # 직전 데이터와 비교
+        if previous_data:
+            message += "📊 직전 영업일과 비교\n"
+            message += "━━━━━━━━━━━━━━━━━━━━━\n"
+            
+            for news_type, current_news in current_data.items():
+                from config import NEWS_TYPES
+                news_config = NEWS_TYPES.get(news_type, {"display_name": news_type.upper(), "emoji": "📰"})
+                emoji = news_config["emoji"]
+                type_display = news_config["display_name"]
+                
+                previous_news = previous_data.get(news_type, {})
+                
+                current_title = current_news.get('title', '')
+                previous_title = previous_news.get('title', '')
+                
+                if current_title != previous_title:
+                    message += f"┌ {emoji} {type_display}\n"
+                    message += f"├ 변경: 제목 업데이트\n"
+                    
+                    if previous_title:
+                        prev_preview = previous_title[:40] + "..." if len(previous_title) > 40 else previous_title
+                        message += f"├ 이전: {prev_preview}\n"
+                    
+                    curr_preview = current_title[:40] + "..." if len(current_title) > 40 else current_title
+                    message += f"└ 현재: {curr_preview}\n\n"
         
+        current_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        message += f"📝 리포트 생성: {current_datetime}"
+        
+        # 요약 리포트 전송
         self.notifier.send_notification(message, bot_name_suffix=" 📋")
+        return True
     
     def start_monitoring(self, interval_minutes=60):
         """
-        기본 모니터링 시작 (고정 간격)
+        기본 모니터링 시작
         
         Args:
-            interval_minutes (int): 모니터링 간격 (분)
+            interval_minutes (int): 체크 간격 (분)
         """
-        log_with_timestamp(f"기본 모니터링 시작 ({interval_minutes}분 간격)", "INFO")
+        log_with_timestamp(f"기본 모니터링 시작 (간격: {interval_minutes}분)", "INFO")
         
         try:
             while True:
-                self.check_once(simple_status=True)
+                self.check_silent()
                 time.sleep(interval_minutes * 60)
         except KeyboardInterrupt:
-            log_with_timestamp("모니터링 중단됨", "WARNING")
+            log_with_timestamp("모니터링 중단됨", "INFO")
+        except Exception as e:
+            log_with_timestamp(f"모니터링 오류: {e}", "ERROR")
+            self.notifier.send_notification(f"모니터링 오류 발생: {e}", is_error=True)
     
     def start_smart_monitoring(self):
         """
-        스마트 모니터링 시작 (시간대별 적응형 간격)
+        스마트 모니터링 시작
+        
+        시간대별 적응형 간격으로 모니터링합니다.
         """
         log_with_timestamp("스마트 모니터링 시작", "INFO")
         
         try:
             while True:
                 current_hour = datetime.now().hour
+                interval = self._get_smart_interval(current_hour)
                 
-                # 시간대별 간격 설정
-                if 6 <= current_hour <= 8 or 15 <= current_hour <= 17:
-                    # 집중 시간대: 20분 간격
-                    interval_minutes = 20
-                    self.check_once(simple_status=True)
-                elif 7 <= current_hour <= 18:
-                    # 일반 운영 시간: 2시간 간격
-                    interval_minutes = 120
-                    self.check_once(simple_status=True)
-                else:
-                    # 야간 조용한 모드: 1시간 간격, 변경사항만 알림
-                    interval_minutes = 60
-                    self.check_silent()
+                log_with_timestamp(f"스마트 간격: {interval}분 (현재 시간: {current_hour}시)", "INFO")
                 
-                # 특별 이벤트 처리
-                if current_hour == 8:  # 오전 8시 전일 비교
-                    self.check_extended()
-                elif current_hour == 18:  # 오후 6시 일일 요약
-                    self.send_daily_summary()
-                
-                time.sleep(interval_minutes * 60)
+                self.check_silent()
+                time.sleep(interval * 60)
                 
         except KeyboardInterrupt:
-            log_with_timestamp("스마트 모니터링 중단됨", "WARNING")
+            log_with_timestamp("스마트 모니터링 중단됨", "INFO")
+        except Exception as e:
+            log_with_timestamp(f"스마트 모니터링 오류: {e}", "ERROR")
+            self.notifier.send_notification(f"모니터링 오류 발생: {e}", is_error=True)
     
     def _send_simple_status_notification(self, current_data, status_info):
         """
@@ -237,63 +292,37 @@ class PoscoNewsMonitor:
             current_data (dict): 현재 뉴스 데이터
             status_info (str): 상태 정보 문자열
         """
-        payload = {
-            "botName": f"POSCO 뉴스{status_info}",
-            "botIconImage": self.notifier.bot_profile_image_url,
-            "text": "갱신 데이터 없음",
-            "attachments": []
-        }
-        
-        try:
-            import requests
-            response = requests.post(
-                self.notifier.webhook_url,
-                json=payload,
-                headers={'Content-Type': 'application/json'},
-                timeout=10
-            )
-            if response.status_code == 200:
-                log_with_timestamp("간결 상태 알림 전송 성공", "SUCCESS")
-        except Exception as e:
-            log_with_timestamp(f"간결 상태 알림 전송 오류: {e}", "ERROR")
+        self.notifier.send_simple_status_notification(current_data, status_info)
     
     def _send_comparison_notification(self, current_data, previous_data):
         """
-        현재 vs 직전 영업일 데이터 비교 알림 전송
+        영업일 비교 알림 전송
         
         Args:
             current_data (dict): 현재 뉴스 데이터
-            previous_data (dict): 직전 영업일 데이터
+            previous_data (dict): 직전 영업일 뉴스 데이터
         """
-        weekday_name = self.data_processor.get_weekday_display()
-        expected_today = self.data_processor.get_expected_news_count_today()
+        self.notifier.send_comparison_notification(current_data, previous_data)
+    
+    def _get_smart_interval(self, current_hour):
+        """
+        시간대별 스마트 간격 계산
         
-        message = f"📈 {weekday_name}요일 영업일 비교 분석\n"
-        message += f"🎯 예상 뉴스: {expected_today}개\n\n"
-        
-        for news_type, current_item in current_data.items():
-            previous_item = previous_data.get(news_type)
+        Args:
+            current_hour (int): 현재 시간 (0-23)
             
-            current_title = current_item.get('title', '데이터 없음')[:40]
-            current_date = current_item.get('date', '')
-            
-            message += f"📰 {news_type.upper()}\n"
-            message += f"📅 현재: {current_title}\n"
-            
-            if previous_item:
-                prev_title = previous_item.get('title', '데이터 없음')[:40]
-                prev_date = previous_item.get('date', '')
-                message += f"📅 이전: {prev_title}\n"
-                
-                if current_title != prev_title:
-                    message += "🔄 변경됨\n"
-                else:
-                    message += "📝 동일함\n"
-            else:
-                message += "📅 이전: 데이터 없음\n"
-            
-            message += "\n"
-        
-        message += f"📊 분석 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-        
-        self.notifier.send_notification(message, bot_name_suffix=" 📈")
+        Returns:
+            int: 모니터링 간격 (분)
+        """
+        # 업무 시간 (9-18시): 30분 간격
+        if 9 <= current_hour <= 18:
+            return 30
+        # 점심 시간 (12-13시): 15분 간격 (더 자주 체크)
+        elif 12 <= current_hour <= 13:
+            return 15
+        # 저녁 시간 (18-22시): 60분 간격
+        elif 18 <= current_hour <= 22:
+            return 60
+        # 야간 시간 (22-9시): 120분 간격 (조용한 모드)
+        else:
+            return 120
