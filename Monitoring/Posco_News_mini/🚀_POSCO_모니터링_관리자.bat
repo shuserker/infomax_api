@@ -175,11 +175,19 @@ if not exist "monitor_WatchHamster.py" (
 
 REM run_monitor.py 테스트 실행 (윈도우 호환성 확인)
 echo 🧪 run_monitor.py 테스트 실행 중...
-%PYTHON_CMD% run_monitor.py 6 >nul 2>&1
-if %errorlevel% neq 0 (
+echo 📋 테스트 결과:
+%PYTHON_CMD% run_monitor.py 6
+set TEST_EXIT_CODE=%errorlevel%
+if %TEST_EXIT_CODE% neq 0 (
+    echo.
     echo ❌ run_monitor.py 실행 테스트 실패!
+    echo 📝 오류 코드: %TEST_EXIT_CODE%
     echo 💡 모니터링 스크립트에 문제가 있습니다.
-    echo 📋 직접 실행해서 오류를 확인해주세요: python run_monitor.py 6
+    echo.
+    echo 🔍 문제 해결 방법:
+    echo 1. Python 명령 확인: %PYTHON_CMD% --version
+    echo 2. 모듈 설치 확인: %PYTHON_CMD% -m pip list ^| findstr requests
+    echo 3. 직접 실행 테스트: %PYTHON_CMD% run_monitor.py 6
     echo.
     pause
     goto main_menu
