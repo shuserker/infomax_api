@@ -96,6 +96,8 @@ def main():
     print(f"4. 🔄 기본 모니터링 ({MONITORING_INTERVAL_MINUTES}분 간격 무한실행)")
     print("5. 📋 일일 요약 리포트 (오늘 발행 뉴스 요약)")
     print("6. 🧪 테스트 알림 전송")
+    print("7. 📋 상세 일일 요약 (제목 + 본문 비교)")
+    print("8. 📊 고급 분석 (30일 추이 + 주단위 분석 + 향후 예상)")
     print()
     
     try:
@@ -135,9 +137,19 @@ def main():
                 "POSCO 뉴스 모니터 테스트 알림입니다.\n설정이 정상적으로 완료되었습니다!"
             )
             
+        elif choice == "7":
+            print("[📋 상세 일일 요약] 상세 일일 요약 리포트 전송...")
+            print("각 뉴스 타입별로 제목과 본문을 포함한 상세한 비교 분석을 전송합니다.")
+            monitor.execute_detailed_daily_summary()
+            
+        elif choice == "8":
+            print("[📊 고급 분석] 고급 분석 리포트 전송...")
+            print("최근 30일간의 추이, 주단위 분석, 향후 예상을 포함한 고급 분석을 전송합니다.")
+            monitor.execute_advanced_analysis()
+            
         else:
             print("[ERROR] 잘못된 선택입니다.")
-            print("사용법: python run_monitor.py [1|2|3|4|5|6]")
+            print("사용법: python run_monitor.py [1|2|3|4|5|6|7|8]")
             
     except KeyboardInterrupt:
         print("\n\n[STOP] 사용자에 의해 중단되었습니다.")

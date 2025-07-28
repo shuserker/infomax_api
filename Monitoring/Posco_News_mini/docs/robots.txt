@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# POSCO 뉴스 AI 분석 대시보드
+# GitHub Pages를 통해 제공되는 공개 분석 리포트
+# 모든 검색 엔진의 크롤링을 허용합니다.
+
+Sitemap: https://shuserker.github.io/infomax_api/sitemap.xml 

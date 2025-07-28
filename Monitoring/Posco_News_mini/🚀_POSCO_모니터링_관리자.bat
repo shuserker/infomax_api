@@ -71,10 +71,12 @@ echo 4. 🔄 상태 새로고침
 echo 5. 🧪 테스트 실행 (일회성 체크)
 echo 6. ⚙️ 환경 검증
 echo 7. 📁 파일 관리
-echo 8. ❌ 종료
+echo 8. 📋 상세 일일 요약 (제목+본문 비교)
+echo 9. 📊 고급 분석 (30일 추이 + 주단위 분석 + 향후 예상)
+echo 10. ❌ 종료
 echo.
 echo ========================================
-set /p "choice=선택하세요 (1-8): "
+set /p "choice=선택하세요 (1-10): "
 
 if "%choice%"=="1" goto start_watchhamster
 if "%choice%"=="2" goto stop_watchhamster
@@ -83,7 +85,9 @@ if "%choice%"=="4" goto refresh_status
 if "%choice%"=="5" goto test_run
 if "%choice%"=="6" goto verify_environment
 if "%choice%"=="7" goto file_management
-if "%choice%"=="8" goto exit_program
+if "%choice%"=="8" goto detailed_summary
+if "%choice%"=="9" goto advanced_analysis
+if "%choice%"=="10" goto exit_program
 goto main_menu
 
 :start_watchhamster
@@ -363,6 +367,206 @@ if "%file_choice%"=="1" (
 echo.
 pause
 goto file_management
+
+:detailed_summary
+cls
+echo.
+echo ========================================
+echo   📋 상세 일일 요약 (제목+본문 비교)
+echo ========================================
+echo.
+
+cd /d "%~dp0"
+
+echo 🔍 상세 요약 파일 확인 중...
+
+if exist "detailed_daily_summary.json" (
+    echo 📋 detailed_daily_summary.json 파일이 존재합니다.
+    echo ───────────────────────────────────────
+    type "detailed_daily_summary.json"
+    echo ───────────────────────────────────────
+) else (
+    echo 📝 detailed_daily_summary.json 파일이 없습니다.
+    echo 💡 워치햄스터가 실행되어야 생성됩니다.
+)
+
+echo.
+echo �� 파일 관리 옵션:
+echo 1. 상세 요약 파일 정리 (오래된 파일 삭제)
+echo 2. 뒤로 가기
+echo.
+set /p "summary_choice=선택하세요 (1-2): "
+
+if "%summary_choice%"=="1" (
+    echo 📋 상세 요약 파일을 정리합니다...
+    if exist "detailed_daily_summary.json" (
+        del "detailed_daily_summary.json"
+        echo ✅ 상세 요약 파일이 삭제되었습니다.
+    ) else (
+        echo 📝 상세 요약 파일이 없습니다.
+    )
+) else if "%summary_choice%"=="2" (
+    goto main_menu
+)
+
+echo.
+pause
+goto detailed_summary
+
+:advanced_analysis
+cls
+echo.
+echo ========================================
+echo   📊 고급 분석
+echo ========================================
+echo.
+echo 📊 고급 분석 옵션:
+echo 1. 30일 추이 분석 (월별 뉴스 수, 주간 추이)
+echo 2. 주단위 분석 (월별 뉴스 수, 주간 추이)
+echo 3. 향후 예상 분석 (월별 뉴스 수 예측)
+echo 4. 뒤로 가기
+echo.
+set /p "analysis_choice=선택하세요 (1-4): "
+
+if "%analysis_choice%"=="1" goto advanced_analysis_30day
+if "%analysis_choice%"=="2" goto advanced_analysis_weekly
+if "%analysis_choice%"=="3" goto advanced_analysis_forecast
+if "%analysis_choice%"=="4" goto main_menu
+
+:advanced_analysis_30day
+cls
+echo.
+echo ========================================
+echo   📊 30일 추이 분석
+echo ========================================
+echo.
+
+cd /d "%~dp0"
+
+echo 🔍 30일 추이 데이터 확인 중...
+
+if exist "news_trend_30days.json" (
+    echo 📋 news_trend_30days.json 파일이 존재합니다.
+    echo ───────────────────────────────────────
+    type "news_trend_30days.json"
+    echo ───────────────────────────────────────
+) else (
+    echo 📝 news_trend_30days.json 파일이 없습니다.
+    echo 💡 워치햄스터가 실행되어야 생성됩니다.
+)
+
+echo.
+echo 📊 옵션:
+echo 1. 30일 추이 파일 정리 (오래된 파일 삭제)
+echo 2. 뒤로 가기
+echo.
+set /p "analysis_30day_choice=선택하세요 (1-2): "
+
+if "%analysis_30day_choice%"=="1" (
+    echo 📋 30일 추이 파일을 정리합니다...
+    if exist "news_trend_30days.json" (
+        del "news_trend_30days.json"
+        echo ✅ 30일 추이 파일이 삭제되었습니다.
+    ) else (
+        echo 📝 30일 추이 파일이 없습니다.
+    )
+) else if "%analysis_30day_choice%"=="2" (
+    goto advanced_analysis
+)
+
+echo.
+pause
+goto advanced_analysis_30day
+
+:advanced_analysis_weekly
+cls
+echo.
+echo ========================================
+echo   📊 주단위 분석
+echo ========================================
+echo.
+
+cd /d "%~dp0"
+
+echo 🔍 주단위 데이터 확인 중...
+
+if exist "news_trend_weekly.json" (
+    echo 📋 news_trend_weekly.json 파일이 존재합니다.
+    echo ───────────────────────────────────────
+    type "news_trend_weekly.json"
+    echo ───────────────────────────────────────
+) else (
+    echo 📝 news_trend_weekly.json 파일이 없습니다.
+    echo 💡 워치햄스터가 실행되어야 생성됩니다.
+)
+
+echo.
+echo 📊 옵션:
+echo 1. 주단위 파일 정리 (오래된 파일 삭제)
+echo 2. 뒤로 가기
+echo.
+set /p "analysis_weekly_choice=선택하세요 (1-2): "
+
+if "%analysis_weekly_choice%"=="1" (
+    echo 📋 주단위 파일을 정리합니다...
+    if exist "news_trend_weekly.json" (
+        del "news_trend_weekly.json"
+        echo ✅ 주단위 파일이 삭제되었습니다.
+    ) else (
+        echo 📝 주단위 파일이 없습니다.
+    )
+) else if "%analysis_weekly_choice%"=="2" (
+    goto advanced_analysis
+)
+
+echo.
+pause
+goto advanced_analysis_weekly
+
+:advanced_analysis_forecast
+cls
+echo.
+echo ========================================
+echo   📊 향후 예상 분석
+echo ========================================
+echo.
+
+cd /d "%~dp0"
+
+echo 🔍 향후 예상 데이터 확인 중...
+
+if exist "news_forecast.json" (
+    echo 📋 news_forecast.json 파일이 존재합니다.
+    echo ───────────────────────────────────────
+    type "news_forecast.json"
+    echo ───────────────────────────────────────
+) else (
+    echo 📝 news_forecast.json 파일이 없습니다.
+    echo 💡 워치햄스터가 실행되어야 생성됩니다.
+)
+
+echo.
+echo 📊 옵션:
+echo 1. 향후 예상 파일 정리 (오래된 파일 삭제)
+echo 2. 뒤로 가기
+echo.
+set /p "analysis_forecast_choice=선택하세요 (1-2): "
+
+if "%analysis_forecast_choice%"=="1" (
+    echo 📋 향후 예상 파일을 정리합니다...
+    if exist "news_forecast.json" (
+        del "news_forecast.json"
+        echo ✅ 향후 예상 파일이 삭제되었습니다.
+    ) else (
+        echo 📝 향후 예상 파일이 없습니다.
+    )
+) else if "%analysis_forecast_choice%"=="2" (
+    goto advanced_analysis
+)
+
+echo.
+pause
+goto advanced_analysis_forecast
 
 :exit_program
 cls
