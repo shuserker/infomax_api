@@ -85,6 +85,74 @@
             font-size: 1.2em;
         }
         
+        .header-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .theme-toggle, .refresh-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s ease;
+        }
+        
+        .theme-toggle:hover, .refresh-btn:hover {
+            background: #0056b3;
+        }
+        
+        /* 다크 테마 */
+        body.dark-theme {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+        
+        body.dark-theme .header {
+            background: #2d2d2d;
+            border-bottom-color: #404040;
+        }
+        
+        body.dark-theme .header h1 {
+            color: #ffffff;
+        }
+        
+        body.dark-theme .header .subtitle {
+            color: #b0b0b0;
+        }
+        
+        body.dark-theme .card, 
+        body.dark-theme .stat-card, 
+        body.dark-theme .reports-section {
+            background: #2d2d2d;
+            border-color: #404040;
+            color: #ffffff;
+        }
+        
+        body.dark-theme .report-card {
+            background: #3d3d3d;
+            border-color: #404040;
+        }
+        
+        body.dark-theme .report-card h4 {
+            color: #ffffff;
+        }
+        
+        body.dark-theme .report-meta {
+            color: #b0b0b0;
+        }
+        
+        body.dark-theme .footer {
+            background: #2d2d2d;
+            border-top-color: #404040;
+            color: #b0b0b0;
+        }
+        
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -204,6 +272,10 @@
         <div class="header">
             <h1>📊 POSCO 뉴스 AI 분석 대시보드</h1>
             <div class="subtitle">실시간 시장 분석 및 투자 인사이트</div>
+            <div class="header-actions">
+                <button onclick="toggleTheme()" class="theme-toggle">🌙</button>
+                <button onclick="refreshData()" class="refresh-btn">🔄 새로고침</button>
+            </div>
         </div>
         
         <div class="update-time">
@@ -246,9 +318,36 @@
             document.getElementById('lastUpdate').textContent = now.toLocaleString('ko-KR');
         }
         
+        // 테마 토글
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (body.classList.contains('dark-theme')) {
+                body.classList.remove('dark-theme');
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark-theme');
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        
+        // 저장된 테마 로드
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                themeToggle.textContent = '☀️';
+            }
+        }
+        
         // 데이터 새로고침
         function refreshData() {
-            const btn = document.getElementById('refreshBtn');
+            const btn = document.querySelector('.refresh-btn');
             btn.textContent = '업데이트 중...';
             btn.disabled = true;
             
@@ -257,7 +356,7 @@
             updateTime();
             
             setTimeout(() => {
-                btn.textContent = '새로고침';
+                btn.textContent = '🔄 새로고침';
                 btn.disabled = false;
             }, 1000);
         }
@@ -775,11 +874,14 @@
         }
         
         // 페이지 로드 시 실행
-        updateTime();
-        loadReports();
-        
-        // 1분마다 시간 업데이트
-        setInterval(updateTime, 60000);
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTheme();
+            updateTime();
+            loadReports();
+            
+            // 30초마다 시간 업데이트
+            setInterval(updateTime, 30000);
+        });
     </script>
 </body>
 </html> 
