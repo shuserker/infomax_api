@@ -38,12 +38,6 @@ from config import MONITORING_CONFIG
 # ⚙️ 모니터링 간격 설정 (분 단위) - config.py에서 관리
 MONITORING_INTERVAL_MINUTES = MONITORING_CONFIG["default_interval_minutes"]
 
-# Windows 환경에서 UTF-8 출력 설정
-if sys.platform == "win32":
-    import codecs
-    sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
-    sys.stderr = codecs.getwriter("utf-8")(sys.stderr.detach())
-
 # 현재 스크립트의 디렉토리를 Python 경로에 추가
 current_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, current_dir)

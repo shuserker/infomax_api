@@ -173,6 +173,19 @@ if not exist "monitor_WatchHamster.py" (
     goto main_menu
 )
 
+REM run_monitor.py 테스트 실행 (윈도우 호환성 확인)
+echo 🧪 run_monitor.py 테스트 실행 중...
+%PYTHON_CMD% run_monitor.py 6 >nul 2>&1
+if %errorlevel% neq 0 (
+    echo ❌ run_monitor.py 실행 테스트 실패!
+    echo 💡 모니터링 스크립트에 문제가 있습니다.
+    echo 📋 직접 실행해서 오류를 확인해주세요: python run_monitor.py 6
+    echo.
+    pause
+    goto main_menu
+)
+echo ✅ run_monitor.py 테스트 성공!
+
 echo ✅ 환경 검증 완료!
 echo.
 echo 🚀 워치햄스터를 시작합니다...
