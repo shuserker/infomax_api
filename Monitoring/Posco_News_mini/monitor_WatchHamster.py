@@ -4,10 +4,22 @@
 POSCO 뉴스 모니터 - 워치햄스터 🛡️ (WatchHamster)
 
 모니터링 프로세스를 감시하고 자동으로 재시작하는 워치햄스터 🛡️ 시스템
-- 프로세스 상태 감시
-- 자동 Git 업데이트 체크
-- 오류 시 자동 복구
-- 상태 알림 전송
+
+주요 기능:
+- 프로세스 상태 감시 및 자동 재시작
+- Git 저장소 업데이트 자동 체크 및 적용
+- 시스템 오류 시 자동 복구
+- Dooray를 통한 상태 알림 전송
+- 로그 파일 관리 및 상태 저장
+
+설계 원칙:
+- 안정성 우선: 프로세스 크래시 시 즉시 복구
+- 자동화: 수동 개입 최소화
+- 모니터링: 모든 상태 변화 추적
+- 알림: 중요한 이벤트 즉시 전달
+
+작성자: AI Assistant
+최종 수정: 2025-07-28 (최적화)
 """
 
 import subprocess
@@ -29,29 +41,54 @@ except ImportError:
     print("[ERROR] config.py를 찾을 수 없습니다.")
     sys.exit(1)
 
-class PoscoMonitorWatchdog:
+class PoscoMonitorWatchHamster:
     """
     POSCO 뉴스 모니터링 워치햄스터 🛡️ 클래스
     
+    모니터링 프로세스의 안정성을 보장하는 자동 복구 시스템입니다.
+    
     주요 기능:
-    - 모니터링 프로세스 상태 감시
-    - 자동 Git 업데이트 체크 및 적용
+    - 모니터링 프로세스 상태 감시 (5분 간격)
+    - 자동 Git 업데이트 체크 (1시간 간격)
     - 프로세스 오류 시 자동 재시작
-    - 상태 알림 전송
+    - Dooray를 통한 상태 알림 전송
+    - 로그 파일 관리 및 상태 저장
+    
+    Attributes:
+        script_dir (str): 스크립트 디렉토리 경로
+        monitor_script (str): 모니터링 스크립트 경로
+        log_file (str): 로그 파일 경로
+        status_file (str): 상태 파일 경로
+        monitor_process (subprocess.Popen): 모니터링 프로세스 객체
+        last_git_check (datetime): 마지막 Git 체크 시간
+        git_check_interval (int): Git 체크 간격 (초)
+        process_check_interval (int): 프로세스 체크 간격 (초)
     """
     
     def __init__(self):
+        """
+        워치햄스터 초기화
+        
+        파일 경로, 체크 간격, 초기 상태를 설정합니다.
+        """
         self.script_dir = current_dir
         self.monitor_script = os.path.join(self.script_dir, "run_monitor.py")
         self.log_file = os.path.join(self.script_dir, "WatchHamster.log")
         self.status_file = os.path.join(self.script_dir, "WatchHamster_status.json")
         self.monitor_process = None
         self.last_git_check = datetime.now() - timedelta(hours=1)  # 초기 체크 강제
-        self.git_check_interval = 60  # 1시간마다 Git 체크 (POSCO 뉴스 특성상 급한 업데이트 드뭄)
-        self.process_check_interval = 300  # 5분마다 프로세스 체크 (뉴스 발행 간격 고려)
+        self.git_check_interval = 60 * 60  # 1시간마다 Git 체크 (POSCO 뉴스 특성상 급한 업데이트 드뭄)
+        self.process_check_interval = 5 * 60  # 5분마다 프로세스 체크 (뉴스 발행 간격 고려)
         
     def log(self, message):
-        """로그 메시지 기록"""
+        """
+        로그 메시지 기록
+        
+        콘솔과 로그 파일에 타임스탬프와 함께 메시지를 기록합니다.
+        
+        Args:
+            message (str): 기록할 로그 메시지
+        """
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         log_message = f"[{timestamp}] {message}"
         print(log_message)
@@ -63,7 +100,15 @@ class PoscoMonitorWatchdog:
             print(f"[ERROR] 로그 파일 쓰기 실패: {e}")
     
     def send_notification(self, message, is_error=False):
-        """Dooray 알림 전송"""
+        """
+        Dooray 알림 전송
+        
+        워치햄스터 상태나 중요한 이벤트를 Dooray로 전송합니다.
+        
+        Args:
+            message (str): 전송할 메시지
+            is_error (bool): 오류 알림 여부 (색상과 봇명 변경)
+        """
         try:
             color = "#ff4444" if is_error else "#28a745"
             bot_name = "POSCO 워치햄스터 ❌" if is_error else "POSCO 워치햄스터 🐹🛡️"
@@ -94,11 +139,18 @@ class PoscoMonitorWatchdog:
             self.log(f"❌ 알림 전송 오류: {e}")
     
     def check_git_updates(self):
-        """Git 저장소 업데이트 체크"""
+        """
+        Git 저장소 업데이트 체크
+        
+        원격 저장소와 로컬 저장소를 비교하여 업데이트가 있는지 확인합니다.
+        
+        Returns:
+            bool: 업데이트가 있으면 True, 없으면 False
+        """
         try:
             # 원격 저장소 정보 가져오기
             result = subprocess.run(
-                ["git", "fetch", "origin", "main"],
+                ['git', 'fetch', 'origin'],
                 cwd=self.script_dir,
                 capture_output=True,
                 text=True,
@@ -106,12 +158,12 @@ class PoscoMonitorWatchdog:
             )
             
             if result.returncode != 0:
-                self.log(f"❌ Git fetch 실패: {result.stderr}")
+                self.log(f"⚠️ Git fetch 실패: {result.stderr}")
                 return False
             
             # 로컬과 원격 비교
             result = subprocess.run(
-                ["git", "rev-list", "--count", "HEAD..origin/main"],
+                ['git', 'rev-list', 'HEAD..origin/main', '--count'],
                 cwd=self.script_dir,
                 capture_output=True,
                 text=True,
@@ -119,19 +171,22 @@ class PoscoMonitorWatchdog:
             )
             
             if result.returncode == 0:
-                commits_behind = int(result.stdout.strip())
-                if commits_behind > 0:
-                    self.log(f"🔄 새로운 업데이트 발견: {commits_behind}개 커밋")
+                commit_count = int(result.stdout.strip())
+                if commit_count > 0:
+                    self.log(f"🔄 Git 업데이트 발견: {commit_count}개 커밋")
                     return True
                 else:
-                    self.log("✅ Git 저장소 최신 상태")
+                    self.log("📋 Git 업데이트 없음")
                     return False
             else:
-                self.log(f"❌ Git 상태 체크 실패: {result.stderr}")
+                self.log(f"⚠️ Git 비교 실패: {result.stderr}")
                 return False
                 
+        except subprocess.TimeoutExpired:
+            self.log("⚠️ Git 체크 타임아웃")
+            return False
         except Exception as e:
-            self.log(f"❌ Git 업데이트 체크 오류: {e}")
+            self.log(f"❌ Git 체크 오류: {e}")
             return False
     
     def apply_git_update(self):
@@ -139,11 +194,8 @@ class PoscoMonitorWatchdog:
         try:
             self.log("🔄 Git 업데이트 적용 중...")
             
-            # 현재 모니터링 프로세스 중지
-            if self.monitor_process and self.monitor_process.poll() is None:
-                self.log("⏹️ 현재 모니터링 프로세스 중지 중...")
-                self.stop_monitor_process()
-                time.sleep(3)
+            # 현재 프로세스 중지
+            self.stop_monitor_process()
             
             # Git pull 실행
             result = subprocess.run(
@@ -155,39 +207,48 @@ class PoscoMonitorWatchdog:
             )
             
             if result.returncode == 0:
-                self.log("✅ Git 업데이트 완료")
+                self.log("✅ Git 업데이트 성공")
                 self.send_notification(
-                    f"🔄 POSCO 모니터 자동 업데이트 완료\n\n"
+                    f"🔄 POSCO 모니터 Git 업데이트 완료\n\n"
                     f"📅 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
-                    f"🔄 변경사항: Git pull 성공\n"
-                    f"🚀 모니터링 자동 재시작 중..."
+                    f"📝 변경사항: {result.stdout.strip()}\n"
+                    f"🚀 모니터링 재시작 중..."
                 )
                 
                 # 모니터링 프로세스 재시작
-                time.sleep(2)
-                self.start_monitor_process()
-                return True
+                time.sleep(3)
+                if self.start_monitor_process():
+                    self.send_notification(
+                        f"✅ POSCO 모니터 업데이트 후 재시작 완료\n\n"
+                        f"📅 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+                        f"🔄 최신 코드로 모니터링 재개됨"
+                    )
+                else:
+                    self.send_notification(
+                        f"❌ POSCO 모니터 업데이트 후 재시작 실패\n\n"
+                        f"📅 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+                        f"🔧 수동 확인이 필요합니다.",
+                        is_error=True
+                    )
             else:
-                self.log(f"❌ Git pull 실패: {result.stderr}")
+                self.log(f"❌ Git 업데이트 실패: {result.stderr}")
                 self.send_notification(
-                    f"❌ POSCO 모니터 업데이트 실패\n\n"
+                    f"❌ POSCO 모니터 Git 업데이트 실패\n\n"
                     f"📅 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
-                    f"❌ 오류: {result.stderr}\n"
+                    f"❌ 오류: {result.stderr.strip()}\n"
                     f"🔧 수동 확인이 필요합니다.",
                     is_error=True
                 )
-                return False
                 
+                # 실패 시 모니터링 프로세스 재시작
+                self.start_monitor_process()
+                
+        except subprocess.TimeoutExpired:
+            self.log("❌ Git 업데이트 타임아웃")
+            self.start_monitor_process()
         except Exception as e:
-            self.log(f"❌ Git 업데이트 적용 오류: {e}")
-            self.send_notification(
-                f"❌ POSCO 모니터 업데이트 오류\n\n"
-                f"📅 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
-                f"❌ 오류: {str(e)}\n"
-                f"🔧 수동 확인이 필요합니다.",
-                is_error=True
-            )
-            return False
+            self.log(f"❌ Git 업데이트 오류: {e}")
+            self.start_monitor_process()
     
     def is_monitor_running(self):
         """모니터링 프로세스 실행 상태 확인"""
@@ -220,14 +281,18 @@ class PoscoMonitorWatchdog:
             
             self.log("🚀 모니터링 프로세스 시작 중...")
             
-            # Python 스크립트 실행
-            self.monitor_process = subprocess.Popen(
-                [sys.executable, self.monitor_script, "3"],
-                cwd=self.script_dir,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                creationflags=subprocess.CREATE_NEW_CONSOLE if os.name == 'nt' else 0
-            )
+            # Python 스크립트 실행 (콘솔 출력 허용)
+            if os.name == 'nt':  # Windows
+                self.monitor_process = subprocess.Popen(
+                    [sys.executable, self.monitor_script, "3"],
+                    cwd=self.script_dir,
+                    creationflags=subprocess.CREATE_NEW_CONSOLE
+                )
+            else:  # macOS/Linux
+                self.monitor_process = subprocess.Popen(
+                    [sys.executable, self.monitor_script, "3"],
+                    cwd=self.script_dir
+                )
             
             time.sleep(5)  # 프로세스 시작 대기
             
@@ -272,7 +337,7 @@ class PoscoMonitorWatchdog:
                 "last_check": datetime.now().isoformat(),
                 "monitor_running": self.is_monitor_running(),
                 "last_git_check": self.last_git_check.isoformat(),
-                "watchdog_pid": os.getpid()
+                "watchhamster_pid": os.getpid()
             }
             
             with open(self.status_file, "w", encoding="utf-8") as f:
@@ -325,7 +390,7 @@ class PoscoMonitorWatchdog:
                         )
                 
                 # Git 업데이트 체크
-                if (current_time - self.last_git_check).total_seconds() >= (self.git_check_interval * 60):
+                if (current_time - self.last_git_check).total_seconds() >= (self.git_check_interval):
                     self.log("🔍 Git 업데이트 체크 중...")
                     if self.check_git_updates():
                         self.apply_git_update()
@@ -361,5 +426,5 @@ if __name__ == "__main__":
         sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
         sys.stderr = codecs.getwriter("utf-8")(sys.stderr.detach())
     
-    watchdog = PoscoMonitorWatchdog()
-    watchdog.run()
+    watchhamster = PoscoMonitorWatchHamster()
+    watchhamster.run()
