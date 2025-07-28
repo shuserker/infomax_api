@@ -1,8 +1,9 @@
 # PowerShell 스크립트 - POSCO 뉴스 워치햄스터 로그 확인
 # UTF-8 인코딩 설정 (한글 깨짐 방지)
+$PSDefaultParameterValues['*:Encoding'] = 'utf8'
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $OutputEncoding = [System.Text.Encoding]::UTF8
-chcp 65001 | Out-Null
+chcp 65001 > $null 2>&1
 
 # 현재 디렉토리로 이동
 Set-Location $PSScriptRoot
