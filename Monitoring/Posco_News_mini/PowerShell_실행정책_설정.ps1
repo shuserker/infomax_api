@@ -1,8 +1,13 @@
 # PowerShell 실행 정책 설정 스크립트
 # 관리자 권한으로 실행 필요
 
+# UTF-8 인코딩 설정 (한글 깨짐 방지)
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+chcp 65001 | Out-Null
+
 Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "🔧 PowerShell 실행 정책 설정" -ForegroundColor Green
+Write-Host "🔧 PowerShell 실행 정책 및 인코딩 설정" -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 
@@ -43,6 +48,10 @@ if ($currentPolicy -eq "RemoteSigned" -or $currentPolicy -eq "Unrestricted") {
         Write-Host "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser" -ForegroundColor Cyan
     }
 }
+
+Write-Host ""
+Write-Host "🌏 UTF-8 인코딩 설정 중..." -ForegroundColor Yellow
+Write-Host "✅ 한글 표시 문제 해결 완료" -ForegroundColor Green
 
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Cyan

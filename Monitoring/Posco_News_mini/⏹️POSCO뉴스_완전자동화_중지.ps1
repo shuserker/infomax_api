@@ -1,7 +1,8 @@
 # PowerShell 스크립트 - POSCO 뉴스 워치햄스터 중지
-# UTF-8 인코딩 설정
+# UTF-8 인코딩 설정 (한글 깨짐 방지)
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $OutputEncoding = [System.Text.Encoding]::UTF8
+chcp 65001 | Out-Null
 
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host "🐹 POSCO 뉴스 모니터 - 완전 자동화 중지 🛡️" -ForegroundColor Red

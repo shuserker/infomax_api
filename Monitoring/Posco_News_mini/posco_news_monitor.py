@@ -1404,4 +1404,142 @@ class PoscoNewsMonitor:
             print(f"❌ {news_type} 뉴스 조회 오류: {e}")
             return None
 
+    def check_extended(self):
+        """영업일 비교 체크 - 현재 vs 직전 영업일 상세 비교"""
+        print(f"🔍 현재 vs 직전 영업일 데이터 비교 중... {datetime.now()}")
+        
+        current_data = self.get_news_data()
+        if not current_data:
+            self.send_dooray_notification("API 호출 실패", is_error=True)
+            return
+        
+        # 오늘 기준 직전 영업일 데이터 조회
+        previous_data = {}
+        today_obj = datetime.now()
+        
+        for news_type, current_item in current_data.items():
+            news_config = NEWS_TYPES.get(news_type, {})
+            publish_days = news_config.get('publish_days', [])
+            type_display = news_config.get('display_name', news_type.upper())
+            
+            print(f"📅 {type_display}: 직전 영업일 데이터 검색 중...")
+            
+            found_previous_data = False
+            for days_back in range(1, 8):
+                try:
+                    check_date_obj = today_obj - timedelta(days=days_back)
+                    check_weekday = check_date_obj.weekday()
+                    check_date = check_date_obj.strftime("%Y%m%d")
+                    
+                    if check_weekday in publish_days:
+                        prev_api_data = self.get_news_data(date=check_date)
+                        
+                        if prev_api_data and news_type in prev_api_data:
+                            prev_item = prev_api_data[news_type]
+                            prev_title = prev_item.get('title', '')
+                            prev_date = prev_item.get('date', '')
+                            
+                            print(f"📅 {type_display}: {days_back}일 전({check_date}) 조회 - 제목: {prev_title[:30]}{'...' if len(prev_title) > 30 else ''}")
+                            
+                            if prev_title and prev_date:
+                                previous_data[news_type] = prev_item
+                                print(f"📅 {type_display}: 직전 영업일 데이터 발견 ({days_back}일 전, {['월','화','수','목','금','토','일'][check_weekday]}요일)")
+                                found_previous_data = True
+                                break
+                        else:
+                            print(f"📅 {type_display}: {days_back}일 전({check_date}) 데이터 없음")
+                    
+                except Exception as e:
+                    print(f"❌ {type_display}: {days_back}일 전 데이터 조회 오류 - {e}")
+                    continue
+            
+            if not found_previous_data:
+                print(f"📅 {type_display}: 1주일 내 직전 영업일 데이터를 찾을 수 없음")
+                previous_data[news_type] = None
+        
+        # 비교 메시지 생성
+        message = "📊 현재 vs 직전 영업일 데이터 비교\n\n"
+        
+        today_kr = datetime.now().strftime('%Y%m%d')
+        today_weekday = datetime.now().weekday()
+        weekday_name = self.get_weekday_display()
+        comparison_items = []
+        
+        for news_type, current_item in current_data.items():
+            news_config = NEWS_TYPES.get(news_type, {"display_name": news_type.upper()})
+            type_display = news_config["display_name"]
+            publish_days = news_config.get('publish_days', [])
+            
+            current_date = current_item.get('date', '')
+            current_time = current_item.get('time', '')
+            current_title = current_item.get('title', '')
+            
+            if not current_date or not current_title:
+                if today_weekday in publish_days:
+                    current_status = "🔴"
+                    current_status_text = "데이터 없음"
+                    current_info = "📅 현재: 데이터 없음"
+                else:
+                    current_status = "⏸️"
+                    current_status_text = f"{weekday_name}요일 휴무"
+                    current_info = "📅 현재: 미발행"
+            else:
+                if current_date == today_kr:
+                    current_status = "🟢"
+                    current_status_text = "최신"
+                else:
+                    current_status = "🟡"
+                    current_status_text = "과거"
+                
+                current_datetime = self.format_datetime(current_date, current_time)
+                current_info = f"📅 현재: {current_datetime}\n📝 현재 제목: {current_title[:45]}{'...' if len(current_title) > 45 else ''}"
+            
+            previous_item = previous_data.get(news_type)
+            if previous_item:
+                prev_date = previous_item.get('date', '')
+                prev_time = previous_item.get('time', '')
+                prev_title = previous_item.get('title', '')
+                
+                if prev_date and prev_title:
+                    try:
+                        prev_date_obj = datetime.strptime(prev_date, "%Y%m%d")
+                        today_obj = datetime.strptime(today_kr, "%Y%m%d")
+                        days_diff = (today_obj - prev_date_obj).days
+                        gap_text = "오늘" if days_diff == 0 else f"{days_diff}일 전"
+                    except:
+                        gap_text = "날짜 불명"
+                    
+                    prev_datetime = self.format_datetime(prev_date, prev_time)
+                    prev_info = f"\n\n📅 직전: {prev_datetime} ({gap_text})\n📝 직전 제목: {prev_title[:45]}{'...' if len(prev_title) > 45 else ''}"
+                else:
+                    prev_info = "\n\n📅 직전: 데이터 없음"
+            else:
+                prev_info = "\n\n📅 직전: 데이터 없음"
+            
+            item_text = f"{current_status} {type_display} ({current_status_text})\n{current_info}{prev_info}"
+            comparison_items.append(item_text)
+        
+        for i, item in enumerate(comparison_items):
+            message += f"{item}\n"
+            if i < len(comparison_items) - 1:
+                message += "━━━━━━━━━━━━━━━━━━━━━\n"
+        
+        message += f"\n최종 확인: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        
+        payload = {
+            "botName": "POSCO 뉴스 📊",
+            "botIconImage": BOT_PROFILE_IMAGE_URL,
+            "text": "현재 vs 직전 영업일 데이터 비교",
+            "attachments": [{"color": "#ff9800", "text": message}]
+        }
+        
+        try:
+            response = requests.post(self.dooray_webhook, json=payload, headers={'Content-Type': 'application/json'}, timeout=10)
+            if response.status_code == 200:
+                print("✅ 영업일 비교 알림 전송 성공")
+            else:
+                print(f"❌ 영업일 비교 알림 전송 실패: {response.status_code}")
+        except Exception as e:
+            print(f"❌ 영업일 비교 알림 전송 오류: {e}")
+
 # 이 파일은 모듈로만 사용됩니다. 실행은 run_monitor.py를 사용하세요.

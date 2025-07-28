@@ -24,7 +24,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, current_dir)
 
 try:
-    from config import DOORAY_WEBHOOK_URL, BOT_PROFILE_IMAGE_URL
+    from config import WATCHHAMSTER_WEBHOOK_URL, BOT_PROFILE_IMAGE_URL
 except ImportError:
     print("[ERROR] config.py를 찾을 수 없습니다.")
     sys.exit(1)
@@ -79,7 +79,7 @@ class PoscoMonitorWatchdog:
             }
             
             response = requests.post(
-                DOORAY_WEBHOOK_URL,
+                WATCHHAMSTER_WEBHOOK_URL,
                 json=payload,
                 headers={'Content-Type': 'application/json'},
                 timeout=10
