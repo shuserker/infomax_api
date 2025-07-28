@@ -13,11 +13,19 @@ echo.
 
 cd /d "%~dp0"
 
-taskkill /f /im python.exe 2>nul
+echo 🔍 Python 프로세스 확인 중...
+tasklist /fi "imagename eq python.exe" 2>nul | find /i "python.exe" >nul
 if %errorlevel% == 0 (
-    echo ✅ 프로세스 중지 완료
+    echo 📋 Python 프로세스 발견, 종료 시도 중...
+    taskkill /f /im python.exe 2>nul
+    if %errorlevel% == 0 (
+        echo ✅ 프로세스 중지 완료
+    ) else (
+        echo ⚠️ 프로세스 중지 실패 (관리자 권한이 필요할 수 있습니다)
+        echo 💡 관리자 권한으로 다시 실행해보세요
+    )
 ) else (
-    echo ⚠️ 실행 중인 프로세스가 없습니다
+    echo ⚠️ 실행 중인 Python 프로세스가 없습니다
 )
 
 echo.
