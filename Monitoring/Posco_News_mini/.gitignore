@@ -1,0 +1,33 @@
+# Python 캐시 파일
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# 런타임 생성 파일들
+posco_news_cache.json
+WatchHamster.log
+WatchHamster_status.json
+
+# 환경 설정 파일 (민감 정보 포함 가능)
+.env
+config_local.py
+
+# IDE 설정 파일
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Windows 시스템 파일
+Thumbs.db
+Desktop.ini
+
+# 임시 파일
+*.tmp
+*.temp
+*.bak
+
+# 로그 파일
+*.log
+logs/
