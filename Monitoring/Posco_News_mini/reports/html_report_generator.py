@@ -81,7 +81,7 @@ class HTMLReportGenerator:
         return {
             'local_path': str(local_filepath),
             'docs_path': str(docs_filepath),
-            'web_url': f"reports/{filename}"
+            'web_url': f"https://shuserker.github.io/infomax_api/reports/{filename}"
         }
     
     def _create_html_template(self, analysis_result, news_type, display_name):

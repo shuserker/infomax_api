@@ -134,7 +134,7 @@ def update_index_html():
     with open(index_file, 'w', encoding='utf-8') as f:
         f.write(content)
     
-    print(f"✅ index.html 업데이트 완료 ({len(generate_report_list())}개 리포트)")
+    print(f"[SUCCESS] index.html 업데이트 완료 ({len(generate_report_list())}개 리포트)")
 
 if __name__ == "__main__":
     update_index_html() 

@@ -1,29 +1,29 @@
 {
-  "last_update": "2025-07-28T14:13:02.346421",
+  "last_update": "2025-07-29T09:26:47.121298",
   "reports": [
     {
       "title": "KOSPI CLOSE 분석",
       "type": "KOSPI-CLOSE",
-      "date": "2025-07-28",
-      "time": "14:13",
-      "url": "reports/posco_analysis_kospi-close_20250728_141302.html",
-      "filename": "posco_analysis_kospi-close_20250728_141302.html"
+      "date": "2025-07-29",
+      "time": "09:26",
+      "url": "reports/posco_analysis_kospi-close_20250729_092647.html",
+      "filename": "posco_analysis_kospi-close_20250729_092647.html"
     },
     {
       "title": "NEWYORK MARKET WATCH 분석",
       "type": "NEWYORK-MARKET-WATCH",
-      "date": "2025-07-28",
-      "time": "14:12",
-      "url": "reports/posco_analysis_newyork-market-watch_20250728_141251.html",
-      "filename": "posco_analysis_newyork-market-watch_20250728_141251.html"
+      "date": "2025-07-29",
+      "time": "09:26",
+      "url": "reports/posco_analysis_newyork-market-watch_20250729_092632.html",
+      "filename": "posco_analysis_newyork-market-watch_20250729_092632.html"
     },
     {
       "title": "EXCHANGE RATE 분석",
       "type": "EXCHANGE-RATE",
-      "date": "2025-07-28",
-      "time": "14:12",
-      "url": "reports/posco_analysis_exchange-rate_20250728_141244.html",
-      "filename": "posco_analysis_exchange-rate_20250728_141244.html"
+      "date": "2025-07-29",
+      "time": "09:26",
+      "url": "reports/posco_analysis_exchange-rate_20250729_092617.html",
+      "filename": "posco_analysis_exchange-rate_20250729_092617.html"
     }
   ]
 }
