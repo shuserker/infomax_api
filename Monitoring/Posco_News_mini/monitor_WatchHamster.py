@@ -77,8 +77,10 @@ class PoscoMonitorWatchHamster:
         self.status_file = os.path.join(self.script_dir, "WatchHamster_status.json")
         self.monitor_process = None
         self.last_git_check = datetime.now() - timedelta(hours=1)  # 초기 체크 강제
+        self.last_status_notification = datetime.now()  # 마지막 상태 알림 시간
         self.git_check_interval = 60 * 60  # 1시간마다 Git 체크 (POSCO 뉴스 특성상 급한 업데이트 드뭄)
         self.process_check_interval = 5 * 60  # 5분마다 프로세스 체크 (뉴스 발행 간격 고려)
+        self.status_notification_interval = 60 * 60  # 1시간마다 정기 상태 알림
         
     def log(self, message):
         """
@@ -330,6 +332,40 @@ class PoscoMonitorWatchHamster:
         except Exception as e:
             self.log(f"❌ 모니터링 프로세스 중지 오류: {e}")
     
+    def send_status_notification(self):
+        """정기 상태 알림 전송 (1시간마다)"""
+        try:
+            current_time = datetime.now()
+            monitor_status = "🟢 정상 작동" if self.is_monitor_running() else "🔴 중단됨"
+            
+            # 간단한 상태 체크 실행
+            try:
+                import subprocess
+                result = subprocess.run(
+                    ["python", "run_monitor.py", "1"],
+                    cwd=self.script_dir,
+                    capture_output=True,
+                    text=True,
+                    timeout=30
+                )
+                api_status = "🟢 API 정상" if result.returncode == 0 else "🟡 API 확인 필요"
+            except:
+                api_status = "🟡 API 확인 불가"
+            
+            self.send_notification(
+                f"🐹 POSCO 워치햄스터 🛡️ 정기 상태 보고\n\n"
+                f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+                f"🔍 모니터링 프로세스: {monitor_status}\n"
+                f"🌐 API 연결: {api_status}\n"
+                f"⏰ 다음 보고: {(current_time + timedelta(hours=1)).strftime('%H:%M')}\n"
+                f"🚀 자동 복구 기능: 활성화"
+            )
+            
+            self.log("📊 정기 상태 알림 전송 완료")
+            
+        except Exception as e:
+            self.log(f"❌ 정기 상태 알림 실패: {e}")
+    
     def save_status(self):
         """현재 상태 저장"""
         try:
@@ -337,6 +373,7 @@ class PoscoMonitorWatchHamster:
                 "last_check": datetime.now().isoformat(),
                 "monitor_running": self.is_monitor_running(),
                 "last_git_check": self.last_git_check.isoformat(),
+                "last_status_notification": self.last_status_notification.isoformat(),
                 "watchhamster_pid": os.getpid()
             }
             
@@ -352,8 +389,9 @@ class PoscoMonitorWatchHamster:
         self.send_notification(
             f"🐹 POSCO 모니터 워치햄스터 🛡️ 시작\n\n"
             f"📅 시작 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
-            f"🔍 프로세스 감시: {self.process_check_interval}초 간격\n"
-            f"🔄 Git 업데이트 체크: {self.git_check_interval}분 간격\n"
+            f"🔍 프로세스 감시: {self.process_check_interval//60}분 간격\n"
+            f"🔄 Git 업데이트 체크: {self.git_check_interval//60}분 간격\n"
+            f"📊 정기 상태 알림: {self.status_notification_interval//60}분 간격\n"
             f"🚀 자동 복구 기능 활성화"
         )
         
@@ -395,6 +433,11 @@ class PoscoMonitorWatchHamster:
                     if self.check_git_updates():
                         self.apply_git_update()
                     self.last_git_check = current_time
+                
+                # 정기 상태 알림 (1시간마다)
+                if (current_time - self.last_status_notification).total_seconds() >= self.status_notification_interval:
+                    self.send_status_notification()
+                    self.last_status_notification = current_time
                 
                 # 상태 저장
                 self.save_status()
