@@ -26,26 +26,19 @@ class HTMLReportGenerator:
     HTML 리포트 생성 클래스
     """
     
-    def __init__(self, reports_dir="reports", docs_dir="docs"):
+    def __init__(self, reports_dir="reports"):
         """
         HTML 리포트 생성기 초기화
         
         Args:
             reports_dir (str): 로컬 리포트 저장 디렉토리
-            docs_dir (str): GitHub Pages용 문서 디렉토리
         """
         self.reports_dir = Path(reports_dir)
-        self.docs_dir = Path(docs_dir)
         self.reports_dir.mkdir(exist_ok=True)
-        self.docs_dir.mkdir(exist_ok=True)
-        
-        # docs/reports 디렉토리도 생성
-        self.docs_reports_dir = self.docs_dir / "reports"
-        self.docs_reports_dir.mkdir(exist_ok=True)
     
     def generate_report(self, analysis_result, news_type, display_name):
         """
-        HTML 리포트 생성 (로컬 + GitHub Pages)
+        HTML 리포트 생성 (로컬만)
         
         Args:
             analysis_result (dict): 분석 결과
@@ -67,20 +60,11 @@ class HTMLReportGenerator:
         with open(local_filepath, 'w', encoding='utf-8') as f:
             f.write(html_content)
         
-        # GitHub Pages용 저장
-        docs_filepath = self.docs_reports_dir / filename
-        with open(docs_filepath, 'w', encoding='utf-8') as f:
-            f.write(html_content)
-        
-        # 대시보드 업데이트
-        self._update_dashboard(analysis_result, news_type, display_name, filename)
-        
-        # 리포트 목록 업데이트
-        self._update_report_list()
+        # GitHub Pages 자동 배포 (백그라운드)
+        self._deploy_to_github_pages()
         
         return {
             'local_path': str(local_filepath),
-            'docs_path': str(docs_filepath),
             'web_url': f"https://shuserker.github.io/infomax_api/reports/{filename}"
         }
     
@@ -983,4 +967,34 @@ class HTMLReportGenerator:
             os.chdir(original_cwd)
                 
         except Exception as e:
-            print(f"리포트 목록 업데이트 실패: {e}") 
+            print(f"리포트 목록 업데이트 실패: {e}")     de
+f _deploy_to_github_pages(self):
+        """
+        GitHub Pages 자동 배포 (백그라운드)
+        """
+        try:
+            import subprocess
+            import threading
+            
+            def deploy():
+                try:
+                    # Windows 환경에서 배포 스크립트 실행
+                    script_path = Path(__file__).parent.parent / "deploy_to_pages.bat"
+                    if script_path.exists():
+                        subprocess.run([str(script_path)], 
+                                     cwd=script_path.parent, 
+                                     capture_output=True, 
+                                     timeout=60)
+                        print("✅ GitHub Pages 자동 배포 완료")
+                    else:
+                        print("⚠️ 배포 스크립트를 찾을 수 없습니다.")
+                except Exception as e:
+                    print(f"⚠️ GitHub Pages 자동 배포 실패: {e}")
+            
+            # 백그라운드에서 실행 (메인 프로세스 블로킹 방지)
+            thread = threading.Thread(target=deploy)
+            thread.daemon = True
+            thread.start()
+            
+        except Exception as e:
+            print(f"⚠️ 자동 배포 스레드 생성 실패: {e}")
