@@ -2714,8 +2714,8 @@ class DoorayNotifier:
             from reports.html_report_generator import HTMLReportGenerator
             report_generator = HTMLReportGenerator()
             report_result = report_generator.generate_report(analysis_result, news_type, display_name)
-            message += f"📊 [{display_name} 고급 분석](https://shuserker.github.io/infomax_api/)\n"
-            message += f"💡 대시보드에서 모든 분석 리포트를 확인하실 수 있습니다.\n\n"
+            message += f"📊 [{display_name} 고급 분석]({report_result['web_url']})\n"
+            message += f"🌐 [전체 대시보드](https://shuserker.github.io/infomax_api/)\n\n"
         except Exception as e:
             message += f"⚠️ 리포트 생성 실패: {str(e)}\n\n"
         
