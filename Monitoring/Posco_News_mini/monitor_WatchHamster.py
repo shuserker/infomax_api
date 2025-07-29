@@ -87,14 +87,23 @@ class PoscoMonitorWatchHamster:
         로그 메시지 기록
         
         콘솔과 로그 파일에 타임스탬프와 함께 메시지를 기록합니다.
+        Windows 콘솔 인코딩 문제를 해결합니다.
         
         Args:
             message (str): 기록할 로그 메시지
         """
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         log_message = f"[{timestamp}] {message}"
-        print(log_message)
         
+        # Windows 콘솔 출력 시 인코딩 문제 해결
+        try:
+            print(log_message)
+        except UnicodeEncodeError:
+            # 콘솔에서 한글 출력 실패 시 영어로 대체
+            safe_message = message.encode('ascii', 'ignore').decode('ascii')
+            print(f"[{timestamp}] {safe_message}")
+        
+        # 로그 파일에는 항상 UTF-8로 저장
         try:
             with open(self.log_file, "a", encoding="utf-8") as f:
                 f.write(log_message + "\n")
@@ -192,20 +201,20 @@ class PoscoMonitorWatchHamster:
             return False
     
     def apply_git_update(self):
-        """Git 업데이트 적용"""
+        """Git 업데이트 적용 - 성능 최적화"""
         try:
             self.log("🔄 Git 업데이트 적용 중...")
             
             # 현재 프로세스 중지
             self.stop_monitor_process()
             
-            # Git pull 실행
+            # Git pull 실행 (shallow fetch로 성능 향상)
             result = subprocess.run(
-                ["git", "pull", "origin", "main"],
+                ["git", "pull", "--depth=1", "origin", "main"],
                 cwd=self.script_dir,
                 capture_output=True,
                 text=True,
-                timeout=60
+                timeout=30  # 타임아웃 단축
             )
             
             if result.returncode == 0:
@@ -352,11 +361,26 @@ class PoscoMonitorWatchHamster:
             except:
                 api_status = "🟡 API 확인 불가"
             
+            # 시스템 리소스 정보 수집
+            try:
+                cpu_percent = psutil.cpu_percent(interval=1)
+                memory = psutil.virtual_memory()
+                disk = psutil.disk_usage('.')
+                
+                resource_info = (
+                    f"💻 CPU 사용률: {cpu_percent:.1f}%\n"
+                    f"🧠 메모리 사용률: {memory.percent:.1f}%\n"
+                    f"💾 디스크 사용률: {disk.percent:.1f}%"
+                )
+            except:
+                resource_info = "📊 시스템 정보 수집 실패"
+            
             self.send_notification(
                 f"🐹 POSCO 워치햄스터 🛡️ 정기 상태 보고\n\n"
                 f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
                 f"🔍 모니터링 프로세스: {monitor_status}\n"
                 f"🌐 API 연결: {api_status}\n"
+                f"{resource_info}\n"
                 f"⏰ 다음 보고: {(current_time + timedelta(hours=1)).strftime('%H:%M')}\n"
                 f"🚀 자동 복구 기능: 활성화"
             )
@@ -366,9 +390,32 @@ class PoscoMonitorWatchHamster:
         except Exception as e:
             self.log(f"❌ 정기 상태 알림 실패: {e}")
     
+    def manage_log_file(self):
+        """로그 파일 크기 관리 - 10MB 초과 시 백업 후 새로 시작"""
+        try:
+            if os.path.exists(self.log_file):
+                file_size = os.path.getsize(self.log_file)
+                max_size = 10 * 1024 * 1024  # 10MB
+                
+                if file_size > max_size:
+                    # 백업 파일명 생성
+                    backup_name = f"WatchHamster_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+                    backup_path = os.path.join(self.script_dir, backup_name)
+                    
+                    # 기존 로그 파일을 백업으로 이동
+                    os.rename(self.log_file, backup_path)
+                    
+                    self.log(f"📁 로그 파일 백업 완료: {backup_name}")
+                    
+        except Exception as e:
+            print(f"[ERROR] 로그 파일 관리 실패: {e}")
+    
     def save_status(self):
         """현재 상태 저장"""
         try:
+            # 로그 파일 크기 관리
+            self.manage_log_file()
+            
             status = {
                 "last_check": datetime.now().isoformat(),
                 "monitor_running": self.is_monitor_running(),
@@ -439,10 +486,14 @@ class PoscoMonitorWatchHamster:
                     self.send_status_notification()
                     self.last_status_notification = current_time
                 
-                # 상태 저장
+                # 상태 저장 (메모리 최적화)
                 self.save_status()
                 
-                # 대기
+                # 메모리 정리 (가비지 컬렉션)
+                import gc
+                gc.collect()
+                
+                # 대기 (CPU 사용률 최적화)
                 time.sleep(self.process_check_interval)
                 
         except KeyboardInterrupt:
