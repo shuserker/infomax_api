@@ -960,7 +960,7 @@ class HTMLReportGenerator:
     
     def _deploy_to_github_pages(self, analysis_result, news_type, display_name, filename):
         """
-        GitHub Pages 자동 배포 (백그라운드)
+        GitHub Pages 자동 배포 (간단한 방식)
         """
         try:
             import subprocess
@@ -971,36 +971,41 @@ class HTMLReportGenerator:
                     # HTML 템플릿 생성
                     html_content = self._create_html_template(analysis_result, news_type, display_name)
                     
-                    # 임시 파일로 저장
-                    temp_file = Path("temp_report.html")
-                    with open(temp_file, 'w', encoding='utf-8') as f:
+                    # 현재 브랜치 저장
+                    current_branch = subprocess.run(['git', 'branch', '--show-current'], 
+                                                  capture_output=True, text=True).stdout.strip()
+                    
+                    # publish 브랜치로 전환
+                    subprocess.run(['git', 'checkout', 'publish'], capture_output=True)
+                    
+                    # reports 디렉토리 생성 (없으면)
+                    reports_dir = Path('reports')
+                    reports_dir.mkdir(exist_ok=True)
+                    
+                    # HTML 파일 저장
+                    report_file = reports_dir / filename
+                    with open(report_file, 'w', encoding='utf-8') as f:
                         f.write(html_content)
                     
-                    # Windows 환경에서 배포 스크립트 실행
-                    script_path = Path(__file__).parent.parent / "deploy_to_pages.bat"
-                    if script_path.exists():
-                        # 파일명을 환경변수로 전달
-                        env = os.environ.copy()
-                        env['REPORT_FILENAME'] = filename
-                        env['TEMP_REPORT_FILE'] = str(temp_file)
-                        
-                        subprocess.run([str(script_path)], 
-                                     cwd=script_path.parent, 
-                                     capture_output=True, 
-                                     timeout=60,
-                                     env=env)
-                        print("✅ GitHub Pages 자동 배포 완료")
-                    else:
-                        print("⚠️ 배포 스크립트를 찾을 수 없습니다.")
+                    # Git 커밋 및 푸시
+                    subprocess.run(['git', 'add', '.'], capture_output=True)
+                    subprocess.run(['git', 'commit', '-m', f'🚀 자동 배포: {filename}'], capture_output=True)
+                    subprocess.run(['git', 'push', 'origin', 'publish'], capture_output=True)
                     
-                    # 임시 파일 삭제
-                    if temp_file.exists():
-                        temp_file.unlink()
+                    # 원래 브랜치로 복귀
+                    subprocess.run(['git', 'checkout', current_branch], capture_output=True)
+                    
+                    print("✅ GitHub Pages 자동 배포 완료")
                         
                 except Exception as e:
                     print(f"⚠️ GitHub Pages 자동 배포 실패: {e}")
+                    # 오류 시 main 브랜치로 복귀
+                    try:
+                        subprocess.run(['git', 'checkout', 'main'], capture_output=True)
+                    except:
+                        pass
             
-            # 백그라운드에서 실행 (메인 프로세스 블로킹 방지)
+            # 백그라운드에서 실행
             thread = threading.Thread(target=deploy)
             thread.daemon = True
             thread.start()
