@@ -2714,8 +2714,7 @@ class DoorayNotifier:
             from reports.html_report_generator import HTMLReportGenerator
             report_generator = HTMLReportGenerator()
             report_result = report_generator.generate_report(analysis_result, news_type, display_name)
-            message += f"📄 상세 리포트가 생성되었습니다:\n"
-            message += f"🌐 {report_result['web_url']}\n\n"
+            message += f"📄 [{report_result['display_name']} 상세 리포트 보기]({report_result['web_url']})\n\n"
         except Exception as e:
             message += f"⚠️ 리포트 생성 실패: {str(e)}\n\n"
         

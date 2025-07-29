@@ -26,19 +26,15 @@ class HTMLReportGenerator:
     HTML 리포트 생성 클래스
     """
     
-    def __init__(self, reports_dir="reports"):
+    def __init__(self):
         """
-        HTML 리포트 생성기 초기화
-        
-        Args:
-            reports_dir (str): 로컬 리포트 저장 디렉토리
+        HTML 리포트 생성기 초기화 (GitHub Pages 전용)
         """
-        self.reports_dir = Path(reports_dir)
-        self.reports_dir.mkdir(exist_ok=True)
+        pass
     
     def generate_report(self, analysis_result, news_type, display_name):
         """
-        HTML 리포트 생성 (로컬만)
+        HTML 리포트 생성 (GitHub Pages 전용)
         
         Args:
             analysis_result (dict): 분석 결과
@@ -46,26 +42,19 @@ class HTMLReportGenerator:
             display_name (str): 표시명
             
         Returns:
-            dict: 생성된 파일 경로들
+            dict: 생성된 파일 정보
         """
-        # HTML 템플릿 생성
-        html_content = self._create_html_template(analysis_result, news_type, display_name)
-        
         # 파일명 생성
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"posco_analysis_{news_type}_{timestamp}.html"
         
-        # 로컬 저장
-        local_filepath = self.reports_dir / filename
-        with open(local_filepath, 'w', encoding='utf-8') as f:
-            f.write(html_content)
-        
         # GitHub Pages 자동 배포 (백그라운드)
-        self._deploy_to_github_pages()
+        self._deploy_to_github_pages(analysis_result, news_type, display_name, filename)
         
         return {
-            'local_path': str(local_filepath),
-            'web_url': f"https://shuserker.github.io/infomax_api/reports/{filename}"
+            'filename': filename,
+            'web_url': f"https://shuserker.github.io/infomax_api/reports/{filename}",
+            'display_name': display_name
         }
     
     def _create_html_template(self, analysis_result, news_type, display_name):
@@ -967,8 +956,9 @@ class HTMLReportGenerator:
             os.chdir(original_cwd)
                 
         except Exception as e:
-            print(f"리포트 목록 업데이트 실패: {e}")     de
-f _deploy_to_github_pages(self):
+            print(f"리포트 목록 업데이트 실패: {e}")
+    
+    def _deploy_to_github_pages(self, analysis_result, news_type, display_name, filename):
         """
         GitHub Pages 자동 배포 (백그라운드)
         """
@@ -978,16 +968,35 @@ f _deploy_to_github_pages(self):
             
             def deploy():
                 try:
+                    # HTML 템플릿 생성
+                    html_content = self._create_html_template(analysis_result, news_type, display_name)
+                    
+                    # 임시 파일로 저장
+                    temp_file = Path("temp_report.html")
+                    with open(temp_file, 'w', encoding='utf-8') as f:
+                        f.write(html_content)
+                    
                     # Windows 환경에서 배포 스크립트 실행
                     script_path = Path(__file__).parent.parent / "deploy_to_pages.bat"
                     if script_path.exists():
+                        # 파일명을 환경변수로 전달
+                        env = os.environ.copy()
+                        env['REPORT_FILENAME'] = filename
+                        env['TEMP_REPORT_FILE'] = str(temp_file)
+                        
                         subprocess.run([str(script_path)], 
                                      cwd=script_path.parent, 
                                      capture_output=True, 
-                                     timeout=60)
+                                     timeout=60,
+                                     env=env)
                         print("✅ GitHub Pages 자동 배포 완료")
                     else:
                         print("⚠️ 배포 스크립트를 찾을 수 없습니다.")
+                    
+                    # 임시 파일 삭제
+                    if temp_file.exists():
+                        temp_file.unlink()
+                        
                 except Exception as e:
                     print(f"⚠️ GitHub Pages 자동 배포 실패: {e}")
             

@@ -16,12 +16,11 @@ if not exist "docs" (
 REM publish 브랜치로 전환
 git checkout publish
 
-REM main 브랜치에서 docs 폴더 내용 가져오기
-git checkout main -- Monitoring/Posco_News_mini/docs
-
-REM docs 내용을 루트로 이동
-xcopy /E /Y Monitoring\Posco_News_mini\docs\* .
-rmdir /S /Q Monitoring
+REM 임시 리포트 파일이 있으면 reports 폴더로 복사
+if exist "%TEMP_REPORT_FILE%" (
+    if not exist "reports" mkdir reports
+    copy "%TEMP_REPORT_FILE%" "reports\%REPORT_FILENAME%"
+)
 
 REM 변경사항 커밋
 git add .
