@@ -3181,15 +3181,38 @@ class PoscoNewsMonitor:
         
         log_with_timestamp(f"기본 모니터링 시작 (간격: {interval_minutes}분)", "INFO")
         
+        # 모니터링 시작 알림
+        self.notifier.send_notification(
+            f"🚀 POSCO 뉴스 모니터링 서비스 시작\n\n"
+            f"📅 시작 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+            f"⏰ 체크 간격: {interval_minutes}분\n"
+            f"🔄 모드: 기본 모니터링\n"
+            f"🎯 대상: 3개 뉴스 타입"
+        )
+        
         try:
             while True:
                 self.check_silent()
                 time.sleep(interval_minutes * 60)
         except KeyboardInterrupt:
             log_with_timestamp("모니터링 중단됨", "INFO")
+            # 모니터링 중단 알림
+            self.notifier.send_notification(
+                f"🛑 POSCO 뉴스 모니터링 서비스 중단\n\n"
+                f"📅 중단 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+                f"🔄 모드: 기본 모니터링\n"
+                f"💡 사용자 요청에 의한 정상 중단"
+            )
         except Exception as e:
             log_with_timestamp(f"모니터링 오류: {e}", "ERROR")
-            self.notifier.send_notification(f"모니터링 오류 발생: {e}", is_error=True)
+            # 모니터링 오류 알림
+            self.notifier.send_notification(
+                f"❌ POSCO 뉴스 모니터링 서비스 오류 중단\n\n"
+                f"📅 중단 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+                f"❌ 오류: {str(e)}\n"
+                f"🔧 워치햄스터가 자동 복구를 시도합니다.",
+                is_error=True
+            )
     
     def start_smart_monitoring(self):
         """
@@ -3200,6 +3223,16 @@ class PoscoNewsMonitor:
         from utils import log_with_timestamp
         
         log_with_timestamp("스마트 모니터링 시작", "INFO")
+        
+        # 스마트 모니터링 시작 알림
+        self.notifier.send_notification(
+            f"🧠 POSCO 뉴스 스마트 모니터링 서비스 시작\n\n"
+            f"📅 시작 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+            f"🎯 모드: 시간대별 적응형 모니터링\n"
+            f"⚡ 집중시간: 06:00-08:00, 15:00-17:00 (20분 간격)\n"
+            f"📊 일반시간: 07:00-18:00 (2시간 간격)\n"
+            f"💤 야간모드: 18:00-07:00 (변경사항만 알림)"
+        )
         
         try:
             while True:
@@ -3213,9 +3246,23 @@ class PoscoNewsMonitor:
                 
         except KeyboardInterrupt:
             log_with_timestamp("스마트 모니터링 중단됨", "INFO")
+            # 스마트 모니터링 중단 알림
+            self.notifier.send_notification(
+                f"🛑 POSCO 뉴스 스마트 모니터링 서비스 중단\n\n"
+                f"📅 중단 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+                f"🧠 모드: 스마트 모니터링\n"
+                f"💡 사용자 요청에 의한 정상 중단"
+            )
         except Exception as e:
             log_with_timestamp(f"스마트 모니터링 오류: {e}", "ERROR")
-            self.notifier.send_notification(f"모니터링 오류 발생: {e}", is_error=True)
+            # 스마트 모니터링 오류 알림
+            self.notifier.send_notification(
+                f"❌ POSCO 뉴스 스마트 모니터링 서비스 오류 중단\n\n"
+                f"📅 중단 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+                f"❌ 오류: {str(e)}\n"
+                f"🔧 워치햄스터가 자동 복구를 시도합니다.",
+                is_error=True
+            )
     
     def _send_simple_status_notification(self, current_data, status_info):
         """
