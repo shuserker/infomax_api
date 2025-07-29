@@ -29,10 +29,21 @@ jobs:
         cd Monitoring/Posco_News_mini
         python run_monitor.py 8
         
+    - name: Create dashboard
+      run: |
+        cd Monitoring/Posco_News_mini
+        python -c "
+        from reports.report_manager import ReportManager
+        manager = ReportManager()
+        manager.generate_dashboard_html()
+        print('Dashboard created successfully')
+        "
+        
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/main'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./Monitoring/Posco_News_mini/docs
-        publish_branch: gh-pages 
+        publish_dir: ./Monitoring/Posco_News_mini/reports
+        publish_branch: publish
+        force_orphan: true 

@@ -34,7 +34,7 @@ class HTMLReportGenerator:
     
     def generate_report(self, analysis_result, news_type, display_name):
         """
-        HTML 리포트 생성 (GitHub Pages 전용)
+        HTML 리포트 생성 (GitHub Actions 배포 방식)
         
         Args:
             analysis_result (dict): 분석 결과
@@ -48,8 +48,19 @@ class HTMLReportGenerator:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"posco_analysis_{news_type}_{timestamp}.html"
         
-        # GitHub Pages 자동 배포 (백그라운드)
-        self._deploy_to_github_pages(analysis_result, news_type, display_name, filename)
+        # HTML 템플릿 생성
+        html_content = self._create_html_template(analysis_result, news_type, display_name)
+        
+        # reports 디렉토리에 파일 저장
+        reports_dir = Path('reports')
+        reports_dir.mkdir(exist_ok=True)
+        
+        report_file = reports_dir / filename
+        with open(report_file, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        
+        # GitHub Actions에서 자동 배포하므로 여기서는 저장만
+        print(f"✅ 리포트 생성 완료: {filename}")
         
         return {
             'filename': filename,
