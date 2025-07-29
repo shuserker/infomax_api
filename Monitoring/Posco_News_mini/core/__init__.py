@@ -3221,10 +3221,15 @@ class PoscoNewsMonitor:
         
         try:
             while True:
-                current_hour = datetime.now().hour
+                current_time = datetime.now()
+                current_hour = current_time.hour
+                current_minute = current_time.minute
                 interval = self._get_smart_interval(current_hour)
                 
                 log_with_timestamp(f"스마트 간격: {interval}분 (현재 시간: {current_hour}시)", "INFO")
+                
+                # 특별 이벤트 체크
+                self._check_special_events(current_hour, current_minute)
                 
                 self.check_silent()
                 time.sleep(interval * 60)
@@ -3265,6 +3270,32 @@ class PoscoNewsMonitor:
             previous_data (dict): 직전 영업일 뉴스 데이터
         """
         self.notifier.send_comparison_notification(current_data, previous_data)
+    
+    def _check_special_events(self, current_hour, current_minute):
+        """
+        스마트 모니터링 특별 이벤트 체크
+        
+        Args:
+            current_hour (int): 현재 시간
+            current_minute (int): 현재 분
+        """
+        from utils import log_with_timestamp
+        
+        # 08:00 전일비교 (영업일 비교 분석)
+        if current_hour == 8 and current_minute == 0:
+            log_with_timestamp("🎯 특별 이벤트: 08:00 전일비교 실행", "INFO")
+            try:
+                self.check_extended()
+            except Exception as e:
+                log_with_timestamp(f"❌ 08:00 전일비교 실패: {e}", "ERROR")
+        
+        # 18:00 일일요약
+        if current_hour == 18 and current_minute == 0:
+            log_with_timestamp("🎯 특별 이벤트: 18:00 일일요약 실행", "INFO")
+            try:
+                self.send_daily_summary()
+            except Exception as e:
+                log_with_timestamp(f"❌ 18:00 일일요약 실패: {e}", "ERROR")
     
     def _get_smart_interval(self, current_hour):
         """

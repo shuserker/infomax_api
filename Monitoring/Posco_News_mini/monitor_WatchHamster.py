@@ -80,7 +80,17 @@ class PoscoMonitorWatchHamster:
         self.last_status_notification = datetime.now()  # 마지막 상태 알림 시간
         self.git_check_interval = 60 * 60  # 1시간마다 Git 체크 (POSCO 뉴스 특성상 급한 업데이트 드뭄)
         self.process_check_interval = 5 * 60  # 5분마다 프로세스 체크 (뉴스 발행 간격 고려)
-        self.status_notification_interval = 60 * 60  # 1시간마다 정기 상태 알림
+        self.status_notification_interval = 2 * 60 * 60  # 2시간마다 정기 상태 알림
+        
+        # 스케줄 작업 추적
+        self.last_scheduled_tasks = {
+            'morning_status_check': None,
+            'morning_comparison': None,
+            'evening_daily_summary': None,
+            'evening_detailed_summary': None,
+            'evening_advanced_analysis': None,
+            'hourly_status_check': None
+        }
         
     def log(self, message):
         """
@@ -341,8 +351,74 @@ class PoscoMonitorWatchHamster:
         except Exception as e:
             self.log(f"❌ 모니터링 프로세스 중지 오류: {e}")
     
+    def execute_scheduled_task(self, task_type, task_name):
+        """스케줄된 작업 실행"""
+        try:
+            self.log(f"📅 스케줄 작업 실행: {task_name}")
+            
+            import subprocess
+            result = subprocess.run(
+                ["python", "run_monitor.py", task_type],
+                cwd=self.script_dir,
+                capture_output=True,
+                text=True,
+                timeout=300  # 5분 타임아웃
+            )
+            
+            if result.returncode == 0:
+                self.log(f"✅ {task_name} 완료")
+            else:
+                self.log(f"❌ {task_name} 실패: {result.stderr}")
+                
+        except Exception as e:
+            self.log(f"❌ {task_name} 오류: {e}")
+    
+    def check_scheduled_tasks(self):
+        """스케줄된 작업 체크 및 실행"""
+        current_time = datetime.now()
+        current_hour = current_time.hour
+        current_minute = current_time.minute
+        today_key = current_time.strftime('%Y-%m-%d')
+        
+        # 매일 06:00 - 현재 상태 체크
+        if current_hour == 6 and current_minute == 0:
+            if self.last_scheduled_tasks['morning_status_check'] != today_key:
+                self.execute_scheduled_task("1", "아침 현재 상태 체크")
+                self.last_scheduled_tasks['morning_status_check'] = today_key
+        
+        # 매일 06:10 - 영업일 비교 분석
+        if current_hour == 6 and current_minute == 10:
+            if self.last_scheduled_tasks['morning_comparison'] != today_key:
+                self.execute_scheduled_task("2", "아침 영업일 비교 분석")
+                self.last_scheduled_tasks['morning_comparison'] = today_key
+        
+        # 매일 18:00 - 일일 요약 리포트
+        if current_hour == 18 and current_minute == 0:
+            if self.last_scheduled_tasks['evening_daily_summary'] != today_key:
+                self.execute_scheduled_task("5", "저녁 일일 요약 리포트")
+                self.last_scheduled_tasks['evening_daily_summary'] = today_key
+        
+        # 매일 18:10 - 상세 일일 요약
+        if current_hour == 18 and current_minute == 10:
+            if self.last_scheduled_tasks['evening_detailed_summary'] != today_key:
+                self.execute_scheduled_task("7", "저녁 상세 일일 요약")
+                self.last_scheduled_tasks['evening_detailed_summary'] = today_key
+        
+        # 매일 18:20 - 고급 분석
+        if current_hour == 18 and current_minute == 20:
+            if self.last_scheduled_tasks['evening_advanced_analysis'] != today_key:
+                self.execute_scheduled_task("8", "저녁 고급 분석")
+                self.last_scheduled_tasks['evening_advanced_analysis'] = today_key
+        
+        # 매일 07:00~17:30 매시간 정각 - 현재 상태 체크
+        if 7 <= current_hour <= 17 and current_minute == 0:
+            hourly_key = f"{today_key}-{current_hour:02d}"
+            if self.last_scheduled_tasks['hourly_status_check'] != hourly_key:
+                self.execute_scheduled_task("1", f"정시 상태 체크 ({current_hour}시)")
+                self.last_scheduled_tasks['hourly_status_check'] = hourly_key
+    
     def send_status_notification(self):
-        """정기 상태 알림 전송 (1시간마다)"""
+        """정기 상태 알림 전송 (2시간마다)"""
         try:
             current_time = datetime.now()
             monitor_status = "🟢 정상 작동" if self.is_monitor_running() else "🔴 중단됨"
@@ -381,7 +457,7 @@ class PoscoMonitorWatchHamster:
                 f"🔍 모니터링 프로세스: {monitor_status}\n"
                 f"🌐 API 연결: {api_status}\n"
                 f"{resource_info}\n"
-                f"⏰ 다음 보고: {(current_time + timedelta(hours=1)).strftime('%H:%M')}\n"
+                f"⏰ 다음 보고: {(current_time + timedelta(hours=2)).strftime('%H:%M')}\n"
                 f"🚀 자동 복구 기능: 활성화"
             )
             
@@ -439,6 +515,7 @@ class PoscoMonitorWatchHamster:
             f"🔍 프로세스 감시: {self.process_check_interval//60}분 간격\n"
             f"🔄 Git 업데이트 체크: {self.git_check_interval//60}분 간격\n"
             f"📊 정기 상태 알림: {self.status_notification_interval//60}분 간격\n"
+            f"📅 스케줄 작업: 06:00, 06:10, 18:00, 18:10, 18:20, 07-17시 매시간\n"
             f"🚀 자동 복구 기능 활성화"
         )
         
@@ -481,7 +558,10 @@ class PoscoMonitorWatchHamster:
                         self.apply_git_update()
                     self.last_git_check = current_time
                 
-                # 정기 상태 알림 (1시간마다)
+                # 스케줄된 작업 체크 및 실행
+                self.check_scheduled_tasks()
+                
+                # 정기 상태 알림 (2시간마다)
                 if (current_time - self.last_status_notification).total_seconds() >= self.status_notification_interval:
                     self.send_status_notification()
                     self.last_status_notification = current_time
