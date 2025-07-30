@@ -856,6 +856,73 @@ class DoorayNotifier:
         
         return False
     
+    def send_simple_daily_summary(self, current_data):
+        """
+        간단한 일일 요약 알림 전송 (제목 중심)
+        
+        오늘 발행된 뉴스들의 제목과 발행 시간을 간결하게 요약하여 전송합니다.
+        
+        Args:
+            current_data (dict): 현재 뉴스 데이터
+        """
+        if not current_data:
+            self.send_notification("📋 일일 요약: 뉴스 데이터가 없습니다.", is_error=True)
+            return False
+        
+        message = "📋 일일 요약 (간단)\n\n"
+        today_info = self._get_today_info()
+        today_date = today_info['kr_format']
+        
+        news_count = 0
+        for news_type, news_data in current_data.items():
+            if not news_data or not news_data.get('title'):
+                continue
+                
+            news_config = NEWS_TYPES.get(news_type, {})
+            display_name = news_config.get('display_name', news_type.upper())
+            emoji = news_config.get('emoji', '📰')
+            
+            title = news_data.get('title', '')
+            date = news_data.get('date', '')
+            time = news_data.get('time', '')
+            
+            if title:
+                news_count += 1
+                datetime_str = self._format_datetime(date, time) if date and time else "시간 정보 없음"
+                message += f"{emoji} {display_name}\n"
+                message += f"├ 제목: {title}\n"
+                message += f"└ 발행: {datetime_str}\n\n"
+        
+        if news_count == 0:
+            message += "📭 오늘 발행된 뉴스가 없습니다.\n"
+        else:
+            message += f"📊 총 {news_count}건의 뉴스가 발행되었습니다."
+        
+        payload = {
+            "botName": "POSCO 뉴스 📋",
+            "botIconImage": self.bot_profile_image_url,
+            "text": "일일 요약 (간단)",
+            "attachments": [{
+                "color": "#17a2b8",
+                "text": message
+            }]
+        }
+        
+        try:
+            response = requests.post(
+                self.webhook_url,
+                json=payload,
+                headers={'Content-Type': 'application/json'},
+                timeout=10
+            )
+            if response.status_code == 200:
+                print(f"✅ 간단 일일 요약 알림 전송 성공")
+                return True
+        except Exception as e:
+            print(f"❌ 간단 일일 요약 알림 전송 오류: {e}")
+        
+        return False
+    
     def send_detailed_daily_summary(self, current_data, previous_data=None):
         """
         상세한 일일 요약 알림 전송 (제목 + 본문 비교)
@@ -2982,13 +3049,15 @@ class PoscoNewsMonitor:
             return True
         else:
             log_with_timestamp("변경사항 없음", "INFO")
-            
-            status_info = self.data_processor.get_status_info(current_data)
-            if simple_status:
-                self._send_simple_status_notification(current_data, status_info)
-            else:
-                self.notifier.send_status_notification(current_data, status_info)
-            return False
+        
+        # 변경사항 유무와 관계없이 항상 상태 알림 전송
+        status_info = self.data_processor.get_status_info(current_data)
+        if simple_status:
+            self._send_simple_status_notification(current_data, status_info)
+        else:
+            self.notifier.send_status_notification(current_data, status_info)
+        
+        return cached_hash != current_hash
     
     def check_silent(self):
         """
@@ -3046,18 +3115,20 @@ class PoscoNewsMonitor:
             self.api_client, current_data, self.max_retry_days
         )
         
-        if previous_data:
-            self._send_comparison_notification(current_data, previous_data)
-        else:
-            log_with_timestamp("직전 영업일 데이터를 찾을 수 없음", "WARNING")
+        # 직전 영업일 데이터가 없어도 현재 데이터로 비교 분석 전송
+        self._send_comparison_notification(current_data, previous_data)
+        
+        if not previous_data:
+            log_with_timestamp("직전 영업일 데이터를 찾을 수 없음 - 현재 데이터만으로 분석", "WARNING")
         
         return True
     
     def send_daily_summary(self):
         """
-        일일 요약 리포트 전송 (기본 버전)
+        일일 요약 리포트 전송 (간단 버전)
         
-        오늘 발행된 뉴스들을 요약하여 전송합니다.
+        오늘 발행된 뉴스들을 간단하게 요약하여 전송합니다.
+        제목과 발행 시간 중심의 간결한 요약입니다.
         """
         from utils import log_with_timestamp
         
@@ -3071,18 +3142,13 @@ class PoscoNewsMonitor:
                 self.notifier.send_notification("일일 요약: 뉴스 데이터 조회 실패", is_error=True)
                 return False
             
-            # 직전 영업일 데이터 조회
-            previous_data = self.data_processor.get_previous_day_data(
-                self.api_client, current_data
-            )
-            
-            # 상세한 일일 요약 전송
-            success = self.notifier.send_detailed_daily_summary(current_data, previous_data)
+            # 간단한 일일 요약 전송 (제목 중심)
+            success = self.notifier.send_simple_daily_summary(current_data)
             
             if success:
-                log_with_timestamp("상세 일일 요약 전송 완료", "SUCCESS")
+                log_with_timestamp("간단 일일 요약 전송 완료", "SUCCESS")
             else:
-                log_with_timestamp("상세 일일 요약 전송 실패", "ERROR")
+                log_with_timestamp("간단 일일 요약 전송 실패", "ERROR")
             
             return success
             
@@ -3178,9 +3244,9 @@ class PoscoNewsMonitor:
         
         log_with_timestamp(f"기본 모니터링 시작 (간격: {interval_minutes}분)", "INFO")
         
-        # 모니터링 시작 알림 (간단하게)
+        # 기본 모니터링 시작 알림
         self.notifier.send_notification(
-            f"🚀 POSCO 뉴스 모니터링 서비스 시작"
+            f"🔄 POSCO 뉴스 기본 모니터링 시작 ({interval_minutes}분 간격)"
         )
         
         try:
@@ -3189,9 +3255,9 @@ class PoscoNewsMonitor:
                 time.sleep(interval_minutes * 60)
         except KeyboardInterrupt:
             log_with_timestamp("모니터링 중단됨", "INFO")
-            # 모니터링 중단 알림 (간단하게)
+            # 기본 모니터링 중단 알림
             self.notifier.send_notification(
-                f"🛑 POSCO 뉴스 모니터링 서비스 중단"
+                f"🛑 POSCO 뉴스 기본 모니터링 중단"
             )
         except Exception as e:
             log_with_timestamp(f"모니터링 오류: {e}", "ERROR")
@@ -3214,9 +3280,9 @@ class PoscoNewsMonitor:
         
         log_with_timestamp("스마트 모니터링 시작", "INFO")
         
-        # 스마트 모니터링 시작 알림 (간단하게)
+        # 스마트 모니터링 시작 알림 (차별화)
         self.notifier.send_notification(
-            f"🧠 POSCO 뉴스 스마트 모니터링 서비스 시작"
+            f"🧠 POSCO 뉴스 스마트 모니터링 시작 (적응형 간격 + 특별 이벤트)"
         )
         
         try:
@@ -3236,9 +3302,9 @@ class PoscoNewsMonitor:
                 
         except KeyboardInterrupt:
             log_with_timestamp("스마트 모니터링 중단됨", "INFO")
-            # 스마트 모니터링 중단 알림 (간단하게)
+            # 스마트 모니터링 중단 알림 (차별화)
             self.notifier.send_notification(
-                f"🛑 POSCO 뉴스 스마트 모니터링 서비스 중단"
+                f"🛑 POSCO 뉴스 스마트 모니터링 중단 (적응형)"
             )
         except Exception as e:
             log_with_timestamp(f"스마트 모니터링 오류: {e}", "ERROR")
