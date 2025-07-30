@@ -192,11 +192,25 @@ class NewsDataProcessor:
             'datetime': now
         }
     
+    def _format_datetime(self, date_str, time_str):
+        """
+        날짜와 시간을 포맷팅 (내부 헬퍼 메서드)
+        
+        Args:
+            date_str (str): 날짜 문자열 (YYYYMMDD)
+            time_str (str): 시간 문자열 (HHMMSS)
+            
+        Returns:
+            str: 포맷팅된 날짜시간 문자열
+        """
+        return self.format_datetime(date_str, time_str)
+    
     def get_status_info(self, current_data):
         """
-        현재 뉴스 데이터의 상태 정보 생성
+        스마트 상태 판단 시스템 - 발행 패턴 기반 상태 분석
         
-        각 뉴스 타입별로 발행 상태를 분석하고, 전체적인 상태를 판단합니다.
+        각 뉴스 타입별로 발행 상태를 분석하고, 요일별 발행 패턴을 고려하여
+        더 정확한 상태를 판단합니다.
         
         Args:
             current_data (dict): 현재 뉴스 데이터
@@ -204,11 +218,12 @@ class NewsDataProcessor:
         Returns:
             dict: 상태 정보
                 {
-                    'status': 'all_latest'|'partial_latest'|'all_old',
+                    'status': 'all_latest'|'partial_latest'|'all_old'|'expected_pattern',
                     'status_emoji': '🟢'|'🟡'|'🔴',
                     'status_text': '모든 뉴스 최신'|'일부 뉴스 최신'|'모든 뉴스 과거',
                     'details': {...},
-                    'summary': '상태 요약'
+                    'summary': '상태 요약',
+                    'smart_analysis': {...}
                 }
         """
         if not current_data:
@@ -217,22 +232,33 @@ class NewsDataProcessor:
                 'status_emoji': '⚪',
                 'status_text': '데이터 없음',
                 'details': {},
-                'summary': '뉴스 데이터가 없습니다.'
+                'summary': '뉴스 데이터가 없습니다.',
+                'smart_analysis': {'pattern_match': False, 'expected_count': 0, 'actual_count': 0}
             }
         
         today_info = self._get_today_info()
         today_date = today_info['kr_format']
+        today_weekday = today_info['weekday']
+        
+        # 스마트 분석: 오늘 요일에 예상되는 뉴스 패턴 확인
+        expected_news_types = []
+        for news_type, config in NEWS_TYPES.items():
+            if today_weekday in config.get('publish_days', []):
+                expected_news_types.append(news_type)
         
         status_details = {}
         latest_count = 0
         total_count = 0
+        expected_latest_count = 0
         
+        # 각 뉴스 타입별 상태 분석
         for news_type, news_data in current_data.items():
             if not news_data:
                 continue
                 
             news_config = NEWS_TYPES.get(news_type, {})
             display_name = news_config.get('display_name', news_type.upper())
+            is_expected_today = news_type in expected_news_types
             
             news_date = news_data.get('date', '')
             news_time = news_data.get('time', '')
@@ -242,6 +268,9 @@ class NewsDataProcessor:
             
             if news_date == today_date:
                 latest_count += 1
+                if is_expected_today:
+                    expected_latest_count += 1
+                    
                 status_details[news_type] = {
                     'status': 'latest',
                     'status_emoji': '🟢',
@@ -249,7 +278,9 @@ class NewsDataProcessor:
                     'date': news_date,
                     'time': news_time,
                     'title': news_title,
-                    'formatted_datetime': self.format_datetime(news_date, news_time)
+                    'formatted_datetime': self.format_datetime(news_date, news_time),
+                    'is_expected_today': is_expected_today,
+                    'pattern_status': 'expected' if is_expected_today else 'unexpected'
                 }
             else:
                 status_details[news_type] = {
@@ -259,33 +290,65 @@ class NewsDataProcessor:
                     'date': news_date,
                     'time': news_time,
                     'title': news_title,
-                    'formatted_datetime': self.format_datetime(news_date, news_time)
+                    'formatted_datetime': self.format_datetime(news_date, news_time),
+                    'is_expected_today': is_expected_today,
+                    'pattern_status': 'missing' if is_expected_today else 'not_expected'
                 }
         
-        # 전체 상태 판단
+        # 스마트 상태 판단
+        expected_count = len(expected_news_types)
+        pattern_match_rate = expected_latest_count / expected_count if expected_count > 0 else 0
+        
+        # 상태 결정 로직 (발행 패턴 기반)
         if total_count == 0:
             status = 'no_data'
             status_emoji = '⚪'
             status_text = '데이터 없음'
-        elif latest_count == total_count:
+        elif expected_count == 0:
+            # 오늘 발행 예정 뉴스가 없는 경우 (주말 등)
+            status = 'no_expected'
+            status_emoji = '🔵'
+            status_text = '발행 예정 없음'
+        elif pattern_match_rate >= 1.0:
+            # 예상 패턴 완전 일치
             status = 'all_latest'
-            status_emoji = STATUS_CONFIG['colors']['all_latest']
+            status_emoji = '🟢'
             status_text = '모든 뉴스 최신'
-        elif latest_count > 0:
+        elif pattern_match_rate >= 0.5:
+            # 예상 패턴 부분 일치
             status = 'partial_latest'
-            status_emoji = STATUS_CONFIG['colors']['partial_latest']
+            status_emoji = '🟡'
             status_text = '일부 뉴스 최신'
         else:
-            status = 'all_old'
-            status_emoji = STATUS_CONFIG['colors']['all_old']
-            status_text = '모든 뉴스 과거'
+            # 예상 패턴 불일치
+            status = 'pattern_mismatch'
+            status_emoji = '🔴'
+            status_text = '패턴 불일치'
         
-        # 요약 생성
+        # 스마트 분석 정보
+        smart_analysis = {
+            'pattern_match': pattern_match_rate >= 1.0,
+            'pattern_match_rate': pattern_match_rate,
+            'expected_count': expected_count,
+            'expected_latest_count': expected_latest_count,
+            'actual_count': total_count,
+            'latest_count': latest_count,
+            'weekday': today_info['weekday_name'],
+            'expected_news_types': expected_news_types,
+            'missing_expected': [nt for nt in expected_news_types if nt not in current_data or current_data[nt].get('date') != today_date],
+            'unexpected_latest': [nt for nt in current_data if nt not in expected_news_types and current_data[nt].get('date') == today_date]
+        }
+        
+        # 요약 생성 (스마트 분석 기반)
         summary_parts = []
-        if latest_count > 0:
-            summary_parts.append(f"최신: {latest_count}개")
-        if total_count - latest_count > 0:
-            summary_parts.append(f"과거: {total_count - latest_count}개")
+        if expected_count > 0:
+            summary_parts.append(f"예상: {expected_count}개")
+            summary_parts.append(f"발행: {expected_latest_count}개")
+        else:
+            summary_parts.append(f"발행예정 없음({today_info['weekday_name']})")
+        
+        if smart_analysis['unexpected_latest']:
+            summary_parts.append(f"예상외: {len(smart_analysis['unexpected_latest'])}개")
         
         summary = f"{status_text} ({', '.join(summary_parts)})"
         
@@ -296,7 +359,8 @@ class NewsDataProcessor:
             'details': status_details,
             'summary': summary,
             'latest_count': latest_count,
-            'total_count': total_count
+            'total_count': total_count,
+            'smart_analysis': smart_analysis
         }
     
     def get_expected_news_count_today(self):
@@ -536,13 +600,13 @@ class DoorayNotifier:
                 # 상태 표시 (최신/과거)
                 today_date = datetime.now().strftime('%Y%m%d')
                 if date == today_date:
-                    status_emoji = "●"  # 녹색 원
+                    status_emoji = "🟢"  # 녹색 원
                     status_text = "최신"
                 elif date:
-                    status_emoji = "●"  # 주황색 원
+                    status_emoji = "🟡"  # 주황색 원
                     status_text = "과거"
                 else:
-                    status_emoji = "●"  # 빨간색 원
+                    status_emoji = "🔴"  # 빨간색 원
                     status_text = "데이터 없음"
                 
                 message += f"├ 상태: {status_emoji} {status_text}\n"
@@ -915,6 +979,94 @@ class DoorayNotifier:
                 return True
         except Exception as e:
             print(f"❌ 간단 일일 요약 알림 전송 오류: {e}")
+        
+        return False
+    
+    def send_smart_status_notification(self, current_data, status_info):
+        """
+        스마트 상태 판단 기반 알림 전송
+        
+        발행 패턴을 고려한 더 정확한 상태 정보를 전송합니다.
+        
+        Args:
+            current_data (dict): 현재 뉴스 데이터
+            status_info (dict): 스마트 상태 분석 정보
+        """
+        smart_analysis = status_info.get('smart_analysis', {})
+        
+        # 봇 이름에 스마트 상태 정보 포함
+        status_emoji = status_info.get('status_emoji', '⚪')
+        weekday = smart_analysis.get('weekday', '?')
+        bot_name = f"POSCO 뉴스 {status_emoji}({weekday})"
+        
+        # 메시지 구성
+        message = f"📊 스마트 상태 분석 ({weekday}요일)\n\n"
+        
+        # 발행 패턴 분석
+        expected_count = smart_analysis.get('expected_count', 0)
+        expected_latest_count = smart_analysis.get('expected_latest_count', 0)
+        pattern_match_rate = smart_analysis.get('pattern_match_rate', 0)
+        
+        message += f"├ 발행 예상: {expected_count}개\n"
+        message += f"├ 실제 발행: {expected_latest_count}개\n"
+        message += f"├ 패턴 일치율: {pattern_match_rate:.1%}\n"
+        message += f"├ 전체 상태: {status_info.get('status_text', '알 수 없음')}\n\n"
+        
+        # 각 뉴스별 상세 정보
+        details = status_info.get('details', {})
+        for news_type, detail in details.items():
+            display_name = detail.get('display_name', news_type.upper())
+            status_emoji = detail.get('status_emoji', '⚪')
+            pattern_status = detail.get('pattern_status', 'unknown')
+            
+            message += f"[{display_name}]\n"
+            message += f"├ 상태: {status_emoji} {detail.get('status', '알 수 없음')}\n"
+            
+            if pattern_status == 'expected':
+                message += f"├ 패턴: ✅ 예상대로 발행\n"
+            elif pattern_status == 'unexpected':
+                message += f"├ 패턴: ⚠️ 예상외 발행\n"
+            elif pattern_status == 'missing':
+                message += f"├ 패턴: ❌ 발행 예상이나 누락\n"
+            else:
+                message += f"├ 패턴: ❓ 발행 예정 없음\n"
+            
+            formatted_datetime = detail.get('formatted_datetime', '시간 정보 없음')
+            message += f"└ 시간: {formatted_datetime}\n\n"
+        
+        # 예상외 발행 및 누락 정보
+        unexpected = smart_analysis.get('unexpected_latest', [])
+        missing = smart_analysis.get('missing_expected', [])
+        
+        if unexpected:
+            message += f"⚠️ 예상외 발행: {len(unexpected)}개\n"
+        if missing:
+            message += f"❌ 발행 누락: {len(missing)}개\n"
+        
+        message += f"\n최종 확인: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        
+        payload = {
+            "botName": bot_name,
+            "botIconImage": self.bot_profile_image_url,
+            "text": f"스마트 상태 분석 ({weekday}요일)",
+            "attachments": [{
+                "color": "#17a2b8",
+                "text": message
+            }]
+        }
+        
+        try:
+            response = requests.post(
+                self.webhook_url,
+                json=payload,
+                headers={'Content-Type': 'application/json'},
+                timeout=10
+            )
+            if response.status_code == 200:
+                print(f"✅ 스마트 상태 알림 전송 성공")
+                return True
+        except Exception as e:
+            print(f"❌ 스마트 상태 알림 전송 오류: {e}")
         
         return False
     

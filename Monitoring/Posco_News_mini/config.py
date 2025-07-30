@@ -49,6 +49,109 @@ WATCHHAMSTER_WEBHOOK_URL = "https://infomax.dooray.com/services/3262462484277387
 BOT_PROFILE_IMAGE_URL = "https://raw.githubusercontent.com/shuserker/infomax_api/main/Monitoring/Posco_News_mini/posco_logo_mini.jpg"
 
 # ==========================================
+# 뉴스 모니터링 통합 설정
+# ==========================================
+NEWS_MONITOR_CONFIG = {
+    "newyork-market-watch": {
+        "display_name": "뉴욕마켓워치",
+        "emoji": "🌆",
+        "expected_publish_time": "060000",  # 06:00:00
+        "expected_time_range": {"start": "060000", "end": "070000"},  # 06:00-07:00
+        "delay_check_times": ["073000", "080000", "083000"],  # 07:30, 08:00, 08:30
+        "tolerance_minutes": 60,  # 1시간 허용 범위
+        "time_format": "5digit",  # 특수 5자리 형식 (61831)
+        "intensive_monitoring": {
+            "start_time": "060000",
+            "end_time": "080000",
+            "interval_seconds": 60
+        },
+        "delay_messages": {
+            1: "30분 지연 상태입니다.\n• 뉴욕 시장 상황에 따른 지연일 수 있습니다.",
+            2: "1시간 지연 상태입니다.\n• 주의가 필요한 지연입니다.",
+            3: "1시간 30분 이상 지연 상태입니다.\n• 심각한 지연으로 확인이 필요합니다."
+        }
+    },
+    "kospi-close": {
+        "display_name": "증시마감",
+        "emoji": "📈",
+        "expected_publish_time": "154000",  # 15:40:00
+        "expected_time_range": {"start": "153000", "end": "155000"},  # 15:30-15:50
+        "delay_check_times": ["160000", "163000", "170000"],  # 16:00, 16:30, 17:00
+        "tolerance_minutes": 10,  # ±10분 허용
+        "time_format": "6digit",  # 표준 6자리 형식 (154000)
+        "intensive_monitoring": {
+            "start_time": "153000",
+            "end_time": "173000",
+            "interval_seconds": 60
+        },
+        "delay_messages": {
+            1: "20분 지연 상태입니다.\n• 증시마감 일반적인 지연 범위입니다.",
+            2: "50분 지연 상태입니다.\n• 주의가 필요한 지연입니다.",
+            3: "1시간 20분 이상 지연 상태입니다.\n• 심각한 지연으로 확인이 필요합니다."
+        }
+    },
+    "exchange-rate": {
+        "display_name": "서환마감",
+        "emoji": "💱",
+        "expected_publish_time": "163000",  # 16:30:00
+        "expected_time_range": {"start": "162500", "end": "163500"},  # 16:25-16:35
+        "delay_check_times": ["170000", "173000", "180000"],  # 17:00, 17:30, 18:00
+        "tolerance_minutes": 5,  # ±5분 허용
+        "time_format": "6digit",  # 표준 6자리 형식 (163000)
+        "intensive_monitoring": {
+            "start_time": "160000",
+            "end_time": "183000",
+            "interval_seconds": 60
+        },
+        "delay_messages": {
+            1: "30분 지연 상태입니다.\n• 일반적인 지연 범위 내입니다.",
+            2: "1시간 지연 상태입니다.\n• 주의가 필요한 지연입니다.",
+            3: "1시간 30분 이상 지연 상태입니다.\n• 심각한 지연으로 확인이 필요합니다."
+        }
+    }
+}
+
+# ==========================================
+# 마스터 모니터링 시간대별 전략 설정
+# ==========================================
+MASTER_MONITORING_STRATEGY = {
+    "newyork_intensive": {
+        "time_range": {"start": "060000", "end": "080000"},
+        "interval": 60,
+        "description": "뉴욕마켓워치 집중 모니터링",
+        "targets": ["newyork-market-watch"]
+    },
+    "kospi_intensive": {
+        "time_range": {"start": "153000", "end": "160000"},
+        "interval": 60,
+        "description": "증시마감 집중 모니터링",
+        "targets": ["kospi-close"]
+    },
+    "dual_intensive": {
+        "time_range": {"start": "160000", "end": "170000"},
+        "interval": 60,
+        "description": "이중 집중 모니터링 (증시마감 지연 + 서환마감 정시)",
+        "targets": ["kospi-close", "exchange-rate"]
+    },
+    "exchange_intensive": {
+        "time_range": {"start": "170000", "end": "183000"},
+        "interval": 60,
+        "description": "서환마감 집중 모니터링",
+        "targets": ["exchange-rate"]
+    },
+    "normal": {
+        "interval": 300,
+        "description": "일반 모니터링",
+        "targets": ["newyork-market-watch", "kospi-close", "exchange-rate"]
+    },
+    "weekend": {
+        "interval": 1800,
+        "description": "주말 모드 (최소 모니터링)",
+        "targets": []
+    }
+}
+
+# ==========================================
 # 모니터링 동작 설정
 # ==========================================
 MONITORING_CONFIG = {
