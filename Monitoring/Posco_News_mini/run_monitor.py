@@ -1,65 +1,67 @@
 # -*- coding: utf-8 -*-
 """
-POSCO 뉴스 모니터링 시스템 - 실행 스크립트 (리팩토링됨)
+POSCO 뉴스 모니터링 시스템 - 일회성 작업 실행 스크립트
 
-6가지 모니터링 옵션을 제공하는 통합 실행 스크립트입니다.
-새로운 모듈 구조로 리팩토링되어 성능과 유지보수성이 향상되었습니다.
+워치햄스터 2.0 시스템의 개별 모니터들을 사용하여 일회성 작업을 수행하는 스크립트입니다.
+24시간 지속 서비스는 monitor_WatchHamster.py를 사용하세요.
+
+🎯 역할 구분:
+    - run_monitor.py: 일회성 작업 (상태 체크, 요약, 분석 등)
+    - monitor_WatchHamster.py: 24시간 워치햄스터 서비스
 
 사용법:
     python run_monitor.py [옵션번호]
     
 옵션 상세:
     1 (기본값): 📊 현재 상태 체크 - 빠른 일회성 상태 확인
-    2: 📈 영업일 비교 체크 - 현재 vs 직전 영업일 상세 비교
-    3: 🧠 스마트 모니터링 - 적응형 간격 + 자동 리포트 (추천)
-    4: 🔄 기본 모니터링 - 60분 고정 간격 무한 실행
-    5: 📋 일일 요약 리포트 - 오늘 뉴스 + 직전 데이터 비교
-    6: 🧪 테스트 알림 - Dooray 웹훅 연결 테스트
+    2: 📈 영업일 비교 분석 - 현재 vs 직전 영업일 상세 비교
+    3: 📋 일일 요약 리포트 - 오늘 발행 뉴스 종합 요약
+    4: 📊 상세 분석 리포트 - 각 뉴스별 상세 분석
+    5: 🔍 고급 분석 리포트 - 30일 추이 및 패턴 분석
+    6: 🧪 알림 테스트 - 워치햄스터 2.0 알림 시스템 테스트
+    7: 🎛️ 마스터 모니터 통합 체크 - 전체 시스템 종합 분석
+    8: 🌆📈💱 개별 모니터 체크 - 각 뉴스별 전용 모니터 실행
 
-추천 사용법:
-    python run_monitor.py 3  # 일상 운영용 (24시간 자동)
-    python run_monitor.py 1  # 빠른 상태 확인
-    python run_monitor.py 5  # 하루 마무리 요약
-
-리팩토링 개선사항:
-    - 모듈 분리로 코드 가독성 50% 향상
-    - 메모리 사용량 30% 감소
-    - 유지보수성 70% 향상
+💡 24시간 지속 모니터링이 필요하면:
+    python monitor_WatchHamster.py
 
 작성자: AI Assistant
-최종 수정: 2025-07-28 (리팩토링)
+최종 수정: 2025-07-30 (역할 분리 완료)
 """
 
 import sys
 import os
-
-from config import MONITORING_CONFIG
-
-# ⚙️ 모니터링 간격 설정 (분 단위) - config.py에서 관리
-MONITORING_INTERVAL_MINUTES = MONITORING_CONFIG["default_interval_minutes"]
 
 # 현재 스크립트의 디렉토리를 Python 경로에 추가
 current_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, current_dir)
 
 try:
-    from core import PoscoNewsMonitor
-    from config import DOORAY_WEBHOOK_URL
+    # 워치햄스터 2.0 시스템 import
+    from newyork_monitor import NewYorkMarketMonitor
+    from kospi_monitor import KospiCloseMonitor
+    from exchange_monitor import ExchangeRateMonitor
+    from master_news_monitor import MasterNewsMonitor
+    from config import DOORAY_WEBHOOK_URL, MONITORING_CONFIG
 except ImportError as e:
-    print(f"[ERROR] 모듈 import 오류: {e}")
+    print(f"[ERROR] 워치햄스터 2.0 모듈 import 오류: {e}")
+    print("워치햄스터 2.0 시스템이 설치되지 않았습니다.")
     print("Monitoring/Posco_News_mini 폴더에서 실행해주세요.")
     print("최적화된 모듈 구조를 사용합니다.")
     sys.exit(1)
 
 def main():
     """
-    메인 실행 함수
+    일회성 작업 실행 함수
     
-    명령행 인수를 분석하여 적절한 모니터링 모드를 실행합니다.
-    웹훅 URL 검증, 모니터 객체 생성, 옵션별 실행을 담당합니다.
+    워치햄스터 2.0의 개별 모니터들을 사용하여 일회성 작업을 수행합니다.
+    24시간 지속 서비스는 monitor_WatchHamster.py를 사용하세요.
     """
-    print("[START] POSCO 뉴스 모니터 시작")
-    print("=" * 50)
+    print("[START] POSCO 뉴스 모니터 - 일회성 작업")
+    print("=" * 60)
+    print("💡 24시간 지속 모니터링: python monitor_WatchHamster.py")
+    print("🚀 일회성 작업: python run_monitor.py [옵션]")
+    print()
     
     # 웹훅 URL 확인
     if not DOORAY_WEBHOOK_URL or "YOUR_WEBHOOK_TOKEN_HERE" in DOORAY_WEBHOOK_URL:
@@ -73,8 +75,16 @@ def main():
         print()
         return
     
-    # 모니터 생성
-    monitor = PoscoNewsMonitor(DOORAY_WEBHOOK_URL)
+    # 워치햄스터 2.0 모니터들 생성
+    try:
+        newyork_monitor = NewYorkMarketMonitor()
+        kospi_monitor = KospiCloseMonitor()
+        exchange_monitor = ExchangeRateMonitor()
+        master_monitor = MasterNewsMonitor()
+        print("✅ 워치햄스터 2.0 개별 모니터 초기화 완료")
+    except Exception as e:
+        print(f"❌ 워치햄스터 2.0 초기화 실패: {e}")
+        return
     
     # 명령행 인수 확인
     if len(sys.argv) > 1:
@@ -83,72 +93,109 @@ def main():
         # 기본값: 현재 상태 체크 (가장 유용한 옵션)
         choice = "1"
     
-    print(f"실행 모드: {choice}")
-    print("1. 📊 현재 상태 체크 (변경사항 없어도 상태 알림)")
-    print("2. 📈 영업일 비교 체크 (현재 vs 직전 영업일 상세 비교)")
-    print("3. 🧠 스마트 모니터링 (뉴스 발행 패턴 기반 적응형)")
-    print(f"4. 🔄 기본 모니터링 ({MONITORING_INTERVAL_MINUTES}분 간격 무한실행)")
-    print("5. 📋 일일 요약 리포트 (오늘 발행 뉴스 요약)")
-    print("6. 🧪 테스트 알림 전송")
-    print("7. 📋 상세 일일 요약 (제목 + 본문 비교)")
-    print("8. 📊 고급 분석 (30일 추이 + 주단위 분석 + 향후 예상)")
+    print(f"🚀 일회성 작업 실행 모드: {choice}")
+    print("1. 📊 현재 상태 체크 (빠른 일회성 상태 확인)")
+    print("2. 📈 영업일 비교 분석 (현재 vs 직전 영업일 상세 비교)")
+    print("3. 📋 일일 요약 리포트 (오늘 발행 뉴스 종합 요약)")
+    print("4. 📊 상세 분석 리포트 (각 뉴스별 상세 분석)")
+    print("5. 🔍 고급 분석 리포트 (30일 추이 및 패턴 분석)")
+    print("6. 🧪 알림 테스트 (워치햄스터 2.0 알림 시스템 테스트)")
+    print("7. 🎛️ 마스터 모니터 통합 체크 (전체 시스템 종합 분석)")
+    print("8. 🌆📈💱 개별 모니터 체크 (각 뉴스별 전용 모니터 실행)")
+    print("8. 📊 고급 분석 (마스터 모니터 고급 분석)")
     print()
     
     try:
         if choice == "1":
-            print("[📊 현재 상태] 상태 체크 실행...")
-            print("변경사항 없어도 현재 상태를 알림으로 전송합니다.")
-            monitor.check_once()
+            print("[📊 현재 상태 체크] 빠른 일회성 상태 확인...")
+            print("🌆 뉴욕마켓워치, 📈 증시마감, 💱 서환마감 개별 모니터로 현재 상태 체크")
+            
+            # 개별 모니터로 현재 상태 체크
+            ny_result = newyork_monitor.run_single_check()
+            kospi_result = kospi_monitor.run_single_check()
+            exchange_result = exchange_monitor.run_single_check()
+            
+            print("✅ 현재 상태 체크 완료")
             
         elif choice == "2":
-            print("[📈 영업일 비교] 영업일 비교 실행...")
-            print("현재 데이터와 직전 영업일 데이터를 상세 비교합니다.")
-            monitor.check_extended()
+            print("[📈 영업일 비교 분석] 현재 vs 직전 영업일 상세 비교...")
+            print("마스터 모니터의 통합 분석으로 영업일 비교 수행")
+            
+            comparison_result = master_monitor.run_integrated_check()
+            print("✅ 영업일 비교 분석 완료")
             
         elif choice == "3":
-            print("[🧠 스마트 모니터링] 뉴스 발행 패턴 기반 적응형 모니터링 시작")
-            print("📅 운영시간: 07:00-18:00")
-            print("⚡ 집중시간: 06:00-08:00, 15:00-17:00 (20분 간격)")
-            print("📊 일반시간: 07:00-18:00 (2시간 간격)")
-            print("💤 야간 조용한 모드: 18:00-07:00 (변경사항 있을 때만 알림)")
-            print("🎯 특별이벤트: 08:00 전일비교, 18:00 일일요약")
-            print("중단하려면 Ctrl+C를 누르세요")
-            monitor.start_smart_monitoring()
+            print("[📋 일일 요약 리포트] 오늘 발행 뉴스 종합 요약...")
+            print("개별 모니터 + 마스터 모니터 통합 분석으로 완전한 일일 요약")
+            
+            # 마스터 모니터의 일일 요약
+            master_monitor.generate_daily_summary()
+            print("✅ 일일 요약 리포트 완료")
             
         elif choice == "4":
-            print(f"[🔄 기본 모니터링] 기본 모니터링 시작 ({MONITORING_INTERVAL_MINUTES}분 간격)")
-            print("중단하려면 Ctrl+C를 누르세요")
-            monitor.start_monitoring(interval_minutes=MONITORING_INTERVAL_MINUTES)
+            print("[📊 상세 분석 리포트] 각 뉴스별 상세 분석...")
+            print("각 뉴스별 전용 모니터의 상세 분석 결과")
+            
+            # 개별 모니터의 상세 분석
+            newyork_monitor.generate_detailed_analysis()
+            kospi_monitor.generate_detailed_analysis()
+            exchange_monitor.generate_detailed_analysis()
+            
+            print("✅ 상세 분석 리포트 완료")
             
         elif choice == "5":
-            print("[📋 일일 요약] 일일 요약 리포트 전송...")
-            print("오늘 발행된 뉴스들을 요약하여 전송합니다.")
-            monitor.send_daily_summary()
+            print("[🔍 고급 분석 리포트] 30일 추이 및 패턴 분석...")
+            print("마스터 모니터의 통합 고급 분석 (30일 추이, 패턴 분석, 예측)")
+            
+            # 마스터 모니터의 고급 분석
+            master_monitor.generate_advanced_analysis()
+            print("✅ 고급 분석 리포트 완료")
             
         elif choice == "6":
-            print("[🧪 테스트] 테스트 알림 전송...")
-            monitor.notifier.send_notification(
-                "POSCO 뉴스 모니터 테스트 알림입니다.\n설정이 정상적으로 완료되었습니다!"
-            )
+            print("[🧪 알림 테스트] 워치햄스터 2.0 알림 시스템 테스트...")
+            
+            # 각 개별 모니터의 알림 테스트
+            newyork_monitor.send_test_notification()
+            kospi_monitor.send_test_notification()
+            exchange_monitor.send_test_notification()
+            master_monitor.send_test_notification()
+            
+            print("✅ 모든 알림 시스템 테스트 완료")
             
         elif choice == "7":
-            print("[📋 상세 일일 요약] 상세 일일 요약 리포트 전송...")
-            print("각 뉴스 타입별로 제목과 본문을 포함한 상세한 비교 분석을 전송합니다.")
-            monitor.execute_detailed_daily_summary()
+            print("[🎛️ 마스터 모니터 통합 체크] 전체 시스템 종합 분석...")
+            print("마스터 모니터의 통합 체크로 전체 시스템 상태 분석")
+            
+            # 마스터 모니터의 통합 체크
+            integrated_result = master_monitor.run_integrated_check()
+            print("✅ 마스터 모니터 통합 체크 완료")
             
         elif choice == "8":
-            print("[📊 고급 분석] 고급 분석 리포트 전송...")
-            print("최근 30일간의 추이, 주단위 분석, 향후 예상을 포함한 고급 분석을 전송합니다.")
-            monitor.execute_advanced_analysis()
+            print("[🌆📈💱 개별 모니터 체크] 각 뉴스별 전용 모니터 실행...")
+            print("각 뉴스별 전용 모니터를 개별적으로 실행하여 상세 정보 확인")
+            
+            print("🌆 뉴욕마켓워치 모니터 실행...")
+            newyork_monitor.run_single_check()
+            
+            print("📈 증시마감 모니터 실행...")
+            kospi_monitor.run_single_check()
+            
+            print("💱 서환마감 모니터 실행...")
+            exchange_monitor.run_single_check()
+            
+            print("✅ 모든 개별 모니터 체크 완료")
             
         else:
             print("[ERROR] 잘못된 선택입니다.")
             print("사용법: python run_monitor.py [1|2|3|4|5|6|7|8]")
+            print()
+            print("💡 24시간 지속 모니터링이 필요하면:")
+            print("   python monitor_WatchHamster.py")
             
     except KeyboardInterrupt:
-        print("\n\n[STOP] 사용자에 의해 중단되었습니다.")
+        print("\n\n[STOP] 일회성 작업이 사용자에 의해 중단되었습니다.")
     except Exception as e:
-        print(f"\n[ERROR] 오류 발생: {e}")
+        print(f"\n[ERROR] 일회성 작업 오류 발생: {e}")
 
 if __name__ == "__main__":
     main()

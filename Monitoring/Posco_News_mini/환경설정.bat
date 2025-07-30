@@ -49,7 +49,8 @@ echo ========================================
 echo.
 echo 📋 다음 단계:
 echo 1. config.py에서 웹훅 URL 확인
-echo 2. POSCO_미니뉴스_스마트모니터링_실행.bat으로 시작
-echo 3. POSCO_미니뉴스_스마트모니터링_로그확인.bat으로 확인
+echo 2. 🛡️ 24시간 모니터링: POSCO_워치햄스터_시작.bat
+echo 3. 🚀 일회성 작업: 🚀일회성작업_실행.bat
+echo 4. 📊 로그 확인: POSCO_미니뉴스_스마트모니터링_로그확인.bat
 echo.
 pause

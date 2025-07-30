@@ -3215,7 +3215,19 @@ class PoscoNewsMonitor:
         """
         from utils import log_with_timestamp, get_data_hash, load_cache, save_cache
         
-        log_with_timestamp("뉴스 데이터 체크 중... (조용한 모드)", "INFO")
+        # 조용한 시간대 체크 (19:01~05:59)
+        current_time = datetime.now()
+        current_hour = current_time.hour
+        current_minute = current_time.minute
+        
+        is_quiet_hours = False
+        if (current_hour == 19 and current_minute >= 1) or current_hour >= 20 or current_hour <= 5:
+            is_quiet_hours = True
+        
+        if is_quiet_hours:
+            log_with_timestamp("뉴스 데이터 체크 중... (조용한 모드)", "INFO")
+        else:
+            log_with_timestamp("뉴스 데이터 체크 중...", "INFO")
         
         current_data = self.api_client.get_news_data()
         if not current_data:

@@ -88,10 +88,13 @@ class PoscoMonitorWatchHamster:
         self.status_file = os.path.join(self.script_dir, "WatchHamster_status.json")
         self.monitor_process = None
         self.last_git_check = datetime.now() - timedelta(hours=1)  # 초기 체크 강제
-        self.last_status_notification = datetime.now()  # 마지막 상태 알림 시간
+        # 정기 상태 알림 설정 (절대 시간 기준)
+        self.status_notification_start_hour = 7  # 시작 시간 (7시)
+        self.status_notification_interval_hours = 2  # 간격 (2시간)
+        self.last_status_notification_hour = None  # 마지막 알림 시간 (시간만 저장)
+        
         self.git_check_interval = 60 * 60  # 1시간마다 Git 체크 (POSCO 뉴스 특성상 급한 업데이트 드뭄)
         self.process_check_interval = 5 * 60  # 5분마다 프로세스 체크 (뉴스 발행 간격 고려)
-        self.status_notification_interval = 2 * 60 * 60  # 2시간마다 정기 상태 알림
         
         # 스케줄 작업 추적
         self.last_scheduled_tasks = {
@@ -459,6 +462,10 @@ class PoscoMonitorWatchHamster:
                 strategy = self.master_monitor.get_current_monitoring_strategy()
                 self.log(f"🎛️ 현재 모니터링 전략: {strategy['description']}")
             
+            # 매시간 정각 상태 체크는 조용한 시간대에도 명시적 알림 전송
+            if "정시 상태 체크" in task_name:
+                self._send_hourly_status_notification(task_name)
+            
             self.log(f"✅ {task_name} 완료 (최적화 방식)")
             
         except Exception as e:
@@ -605,17 +612,54 @@ class PoscoMonitorWatchHamster:
                 self.execute_scheduled_task("8", "저녁 고급 분석")
                 self.last_scheduled_tasks['evening_advanced_analysis'] = today_key
         
-        # 매일 07:00~17:30 매시간 정각 - 현재 상태 체크
-        if 7 <= current_hour <= 17 and current_minute == 0:
+        # 매시간 정각 - 현재 상태 체크 (24시간 절대시간 기준)
+        if current_minute == 0:
             hourly_key = f"{today_key}-{current_hour:02d}"
             if self.last_scheduled_tasks['hourly_status_check'] != hourly_key:
                 self.execute_scheduled_task("1", f"정시 상태 체크 ({current_hour}시)")
                 self.last_scheduled_tasks['hourly_status_check'] = hourly_key
     
     def is_quiet_hours(self):
-        """조용한 시간대 체크 (18시 이후)"""
-        current_hour = datetime.now().hour
-        return current_hour >= 18 or current_hour < 6
+        """조용한 시간대 체크 (19:01~05:59)"""
+        current_time = datetime.now()
+        current_hour = current_time.hour
+        current_minute = current_time.minute
+        
+        # 19:01~23:59 또는 00:00~05:59
+        if (current_hour == 19 and current_minute >= 1) or current_hour >= 20 or current_hour <= 5:
+            return True
+        return False
+    
+    def should_send_status_notification(self):
+        """
+        절대 시간 기준으로 정기 상태 알림을 보낼 시간인지 체크
+        
+        예: 7시 시작, 2시간 간격 → 7, 9, 11, 13, 15, 17시에 알림
+        워치햄스터 시작 시간과 무관하게 절대 시간 기준으로 동작
+        
+        Returns:
+            bool: 알림을 보낼 시간이면 True
+        """
+        current_time = datetime.now()
+        current_hour = current_time.hour
+        current_minute = current_time.minute
+        
+        # 정각(0분)에만 체크 (1분 이내 오차 허용)
+        if current_minute > 1:
+            return False
+        
+        # 시작 시간부터 간격에 맞는 시간인지 체크
+        if current_hour < self.status_notification_start_hour:
+            return False
+        
+        # 간격 계산: (현재시간 - 시작시간) % 간격 == 0
+        hour_diff = current_hour - self.status_notification_start_hour
+        if hour_diff % self.status_notification_interval_hours == 0:
+            # 이미 이 시간에 알림을 보냈는지 체크
+            if self.last_status_notification_hour != current_hour:
+                return True
+        
+        return False
     
     def send_status_notification(self):
         """정기 상태 알림 전송 (2시간마다, 18시 이후는 조용한 모드) - 스마트 상태 판단 적용"""
@@ -727,26 +771,24 @@ class PoscoMonitorWatchHamster:
                 resource_normal = False
                 resource_info = "📊 시스템 정보 수집 실패"
             
-            # 조용한 시간대 체크
+            # 조용한 시간대 체크 (19:01~05:59)
             if is_quiet:
-                # 18시 이후: 실제 문제가 있을 때만 알림
+                # 조용한 시간대: 중요한 문제가 있을 때만 알림
                 # 핵심 문제: 모니터링 프로세스 중단, 시스템 리소스 임계값 초과
-                # API 문제는 모니터링 프로세스가 중단된 경우에만 문제로 간주
                 has_problem = not monitor_running or not resource_normal
                 
                 if has_problem:
-                    # 실제 문제 발생 시에만 알림 전송
+                    # 중요한 문제 발생 시에만 알림 전송
                     problem_details = []
                     if not monitor_running:
                         problem_details.append("❌ 모니터링 프로세스 중단")
-                        # 모니터링 프로세스가 중단된 경우에만 API 상태도 표시
                         if not api_normal:
                             problem_details.append("❌ API 연결 문제")
                     if not resource_normal:
                         problem_details.append("❌ 시스템 리소스 임계값 초과")
                     
                     self.send_notification(
-                        f"⚠️ POSCO 워치햄스터 🛡️ 문제 감지 (야간 모드)\n\n"
+                        f"🚨 POSCO 워치햄스터 중요 문제 감지\n\n"
                         f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
                         f"🚨 감지된 문제:\n" + "\n".join(f"   • {problem}" for problem in problem_details) + "\n\n"
                         f"🔍 상세 상태:\n"
@@ -756,12 +798,12 @@ class PoscoMonitorWatchHamster:
                         f"🔧 자동 복구 시도 중...",
                         is_error=True
                     )
-                    self.log("⚠️ 야간 모드 문제 알림 전송 완료")
+                    self.log("🚨 조용한 시간대 중요 문제 알림 전송 완료")
                 else:
                     # 정상 상태: 로그만 기록, 알림 없음
-                    self.log(f"🌙 야간 모드 정상 상태 확인 (알림 없음) - {current_time.strftime('%H:%M:%S')}")
+                    self.log(f"🌙 조용한 시간대 정상 상태 확인 (알림 없음) - {current_time.strftime('%H:%M:%S')}")
             else:
-                # 18시 이전: 정상적인 상태 알림 전송
+                # 일반 시간대 (06:00~19:00): 정상적인 상태 알림 전송
                 if self.smart_enabled and smart_status_info and current_data:
                     # 스마트 상태 알림 전송
                     try:
@@ -802,15 +844,197 @@ class PoscoMonitorWatchHamster:
             api_status (str): API 연결 상태
             resource_info (str): 시스템 리소스 정보
         """
+        # 다음 알림 시간 계산 (절대 시간 기준)
+        current_hour = current_time.hour
+        next_notification_hour = None
+        
+        # 현재 시간 이후의 다음 알림 시간 찾기
+        for hour in range(current_hour + 1, 24):
+            if hour >= self.status_notification_start_hour:
+                hour_diff = hour - self.status_notification_start_hour
+                if hour_diff % self.status_notification_interval_hours == 0:
+                    next_notification_hour = hour
+                    break
+        
+        # 오늘 중에 다음 알림 시간이 없으면 내일 첫 알림 시간
+        if next_notification_hour is None:
+            next_notification_hour = self.status_notification_start_hour
+        
+        next_notification_time = f"{next_notification_hour:02d}:00"
+        
         self.send_notification(
             f"🐹 POSCO 워치햄스터 🛡️ 정기 상태 보고\n\n"
             f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
             f"🔍 모니터링 프로세스: {monitor_status}\n"
             f"🌐 API 연결: {api_status}\n"
             f"{resource_info}\n"
-            f"⏰ 다음 보고: {(current_time + timedelta(hours=2)).strftime('%H:%M')}\n"
+            f"⏰ 다음 보고: {next_notification_time} (절대시간 기준)\n"
             f"🚀 자동 복구 기능: 활성화"
         )
+    
+    def _send_hourly_status_notification(self, task_name):
+        """
+        매시간 정각 상태 체크 알림 전송 (조용한 시간대에도 명시적 알림)
+        
+        Args:
+            task_name (str): 작업명
+        """
+        try:
+            current_time = datetime.now()
+            current_hour = current_time.hour
+            is_quiet = self.is_quiet_hours()
+            
+            # 모니터링 프로세스 상태 확인
+            monitor_running = self.is_monitor_running()
+            monitor_status = "🟢 정상 작동" if monitor_running else "🔴 중단됨"
+            
+            # 스마트 상태 판단 시스템 사용
+            smart_status_info = None
+            current_data = None
+            
+            if self.smart_enabled and monitor_running:
+                try:
+                    # 현재 뉴스 데이터 조회
+                    current_data = self.api_client.get_news_data()
+                    if current_data:
+                        # 스마트 상태 분석
+                        smart_status_info = self.data_processor.get_status_info(current_data)
+                        self.log(f"🧠 매시간 스마트 상태 분석 완료: {smart_status_info.get('status_text', '알 수 없음')}")
+                    else:
+                        self.log("⚠️ 매시간 뉴스 데이터 조회 실패")
+                except Exception as e:
+                    self.log(f"⚠️ 매시간 스마트 상태 분석 실패: {e}")
+            
+            # API 상태 체크
+            api_normal = True
+            api_status = "🟢 API 정상"
+            
+            if not monitor_running and self.individual_monitors_enabled:
+                # 개별 모니터로 API 상태 확인
+                api_checks = []
+                
+                try:
+                    ny_data = self.newyork_monitor.get_current_news_data()
+                    api_checks.append(ny_data is not None)
+                except:
+                    api_checks.append(False)
+                
+                try:
+                    kospi_data = self.kospi_monitor.get_current_news_data()
+                    api_checks.append(kospi_data is not None)
+                except:
+                    api_checks.append(False)
+                
+                try:
+                    exchange_data = self.exchange_monitor.get_current_news_data()
+                    api_checks.append(exchange_data is not None)
+                except:
+                    api_checks.append(False)
+                
+                successful_checks = sum(api_checks)
+                total_checks = len(api_checks)
+                
+                if successful_checks == total_checks:
+                    api_normal = True
+                    api_status = "🟢 API 정상"
+                elif successful_checks > 0:
+                    api_normal = True
+                    api_status = f"🟡 API 부분 정상 ({successful_checks}/{total_checks})"
+                else:
+                    api_normal = False
+                    api_status = "🔴 API 연결 실패"
+            
+            # 시스템 리소스 정보
+            try:
+                import psutil
+                cpu_percent = psutil.cpu_percent(interval=1)
+                memory = psutil.virtual_memory()
+                disk = psutil.disk_usage('/')
+                
+                resource_info = (
+                    f"💻 CPU: {cpu_percent:.1f}% | "
+                    f"🧠 메모리: {memory.percent:.1f}% | "
+                    f"💾 디스크: {disk.percent:.1f}%"
+                )
+            except:
+                resource_info = "📊 시스템 정보 수집 실패"
+            
+            # 조용한 시간대 구분하여 알림 전송 (19:01~05:59)
+            if is_quiet:
+                # 조용한 시간대: 중요한 문제가 있을 때만 알림
+                has_problem = not monitor_running or not api_normal
+                
+                if has_problem:
+                    # 중요한 문제 발생 시에만 알림 전송
+                    problem_details = []
+                    if not monitor_running:
+                        problem_details.append("❌ 모니터링 프로세스 중단")
+                    if not api_normal:
+                        problem_details.append("❌ API 연결 문제")
+                    
+                    self.send_notification(
+                        f"🚨 POSCO 워치햄스터 매시간 체크 - 중요 문제 감지\n\n"
+                        f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+                        f"🚨 감지된 문제:\n" + "\n".join(f"   • {problem}" for problem in problem_details) + "\n\n"
+                        f"🔍 상세 상태:\n"
+                        f"   • 모니터링: {monitor_status}\n"
+                        f"   • API: {api_status}\n"
+                        f"   • {resource_info}\n"
+                        f"⏰ 다음 체크: {(current_hour + 1) % 24:02d}:00\n"
+                        f"🔧 자동 복구 시도 중...",
+                        is_error=True
+                    )
+                    self.log(f"🚨 조용한 시간대 매시간 체크 중요 문제 알림 전송 ({current_hour}시)")
+                else:
+                    # 정상 상태: 로그만 기록, 알림 없음
+                    self.log(f"🌙 조용한 시간대 매시간 체크 정상 상태 (알림 없음) - {current_hour}시")
+            else:
+                # 주간: 상세한 알림
+                if self.smart_enabled and smart_status_info and current_data:
+                    # 스마트 상태 알림
+                    try:
+                        self.smart_notifier.send_smart_status_notification(
+                            current_data, 
+                            smart_status_info,
+                            notification_type="hourly_check"
+                        )
+                        self.log("🧠 매시간 스마트 상태 알림 전송 완료")
+                    except Exception as e:
+                        self.log(f"⚠️ 매시간 스마트 상태 알림 실패, 기본 알림으로 대체: {e}")
+                        # 기본 알림으로 대체
+                        self.send_notification(
+                            f"🕐 POSCO 워치햄스터 매시간 상태 체크\n\n"
+                            f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+                            f"🔍 모니터링 프로세스: {monitor_status}\n"
+                            f"🌐 API 연결: {api_status}\n"
+                            f"📊 {resource_info}\n"
+                            f"⏰ 다음 체크: {(current_hour + 1) % 24:02d}:00\n"
+                            f"🚀 자동 복구 기능: 활성화"
+                        )
+                else:
+                    # 기본 알림
+                    self.send_notification(
+                        f"🕐 POSCO 워치햄스터 매시간 상태 체크\n\n"
+                        f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+                        f"🔍 모니터링 프로세스: {monitor_status}\n"
+                        f"🌐 API 연결: {api_status}\n"
+                        f"📊 {resource_info}\n"
+                        f"⏰ 다음 체크: {(current_hour + 1) % 24:02d}:00\n"
+                        f"🚀 자동 복구 기능: 활성화"
+                    )
+            
+            self.log(f"📊 매시간 상태 체크 알림 전송 완료 ({current_hour}시)")
+            
+        except Exception as e:
+            self.log(f"❌ 매시간 상태 체크 알림 실패: {e}")
+            # 오류 발생 시에는 간단한 알림
+            self.send_notification(
+                f"❌ POSCO 워치햄스터 매시간 상태 체크 오류\n\n"
+                f"📅 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+                f"❌ 오류: {str(e)}\n"
+                f"🔧 수동 확인이 필요합니다.",
+                is_error=True
+            )
     
     def _check_individual_monitors_status(self):
         """
@@ -1149,10 +1373,10 @@ class PoscoMonitorWatchHamster:
                 # 스케줄된 작업 체크 및 실행
                 self.check_scheduled_tasks()
                 
-                # 정기 상태 알림 (2시간마다)
-                if (current_time - self.last_status_notification).total_seconds() >= self.status_notification_interval:
+                # 정기 상태 알림 (절대 시간 기준: 7, 9, 11, 13, 15, 17시)
+                if self.should_send_status_notification():
                     self.send_status_notification()
-                    self.last_status_notification = current_time
+                    self.last_status_notification_hour = current_time.hour
                 
                 # 마스터 모니터링 시스템 상태 체크 (필요시)
                 if self.master_monitor_enabled and hasattr(self, 'master_monitor'):

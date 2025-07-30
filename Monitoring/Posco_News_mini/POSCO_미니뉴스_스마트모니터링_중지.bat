@@ -71,6 +71,8 @@ echo %date% %time% ^| 🛑 워치햄스터 수동 중지 (CMD) >> WatchHamster.l
 echo.
 echo 🎉 중지 작업 완료!
 echo.
-echo 💡 다시 시작하려면 'POSCO_미니뉴스_스마트모니터링_실행.bat'를 실행하세요.
+echo 💡 다시 시작하려면:
+echo    🛡️ 24시간 워치햄스터: POSCO_워치햄스터_시작.bat
+echo    🚀 일회성 작업: 🚀일회성작업_실행.bat
 echo.
 pause

@@ -54,8 +54,12 @@ if %errorlevel% equ 0 (
 
 REM 워치햄스터 시작
 echo.
-echo 🚀 워치햄스터 시작 중...
+echo 🛡️ 워치햄스터 2.0 시작 중...
+echo 💡 24시간 지속 모니터링 서비스입니다.
 echo 💡 중단하려면 Ctrl+C를 누르거나 창을 닫으세요.
+echo.
+echo 🚀 일회성 작업이 필요하면: 🚀일회성작업_실행.bat
+echo 🛡️ 24시간 워치햄스터: 이 파일
 echo.
 
 python monitor_WatchHamster.py
