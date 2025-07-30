@@ -536,11 +536,14 @@ class DoorayNotifier:
                 # 상태 표시 (최신/과거)
                 today_date = datetime.now().strftime('%Y%m%d')
                 if date == today_date:
-                    status_emoji = "🟢"
+                    status_emoji = "●"  # 녹색 원
                     status_text = "최신"
+                elif date:
+                    status_emoji = "●"  # 주황색 원
+                    status_text = "과거"
                 else:
-                    status_emoji = "🔴"
-                    status_text = "데이터 없음" if not date else "과거"
+                    status_emoji = "●"  # 빨간색 원
+                    status_text = "데이터 없음"
                 
                 message += f"├ 상태: {status_emoji} {status_text}\n"
                 
@@ -763,8 +766,14 @@ class DoorayNotifier:
         """
         message = "📈 영업일 비교 분석\n\n"
         
-        # 각 뉴스 타입별로 현재/직전 데이터 표시
-        for news_type, current_news in current_data.items():
+        # 뉴스 타입 순서 정의 (뉴욕마켓워치 → 증시마감 → 서환마감)
+        news_order = ["newyork-market-watch", "kospi-close", "exchange-rate"]
+        
+        # 순서대로 각 뉴스 타입별로 현재/직전 데이터 표시
+        for news_type in news_order:
+            if news_type not in current_data:
+                continue
+            current_news = current_data[news_type]
             news_config = NEWS_TYPES.get(news_type, {})
             display_name = news_config.get('display_name', news_type.upper().replace('-', ' '))
             

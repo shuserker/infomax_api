@@ -83,24 +83,24 @@ STATUS_CONFIG = {
 # 뉴스 타입별 설정
 # ==========================================
 NEWS_TYPES = {
-    # 환율 관련 뉴스
-    "exchange-rate": {
-        "display_name": "EXCHANGE RATE",        # 알림에 표시될 이름
-        "emoji": "",                          # 뉴스 타입 이모지
-        "publish_days": [0, 1, 2, 3, 4]        # 발행 요일 (월-금)
-    },
-    
-    # 뉴욕 시장 동향 뉴스
+    # 뉴욕 시장 동향 뉴스 (1순위)
     "newyork-market-watch": {
         "display_name": "NEWYORK MARKET WATCH", 
-        "emoji": "",
+        "emoji": "🌆",
         "publish_days": [0, 1, 2, 3, 4, 5]     # 발행 요일 (월-토)
     },
     
-    # 코스피 마감 뉴스
+    # 코스피 마감 뉴스 (2순위)
     "kospi-close": {
         "display_name": "KOSPI CLOSE",
-        "emoji": "",
+        "emoji": "📈",
+        "publish_days": [0, 1, 2, 3, 4]        # 발행 요일 (월-금)
+    },
+    
+    # 환율 관련 뉴스 (3순위)
+    "exchange-rate": {
+        "display_name": "EXCHANGE RATE",        # 알림에 표시될 이름
+        "emoji": "💱",                          # 뉴스 타입 이모지
         "publish_days": [0, 1, 2, 3, 4]        # 발행 요일 (월-금)
     }
 }
