@@ -462,7 +462,7 @@ class DoorayNotifier:
     
     def send_notification(self, message, is_error=False, bot_name_suffix=""):
         """
-        Dooray 웹훅으로 알림 메시지 전송
+        Dooray 웹훅으로 알림 메시지 전송 - 중복 제거
         
         Args:
             message (str): 전송할 메시지 내용
@@ -471,19 +471,25 @@ class DoorayNotifier:
         """
         try:
             color = "#ff4444" if is_error else "#0066cc"
-            title = "⚠️ 오류 알림" if is_error else "🔔 POSCO 뉴스 알림"
             
             bot_name = f"POSCO 뉴스 {'❌' if is_error else '🔔'}{bot_name_suffix}"
-            preview_text = message.split('\n')[0] if '\n' in message else message[:50]
+            
+            # 타이틀과 내용 분리 (중복 방지)
+            if '\n' in message:
+                title_text = message.split('\n')[0]
+                content_text = '\n'.join(message.split('\n')[1:]) if len(message.split('\n')) > 1 else ""
+            else:
+                title_text = message
+                content_text = ""
             
             payload = {
                 "botName": bot_name,
                 "botIconImage": self.bot_profile_image_url,
-                "text": preview_text,
+                "text": title_text,
                 "attachments": [{
                     "color": color,
-                    "text": message
-                }]
+                    "text": content_text
+                }] if content_text else []
             }
             
             response = requests.post(
@@ -3226,7 +3232,7 @@ class PoscoNewsMonitor:
         
         # 기본 모니터링 시작 알림
         self.notifier.send_notification(
-            f"🔄 POSCO 뉴스 기본 모니터링 시작 ({interval_minutes}분 간격)"
+            "🔄 POSCO 뉴스 기본 모니터링 시작"
         )
         
         try:
@@ -3237,7 +3243,7 @@ class PoscoNewsMonitor:
             log_with_timestamp("모니터링 중단됨", "INFO")
             # 기본 모니터링 중단 알림
             self.notifier.send_notification(
-                f"🛑 POSCO 뉴스 기본 모니터링 중단"
+                "� POSCO 뉴스 기기본 모니터링 중단"
             )
         except Exception as e:
             log_with_timestamp(f"모니터링 오류: {e}", "ERROR")
@@ -3260,9 +3266,9 @@ class PoscoNewsMonitor:
         
         log_with_timestamp("스마트 모니터링 시작", "INFO")
         
-        # 스마트 모니터링 시작 알림 (차별화)
+        # 스마트 모니터링 시작 알림
         self.notifier.send_notification(
-            f"🧠 POSCO 뉴스 스마트 모니터링 시작 (적응형 간격 + 특별 이벤트)"
+            "🧠 POSCO 뉴스 스마트 모니터링 시작"
         )
         
         try:
@@ -3282,9 +3288,9 @@ class PoscoNewsMonitor:
                 
         except KeyboardInterrupt:
             log_with_timestamp("스마트 모니터링 중단됨", "INFO")
-            # 스마트 모니터링 중단 알림 (차별화)
+            # 스마트 모니터링 중단 알림
             self.notifier.send_notification(
-                f"🛑 POSCO 뉴스 스마트 모니터링 중단 (적응형)"
+                "🛑 POSCO 뉴스 스마트 모니터링 중단"
             )
         except Exception as e:
             log_with_timestamp(f"스마트 모니터링 오류: {e}", "ERROR")
