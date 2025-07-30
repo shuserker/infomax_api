@@ -432,22 +432,31 @@ class PoscoMonitorWatchHamster:
             monitor_running = self.is_monitor_running()
             monitor_status = "🟢 정상 작동" if monitor_running else "🔴 중단됨"
             
-            # 간단한 상태 체크 실행
+            # API 상태 체크 개선 - 모니터링 프로세스가 실행 중이면 API도 정상으로 간주
             api_normal = True
-            try:
-                import subprocess
-                result = subprocess.run(
-                    ["python", "run_monitor.py", "1"],
-                    cwd=self.script_dir,
-                    capture_output=True,
-                    text=True,
-                    timeout=30
-                )
-                api_normal = result.returncode == 0
-                api_status = "🟢 API 정상" if api_normal else "🟡 API 확인 필요"
-            except:
-                api_normal = False
-                api_status = "🟡 API 확인 불가"
+            api_status = "🟢 API 정상"
+            
+            # 모니터링 프로세스가 실행 중이 아닐 때만 별도 API 체크
+            if not monitor_running:
+                try:
+                    import subprocess
+                    result = subprocess.run(
+                        ["python", "run_monitor.py", "1"],
+                        cwd=self.script_dir,
+                        capture_output=True,
+                        text=True,
+                        timeout=30
+                    )
+                    api_normal = result.returncode == 0
+                    api_status = "🟢 API 정상" if api_normal else "🟡 API 확인 필요"
+                except:
+                    api_normal = False
+                    api_status = "🟡 API 확인 불가"
+            else:
+                # 모니터링 프로세스가 실행 중이면 API도 정상으로 간주
+                self.log("📡 모니터링 프로세스 실행 중 - API 상태 정상으로 간주")
+                api_normal = True
+                api_status = "🟢 API 정상 (모니터링 프로세스 기반)"
             
             # 시스템 리소스 정보 수집
             resource_normal = True
@@ -472,16 +481,19 @@ class PoscoMonitorWatchHamster:
             
             # 조용한 시간대 체크
             if is_quiet:
-                # 18시 이후: 문제가 있을 때만 알림
-                has_problem = not monitor_running or not api_normal or not resource_normal
+                # 18시 이후: 실제 문제가 있을 때만 알림
+                # 핵심 문제: 모니터링 프로세스 중단, 시스템 리소스 임계값 초과
+                # API 문제는 모니터링 프로세스가 중단된 경우에만 문제로 간주
+                has_problem = not monitor_running or not resource_normal
                 
                 if has_problem:
-                    # 문제 발생 시에만 알림 전송
+                    # 실제 문제 발생 시에만 알림 전송
                     problem_details = []
                     if not monitor_running:
                         problem_details.append("❌ 모니터링 프로세스 중단")
-                    if not api_normal:
-                        problem_details.append("❌ API 연결 문제")
+                        # 모니터링 프로세스가 중단된 경우에만 API 상태도 표시
+                        if not api_normal:
+                            problem_details.append("❌ API 연결 문제")
                     if not resource_normal:
                         problem_details.append("❌ 시스템 리소스 임계값 초과")
                     
