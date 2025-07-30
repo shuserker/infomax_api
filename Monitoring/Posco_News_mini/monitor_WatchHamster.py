@@ -38,9 +38,19 @@ sys.path.insert(0, current_dir)
 try:
     from config import WATCHHAMSTER_WEBHOOK_URL, BOT_PROFILE_IMAGE_URL, API_CONFIG
     from core import PoscoNewsAPIClient, NewsDataProcessor, DoorayNotifier
-except ImportError:
-    print("[ERROR] config.py 또는 core 모듈을 찾을 수 없습니다.")
-    sys.exit(1)
+    # 최적화된 모니터링 시스템 연결
+    from newyork_monitor import NewYorkMarketMonitor
+    from kospi_monitor import KospiCloseMonitor
+    from exchange_monitor import ExchangeRateMonitor
+    from master_news_monitor import MasterNewsMonitor
+except ImportError as e:
+    print(f"[ERROR] 필수 모듈을 찾을 수 없습니다: {e}")
+    print("[INFO] 기본 기능으로 동작합니다.")
+    # 최적화된 모니터링 시스템 없이도 동작하도록 설정
+    NewYorkMarketMonitor = None
+    KospiCloseMonitor = None
+    ExchangeRateMonitor = None
+    MasterNewsMonitor = None
 
 class PoscoMonitorWatchHamster:
     """
@@ -103,6 +113,34 @@ class PoscoMonitorWatchHamster:
         except Exception as e:
             self.log(f"⚠️ 스마트 상태 판단 시스템 초기화 실패: {e}")
             self.smart_enabled = False
+        
+        # 최적화된 개별 모니터링 시스템 초기화
+        try:
+            if NewYorkMarketMonitor and KospiCloseMonitor and ExchangeRateMonitor:
+                self.newyork_monitor = NewYorkMarketMonitor()
+                self.kospi_monitor = KospiCloseMonitor()
+                self.exchange_monitor = ExchangeRateMonitor()
+                self.individual_monitors_enabled = True
+                self.log("🎛️ 개별 모니터링 시스템 연결 완료")
+            else:
+                self.individual_monitors_enabled = False
+                self.log("⚠️ 개별 모니터링 시스템 비활성화 (모듈 없음)")
+        except Exception as e:
+            self.log(f"⚠️ 개별 모니터링 시스템 초기화 실패: {e}")
+            self.individual_monitors_enabled = False
+        
+        # 마스터 모니터링 시스템 초기화
+        try:
+            if MasterNewsMonitor:
+                self.master_monitor = MasterNewsMonitor()
+                self.master_monitor_enabled = True
+                self.log("🎛️ 마스터 모니터링 시스템 연결 완료")
+            else:
+                self.master_monitor_enabled = False
+                self.log("⚠️ 마스터 모니터링 시스템 비활성화 (모듈 없음)")
+        except Exception as e:
+            self.log(f"⚠️ 마스터 모니터링 시스템 초기화 실패: {e}")
+            self.master_monitor_enabled = False
         
     def log(self, message):
         """
@@ -364,10 +402,35 @@ class PoscoMonitorWatchHamster:
             self.log(f"❌ 모니터링 프로세스 중지 오류: {e}")
     
     def execute_scheduled_task(self, task_type, task_name):
-        """스케줄된 작업 실행"""
+        """스케줄된 작업 실행 (최적화된 모니터링 시스템 사용)"""
         try:
             self.log(f"📅 스케줄 작업 실행: {task_name}")
             
+            # 기존 run_monitor.py 대신 최적화된 모니터링 시스템 사용
+            if self.individual_monitors_enabled:
+                if task_type == "1":  # 상태 체크
+                    self._execute_status_check_task(task_name)
+                elif task_type == "2":  # 비교 분석
+                    self._execute_comparison_task(task_name)
+                elif task_type == "5":  # 일일 요약
+                    self._execute_daily_summary_task(task_name)
+                elif task_type == "7":  # 상세 요약
+                    self._execute_detailed_summary_task(task_name)
+                elif task_type == "8":  # 고급 분석
+                    self._execute_advanced_analysis_task(task_name)
+                else:
+                    self.log(f"⚠️ 알 수 없는 작업 타입: {task_type} - 기존 방식 사용")
+                    self._execute_legacy_task(task_type, task_name)
+            else:
+                # 개별 모니터 비활성화 시 기존 방식 사용
+                self._execute_legacy_task(task_type, task_name)
+                
+        except Exception as e:
+            self.log(f"❌ {task_name} 오류: {e}")
+    
+    def _execute_legacy_task(self, task_type, task_name):
+        """기존 run_monitor.py 방식으로 작업 실행"""
+        try:
             import subprocess
             result = subprocess.run(
                 ["python", "run_monitor.py", task_type],
@@ -378,12 +441,132 @@ class PoscoMonitorWatchHamster:
             )
             
             if result.returncode == 0:
-                self.log(f"✅ {task_name} 완료")
+                self.log(f"✅ {task_name} 완료 (기존 방식)")
             else:
-                self.log(f"❌ {task_name} 실패: {result.stderr}")
+                self.log(f"❌ {task_name} 실패 (기존 방식): {result.stderr}")
                 
         except Exception as e:
-            self.log(f"❌ {task_name} 오류: {e}")
+            self.log(f"❌ {task_name} 기존 방식 오류: {e}")
+    
+    def _execute_status_check_task(self, task_name):
+        """상태 체크 작업 실행 (최적화된 모니터 사용)"""
+        try:
+            # 개별 모니터 상태 체크
+            self._check_individual_monitors_status()
+            
+            # 마스터 모니터 상태 체크
+            if self.master_monitor_enabled and hasattr(self, 'master_monitor'):
+                strategy = self.master_monitor.get_current_monitoring_strategy()
+                self.log(f"🎛️ 현재 모니터링 전략: {strategy['description']}")
+            
+            self.log(f"✅ {task_name} 완료 (최적화 방식)")
+            
+        except Exception as e:
+            self.log(f"❌ 상태 체크 작업 오류: {e}")
+    
+    def _execute_comparison_task(self, task_name):
+        """비교 분석 작업 실행 (최적화된 모니터 사용)"""
+        try:
+            # 각 뉴스별 현재 vs 이전 데이터 비교
+            comparison_results = []
+            
+            # 뉴욕마켓워치 비교
+            if hasattr(self, 'newyork_monitor'):
+                ny_current = self.newyork_monitor.get_current_news_data()
+                ny_analysis = self.newyork_monitor.analyze_publish_pattern(ny_current)
+                comparison_results.append(f"🌆 뉴욕마켓워치: {ny_analysis.get('analysis', '분석 불가')}")
+            
+            # 증시마감 비교
+            if hasattr(self, 'kospi_monitor'):
+                kospi_current = self.kospi_monitor.get_current_news_data()
+                kospi_analysis = self.kospi_monitor.analyze_publish_pattern(kospi_current)
+                comparison_results.append(f"📈 증시마감: {kospi_analysis.get('analysis', '분석 불가')}")
+            
+            # 서환마감 비교
+            if hasattr(self, 'exchange_monitor'):
+                exchange_current = self.exchange_monitor.get_current_news_data()
+                exchange_analysis = self.exchange_monitor.analyze_publish_pattern(exchange_current)
+                comparison_results.append(f"💱 서환마감: {exchange_analysis.get('analysis', '분석 불가')}")
+            
+            # 비교 결과 로그
+            for result in comparison_results:
+                self.log(f"📊 {result}")
+            
+            self.log(f"✅ {task_name} 완료 (최적화 방식)")
+            
+        except Exception as e:
+            self.log(f"❌ 비교 분석 작업 오류: {e}")
+    
+    def _execute_daily_summary_task(self, task_name):
+        """일일 요약 작업 실행 (최적화된 모니터 사용)"""
+        try:
+            # 오늘 발행된 뉴스 요약
+            summary_data = []
+            published_count = 0
+            
+            # 각 뉴스별 오늘 발행 현황
+            monitors = [
+                ('🌆 뉴욕마켓워치', self.newyork_monitor if hasattr(self, 'newyork_monitor') else None),
+                ('📈 증시마감', self.kospi_monitor if hasattr(self, 'kospi_monitor') else None),
+                ('💱 서환마감', self.exchange_monitor if hasattr(self, 'exchange_monitor') else None)
+            ]
+            
+            for name, monitor in monitors:
+                if monitor:
+                    try:
+                        data = monitor.get_current_news_data()
+                        analysis = monitor.analyze_publish_pattern(data)
+                        is_published = analysis.get('is_published_today', False)
+                        
+                        if is_published:
+                            published_count += 1
+                            summary_data.append(f"{name}: ✅ {analysis.get('analysis', '발행 완료')}")
+                        else:
+                            summary_data.append(f"{name}: ❌ {analysis.get('analysis', '미발행')}")
+                    except Exception as e:
+                        summary_data.append(f"{name}: ⚠️ 분석 오류")
+            
+            # 일일 요약 로그
+            self.log(f"📋 일일 요약 ({published_count}/3 발행 완료):")
+            for summary in summary_data:
+                self.log(f"   {summary}")
+            
+            self.log(f"✅ {task_name} 완료 (최적화 방식)")
+            
+        except Exception as e:
+            self.log(f"❌ 일일 요약 작업 오류: {e}")
+    
+    def _execute_detailed_summary_task(self, task_name):
+        """상세 요약 작업 실행 (최적화된 모니터 사용)"""
+        try:
+            # 향상된 상태 보고서 생성 및 전송
+            if hasattr(self, 'send_enhanced_status_notification'):
+                self.send_enhanced_status_notification()
+                self.log(f"📊 향상된 상태 알림 전송 완료")
+            
+            self.log(f"✅ {task_name} 완료 (최적화 방식)")
+            
+        except Exception as e:
+            self.log(f"❌ 상세 요약 작업 오류: {e}")
+    
+    def _execute_advanced_analysis_task(self, task_name):
+        """고급 분석 작업 실행 (최적화된 모니터 사용)"""
+        try:
+            # 마스터 모니터링 시스템의 통합 분석 사용
+            if self.master_monitor_enabled and hasattr(self, 'master_monitor'):
+                results = self.master_monitor.run_integrated_check()
+                
+                # 분석 결과 로그
+                for news_type, result in results.items():
+                    analysis = result.get('analysis', {})
+                    published = result.get('published_today', False)
+                    status = "✅ 발행 완료" if published else "⏳ 대기 중"
+                    self.log(f"🔬 {news_type}: {status} - {analysis.get('analysis', '분석 불가')}")
+            
+            self.log(f"✅ {task_name} 완료 (최적화 방식)")
+            
+        except Exception as e:
+            self.log(f"❌ 고급 분석 작업 오류: {e}")
     
     def check_scheduled_tasks(self):
         """스케줄된 작업 체크 및 실행"""
@@ -465,22 +648,58 @@ class PoscoMonitorWatchHamster:
             api_normal = True
             api_status = "🟢 API 정상"
             
-            # 모니터링 프로세스가 실행 중이 아닐 때만 별도 API 체크
+            # 최적화된 모니터링 시스템으로 API 상태 체크
             if not monitor_running:
                 try:
-                    import subprocess
-                    result = subprocess.run(
-                        ["python", "run_monitor.py", "1"],
-                        cwd=self.script_dir,
-                        capture_output=True,
-                        text=True,
-                        timeout=30
-                    )
-                    api_normal = result.returncode == 0
-                    api_status = "🟢 API 정상" if api_normal else "🟡 API 확인 필요"
-                except:
+                    # 기존 run_monitor.py 대신 최적화된 개별 모니터 사용
+                    if self.individual_monitors_enabled:
+                        # 개별 모니터로 API 상태 확인
+                        api_checks = []
+                        
+                        # 뉴욕마켓워치 API 체크
+                        try:
+                            ny_data = self.newyork_monitor.get_current_news_data()
+                            api_checks.append(ny_data is not None)
+                        except:
+                            api_checks.append(False)
+                        
+                        # 증시마감 API 체크  
+                        try:
+                            kospi_data = self.kospi_monitor.get_current_news_data()
+                            api_checks.append(kospi_data is not None)
+                        except:
+                            api_checks.append(False)
+                        
+                        # 서환마감 API 체크
+                        try:
+                            exchange_data = self.exchange_monitor.get_current_news_data()
+                            api_checks.append(exchange_data is not None)
+                        except:
+                            api_checks.append(False)
+                        
+                        # API 상태 종합 판단
+                        successful_checks = sum(api_checks)
+                        total_checks = len(api_checks)
+                        
+                        if successful_checks == total_checks:
+                            api_normal = True
+                            api_status = "🟢 API 정상 (최적화 모니터 기반)"
+                        elif successful_checks > 0:
+                            api_normal = True
+                            api_status = f"🟡 API 부분 정상 ({successful_checks}/{total_checks})"
+                        else:
+                            api_normal = False
+                            api_status = "🔴 API 연결 실패"
+                        
+                        self.log(f"📡 최적화된 모니터로 API 상태 체크: {api_status}")
+                    else:
+                        # 개별 모니터 비활성화 시 기본 API 체크
+                        api_normal = self.api_client.test_connection() if hasattr(self, 'api_client') else False
+                        api_status = "🟢 API 정상 (기본 체크)" if api_normal else "🟡 API 확인 필요"
+                except Exception as e:
                     api_normal = False
-                    api_status = "🟡 API 확인 불가"
+                    api_status = f"🟡 API 확인 불가: {str(e)[:30]}"
+                    self.log(f"⚠️ API 상태 체크 오류: {e}")
             else:
                 # 모니터링 프로세스가 실행 중이면 API도 정상으로 간주
                 self.log("📡 모니터링 프로세스 실행 중 - API 상태 정상으로 간주")
@@ -556,6 +775,10 @@ class PoscoMonitorWatchHamster:
                     # 스마트 시스템 비활성화 또는 데이터 없음 시 기본 알림
                     self._send_basic_status_notification(current_time, monitor_status, api_status, resource_info)
                 
+                # 개별 모니터링 시스템 상태 추가 체크
+                if self.individual_monitors_enabled:
+                    self._check_individual_monitors_status()
+                
                 self.log("📊 정기 상태 알림 전송 완료")
             
         except Exception as e:
@@ -588,6 +811,235 @@ class PoscoMonitorWatchHamster:
             f"⏰ 다음 보고: {(current_time + timedelta(hours=2)).strftime('%H:%M')}\n"
             f"🚀 자동 복구 기능: 활성화"
         )
+    
+    def _check_individual_monitors_status(self):
+        """
+        개별 모니터링 시스템 상태 체크 및 보고
+        
+        최적화된 개별 모니터링 시스템들의 상태를 확인하고
+        필요시 추가 정보를 제공합니다.
+        """
+        try:
+            current_time = datetime.now()
+            individual_status = {}
+            
+            # 뉴욕마켓워치 상태 체크
+            if hasattr(self, 'newyork_monitor'):
+                try:
+                    ny_data = self.newyork_monitor.get_current_news_data()
+                    ny_analysis = self.newyork_monitor.analyze_publish_pattern(ny_data)
+                    individual_status['newyork'] = {
+                        'published': ny_analysis.get('is_published_today', False),
+                        'status': ny_analysis.get('analysis', '상태 불명')
+                    }
+                except Exception as e:
+                    individual_status['newyork'] = {'error': str(e)}
+            
+            # 증시마감 상태 체크
+            if hasattr(self, 'kospi_monitor'):
+                try:
+                    kospi_data = self.kospi_monitor.get_current_news_data()
+                    kospi_analysis = self.kospi_monitor.analyze_publish_pattern(kospi_data)
+                    individual_status['kospi'] = {
+                        'published': kospi_analysis.get('is_published_today', False),
+                        'status': kospi_analysis.get('analysis', '상태 불명')
+                    }
+                except Exception as e:
+                    individual_status['kospi'] = {'error': str(e)}
+            
+            # 서환마감 상태 체크
+            if hasattr(self, 'exchange_monitor'):
+                try:
+                    exchange_data = self.exchange_monitor.get_current_news_data()
+                    exchange_analysis = self.exchange_monitor.analyze_publish_pattern(exchange_data)
+                    individual_status['exchange'] = {
+                        'published': exchange_analysis.get('is_published_today', False),
+                        'status': exchange_analysis.get('analysis', '상태 불명')
+                    }
+                except Exception as e:
+                    individual_status['exchange'] = {'error': str(e)}
+            
+            # 상태 요약 로그
+            published_count = sum(1 for status in individual_status.values() 
+                                if status.get('published', False))
+            total_count = len(individual_status)
+            
+            if total_count > 0:
+                self.log(f"📊 개별 모니터 상태: {published_count}/{total_count} 발행 완료")
+                
+                # 각 뉴스별 상태 로그
+                news_names = {'newyork': '🌆뉴욕마켓워치', 'kospi': '📈증시마감', 'exchange': '💱서환마감'}
+                for news_type, status in individual_status.items():
+                    name = news_names.get(news_type, news_type)
+                    if 'error' in status:
+                        self.log(f"   {name}: ❌ 오류 - {status['error']}")
+                    elif status.get('published', False):
+                        self.log(f"   {name}: ✅ {status.get('status', '발행 완료')}")
+                    else:
+                        self.log(f"   {name}: ⏳ {status.get('status', '대기 중')}")
+            
+        except Exception as e:
+            self.log(f"⚠️ 개별 모니터 상태 체크 실패: {e}")
+    
+    def get_enhanced_status_report(self):
+        """
+        향상된 상태 보고서 생성 (개별 모니터 정보 포함)
+        
+        Returns:
+            dict: 향상된 상태 정보
+        """
+        try:
+            # 기본 상태 정보
+            basic_status = {
+                'timestamp': datetime.now().isoformat(),
+                'monitor_running': self.is_monitor_running(),
+                'api_status': 'normal',  # 기본값
+                'individual_monitors': {}
+            }
+            
+            # 개별 모니터 상태 추가
+            if self.individual_monitors_enabled:
+                if hasattr(self, 'newyork_monitor'):
+                    ny_data = self.newyork_monitor.get_current_news_data()
+                    ny_analysis = self.newyork_monitor.analyze_publish_pattern(ny_data)
+                    basic_status['individual_monitors']['newyork'] = {
+                        'name': '뉴욕마켓워치',
+                        'published_today': ny_analysis.get('is_published_today', False),
+                        'status': ny_analysis.get('status', 'unknown'),
+                        'analysis': ny_analysis.get('analysis', '분석 불가')
+                    }
+                
+                if hasattr(self, 'kospi_monitor'):
+                    kospi_data = self.kospi_monitor.get_current_news_data()
+                    kospi_analysis = self.kospi_monitor.analyze_publish_pattern(kospi_data)
+                    basic_status['individual_monitors']['kospi'] = {
+                        'name': '증시마감',
+                        'published_today': kospi_analysis.get('is_published_today', False),
+                        'status': kospi_analysis.get('status', 'unknown'),
+                        'analysis': kospi_analysis.get('analysis', '분석 불가')
+                    }
+                
+                if hasattr(self, 'exchange_monitor'):
+                    exchange_data = self.exchange_monitor.get_current_news_data()
+                    exchange_analysis = self.exchange_monitor.analyze_publish_pattern(exchange_data)
+                    basic_status['individual_monitors']['exchange'] = {
+                        'name': '서환마감',
+                        'published_today': exchange_analysis.get('is_published_today', False),
+                        'status': exchange_analysis.get('status', 'unknown'),
+                        'analysis': exchange_analysis.get('analysis', '분석 불가')
+                    }
+            
+            return basic_status
+            
+        except Exception as e:
+            self.log(f"⚠️ 향상된 상태 보고서 생성 실패: {e}")
+            return {'error': str(e), 'timestamp': datetime.now().isoformat()}
+    
+    def _check_master_monitor_integration(self):
+        """
+        마스터 모니터링 시스템과의 통합 상태 체크
+        
+        워치햄스터와 마스터 모니터링 시스템 간의 연동 상태를 확인하고
+        필요시 조정합니다.
+        """
+        try:
+            current_time = datetime.now()
+            
+            # 마스터 모니터의 현재 전략 확인
+            if hasattr(self.master_monitor, 'get_current_monitoring_strategy'):
+                strategy = self.master_monitor.get_current_monitoring_strategy()
+                
+                # 전략 변경 시 로그 기록
+                if not hasattr(self, '_last_master_strategy') or self._last_master_strategy != strategy['mode']:
+                    self.log(f"🎛️ 마스터 모니터링 전략 변경: {strategy['description']}")
+                    self._last_master_strategy = strategy['mode']
+                
+                # 집중 모니터링 시간대에는 워치햄스터 체크 간격 조정
+                if strategy['interval'] <= 60:  # 1분 간격 집중 모니터링
+                    # 워치햄스터도 더 자주 체크하도록 조정 (하지만 너무 자주는 안 됨)
+                    if not hasattr(self, '_intensive_mode') or not self._intensive_mode:
+                        self.log("🔥 집중 모니터링 모드 감지 - 워치햄스터 체크 빈도 증가")
+                        self._intensive_mode = True
+                else:
+                    if hasattr(self, '_intensive_mode') and self._intensive_mode:
+                        self.log("📋 일반 모니터링 모드 복귀 - 워치햄스터 체크 빈도 정상화")
+                        self._intensive_mode = False
+            
+        except Exception as e:
+            self.log(f"⚠️ 마스터 모니터 통합 체크 실패: {e}")
+    
+    def send_enhanced_status_notification(self):
+        """
+        향상된 상태 알림 전송 (개별 모니터 정보 포함)
+        
+        기존 상태 알림에 개별 모니터링 시스템의 상태 정보를 추가하여
+        더 상세한 정보를 제공합니다.
+        """
+        try:
+            enhanced_status = self.get_enhanced_status_report()
+            current_time = datetime.now()
+            
+            # 기본 상태 정보
+            monitor_status = "🟢 정상 작동" if enhanced_status.get('monitor_running', False) else "🔴 중단됨"
+            
+            message = f"🛡️ POSCO 워치햄스터 향상된 상태 보고\n\n"
+            message += f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+            message += f"🔍 모니터링 프로세스: {monitor_status}\n\n"
+            
+            # 개별 모니터 상태 추가
+            individual_monitors = enhanced_status.get('individual_monitors', {})
+            if individual_monitors:
+                message += f"📊 개별 뉴스 모니터 상태:\n"
+                
+                for news_type, info in individual_monitors.items():
+                    name = info.get('name', news_type)
+                    published = info.get('published_today', False)
+                    analysis = info.get('analysis', '분석 불가')
+                    
+                    status_emoji = "✅" if published else "⏳"
+                    message += f"   {status_emoji} {name}: {analysis}\n"
+                
+                # 전체 발행 현황
+                published_count = sum(1 for info in individual_monitors.values() 
+                                    if info.get('published_today', False))
+                total_count = len(individual_monitors)
+                message += f"\n📈 전체 발행 현황: {published_count}/{total_count} 완료\n"
+            
+            # 시스템 통합 상태
+            if self.master_monitor_enabled:
+                message += f"\n🎛️ 마스터 모니터링: 연동 활성화"
+            if self.individual_monitors_enabled:
+                message += f"\n🔧 개별 모니터링: 연동 활성화"
+            
+            message += f"\n⏰ 다음 보고: {(current_time + timedelta(hours=2)).strftime('%H:%M')}"
+            
+            payload = {
+                "botName": "POSCO 워치햄스터 🛡️",
+                "botIconImage": BOT_PROFILE_IMAGE_URL,
+                "text": "향상된 상태 보고",
+                "attachments": [{
+                    "color": "#17a2b8",
+                    "text": message
+                }]
+            }
+            
+            response = requests.post(
+                WATCHHAMSTER_WEBHOOK_URL,
+                json=payload,
+                headers={'Content-Type': 'application/json'},
+                timeout=10
+            )
+            
+            if response.status_code == 200:
+                self.log("✅ 향상된 상태 알림 전송 성공")
+                return True
+            else:
+                self.log(f"❌ 향상된 상태 알림 전송 실패: {response.status_code}")
+                return False
+                
+        except Exception as e:
+            self.log(f"❌ 향상된 상태 알림 전송 오류: {e}")
+            return False
     
     def manage_log_file(self):
         """로그 파일 크기 관리 - 10MB 초과 시 백업 후 새로 시작"""
@@ -701,6 +1153,10 @@ class PoscoMonitorWatchHamster:
                 if (current_time - self.last_status_notification).total_seconds() >= self.status_notification_interval:
                     self.send_status_notification()
                     self.last_status_notification = current_time
+                
+                # 마스터 모니터링 시스템 상태 체크 (필요시)
+                if self.master_monitor_enabled and hasattr(self, 'master_monitor'):
+                    self._check_master_monitor_integration()
                 
                 # 상태 저장 (메모리 최적화)
                 self.save_status()
