@@ -677,11 +677,28 @@ class PoscoMonitorWatchHamster:
             )
 
 if __name__ == "__main__":
-    # Windows 환경에서 UTF-8 출력 설정
+    # Windows 환경에서 UTF-8 출력 설정 개선
     if sys.platform == "win32":
         import codecs
-        sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
-        sys.stderr = codecs.getwriter("utf-8")(sys.stderr.detach())
+        import locale
+        
+        # 콘솔 코드페이지를 UTF-8로 설정
+        try:
+            import subprocess
+            subprocess.run(['chcp', '65001'], shell=True, capture_output=True)
+        except:
+            pass
+        
+        # 표준 출력/오류를 UTF-8로 설정
+        try:
+            sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
+            sys.stderr = codecs.getwriter("utf-8")(sys.stderr.detach())
+        except:
+            # 이미 설정된 경우 무시
+            pass
+        
+        # 환경 변수 설정
+        os.environ['PYTHONIOENCODING'] = 'utf-8'
     
     watchhamster = PoscoMonitorWatchHamster()
     watchhamster.run()

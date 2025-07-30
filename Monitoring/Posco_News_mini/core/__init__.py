@@ -506,10 +506,7 @@ class DoorayNotifier:
     
     def send_status_notification(self, current_data, status_info):
         """
-        현재 상태 상세 알림 전송
-        
-        각 뉴스 타입별 상태, 발행 시간, 제목 미리보기 등을
-        포함한 상세한 상태 정보를 Dooray로 전송합니다.
+        현재 상태 알림 전송 - 캡처 기반 원본 형태
         
         Args:
             current_data (dict): 현재 뉴스 데이터
@@ -517,82 +514,61 @@ class DoorayNotifier:
         """
         message = "📊 현재 데이터 상태\n\n"
         
-        if current_data:
-            today_kr = datetime.now().strftime('%Y%m%d')
-            news_items = []
+        # 각 뉴스 타입별 상태 정보 (캡처 형태로)
+        for news_type, news_data in current_data.items():
+            news_config = NEWS_TYPES.get(news_type, {})
+            display_name = news_config.get('display_name', news_type.upper().replace('-', ' '))
             
-            for news_type, news_data in current_data.items():
-                news_config = NEWS_TYPES.get(news_type, {"display_name": news_type.upper(), "emoji": "📰"})
-                emoji = news_config["emoji"]
-                type_display = news_config["display_name"]
+            message += f"├ {display_name}\n"
+            
+            if news_data and news_data.get('title'):
+                # 데이터가 있는 경우
+                date = news_data.get('date', '')
+                time = news_data.get('time', '')
+                title = news_data.get('title', '')
                 
-                news_date = news_data.get('date', '')
-                news_time = news_data.get('time', '')
-                news_title = news_data.get('title', '')
-                
-                # 요일별 발행 패턴 고려한 데이터 상태 판단
-                today_weekday = datetime.now().weekday()
-                publish_days = news_config.get('publish_days', [])
-                weekday_names = ['월', '화', '수', '목', '금', '토', '일']
-                weekday_name = weekday_names[today_weekday]
-                
-                if not news_date or not news_title:
-                    # 오늘 요일에 발행 예상인지 확인
-                    if today_weekday in publish_days:
-                        status = "🔴"
-                        status_text = "데이터 없음"
-                        date_time_display = "데이터 없음"
-                    else:
-                        status = "⏸️"
-                        status_text = f"{weekday_name}요일 휴무"
-                        date_time_display = "미발행"
+                # 상태 표시 (최신/과거)
+                today_date = datetime.now().strftime('%Y%m%d')
+                if date == today_date:
+                    status_emoji = "🟢"
+                    status_text = "최신"
                 else:
-                    if news_date == today_kr:
-                        status = "🟢"
-                        status_text = "최신"
-                    else:
-                        status = "🟡"
-                        status_text = "과거"
-                    
-                    # 시간 포맷팅
-                    if news_time and len(news_time) >= 4:
-                        if len(news_time) >= 6:
-                            formatted_time = f"{news_time[:2]}:{news_time[2:4]}:{news_time[4:6]}"
-                        elif len(news_time) == 5:
-                            if news_time.startswith('6'):
-                                news_time = '0' + news_time
-                                formatted_time = f"{news_time[:2]}:{news_time[2:4]}:{news_time[4:6]}"
-                            else:
-                                formatted_time = f"{news_time[:2]}:{news_time[2:4]}:{news_time[4:5]}"
-                        else:
-                            formatted_time = f"{news_time[:2]}:{news_time[2:4]}"
-                        
-                        date_time_display = f"{news_date[:4]}-{news_date[4:6]}-{news_date[6:8]} {formatted_time}"
-                    else:
-                        date_time_display = f"{news_date[:4]}-{news_date[4:6]}-{news_date[6:8]}"
+                    status_emoji = "🔴"
+                    status_text = "데이터 없음" if not date else "과거"
                 
-                # 제목 미리보기
-                title_preview = news_title[:45] + "..." if len(news_title) > 45 else news_title
+                message += f"├ 상태: {status_emoji} {status_text}\n"
                 
-                # 트리 구조로 표시
-                message += f"┌ {emoji} {type_display}\n"
-                message += f"├ 상태: {status} {status_text}\n"
-                message += f"├ 시간: {date_time_display}\n"
-                message += f"└ 제목: {title_preview}\n\n"
+                if date and time:
+                    formatted_time = self._format_datetime(date, time)
+                    message += f"├ 시간: {formatted_time}\n"
+                else:
+                    message += f"├ 시간: 데이터 없음\n"
+                
+                if title:
+                    title_preview = title[:50] + "..." if len(title) > 50 else title
+                    message += f"├ 제목: {title_preview}\n"
+                else:
+                    message += f"├ 제목:\n"
+            else:
+                # 데이터가 없는 경우
+                message += f"├ 상태: � 데이터 없음\n"
+                message += f"├ 시간: 데이터 없음\n"
+                message += f"├ 제목:\n"
+            
+            message += f"\n"
         
-        current_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        message += f"최종 확인: {current_datetime}"
+        # 최종 확인 시간
+        message += f"최종 확인: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
         
         payload = {
-            "botName": f"POSCO 뉴스{status_info}",
+            "botName": "POSCO 뉴스 상태체크",
             "botIconImage": self.bot_profile_image_url,
-            "text": "데이터 갱신 없음",
+            "text": "현재 데이터 상태",
             "attachments": [{
-                "color": "#28a745",
-                "text": message.replace("📊 현재 데이터 상태\n\n", "")
+                "color": "#17a2b8",
+                "text": message
             }]
         }
-        
         try:
             response = requests.post(
                 self.webhook_url,
@@ -770,69 +746,73 @@ class DoorayNotifier:
     
     def send_comparison_notification(self, current_data, previous_data):
         """
-        영업일 비교 알림 전송
+        영업일 비교 알림 전송 - 캡처 기반 원본 형태
         
-        현재 데이터와 직전 영업일 데이터를 비교하여 상세한 분석을 전송합니다.
+        현재 데이터와 직전 영업일 데이터를 비교하여 분석을 전송합니다.
+        직전 데이터가 없어도 현재 데이터는 표시합니다.
         
         Args:
             current_data (dict): 현재 뉴스 데이터
-            previous_data (dict): 직전 영업일 뉴스 데이터
+            previous_data (dict): 직전 영업일 뉴스 데이터 (None 가능)
         """
-        if not current_data:
-            return False
-        
         message = "📈 영업일 비교 분석\n\n"
         
-        # 오늘 날짜 정보
-        today_date = datetime.now().date()
-        
-        # 현재 데이터
-        current_news = None
-        for news_type, news_data in current_data.items():
-            if news_data and news_data.get('title'):
-                current_news = news_data
-                break
-        
-        if not current_news:
-            message += "현재 뉴스 데이터가 없습니다.\n"
-        else:
-            current_date = current_news.get('date', '')
-            current_time = current_news.get('time', '')
-            current_title = current_news.get('title', '')
+        # 각 뉴스 타입별로 현재/직전 데이터 표시
+        for news_type, current_news in current_data.items():
+            news_config = NEWS_TYPES.get(news_type, {})
+            display_name = news_config.get('display_name', news_type.upper().replace('-', ' '))
             
-            if current_date and current_time:
-                current_datetime = self._format_datetime(current_date, current_time)
-                current_date_obj = datetime.strptime(current_date, '%Y%m%d').date()
-                is_latest = " (최신)" if current_date_obj == today_date else ""
-                message += f"├ 현재: {current_datetime}{is_latest}\n"
-                if current_title:
-                    title_preview = current_title[:40] + "..." if len(current_title) > 40 else current_title
-                    message += f"├ 제목: {title_preview}\n"
+            message += f"[{display_name}]\n"
             
-            # 구분선 추가 (가독성 향상)
+            # 현재 데이터
+            if current_news and current_news.get('title'):
+                current_date = current_news.get('date', '')
+                current_time = current_news.get('time', '')
+                current_title = current_news.get('title', '')
+                
+                if current_date and current_time:
+                    current_datetime = self._format_datetime(current_date, current_time)
+                    today_date = datetime.now().strftime('%Y%m%d')
+                    is_latest = " (최신)" if current_date == today_date else ""
+                    message += f"├ 현재: {current_datetime}{is_latest}\n"
+                    
+                    if current_title:
+                        title_preview = current_title[:60] + "..." if len(current_title) > 60 else current_title
+                        message += f"├ 제목: {title_preview}\n"
+                else:
+                    message += f"├ 현재: 데이터 없음\n"
+            else:
+                message += f"├ 현재: 데이터 없음\n"
+            
+            # 구분선
             message += f"├ ──────────────────────\n"
             
             # 직전 데이터
-            previous_date = previous_data.get('date', '')
-            previous_time = previous_data.get('time', '')
-            previous_title = previous_data.get('title', '')
-            
-            if previous_date and previous_time:
-                previous_datetime = self._format_datetime(previous_date, previous_time)
-                previous_date_obj = datetime.strptime(previous_date, '%Y%m%d').date()
-                days_diff = (today_date - previous_date_obj).days
-                days_text = f" ({days_diff}일 전)" if days_diff > 0 else ""
-                message += f"├ 직전: {previous_datetime}{days_text}\n"
-                if previous_title:
-                    title_preview = previous_title[:40] + "..." if len(previous_title) > 40 else previous_title
-                    message += f"└ 제목: {title_preview}\n"
+            if previous_data and previous_data.get(news_type):
+                previous_news = previous_data[news_type]
+                if previous_news and previous_news.get('title'):
+                    previous_date = previous_news.get('date', '')
+                    previous_time = previous_news.get('time', '')
+                    previous_title = previous_news.get('title', '')
+                    
+                    if previous_date and previous_time:
+                        previous_datetime = self._format_datetime(previous_date, previous_time)
+                        message += f"├ 직전: {previous_datetime}\n"
+                        
+                        if previous_title:
+                            title_preview = previous_title[:60] + "..." if len(previous_title) > 60 else previous_title
+                            message += f"└ 제목: {title_preview}\n"
+                    else:
+                        message += f"└ 직전: 데이터 없음\n"
+                else:
+                    message += f"└ 직전: 데이터 없음\n"
             else:
                 message += f"└ 직전: 데이터 없음\n"
             
-            message += "\n"
+            message += f"\n"
         
         payload = {
-            "botName": "POSCO 뉴스 📈",
+            "botName": "POSCO 뉴스 비교알림",
             "botIconImage": self.bot_profile_image_url,
             "text": "영업일 비교 분석",
             "attachments": [{
