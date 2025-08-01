@@ -76,6 +76,15 @@ class BaseNewsMonitor(ABC):
         self.last_data = None
         self.delay_notifications_sent = set()
         
+        # 리포트 뷰어 자동 시작 (첫 번째 모니터만)
+        if not hasattr(BaseNewsMonitor, '_viewer_started'):
+            BaseNewsMonitor._viewer_started = True
+            try:
+                from auto_start_report_viewer import ensure_report_viewer_running
+                ensure_report_viewer_running()
+            except Exception as e:
+                print(f"⚠️ 리포트 뷰어 자동 시작 실패: {e}")
+        
         print(f"{self.emoji} {self.display_name} 전용 모니터링 시스템 초기화 완료")
     
     @abstractmethod
@@ -324,29 +333,41 @@ class BaseNewsMonitor(ABC):
             "text": message
         }
         
-        # 리포트가 생성되었으면 버튼 추가 (GitHub Pages URL 사용)
+        # 리포트가 생성되었으면 두 가지 버튼 모두 제공 (테스트용)
         if report_info and not report_info.get('error'):
             github_url = report_info.get('github_url')
+            local_url = f"http://localhost:8080/reports/{report_info['filename']}"
+            
+            # 두 가지 버튼 모두 제공하여 어느 것이 작동하는지 테스트
+            buttons = []
             
             if github_url:
-                # GitHub Pages 배포 성공 시 버튼 추가
-                attachment["actions"] = [
-                    {
-                        "type": "button",
-                        "text": "📊 리포트 다운로드",
-                        "url": github_url,
-                        "style": "primary"
-                    },
-                    {
-                        "type": "button", 
-                        "text": "🌐 대시보드",
-                        "url": "https://shuserker.github.io/infomax_api/",
-                        "style": "default"
-                    }
-                ]
-                print(f"🔗 리포트 URL 생성: {github_url}")
-            else:
-                print("⚠️ GitHub Pages URL 생성 실패 - 버튼 없이 전송")
+                buttons.append({
+                    "type": "button",
+                    "text": "📊 GitHub 리포트",
+                    "url": github_url,
+                    "style": "primary"
+                })
+                print(f"🔗 GitHub URL: {github_url}")
+            
+            buttons.extend([
+                {
+                    "type": "button",
+                    "text": "🔧 로컬 리포트",
+                    "url": local_url,
+                    "style": "default"
+                },
+                {
+                    "type": "button", 
+                    "text": "🌐 대시보드",
+                    "url": "https://shuserker.github.io/infomax_api/",
+                    "style": "default"
+                }
+            ])
+            
+            attachment["actions"] = buttons
+            print(f"🔗 로컬 URL: {local_url}")
+            print(f"🎯 총 {len(buttons)}개 버튼 생성")
         
         payload = {
             "botName": f"POSCO 뉴스 {status_emoji}",
