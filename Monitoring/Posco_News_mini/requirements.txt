@@ -1,7 +1,0 @@
-requests>=2.25.0
-psutil>=5.8.0
-textblob>=0.17.1
-nltk>=3.8
-scikit-learn>=1.3.0
-pandas>=1.5.0
-numpy>=1.24.0

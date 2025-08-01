@@ -1,6 +1,0 @@
-requests
-pandas
-ipywidgets
-IPython
-openpyxl
-voila
