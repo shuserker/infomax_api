@@ -338,43 +338,74 @@ class BaseNewsMonitor(ABC):
             github_url = report_info.get('github_url')
             local_url = f"http://localhost:8080/reports/{report_info['filename']}"
             
-            # 두 가지 버튼 모두 제공하여 어느 것이 작동하는지 테스트
-            buttons = []
+            # 우선순위: 로컬 리포트 (즉시 접근) > GitHub 리포트 (지연 가능)
+            buttons = [
+                {
+                    "type": "button",
+                    "text": "📊 리포트 다운로드",
+                    "url": local_url,
+                    "style": "primary"
+                }
+            ]
             
             if github_url:
                 buttons.append({
                     "type": "button",
-                    "text": "📊 GitHub 리포트",
+                    "text": "🌐 공개 리포트",
                     "url": github_url,
-                    "style": "primary"
+                    "style": "default"
                 })
                 print(f"🔗 GitHub URL: {github_url}")
             
-            buttons.extend([
+            buttons.append({
+                "type": "button", 
+                "text": "📋 대시보드",
+                "url": "https://shuserker.github.io/infomax_api/",
+                "style": "default"
+            })
+            
+            # attachment에 버튼 추가
+            attachment["actions"] = buttons
+            print(f"🔗 로컬 URL: {local_url}")
+            print(f"🎯 총 {len(buttons)}개 버튼 생성")
+            
+            # 메인 텍스트 레벨에 여러 URL 버튼 추가 (테스트용)
+            main_buttons = [
                 {
                     "type": "button",
-                    "text": "🔧 로컬 리포트",
+                    "text": "📊 로컬 리포트",
                     "url": local_url,
+                    "style": "primary"
+                },
+                {
+                    "type": "button",
+                    "text": "🌐 GitHub 리포트",
+                    "url": f"https://shuserker.github.io/infomax_api/reports/{report_info['filename']}",
                     "style": "default"
                 },
                 {
                     "type": "button", 
-                    "text": "🌐 대시보드",
+                    "text": "📋 대시보드",
                     "url": "https://shuserker.github.io/infomax_api/",
                     "style": "default"
                 }
-            ])
+            ]
             
-            attachment["actions"] = buttons
-            print(f"🔗 로컬 URL: {local_url}")
-            print(f"🎯 총 {len(buttons)}개 버튼 생성")
-        
-        payload = {
-            "botName": f"POSCO 뉴스 {status_emoji}",
-            "botIconImage": BOT_PROFILE_IMAGE_URL,
-            "text": f"{self.display_name} {status_text}",
-            "attachments": [attachment]
-        }
+            payload = {
+                "botName": f"POSCO 뉴스 {status_emoji}",
+                "botIconImage": BOT_PROFILE_IMAGE_URL,
+                "text": f"{self.display_name} {status_text}",
+                "actions": main_buttons,  # 메인 레벨 버튼
+                "attachments": [attachment]  # attachment 레벨 버튼
+            }
+        else:
+            # 리포트 생성 실패 시 기본 payload
+            payload = {
+                "botName": f"POSCO 뉴스 {status_emoji}",
+                "botIconImage": BOT_PROFILE_IMAGE_URL,
+                "text": f"{self.display_name} {status_text}",
+                "attachments": [attachment]
+            }
         
         try:
             response = requests.post(
