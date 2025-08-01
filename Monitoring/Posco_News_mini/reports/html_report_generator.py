@@ -59,12 +59,26 @@ class HTMLReportGenerator:
         with open(report_file, 'w', encoding='utf-8') as f:
             f.write(html_content)
         
-        # GitHub Actions에서 자동 배포하므로 여기서는 저장만
         print(f"✅ 리포트 생성 완료: {filename}")
+        
+        # GitHub Pages 배포 시도
+        github_url = None
+        try:
+            import sys
+            import os
+            sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+            from github_pages_deployer import deploy_report_to_github
+            github_url = deploy_report_to_github(filename)
+            if github_url:
+                print(f"🌐 GitHub Pages 배포 완료: {github_url}")
+        except Exception as e:
+            print(f"⚠️ GitHub Pages 배포 실패: {e}")
         
         return {
             'filename': filename,
-            'web_url': f"https://shuserker.github.io/infomax_api/reports/{filename}",
+            'local_path': str(report_file),
+            'github_url': github_url,
+            'web_url': github_url or f"https://shuserker.github.io/infomax_api/reports/{filename}",
             'display_name': display_name
         }
     
