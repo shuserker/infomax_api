@@ -221,6 +221,20 @@ class NewYorkMarketMonitor(BaseNewsMonitor):
         
         return f"{formatted_date} {formatted_time}"
 
+    def send_test_notification(self):
+        """테스트 알림 전송"""
+        print("🧪 뉴욕마켓워치 테스트 알림 전송 중...")
+        test_message = f"🧪 뉴욕마켓워치 테스트\n\n📅 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n✅ 시스템 정상 작동 중"
+        
+        try:
+            success = self.notifier.send_notification(test_message, is_error=False)
+            if success:
+                print("✅ 뉴욕마켓워치 테스트 알림 전송 성공")
+            else:
+                print("❌ 뉴욕마켓워치 테스트 알림 전송 실패")
+        except Exception as e:
+            print(f"❌ 뉴욕마켓워치 테스트 알림 전송 오류: {e}")
+
 def main():
     """메인 실행 함수"""
     parser = argparse.ArgumentParser(description='뉴욕마켓워치 뉴스 전용 모니터링')

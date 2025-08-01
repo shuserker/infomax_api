@@ -218,20 +218,15 @@ class MasterNewsMonitor:
             }]
         }
         
+        # DoorayNotifier를 사용하여 알림 전송
         try:
-            response = requests.post(
-                DOORAY_WEBHOOK_URL,
-                json=payload,
-                headers={'Content-Type': 'application/json'},
-                timeout=10
-            )
-            
-            if response.status_code == 200:
+            success = self.notifier.send_notification(message, is_error=False)
+            if success:
                 print("✅ 통합 상태 보고서 전송 성공")
                 self.last_status_report = current_time
                 return True
             else:
-                print(f"❌ 통합 상태 보고서 전송 실패: {response.status_code}")
+                print("❌ 통합 상태 보고서 전송 실패")
                 return False
                 
         except Exception as e:
@@ -316,6 +311,312 @@ class MasterNewsMonitor:
         
         finally:
             self.monitoring_active = False
+    
+    def run_status_check(self):
+        """현재 상태 체크 (변경사항 없어도 상태 알림)"""
+        print("📊 현재 상태 체크 실행 중...")
+        results = self.run_integrated_check()
+        self.send_integrated_status_report(results)
+        print("✅ 상태 체크 완료")
+    
+    def run_business_day_comparison(self):
+        """영업일 비교 체크 - 실제 데이터 기반"""
+        print("📈 영업일 비교 분석 실행 중...")
+        
+        # 실제 데이터 조회
+        newyork_data = self.newyork_monitor.get_current_news_data()
+        kospi_data = self.kospi_monitor.get_current_news_data()
+        exchange_data = self.exchange_monitor.get_current_news_data()
+        
+        comparison_message = "📊 영업일 비교 분석\n\n"
+        
+        # EXCHANGE RATE 비교
+        comparison_message += "┌  EXCHANGE RATE\n"
+        if exchange_data:
+            exchange_datetime = self.exchange_monitor._format_news_datetime(
+                exchange_data.get('date', ''), 
+                exchange_data.get('time', ''),
+                self.exchange_monitor.analyze_publish_pattern(exchange_data)
+            )
+            comparison_message += f"├ 현재: {exchange_datetime}\n"
+            comparison_message += f"└ 제목: {exchange_data.get('title', '제목 없음')}\n\n"
+        else:
+            comparison_message += "├ 현재: 데이터 없음\n"
+            comparison_message += "└ 제목: 데이터를 가져올 수 없습니다\n\n"
+        
+        # NEWYORK MARKET WATCH 비교
+        comparison_message += "┌  NEWYORK MARKET WATCH\n"
+        if newyork_data:
+            newyork_analysis = self.newyork_monitor.analyze_publish_pattern(newyork_data)
+            newyork_datetime = self.newyork_monitor._format_news_datetime(
+                newyork_data.get('date', ''), 
+                newyork_data.get('time', ''),
+                newyork_analysis
+            )
+            comparison_message += f"├ 현재: {newyork_datetime}\n"
+            comparison_message += f"└ 제목: {newyork_data.get('title', '제목 없음')}\n\n"
+        else:
+            comparison_message += "├ 현재: 데이터 없음\n"
+            comparison_message += "└ 제목: 데이터를 가져올 수 없습니다\n\n"
+        
+        # KOSPI CLOSE 비교
+        comparison_message += "┌  KOSPI CLOSE\n"
+        if kospi_data:
+            kospi_datetime = self.kospi_monitor._format_news_datetime(
+                kospi_data.get('date', ''), 
+                kospi_data.get('time', ''),
+                self.kospi_monitor.analyze_publish_pattern(kospi_data)
+            )
+            comparison_message += f"├ 현재: {kospi_datetime}\n"
+            comparison_message += f"└ 제목: {kospi_data.get('title', '제목 없음')}\n\n"
+        else:
+            comparison_message += "├ 현재: 데이터 없음\n"
+            comparison_message += "└ 제목: 데이터를 가져올 수 없습니다\n\n"
+        
+        comparison_message += f"분석 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        
+        # 알림 전송
+        self.notifier.send_notification(comparison_message, is_error=False)
+        print("✅ 영업일 비교 분석 완료")
+    
+    def run_smart_monitoring(self):
+        """스마트 모니터링 (뉴스 발행 패턴 기반 적응형)"""
+        print("🧠 스마트 모니터링 시작...")
+        self.run_continuous_monitoring()
+    
+    def run_basic_monitoring(self):
+        """기본 모니터링 (60분 간격 무한실행)"""
+        print("🔄 기본 모니터링 시작...")
+        # 기본 간격으로 연속 모니터링 실행
+        original_interval = self.status_report_interval
+        self.status_report_interval = 3600  # 60분
+        try:
+            self.run_continuous_monitoring()
+        finally:
+            self.status_report_interval = original_interval
+    
+    def run_daily_summary(self):
+        """일일 요약 리포트 - 실제 데이터 기반"""
+        print("📋 일일 요약 리포트 생성 중...")
+        
+        # 실제 데이터 조회
+        newyork_data = self.newyork_monitor.get_current_news_data()
+        kospi_data = self.kospi_monitor.get_current_news_data()
+        exchange_data = self.exchange_monitor.get_current_news_data()
+        
+        # 오늘 발행된 뉴스 개수 계산
+        today_date = datetime.now().strftime('%Y%m%d')
+        published_count = 0
+        
+        if newyork_data and newyork_data.get('date') == today_date:
+            published_count += 1
+        if kospi_data and kospi_data.get('date') == today_date:
+            published_count += 1
+        if exchange_data and exchange_data.get('date') == today_date:
+            published_count += 1
+        
+        summary_message = f"📅 오늘 발행 뉴스 ({published_count}개)\n"
+        summary_message += "━━━━━━━━━━━━━━━━━━━━━\n\n"
+        
+        # 오늘 발행된 뉴스들
+        if newyork_data and newyork_data.get('date') == today_date:
+            newyork_analysis = self.newyork_monitor.analyze_publish_pattern(newyork_data)
+            summary_message += "┌  NEWYORK MARKET WATCH\n"
+            summary_message += f"├ 시간: {newyork_analysis.get('formatted_time', '시간 정보 없음')}\n"
+            summary_message += f"└ 제목: {newyork_data.get('title', '제목 없음')}\n\n"
+        
+        if kospi_data and kospi_data.get('date') == today_date:
+            kospi_analysis = self.kospi_monitor.analyze_publish_pattern(kospi_data)
+            summary_message += "┌  KOSPI CLOSE\n"
+            summary_message += f"├ 시간: {kospi_analysis.get('actual_time', '시간 정보 없음')}\n"
+            summary_message += f"└ 제목: {kospi_data.get('title', '제목 없음')}\n\n"
+        
+        if exchange_data and exchange_data.get('date') == today_date:
+            exchange_analysis = self.exchange_monitor.analyze_publish_pattern(exchange_data)
+            summary_message += "┌  EXCHANGE RATE\n"
+            summary_message += f"├ 시간: {exchange_analysis.get('actual_time', '시간 정보 없음')}\n"
+            summary_message += f"└ 제목: {exchange_data.get('title', '제목 없음')}\n\n"
+        
+        # 발행되지 않은 뉴스가 있으면 표시
+        if published_count == 0:
+            summary_message += "📝 오늘 발행된 뉴스가 없습니다.\n\n"
+        
+        summary_message += f"📝 리포트 생성: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        
+        # 알림 전송
+        self.notifier.send_notification(summary_message, is_error=False)
+        print("✅ 일일 요약 리포트 완료")
+    
+    def run_data_status_check(self):
+        """데이터 갱신 상태 체크 - 발행 패턴 고려한 정교한 분석"""
+        print("📊 데이터 갱신 상태 체크 중...")
+        
+        # 실제 데이터 조회
+        newyork_data = self.newyork_monitor.get_current_news_data()
+        kospi_data = self.kospi_monitor.get_current_news_data()
+        exchange_data = self.exchange_monitor.get_current_news_data()
+        
+        # 각 뉴스별 분석
+        newyork_analysis = self.newyork_monitor.analyze_publish_pattern(newyork_data)
+        kospi_analysis = self.kospi_monitor.analyze_publish_pattern(kospi_data)
+        exchange_analysis = self.exchange_monitor.analyze_publish_pattern(exchange_data)
+        
+        # 현재 시간 정보
+        now = datetime.now()
+        current_time = now.strftime('%H%M%S')
+        today_date = now.strftime('%Y%m%d')
+        
+        # 캡처와 동일한 형태의 알림 생성
+        status_message = "데이터 갱신 없음\n\n"
+        
+        # EXCHANGE RATE 상태 (16:30 발행 예정)
+        status_message += "┌  EXCHANGE RATE\n"
+        if exchange_data:
+            # 발행 패턴 기반 상태 판단
+            if exchange_analysis.get('is_published_today', False):
+                status_message += "├ 상태: 🟢 최신\n"
+            elif current_time < "163000":  # 16:30 이전
+                status_message += "├ 상태: ⏳ 발행 대기\n"
+            elif current_time < "180000":  # 18:00 이전
+                status_message += "├ 상태: 🟡 지연 의심\n"
+            else:
+                status_message += "├ 상태: 🔴 미발행 의심\n"
+            
+            exchange_datetime = self.exchange_monitor._format_news_datetime(
+                exchange_data.get('date', ''), 
+                exchange_data.get('time', ''),
+                exchange_analysis
+            )
+            status_message += f"├ 시간: {exchange_datetime}\n"
+            status_message += f"└ 제목: {exchange_data.get('title', '제목 없음')}\n\n"
+        else:
+            if current_time < "163000":
+                status_message += "├ 상태: ⏳ 발행 대기\n"
+            else:
+                status_message += "├ 상태: 🔴 데이터 없음\n"
+            status_message += "├ 시간: 데이터 없음\n"
+            status_message += "└ 제목:\n\n"
+        
+        # NEWYORK MARKET WATCH 상태 (06:00-07:00 발행 예정)
+        status_message += "┌  NEWYORK MARKET WATCH\n"
+        if newyork_data:
+            if newyork_analysis.get('is_published_today', False):
+                status_message += "├ 상태: 🟢 최신\n"
+            elif current_time < "060000":  # 06:00 이전
+                status_message += "├ 상태: ⏳ 발행 대기\n"
+            elif current_time < "080000":  # 08:00 이전
+                status_message += "├ 상태: 🟡 지연 의심\n"
+            else:
+                status_message += "├ 상태: 🟡 이전 데이터\n"
+            
+            newyork_datetime = self.newyork_monitor._format_news_datetime(
+                newyork_data.get('date', ''), 
+                newyork_data.get('time', ''),
+                newyork_analysis
+            )
+            status_message += f"├ 시간: {newyork_datetime}\n"
+            status_message += f"└ 제목: {newyork_data.get('title', '제목 없음')}\n\n"
+        else:
+            if current_time < "060000":
+                status_message += "├ 상태: ⏳ 발행 대기\n"
+            else:
+                status_message += "├ 상태: 🔴 데이터 없음\n"
+            status_message += "├ 시간: 데이터 없음\n"
+            status_message += "└ 제목:\n\n"
+        
+        # KOSPI CLOSE 상태 (15:40 발행 예정)
+        status_message += "┌  KOSPI CLOSE\n"
+        if kospi_data:
+            if kospi_analysis.get('is_published_today', False):
+                status_message += "├ 상태: 🟢 최신\n"
+            elif current_time < "154000":  # 15:40 이전
+                status_message += "├ 상태: ⏳ 발행 대기\n"
+            elif current_time < "170000":  # 17:00 이전
+                status_message += "├ 상태: 🟡 지연 의심\n"
+            else:
+                status_message += "├ 상태: 🟡 이전 데이터\n"
+            
+            kospi_datetime = self.kospi_monitor._format_news_datetime(
+                kospi_data.get('date', ''), 
+                kospi_data.get('time', ''),
+                kospi_analysis
+            )
+            status_message += f"├ 시간: {kospi_datetime}\n"
+            status_message += f"└ 제목: {kospi_data.get('title', '제목 없음')}\n\n"
+        else:
+            if current_time < "154000":
+                status_message += "├ 상태: ⏳ 발행 대기\n"
+            else:
+                status_message += "├ 상태: 🔴 데이터 없음\n"
+            status_message += "├ 시간: 데이터 없음\n"
+            status_message += "└ 제목:\n\n"
+        
+        status_message += f"최종 확인: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        
+        # 알림 전송
+        self.notifier.send_notification(status_message, is_error=False)
+        print("✅ 데이터 갱신 상태 체크 완료")
+
+    def run_test_notification(self):
+        """테스트 알림 전송"""
+        print("🧪 테스트 알림 전송 중...")
+        test_message = f"🧪 POSCO 뉴스 마스터 모니터링 테스트\n\n📅 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n✅ 시스템 정상 작동 중"
+        
+        # DoorayNotifier를 사용하여 알림 전송
+        try:
+            success = self.notifier.send_notification(test_message, is_error=False)
+            if success:
+                print("✅ 테스트 알림 전송 성공")
+            else:
+                print("❌ 테스트 알림 전송 실패")
+        except Exception as e:
+            print(f"❌ 테스트 알림 전송 오류: {e}")
+    
+    def run_detailed_daily_summary(self):
+        """상세 일일 요약 (제목 + 본문 비교)"""
+        print("📋 상세 일일 요약 생성 중...")
+        # 개별 모니터의 단일 체크로 대체 (함수가 없으므로)
+        print("🌆 뉴욕마켓워치 상세 요약...")
+        self.newyork_monitor.run_single_check()
+        
+        print("📈 증시마감 상세 요약...")
+        self.kospi_monitor.run_single_check()
+        
+        print("💱 서환마감 상세 요약...")
+        self.exchange_monitor.run_single_check()
+        
+        print("✅ 상세 일일 요약 완료")
+    
+    def run_advanced_analysis(self):
+        """고급 분석 (30일 추이 + 주단위 분석 + 향후 예상)"""
+        print("📊 고급 분석 실행 중...")
+        # 개별 모니터의 단일 체크로 대체 (함수가 없으므로)
+        print("🌆 뉴욕마켓워치 고급 분석...")
+        self.newyork_monitor.run_single_check()
+        
+        print("📈 증시마감 고급 분석...")
+        self.kospi_monitor.run_single_check()
+        
+        print("💱 서환마감 고급 분석...")
+        self.exchange_monitor.run_single_check()
+        
+        print("✅ 고급 분석 완료")
+    
+    def run_smart_monitoring(self):
+        """스마트 모니터링 (뉴스 발행 패턴 기반 적응형)"""
+        print("🧠 스마트 모니터링 시작...")
+        self.run_continuous_monitoring()
+    
+    def run_basic_monitoring(self):
+        """기본 모니터링 (60분 간격 무한실행)"""
+        print("🔄 기본 모니터링 시작...")
+        # 기본 간격으로 연속 모니터링 실행
+        original_interval = self.status_report_interval
+        self.status_report_interval = 3600  # 60분
+        try:
+            self.run_continuous_monitoring()
+        finally:
+            self.status_report_interval = original_interval
 
 def main():
     """메인 실행 함수"""

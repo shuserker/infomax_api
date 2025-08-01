@@ -62,7 +62,7 @@ echo 🚀 일회성 작업이 필요하면: 🚀일회성작업_실행.bat
 echo 🛡️ 24시간 워치햄스터: 이 파일
 echo.
 
-python monitor_WatchHamster.py
+python -u monitor_WatchHamster.py
 
 REM 종료 처리
 echo.

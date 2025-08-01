@@ -132,6 +132,20 @@ class ExchangeRateMonitor(BaseNewsMonitor):
             'actual_time': actual_time.strftime('%H:%M')
         }
 
+    def send_test_notification(self):
+        """테스트 알림 전송"""
+        print("🧪 서환마감 테스트 알림 전송 중...")
+        test_message = f"🧪 서환마감 테스트\n\n📅 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n✅ 시스템 정상 작동 중"
+        
+        try:
+            success = self.notifier.send_notification(test_message, is_error=False)
+            if success:
+                print("✅ 서환마감 테스트 알림 전송 성공")
+            else:
+                print("❌ 서환마감 테스트 알림 전송 실패")
+        except Exception as e:
+            print(f"❌ 서환마감 테스트 알림 전송 오류: {e}")
+
 def main():
     """메인 실행 함수"""
     parser = argparse.ArgumentParser(description='서환마감 뉴스 전용 모니터링')

@@ -97,6 +97,59 @@ class BaseNewsMonitor(ABC):
         """
         pass
     
+    def _format_news_datetime(self, date, time, pattern_analysis):
+        """
+        뉴스 날짜시간 포맷팅
+        
+        Args:
+            date (str): 날짜 문자열 (YYYYMMDD)
+            time (str): 시간 문자열
+            pattern_analysis (dict): 패턴 분석 결과
+            
+        Returns:
+            str: 포맷팅된 날짜시간
+        """
+        if not date:
+            return "날짜 정보 없음"
+        
+        try:
+            # 날짜 포맷팅 (YYYYMMDD → YYYY-MM-DD)
+            if len(date) >= 8:
+                formatted_date = f"{date[:4]}-{date[4:6]}-{date[6:8]}"
+            else:
+                formatted_date = date
+            
+            # 시간 포맷팅
+            if not time:
+                return f"{formatted_date} 시간 정보 없음"
+            
+            # 패턴 분석에서 포맷팅된 시간 사용
+            if 'formatted_time' in pattern_analysis:
+                formatted_time = pattern_analysis['formatted_time']
+            elif 'actual_time' in pattern_analysis:
+                formatted_time = pattern_analysis['actual_time']
+            else:
+                # 기본 시간 포맷팅
+                if self.time_format == '5digit' and len(time) == 5:
+                    # 5자리 형식: 61831 → 06:18:31
+                    hour = int(time[0])
+                    minute = int(time[1:3])
+                    second = int(time[3:5])
+                    formatted_time = f"{hour:02d}:{minute:02d}:{second:02d}"
+                elif len(time) >= 6:
+                    # 6자리 형식: 154000 → 15:40:00
+                    formatted_time = f"{time[:2]}:{time[2:4]}:{time[4:6]}"
+                elif len(time) >= 4:
+                    # 4자리 형식: 1540 → 15:40:00
+                    formatted_time = f"{time[:2]}:{time[2:4]}:00"
+                else:
+                    formatted_time = f"시간오류({time})"
+            
+            return f"{formatted_date} {formatted_time}"
+            
+        except (ValueError, IndexError) as e:
+            return f"날짜시간 오류({date} {time})"
+    
     def check_delay_notification_needed(self):
         """
         지연 발행 알림 필요 여부 확인

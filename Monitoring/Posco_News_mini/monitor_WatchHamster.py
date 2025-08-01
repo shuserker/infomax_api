@@ -31,6 +31,13 @@ import requests
 from datetime import datetime, timedelta
 import psutil
 
+# 출력 버퍼링 해제 - 실시간 로그 출력을 위해
+sys.stdout.reconfigure(line_buffering=True)
+sys.stderr.reconfigure(line_buffering=True)
+
+# 환경 변수로도 출력 버퍼링 비활성화
+os.environ['PYTHONUNBUFFERED'] = '1'
+
 # 현재 스크립트 디렉토리를 Python 경로에 추가
 current_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, current_dir)
@@ -38,6 +45,9 @@ sys.path.insert(0, current_dir)
 try:
     from config import WATCHHAMSTER_WEBHOOK_URL, BOT_PROFILE_IMAGE_URL, API_CONFIG
     from core import PoscoNewsAPIClient, NewsDataProcessor, DoorayNotifier
+    from core.state_manager import StateManager
+    from core.process_manager import ProcessManager
+    from core.colorful_ui import ColorfulConsoleUI
     # 최적화된 모니터링 시스템 연결
     from newyork_monitor import NewYorkMarketMonitor
     from kospi_monitor import KospiCloseMonitor
@@ -88,12 +98,37 @@ class PoscoMonitorWatchHamster:
         self.status_file = os.path.join(self.script_dir, "WatchHamster_status.json")
         self.monitor_process = None
         self.last_git_check = datetime.now() - timedelta(hours=1)  # 초기 체크 강제
-        # 정기 상태 알림 설정 (절대 시간 기준)
+        
+        # StateManager 초기화 (안정성 개선)
+        self.state_manager = StateManager(self.status_file)
+        
+        # ProcessManager 초기화 (프로세스 시작 실패 해결)
+        self.process_manager = ProcessManager(self.script_dir)
+        
+        # ColorfulConsoleUI 초기화 (컬러풀한 UI)
+        self.ui = ColorfulConsoleUI()
+        
+        # 이전 상태 로드 (가능한 경우)
+        self.load_previous_state()
+        
+        # 절대시간 기준 알림 설정
         self.status_notification_start_hour = 7  # 시작 시간 (7시)
         self.status_notification_interval_hours = 2  # 간격 (2시간)
         self.last_status_notification_hour = None  # 마지막 알림 시간 (시간만 저장)
+        self.last_status_notification = None  # 기존 호환성을 위해 유지
+        self.last_hourly_check_hour = None  # 마지막 매시간 체크 시간
         
-        self.git_check_interval = 60 * 60  # 1시간마다 Git 체크 (POSCO 뉴스 특성상 급한 업데이트 드뭄)
+        # 고정 시간 알림 설정
+        self.fixed_time_tasks = {
+            "06:00": ("1", "아침 현재 상태 체크"),
+            "06:10": ("2", "아침 영업일 비교 분석"), 
+            "18:00": ("5", "저녁 일일 요약 리포트"),
+            "18:10": ("7", "저녁 상세 일일 요약"),
+            "18:20": ("8", "저녁 고급 분석")
+        }
+        self.executed_fixed_tasks = set()  # 오늘 실행된 고정 작업들
+        
+        self.git_check_interval = 60 * 60  # 1시간마다 Git 체크
         self.process_check_interval = 5 * 60  # 5분마다 프로세스 체크 (뉴스 발행 간격 고려)
         
         # 스케줄 작업 추적
@@ -158,13 +193,13 @@ class PoscoMonitorWatchHamster:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         log_message = f"[{timestamp}] {message}"
         
-        # Windows 콘솔 출력 시 인코딩 문제 해결
+        # Windows 콘솔 출력 시 인코딩 문제 해결 + 즉시 출력
         try:
-            print(log_message)
+            print(log_message, flush=True)  # flush=True로 즉시 출력
         except UnicodeEncodeError:
             # 콘솔에서 한글 출력 실패 시 영어로 대체
             safe_message = message.encode('ascii', 'ignore').decode('ascii')
-            print(f"[{timestamp}] {safe_message}")
+            print(f"[{timestamp}] {safe_message}", flush=True)
         
         # 로그 파일에는 항상 UTF-8로 저장
         try:
@@ -173,6 +208,192 @@ class PoscoMonitorWatchHamster:
         except Exception as e:
             print(f"[ERROR] 로그 파일 쓰기 실패: {e}")
     
+    def should_send_status_notification(self):
+        """
+        절대시간 기준 정기 상태 알림 필요 여부 체크
+        
+        Returns:
+            bool: 알림이 필요하면 True
+        """
+        current_time = datetime.now()
+        current_hour = current_time.hour
+        current_minute = current_time.minute
+        
+        # 정각(0분)에만 체크 (1분 이내 오차 허용)
+        if current_minute > 1:
+            return False
+        
+        # 시작 시간부터 간격에 맞는 시간인지 체크
+        if current_hour < self.status_notification_start_hour:
+            return False
+        
+        # 간격 계산: (현재시간 - 시작시간) % 간격 == 0
+        hour_diff = current_hour - self.status_notification_start_hour
+        if hour_diff % self.status_notification_interval_hours == 0:
+            # 이미 이 시간에 알림을 보냈는지 체크
+            if self.last_status_notification_hour != current_hour:
+                return True
+        
+        return False
+    
+    def should_send_hourly_check(self):
+        """
+        매시간 정각 상태 체크 필요 여부 체크
+        
+        Returns:
+            bool: 체크가 필요하면 True
+        """
+        current_time = datetime.now()
+        current_hour = current_time.hour
+        current_minute = current_time.minute
+        
+        # 정각(0분)에만 체크 (1분 이내 오차 허용)
+        if current_minute > 1:
+            return False
+        
+        # 이미 이 시간에 체크했는지 확인
+        if self.last_hourly_check_hour != current_hour:
+            return True
+        
+        return False
+    
+    def check_fixed_time_tasks(self):
+        """
+        고정 시간 작업들 체크 및 실행
+        """
+        current_time = datetime.now()
+        current_time_str = current_time.strftime("%H:%M")
+        current_date = current_time.strftime("%Y-%m-%d")
+        
+        # 날짜가 바뀌면 실행된 작업 목록 초기화
+        if not hasattr(self, '_last_check_date') or self._last_check_date != current_date:
+            self.executed_fixed_tasks = set()
+            self._last_check_date = current_date
+        
+        # 고정 시간 작업 체크
+        for time_str, (task_type, task_name) in self.fixed_time_tasks.items():
+            if current_time_str == time_str:
+                task_key = f"{current_date}_{time_str}"
+                if task_key not in self.executed_fixed_tasks:
+                    self.log(f"🕐 고정 시간 작업 실행: {time_str} - {task_name}")
+                    self.execute_scheduled_task(task_type, task_name)
+                    self.executed_fixed_tasks.add(task_key)
+    
+    def is_quiet_hours(self):
+        """
+        조용한 시간대 여부 체크 (18:00~05:59)
+        
+        Returns:
+            bool: 조용한 시간대면 True
+        """
+        current_hour = datetime.now().hour
+        return current_hour >= 18 or current_hour < 6
+    
+    def send_status_notification(self):
+        """
+        절대시간 기준 정기 상태 알림 전송 (7, 9, 11, 13, 15, 17, 19, 21, 23시)
+        """
+        current_time = datetime.now()
+        current_hour = current_time.hour
+        
+        try:
+            # 모니터링 프로세스 상태 체크
+            monitor_running = self.is_monitor_running()
+            monitor_status = "🟢 정상 작동" if monitor_running else "🔴 중단됨"
+            
+            # 시스템 리소스 정보
+            try:
+                import psutil
+                cpu_percent = psutil.cpu_percent(interval=1)
+                memory = psutil.virtual_memory()
+                disk = psutil.disk_usage('/')
+                
+                resource_info = (
+                    f"💻 CPU: {cpu_percent:.1f}% | "
+                    f"🧠 메모리: {memory.percent:.1f}% | "
+                    f"💾 디스크: {disk.percent:.1f}%"
+                )
+                resource_normal = cpu_percent < 80 and memory.percent < 85 and disk.percent < 90
+            except:
+                resource_info = "📊 시스템 정보 수집 실패"
+                resource_normal = True
+            
+            # 다음 알림 시간 계산
+            next_hour = None
+            for hour in range(current_hour + 1, 24):
+                if hour >= self.status_notification_start_hour:
+                    hour_diff = hour - self.status_notification_start_hour
+                    if hour_diff % self.status_notification_interval_hours == 0:
+                        next_hour = hour
+                        break
+            
+            if next_hour is None:
+                next_hour = self.status_notification_start_hour
+            
+            # 조용한 시간대 구분하여 알림 전송
+            if self.is_quiet_hours():
+                # 조용한 시간대: 중요한 문제가 있을 때만 상세 알림
+                has_problem = not monitor_running or not resource_normal
+                
+                if has_problem:
+                    problem_details = []
+                    if not monitor_running:
+                        problem_details.append("❌ 모니터링 프로세스 중단")
+                    if not resource_normal:
+                        problem_details.append("❌ 시스템 리소스 임계값 초과")
+                    
+                    self.send_notification(
+                        f"🚨 POSCO 워치햄스터 정기 보고 - 중요 문제 감지\n\n"
+                        f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+                        f"🚨 감지된 문제:\n" + "\n".join(f"   • {problem}" for problem in problem_details) + "\n\n"
+                        f"🔍 상세 상태:\n"
+                        f"   • 모니터링: {monitor_status}\n"
+                        f"   • {resource_info}\n\n"
+                        f"⏰ 다음 보고: {next_hour:02d}:00\n"
+                        f"🔧 자동 복구 시도 중...",
+                        is_error=True
+                    )
+                    self.log(f"🚨 조용한 시간대 정기 보고 중요 문제 알림 전송 ({current_hour}시)")
+                else:
+                    # 정상 상태: 간단한 알림
+                    self.send_notification(
+                        f"🌙 POSCO 워치햄스터 정기 보고 (조용한 시간)\n\n"
+                        f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+                        f"🔍 모니터링: {monitor_status}\n"
+                        f"📊 {resource_info}\n"
+                        f"⏰ 다음 보고: {next_hour:02d}:00"
+                    )
+                    self.log(f"🌙 조용한 시간대 정기 보고 전송 ({current_hour}시)")
+            else:
+                # 일반 시간대: 상세한 알림
+                self.send_notification(
+                    f"🐹 POSCO 워치햄스터 정기 상태 보고\n\n"
+                    f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+                    f"🔍 모니터링 프로세스: {monitor_status}\n"
+                    f"📊 {resource_info}\n"
+                    f"⏰ 다음 보고: {next_hour:02d}:00\n"
+                    f"🚀 자동 복구 기능: 활성화"
+                )
+                self.log(f"🐹 정기 상태 보고 전송 완료 ({current_hour}시)")
+                
+        except Exception as e:
+            self.log(f"❌ 정기 상태 보고 실패: {e}")
+            self.send_notification(
+                f"❌ POSCO 워치햄스터 정기 보고 오류\n\n"
+                f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+                f"❌ 오류: {str(e)}\n"
+                f"🔧 수동 확인이 필요합니다.",
+                is_error=True
+            )
+    
+    def check_scheduled_tasks(self):
+        """
+        기존 스케줄된 작업들 체크 (기존 로직 유지)
+        """
+        # 기존 스케줄 작업 로직이 있다면 여기에 유지
+        # 현재는 절대시간 기준 시스템으로 대체되었으므로 빈 함수로 유지
+        pass
+
     def send_notification(self, message, is_error=False):
         """
         Dooray 알림 전송
@@ -862,15 +1083,11 @@ class PoscoMonitorWatchHamster:
         
         next_notification_time = f"{next_notification_hour:02d}:00"
         
-        self.send_notification(
-            f"🐹 POSCO 워치햄스터 🛡️ 정기 상태 보고\n\n"
-            f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
-            f"🔍 모니터링 프로세스: {monitor_status}\n"
-            f"🌐 API 연결: {api_status}\n"
-            f"{resource_info}\n"
-            f"⏰ 다음 보고: {next_notification_time} (절대시간 기준)\n"
-            f"🚀 자동 복구 기능: 활성화"
-        )
+        # 개별 뉴스 상태 정보 수집
+        news_status_info = self._get_detailed_news_status()
+        
+        # 사용자가 보여준 캡처와 정확히 같은 형태로 알림 전송
+        self.send_notification(f"데이터 갱신 없음\n\n{news_status_info}")
     
     def _send_hourly_status_notification(self, task_name):
         """
@@ -1286,82 +1503,320 @@ class PoscoMonitorWatchHamster:
             print(f"[ERROR] 로그 파일 관리 실패: {e}")
     
     def save_status(self):
-        """현재 상태 저장"""
+        """현재 상태 저장 - StateManager 사용으로 안정성 개선"""
         try:
             # 로그 파일 크기 관리
             self.manage_log_file()
             
+            # StateManager를 사용한 안전한 상태 저장
             status = {
-                "last_check": datetime.now().isoformat(),
+                "last_check": datetime.now(),
                 "monitor_running": self.is_monitor_running(),
-                "last_git_check": self.last_git_check.isoformat(),
-                "last_status_notification": self.last_status_notification.isoformat(),
-                "watchhamster_pid": os.getpid()
+                "last_git_check": self.last_git_check,
+                "last_status_notification": self.last_status_notification,
+                "last_status_notification_hour": self.last_status_notification_hour,
+                "watchhamster_pid": os.getpid(),
+                "last_scheduled_tasks": getattr(self, 'last_scheduled_tasks', {}),
+                "individual_monitors": self._get_individual_monitors_status(),
+                "error_count": getattr(self, 'error_count', 0),
+                "recovery_attempts": getattr(self, 'recovery_attempts', 0)
             }
             
-            with open(self.status_file, "w", encoding="utf-8") as f:
-                json.dump(status, f, ensure_ascii=False, indent=2)
+            # StateManager를 통한 안전한 저장
+            if self.state_manager.save_state(status):
+                self.log("✅ 상태 저장 완료")
+            else:
+                self.log("⚠️ 상태 저장 실패")
                 
         except Exception as e:
             self.log(f"❌ 상태 저장 오류: {e}")
     
+    def _get_individual_monitors_status(self):
+        """개별 모니터 상태 정보 수집"""
+        try:
+            monitors_status = {}
+            
+            # 뉴욕마켓워치 상태
+            if hasattr(self, 'newyork_monitor'):
+                monitors_status['newyork'] = {
+                    'last_check': datetime.now(),
+                    'status': 'active' if self.newyork_monitor else 'inactive'
+                }
+            
+            # 증시마감 상태
+            if hasattr(self, 'kospi_monitor'):
+                monitors_status['kospi'] = {
+                    'last_check': datetime.now(),
+                    'status': 'active' if self.kospi_monitor else 'inactive'
+                }
+            
+            # 서환마감 상태
+            if hasattr(self, 'exchange_monitor'):
+                monitors_status['exchange'] = {
+                    'last_check': datetime.now(),
+                    'status': 'active' if self.exchange_monitor else 'inactive'
+                }
+            
+            return monitors_status
+            
+        except Exception as e:
+            self.log(f"⚠️ 개별 모니터 상태 수집 실패: {e}")
+            return {}
+    
+    def _get_detailed_news_status(self):
+        """
+        사용자가 보여준 캡처와 정확히 같은 박스 형태의 뉴스 상태 정보 생성
+        
+        Returns:
+            str: 박스 형태로 포맷된 뉴스 상태 정보
+        """
+        try:
+            status_lines = []
+            
+            # EXCHANGE RATE 상태
+            if hasattr(self, 'exchange_monitor'):
+                try:
+                    ex_data = self.exchange_monitor.get_current_news_data()
+                    if ex_data and 'exchange-rate' in ex_data:
+                        ex_news = ex_data['exchange-rate']
+                        ex_time = ex_news.get('time', '데이터 없음')
+                        ex_title = ex_news.get('title', '')
+                        
+                        # 시간 포맷팅 (전체 datetime 형식으로)
+                        if ex_time != '데이터 없음' and len(ex_time) >= 6:
+                            ex_date = ex_news.get('date', '')
+                            if len(ex_date) == 8:  # YYYYMMDD
+                                formatted_time = f"{ex_date[:4]}-{ex_date[4:6]}-{ex_date[6:8]} {ex_time[:2]}:{ex_time[2:4]}:{ex_time[4:6]}"
+                            else:
+                                formatted_time = ex_time
+                        else:
+                            formatted_time = "데이터 없음"
+                        
+                        # 오늘 발행 여부 확인
+                        today = datetime.now().strftime('%Y%m%d')
+                        ex_date = ex_news.get('date', '')
+                        is_today = (ex_date == today)
+                        
+                        status_emoji = "🟢" if is_today else "🔴"
+                        status_text = "최신" if is_today else "데이터 없음"
+                        
+                        status_lines.append("┌  EXCHANGE RATE")
+                        status_lines.append(f"├ 상태: {status_emoji} {status_text}")
+                        status_lines.append(f"├ 시간: {formatted_time}")
+                        status_lines.append(f"└ 제목: {ex_title}")
+                    else:
+                        status_lines.append("┌  EXCHANGE RATE")
+                        status_lines.append("├ 상태: 🔴 데이터 없음")
+                        status_lines.append("├ 시간: 데이터 없음")
+                        status_lines.append("└ 제목:")
+                except Exception as e:
+                    status_lines.append("┌  EXCHANGE RATE")
+                    status_lines.append("├ 상태: ❌ 오류")
+                    status_lines.append("├ 시간: 데이터 없음")
+                    status_lines.append("└ 제목:")
+            
+            status_lines.append("")  # 빈 줄
+            
+            # NEWYORK MARKET WATCH 상태
+            if hasattr(self, 'newyork_monitor'):
+                try:
+                    ny_data = self.newyork_monitor.get_current_news_data()
+                    if ny_data and 'newyork-market-watch' in ny_data:
+                        ny_news = ny_data['newyork-market-watch']
+                        ny_time = ny_news.get('time', '데이터 없음')
+                        ny_title = ny_news.get('title', '')
+                        
+                        # 시간 포맷팅 (전체 datetime 형식으로)
+                        if ny_time != '데이터 없음' and len(ny_time) >= 6:
+                            ny_date = ny_news.get('date', '')
+                            if len(ny_date) == 8:  # YYYYMMDD
+                                formatted_time = f"{ny_date[:4]}-{ny_date[4:6]}-{ny_date[6:8]} {ny_time[:2]}:{ny_time[2:4]}:{ny_time[4:6]}"
+                            else:
+                                formatted_time = ny_time
+                        else:
+                            formatted_time = "데이터 없음"
+                        
+                        # 오늘 발행 여부 확인
+                        today = datetime.now().strftime('%Y%m%d')
+                        ny_date = ny_news.get('date', '')
+                        is_today = (ny_date == today)
+                        
+                        status_emoji = "🟢" if is_today else "🔴"
+                        status_text = "최신" if is_today else "데이터 없음"
+                        
+                        status_lines.append("┌  NEWYORK MARKET WATCH")
+                        status_lines.append(f"├ 상태: {status_emoji} {status_text}")
+                        status_lines.append(f"├ 시간: {formatted_time}")
+                        status_lines.append(f"└ 제목: {ny_title}")
+                    else:
+                        status_lines.append("┌  NEWYORK MARKET WATCH")
+                        status_lines.append("├ 상태: 🔴 데이터 없음")
+                        status_lines.append("├ 시간: 데이터 없음")
+                        status_lines.append("└ 제목:")
+                except Exception as e:
+                    status_lines.append("┌  NEWYORK MARKET WATCH")
+                    status_lines.append("├ 상태: ❌ 오류")
+                    status_lines.append("├ 시간: 데이터 없음")
+                    status_lines.append("└ 제목:")
+            
+            status_lines.append("")  # 빈 줄
+            
+            # KOSPI CLOSE 상태
+            if hasattr(self, 'kospi_monitor'):
+                try:
+                    kospi_data = self.kospi_monitor.get_current_news_data()
+                    if kospi_data and 'kospi-close' in kospi_data:
+                        kospi_news = kospi_data['kospi-close']
+                        kospi_time = kospi_news.get('time', '데이터 없음')
+                        kospi_title = kospi_news.get('title', '')
+                        
+                        # 시간 포맷팅 (전체 datetime 형식으로)
+                        if kospi_time != '데이터 없음' and len(kospi_time) >= 6:
+                            kospi_date = kospi_news.get('date', '')
+                            if len(kospi_date) == 8:  # YYYYMMDD
+                                formatted_time = f"{kospi_date[:4]}-{kospi_date[4:6]}-{kospi_date[6:8]} {kospi_time[:2]}:{kospi_time[2:4]}:{kospi_time[4:6]}"
+                            else:
+                                formatted_time = kospi_time
+                        else:
+                            formatted_time = "데이터 없음"
+                        
+                        # 오늘 발행 여부 확인
+                        today = datetime.now().strftime('%Y%m%d')
+                        kospi_date = kospi_news.get('date', '')
+                        is_today = (kospi_date == today)
+                        
+                        status_emoji = "🟢" if is_today else "🔴"
+                        status_text = "최신" if is_today else "데이터 없음"
+                        
+                        status_lines.append("┌  KOSPI CLOSE")
+                        status_lines.append(f"├ 상태: {status_emoji} {status_text}")
+                        status_lines.append(f"├ 시간: {formatted_time}")
+                        status_lines.append(f"└ 제목: {kospi_title}")
+                    else:
+                        status_lines.append("┌  KOSPI CLOSE")
+                        status_lines.append("├ 상태: 🔴 데이터 없음")
+                        status_lines.append("├ 시간: 데이터 없음")
+                        status_lines.append("└ 제목:")
+                except Exception as e:
+                    status_lines.append("┌  KOSPI CLOSE")
+                    status_lines.append("├ 상태: ❌ 오류")
+                    status_lines.append("├ 시간: 데이터 없음")
+                    status_lines.append("└ 제목:")
+            
+            # 최종 확인 시간 추가
+            status_lines.append("")
+            status_lines.append(f"최종 확인: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+            
+            return "\n".join(status_lines)
+            
+        except Exception as e:
+            return f"❌ 뉴스 상태 정보 수집 오류: {str(e)}"
+    
+    def load_previous_state(self):
+        """이전 상태 로드 - StateManager 사용"""
+        try:
+            previous_state = self.state_manager.load_state()
+            
+            # 이전 상태에서 복원 가능한 정보들
+            if previous_state.get('last_status_notification_hour'):
+                self.last_status_notification_hour = previous_state['last_status_notification_hour']
+            
+            # 이전 스케줄 작업 정보 복원
+            if previous_state.get('last_scheduled_tasks'):
+                self.last_scheduled_tasks = previous_state['last_scheduled_tasks']
+            
+            # 오류 카운트 복원
+            self.error_count = previous_state.get('error_count', 0)
+            self.recovery_attempts = previous_state.get('recovery_attempts', 0)
+            
+            self.log("📋 이전 상태 로드 완료")
+            
+        except Exception as e:
+            self.log(f"⚠️ 이전 상태 로드 실패: {e}")
+            # 기본값으로 초기화
+            self.error_count = 0
+            self.recovery_attempts = 0
+    
+    def is_monitor_running(self) -> bool:
+        """
+        모니터링 시스템 실행 상태 확인
+        
+        Returns:
+            bool: 모니터링 시스템 실행 여부
+        """
+        try:
+            # ProcessManager를 통한 헬스 체크
+            healthy_count, total_count = self.process_manager.perform_health_checks()
+            
+            # 50% 이상의 모니터가 정상이면 실행 중으로 간주
+            return healthy_count >= (total_count * 0.5)
+            
+        except Exception as e:
+            self.log(f"❌ 모니터 실행 상태 확인 오류: {e}")
+            return False
+    
     def run(self):
         """워치햄스터 🛡️ 메인 실행 루프"""
+        # 컬러풀한 시작 배너 출력
+        self.ui.print_startup_banner()
+        
         self.log("POSCO 뉴스 모니터 워치햄스터 시작")
+        # 기존 워치햄스터 2.0 스타일의 간소한 시작 알림
         self.send_notification(
-            f"🐹 POSCO 모니터 워치햄스터 🛡️ 시작\n\n"
-            f"📅 시작 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
-            f"🔍 프로세스 감시: {self.process_check_interval//60}분 간격\n"
-            f"🔄 Git 업데이트 체크: {self.git_check_interval//60}분 간격\n"
-            f"📊 정기 상태 알림: {self.status_notification_interval//60}분 간격\n"
-            f"📅 스케줄 작업: 06:00, 06:10, 18:00, 18:10, 18:20, 07-17시 매시간\n"
-            f"🌙 조용한 모드: 18시 이후 문제 발생 시에만 알림\n"
-            f"🚀 자동 복구 기능 활성화"
+            f"POSCO 뉴스 모니터 워치햄스터 시작\n\n"
+            f"시작 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+            f"모니터링 간격: {self.process_check_interval//60}분\n"
+            f"상태 알림: {self.status_notification_interval_hours}시간 간격"
         )
         
-        # 초기 모니터링 프로세스 시작
-        if not self.is_monitor_running():
-            self.start_monitor_process()
+        # ProcessManager를 통한 모니터 초기화
+        self.ui.print_info_message("모니터링 시스템 초기화 중...", "process")
+        
+        if self.process_manager.initialize_monitors():
+            self.ui.print_success_message("모니터링 시스템 초기화 성공")
+            
+            # 모니터 상태 표시
+            monitor_status = self.process_manager.get_all_monitor_status()
+            self.ui.print_monitor_status(monitor_status)
+        else:
+            self.ui.print_warning_message("모니터링 시스템 부분 초기화", "일부 모니터 실패")
         
         try:
             while True:
                 current_time = datetime.now()
                 
-                # 프로세스 상태 체크
-                if not self.is_monitor_running():
-                    self.log("❌ 모니터링 프로세스가 중단됨 - 자동 재시작 중...")
+                # ProcessManager를 통한 헬스 체크
+                healthy_count, total_count = self.process_manager.perform_health_checks()
+                
+                if healthy_count < total_count:
+                    self.log(f"⚠️ 모니터 헬스 체크: {healthy_count}/{total_count} 정상")
                     
-                    # 프로세스 중단은 항상 알림 (시간대 무관)
-                    self.send_notification(
-                        f"⚠️ POSCO 모니터 프로세스 중단 감지\n\n"
-                        f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
-                        f"🔄 자동 재시작 중...",
-                        is_error=True
-                    )
-                    
-                    if self.start_monitor_process():
-                        # 복구 성공 알림 (조용한 시간대 고려)
-                        if self.is_quiet_hours():
-                            # 야간: 간단한 복구 알림
-                            self.send_notification(
-                                f"✅ POSCO 모니터 자동 복구 완료 (야간 모드)\n\n"
-                                f"📅 복구 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-                            )
-                        else:
-                            # 주간: 상세한 복구 알림
-                            self.send_notification(
-                                f"✅ POSCO 모니터 자동 복구 완료\n\n"
-                                f"📅 복구 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
-                                f"🚀 모니터링 재개됨"
-                            )
-                    else:
-                        # 복구 실패는 항상 상세 알림 (시간대 무관)
+                    # 모니터 상태 불량 시 알림 (조용한 시간대 고려)
+                    if not self.is_quiet_hours() or healthy_count == 0:
+                        monitor_status = self.process_manager.get_all_monitor_status()
+                        failed_monitors = [name for name, status in monitor_status.items() 
+                                         if not status['is_running']]
+                        
                         self.send_notification(
-                            f"❌ POSCO 모니터 자동 복구 실패\n\n"
-                            f"📅 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
-                            f"🔧 수동 확인이 필요합니다.",
+                            f"POSCO 모니터 상태 불량\n\n"
+                            f"시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+                            f"정상 모니터: {healthy_count}/{total_count}\n"
+                            f"문제 모니터: {', '.join(failed_monitors)}",
                             is_error=True
                         )
+                else:
+                    # 모든 모니터 정상
+                    if hasattr(self, 'last_health_warning') and self.last_health_warning:
+                        # 이전에 문제가 있었다면 복구 알림
+                        self.send_notification(
+                            f"POSCO 모니터 전체 복구 완료\n\n"
+                            f"복구 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+                            f"상태: 모든 모니터 정상 작동"
+                        )
+                        self.last_health_warning = False
+                    
+                # 헬스 체크 결과 기록
+                self.last_health_warning = (healthy_count < total_count)
                 
                 # Git 업데이트 체크
                 if (current_time - self.last_git_check).total_seconds() >= (self.git_check_interval):
@@ -1373,10 +1828,23 @@ class PoscoMonitorWatchHamster:
                 # 스케줄된 작업 체크 및 실행
                 self.check_scheduled_tasks()
                 
-                # 정기 상태 알림 (절대 시간 기준: 7, 9, 11, 13, 15, 17시)
+                # 절대시간 기준 알림 시스템
+                
+                # 1. 정기 상태 알림 (7, 9, 11, 13, 15, 17, 19, 21, 23시)
                 if self.should_send_status_notification():
                     self.send_status_notification()
                     self.last_status_notification_hour = current_time.hour
+                
+                # 2. 매시간 정각 상태 체크 (0~23시)
+                if self.should_send_hourly_check():
+                    if self.is_quiet_hours():
+                        self.execute_scheduled_task("1", f"정시 상태 체크 ({current_time.hour}시) - 조용한 모드")
+                    else:
+                        self.execute_scheduled_task("1", f"정시 상태 체크 ({current_time.hour}시)")
+                    self.last_hourly_check_hour = current_time.hour
+                
+                # 3. 고정 시간 작업들 (06:00, 06:10, 18:00, 18:10, 18:20)
+                self.check_fixed_time_tasks()
                 
                 # 마스터 모니터링 시스템 상태 체크 (필요시)
                 if self.master_monitor_enabled and hasattr(self, 'master_monitor'):
@@ -1395,17 +1863,15 @@ class PoscoMonitorWatchHamster:
         except KeyboardInterrupt:
             self.log("🛑 워치햄스터 🛡️ 중단 요청 받음")
             self.send_notification(
-                f"🛑 POSCO 모니터 워치햄스터 🛡️ 중단\n\n"
-                f"📅 중단 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
-                f"⚠️ 자동 복구 기능이 비활성화됩니다."
+                f"POSCO 모니터 워치햄스터 중단\n\n"
+                f"중단 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
             )
         except Exception as e:
             self.log(f"❌ 워치햄스터 🛡️ 오류: {e}")
             self.send_notification(
-                f"❌ POSCO 모니터 워치햄스터 🛡️ 오류\n\n"
-                f"📅 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
-                f"❌ 오류: {str(e)}\n"
-                f"🔧 수동 확인이 필요합니다.",
+                f"POSCO 모니터 워치햄스터 오류\n\n"
+                f"시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+                f"오류: {str(e)}",
                 is_error=True
             )
 

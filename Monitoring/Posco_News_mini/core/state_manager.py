@@ -1,0 +1,298 @@
+# -*- coding: utf-8 -*-
+"""
+워치햄스터 상태 관리자 (StateManager)
+
+NoneType 오류 해결 및 안전한 상태 저장/로드를 위한 클래스
+
+주요 기능:
+- None 값 안전 처리
+- datetime 객체의 안전한 직렬화
+- 상태 데이터 검증 및 기본값 설정
+- JSON 저장/로드 시 오류 방지
+
+작성자: AI Assistant
+최종 수정: 2025-07-31 (워치햄스터 안정화)
+"""
+
+import json
+import os
+from datetime import datetime, timedelta
+from typing import Dict, Any, Optional
+import logging
+
+class StateManager:
+    """
+    워치햄스터 상태 관리 클래스
+    
+    NoneType 오류를 방지하고 안전한 상태 저장/로드를 제공합니다.
+    """
+    
+    def __init__(self, state_file_path: str):
+        """
+        StateManager 초기화
+        
+        Args:
+            state_file_path (str): 상태 파일 경로
+        """
+        self.state_file_path = state_file_path
+        self.logger = logging.getLogger(__name__)
+        
+        # 기본 상태 템플릿
+        self.default_state = {
+            "last_check": None,
+            "monitor_running": False,
+            "last_git_check": None,
+            "last_status_notification": None,
+            "last_status_notification_hour": None,
+            "watchhamster_pid": None,
+            "last_scheduled_tasks": {
+                'morning_status_check': None,
+                'morning_comparison': None,
+                'evening_daily_summary': None,
+                'evening_detailed_summary': None,
+                'evening_advanced_analysis': None,
+                'hourly_status_check': None
+            },
+            "individual_monitors": {
+                "newyork": {"last_check": None, "status": "unknown"},
+                "kospi": {"last_check": None, "status": "unknown"},
+                "exchange": {"last_check": None, "status": "unknown"}
+            },
+            "error_count": 0,
+            "recovery_attempts": 0,
+            "created_at": None,
+            "updated_at": None
+        }
+    
+    def save_state(self, state_data: Dict[str, Any]) -> bool:
+        """
+        상태 데이터를 안전하게 저장
+        
+        Args:
+            state_data (Dict[str, Any]): 저장할 상태 데이터
+            
+        Returns:
+            bool: 저장 성공 여부
+        """
+        try:
+            # 상태 데이터 검증 및 정리
+            validated_data = self.validate_and_clean_state_data(state_data)
+            
+            # 업데이트 시간 추가
+            validated_data["updated_at"] = datetime.now().isoformat()
+            
+            # 생성 시간이 없으면 추가
+            if not validated_data.get("created_at"):
+                validated_data["created_at"] = datetime.now().isoformat()
+            
+            # JSON 파일로 저장
+            with open(self.state_file_path, 'w', encoding='utf-8') as f:
+                json.dump(validated_data, f, ensure_ascii=False, indent=2)
+            
+            self.logger.debug(f"상태 저장 성공: {self.state_file_path}")
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"상태 저장 실패: {e}")
+            return False
+    
+    def load_state(self) -> Dict[str, Any]:
+        """
+        상태 데이터를 안전하게 로드
+        
+        Returns:
+            Dict[str, Any]: 로드된 상태 데이터 (실패 시 기본값)
+        """
+        try:
+            if not os.path.exists(self.state_file_path):
+                self.logger.info("상태 파일이 없음, 기본 상태 반환")
+                return self.get_default_state()
+            
+            with open(self.state_file_path, 'r', encoding='utf-8') as f:
+                loaded_data = json.load(f)
+            
+            # 로드된 데이터 검증 및 정리
+            validated_data = self.validate_and_clean_state_data(loaded_data)
+            
+            self.logger.debug(f"상태 로드 성공: {self.state_file_path}")
+            return validated_data
+            
+        except Exception as e:
+            self.logger.error(f"상태 로드 실패: {e}, 기본 상태 반환")
+            return self.get_default_state()
+    
+    def validate_and_clean_state_data(self, data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        상태 데이터 검증 및 정리
+        
+        Args:
+            data (Dict[str, Any]): 검증할 상태 데이터
+            
+        Returns:
+            Dict[str, Any]: 검증 및 정리된 상태 데이터
+        """
+        # 기본 상태로 시작
+        cleaned_data = self.get_default_state()
+        
+        # 입력 데이터가 None이면 기본값 반환
+        if not data:
+            return cleaned_data
+        
+        # 각 필드별로 안전하게 복사
+        for key, default_value in cleaned_data.items():
+            if key in data:
+                cleaned_data[key] = self.clean_field_value(data[key], default_value)
+        
+        return cleaned_data
+    
+    def clean_field_value(self, value: Any, default_value: Any) -> Any:
+        """
+        개별 필드 값 정리
+        
+        Args:
+            value (Any): 정리할 값
+            default_value (Any): 기본값
+            
+        Returns:
+            Any: 정리된 값
+        """
+        # None 값 처리
+        if value is None:
+            return default_value
+        
+        # datetime 문자열 검증
+        if isinstance(default_value, type(None)) and isinstance(value, str):
+            try:
+                # ISO 형식 datetime 문자열인지 확인
+                datetime.fromisoformat(value.replace('Z', '+00:00'))
+                return value
+            except (ValueError, AttributeError):
+                return default_value
+        
+        # 딕셔너리 타입 처리
+        if isinstance(default_value, dict) and isinstance(value, dict):
+            cleaned_dict = default_value.copy()
+            for k, v in value.items():
+                if k in cleaned_dict:
+                    cleaned_dict[k] = self.clean_field_value(v, cleaned_dict[k])
+            return cleaned_dict
+        
+        # 기본 타입 검증
+        if type(value) == type(default_value):
+            return value
+        
+        # 타입이 맞지 않으면 기본값 반환
+        return default_value
+    
+    def get_default_state(self) -> Dict[str, Any]:
+        """
+        기본 상태 데이터 반환
+        
+        Returns:
+            Dict[str, Any]: 기본 상태 데이터
+        """
+        return self.default_state.copy()
+    
+    def safe_datetime_to_iso(self, dt: Optional[datetime]) -> Optional[str]:
+        """
+        datetime 객체를 안전하게 ISO 문자열로 변환
+        
+        Args:
+            dt (Optional[datetime]): 변환할 datetime 객체
+            
+        Returns:
+            Optional[str]: ISO 형식 문자열 또는 None
+        """
+        if dt is None:
+            return None
+        
+        try:
+            return dt.isoformat()
+        except (AttributeError, ValueError):
+            return None
+    
+    def safe_iso_to_datetime(self, iso_str: Optional[str]) -> Optional[datetime]:
+        """
+        ISO 문자열을 안전하게 datetime 객체로 변환
+        
+        Args:
+            iso_str (Optional[str]): 변환할 ISO 문자열
+            
+        Returns:
+            Optional[datetime]: datetime 객체 또는 None
+        """
+        if not iso_str:
+            return None
+        
+        try:
+            return datetime.fromisoformat(iso_str.replace('Z', '+00:00'))
+        except (ValueError, AttributeError):
+            return None
+    
+    def update_field(self, field_name: str, value: Any) -> bool:
+        """
+        특정 필드만 업데이트
+        
+        Args:
+            field_name (str): 업데이트할 필드명
+            value (Any): 새로운 값
+            
+        Returns:
+            bool: 업데이트 성공 여부
+        """
+        try:
+            current_state = self.load_state()
+            current_state[field_name] = value
+            return self.save_state(current_state)
+        except Exception as e:
+            self.logger.error(f"필드 업데이트 실패 ({field_name}): {e}")
+            return False
+    
+    def get_field(self, field_name: str, default_value: Any = None) -> Any:
+        """
+        특정 필드 값 조회
+        
+        Args:
+            field_name (str): 조회할 필드명
+            default_value (Any): 기본값
+            
+        Returns:
+            Any: 필드 값 또는 기본값
+        """
+        try:
+            current_state = self.load_state()
+            return current_state.get(field_name, default_value)
+        except Exception as e:
+            self.logger.error(f"필드 조회 실패 ({field_name}): {e}")
+            return default_value
+    
+    def cleanup_old_states(self, max_age_days: int = 30) -> bool:
+        """
+        오래된 상태 파일 정리
+        
+        Args:
+            max_age_days (int): 최대 보관 일수
+            
+        Returns:
+            bool: 정리 성공 여부
+        """
+        try:
+            if not os.path.exists(self.state_file_path):
+                return True
+            
+            # 파일 수정 시간 확인
+            file_mtime = os.path.getmtime(self.state_file_path)
+            file_age = datetime.now().timestamp() - file_mtime
+            
+            # 오래된 파일이면 백업 후 새로 생성
+            if file_age > (max_age_days * 24 * 3600):
+                backup_path = f"{self.state_file_path}.backup.{int(file_mtime)}"
+                os.rename(self.state_file_path, backup_path)
+                self.logger.info(f"오래된 상태 파일 백업: {backup_path}")
+                return True
+            
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"상태 파일 정리 실패: {e}")
+            return False
