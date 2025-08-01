@@ -330,6 +330,7 @@ class BaseNewsMonitor(ABC):
         # 메인 attachment 구성
         attachment = {
             "color": color,
+            "title": f"📊 {self.display_name} 상세 정보",
             "text": message
         }
         
@@ -364,39 +365,30 @@ class BaseNewsMonitor(ABC):
                 "style": "default"
             })
             
-            # attachment에 버튼 추가
-            attachment["actions"] = buttons
+            # 첫 번째 attachment: 버튼만
+            button_attachment = {
+                "color": "#4facfe",
+                "title": "📊 리포트 및 대시보드",
+                "text": "아래 버튼을 클릭하여 리포트를 확인하세요:",
+                "actions": buttons
+            }
+            
+            # 두 번째 attachment: 상세 정보
+            attachment["actions"] = []  # 중복 방지
+            
             print(f"🔗 로컬 URL: {local_url}")
             print(f"🎯 총 {len(buttons)}개 버튼 생성")
             
-            # 메인 텍스트 레벨에 여러 URL 버튼 추가 (테스트용)
-            main_buttons = [
-                {
-                    "type": "button",
-                    "text": "📊 로컬 리포트",
-                    "url": local_url,
-                    "style": "primary"
-                },
-                {
-                    "type": "button",
-                    "text": "🌐 GitHub 리포트",
-                    "url": f"https://shuserker.github.io/infomax_api/reports/{report_info['filename']}",
-                    "style": "default"
-                },
-                {
-                    "type": "button", 
-                    "text": "📋 대시보드",
-                    "url": "https://shuserker.github.io/infomax_api/",
-                    "style": "default"
-                }
-            ]
+            # 메인 텍스트에 직접 링크 포함 (클릭 가능하게)
+            main_text_with_buttons = f"{self.display_name} {status_text} | [📊 리포트 다운로드]({local_url})"
             
+            # Dooray 웹훅 다양한 형식 시도
             payload = {
                 "botName": f"POSCO 뉴스 {status_emoji}",
                 "botIconImage": BOT_PROFILE_IMAGE_URL,
-                "text": f"{self.display_name} {status_text}",
-                "actions": main_buttons,  # 메인 레벨 버튼
-                "attachments": [attachment]  # attachment 레벨 버튼
+                "text": main_text_with_buttons,
+                "mrkdwn": True,  # 마크다운 지원 활성화
+                "attachments": [button_attachment, attachment]  # 버튼용 + 내용용
             }
         else:
             # 리포트 생성 실패 시 기본 payload

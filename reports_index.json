@@ -1,6 +1,30 @@
 {
   "exchange-rate": [
     {
+      "filename": "posco_analysis_exchange-rate_20250801_223504.html",
+      "news_type": "exchange-rate",
+      "display_name": "서환마감",
+      "created_at": "2025-08-01T22:35:04.584657",
+      "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_223504.html",
+      "summary": {
+        "status": "on_time",
+        "analysis": "정시 발행 (16:33)",
+        "publish_time": "2025-08-01 16:33:03"
+      }
+    },
+    {
+      "filename": "posco_analysis_exchange-rate_20250801_223204.html",
+      "news_type": "exchange-rate",
+      "display_name": "서환마감",
+      "created_at": "2025-08-01T22:32:06.594116",
+      "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_223204.html",
+      "summary": {
+        "status": "on_time",
+        "analysis": "정시 발행 (16:33)",
+        "publish_time": "2025-08-01 16:33:03"
+      }
+    },
+    {
       "filename": "posco_analysis_exchange-rate_20250801_223124.html",
       "news_type": "exchange-rate",
       "display_name": "서환마감",
