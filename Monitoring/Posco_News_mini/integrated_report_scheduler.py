@@ -111,6 +111,17 @@ class IntegratedReportScheduler:
         """
         print(f"\n🕕 {datetime.now().strftime('%H:%M:%S')} - 일일 통합 리포트 알림 발송 시작")
         
+        # 조용한 시간대 체크 (19:01~05:59)
+        current_time = datetime.now()
+        current_hour = current_time.hour
+        current_minute = current_time.minute
+        
+        is_quiet = (current_hour == 19 and current_minute >= 1) or current_hour >= 20 or current_hour <= 5
+        
+        if is_quiet:
+            print("🌙 조용한 시간대 - 통합 리포트 알림 발송 생략")
+            return True
+        
         if not self.last_report_info:
             print("❌ 발송할 리포트가 없습니다. 리포트를 먼저 생성하세요.")
             return False

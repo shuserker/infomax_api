@@ -297,9 +297,9 @@ class PoscoMonitorWatchHamster:
                     self.execute_scheduled_task(task_type, task_name)
                     self.executed_fixed_tasks.add(task_key)
     
-    def is_quiet_hours(self):
+    def is_quiet_hours_old(self):
         """
-        조용한 시간대 여부 체크 (18:00~05:59)
+        조용한 시간대 여부 체크 (18:00~05:59) - 사용 중단
         
         Returns:
             bool: 조용한 시간대면 True
@@ -834,6 +834,11 @@ class PoscoMonitorWatchHamster:
     def execute_integrated_report_notification(self):
         """통합 리포트 알림 발송 실행 (18:00)"""
         try:
+            # 조용한 시간대 체크
+            if self.is_quiet_hours():
+                self.log("🌙 조용한 시간대 - 통합 리포트 알림 발송 생략")
+                return
+            
             self.log("📨 통합 리포트 알림 발송 시작")
             
             if self.integrated_scheduler_enabled:
@@ -895,8 +900,8 @@ class PoscoMonitorWatchHamster:
                 self.execute_scheduled_task("8", "저녁 고급 분석")
                 self.last_scheduled_tasks['evening_advanced_analysis'] = today_key
         
-        # 매시간 정각 - 현재 상태 체크 (24시간 절대시간 기준)
-        if current_minute == 0:
+        # 매시간 정각 - 현재 상태 체크 (조용한 시간대 제외)
+        if current_minute == 0 and not self.is_quiet_hours():
             hourly_key = f"{today_key}-{current_hour:02d}"
             if self.last_scheduled_tasks['hourly_status_check'] != hourly_key:
                 self.execute_scheduled_task("1", f"정시 상태 체크 ({current_hour}시)")
@@ -1892,8 +1897,8 @@ class PoscoMonitorWatchHamster:
                 
                 # 절대시간 기준 알림 시스템
                 
-                # 1. 정기 상태 알림 (7, 9, 11, 13, 15, 17, 19, 21, 23시)
-                if self.should_send_status_notification():
+                # 1. 정기 상태 알림 (조용한 시간대 제외: 7, 9, 11, 13, 15, 17시만)
+                if self.should_send_status_notification() and not self.is_quiet_hours():
                     self.send_status_notification()
                     self.last_status_notification_hour = current_time.hour
                 
