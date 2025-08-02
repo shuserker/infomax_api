@@ -382,13 +382,22 @@ class BaseNewsMonitor(ABC):
             # 메인 텍스트에 직접 링크 포함 (클릭 가능하게)
             main_text_with_buttons = f"{self.display_name} {status_text} | [📊 리포트 다운로드]({local_url})"
             
-            # Dooray 웹훅 다양한 형식 시도
+            # 마크다운 링크 방식 사용 (테스트에서 확인된 작동 방식)
+            github_url = report_info.get('github_url')
+            if github_url:
+                main_text_with_link = f"{self.display_name} {status_text} | [📊 리포트 다운로드]({local_url}) | [🌐 공개 리포트]({github_url})"
+            else:
+                main_text_with_link = f"{self.display_name} {status_text} | [📊 리포트 다운로드]({local_url})"
+            
+            # attachment에도 버튼 유지 (이중 보장)
+            attachment["actions"] = buttons
+            
             payload = {
                 "botName": f"POSCO 뉴스 {status_emoji}",
                 "botIconImage": BOT_PROFILE_IMAGE_URL,
-                "text": main_text_with_buttons,
+                "text": main_text_with_link,
                 "mrkdwn": True,  # 마크다운 지원 활성화
-                "attachments": [button_attachment, attachment]  # 버튼용 + 내용용
+                "attachments": [attachment]  # 상세 정보 + 버튼
             }
         else:
             # 리포트 생성 실패 시 기본 payload
