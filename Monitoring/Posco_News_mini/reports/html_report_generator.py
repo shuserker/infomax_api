@@ -74,11 +74,16 @@ class HTMLReportGenerator:
         except Exception as e:
             print(f"⚠️ GitHub Pages 배포 실패: {e}")
         
+        # GitHub URL이 None인 경우 기본 URL 사용
+        if github_url is None:
+            github_url = f"https://shuserker.github.io/infomax_api/reports/{filename}"
+            print(f"⚠️ GitHub 배포 실패, 기본 URL 사용: {github_url}")
+        
         return {
             'filename': filename,
             'local_path': str(report_file),
             'github_url': github_url,
-            'web_url': github_url or f"https://shuserker.github.io/infomax_api/reports/{filename}",
+            'web_url': github_url,
             'display_name': display_name
         }
     

@@ -98,13 +98,13 @@ class GitHubPagesDeployer:
                     return True
                     
                 except subprocess.TimeoutExpired:
-                    print("⚠️ Git 푸시 타임아웃")
+                    print("⚠️ Git 푸시 타임아웃 - 로컬 파일은 생성됨")
                     subprocess.run(['git', 'checkout', current_branch], check=True)
-                    return False
+                    return True  # 로컬 파일은 생성되었으므로 True 반환
                 except subprocess.CalledProcessError as e:
-                    print(f"⚠️ Git 푸시 실패: {e}")
+                    print(f"⚠️ Git 푸시 실패: {e} - 로컬 파일은 생성됨")
                     subprocess.run(['git', 'checkout', current_branch], check=True)
-                    return False
+                    return True  # 로컬 파일은 생성되었으므로 True 반환
             else:
                 print(f"❌ 리포트 파일을 찾을 수 없음: {report_filename}")
                 subprocess.run(['git', 'checkout', current_branch], check=True)

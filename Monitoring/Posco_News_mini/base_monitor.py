@@ -385,11 +385,11 @@ class BaseNewsMonitor(ABC):
             
             # 메인 텍스트에 GitHub Pages 링크 사용 (외부 접근 가능)
             github_url = report_info.get('github_url')
-            if github_url:
-                main_text_with_link = f"{self.display_name} {status_text} | [📊 리포트 다운로드]({github_url})"
+            if github_url and github_url != 'None':
+                main_text_with_link = f"{self.display_name} {status_text} | [📊 상세 분석 보기]({github_url})"
             else:
                 # GitHub 배포 실패 시 로컬 URL 사용
-                main_text_with_link = f"{self.display_name} {status_text} | [📊 리포트 다운로드]({local_url})"
+                main_text_with_link = f"{self.display_name} {status_text} | [📊 상세 분석 보기]({local_url})"
             
             # attachment 하단 링크 제거 (메인 텍스트에만 링크 유지)
             
