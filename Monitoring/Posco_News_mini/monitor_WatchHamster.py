@@ -134,7 +134,7 @@ class PoscoMonitorWatchHamster:
         }
         self.executed_fixed_tasks = set()  # 오늘 실행된 고정 작업들
         
-        self.git_check_interval = 60 * 60  # 1시간마다 Git 체크
+        self.git_check_interval = 60 * 60 * 4  # 4시간마다 Git 체크
         self.process_check_interval = 5 * 60  # 5분마다 프로세스 체크 (뉴스 발행 간격 고려)
         
         # 스케줄 작업 추적
@@ -510,13 +510,33 @@ class PoscoMonitorWatchHamster:
             # 현재 프로세스 중지
             self.stop_monitor_process()
             
-            # Git pull 실행 (shallow fetch로 성능 향상)
-            result = subprocess.run(
-                ["git", "pull", "--depth=1", "origin", "main"],
+            # 로컬 변경사항이 있는지 확인
+            status_result = subprocess.run(
+                ["git", "status", "--porcelain"],
                 cwd=self.script_dir,
                 capture_output=True,
                 text=True,
-                timeout=30  # 타임아웃 단축
+                timeout=10
+            )
+            
+            if status_result.stdout.strip():
+                # 로컬 변경사항이 있으면 stash
+                subprocess.run(
+                    ["git", "stash", "push", "-m", "WatchHamster auto stash"],
+                    cwd=self.script_dir,
+                    capture_output=True,
+                    text=True,
+                    timeout=10
+                )
+                self.log("📦 로컬 변경사항 임시 저장")
+            
+            # Git pull 실행 (안전한 방식)
+            result = subprocess.run(
+                ["git", "pull", "origin", "main", "--allow-unrelated-histories"],
+                cwd=self.script_dir,
+                capture_output=True,
+                text=True,
+                timeout=30
             )
             
             if result.returncode == 0:
@@ -1885,8 +1905,8 @@ class PoscoMonitorWatchHamster:
                 # 헬스 체크 결과 기록
                 self.last_health_warning = (healthy_count < total_count)
                 
-                # Git 업데이트 체크
-                if (current_time - self.last_git_check).total_seconds() >= (self.git_check_interval):
+                # Git 업데이트 체크 (조용한 시간대 제외)
+                if not self.is_quiet_hours() and (current_time - self.last_git_check).total_seconds() >= (self.git_check_interval):
                     self.log("🔍 Git 업데이트 체크 중...")
                     if self.check_git_updates():
                         self.apply_git_update()
