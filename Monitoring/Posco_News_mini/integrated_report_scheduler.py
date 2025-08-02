@@ -93,11 +93,8 @@ class IntegratedReportScheduler:
         print(f"\n🕐 {datetime.now().strftime('%H:%M:%S')} - 일일 통합 리포트 생성 시작")
         
         try:
-            # 모든 뉴스 데이터 수집
-            news_data = self.collect_all_news_data()
-            
-            # 통합 리포트 생성
-            self.last_report_info = self.report_generator.generate_integrated_report(news_data)
+            # 통합 리포트 생성 (영업일 헬퍼 사용)
+            self.last_report_info = self.report_generator.generate_integrated_report()
             
             print(f"✅ 통합 리포트 생성 완료: {self.last_report_info['filename']}")
             print(f"🔗 리포트 URL: {self.last_report_info['github_url']}")
@@ -166,7 +163,7 @@ class IntegratedReportScheduler:
                 "attachments": [{
                     "color": color,
                     "title": f"{status_emoji} 오늘의 뉴스 발행 현황",
-                    "text": f"**{status_text}**\n\n{news_status_text}\n\n📊 **통합 분석 완료**\n모든 발행된 뉴스를 종합하여 시장 분석, 투자 전략, 리스크 분석을 제공합니다.",
+                    "text": f"📊 {status_text}\n\n{news_status_text}\n\n🎯 통합 분석 완료\n모든 발행된 뉴스를 종합하여 시장 분석, 투자 전략, 리스크 분석을 제공합니다.",
                     "mrkdwn_in": ["text"]
                 }]
             }

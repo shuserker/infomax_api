@@ -42,12 +42,13 @@ class IntegratedReportGenerator:
         """
         pass
     
-    def generate_integrated_report(self, news_data_dict):
+    def generate_integrated_report(self, news_data_dict=None):
         """
         3개 뉴스 타입의 데이터를 통합하여 종합 리포트 생성
+        데이터가 불완전한 경우 직전 영업일 데이터 사용
         
         Args:
-            news_data_dict (dict): {
+            news_data_dict (dict, optional): {
                 'exchange-rate': {...},
                 'kospi-close': {...}, 
                 'newyork-market-watch': {...}
@@ -56,12 +57,34 @@ class IntegratedReportGenerator:
         Returns:
             dict: 생성된 파일 정보
         """
+        # 영업일 헬퍼 사용하여 완전한 데이터 조회
+        if news_data_dict is None:
+            from utils.business_day_helper import BusinessDayHelper
+            helper = BusinessDayHelper()
+            complete_data = helper.get_complete_news_data()
+            news_data_dict = complete_data['news_data']
+            data_date = complete_data['date']
+            is_current_day = complete_data['is_current_day']
+        else:
+            # 현재 데이터 완성도 체크
+            completed_count = sum(1 for data in news_data_dict.values() if data and data.get('title'))
+            if completed_count < 3:
+                print(f"⚠️ 현재 데이터 불완전 ({completed_count}/3) - 직전 영업일 데이터 조회")
+                from utils.business_day_helper import BusinessDayHelper
+                helper = BusinessDayHelper()
+                complete_data = helper.get_complete_news_data()
+                news_data_dict = complete_data['news_data']
+                data_date = complete_data['date']
+                is_current_day = complete_data['is_current_day']
+            else:
+                data_date = datetime.now()
+                is_current_day = True
         # 파일명 생성
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"posco_integrated_analysis_{timestamp}.html"
         
         # 통합 분석 데이터 준비
-        integrated_analysis = self._prepare_integrated_analysis(news_data_dict)
+        integrated_analysis = self._prepare_integrated_analysis(news_data_dict, data_date, is_current_day)
         
         # HTML 템플릿 생성
         html_content = self._create_integrated_html_template(integrated_analysis)
@@ -99,12 +122,14 @@ class IntegratedReportGenerator:
             'display_name': '통합 분석 리포트'
         }
     
-    def _prepare_integrated_analysis(self, news_data_dict):
+    def _prepare_integrated_analysis(self, news_data_dict, data_date, is_current_day):
         """
         통합 분석 데이터 준비
         
         Args:
             news_data_dict (dict): 3개 뉴스 타입 데이터
+            data_date (datetime): 데이터 기준 날짜
+            is_current_day (bool): 현재일 데이터 여부
             
         Returns:
             dict: 통합 분석 결과
@@ -143,12 +168,14 @@ class IntegratedReportGenerator:
         
         return {
             'generation_time': current_time.strftime("%Y-%m-%d %H:%M:%S"),
+            'data_date': data_date.strftime("%Y-%m-%d"),
+            'is_current_day': is_current_day,
             'news_status': news_status,
             'total_published': total_published,
             'market_analysis': market_analysis,
             'investment_strategy': investment_strategy,
             'risk_analysis': risk_analysis,
-            'summary': self._generate_daily_summary(news_status, market_analysis)
+            'summary': self._generate_daily_summary(news_status, market_analysis, data_date, is_current_day)
         }
     
     def _analyze_integrated_market(self, news_data_dict):
@@ -261,7 +288,7 @@ class IntegratedReportGenerator:
         
         return risks
     
-    def _generate_daily_summary(self, news_status, market_analysis):
+    def _generate_daily_summary(self, news_status, market_analysis, data_date, is_current_day):
         """일일 종합 요약 생성"""
         published_count = sum(1 for status in news_status.values() if status['published'])
         total_count = len(news_status)
@@ -270,10 +297,13 @@ class IntegratedReportGenerator:
             'completion_rate': f"{published_count}/{total_count}",
             'overall_status': '완료' if published_count == total_count else '진행중',
             'market_sentiment': market_analysis['overall_sentiment'],
-            'key_message': ''
+            'key_message': '',
+            'data_source': '당일 데이터' if is_current_day else f"{data_date.strftime('%Y-%m-%d')} 데이터"
         }
         
-        if published_count == total_count:
+        if not is_current_day:
+            summary['key_message'] = f"{data_date.strftime('%Y-%m-%d')} 완전한 뉴스 데이터를 기반으로 분석했습니다. 전체적으로 {market_analysis['overall_sentiment']} 분위기였습니다."
+        elif published_count == total_count:
             summary['key_message'] = f"오늘의 모든 뉴스가 발행 완료되었습니다. 전체적으로 {market_analysis['overall_sentiment']} 분위기입니다."
         else:
             summary['key_message'] = f"현재 {published_count}개 뉴스가 발행되었습니다. 추가 뉴스를 기다리고 있습니다."
@@ -484,10 +514,11 @@ class IntegratedReportGenerator:
         </div>
         
         <div class="summary-card">
-            <h2>📋 오늘의 종합 요약</h2>
+            <h2>📋 종합 요약</h2>
             <div class="insight-box">
-                <h3>발행 현황: {analysis['summary']['completion_rate']} ({analysis['summary']['overall_status']})</h3>
-                <h3>시장 분위기: {analysis['summary']['market_sentiment']}</h3>
+                <h3>📊 발행 현황: {analysis['summary']['completion_rate']} ({analysis['summary']['overall_status']})</h3>
+                <h3>📈 시장 분위기: {analysis['summary']['market_sentiment']}</h3>
+                <h3>📅 데이터 기준: {analysis['summary']['data_source']}</h3>
                 <p>{analysis['summary']['key_message']}</p>
             </div>
         </div>
@@ -558,7 +589,7 @@ class IntegratedReportGenerator:
         <div class="card">
             <h2>📊 통합 시장 분석</h2>
             <div class="insight-box">
-                <h3>전체 시장 분위기: {market_analysis['overall_sentiment']}</h3>
+                <h3>📈 전체 시장 분위기: {market_analysis['overall_sentiment']}</h3>
             </div>
             {insights_html}
         </div>
@@ -571,7 +602,7 @@ class IntegratedReportGenerator:
         for term, strategies in strategy.items():
             term_name = {'short_term': '단기', 'medium_term': '중기', 'long_term': '장기'}[term]
             for s in strategies:
-                strategy_html += f"<div class='strategy-item'><strong>{term_name}:</strong> {s}</div>"
+                strategy_html += f"<div class='strategy-item'><strong>📊 {term_name}:</strong> {s}</div>"
         
         return f"""
         <div class="card">
@@ -585,7 +616,7 @@ class IntegratedReportGenerator:
         risk_html = ""
         
         for level, risks in risk_analysis.items():
-            level_name = {'high': '높음', 'medium': '보통', 'low': '낮음'}[level]
+            level_name = {'high': '🔴 높음', 'medium': '🟡 보통', 'low': '🟢 낮음'}[level]
             for risk in risks:
                 risk_html += f"<div class='risk-item risk-{level}'><strong>{level_name}:</strong> {risk}</div>"
         
