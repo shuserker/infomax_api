@@ -47,7 +47,10 @@ try:
     from core import PoscoNewsAPIClient, NewsDataProcessor, DoorayNotifier
     from core.state_manager import StateManager
     from core.process_manager import ProcessManager
-    from core.colorful_ui import ColorfulConsoleUI
+    try:
+        from core.colorful_ui import ColorfulConsoleUI
+    except ImportError:
+        ColorfulConsoleUI = None
     # 최적화된 모니터링 시스템 연결
     from newyork_monitor import NewYorkMarketMonitor
     from kospi_monitor import KospiCloseMonitor
@@ -106,7 +109,10 @@ class PoscoMonitorWatchHamster:
         self.process_manager = ProcessManager(self.script_dir)
         
         # ColorfulConsoleUI 초기화 (컬러풀한 UI)
-        self.ui = ColorfulConsoleUI()
+        if ColorfulConsoleUI:
+            self.ui = ColorfulConsoleUI()
+        else:
+            self.ui = None
         
         # 이전 상태 로드 (가능한 경우)
         self.load_previous_state()
