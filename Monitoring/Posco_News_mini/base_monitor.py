@@ -327,11 +327,12 @@ class BaseNewsMonitor(ABC):
         except Exception as e:
             print(f"⚠️ 리포트 생성 실패: {e}")
         
-        # 메인 attachment 구성
+        # 메인 attachment 구성 (마크다운 링크 포함)
         attachment = {
             "color": color,
             "title": f"📊 {self.display_name} 상세 정보",
-            "text": message
+            "text": message,
+            "mrkdwn_in": ["text"]  # attachment 내에서도 마크다운 지원
         }
         
         # 리포트가 생성되었으면 두 가지 버튼 모두 제공 (테스트용)
@@ -382,22 +383,22 @@ class BaseNewsMonitor(ABC):
             # 메인 텍스트에 직접 링크 포함 (클릭 가능하게)
             main_text_with_buttons = f"{self.display_name} {status_text} | [📊 리포트 다운로드]({local_url})"
             
-            # 마크다운 링크 방식 사용 (테스트에서 확인된 작동 방식)
+            # 메인 텍스트에 GitHub Pages 링크 사용 (외부 접근 가능)
             github_url = report_info.get('github_url')
             if github_url:
-                main_text_with_link = f"{self.display_name} {status_text} | [📊 리포트 다운로드]({local_url}) | [🌐 공개 리포트]({github_url})"
+                main_text_with_link = f"{self.display_name} {status_text} | [📊 리포트 다운로드]({github_url})"
             else:
+                # GitHub 배포 실패 시 로컬 URL 사용
                 main_text_with_link = f"{self.display_name} {status_text} | [📊 리포트 다운로드]({local_url})"
             
-            # attachment에도 버튼 유지 (이중 보장)
-            attachment["actions"] = buttons
+            # attachment 하단 링크 제거 (메인 텍스트에만 링크 유지)
             
             payload = {
                 "botName": f"POSCO 뉴스 {status_emoji}",
                 "botIconImage": BOT_PROFILE_IMAGE_URL,
                 "text": main_text_with_link,
                 "mrkdwn": True,  # 마크다운 지원 활성화
-                "attachments": [attachment]  # 상세 정보 + 버튼
+                "attachments": [attachment]  # 상세 정보 + 마크다운 링크
             }
         else:
             # 리포트 생성 실패 시 기본 payload
