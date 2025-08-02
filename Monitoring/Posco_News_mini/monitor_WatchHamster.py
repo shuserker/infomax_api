@@ -138,7 +138,9 @@ class PoscoMonitorWatchHamster:
             'evening_daily_summary': None,
             'evening_detailed_summary': None,
             'evening_advanced_analysis': None,
-            'hourly_status_check': None
+            'hourly_status_check': None,
+            'integrated_report_generation': None,
+            'integrated_report_notification': None
         }
         
         # 스마트 상태 판단 시스템 초기화
@@ -166,6 +168,16 @@ class PoscoMonitorWatchHamster:
         except Exception as e:
             self.log(f"⚠️ 개별 모니터링 시스템 초기화 실패: {e}")
             self.individual_monitors_enabled = False
+        
+        # 통합 리포트 스케줄러 초기화
+        try:
+            from integrated_report_scheduler import IntegratedReportScheduler
+            self.integrated_scheduler = IntegratedReportScheduler()
+            self.integrated_scheduler_enabled = True
+            self.log("📊 통합 리포트 스케줄러 초기화 완료")
+        except Exception as e:
+            self.log(f"⚠️ 통합 리포트 스케줄러 초기화 실패: {e}")
+            self.integrated_scheduler_enabled = False
         
         # 마스터 모니터링 시스템 초기화
         try:
@@ -796,6 +808,40 @@ class PoscoMonitorWatchHamster:
         except Exception as e:
             self.log(f"❌ 고급 분석 작업 오류: {e}")
     
+    def execute_integrated_report_generation(self):
+        """통합 리포트 생성 실행 (17:59)"""
+        try:
+            self.log("📊 통합 리포트 생성 시작")
+            
+            if self.integrated_scheduler_enabled:
+                success = self.integrated_scheduler.generate_daily_report()
+                if success:
+                    self.log("✅ 통합 리포트 생성 완료")
+                else:
+                    self.log("❌ 통합 리포트 생성 실패")
+            else:
+                self.log("⚠️ 통합 리포트 스케줄러 비활성화됨")
+                
+        except Exception as e:
+            self.log(f"❌ 통합 리포트 생성 오류: {e}")
+    
+    def execute_integrated_report_notification(self):
+        """통합 리포트 알림 발송 실행 (18:00)"""
+        try:
+            self.log("📨 통합 리포트 알림 발송 시작")
+            
+            if self.integrated_scheduler_enabled:
+                success = self.integrated_scheduler.send_daily_report_notification()
+                if success:
+                    self.log("✅ 통합 리포트 알림 발송 완료")
+                else:
+                    self.log("❌ 통합 리포트 알림 발송 실패")
+            else:
+                self.log("⚠️ 통합 리포트 스케줄러 비활성화됨")
+                
+        except Exception as e:
+            self.log(f"❌ 통합 리포트 알림 발송 오류: {e}")
+    
     def check_scheduled_tasks(self):
         """스케줄된 작업 체크 및 실행"""
         current_time = datetime.now()
@@ -815,8 +861,18 @@ class PoscoMonitorWatchHamster:
                 self.execute_scheduled_task("2", "아침 영업일 비교 분석")
                 self.last_scheduled_tasks['morning_comparison'] = today_key
         
-        # 매일 18:00 - 일일 요약 리포트
+        # 매일 17:59 - 통합 리포트 생성
+        if current_hour == 17 and current_minute == 59:
+            if self.last_scheduled_tasks['integrated_report_generation'] != today_key:
+                self.execute_integrated_report_generation()
+                self.last_scheduled_tasks['integrated_report_generation'] = today_key
+        
+        # 매일 18:00 - 통합 리포트 알림 발송
         if current_hour == 18 and current_minute == 0:
+            if self.last_scheduled_tasks['integrated_report_notification'] != today_key:
+                self.execute_integrated_report_notification()
+                self.last_scheduled_tasks['integrated_report_notification'] = today_key
+            # 기존 일일 요약 리포트도 유지
             if self.last_scheduled_tasks['evening_daily_summary'] != today_key:
                 self.execute_scheduled_task("5", "저녁 일일 요약 리포트")
                 self.last_scheduled_tasks['evening_daily_summary'] = today_key
