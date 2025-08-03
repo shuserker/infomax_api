@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2025-08-03T00:43:51.644884+00:00",
+  "lastUpdate": "2025-08-03T01:51:10.744300+00:00",
   "newsStatus": {
     "exchange-rate": {
       "published": false,
@@ -26,8 +26,8 @@
   "systemStatus": {
     "monitoring": "active",
     "uptime": "99.8%",
-    "lastReportGenerated": null,
-    "totalReportsToday": 0,
+    "lastReportGenerated": "2025-08-03T10:51:10+00:00",
+    "totalReportsToday": 2,
     "errors": [],
     "services": {
       "watchHamster": {
@@ -45,14 +45,14 @@
     }
   },
   "statistics": {
-    "totalReports": 0,
-    "reportsToday": 0,
-    "reportsThisWeek": 0,
-    "reportsThisMonth": 0,
-    "averagePerDay": 0.0,
-    "successRate": 100.0,
+    "totalReports": 2,
+    "reportsToday": 2,
+    "reportsThisWeek": 2,
+    "reportsThisMonth": 2,
+    "averagePerDay": 2,
+    "successRate": 98.5,
     "typeDistribution": {
-      "integrated": 0,
+      "integrated": 2,
       "exchange-rate": 0,
       "kospi-close": 0,
       "newyork-market-watch": 0

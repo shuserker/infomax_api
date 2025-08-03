@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[테스트] POSCO 서환마감 분석 리포트</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0066cc 0%, #0066ccdd 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .header .subtitle {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .test-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #0066cc;
+        }
+        
+        .stat-card h3 {
+            color: #0066cc;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .content-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+        
+        .content-section h2 {
+            color: #0066cc;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .news-item {
+            padding: 1rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .news-item:hover {
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .news-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .news-meta {
+            font-size: 0.9rem;
+            color: #666;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .sentiment {
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .sentiment.positive { background: #d4edda; color: #155724; }
+        .sentiment.negative { background: #f8d7da; color: #721c24; }
+        .sentiment.neutral { background: #e2e3e5; color: #383d41; }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .theme-test-info {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            .header { padding: 1rem; }
+            .header h1 { font-size: 1.5rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme-test-info">
+            <i class="fas fa-flask"></i>
+            <strong>테마 시스템 테스트 리포트</strong> - 
+            다양한 테마에서 이 리포트가 어떻게 보이는지 확인해보세요!
+        </div>
+        
+        <div class="header">
+            <h1>
+                <i class="fas fa-dollar-sign"></i>
+                POSCO 서환마감 분석 리포트
+            </h1>
+            <div class="subtitle">
+                2025년 08월 03일 10:29:40 생성
+            </div>
+            <div class="test-badge">
+                <i class="fas fa-vial"></i> 테스트 리포트
+            </div>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>분석 뉴스 수</h3>
+                <div class="value">4</div>
+            </div>
+            <div class="stat-card">
+                <h3>시장 감정</h3>
+                <div class="value">안정</div>
+            </div>
+            <div class="stat-card">
+                <h3>완료율</h3>
+                <div class="value">4/4</div>
+            </div>
+            <div class="stat-card">
+                <h3>신뢰도</h3>
+                <div class="value">93%</div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2><i class="fas fa-newspaper"></i> 분석된 뉴스</h2>
+            
+            <div class="news-item">
+                <div class="news-title">
+                    [EXCHANGE-RATE] 테스트 뉴스 제목 1 - 중립 감정
+                </div>
+                <div class="news-meta">
+                    <span><i class="fas fa-clock"></i> 1시간 전</span>
+                    <span class="sentiment neutral">중립</span>
+                    <span><i class="fas fa-eye"></i> 399 조회</span>
+                </div>
+            </div>
+            
+            <div class="news-item">
+                <div class="news-title">
+                    [EXCHANGE-RATE] 테스트 뉴스 제목 2 - 긍정 감정
+                </div>
+                <div class="news-meta">
+                    <span><i class="fas fa-clock"></i> 9시간 전</span>
+                    <span class="sentiment positive">긍정</span>
+                    <span><i class="fas fa-eye"></i> 371 조회</span>
+                </div>
+            </div>
+            
+            <div class="news-item">
+                <div class="news-title">
+                    [EXCHANGE-RATE] 테스트 뉴스 제목 3 - 중립 감정
+                </div>
+                <div class="news-meta">
+                    <span><i class="fas fa-clock"></i> 2시간 전</span>
+                    <span class="sentiment neutral">중립</span>
+                    <span><i class="fas fa-eye"></i> 704 조회</span>
+                </div>
+            </div>
+            
+            <div class="news-item">
+                <div class="news-title">
+                    [EXCHANGE-RATE] 테스트 뉴스 제목 4 - 중립 감정
+                </div>
+                <div class="news-meta">
+                    <span><i class="fas fa-clock"></i> 12시간 전</span>
+                    <span class="sentiment neutral">중립</span>
+                    <span><i class="fas fa-eye"></i> 669 조회</span>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="content-section">
+            <h2><i class="fas fa-chart-bar"></i> 주요 인사이트</h2>
+            <ul>
+                <li>테스트 데이터를 기반으로 한 분석 결과입니다.</li>
+                <li>실제 시장 상황과는 무관한 테스트용 데이터입니다.</li>
+                <li>테마 시스템의 색상 변화를 확인하기 위한 목적입니다.</li>
+                <li>다양한 테마에서 가독성을 테스트할 수 있습니다.</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <p>
+                <i class="fas fa-robot"></i>
+                POSCO 뉴스 분석 시스템 | 테스트 리포트 생성기
+            </p>
+            <p>생성 시간: 2025-08-03T10:29:40.893492</p>
+        </div>
+    </div>
+</body>
+</html>

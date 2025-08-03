@@ -160,20 +160,9 @@ class PoscoMonitorWatchHamster:
             self.log(f"⚠️ 스마트 상태 판단 시스템 초기화 실패: {e}")
             self.smart_enabled = False
         
-        # 최적화된 개별 모니터링 시스템 초기화
-        try:
-            if NewYorkMarketMonitor and KospiCloseMonitor and ExchangeRateMonitor:
-                self.newyork_monitor = NewYorkMarketMonitor()
-                self.kospi_monitor = KospiCloseMonitor()
-                self.exchange_monitor = ExchangeRateMonitor()
-                self.individual_monitors_enabled = True
-                self.log("🎛️ 개별 모니터링 시스템 연결 완료")
-            else:
-                self.individual_monitors_enabled = False
-                self.log("⚠️ 개별 모니터링 시스템 비활성화 (모듈 없음)")
-        except Exception as e:
-            self.log(f"⚠️ 개별 모니터링 시스템 초기화 실패: {e}")
-            self.individual_monitors_enabled = False
+        # 개별 모니터링 시스템 비활성화 (통합 리포트로 전환)
+        self.individual_monitors_enabled = False
+        self.log("🔄 개별 모니터링 비활성화 - 통합 리포트 시스템으로 전환됨")
         
         # 통합 리포트 스케줄러 초기화
         try:
