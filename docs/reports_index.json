@@ -1,7 +1,111 @@
 {
-  "lastUpdate": "2025-08-03T09:45:53.626682Z",
-  "totalReports": 17,
+  "lastUpdate": "2025-08-03T10:05:25.442641Z",
+  "totalReports": 21,
   "reports": [
+    {
+      "id": "test_exchange-rate_20250803_100525",
+      "filename": "test_exchange-rate_20250803_100525.html",
+      "title": "[테스트] POSCO 서환마감 분석 리포트",
+      "type": "exchange-rate",
+      "date": "2025-08-03",
+      "time": "10:05:25",
+      "size": 8810,
+      "summary": {
+        "newsCount": 1,
+        "completionRate": "100%",
+        "marketSentiment": "부정",
+        "keyInsights": [
+          "테스트 데이터",
+          "테마 시스템 검증",
+          "UI 확인"
+        ]
+      },
+      "tags": [
+        "테스트",
+        "exchange-rate",
+        "테마검증"
+      ],
+      "url": "https://shuserker.github.io/infomax_api/reports/test_exchange-rate_20250803_100525.html",
+      "createdAt": "2025-08-03T10:05:25.442641Z"
+    },
+    {
+      "id": "test_exchange-rate_20250803_100318",
+      "filename": "test_exchange-rate_20250803_100318.html",
+      "title": "[테스트] POSCO 서환마감 분석 리포트",
+      "type": "exchange-rate",
+      "date": "2025-08-03",
+      "time": "10:03:18",
+      "size": 9297,
+      "summary": {
+        "newsCount": 3,
+        "completionRate": "100%",
+        "marketSentiment": "긍정",
+        "keyInsights": [
+          "테스트 데이터",
+          "테마 시스템 검증",
+          "UI 확인"
+        ]
+      },
+      "tags": [
+        "테스트",
+        "exchange-rate",
+        "테마검증"
+      ],
+      "url": "https://shuserker.github.io/infomax_api/reports/test_exchange-rate_20250803_100318.html",
+      "createdAt": "2025-08-03T10:03:18.298538Z"
+    },
+    {
+      "id": "test_exchange-rate_20250803_100038",
+      "filename": "test_exchange-rate_20250803_100038.html",
+      "title": "[테스트] POSCO 서환마감 분석 리포트",
+      "type": "exchange-rate",
+      "date": "2025-08-03",
+      "time": "10:00:38",
+      "size": 8809,
+      "summary": {
+        "newsCount": 4,
+        "completionRate": "100%",
+        "marketSentiment": "긍정",
+        "keyInsights": [
+          "테스트 데이터",
+          "테마 시스템 검증",
+          "UI 확인"
+        ]
+      },
+      "tags": [
+        "테스트",
+        "exchange-rate",
+        "테마검증"
+      ],
+      "url": "https://shuserker.github.io/infomax_api/reports/test_exchange-rate_20250803_100038.html",
+      "createdAt": "2025-08-03T10:00:38.366406Z"
+    },
+    {
+      "id": "test_exchange-rate_20250803_095819",
+      "filename": "test_exchange-rate_20250803_095819.html",
+      "title": "[테스트] POSCO 서환마감 분석 리포트",
+      "type": "exchange-rate",
+      "date": "2025-08-03",
+      "time": "09:58:19",
+      "size": 9296,
+      "summary": {
+        "newsCount": 4,
+        "completionRate": "100%",
+        "marketSentiment": "긍정",
+        "keyInsights": [
+          "테스트 데이터",
+          "테마 시스템 검증",
+          "UI 확인"
+        ]
+      },
+      "tags": [
+        "테스트",
+        "exchange-rate",
+        "테마검증"
+      ],
+      "url": "https://shuserker.github.io/infomax_api/reports/test_exchange-rate_20250803_095819.html",
+      "createdAt": "2025-08-03T09:58:19.260621Z"
+    },
     {
       "id": "test_integrated_20250803_094553",
       "filename": "test_integrated_20250803_094553.html",
