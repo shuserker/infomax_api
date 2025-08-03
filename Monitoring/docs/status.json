@@ -1,0 +1,61 @@
+{
+  "lastUpdate": "2025-08-03T00:43:51.644884+00:00",
+  "newsStatus": {
+    "exchange-rate": {
+      "published": false,
+      "publishTime": "--:--",
+      "status": "waiting",
+      "title": "서환마감 대기중",
+      "lastReportId": null
+    },
+    "kospi-close": {
+      "published": false,
+      "publishTime": "--:--",
+      "status": "waiting",
+      "title": "증시마감 대기중",
+      "lastReportId": null
+    },
+    "newyork-market-watch": {
+      "published": false,
+      "publishTime": "--:--",
+      "status": "waiting",
+      "title": "뉴욕마켓워치 대기중",
+      "lastReportId": null
+    }
+  },
+  "systemStatus": {
+    "monitoring": "active",
+    "uptime": "99.8%",
+    "lastReportGenerated": null,
+    "totalReportsToday": 0,
+    "errors": [],
+    "services": {
+      "watchHamster": {
+        "status": "running",
+        "lastCheck": "2025-08-03T00:43:51.644888+00:00"
+      },
+      "reportGenerator": {
+        "status": "running",
+        "lastRun": null
+      },
+      "githubPages": {
+        "status": "active",
+        "lastDeploy": null
+      }
+    }
+  },
+  "statistics": {
+    "totalReports": 0,
+    "reportsToday": 0,
+    "reportsThisWeek": 0,
+    "reportsThisMonth": 0,
+    "averagePerDay": 0.0,
+    "successRate": 100.0,
+    "typeDistribution": {
+      "integrated": 0,
+      "exchange-rate": 0,
+      "kospi-close": 0,
+      "newyork-market-watch": 0
+    }
+  }
+}

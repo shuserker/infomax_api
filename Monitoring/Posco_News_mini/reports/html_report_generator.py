@@ -61,6 +61,14 @@ class HTMLReportGenerator:
         
         print(f"✅ 리포트 생성 완료: {filename}")
         
+        # 메타데이터 자동 업데이트
+        try:
+            from .metadata_manager import add_report_metadata
+            add_report_metadata(filename, report_file)
+            print(f"📊 메타데이터 업데이트 완료: {filename}")
+        except Exception as e:
+            print(f"⚠️ 메타데이터 업데이트 실패: {e}")
+        
         # GitHub Pages 배포 시도
         github_url = None
         try:

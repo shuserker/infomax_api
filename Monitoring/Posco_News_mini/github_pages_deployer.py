@@ -115,7 +115,125 @@ class GitHubPagesDeployer:
             return False
     
     def _create_publish_index(self):
-        """publish 브랜치용 간단한 index.html 생성"""
+        """publish 브랜치용 대시보드 index.html 생성"""
+        # docs 디렉토리의 대시보드 파일들을 복사
+        docs_dir = self.repo_root / 'docs'
+        
+        if docs_dir.exists():
+            # 대시보드 파일들 복사
+            dashboard_files = [
+                'index.html',
+                'reports_index.json',
+                'status.json'
+            ]
+            
+            for file in dashboard_files:
+                source = docs_dir / file
+                if source.exists():
+                    shutil.copy2(source, file)
+            
+            # assets 디렉토리 복사
+            assets_source = docs_dir / 'assets'
+            if assets_source.exists():
+                if Path('assets').exists():
+                    shutil.rmtree('assets')
+                shutil.copytree(assets_source, 'assets')
+            
+            # reports 디렉토리의 메타데이터 업데이트
+            self._update_reports_metadata()
+        else:
+            # 기존 방식으로 폴백
+            self._create_legacy_index()
+    
+    def _update_reports_metadata(self):
+        """reports_index.json 업데이트"""
+        import json
+        from datetime import datetime
+        
+        reports_dir = Path('reports')
+        if not reports_dir.exists():
+            return
+            
+        html_files = list(reports_dir.glob('*.html'))
+        html_files.sort(key=lambda x: x.stat().st_mtime, reverse=True)
+        
+        reports_data = []
+        for html_file in html_files:
+            filename = html_file.name
+            file_stat = html_file.stat()
+            
+            # 파일명에서 메타데이터 추출
+            report_id = filename.replace('.html', '')
+            
+            # 뉴스 타입 추출
+            if 'integrated' in filename:
+                report_type = 'integrated'
+                title = 'POSCO 뉴스 통합 분석 리포트'
+                tags = ['통합분석', '일일리포트', '종합']
+            elif 'exchange-rate' in filename:
+                report_type = 'exchange-rate'
+                title = 'POSCO 서환마감 분석 리포트'
+                tags = ['환율', '달러', '외환']
+            elif 'kospi-close' in filename:
+                report_type = 'kospi-close'
+                title = 'POSCO 증시마감 분석 리포트'
+                tags = ['증시', 'KOSPI', '주식']
+            elif 'newyork-market-watch' in filename:
+                report_type = 'newyork-market-watch'
+                title = 'POSCO 뉴욕마켓워치 분석 리포트'
+                tags = ['뉴욕', '해외증시', '글로벌']
+            else:
+                report_type = 'unknown'
+                title = f'POSCO 분석 리포트'
+                tags = ['분석']
+            
+            # 날짜 추출 (파일명에서)
+            import re
+            date_match = re.search(r'(\d{8})_(\d{6})', filename)
+            if date_match:
+                date_str = date_match.group(1)
+                time_str = date_match.group(2)
+                date = f"{date_str[:4]}-{date_str[4:6]}-{date_str[6:8]}"
+                time = f"{time_str[:2]}:{time_str[2:4]}:{time_str[4:6]}"
+                created_at = f"{date}T{time}Z"
+            else:
+                created_at = datetime.fromtimestamp(file_stat.st_mtime).isoformat() + 'Z'
+                date = datetime.fromtimestamp(file_stat.st_mtime).strftime('%Y-%m-%d')
+                time = datetime.fromtimestamp(file_stat.st_mtime).strftime('%H:%M:%S')
+            
+            report_data = {
+                "id": report_id,
+                "filename": filename,
+                "title": title,
+                "type": report_type,
+                "date": date,
+                "time": time,
+                "size": file_stat.st_size,
+                "summary": {
+                    "newsCount": 3 if report_type == 'integrated' else 1,
+                    "completionRate": "3/3" if report_type == 'integrated' else "1/1",
+                    "marketSentiment": "긍정" if report_type == 'integrated' else "안정",
+                    "keyInsights": ["시장 분석", "트렌드 파악"]
+                },
+                "tags": tags,
+                "url": f"https://shuserker.github.io/infomax_api/reports/{filename}",
+                "createdAt": created_at
+            }
+            
+            reports_data.append(report_data)
+        
+        # reports_index.json 업데이트
+        index_data = {
+            "lastUpdate": datetime.now().isoformat() + 'Z',
+            "totalReports": len(reports_data),
+            "reports": reports_data
+        }
+        
+        with open('reports_index.json', 'w', encoding='utf-8') as f:
+            json.dump(index_data, f, ensure_ascii=False, indent=2)
+    
+    def _create_legacy_index(self):
+        """기존 방식의 index.html 생성 (폴백)"""
         # 현재 reports 디렉토리의 HTML 파일 목록 생성
         reports_dir = Path('reports')
         html_files = list(reports_dir.glob('*.html')) if reports_dir.exists() else []
