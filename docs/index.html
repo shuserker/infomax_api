@@ -39,43 +39,43 @@
         <div class="container">
             <div class="status-grid">
                 <div class="status-item">
-                    <div class="status-icon exchange-rate">
-                        <i class="fas fa-dollar-sign"></i>
+                    <div class="status-icon integrated">
+                        <i class="fas fa-chart-pie"></i>
                     </div>
                     <div class="status-info">
-                        <h3>서환마감</h3>
-                        <p class="status-time" id="exchangeRateTime">--:--</p>
-                        <span class="status-badge" id="exchangeRateStatus">대기중</span>
+                        <h3>통합 리포트</h3>
+                        <p class="status-time" id="integratedReportTime">--:--</p>
+                        <span class="status-badge" id="integratedReportStatus">대기중</span>
                     </div>
                 </div>
                 <div class="status-item">
-                    <div class="status-icon kospi-close">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <div class="status-info">
-                        <h3>증시마감</h3>
-                        <p class="status-time" id="kospiCloseTime">--:--</p>
-                        <span class="status-badge" id="kospiCloseStatus">대기중</span>
-                    </div>
-                </div>
-                <div class="status-item">
-                    <div class="status-icon newyork-watch">
-                        <i class="fas fa-globe-americas"></i>
-                    </div>
-                    <div class="status-info">
-                        <h3>뉴욕마켓워치</h3>
-                        <p class="status-time" id="newyorkWatchTime">--:--</p>
-                        <span class="status-badge" id="newyorkWatchStatus">대기중</span>
-                    </div>
-                </div>
-                <div class="status-item system-status">
-                    <div class="status-icon system">
-                        <i class="fas fa-server"></i>
+                    <div class="status-icon system-status">
+                        <i class="fas fa-cogs"></i>
                     </div>
                     <div class="status-info">
                         <h3>시스템 상태</h3>
-                        <p class="status-time" id="systemUptime">99.8%</p>
-                        <span class="status-badge active" id="systemStatus">정상</span>
+                        <p class="status-time" id="systemStatusTime">통합 리포트</p>
+                        <span class="status-badge active" id="systemStatus">활성</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon report-count">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="status-info">
+                        <h3>총 리포트 수</h3>
+                        <p class="status-time" id="totalReportsCount">0</p>
+                        <span class="status-badge" id="reportsCountStatus">통합</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon latest-report">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="status-info">
+                        <h3>최신 리포트</h3>
+                        <p class="status-time" id="latestReportTime">--:--</p>
+                        <span class="status-badge" id="latestReportStatus">대기중</span>
                     </div>
                 </div>
             </div>
@@ -97,10 +97,7 @@
                         <div class="filter-group flex gap-3 flex-wrap">
                             <select id="typeFilter" class="filter-select">
                                 <option value="">모든 타입</option>
-                                <option value="integrated">통합리포트</option>
-                                <option value="exchange-rate">서환마감</option>
-                                <option value="kospi-close">증시마감</option>
-                                <option value="newyork-market-watch">뉴욕마켓워치</option>
+                                <option value="integrated">통합 리포트</option>
                             </select>
                             <select id="dateFilter" class="filter-select">
                                 <option value="">전체 기간</option>
@@ -239,10 +236,11 @@
     <script src="assets/js/search-engine.js"></script>
     <script src="assets/js/search-ui.js"></script>
     <script src="assets/js/filter-system.js"></script>
-    <script src="assets/js/charts.js"></script>
+    <script src="assets/js/integrated-charts.js"></script>
+</script>
     <script src="assets/js/performance-metrics.js"></script>
     <script src="assets/js/favorites-system.js"></script>
-    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/dashboard-integrated.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
 </html>

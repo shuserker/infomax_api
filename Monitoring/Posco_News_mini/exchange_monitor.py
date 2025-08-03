@@ -1,168 +1,40 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-POSCO 뉴스 모니터 - 서환마감 전용 모니터링 💱
+exchange_monitor.py - 비활성화됨
 
-서환마감(환율) 뉴스를 전문적으로 모니터링하는 시스템 (최적화 버전)
+이 개별 모니터링 스크립트는 통합 리포트 시스템으로 전환되면서 비활성화되었습니다.
 
-주요 기능:
-- BaseNewsMonitor 상속으로 코드 중복 제거
-- 표준 6자리 시간 형식 처리
-- 설정 기반 동작으로 유지보수성 향상
+비활성화 일시: 2025-08-03 11:36:00
+대체 시스템: 통합 리포트 시스템 (integrated_report_scheduler.py)
 
-작성자: AI Assistant
-최종 수정: 2025-07-30 (최적화)
+사용법:
+- 통합 리포트 생성: python3 integrated_report_scheduler.py
+- 수동 리포트 생성: python3 reports/integrated_report_generator.py
+
+원본 파일 위치: exchange_monitor.py.disabled
 """
 
 import sys
-import os
-import argparse
 from datetime import datetime
 
-# 현재 스크립트 디렉토리를 Python 경로에 추가
-current_dir = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, current_dir)
-
-try:
-    from base_monitor import BaseNewsMonitor
-except ImportError as e:
-    print(f"[ERROR] 필수 모듈을 찾을 수 없습니다: {e}")
-    sys.exit(1)
-
-class ExchangeRateMonitor(BaseNewsMonitor):
-    """
-    서환마감 뉴스 전용 모니터링 클래스 (최적화 버전)
-    
-    BaseNewsMonitor를 상속받아 서환마감 특수 처리만 구현합니다.
-    """
-    
-    def __init__(self):
-        """서환마감 모니터 초기화"""
-        super().__init__("exchange-rate")
-    
-    def get_current_news_data(self):
-        """
-        현재 서환마감 뉴스 데이터 조회
-        
-        Returns:
-            dict: 서환마감 뉴스 데이터 또는 None
-        """
-        try:
-            current_data = self.api_client.get_news_data()
-            if current_data and self.news_type in current_data:
-                return current_data[self.news_type]
-            return None
-        except Exception as e:
-            print(f"❌ 서환마감 데이터 조회 실패: {e}")
-            return None
-    
-    def analyze_publish_pattern(self, exchange_data):
-        """
-        서환마감 뉴스 발행 패턴 분석
-        
-        Args:
-            exchange_data (dict): 서환마감 뉴스 데이터
-            
-        Returns:
-            dict: 발행 패턴 분석 결과
-        """
-        if not exchange_data:
-            return {
-                'status': 'no_data',
-                'is_published_today': False,
-                'is_on_time': False,
-                'delay_minutes': 0,
-                'analysis': '데이터 없음'
-            }
-        
-        today_date = datetime.now().strftime('%Y%m%d')
-        news_date = exchange_data.get('date', '')
-        news_time = exchange_data.get('time', '')
-        
-        is_published_today = (news_date == today_date)
-        
-        if not is_published_today:
-            return {
-                'status': 'not_published',
-                'is_published_today': False,
-                'is_on_time': False,
-                'delay_minutes': 0,
-                'analysis': f'오늘 발행되지 않음 (최신: {news_date})'
-            }
-        
-        # 발행 시간 분석
-        if not news_time or len(news_time) < 6:
-            return {
-                'status': 'published_no_time',
-                'is_published_today': True,
-                'is_on_time': False,
-                'delay_minutes': 0,
-                'analysis': '발행됨 (시간 정보 없음)'
-            }
-        
-        # 예상 발행 시간과 비교
-        expected_time = datetime.strptime(self.expected_publish_time, '%H%M%S').time()
-        actual_time = datetime.strptime(news_time[:6], '%H%M%S').time()
-        
-        # 시간 차이 계산 (분 단위)
-        expected_datetime = datetime.combine(datetime.now().date(), expected_time)
-        actual_datetime = datetime.combine(datetime.now().date(), actual_time)
-        delay_minutes = int((actual_datetime - expected_datetime).total_seconds() / 60)
-        
-        # 정시 발행 여부 판단 (±5분 허용)
-        is_on_time = abs(delay_minutes) <= self.tolerance_minutes
-        
-        if is_on_time:
-            status = 'on_time'
-            analysis = f'정시 발행 ({actual_time.strftime("%H:%M")})'
-        elif delay_minutes > 0:
-            status = 'delayed'
-            analysis = f'{delay_minutes}분 지연 발행 ({actual_time.strftime("%H:%M")})'
-        else:
-            status = 'early'
-            analysis = f'{abs(delay_minutes)}분 조기 발행 ({actual_time.strftime("%H:%M")})'
-        
-        return {
-            'status': status,
-            'is_published_today': True,
-            'is_on_time': is_on_time,
-            'delay_minutes': delay_minutes,
-            'analysis': analysis,
-            'expected_time': expected_time.strftime('%H:%M'),
-            'actual_time': actual_time.strftime('%H:%M')
-        }
-
-    def send_test_notification(self):
-        """테스트 알림 전송"""
-        print("🧪 서환마감 테스트 알림 전송 중...")
-        test_message = f"🧪 서환마감 테스트\n\n📅 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n✅ 시스템 정상 작동 중"
-        
-        try:
-            success = self.notifier.send_notification(test_message, is_error=False)
-            if success:
-                print("✅ 서환마감 테스트 알림 전송 성공")
-            else:
-                print("❌ 서환마감 테스트 알림 전송 실패")
-        except Exception as e:
-            print(f"❌ 서환마감 테스트 알림 전송 오류: {e}")
-
 def main():
-    """메인 실행 함수"""
-    parser = argparse.ArgumentParser(description='서환마감 뉴스 전용 모니터링')
-    parser.add_argument('--mode', choices=['single', 'continuous'], default='single',
-                       help='실행 모드: single(단일 확인) 또는 continuous(연속 모니터링)')
-    parser.add_argument('--interval', type=int, default=300,
-                       help='연속 모니터링 간격 (초, 기본값: 300)')
+    print("🚫 이 스크립트는 비활성화되었습니다.")
+    print(f"📅 비활성화 일시: 2025-08-03 11:36:00")
+    print()
+    print("🔄 POSCO 리포트 시스템이 통합 리포트 시스템으로 전환되었습니다.")
+    print()
+    print("✅ 대신 사용할 수 있는 명령어:")
+    print("   • 통합 리포트 생성: python3 integrated_report_scheduler.py")
+    print("   • 수동 리포트 생성: python3 reports/integrated_report_generator.py")
+    print("   • 메타데이터 업데이트: python3 metadata_reset_manager.py")
+    print()
+    print("📋 더 자세한 정보는 README.md 파일을 참조하세요.")
+    print()
+    print("⚠️ 개별 리포트 시스템은 더 이상 지원되지 않습니다.")
     
-    args = parser.parse_args()
-    
-    # 서환마감 모니터 초기화
-    monitor = ExchangeRateMonitor()
-    
-    if args.mode == 'single':
-        monitor.run_single_check()
-    else:
-        monitor.run_continuous_monitoring(args.interval)
+    return False
 
 if __name__ == "__main__":
     main()
+    sys.exit(1)  # 비정상 종료로 스크립트 실행 방지

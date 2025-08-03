@@ -7,7 +7,7 @@ class PerformanceMetrics {
         this.updateInterval = 30000; // 30초
         this.intervalId = null;
         this.isUpdating = false;
-        
+
         // 성과 지표 임계값
         this.thresholds = {
             successRate: { good: 95, warning: 90 },
@@ -15,7 +15,7 @@ class PerformanceMetrics {
             uptime: { good: 99, warning: 95 },
             errorRate: { good: 1, warning: 5 }
         };
-        
+
         this.init();
     }
 
@@ -38,7 +38,7 @@ class PerformanceMetrics {
 
         // 기존 통계 카드에 실시간 업데이트 기능 추가
         const statCards = statsGrid.querySelectorAll('.stat-card');
-        
+
         statCards.forEach((card, index) => {
             // 실시간 업데이트 인디케이터 추가
             const indicator = DOM.create('div', {
@@ -46,15 +46,15 @@ class PerformanceMetrics {
                 title: '실시간 업데이트'
             });
             indicator.innerHTML = '<i class="fas fa-circle"></i>';
-            
+
             const cardBody = card.querySelector('.card-body') || card;
             cardBody.appendChild(indicator);
-            
+
             // 트렌드 표시 추가
             const trendIndicator = DOM.create('div', {
                 className: 'trend-indicator'
             });
-            
+
             const statInfo = card.querySelector('.stat-info');
             if (statInfo) {
                 statInfo.appendChild(trendIndicator);
@@ -278,7 +278,7 @@ class PerformanceMetrics {
 
     startRealTimeUpdates() {
         this.updateMetrics(); // 초기 업데이트
-        
+
         this.intervalId = setInterval(() => {
             if (!this.isUpdating) {
                 this.updateMetrics();
@@ -290,26 +290,26 @@ class PerformanceMetrics {
 
     async updateMetrics() {
         if (this.isUpdating) return;
-        
+
         this.isUpdating = true;
         this.showUpdateIndicator();
 
         try {
             // 상태 데이터 가져오기
             const statusData = await this.fetchStatusData();
-            
+
             // 메트릭 계산 및 업데이트
             await this.calculateMetrics(statusData);
-            
+
             // UI 업데이트
             this.updateMetricsDisplay();
             this.updateSystemHealth(statusData);
-            
+
             // 차트 업데이트 (있는 경우)
             if (window.chartSystem) {
                 window.chartSystem.refreshAllCharts();
             }
-            
+
         } catch (error) {
             console.error('성과 지표 업데이트 실패:', error);
             this.showUpdateError();
@@ -346,28 +346,26 @@ class PerformanceMetrics {
                 reportsToday: Math.floor(Math.random() * 20) + 5
             },
             newsStatus: {
-                'exchange-rate': { published: Math.random() > 0.2 },
-                'kospi-close': { published: Math.random() > 0.2 },
-                'newyork-market-watch': { published: Math.random() > 0.2 }
+                'integrated': { published: Math.random() > 0.1 }
             }
         };
     }
 
     async calculateMetrics(statusData) {
         const now = Date.now();
-        
+
         // 시스템 가동률
         const uptime = parseFloat(statusData.systemStatus?.uptime || '99.8');
         this.updateMetric('uptime', uptime, '%', this.calculateTrend('uptime', uptime));
-        
+
         // 생성 성공률
         const successRate = parseFloat(statusData.statistics?.successRate || '98.5');
         this.updateMetric('successRate', successRate, '%', this.calculateTrend('successRate', successRate));
-        
+
         // 응답 시간 (시뮬레이션)
         const responseTime = 200 + Math.random() * 100;
         this.updateMetric('responseTime', Math.round(responseTime), 'ms', this.calculateTrend('responseTime', responseTime));
-        
+
         // 오류율 계산
         const errorCount = statusData.systemStatus?.errors?.length || 0;
         const totalReports = statusData.statistics?.totalReports || 100;
@@ -377,7 +375,7 @@ class PerformanceMetrics {
 
     updateMetric(key, value, unit, trend) {
         const previousValue = this.metrics.get(key)?.value || value;
-        
+
         this.metrics.set(key, {
             value: value,
             unit: unit,
@@ -391,17 +389,17 @@ class PerformanceMetrics {
     calculateTrend(key, currentValue) {
         const previous = this.metrics.get(key);
         if (!previous) return { direction: 'stable', change: 0 };
-        
+
         const change = currentValue - previous.value;
         const direction = change > 0 ? 'up' : change < 0 ? 'down' : 'stable';
-        
+
         return { direction, change: Math.abs(change) };
     }
 
     getMetricStatus(key, value) {
         const thresholds = this.thresholds[key];
         if (!thresholds) return 'good';
-        
+
         if (key === 'responseTime' || key === 'errorRate') {
             // 낮을수록 좋은 메트릭
             if (value <= thresholds.good) return 'good';
@@ -436,11 +434,11 @@ class PerformanceMetrics {
             // 트렌드 업데이트
             const trendIcon = trendElement.querySelector('i');
             const trendText = trendElement.querySelector('span');
-            
+
             if (trendIcon && trendText) {
                 trendIcon.className = `fas fa-arrow-${metric.trend.direction === 'up' ? 'up' : metric.trend.direction === 'down' ? 'down' : 'right'}`;
                 trendText.textContent = `${metric.trend.direction === 'up' ? '+' : metric.trend.direction === 'down' ? '-' : ''}${metric.trend.change.toFixed(1)}${metric.unit}`;
-                
+
                 // 트렌드 색상
                 trendElement.className = `metric-trend ${metric.trend.direction}`;
             }
@@ -483,7 +481,7 @@ class PerformanceMetrics {
         const animation = setInterval(() => {
             currentStep++;
             const newValue = currentValue + (stepValue * currentStep);
-            
+
             if (unit === 'ms') {
                 element.textContent = Math.round(newValue) + unit;
             } else {
@@ -506,10 +504,10 @@ class PerformanceMetrics {
         };
 
         // 전체 상태 계산
-        const healthyServices = Object.values(services).filter(status => 
+        const healthyServices = Object.values(services).filter(status =>
             status === 'running' || status === 'active'
         ).length;
-        
+
         const totalServices = Object.keys(services).length;
         const healthPercentage = (healthyServices / totalServices) * 100;
 
@@ -528,7 +526,7 @@ class PerformanceMetrics {
         if (overallStatus) {
             const indicator = overallStatus.querySelector('.health-indicator');
             const text = overallStatus.querySelector('span');
-            
+
             if (indicator) indicator.className = `health-indicator ${overallHealthStatus}`;
             if (text) text.textContent = statusText;
         }
@@ -609,17 +607,17 @@ class PerformanceMetrics {
     toggleUpdates() {
         const pauseBtn = document.getElementById('pauseUpdates');
         const updateStatus = document.getElementById('updateStatus');
-        
+
         if (this.intervalId) {
             // 업데이트 일시정지
             clearInterval(this.intervalId);
             this.intervalId = null;
-            
+
             if (pauseBtn) {
                 pauseBtn.innerHTML = '<i class="fas fa-play"></i>';
                 pauseBtn.title = '업데이트 재개';
             }
-            
+
             if (updateStatus) {
                 const text = updateStatus.querySelector('.status-text');
                 if (text) text.textContent = '업데이트 일시정지';
@@ -627,12 +625,12 @@ class PerformanceMetrics {
         } else {
             // 업데이트 재개
             this.startRealTimeUpdates();
-            
+
             if (pauseBtn) {
                 pauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
                 pauseBtn.title = '업데이트 일시정지';
             }
-            
+
             if (updateStatus) {
                 const text = updateStatus.querySelector('.status-text');
                 if (text) text.textContent = '실시간 업데이트';
@@ -654,7 +652,7 @@ class PerformanceMetrics {
             clearInterval(this.intervalId);
             this.intervalId = null;
         }
-        
+
         this.metrics.clear();
         console.log('📊 성과 지표 시스템 정리 완료');
     }
@@ -665,7 +663,7 @@ class PerformanceMetrics {
             timestamp: new Date().toISOString(),
             metrics: Object.fromEntries(this.metrics)
         };
-        
+
         return exportData;
     }
 }

@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 POSCO 뉴스 통합 분석 리포트</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+        
+        .header .timestamp {
+            color: #95a5a6;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        
+        .summary-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .card h2 {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .news-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #3498db;
+        }
+        
+        .news-published {
+            border-left-color: #27ae60;
+        }
+        
+        .news-pending {
+            border-left-color: #e74c3c;
+        }
+        
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .status-published {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-pending {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .insight-box {
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .strategy-item {
+            background: #e8f5e8;
+            border-left: 4px solid #28a745;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .risk-item {
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid;
+        }
+        
+        .risk-high {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+        
+        .risk-medium {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+        }
+        
+        .risk-low {
+            background: #d1ecf1;
+            border-left-color: #17a2b8;
+        }
+        
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            color: #7f8c8d;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 POSCO 뉴스 통합 분석 리포트</h1>
+            <div class="subtitle">일일 종합 시장 분석 및 투자 인사이트</div>
+            <div class="timestamp">생성 시간: 2025-08-03 11:47:35</div>
+        </div>
+        
+        <div class="summary-card">
+            <h2>📋 종합 요약</h2>
+            <div class="insight-box">
+                <h3>📊 발행 현황: 3/3 (완료)</h3>
+                <h3>📈 시장 분위기: 중립</h3>
+                <h3>📅 데이터 기준: 당일 데이터</h3>
+                <p>오늘의 모든 뉴스가 발행 완료되었습니다. 전체적으로 중립 분위기입니다.</p>
+            </div>
+        </div>
+        
+        <div class="content-grid">
+            
+        <div class="card">
+            <h2>📰 뉴스 발행 현황</h2>
+            
+                <div class="news-item news-published">
+                    <div>
+                        <div style="font-weight: bold;">💱 서환마감</div>
+                        <div style="font-size: 0.9em; color: #666;"></div>
+                    </div>
+                    <span class="status-badge status-published">✅ 발행완료</span>
+                </div>
+                
+                <div class="news-item news-published">
+                    <div>
+                        <div style="font-weight: bold;">📈 증시마감</div>
+                        <div style="font-size: 0.9em; color: #666;"></div>
+                    </div>
+                    <span class="status-badge status-published">✅ 발행완료</span>
+                </div>
+                
+                <div class="news-item news-published">
+                    <div>
+                        <div style="font-weight: bold;">🌆 뉴욕마켓워치</div>
+                        <div style="font-size: 0.9em; color: #666;"></div>
+                    </div>
+                    <span class="status-badge status-published">✅ 발행완료</span>
+                </div>
+                
+        </div>
+        
+            
+        <div class="card">
+            <h2>📊 통합 시장 분석</h2>
+            <div class="insight-box">
+                <h3>📈 전체 시장 분위기: 중립</h3>
+            </div>
+            <div class='insight-box'>💱 환율 동향이 시장에 영향을 미치고 있습니다</div><div class='insight-box'>📈 국내 증시 마감 상황을 주목해야 합니다</div><div class='insight-box'>🌆 뉴욕 시장 동향이 글로벌 영향을 주고 있습니다</div>
+        </div>
+        
+            
+        <div class="card">
+            <h2>💼 통합 투자 전략</h2>
+            <div class='strategy-item'><strong>📊 단기:</strong> 모든 뉴스가 발행되어 종합적 판단이 가능합니다</div><div class='strategy-item'><strong>📊 중기:</strong> 다양한 시장 신호를 종합하여 포트폴리오를 조정하세요</div><div class='strategy-item'><strong>📊 장기:</strong> 장기적으로는 POSCO 관련 뉴스 트렌드를 지속 모니터링하세요</div>
+        </div>
+        
+            
+        <div class="card">
+            <h2>⚠️ 통합 리스크 분석</h2>
+            <div class='risk-item risk-low'><strong>🟢 낮음:</strong> 현재 특별한 리스크 요인이 발견되지 않았습니다</div>
+        </div>
+        
+        </div>
+        
+        <div class="footer">
+            <p>© 2025 POSCO 뉴스 AI 분석 시스템 | 통합 리포트 v1.0</p>
+        </div>
+    </div>
+</body>
+</html>
+        

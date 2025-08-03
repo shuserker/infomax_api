@@ -113,20 +113,14 @@ class Dashboard {
 
     generateSummary(type) {
         const summaries = {
-            'integrated': '3개 뉴스 완료, 시장 분위기 분석',
-            'exchange-rate': '달러-원 환율 동향 분석',
-            'kospi-close': 'KOSPI 지수 마감 분석',
-            'newyork-market-watch': '뉴욕 증시 동향 분석'
+            'integrated': '환율/증시/뉴욕 3개 뉴스 통합 분석 완료'
         };
         return summaries[type] || '뉴스 분석 리포트';
     }
 
     generateTags(type) {
         const tagMap = {
-            'integrated': ['통합분석', '일일리포트', '종합'],
-            'exchange-rate': ['환율', '달러', '외환'],
-            'kospi-close': ['증시', 'KOSPI', '주식'],
-            'newyork-market-watch': ['뉴욕', '해외증시', '글로벌']
+            'integrated': ['통합분석', '일일리포트', '종합', '환율', '증시', '뉴욕']
         };
         return tagMap[type] || ['분석'];
     }
@@ -135,17 +129,9 @@ class Dashboard {
         if (!statusData.newsStatus) return;
 
         const statusMap = {
-            'exchange-rate': {
-                timeElement: 'exchangeRateTime',
-                statusElement: 'exchangeRateStatus'
-            },
-            'kospi-close': {
-                timeElement: 'kospiCloseTime',
-                statusElement: 'kospiCloseStatus'
-            },
-            'newyork-market-watch': {
-                timeElement: 'newyorkWatchTime',
-                statusElement: 'newyorkWatchStatus'
+            'integrated': {
+                timeElement: 'integratedReportTime',
+                statusElement: 'integratedReportStatus'
             }
         };
 
@@ -274,9 +260,9 @@ class Dashboard {
             window.filterSystem = initializeFilterSystem(this);
         }
 
-        // 차트 시스템 초기화
-        if (typeof initializeChartSystem === 'function') {
-            window.chartSystem = initializeChartSystem(this);
+        // 통합 차트 시스템 초기화
+        if (typeof IntegratedCharts === 'function') {
+            window.integratedCharts = new IntegratedCharts(this);
         }
 
         // 성과 지표 시스템 초기화

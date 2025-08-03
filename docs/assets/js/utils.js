@@ -103,14 +103,8 @@ function parseReportFilename(filename) {
         title = 'POSCO 뉴스 통합 분석 리포트';
     } else {
         switch (type) {
-            case 'exchange-rate':
-                title = 'POSCO 서환마감 분석 리포트';
-                break;
-            case 'kospi-close':
-                title = 'POSCO 증시마감 분석 리포트';
-                break;
-            case 'newyork-market-watch':
-                title = 'POSCO 뉴욕마켓워치 분석 리포트';
+            case 'integrated':
+                title = 'POSCO 뉴스 통합 분석 리포트';
                 break;
             default:
                 title = `POSCO ${type} 분석 리포트`;
@@ -133,10 +127,7 @@ function parseReportFilename(filename) {
  */
 function getTypeDisplayName(type) {
     const typeNames = {
-        'integrated': '통합리포트',
-        'exchange-rate': '서환마감',
-        'kospi-close': '증시마감',
-        'newyork-market-watch': '뉴욕마켓워치'
+        'integrated': '통합 리포트'
     };
     return typeNames[type] || type;
 }

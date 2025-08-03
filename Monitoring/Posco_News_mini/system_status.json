@@ -1,0 +1,19 @@
+{
+  "system_mode": "integrated_reports_only",
+  "transition_date": "2025-08-03T11:36:00.630618",
+  "active_components": [
+    "integrated_report_scheduler.py",
+    "reports/integrated_report_generator.py",
+    "metadata_reset_manager.py"
+  ],
+  "disabled_components": [
+    "exchange_monitor.py",
+    "kospi_monitor.py",
+    "newyork_monitor.py",
+    "master_news_monitor.py",
+    "run_monitor.py",
+    "reports/html_report_generator.py"
+  ],
+  "description": "POSCO 리포트 시스템이 통합 리포트 전용 모드로 전환됨",
+  "last_update": "2025-08-03T11:36:00.630628"
+}

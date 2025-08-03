@@ -12,10 +12,7 @@ class FavoritesSystem {
         // 즐겨찾기 카테고리
         this.categories = new Map([
             ['all', '전체'],
-            ['integrated', '통합리포트'],
-            ['exchange-rate', '서환마감'],
-            ['kospi-close', '증시마감'],
-            ['newyork-market-watch', '뉴욕마켓워치']
+            ['integrated', '통합 리포트']
         ]);
         
         this.init();
@@ -422,10 +419,7 @@ class FavoritesSystem {
     // 유틸리티 메서드들
     getTypeIcon(type) {
         const icons = {
-            'integrated': 'fa-chart-pie',
-            'exchange-rate': 'fa-dollar-sign',
-            'kospi-close': 'fa-chart-bar',
-            'newyork-market-watch': 'fa-globe-americas'
+            'integrated': 'fa-chart-pie'
         };
         return icons[type] || 'fa-file-alt';
     }

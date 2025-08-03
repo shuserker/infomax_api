@@ -240,10 +240,7 @@ class SearchEngine {
         
         // 문서 타입별 가중치
         const typeWeights = {
-            'integrated': 1.5,
-            'exchange-rate': 1.2,
-            'kospi-close': 1.2,
-            'newyork-market-watch': 1.1
+            'integrated': 1.5
         };
         
         const typeWeight = typeWeights[result.document.type] || 1.0;

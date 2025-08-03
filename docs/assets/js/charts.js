@@ -580,21 +580,15 @@ class ChartSystem {
             const dayReports = reports.filter(r => r.date === dateStr);
             
             integrated.push(dayReports.filter(r => r.type === 'integrated').length);
-            exchangeRate.push(dayReports.filter(r => r.type === 'exchange-rate').length);
-            kospiClose.push(dayReports.filter(r => r.type === 'kospi-close').length);
-            newyorkWatch.push(dayReports.filter(r => r.type === 'newyork-market-watch').length);
         }
 
-        return { labels, integrated, exchangeRate, kospiClose, newyorkWatch };
+        return { labels, integrated };
     }
 
     generateTypeDistributionData() {
         const reports = this.dashboard.reports || [];
         const typeCounts = {
-            'integrated': 0,
-            'exchange-rate': 0,
-            'kospi-close': 0,
-            'newyork-market-watch': 0
+            'integrated': 0
         };
 
         reports.forEach(report => {
@@ -604,7 +598,7 @@ class ChartSystem {
         });
 
         return {
-            labels: ['통합리포트', '서환마감', '증시마감', '뉴욕마켓워치'],
+            labels: ['통합 리포트'],
             values: Object.values(typeCounts),
             total: Object.values(typeCounts).reduce((a, b) => a + b, 0),
             breakdown: typeCounts
