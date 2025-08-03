@@ -4300,4 +4300,204 @@ ed Favorites and Recent Items System Styles */
     padding: var(--space-3);
     margin: var(--space-2) 0;
     font-size: var(--font-size-sm);
+}/
+* Enhanced Report Card Styles */
+
+.report-stats {
+    display: flex;
+    gap: var(--space-3);
+    margin: var(--space-3) 0;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-2);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.stat-item i {
+    font-size: 0.75rem;
+}
+
+/* Sentiment Colors */
+.sentiment-positive {
+    background: rgba(34, 197, 94, 0.1);
+    color: var(--success-color);
+    border-color: rgba(34, 197, 94, 0.2);
+}
+
+.sentiment-negative {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--error-color);
+    border-color: rgba(239, 68, 68, 0.2);
+}
+
+.sentiment-stable {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--primary-color);
+    border-color: rgba(59, 130, 246, 0.2);
+}
+
+.sentiment-neutral {
+    background: rgba(107, 114, 128, 0.1);
+    color: var(--text-muted);
+    border-color: rgba(107, 114, 128, 0.2);
+}
+
+.sentiment-mixed {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--warning-color);
+    border-color: rgba(245, 158, 11, 0.2);
+}
+
+/* Key Insights */
+.key-insights {
+    margin: var(--space-3) 0;
+    padding: var(--space-3);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--primary-color);
+}
+
+.key-insights h4 {
+    margin: 0 0 var(--space-2) 0;
+    font-size: var(--font-size-sm);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.key-insights h4 i {
+    color: var(--warning-color);
+    font-size: 0.875rem;
+}
+
+.insights-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.insights-list li {
+    padding: var(--space-1) 0;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: var(--space-4);
+}
+
+.insights-list li::before {
+    content: '•';
+    position: absolute;
+    left: var(--space-2);
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.insights-list li.more-insights {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.insights-list li.more-insights::before {
+    content: '⋯';
+    color: var(--text-muted);
+}
+
+/* Enhanced Tags */
+.report-tags {
+    display: flex;
+    gap: var(--space-1);
+    flex-wrap: wrap;
+    margin-top: var(--space-2);
+}
+
+.tag {
+    padding: var(--space-1) var(--space-2);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.tag:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.tag.more-tags {
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    cursor: default;
+}
+
+.tag.more-tags:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    border-color: var(--border-color);
+}
+
+/* Report Card Enhancements */
+.report-card {
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+}
+
+.report-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+.report-card:hover .key-insights {
+    background: rgba(59, 130, 246, 0.05);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .report-stats {
+        gap: var(--space-2);
+    }
+    
+    .stat-item {
+        font-size: 0.7rem;
+        padding: var(--space-1);
+    }
+    
+    .key-insights {
+        padding: var(--space-2);
+        margin: var(--space-2) 0;
+    }
+    
+    .insights-list li {
+        font-size: 0.8rem;
+    }
+}
+
+/* Dark Theme Adjustments */
+[data-theme="dark"] .key-insights {
+    background: rgba(255, 255, 255, 0.05);
+    border-left-color: var(--primary-color);
+}
+
+[data-theme="dark"] .stat-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .tag {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
 }

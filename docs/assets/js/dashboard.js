@@ -321,6 +321,16 @@ class Dashboard {
     createReportCard(report) {
         const card = DOM.create('div', { className: 'report-card' });
         
+        // 요약 정보 추출
+        const summary = report.summary || {};
+        const newsCount = summary.newsCount || 0;
+        const marketSentiment = summary.marketSentiment || '중립';
+        const keyInsights = summary.keyInsights || [];
+        const completionRate = summary.completionRate || '100%';
+        
+        // 감정에 따른 스타일
+        const sentimentInfo = this.getSentimentInfo(marketSentiment);
+        
         card.innerHTML = `
             <div class="report-card-header">
                 <span class="report-type ${report.type}">${getTypeDisplayName(report.type)}</span>
@@ -329,13 +339,45 @@ class Dashboard {
                 </button>
             </div>
             <h3 class="report-title">${report.title}</h3>
+            
+            <!-- 요약 통계 -->
+            <div class="report-stats">
+                <div class="stat-item">
+                    <i class="fas fa-newspaper"></i>
+                    <span>뉴스 ${newsCount}건</span>
+                </div>
+                <div class="stat-item sentiment-${sentimentInfo.class}">
+                    <i class="${sentimentInfo.icon}"></i>
+                    <span>${marketSentiment}</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>${completionRate}</span>
+                </div>
+            </div>
+            
+            <!-- 주요 인사이트 -->
+            ${keyInsights.length > 0 ? `
+                <div class="key-insights">
+                    <h4><i class="fas fa-lightbulb"></i> 주요 인사이트</h4>
+                    <ul class="insights-list">
+                        ${keyInsights.slice(0, 2).map(insight => 
+                            `<li>${insight}</li>`
+                        ).join('')}
+                        ${keyInsights.length > 2 ? `<li class="more-insights">+${keyInsights.length - 2}개 더</li>` : ''}
+                    </ul>
+                </div>
+            ` : ''}
+            
             <div class="report-meta">
                 <span><i class="fas fa-calendar"></i> ${report.dateStr}</span>
                 <span><i class="fas fa-clock"></i> ${report.time}</span>
             </div>
-            <p class="report-summary">${report.summary}</p>
+            
+            <!-- 태그 -->
             <div class="report-tags">
-                ${report.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                ${report.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                ${report.tags.length > 3 ? `<span class="tag more-tags">+${report.tags.length - 3}</span>` : ''}
             </div>
         `;
 
@@ -639,4 +681,18 @@ const quickItemStyles = `
 </style>
 `;
 
-document.head.insertAdjacentHTML('beforeend', quickItemStyles);
+document.head.insertAdjacentHTML('beforeend', quickItemStyles);    
+getSentimentInfo(sentiment) {
+        const sentimentMap = {
+            '긍정': { class: 'positive', icon: 'fas fa-arrow-up' },
+            '상승': { class: 'positive', icon: 'fas fa-trending-up' },
+            '부정': { class: 'negative', icon: 'fas fa-arrow-down' },
+            '하락': { class: 'negative', icon: 'fas fa-trending-down' },
+            '안정': { class: 'stable', icon: 'fas fa-minus' },
+            '보합': { class: 'stable', icon: 'fas fa-equals' },
+            '중립': { class: 'neutral', icon: 'fas fa-circle' },
+            '혼조': { class: 'mixed', icon: 'fas fa-exchange-alt' }
+        };
+        
+        return sentimentMap[sentiment] || { class: 'neutral', icon: 'fas fa-circle' };
+    }
