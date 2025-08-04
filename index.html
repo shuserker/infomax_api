@@ -3,133 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📊 POSCO 뉴스 분석 리포트</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        .header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-        .content {
-            padding: 30px;
-        }
-        .report-item {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 15px 0;
-            border-left: 4px solid #4facfe;
-        }
-        .report-title {
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        .report-meta {
-            color: #7f8c8d;
-            font-size: 0.9em;
-            margin-bottom: 15px;
-        }
-        .report-link {
-            display: inline-block;
-            background: #4facfe;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .report-link:hover {
-            background: #3498db;
-        }
-    </style>
+    <title>POSCO 뉴스 AI 분석 대시보드</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.29.3/index.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>📊 POSCO 뉴스 AI 분석 리포트</h1>
-            <p>실시간 시장 분석 및 투자 인사이트</p>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    <h1>POSCO 뉴스 AI 분석 대시보드</h1>
+                </div>
+                <nav class="nav">
+                    <a href="#" class="nav-link active">홈</a>
+                    <a href="#stats" class="nav-link">통계</a>
+                    <a href="#settings" class="nav-link">설정</a>
+                </nav>
+                <div class="header-controls">
+                    <div class="current-time" id="currentTime"></div>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="content">
-            <h2>📋 최근 분석 리포트</h2>
-            
-            <div class="report-item">
-                <div class="report-title">📰 뉴스 분석 리포트</div>
-                <div class="report-meta">생성일: Sat Aug  2 14:25:39 2025</div>
-                <a href="./reports/posco_integrated_analysis_20250802_141605.html" class="report-link">📊 리포트 보기</a>
+    </header>
+
+    <!-- Status Bar -->
+    <section class="status-bar">
+        <div class="container">
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="status-icon integrated">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div class="status-info">
+                        <h3>통합 리포트</h3>
+                        <p class="status-time" id="integratedReportTime">--:--</p>
+                        <span class="status-badge" id="integratedReportStatus">대기중</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon system-status">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="status-info">
+                        <h3>시스템 상태</h3>
+                        <p class="status-time" id="systemStatusTime">통합 리포트</p>
+                        <span class="status-badge active" id="systemStatus">활성</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon report-count">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="status-info">
+                        <h3>총 리포트 수</h3>
+                        <p class="status-time" id="totalReportsCount">0</p>
+                        <span class="status-badge" id="reportsCountStatus">통합</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon latest-report">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="status-info">
+                        <h3>최신 리포트</h3>
+                        <p class="status-time" id="latestReportTime">--:--</p>
+                        <span class="status-badge" id="latestReportStatus">대기중</span>
+                    </div>
+                </div>
             </div>
-            
-            <div class="report-item">
-                <div class="report-title">📰 뉴스 분석 리포트</div>
-                <div class="report-meta">생성일: Sat Aug  2 14:25:39 2025</div>
-                <a href="./reports/posco_analysis_test2_20250802_125618.html" class="report-link">📊 리포트 보기</a>
-            </div>
-            
-            <div class="report-item">
-                <div class="report-title">📰 뉴스 분석 리포트</div>
-                <div class="report-meta">생성일: Sat Aug  2 14:25:39 2025</div>
-                <a href="./reports/posco_analysis_integrated_20250802_123353.html" class="report-link">📊 리포트 보기</a>
-            </div>
-            
-            <div class="report-item">
-                <div class="report-title">💱 서환마감 분석 리포트</div>
-                <div class="report-meta">생성일: Sat Aug  2 14:25:39 2025</div>
-                <a href="./reports/posco_analysis_exchange-rate_20250802_122827.html" class="report-link">📊 리포트 보기</a>
-            </div>
-            
-            <div class="report-item">
-                <div class="report-title">💱 서환마감 분석 리포트</div>
-                <div class="report-meta">생성일: Sat Aug  2 14:25:39 2025</div>
-                <a href="./reports/posco_analysis_exchange-rate_20250802_115854.html" class="report-link">📊 리포트 보기</a>
-            </div>
-            
-            <div class="report-item">
-                <div class="report-title">💱 서환마감 분석 리포트</div>
-                <div class="report-meta">생성일: Sat Aug  2 14:25:39 2025</div>
-                <a href="./reports/posco_analysis_exchange-rate_20250801_223556.html" class="report-link">📊 리포트 보기</a>
-            </div>
-            
-            <div class="report-item">
-                <div class="report-title">💱 서환마감 분석 리포트</div>
-                <div class="report-meta">생성일: Sat Aug  2 14:25:39 2025</div>
-                <a href="./reports/posco_analysis_exchange-rate_20250801_223204.html" class="report-link">📊 리포트 보기</a>
-            </div>
-            
-            <div class="report-item">
-                <div class="report-title">💱 서환마감 분석 리포트</div>
-                <div class="report-meta">생성일: Sat Aug  2 14:25:39 2025</div>
-                <a href="./reports/posco_analysis_exchange-rate_20250801_222824.html" class="report-link">📊 리포트 보기</a>
-            </div>
-            
-            <div class="report-item">
-                <div class="report-title">💱 서환마감 분석 리포트</div>
-                <div class="report-meta">생성일: Sat Aug  2 14:25:39 2025</div>
-                <a href="./reports/posco_analysis_exchange-rate_20250801_222424.html" class="report-link">📊 리포트 보기</a>
-            </div>
-            
-            <div class="report-item">
-                <div class="report-title">📰 뉴스 분석 리포트</div>
-                <div class="report-meta">생성일: Sat Aug  2 14:25:39 2025</div>
-                <a href="./reports/posco_integrated_analysis_20250802_142539.html" class="report-link">📊 리포트 보기</a>
-            </div>
-            
         </div>
-    </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Filter Panel -->
+            <section class="card filter-panel mb-8">
+                <div class="card-body">
+                    <div class="flex flex-wrap gap-4 items-center">
+                        <div class="search-box flex-1" style="min-width: 250px;">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="리포트 검색..." class="w-full">
+                            <span class="search-shortcut-hint">Ctrl+K</span>
+                        </div>
+                        <div class="filter-group flex gap-3 flex-wrap">
+                            <select id="typeFilter" class="filter-select">
+                                <option value="">모든 타입</option>
+                                <option value="integrated">통합 리포트</option>
+                            </select>
+                            <select id="dateFilter" class="filter-select">
+                                <option value="">전체 기간</option>
+                                <option value="today">오늘</option>
+                                <option value="yesterday">어제</option>
+                                <option value="week">최근 7일</option>
+                                <option value="month">최근 30일</option>
+                            </select>
+                            <select id="sortFilter" class="filter-select">
+                                <option value="newest">최신순</option>
+                                <option value="oldest">오래된순</option>
+                                <option value="name">이름순</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="stats-section mb-8" id="statsSection">
+                <div class="grid grid-cols-4 gap-4">
+                    <div class="card stat-card">
+                        <div class="card-body flex items-center gap-4">
+                            <div class="stat-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 class="text-2xl font-bold text-primary" id="totalReports">0</h3>
+                                <p class="text-sm text-secondary">총 리포트</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="card-body flex items-center gap-4">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-day"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 class="text-2xl font-bold text-primary" id="todayReports">0</h3>
+                                <p class="text-sm text-secondary">오늘 생성</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="card-body flex items-center gap-4">
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 class="text-2xl font-bold text-primary" id="weeklyAverage">0</h3>
+                                <p class="text-sm text-secondary">주간 평균</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="card-body flex items-center gap-4">
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 class="text-2xl font-bold text-primary" id="successRate">0%</h3>
+                                <p class="text-sm text-secondary">성공률</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Access -->
+            <section class="card quick-access mb-8">
+                <div class="quick-access-tabs flex">
+                    <button class="tab-button flex-1 active" data-tab="recent">
+                        <i class="fas fa-history"></i>
+                        최근 본 리포트
+                    </button>
+                    <button class="tab-button flex-1" data-tab="favorites">
+                        <i class="fas fa-star"></i>
+                        즐겨찾기
+                    </button>
+                </div>
+                <div class="card-body quick-access-content">
+                    <div class="tab-content active" id="recentTab">
+                        <div class="quick-list flex flex-col gap-3" id="recentList">
+                            <p class="empty-message text-center text-muted">최근 본 리포트가 없습니다.</p>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="favoritesTab">
+                        <div class="quick-list flex flex-col gap-3" id="favoritesList">
+                            <p class="empty-message text-center text-muted">즐겨찾기한 리포트가 없습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Report Grid -->
+            <section class="card report-grid" id="reportGrid">
+                <div class="card-header">
+                    <h2 class="text-xl font-semibold text-primary">
+                        <i class="fas fa-chart-bar"></i>
+                        분석 리포트
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="loading-spinner text-center p-12" id="loadingSpinner">
+                        <i class="fas fa-spinner fa-spin text-3xl text-primary mb-4"></i>
+                        <p class="text-muted">리포트를 불러오는 중...</p>
+                    </div>
+                    <div class="reports-container grid grid-cols-3 gap-6" id="reportsContainer">
+                        <!-- Reports will be loaded here -->
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="pagination flex justify-center items-center gap-2" id="pagination">
+                        <!-- Pagination will be added here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 POSCO 뉴스 AI 분석 시스템. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#about">소개</a>
+                <a href="#contact">문의</a>
+                <a href="#help">도움말</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/theme-system.js"></script>
+    <script src="assets/js/search-engine.js"></script>
+    <script src="assets/js/search-ui.js"></script>
+    <script src="assets/js/filter-system.js"></script>
+    <script src="assets/js/integrated-charts.js"></script>
+</script>
+    <script src="assets/js/performance-metrics.js"></script>
+    <script src="assets/js/favorites-system.js"></script>
+    <script src="assets/js/dashboard-integrated.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>

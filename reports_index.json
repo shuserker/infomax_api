@@ -1,0 +1,33 @@
+{
+  "lastUpdate": "2025-08-03T02:29:20.218775+00:00",
+  "totalReports": 1,
+  "reports": [
+    {
+      "id": "posco_integrated_analysis_20250803_112920",
+      "filename": "posco_integrated_analysis_20250803_112920.html",
+      "title": "POSCO 뉴스 통합 분석 리포트",
+      "type": "integrated",
+      "date": "2025-08-03",
+      "time": "11:29:20",
+      "size": 8109,
+      "summary": {
+        "newsCount": 3,
+        "completionRate": "3/3",
+        "marketSentiment": "중립",
+        "keyInsights": [
+          "환율 분석",
+          "증시 동향",
+          "뉴욕 시장"
+        ]
+      },
+      "tags": [
+        "통합분석",
+        "일일리포트",
+        "종합"
+      ],
+      "url": "https://shuserker.github.io/infomax_api/reports/posco_integrated_analysis_20250803_112920.html",
+      "createdAt": "2025-08-03T11:29:20+00:00",
+      "checksum": "df24170e37bfa0c272675530f6be39e9"
+    }
+  ]
+}

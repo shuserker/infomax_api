@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POSCO 대시보드 - 테마 시스템 데모</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1><i class="fas fa-palette"></i> 테마 시스템 데모</h1>
+                </div>
+                <div class="header-right">
+                    <button id="themeToggle" class="btn btn-icon" title="테마 변경">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="demo-section">
+                <h2>테마 시스템 기능</h2>
+                <div class="demo-grid">
+                    <div class="demo-card">
+                        <h3><i class="fas fa-sun"></i> 라이트 모드</h3>
+                        <p>밝고 깔끔한 인터페이스로 낮 시간 작업에 최적화</p>
+                        <button class="btn btn-primary" onclick="setDemoTheme('light')">
+                            라이트 모드 적용
+                        </button>
+                    </div>
+
+                    <div class="demo-card">
+                        <h3><i class="fas fa-moon"></i> 다크 모드</h3>
+                        <p>눈의 피로를 줄이는 어두운 테마로 야간 작업에 적합</p>
+                        <button class="btn btn-primary" onclick="setDemoTheme('dark')">
+                            다크 모드 적용
+                        </button>
+                    </div>
+
+                    <div class="demo-card">
+                        <h3><i class="fas fa-adjust"></i> 자동 모드</h3>
+                        <p>시스템 설정에 따라 자동으로 테마 변경</p>
+                        <button class="btn btn-primary" onclick="setDemoTheme('auto')">
+                            자동 모드 적용
+                        </button>
+                    </div>
+
+                    <div class="demo-card">
+                        <h3><i class="fas fa-building"></i> POSCO 테마</h3>
+                        <p>POSCO 브랜드 색상을 적용한 전용 테마</p>
+                        <button class="btn btn-primary" onclick="setDemoTheme('posco')">
+                            POSCO 테마 적용
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h2>커스텀 테마 생성</h2>
+                <div class="custom-theme-demo">
+                    <div class="color-controls">
+                        <div class="color-input-group">
+                            <label for="demoPrimary">주 색상</label>
+                            <input type="color" id="demoPrimary" value="#003d82">
+                        </div>
+                        <div class="color-input-group">
+                            <label for="demoSecondary">보조 색상</label>
+                            <input type="color" id="demoSecondary" value="#0066cc">
+                        </div>
+                        <button class="btn btn-outline" onclick="applyCustomColors()">
+                            <i class="fas fa-palette"></i> 미리보기
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h2>테마 적용 예시</h2>
+                <div class="theme-examples">
+                    <div class="example-card theme-aware">
+                        <div class="card-header">
+                            <h4>상태 카드 예시</h4>
+                            <div class="status-indicator status-success"></div>
+                        </div>
+                        <div class="card-content">
+                            <p>이 카드는 현재 선택된 테마에 따라 색상이 변경됩니다.</p>
+                            <div class="metrics">
+                                <div class="metric">
+                                    <span class="metric-label">성공률</span>
+                                    <span class="metric-value">98.5%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">응답시간</span>
+                                    <span class="metric-value">1.2s</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card theme-aware">
+                        <div class="card-header">
+                            <h4>버튼 스타일 예시</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="button-examples">
+                                <button class="btn btn-primary theme-aware">Primary</button>
+                                <button class="btn btn-secondary">Secondary</button>
+                                <button class="btn btn-outline">Outline</button>
+                                <button class="btn btn-ghost">Ghost</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card theme-aware">
+                        <div class="card-header">
+                            <h4>차트 색상 예시</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="chart-colors">
+                                <div class="color-sample" style="background: var(--primary-color)"></div>
+                                <div class="color-sample" style="background: var(--secondary-color)"></div>
+                                <div class="color-sample" style="background: var(--success-color)"></div>
+                                <div class="color-sample" style="background: var(--warning-color)"></div>
+                                <div class="color-sample" style="background: var(--error-color)"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h2>키보드 단축키</h2>
+                <div class="shortcuts-list">
+                    <div class="shortcut-item">
+                        <kbd>Ctrl</kbd> + <kbd>D</kbd>
+                        <span>테마 토글 (라이트 ↔ 다크)</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span>테마 버튼 롱 프레스</span>
+                        <span>테마 선택기 열기</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 테마 상태 표시 -->
+    <div id="themeStatus" class="theme-status">
+        현재 테마: <span id="currentThemeName">라이트</span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/theme-system.js"></script>
+    
+    <script>
+        // 데모 전용 함수들
+        function setDemoTheme(themeName) {
+            if (window.themeSystem) {
+                themeSystem.setTheme(themeName);
+                showThemeStatus(themeName);
+            }
+        }
+
+        function applyCustomColors() {
+            const primary = document.getElementById('demoPrimary').value;
+            const secondary = document.getElementById('demoSecondary').value;
+            
+            document.documentElement.style.setProperty('--primary-color', primary);
+            document.documentElement.style.setProperty('--secondary-color', secondary);
+            
+            showThemeStatus('커스텀');
+        }
+
+        function showThemeStatus(themeName) {
+            const statusEl = document.getElementById('themeStatus');
+            const nameEl = document.getElementById('currentThemeName');
+            
+            if (statusEl && nameEl) {
+                nameEl.textContent = getThemeDisplayName(themeName);
+                statusEl.classList.add('show');
+                
+                setTimeout(() => {
+                    statusEl.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        function getThemeDisplayName(theme) {
+            const names = {
+                'light': '라이트',
+                'dark': '다크',
+                'auto': '자동',
+                'posco': 'POSCO',
+                'custom': '커스텀'
+            };
+            return names[theme] || theme;
+        }
+
+        // 테마 시스템 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof initializeThemeSystem === 'function') {
+                initializeThemeSystem();
+                
+                // 테마 변경 이벤트 리스너
+                document.addEventListener('themechange', (event) => {
+                    showThemeStatus(event.detail.theme);
+                });
+            }
+        });
+
+        // 커스텀 색상 입력 이벤트
+        document.getElementById('demoSecondary').addEventListener('change', applyCustomColors);
+        document.getElementById('demoSecondary').addEventListener('change', applyCustomColors);
+    </script>
+
+    <style>
+        .demo-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .demo-card {
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .demo-card h3 {
+            margin: 0 0 1rem 0;
+            color: var(--text-primary);
+        }
+
+        .demo-card p {
+            margin: 0 0 1.5rem 0;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .custom-theme-demo {
+            margin-top: 1.5rem;
+        }
+
+        .color-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: end;
+            flex-wrap: wrap;
+        }
+
+        .color-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .color-input-group label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .color-input-group input[type="color"] {
+            width: 80px;
+            height: 40px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+        }
+
+        .theme-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .example-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1rem 1.5rem;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header h4 {
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .metrics {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .metric {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metric-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .button-examples {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .chart-colors {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .color-sample {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .shortcuts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+        }
+
+        kbd {
+            padding: 0.25rem 0.5rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-family: monospace;
+        }
+
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .color-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .theme-examples {
+                grid-template-columns: 1fr;
+            }
+            
+            .shortcut-item {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+        }
+    </style>
+</body>
+</html>
