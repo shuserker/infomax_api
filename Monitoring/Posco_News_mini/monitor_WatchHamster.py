@@ -96,7 +96,7 @@ class PoscoMonitorWatchHamster:
         파일 경로, 체크 간격, 초기 상태를 설정합니다.
         """
         self.script_dir = current_dir
-        self.monitor_script = os.path.join(self.script_dir, "run_monitor.py")
+        self.monitor_script = os.path.join(self.script_dir, "integrated_report_scheduler.py")
         self.log_file = os.path.join(self.script_dir, "WatchHamster.log")
         self.status_file = os.path.join(self.script_dir, "WatchHamster_status.json")
         self.monitor_process = None
@@ -583,7 +583,7 @@ class PoscoMonitorWatchHamster:
                 try:
                     if proc.info['name'] == 'python.exe' or proc.info['name'] == 'python':
                         cmdline = proc.info['cmdline']
-                        if cmdline and 'run_monitor.py' in ' '.join(cmdline) and '3' in cmdline:
+                        if cmdline and 'integrated_report_scheduler.py' in ' '.join(cmdline):
                             return True
                 except (psutil.NoSuchProcess, psutil.AccessDenied):
                     continue
@@ -603,16 +603,16 @@ class PoscoMonitorWatchHamster:
             
             self.log("🚀 모니터링 프로세스 시작 중...")
             
-            # Python 스크립트 실행 (콘솔 출력 허용)
+            # 통합 리포트 스케줄러 실행 (콘솔 출력 허용)
             if os.name == 'nt':  # Windows
                 self.monitor_process = subprocess.Popen(
-                    [sys.executable, self.monitor_script, "3"],
+                    [sys.executable, self.monitor_script],
                     cwd=self.script_dir,
                     creationflags=subprocess.CREATE_NEW_CONSOLE
                 )
             else:  # macOS/Linux
                 self.monitor_process = subprocess.Popen(
-                    [sys.executable, self.monitor_script, "3"],
+                    [sys.executable, self.monitor_script],
                     cwd=self.script_dir
                 )
             
@@ -637,7 +637,7 @@ class PoscoMonitorWatchHamster:
                 try:
                     if proc.info['name'] == 'python.exe' or proc.info['name'] == 'python':
                         cmdline = proc.info['cmdline']
-                        if cmdline and 'run_monitor.py' in ' '.join(cmdline):
+                        if cmdline and 'integrated_report_scheduler.py' in ' '.join(cmdline):
                             proc.terminate()
                             self.log(f"⏹️ 프로세스 종료: PID {proc.info['pid']}")
                 except (psutil.NoSuchProcess, psutil.AccessDenied):
