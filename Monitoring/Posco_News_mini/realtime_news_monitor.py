@@ -27,11 +27,18 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, current_dir)
 
 try:
-    from core import PoscoNewsAPIClient
+    from core import PoscoNewsAPIClient, NewsDataProcessor, DoorayNotifier
     from config import API_CONFIG, DOORAY_WEBHOOK_URL, BOT_PROFILE_IMAGE_URL
     from newyork_monitor import NewYorkMarketMonitor
     from kospi_monitor import KospiCloseMonitor
     from exchange_monitor import ExchangeRateMonitor
+    from master_news_monitor import MasterNewsMonitor
+    from core.state_manager import StateManager
+    from core.process_manager import ProcessManager
+    try:
+        from core.colorful_ui import ColorfulConsoleUI
+    except ImportError:
+        ColorfulConsoleUI = None
 except ImportError as e:
     print(f"[ERROR] 필수 모듈을 찾을 수 없습니다: {e}")
     sys.exit(1)
@@ -43,11 +50,11 @@ class RealtimeNewsMonitor:
     
     def __init__(self):
         """
-        실시간 모니터 초기화
+        실시간 모니터 초기화 (워치햄스터 기능 완전 이관)
         """
         self.api_client = PoscoNewsAPIClient(API_CONFIG)
         
-        # 각 뉴스 모니터 초기화
+        # 각 뉴스 모니터 초기화 (워치햄스터와 동일)
         self.monitors = {
             'exchange-rate': {
                 'monitor': ExchangeRateMonitor(),
@@ -68,6 +75,33 @@ class RealtimeNewsMonitor:
                 'last_check': None
             }
         }
+        
+        # 워치햄스터에서 이관된 개별 모니터 객체들
+        self.newyork_monitor = NewYorkMarketMonitor()
+        self.kospi_monitor = KospiCloseMonitor()
+        self.exchange_monitor = ExchangeRateMonitor()
+        
+        # 마스터 모니터링 시스템 초기화 (워치햄스터에서 이관)
+        try:
+            self.master_monitor = MasterNewsMonitor()
+            self.master_monitor_enabled = True
+            print("🎛️ 마스터 모니터링 시스템 연결 완료")
+        except Exception as e:
+            print(f"⚠️ 마스터 모니터링 시스템 초기화 실패: {e}")
+            self.master_monitor_enabled = False
+        
+        # 스마트 상태 판단 시스템 초기화 (워치햄스터에서 이관)
+        try:
+            self.data_processor = NewsDataProcessor()
+            self.smart_notifier = DoorayNotifier(DOORAY_WEBHOOK_URL, BOT_PROFILE_IMAGE_URL, self.api_client)
+            self.smart_enabled = True
+            print("🧠 스마트 상태 판단 시스템 초기화 완료")
+        except Exception as e:
+            print(f"⚠️ 스마트 상태 판단 시스템 초기화 실패: {e}")
+            self.smart_enabled = False
+        
+        # 개별 모니터링 시스템 활성화 (워치햄스터 설정과 동일)
+        self.individual_monitors_enabled = True
         
         # 상태 파일 경로
         self.state_file = os.path.join(current_dir, "realtime_monitor_state.json")
@@ -189,188 +223,374 @@ class RealtimeNewsMonitor:
     
     def execute_status_check_task(self, task_name):
         """
-        상태 체크 작업 실행
+        상태 체크 작업 실행 (워치햄스터 원본 로직)
         """
         try:
-            print(f"🔍 {task_name} 시작")
+            # 개별 모니터 상태 체크 (워치햄스터 원본)
+            self._check_individual_monitors_status()
             
-            # 각 뉴스 타입별 현재 상태 체크
-            status_results = []
+            # 마스터 모니터 상태 체크 (워치햄스터 원본)
+            if self.master_monitor_enabled and hasattr(self, 'master_monitor'):
+                strategy = self.master_monitor.get_current_monitoring_strategy()
+                print(f"🎛️ 현재 모니터링 전략: {strategy['description']}")
             
-            for news_type, info in self.monitors.items():
-                try:
-                    data = info['monitor'].get_current_news_data()
-                    
-                    if data and data.get('title'):
-                        status = f"✅ {info['name']}: 최신 뉴스 있음"
-                        status_results.append(status)
-                    else:
-                        status = f"⚠️ {info['name']}: 뉴스 없음"
-                        status_results.append(status)
-                        
-                except Exception as e:
-                    status = f"❌ {info['name']}: 체크 실패"
-                    status_results.append(status)
+            # 매시간 정각 상태 체크는 조용한 시간대에도 명시적 알림 전송 (워치햄스터 원본)
+            if "정시 상태 체크" in task_name:
+                self._send_hourly_status_notification(task_name)
             
-            # 상태 체크 결과 알림 (조용한 시간대 제외)
-            if not self.is_quiet_hours():
-                self.send_status_notification(task_name, status_results)
-            
-            print(f"✅ {task_name} 완료")
+            print(f"✅ {task_name} 완료 (최적화 방식)")
             
         except Exception as e:
             print(f"❌ 상태 체크 작업 오류: {e}")
     
     def execute_comparison_task(self, task_name):
         """
-        비교 분석 작업 실행
+        비교 분석 작업 실행 (워치햄스터 원본 로직)
         """
         try:
-            print(f"📊 {task_name} 시작")
-            
-            # 각 뉴스별 현재 vs 이전 데이터 비교
+            # 각 뉴스별 현재 vs 이전 데이터 비교 (워치햄스터 원본)
             comparison_results = []
             
-            for news_type, info in self.monitors.items():
-                try:
-                    current_data = info['monitor'].get_current_news_data()
-                    last_title = info.get('last_title')
-                    
-                    if current_data and current_data.get('title'):
-                        current_title = current_data['title']
-                        
-                        if last_title and last_title != current_title:
-                            result = f"🆕 {info['name']}: 새 뉴스 감지"
-                        elif last_title == current_title:
-                            result = f"📋 {info['name']}: 동일한 뉴스"
-                        else:
-                            result = f"🔍 {info['name']}: 첫 번째 체크"
-                        
-                        comparison_results.append(result)
-                    else:
-                        comparison_results.append(f"⚠️ {info['name']}: 데이터 없음")
-                        
-                except Exception as e:
-                    comparison_results.append(f"❌ {info['name']}: 분석 실패")
+            # 뉴욕마켓워치 비교 (워치햄스터 원본)
+            if hasattr(self, 'newyork_monitor'):
+                ny_current = self.newyork_monitor.get_current_news_data()
+                ny_analysis = self.newyork_monitor.analyze_publish_pattern(ny_current)
+                comparison_results.append(f"🌆 뉴욕마켓워치: {ny_analysis.get('analysis', '분석 불가')}")
             
-            # 비교 분석 결과 알림 (조용한 시간대 제외)
-            if not self.is_quiet_hours():
-                self.send_comparison_notification(task_name, comparison_results)
+            # 증시마감 비교 (워치햄스터 원본)
+            if hasattr(self, 'kospi_monitor'):
+                kospi_current = self.kospi_monitor.get_current_news_data()
+                kospi_analysis = self.kospi_monitor.analyze_publish_pattern(kospi_current)
+                comparison_results.append(f"📈 증시마감: {kospi_analysis.get('analysis', '분석 불가')}")
             
-            print(f"✅ {task_name} 완료")
+            # 서환마감 비교 (워치햄스터 원본)
+            if hasattr(self, 'exchange_monitor'):
+                exchange_current = self.exchange_monitor.get_current_news_data()
+                exchange_analysis = self.exchange_monitor.analyze_publish_pattern(exchange_current)
+                comparison_results.append(f"💱 서환마감: {exchange_analysis.get('analysis', '분석 불가')}")
+            
+            # 비교 결과 로그 (워치햄스터 원본)
+            for result in comparison_results:
+                print(f"📊 {result}")
+            
+            print(f"✅ {task_name} 완료 (최적화 방식)")
             
         except Exception as e:
             print(f"❌ 비교 분석 작업 오류: {e}")
     
     def execute_daily_summary_task(self, task_name):
         """
-        일일 요약 작업 실행
+        일일 요약 작업 실행 (워치햄스터 원본 로직)
         """
         try:
-            print(f"📋 {task_name} 시작")
-            
-            # 오늘 발행된 뉴스 요약
+            # 오늘 발행된 뉴스 요약 (워치햄스터 원본)
             summary_data = []
             published_count = 0
             
-            for news_type, info in self.monitors.items():
-                try:
-                    data = info['monitor'].get_current_news_data()
-                    
-                    if data and data.get('title'):
-                        published_count += 1
-                        summary_data.append(f"✅ {info['name']}: 발행 완료")
-                    else:
-                        summary_data.append(f"❌ {info['name']}: 미발행")
+            # 각 뉴스별 오늘 발행 현황 (워치햄스터 원본)
+            monitors = [
+                ('🌆 뉴욕마켓워치', self.newyork_monitor if hasattr(self, 'newyork_monitor') else None),
+                ('📈 증시마감', self.kospi_monitor if hasattr(self, 'kospi_monitor') else None),
+                ('💱 서환마감', self.exchange_monitor if hasattr(self, 'exchange_monitor') else None)
+            ]
+            
+            for name, monitor in monitors:
+                if monitor:
+                    try:
+                        data = monitor.get_current_news_data()
+                        analysis = monitor.analyze_publish_pattern(data)
+                        is_published = analysis.get('is_published_today', False)
                         
-                except Exception as e:
-                    summary_data.append(f"⚠️ {info['name']}: 확인 불가")
+                        if is_published:
+                            published_count += 1
+                            summary_data.append(f"{name}: ✅ {analysis.get('analysis', '발행 완료')}")
+                        else:
+                            summary_data.append(f"{name}: ❌ {analysis.get('analysis', '미발행')}")
+                    except Exception as e:
+                        summary_data.append(f"{name}: ⚠️ 분석 오류")
             
-            # 일일 요약 결과 알림 (조용한 시간대 제외)
-            if not self.is_quiet_hours():
-                self.send_daily_summary_notification(task_name, summary_data, published_count)
+            # 일일 요약 로그 (워치햄스터 원본)
+            print(f"📋 일일 요약 ({published_count}/3 발행 완료):")
+            for summary in summary_data:
+                print(f"   {summary}")
             
-            print(f"✅ {task_name} 완료 ({published_count}/3 발행)")
+            print(f"✅ {task_name} 완료 (최적화 방식)")
             
         except Exception as e:
             print(f"❌ 일일 요약 작업 오류: {e}")
     
     def execute_detailed_summary_task(self, task_name):
         """
-        상세 요약 작업 실행
+        상세 요약 작업 실행 (워치햄스터 원본 로직)
         """
         try:
-            print(f"📊 {task_name} 시작")
+            # 향상된 상태 보고서 생성 및 전송 (워치햄스터 원본)
+            if hasattr(self, 'send_enhanced_status_notification'):
+                self.send_enhanced_status_notification()
+                print(f"📊 향상된 상태 알림 전송 완료")
             
-            # 상세한 뉴스 정보 수집
-            detailed_info = []
-            
-            for news_type, info in self.monitors.items():
-                try:
-                    data = info['monitor'].get_current_news_data()
-                    
-                    if data and data.get('title'):
-                        title = data['title'][:50] + "..." if len(data['title']) > 50 else data['title']
-                        publish_time = data.get('publish_time', '시간 정보 없음')
-                        
-                        detail = f"{info['name']}:\n  📋 {title}\n  🕐 {publish_time}"
-                        detailed_info.append(detail)
-                    else:
-                        detailed_info.append(f"{info['name']}: 뉴스 없음")
-                        
-                except Exception as e:
-                    detailed_info.append(f"{info['name']}: 정보 수집 실패")
-            
-            # 상세 요약 결과 알림 (조용한 시간대 제외)
-            if not self.is_quiet_hours():
-                self.send_detailed_summary_notification(task_name, detailed_info)
-            
-            print(f"✅ {task_name} 완료")
+            print(f"✅ {task_name} 완료 (최적화 방식)")
             
         except Exception as e:
             print(f"❌ 상세 요약 작업 오류: {e}")
     
     def execute_advanced_analysis_task(self, task_name):
         """
-        고급 분석 작업 실행
+        고급 분석 작업 실행 (워치햄스터 원본 로직)
         """
         try:
-            print(f"🔬 {task_name} 시작")
+            # 마스터 모니터링 시스템의 통합 분석 사용 (워치햄스터 원본)
+            if self.master_monitor_enabled and hasattr(self, 'master_monitor'):
+                results = self.master_monitor.run_integrated_check()
+                
+                # 분석 결과 로그 (워치햄스터 원본)
+                for news_type, result in results.items():
+                    analysis = result.get('analysis', {})
+                    published = result.get('published_today', False)
+                    status = "✅ 발행 완료" if published else "⏳ 대기 중"
+                    print(f"🔬 {news_type}: {status} - {analysis.get('analysis', '분석 불가')}")
             
-            # 고급 분석 수행
-            analysis_results = []
-            total_news = 0
-            
-            for news_type, info in self.monitors.items():
-                try:
-                    data = info['monitor'].get_current_news_data()
-                    
-                    if data and data.get('title'):
-                        total_news += 1
-                        
-                        # 간단한 분석 (제목 길이, 키워드 등)
-                        title_length = len(data['title'])
-                        has_urgent = '긴급' in data['title'] or '속보' in data['title']
-                        
-                        analysis = f"{info['name']}:\n"
-                        analysis += f"  📏 제목 길이: {title_length}자\n"
-                        analysis += f"  🚨 긴급성: {'높음' if has_urgent else '보통'}"
-                        
-                        analysis_results.append(analysis)
-                    else:
-                        analysis_results.append(f"{info['name']}: 분석할 뉴스 없음")
-                        
-                except Exception as e:
-                    analysis_results.append(f"{info['name']}: 분석 실패")
-            
-            # 고급 분석 결과 알림 (조용한 시간대 제외)
-            if not self.is_quiet_hours():
-                self.send_advanced_analysis_notification(task_name, analysis_results, total_news)
-            
-            print(f"✅ {task_name} 완료 (분석 대상: {total_news}개)")
+            print(f"✅ {task_name} 완료 (최적화 방식)")
             
         except Exception as e:
             print(f"❌ 고급 분석 작업 오류: {e}")
+    
+    def _check_individual_monitors_status(self):
+        """
+        개별 모니터링 시스템 상태 체크 및 보고 (워치햄스터 원본)
+        
+        최적화된 개별 모니터링 시스템들의 상태를 확인하고
+        필요시 추가 정보를 제공합니다.
+        """
+        try:
+            current_time = datetime.now()
+            individual_status = {}
+            
+            # 뉴욕마켓워치 상태 체크
+            if hasattr(self, 'newyork_monitor'):
+                try:
+                    ny_data = self.newyork_monitor.get_current_news_data()
+                    ny_analysis = self.newyork_monitor.analyze_publish_pattern(ny_data)
+                    individual_status['newyork'] = {
+                        'published': ny_analysis.get('is_published_today', False),
+                        'status': ny_analysis.get('analysis', '상태 불명')
+                    }
+                except Exception as e:
+                    individual_status['newyork'] = {'error': str(e)}
+            
+            # 증시마감 상태 체크
+            if hasattr(self, 'kospi_monitor'):
+                try:
+                    kospi_data = self.kospi_monitor.get_current_news_data()
+                    kospi_analysis = self.kospi_monitor.analyze_publish_pattern(kospi_data)
+                    individual_status['kospi'] = {
+                        'published': kospi_analysis.get('is_published_today', False),
+                        'status': kospi_analysis.get('analysis', '상태 불명')
+                    }
+                except Exception as e:
+                    individual_status['kospi'] = {'error': str(e)}
+            
+            # 서환마감 상태 체크
+            if hasattr(self, 'exchange_monitor'):
+                try:
+                    exchange_data = self.exchange_monitor.get_current_news_data()
+                    exchange_analysis = self.exchange_monitor.analyze_publish_pattern(exchange_data)
+                    individual_status['exchange'] = {
+                        'published': exchange_analysis.get('is_published_today', False),
+                        'status': exchange_analysis.get('analysis', '상태 불명')
+                    }
+                except Exception as e:
+                    individual_status['exchange'] = {'error': str(e)}
+            
+            # 상태 요약 로그
+            published_count = sum(1 for status in individual_status.values()
+                                if status.get('published', False))
+            total_count = len(individual_status)
+            
+            if total_count > 0:
+                print(f"📊 개별 모니터 상태: {published_count}/{total_count} 발행 완료")
+                
+                # 각 뉴스별 상태 로그
+                news_names = {'newyork': '🌆뉴욕마켓워치', 'kospi': '📈증시마감', 'exchange': '💱서환마감'}
+                for news_type, status in individual_status.items():
+                    name = news_names.get(news_type, news_type)
+                    if 'error' in status:
+                        print(f"   {name}: ❌ 오류 - {status['error']}")
+                    elif status.get('published', False):
+                        print(f"   {name}: ✅ {status.get('status', '발행 완료')}")
+                    else:
+                        print(f"   {name}: ⏳ {status.get('status', '대기 중')}")
+            
+        except Exception as e:
+            print(f"⚠️ 개별 모니터 상태 체크 실패: {e}")
+    
+    def _send_hourly_status_notification(self, task_name):
+        """
+        매시간 정각 상태 체크 알림 전송 (워치햄스터 원본)
+        조용한 시간대에도 명시적 알림
+        
+        Args:
+            task_name (str): 작업명
+        """
+        try:
+            current_time = datetime.now()
+            current_hour = current_time.hour
+            is_quiet = self.is_quiet_hours()
+            
+            # 스마트 상태 판단 시스템 사용 (워치햄스터 원본)
+            smart_status_info = None
+            current_data = None
+            
+            if self.smart_enabled:
+                try:
+                    # 현재 뉴스 데이터 조회
+                    current_data = self.api_client.get_news_data()
+                    if current_data:
+                        # 스마트 상태 분석
+                        smart_status_info = self.data_processor.get_status_info(current_data)
+                        print(f"🧠 매시간 스마트 상태 분석 완료: {smart_status_info.get('status_text', '알 수 없음')}")
+                    else:
+                        print("⚠️ 매시간 뉴스 데이터 조회 실패")
+                except Exception as e:
+                    print(f"⚠️ 매시간 스마트 상태 분석 실패: {e}")
+            
+            # 개별 뉴스 상태 정보 수집
+            news_status_info = self._get_detailed_news_status()
+            
+            # 조용한 시간대에도 명시적 알림 전송 (워치햄스터 원본)
+            if smart_status_info and smart_status_info.get('has_updates', False):
+                # 업데이트가 있으면 상세 알림
+                self.smart_notifier.send_smart_notification(smart_status_info, current_data)
+            else:
+                # 업데이트가 없으면 간단한 상태 알림
+                self.send_notification(f"데이터 갱신 없음\n\n{news_status_info}")
+                
+        except Exception as e:
+            print(f"❌ 매시간 상태 체크 알림 실패: {e}")
+    
+    def _get_detailed_news_status(self):
+        """
+        상세한 뉴스 상태 정보 수집 (워치햄스터 원본)
+        
+        Returns:
+            str: 뉴스 상태 정보 텍스트
+        """
+        try:
+            status_lines = []
+            
+            # 각 뉴스별 상세 상태
+            monitors = [
+                ('🌆 뉴욕마켓워치', self.newyork_monitor if hasattr(self, 'newyork_monitor') else None),
+                ('📈 증시마감', self.kospi_monitor if hasattr(self, 'kospi_monitor') else None),
+                ('💱 서환마감', self.exchange_monitor if hasattr(self, 'exchange_monitor') else None)
+            ]
+            
+            for name, monitor in monitors:
+                if monitor:
+                    try:
+                        data = monitor.get_current_news_data()
+                        if data and data.get('title'):
+                            title = data['title'][:30] + "..." if len(data['title']) > 30 else data['title']
+                            publish_time = data.get('publish_time', '시간 정보 없음')
+                            status_lines.append(f"{name}: {title} ({publish_time})")
+                        else:
+                            status_lines.append(f"{name}: 뉴스 없음")
+                    except Exception as e:
+                        status_lines.append(f"{name}: 확인 실패")
+                else:
+                    status_lines.append(f"{name}: 모니터 없음")
+            
+            return "\n".join(status_lines)
+            
+        except Exception as e:
+            return f"상태 정보 수집 실패: {e}"
+    
+    def send_enhanced_status_notification(self):
+        """
+        향상된 상태 보고서 생성 및 전송 (워치햄스터 원본)
+        """
+        try:
+            # 기본 상태 정보
+            basic_status = {
+                'timestamp': datetime.now().isoformat(),
+                'individual_monitors': {}
+            }
+            
+            # 개별 모니터 상태 추가
+            if self.individual_monitors_enabled:
+                if hasattr(self, 'newyork_monitor'):
+                    ny_data = self.newyork_monitor.get_current_news_data()
+                    ny_analysis = self.newyork_monitor.analyze_publish_pattern(ny_data)
+                    basic_status['individual_monitors']['newyork'] = {
+                        'name': '뉴욕마켓워치',
+                        'published_today': ny_analysis.get('is_published_today', False),
+                        'status': ny_analysis.get('status', 'unknown'),
+                        'analysis': ny_analysis.get('analysis', '분석 불가')
+                    }
+                
+                if hasattr(self, 'kospi_monitor'):
+                    kospi_data = self.kospi_monitor.get_current_news_data()
+                    kospi_analysis = self.kospi_monitor.analyze_publish_pattern(kospi_data)
+                    basic_status['individual_monitors']['kospi'] = {
+                        'name': '증시마감',
+                        'published_today': kospi_analysis.get('is_published_today', False),
+                        'status': kospi_analysis.get('status', 'unknown'),
+                        'analysis': kospi_analysis.get('analysis', '분석 불가')
+                    }
+                
+                if hasattr(self, 'exchange_monitor'):
+                    exchange_data = self.exchange_monitor.get_current_news_data()
+                    exchange_analysis = self.exchange_monitor.analyze_publish_pattern(exchange_data)
+                    basic_status['individual_monitors']['exchange'] = {
+                        'name': '서환마감',
+                        'published_today': exchange_analysis.get('is_published_today', False),
+                        'status': exchange_analysis.get('status', 'unknown'),
+                        'analysis': exchange_analysis.get('analysis', '분석 불가')
+                    }
+            
+            # 향상된 상태 알림 전송
+            if self.smart_enabled and hasattr(self, 'smart_notifier'):
+                self.smart_notifier.send_enhanced_status_notification(basic_status)
+            
+        except Exception as e:
+            print(f"❌ 향상된 상태 알림 실패: {e}")
+    
+    def send_notification(self, message, is_error=False):
+        """
+        기본 알림 전송 (워치햄스터 호환)
+        
+        Args:
+            message (str): 전송할 메시지
+            is_error (bool): 오류 알림 여부
+        """
+        try:
+            color = "#ff4444" if is_error else "#28a745"
+            bot_name = "POSCO 뉴스 모니터 ❌" if is_error else "POSCO 뉴스 모니터 📰"
+            
+            payload = {
+                "botName": bot_name,
+                "botIconImage": BOT_PROFILE_IMAGE_URL,
+                "text": message.split('\n')[0],
+                "attachments": [{
+                    "color": color,
+                    "text": message
+                }]
+            }
+            
+            response = requests.post(
+                DOORAY_WEBHOOK_URL,
+                json=payload,
+                headers={'Content-Type': 'application/json'},
+                timeout=10
+            )
+            
+            if response.status_code == 200:
+                print(f"✅ 알림 전송 성공: {message.split(chr(10))[0]}")
+            else:
+                print(f"❌ 알림 전송 실패: {response.status_code}")
+                
+        except Exception as e:
+            print(f"❌ 알림 전송 오류: {e}")
     
     def check_news_updates(self):
         """
