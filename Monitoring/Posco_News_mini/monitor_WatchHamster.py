@@ -97,9 +97,11 @@ class PoscoMonitorWatchHamster:
         """
         self.script_dir = current_dir
         self.monitor_script = os.path.join(self.script_dir, "integrated_report_scheduler.py")
+        self.realtime_script = os.path.join(self.script_dir, "realtime_news_monitor.py")
         self.log_file = os.path.join(self.script_dir, "WatchHamster.log")
         self.status_file = os.path.join(self.script_dir, "WatchHamster_status.json")
         self.monitor_process = None
+        self.realtime_process = None
         self.last_git_check = datetime.now() - timedelta(hours=1)  # 초기 체크 강제
         
         # StateManager 초기화 (안정성 개선)
@@ -573,29 +575,47 @@ class PoscoMonitorWatchHamster:
             self.start_monitor_process()
     
     def is_monitor_running(self):
-        """모니터링 프로세스 실행 상태 확인"""
+        """모니터링 프로세스 실행 상태 확인 (통합 리포트 + 실시간 모니터)"""
         try:
+            # 통합 리포트 스케줄러 확인
+            scheduler_running = False
             if self.monitor_process and self.monitor_process.poll() is None:
-                return True
+                scheduler_running = True
+            else:
+                for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+                    try:
+                        if proc.info['name'] == 'python.exe' or proc.info['name'] == 'python':
+                            cmdline = proc.info['cmdline']
+                            if cmdline and 'integrated_report_scheduler.py' in ' '.join(cmdline):
+                                scheduler_running = True
+                                break
+                    except (psutil.NoSuchProcess, psutil.AccessDenied):
+                        continue
             
-            # 프로세스 목록에서 확인
-            for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
-                try:
-                    if proc.info['name'] == 'python.exe' or proc.info['name'] == 'python':
-                        cmdline = proc.info['cmdline']
-                        if cmdline and 'integrated_report_scheduler.py' in ' '.join(cmdline):
-                            return True
-                except (psutil.NoSuchProcess, psutil.AccessDenied):
-                    continue
+            # 실시간 뉴스 모니터 확인
+            realtime_running = False
+            if self.realtime_process and self.realtime_process.poll() is None:
+                realtime_running = True
+            else:
+                for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+                    try:
+                        if proc.info['name'] == 'python.exe' or proc.info['name'] == 'python':
+                            cmdline = proc.info['cmdline']
+                            if cmdline and 'realtime_news_monitor.py' in ' '.join(cmdline):
+                                realtime_running = True
+                                break
+                    except (psutil.NoSuchProcess, psutil.AccessDenied):
+                        continue
             
-            return False
+            # 둘 다 실행 중이어야 정상
+            return scheduler_running and realtime_running
             
         except Exception as e:
             self.log(f"❌ 프로세스 상태 확인 오류: {e}")
             return False
     
     def start_monitor_process(self):
-        """모니터링 프로세스 시작"""
+        """모니터링 프로세스 시작 (통합 리포트 + 실시간 모니터)"""
         try:
             if self.is_monitor_running():
                 self.log("✅ 모니터링 프로세스가 이미 실행 중입니다.")
@@ -603,26 +623,67 @@ class PoscoMonitorWatchHamster:
             
             self.log("🚀 모니터링 프로세스 시작 중...")
             
-            # 통합 리포트 스케줄러 실행 (콘솔 출력 허용)
-            if os.name == 'nt':  # Windows
-                self.monitor_process = subprocess.Popen(
-                    [sys.executable, self.monitor_script],
-                    cwd=self.script_dir,
-                    creationflags=subprocess.CREATE_NEW_CONSOLE
-                )
-            else:  # macOS/Linux
-                self.monitor_process = subprocess.Popen(
-                    [sys.executable, self.monitor_script],
-                    cwd=self.script_dir
-                )
+            success_count = 0
             
-            time.sleep(5)  # 프로세스 시작 대기
+            # 1. 통합 리포트 스케줄러 실행
+            try:
+                if os.name == 'nt':  # Windows
+                    self.monitor_process = subprocess.Popen(
+                        [sys.executable, self.monitor_script],
+                        cwd=self.script_dir,
+                        creationflags=subprocess.CREATE_NEW_CONSOLE
+                    )
+                else:  # macOS/Linux
+                    self.monitor_process = subprocess.Popen(
+                        [sys.executable, self.monitor_script],
+                        cwd=self.script_dir
+                    )
+                
+                time.sleep(3)  # 프로세스 시작 대기
+                
+                if self.monitor_process.poll() is None:
+                    self.log("✅ 통합 리포트 스케줄러 시작 성공")
+                    success_count += 1
+                else:
+                    self.log("❌ 통합 리포트 스케줄러 시작 실패")
+                    
+            except Exception as e:
+                self.log(f"❌ 통합 리포트 스케줄러 시작 오류: {e}")
             
-            if self.monitor_process.poll() is None:
-                self.log("✅ 모니터링 프로세스 시작 성공")
+            # 2. 실시간 뉴스 모니터 실행
+            try:
+                if os.name == 'nt':  # Windows
+                    self.realtime_process = subprocess.Popen(
+                        [sys.executable, self.realtime_script],
+                        cwd=self.script_dir,
+                        creationflags=subprocess.CREATE_NEW_CONSOLE
+                    )
+                else:  # macOS/Linux
+                    self.realtime_process = subprocess.Popen(
+                        [sys.executable, self.realtime_script],
+                        cwd=self.script_dir
+                    )
+                
+                time.sleep(3)  # 프로세스 시작 대기
+                
+                if self.realtime_process.poll() is None:
+                    self.log("✅ 실시간 뉴스 모니터 시작 성공")
+                    success_count += 1
+                else:
+                    self.log("❌ 실시간 뉴스 모니터 시작 실패")
+                    
+            except Exception as e:
+                self.log(f"❌ 실시간 뉴스 모니터 시작 오류: {e}")
+            
+            # 결과 확인
+            if success_count == 2:
+                self.log("🎉 모든 모니터링 프로세스 시작 완료!")
+                return True
+            elif success_count == 1:
+                self.log("⚠️ 일부 모니터링 프로세스만 시작됨")
                 return True
             else:
-                self.log("❌ 모니터링 프로세스 시작 실패")
+                self.log("❌ 모든 모니터링 프로세스 시작 실패")
                 return False
                 
         except Exception as e:
@@ -630,24 +691,29 @@ class PoscoMonitorWatchHamster:
             return False
     
     def stop_monitor_process(self):
-        """모니터링 프로세스 중지"""
+        """모니터링 프로세스 중지 (통합 리포트 + 실시간 모니터)"""
         try:
             # 실행 중인 모든 관련 프로세스 종료
             for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
                 try:
                     if proc.info['name'] == 'python.exe' or proc.info['name'] == 'python':
                         cmdline = proc.info['cmdline']
-                        if cmdline and 'integrated_report_scheduler.py' in ' '.join(cmdline):
+                        if cmdline and ('integrated_report_scheduler.py' in ' '.join(cmdline) or 
+                                       'realtime_news_monitor.py' in ' '.join(cmdline)):
                             proc.terminate()
-                            self.log(f"⏹️ 프로세스 종료: PID {proc.info['pid']}")
+                            script_name = "통합 리포트" if 'integrated_report_scheduler.py' in ' '.join(cmdline) else "실시간 모니터"
+                            self.log(f"⏹️ {script_name} 프로세스 종료: PID {proc.info['pid']}")
                 except (psutil.NoSuchProcess, psutil.AccessDenied):
                     continue
             
+            # 프로세스 객체 초기화
             if self.monitor_process:
                 self.monitor_process = None
+            if self.realtime_process:
+                self.realtime_process = None
                 
             time.sleep(2)
-            self.log("✅ 모니터링 프로세스 중지 완료")
+            self.log("✅ 모든 모니터링 프로세스 중지 완료")
             
         except Exception as e:
             self.log(f"❌ 모니터링 프로세스 중지 오류: {e}")
