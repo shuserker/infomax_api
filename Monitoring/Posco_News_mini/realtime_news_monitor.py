@@ -72,11 +72,22 @@ class RealtimeNewsMonitor:
         # 상태 파일 경로
         self.state_file = os.path.join(current_dir, "realtime_monitor_state.json")
         
+        # 워치햄스터에서 이관된 뉴스 관련 고정 시간 작업
+        self.fixed_time_tasks = {
+            "06:00": ("1", "아침 현재 상태 체크"),
+            "06:10": ("2", "아침 영업일 비교 분석"), 
+            "18:00": ("5", "저녁 일일 요약 리포트"),
+            "18:10": ("7", "저녁 상세 일일 요약"),
+            "18:20": ("8", "저녁 고급 분석")
+        }
+        self.executed_fixed_tasks = set()  # 오늘 실행된 고정 작업들
+        
         # 이전 상태 로드
         self.load_state()
         
         print("📡 실시간 뉴스 모니터 초기화 완료")
         print(f"🔍 모니터링 대상: {len(self.monitors)}개 뉴스 타입")
+        print(f"🕐 고정 시간 작업: {len(self.fixed_time_tasks)}개")
     
     def load_state(self):
         """
@@ -130,6 +141,236 @@ class RealtimeNewsMonitor:
         
         # 19:01~23:59 또는 00:00~05:59
         return (current_hour == 19 and current_minute >= 1) or current_hour >= 20 or current_hour <= 5
+    
+    def check_fixed_time_tasks(self):
+        """
+        고정 시간 작업들 체크 및 실행 (워치햄스터에서 이관)
+        """
+        current_time = datetime.now()
+        current_time_str = current_time.strftime("%H:%M")
+        current_date = current_time.strftime("%Y-%m-%d")
+        
+        # 날짜가 바뀌면 실행된 작업 목록 초기화
+        if not hasattr(self, '_last_check_date') or self._last_check_date != current_date:
+            self.executed_fixed_tasks = set()
+            self._last_check_date = current_date
+        
+        # 고정 시간 작업 체크
+        for time_str, (task_type, task_name) in self.fixed_time_tasks.items():
+            if current_time_str == time_str:
+                task_key = f"{current_date}_{time_str}"
+                if task_key not in self.executed_fixed_tasks:
+                    print(f"🕐 고정 시간 작업 실행: {time_str} - {task_name}")
+                    self.execute_news_task(task_type, task_name)
+                    self.executed_fixed_tasks.add(task_key)
+    
+    def execute_news_task(self, task_type, task_name):
+        """
+        뉴스 관련 작업 실행 (워치햄스터에서 이관)
+        """
+        try:
+            print(f"📅 뉴스 작업 실행: {task_name}")
+            
+            if task_type == "1":  # 상태 체크
+                self.execute_status_check_task(task_name)
+            elif task_type == "2":  # 비교 분석
+                self.execute_comparison_task(task_name)
+            elif task_type == "5":  # 일일 요약
+                self.execute_daily_summary_task(task_name)
+            elif task_type == "7":  # 상세 요약
+                self.execute_detailed_summary_task(task_name)
+            elif task_type == "8":  # 고급 분석
+                self.execute_advanced_analysis_task(task_name)
+            else:
+                print(f"⚠️ 알 수 없는 작업 타입: {task_type}")
+                
+        except Exception as e:
+            print(f"❌ {task_name} 오류: {e}")
+    
+    def execute_status_check_task(self, task_name):
+        """
+        상태 체크 작업 실행
+        """
+        try:
+            print(f"🔍 {task_name} 시작")
+            
+            # 각 뉴스 타입별 현재 상태 체크
+            status_results = []
+            
+            for news_type, info in self.monitors.items():
+                try:
+                    data = info['monitor'].get_current_news_data()
+                    
+                    if data and data.get('title'):
+                        status = f"✅ {info['name']}: 최신 뉴스 있음"
+                        status_results.append(status)
+                    else:
+                        status = f"⚠️ {info['name']}: 뉴스 없음"
+                        status_results.append(status)
+                        
+                except Exception as e:
+                    status = f"❌ {info['name']}: 체크 실패"
+                    status_results.append(status)
+            
+            # 상태 체크 결과 알림 (조용한 시간대 제외)
+            if not self.is_quiet_hours():
+                self.send_status_notification(task_name, status_results)
+            
+            print(f"✅ {task_name} 완료")
+            
+        except Exception as e:
+            print(f"❌ 상태 체크 작업 오류: {e}")
+    
+    def execute_comparison_task(self, task_name):
+        """
+        비교 분석 작업 실행
+        """
+        try:
+            print(f"📊 {task_name} 시작")
+            
+            # 각 뉴스별 현재 vs 이전 데이터 비교
+            comparison_results = []
+            
+            for news_type, info in self.monitors.items():
+                try:
+                    current_data = info['monitor'].get_current_news_data()
+                    last_title = info.get('last_title')
+                    
+                    if current_data and current_data.get('title'):
+                        current_title = current_data['title']
+                        
+                        if last_title and last_title != current_title:
+                            result = f"🆕 {info['name']}: 새 뉴스 감지"
+                        elif last_title == current_title:
+                            result = f"📋 {info['name']}: 동일한 뉴스"
+                        else:
+                            result = f"🔍 {info['name']}: 첫 번째 체크"
+                        
+                        comparison_results.append(result)
+                    else:
+                        comparison_results.append(f"⚠️ {info['name']}: 데이터 없음")
+                        
+                except Exception as e:
+                    comparison_results.append(f"❌ {info['name']}: 분석 실패")
+            
+            # 비교 분석 결과 알림 (조용한 시간대 제외)
+            if not self.is_quiet_hours():
+                self.send_comparison_notification(task_name, comparison_results)
+            
+            print(f"✅ {task_name} 완료")
+            
+        except Exception as e:
+            print(f"❌ 비교 분석 작업 오류: {e}")
+    
+    def execute_daily_summary_task(self, task_name):
+        """
+        일일 요약 작업 실행
+        """
+        try:
+            print(f"📋 {task_name} 시작")
+            
+            # 오늘 발행된 뉴스 요약
+            summary_data = []
+            published_count = 0
+            
+            for news_type, info in self.monitors.items():
+                try:
+                    data = info['monitor'].get_current_news_data()
+                    
+                    if data and data.get('title'):
+                        published_count += 1
+                        summary_data.append(f"✅ {info['name']}: 발행 완료")
+                    else:
+                        summary_data.append(f"❌ {info['name']}: 미발행")
+                        
+                except Exception as e:
+                    summary_data.append(f"⚠️ {info['name']}: 확인 불가")
+            
+            # 일일 요약 결과 알림 (조용한 시간대 제외)
+            if not self.is_quiet_hours():
+                self.send_daily_summary_notification(task_name, summary_data, published_count)
+            
+            print(f"✅ {task_name} 완료 ({published_count}/3 발행)")
+            
+        except Exception as e:
+            print(f"❌ 일일 요약 작업 오류: {e}")
+    
+    def execute_detailed_summary_task(self, task_name):
+        """
+        상세 요약 작업 실행
+        """
+        try:
+            print(f"📊 {task_name} 시작")
+            
+            # 상세한 뉴스 정보 수집
+            detailed_info = []
+            
+            for news_type, info in self.monitors.items():
+                try:
+                    data = info['monitor'].get_current_news_data()
+                    
+                    if data and data.get('title'):
+                        title = data['title'][:50] + "..." if len(data['title']) > 50 else data['title']
+                        publish_time = data.get('publish_time', '시간 정보 없음')
+                        
+                        detail = f"{info['name']}:\n  📋 {title}\n  🕐 {publish_time}"
+                        detailed_info.append(detail)
+                    else:
+                        detailed_info.append(f"{info['name']}: 뉴스 없음")
+                        
+                except Exception as e:
+                    detailed_info.append(f"{info['name']}: 정보 수집 실패")
+            
+            # 상세 요약 결과 알림 (조용한 시간대 제외)
+            if not self.is_quiet_hours():
+                self.send_detailed_summary_notification(task_name, detailed_info)
+            
+            print(f"✅ {task_name} 완료")
+            
+        except Exception as e:
+            print(f"❌ 상세 요약 작업 오류: {e}")
+    
+    def execute_advanced_analysis_task(self, task_name):
+        """
+        고급 분석 작업 실행
+        """
+        try:
+            print(f"🔬 {task_name} 시작")
+            
+            # 고급 분석 수행
+            analysis_results = []
+            total_news = 0
+            
+            for news_type, info in self.monitors.items():
+                try:
+                    data = info['monitor'].get_current_news_data()
+                    
+                    if data and data.get('title'):
+                        total_news += 1
+                        
+                        # 간단한 분석 (제목 길이, 키워드 등)
+                        title_length = len(data['title'])
+                        has_urgent = '긴급' in data['title'] or '속보' in data['title']
+                        
+                        analysis = f"{info['name']}:\n"
+                        analysis += f"  📏 제목 길이: {title_length}자\n"
+                        analysis += f"  🚨 긴급성: {'높음' if has_urgent else '보통'}"
+                        
+                        analysis_results.append(analysis)
+                    else:
+                        analysis_results.append(f"{info['name']}: 분석할 뉴스 없음")
+                        
+                except Exception as e:
+                    analysis_results.append(f"{info['name']}: 분석 실패")
+            
+            # 고급 분석 결과 알림 (조용한 시간대 제외)
+            if not self.is_quiet_hours():
+                self.send_advanced_analysis_notification(task_name, analysis_results, total_news)
+            
+            print(f"✅ {task_name} 완료 (분석 대상: {total_news}개)")
+            
+        except Exception as e:
+            print(f"❌ 고급 분석 작업 오류: {e}")
     
     def check_news_updates(self):
         """
@@ -226,6 +467,140 @@ class RealtimeNewsMonitor:
         except Exception as e:
             print(f"❌ {news_name} 알림 전송 오류: {e}")
     
+    def send_status_notification(self, task_name, status_results):
+        """상태 체크 결과 알림"""
+        try:
+            message = f"🔍 {task_name}\n\n"
+            message += "\n".join(status_results)
+            message += f"\n\n📅 체크 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+            
+            payload = {
+                "botName": "POSCO 뉴스 상태 체크 🔍",
+                "botIconImage": BOT_PROFILE_IMAGE_URL,
+                "text": f"🔍 {task_name}",
+                "attachments": [{
+                    "color": "#17a2b8",
+                    "text": message
+                }]
+            }
+            
+            response = requests.post(DOORAY_WEBHOOK_URL, json=payload, timeout=10)
+            if response.status_code == 200:
+                print(f"✅ {task_name} 알림 전송 성공")
+            
+        except Exception as e:
+            print(f"❌ {task_name} 알림 전송 오류: {e}")
+    
+    def send_comparison_notification(self, task_name, comparison_results):
+        """비교 분석 결과 알림"""
+        try:
+            message = f"📊 {task_name}\n\n"
+            message += "\n".join(comparison_results)
+            message += f"\n\n📅 분석 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+            
+            payload = {
+                "botName": "POSCO 뉴스 비교 분석 📊",
+                "botIconImage": BOT_PROFILE_IMAGE_URL,
+                "text": f"📊 {task_name}",
+                "attachments": [{
+                    "color": "#28a745",
+                    "text": message
+                }]
+            }
+            
+            response = requests.post(DOORAY_WEBHOOK_URL, json=payload, timeout=10)
+            if response.status_code == 200:
+                print(f"✅ {task_name} 알림 전송 성공")
+            
+        except Exception as e:
+            print(f"❌ {task_name} 알림 전송 오류: {e}")
+    
+    def send_daily_summary_notification(self, task_name, summary_data, published_count):
+        """일일 요약 결과 알림"""
+        try:
+            total_count = len(self.monitors)
+            
+            if published_count == total_count:
+                color = "#28a745"
+                status_emoji = "✅"
+            elif published_count >= 2:
+                color = "#ffc107"
+                status_emoji = "⚠️"
+            else:
+                color = "#dc3545"
+                status_emoji = "❌"
+            
+            message = f"{status_emoji} {task_name}\n\n"
+            message += f"📊 발행 현황: {published_count}/{total_count}\n\n"
+            message += "\n".join(summary_data)
+            message += f"\n\n📅 요약 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+            
+            payload = {
+                "botName": "POSCO 뉴스 일일 요약 📋",
+                "botIconImage": BOT_PROFILE_IMAGE_URL,
+                "text": f"{status_emoji} {task_name}",
+                "attachments": [{
+                    "color": color,
+                    "text": message
+                }]
+            }
+            
+            response = requests.post(DOORAY_WEBHOOK_URL, json=payload, timeout=10)
+            if response.status_code == 200:
+                print(f"✅ {task_name} 알림 전송 성공")
+            
+        except Exception as e:
+            print(f"❌ {task_name} 알림 전송 오류: {e}")
+    
+    def send_detailed_summary_notification(self, task_name, detailed_info):
+        """상세 요약 결과 알림"""
+        try:
+            message = f"📊 {task_name}\n\n"
+            message += "\n\n".join(detailed_info)
+            message += f"\n\n📅 상세 분석 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+            
+            payload = {
+                "botName": "POSCO 뉴스 상세 요약 📊",
+                "botIconImage": BOT_PROFILE_IMAGE_URL,
+                "text": f"📊 {task_name}",
+                "attachments": [{
+                    "color": "#6f42c1",
+                    "text": message
+                }]
+            }
+            
+            response = requests.post(DOORAY_WEBHOOK_URL, json=payload, timeout=10)
+            if response.status_code == 200:
+                print(f"✅ {task_name} 알림 전송 성공")
+            
+        except Exception as e:
+            print(f"❌ {task_name} 알림 전송 오류: {e}")
+    
+    def send_advanced_analysis_notification(self, task_name, analysis_results, total_news):
+        """고급 분석 결과 알림"""
+        try:
+            message = f"🔬 {task_name}\n\n"
+            message += f"📊 분석 대상: {total_news}개 뉴스\n\n"
+            message += "\n\n".join(analysis_results)
+            message += f"\n\n📅 고급 분석 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+            
+            payload = {
+                "botName": "POSCO 뉴스 고급 분석 🔬",
+                "botIconImage": BOT_PROFILE_IMAGE_URL,
+                "text": f"🔬 {task_name}",
+                "attachments": [{
+                    "color": "#e83e8c",
+                    "text": message
+                }]
+            }
+            
+            response = requests.post(DOORAY_WEBHOOK_URL, json=payload, timeout=10)
+            if response.status_code == 200:
+                print(f"✅ {task_name} 알림 전송 성공")
+            
+        except Exception as e:
+            print(f"❌ {task_name} 알림 전송 오류: {e}")
+    
     def run_monitor(self):
         """
         실시간 모니터링 실행
@@ -238,9 +613,13 @@ class RealtimeNewsMonitor:
         
         while True:
             try:
-                print(f"\n⏰ {datetime.now().strftime('%H:%M:%S')} - 뉴스 업데이트 체크 중...")
+                current_time = datetime.now()
+                print(f"\n⏰ {current_time.strftime('%H:%M:%S')} - 뉴스 업데이트 체크 중...")
                 
-                # 뉴스 업데이트 체크
+                # 1. 고정 시간 작업 체크 (워치햄스터에서 이관)
+                self.check_fixed_time_tasks()
+                
+                # 2. 뉴스 업데이트 체크
                 new_news = self.check_news_updates()
                 
                 if new_news:
