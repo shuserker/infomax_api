@@ -126,15 +126,10 @@ class PoscoMonitorWatchHamster:
         self.last_status_notification = None  # 기존 호환성을 위해 유지
         self.last_hourly_check_hour = None  # 마지막 매시간 체크 시간
         
-        # 고정 시간 알림 설정
-        self.fixed_time_tasks = {
-            "06:00": ("1", "아침 현재 상태 체크"),
-            "06:10": ("2", "아침 영업일 비교 분석"), 
-            "18:00": ("5", "저녁 일일 요약 리포트"),
-            "18:10": ("7", "저녁 상세 일일 요약"),
-            "18:20": ("8", "저녁 고급 분석")
-        }
-        self.executed_fixed_tasks = set()  # 오늘 실행된 고정 작업들
+        # 워치햄스터는 순수 시스템 관리만 담당 - 뉴스 관련 기능 제거
+        # 뉴스 관련 기능은 realtime_news_monitor.py와 integrated_report_scheduler.py에서 처리
+        self.fixed_time_tasks = {}  # 뉴스 관련 고정 작업 제거
+        self.executed_fixed_tasks = set()  # 호환성을 위해 유지
         
         self.git_check_interval = 60 * 60 * 4  # 4시간마다 Git 체크
         self.process_check_interval = 5 * 60  # 5분마다 프로세스 체크 (뉴스 발행 간격 고려)
@@ -268,25 +263,11 @@ class PoscoMonitorWatchHamster:
     
     def check_fixed_time_tasks(self):
         """
-        고정 시간 작업들 체크 및 실행
+        고정 시간 작업들 체크 및 실행 - 워치햄스터는 뉴스 관련 고정 작업 없음
         """
-        current_time = datetime.now()
-        current_time_str = current_time.strftime("%H:%M")
-        current_date = current_time.strftime("%Y-%m-%d")
-        
-        # 날짜가 바뀌면 실행된 작업 목록 초기화
-        if not hasattr(self, '_last_check_date') or self._last_check_date != current_date:
-            self.executed_fixed_tasks = set()
-            self._last_check_date = current_date
-        
-        # 고정 시간 작업 체크
-        for time_str, (task_type, task_name) in self.fixed_time_tasks.items():
-            if current_time_str == time_str:
-                task_key = f"{current_date}_{time_str}"
-                if task_key not in self.executed_fixed_tasks:
-                    self.log(f"🕐 고정 시간 작업 실행: {time_str} - {task_name}")
-                    self.execute_scheduled_task(task_type, task_name)
-                    self.executed_fixed_tasks.add(task_key)
+        # 워치햄스터는 순수 시스템 관리만 담당
+        # 뉴스 관련 고정 시간 작업은 realtime_news_monitor.py와 integrated_report_scheduler.py에서 처리
+        pass
     
     def is_quiet_hours_old(self):
         """
@@ -718,176 +699,11 @@ class PoscoMonitorWatchHamster:
         except Exception as e:
             self.log(f"❌ 모니터링 프로세스 중지 오류: {e}")
     
-    def execute_scheduled_task(self, task_type, task_name):
-        """스케줄된 작업 실행 (최적화된 모니터링 시스템 사용)"""
-        try:
-            self.log(f"📅 스케줄 작업 실행: {task_name}")
-            
-            # 기존 run_monitor.py 대신 최적화된 모니터링 시스템 사용
-            if self.individual_monitors_enabled:
-                if task_type == "1":  # 상태 체크
-                    self._execute_status_check_task(task_name)
-                elif task_type == "2":  # 비교 분석
-                    self._execute_comparison_task(task_name)
-                elif task_type == "5":  # 일일 요약
-                    self._execute_daily_summary_task(task_name)
-                elif task_type == "7":  # 상세 요약
-                    self._execute_detailed_summary_task(task_name)
-                elif task_type == "8":  # 고급 분석
-                    self._execute_advanced_analysis_task(task_name)
-                else:
-                    self.log(f"⚠️ 알 수 없는 작업 타입: {task_type} - 기존 방식 사용")
-                    self._execute_legacy_task(task_type, task_name)
-            else:
-                # 개별 모니터 비활성화 시 기존 방식 사용
-                self._execute_legacy_task(task_type, task_name)
-                
-        except Exception as e:
-            self.log(f"❌ {task_name} 오류: {e}")
+    # 뉴스 관련 스케줄 작업 제거 - 워치햄스터는 순수 시스템 관리만 담당
+    # 뉴스 관련 기능은 realtime_news_monitor.py와 integrated_report_scheduler.py에서 처리
     
-    def _execute_legacy_task(self, task_type, task_name):
-        """기존 run_monitor.py 방식으로 작업 실행"""
-        try:
-            import subprocess
-            result = subprocess.run(
-                ["python", "run_monitor.py", task_type],
-                cwd=self.script_dir,
-                capture_output=True,
-                text=True,
-                timeout=300  # 5분 타임아웃
-            )
-            
-            if result.returncode == 0:
-                self.log(f"✅ {task_name} 완료 (기존 방식)")
-            else:
-                self.log(f"❌ {task_name} 실패 (기존 방식): {result.stderr}")
-                
-        except Exception as e:
-            self.log(f"❌ {task_name} 기존 방식 오류: {e}")
-    
-    def _execute_status_check_task(self, task_name):
-        """상태 체크 작업 실행 (최적화된 모니터 사용)"""
-        try:
-            # 개별 모니터 상태 체크
-            self._check_individual_monitors_status()
-            
-            # 마스터 모니터 상태 체크
-            if self.master_monitor_enabled and hasattr(self, 'master_monitor'):
-                strategy = self.master_monitor.get_current_monitoring_strategy()
-                self.log(f"🎛️ 현재 모니터링 전략: {strategy['description']}")
-            
-            # 매시간 정각 상태 체크는 조용한 시간대에도 명시적 알림 전송
-            if "정시 상태 체크" in task_name:
-                self._send_hourly_status_notification(task_name)
-            
-            self.log(f"✅ {task_name} 완료 (최적화 방식)")
-            
-        except Exception as e:
-            self.log(f"❌ 상태 체크 작업 오류: {e}")
-    
-    def _execute_comparison_task(self, task_name):
-        """비교 분석 작업 실행 (최적화된 모니터 사용)"""
-        try:
-            # 각 뉴스별 현재 vs 이전 데이터 비교
-            comparison_results = []
-            
-            # 뉴욕마켓워치 비교
-            if hasattr(self, 'newyork_monitor'):
-                ny_current = self.newyork_monitor.get_current_news_data()
-                ny_analysis = self.newyork_monitor.analyze_publish_pattern(ny_current)
-                comparison_results.append(f"🌆 뉴욕마켓워치: {ny_analysis.get('analysis', '분석 불가')}")
-            
-            # 증시마감 비교
-            if hasattr(self, 'kospi_monitor'):
-                kospi_current = self.kospi_monitor.get_current_news_data()
-                kospi_analysis = self.kospi_monitor.analyze_publish_pattern(kospi_current)
-                comparison_results.append(f"📈 증시마감: {kospi_analysis.get('analysis', '분석 불가')}")
-            
-            # 서환마감 비교
-            if hasattr(self, 'exchange_monitor'):
-                exchange_current = self.exchange_monitor.get_current_news_data()
-                exchange_analysis = self.exchange_monitor.analyze_publish_pattern(exchange_current)
-                comparison_results.append(f"💱 서환마감: {exchange_analysis.get('analysis', '분석 불가')}")
-            
-            # 비교 결과 로그
-            for result in comparison_results:
-                self.log(f"📊 {result}")
-            
-            self.log(f"✅ {task_name} 완료 (최적화 방식)")
-            
-        except Exception as e:
-            self.log(f"❌ 비교 분석 작업 오류: {e}")
-    
-    def _execute_daily_summary_task(self, task_name):
-        """일일 요약 작업 실행 (최적화된 모니터 사용)"""
-        try:
-            # 오늘 발행된 뉴스 요약
-            summary_data = []
-            published_count = 0
-            
-            # 각 뉴스별 오늘 발행 현황
-            monitors = [
-                ('🌆 뉴욕마켓워치', self.newyork_monitor if hasattr(self, 'newyork_monitor') else None),
-                ('📈 증시마감', self.kospi_monitor if hasattr(self, 'kospi_monitor') else None),
-                ('💱 서환마감', self.exchange_monitor if hasattr(self, 'exchange_monitor') else None)
-            ]
-            
-            for name, monitor in monitors:
-                if monitor:
-                    try:
-                        data = monitor.get_current_news_data()
-                        analysis = monitor.analyze_publish_pattern(data)
-                        is_published = analysis.get('is_published_today', False)
-                        
-                        if is_published:
-                            published_count += 1
-                            summary_data.append(f"{name}: ✅ {analysis.get('analysis', '발행 완료')}")
-                        else:
-                            summary_data.append(f"{name}: ❌ {analysis.get('analysis', '미발행')}")
-                    except Exception as e:
-                        summary_data.append(f"{name}: ⚠️ 분석 오류")
-            
-            # 일일 요약 로그
-            self.log(f"📋 일일 요약 ({published_count}/3 발행 완료):")
-            for summary in summary_data:
-                self.log(f"   {summary}")
-            
-            self.log(f"✅ {task_name} 완료 (최적화 방식)")
-            
-        except Exception as e:
-            self.log(f"❌ 일일 요약 작업 오류: {e}")
-    
-    def _execute_detailed_summary_task(self, task_name):
-        """상세 요약 작업 실행 (최적화된 모니터 사용)"""
-        try:
-            # 향상된 상태 보고서 생성 및 전송
-            if hasattr(self, 'send_enhanced_status_notification'):
-                self.send_enhanced_status_notification()
-                self.log(f"📊 향상된 상태 알림 전송 완료")
-            
-            self.log(f"✅ {task_name} 완료 (최적화 방식)")
-            
-        except Exception as e:
-            self.log(f"❌ 상세 요약 작업 오류: {e}")
-    
-    def _execute_advanced_analysis_task(self, task_name):
-        """고급 분석 작업 실행 (최적화된 모니터 사용)"""
-        try:
-            # 마스터 모니터링 시스템의 통합 분석 사용
-            if self.master_monitor_enabled and hasattr(self, 'master_monitor'):
-                results = self.master_monitor.run_integrated_check()
-                
-                # 분석 결과 로그
-                for news_type, result in results.items():
-                    analysis = result.get('analysis', {})
-                    published = result.get('published_today', False)
-                    status = "✅ 발행 완료" if published else "⏳ 대기 중"
-                    self.log(f"🔬 {news_type}: {status} - {analysis.get('analysis', '분석 불가')}")
-            
-            self.log(f"✅ {task_name} 완료 (최적화 방식)")
-            
-        except Exception as e:
-            self.log(f"❌ 고급 분석 작업 오류: {e}")
+    # 뉴스 관련 실행 함수들 제거 - 워치햄스터는 순수 시스템 관리만 담당
+    # 뉴스 관련 기능은 realtime_news_monitor.py와 integrated_report_scheduler.py에서 처리
     
     def execute_integrated_report_generation(self):
         """통합 리포트 생성 실행 (17:59)"""
