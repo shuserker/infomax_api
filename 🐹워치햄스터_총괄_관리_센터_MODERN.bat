@@ -7,8 +7,14 @@ REM Windows 10/11 최적화 설정
 REM ============================================================================
 chcp 65001 > nul 2>&1
 
-REM ANSI 지원 강화
+REM ANSI 지원 강화 (다중 방식)
 reg add HKCU\Console /v VirtualTerminalLevel /t REG_DWORD /d 1 /f > nul 2>&1
+reg add "HKCU\Console\%%SystemRoot%%_system32_cmd.exe" /v VirtualTerminalLevel /t REG_DWORD /d 1 /f > nul 2>&1
+reg add "HKCU\Console\%%SystemRoot%%_System32_WindowsPowerShell_v1.0_powershell.exe" /v VirtualTerminalLevel /t REG_DWORD /d 1 /f > nul 2>&1
+
+REM ANSI 지원 강제 활성화
+powershell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8" > nul 2>&1
+echo  > nul
 
 REM 현대적 색상 정의 (Windows 11 스타일)
 set "ESC="
