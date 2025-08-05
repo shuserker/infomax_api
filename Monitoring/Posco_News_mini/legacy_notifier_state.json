@@ -1,0 +1,26 @@
+{
+  "newyork": {
+    "display_name": "NEWYORK MARKET WATCH",
+    "emoji": "🌆",
+    "last_title": "",
+    "last_time": "",
+    "status": "발행 대기",
+    "api_key": "newyork_market"
+  },
+  "kospi": {
+    "display_name": "KOSPI CLOSE",
+    "emoji": "📈",
+    "last_title": "",
+    "last_time": "",
+    "status": "발행 대기",
+    "api_key": "kospi_close"
+  },
+  "exchange": {
+    "display_name": "EXCHANGE RATE",
+    "emoji": "💱",
+    "last_title": "",
+    "last_time": "",
+    "status": "발행 대기",
+    "api_key": "exchange_rate"
+  }
+}

@@ -8,10 +8,12 @@ $SCRIPT_DIR = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $SCRIPT_DIR
 
 # 공통 라이브러리 로드
-if (Test-Path "..\lib_wt_common.ps1") {
-    . "..\lib_wt_common.ps1"
+if (Test-Path ".\lib_wt_common.ps1") {
+    . ".\lib_wt_common.ps1"
 } else {
     Write-Host "Error: lib_wt_common.ps1를 찾을 수 없습니다." -ForegroundColor Red
+    Write-Host "현재 경로: $(Get-Location)" -ForegroundColor Yellow
+    Write-Host "스크립트 경로: $SCRIPT_DIR" -ForegroundColor Yellow
     exit 1
 }
 
@@ -101,9 +103,9 @@ function Start-WatchHamster {
     }
 
     # 이미 실행 중인지 확인
-    $processes = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*integrated_report_generator.py*" }
+    $processes = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*monitor_WatchHamster.py*" }
     if ($processes) {
-        Show-Warning "워치햄스터가 이미 실행 중입니다."
+        Show-Warning "🐹 POSCO 워치햄스터가 이미 실행 중입니다."
         Write-Host ""
         Read-Host "계속하려면 Enter를 누르세요"
         Show-MainMenu
@@ -111,21 +113,26 @@ function Start-WatchHamster {
     }
 
     # Python 스크립트 실행
-    if (Test-Path "Monitoring\Posco_News_mini\reports\integrated_report_generator.py") {
+    if (Test-Path "Monitoring\Posco_News_mini\monitor_WatchHamster.py") {
         Set-Location "Monitoring\Posco_News_mini"
-        Start-Process -FilePath "python" -ArgumentList "reports\integrated_report_generator.py" -WindowStyle Hidden -RedirectStandardOutput "..\..\posco_monitor.log" -RedirectStandardError "..\..\posco_monitor.log"
+        Start-Process -FilePath "python" -ArgumentList "monitor_WatchHamster.py" -WindowStyle Hidden -RedirectStandardOutput "..\..\posco_monitor.log" -RedirectStandardError "..\..\posco_monitor.log"
         Set-Location $SCRIPT_DIR
-        Start-Sleep -Seconds 2
+        Start-Sleep -Seconds 3
         
         # 프로세스 확인
-        $newProcesses = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*integrated_report_generator.py*" }
+        $newProcesses = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*monitor_WatchHamster.py*" }
         if ($newProcesses) {
-            Show-Success "워치햄스터가 성공적으로 시작되었습니다."
+            Show-Success "🐹 POSCO 워치햄스터가 성공적으로 시작되었습니다."
+            Show-Info "🛡️ 자동 복구 기능이 활성화되었습니다."
+            Show-Info "📊 프로세스 감시: 5분 간격"
+            Show-Info "🔄 Git 업데이트 체크: 60분 간격"
+            Show-Info "📋 정기 상태 알림: 2시간 간격"
+            Show-Info "🌙 조용한 모드: 18시 이후 문제 발생 시에만 알림"
         } else {
             Show-Error "워치햄스터 시작에 실패했습니다."
         }
     } else {
-        Show-Error "integrated_report_generator.py 파일을 찾을 수 없습니다."
+        Show-Error "monitor_WatchHamster.py 파일을 찾을 수 없습니다."
     }
 
     Write-Host ""
@@ -143,7 +150,7 @@ function Stop-WatchHamster {
         return
     }
 
-    $processes = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*integrated_report_generator.py*" }
+    $processes = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*monitor_WatchHamster.py*" }
     
     if ($processes) {
         foreach ($process in $processes) {
@@ -151,7 +158,7 @@ function Stop-WatchHamster {
         }
         Start-Sleep -Seconds 2
         
-        Show-Success "워치햄스터가 성공적으로 중지되었습니다."
+        Show-Success "🐹 POSCO 워치햄스터가 성공적으로 중지되었습니다."
     } else {
         Show-Info "실행 중인 워치햄스터가 없습니다."
     }
@@ -183,16 +190,16 @@ function Show-MonitoringStatus {
     
     Show-Section "⚙️ 프로세스 상태"
     
-    $processes = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*integrated_report_generator.py*" }
+    $processes = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*monitor_WatchHamster.py*" }
     if ($processes) {
-        Show-Success "워치햄스터가 실행 중입니다."
+        Show-Success "🐹 POSCO 워치햄스터가 실행 중입니다."
         foreach ($process in $processes) {
             $startTime = $process.StartTime
             $runtime = (Get-Date) - $startTime
             Write-Host "  • PID: $($process.Id), 실행시간: $($runtime.ToString('hh\:mm\:ss'))" -ForegroundColor $GRAY
         }
     } else {
-        Show-Warning "워치햄스터가 실행되지 않았습니다."
+        Show-Warning "🐹 POSCO 워치햄스터가 실행되지 않았습니다."
     }
 
     Show-Section "📊 시스템 리소스"
@@ -332,7 +339,7 @@ function Show-SystemStatus {
     
     # 필수 파일 확인
     Show-Section "📁 필수 파일 확인"
-    $requiredFiles = @("Monitoring\Posco_News_mini\reports\integrated_report_generator.py", "requirements.txt")
+    $requiredFiles = @("Monitoring\Posco_News_mini\monitor_WatchHamster.py", "Monitoring\Posco_News_mini\config.py", "requirements.txt")
     Test-RequiredFiles $requiredFiles
     
     # 데이터 파일 확인
@@ -391,7 +398,7 @@ function Start-SystemTest {
     }
     
     # 파일 시스템 테스트
-    $testFiles = @("Monitoring\Posco_News_mini\reports\integrated_report_generator.py")
+    $testFiles = @("Monitoring\Posco_News_mini\monitor_WatchHamster.py")
     if (Test-RequiredFiles $testFiles) {
         Show-Success "파일 시스템 테스트 통과"
     } else {
@@ -400,16 +407,16 @@ function Start-SystemTest {
     
     # Python 스크립트 테스트
     Show-Section "🐍 Python 스크립트 테스트"
-    if (Test-Path "Monitoring\Posco_News_mini\reports\integrated_report_generator.py") {
+    if (Test-Path "Monitoring\Posco_News_mini\monitor_WatchHamster.py") {
         try {
             python -c "import sys; print('Python 스크립트 테스트 통과')" 2>$null
-            Show-Success "integrated_report_generator.py 테스트 통과"
+            Show-Success "🐹 POSCO 워치햄스터 테스트 통과"
         }
         catch {
-            Show-Error "integrated_report_generator.py 테스트 실패"
+            Show-Error "🐹 POSCO 워치햄스터 테스트 실패"
         }
     } else {
-        Show-Warning "integrated_report_generator.py 파일이 없습니다."
+        Show-Warning "🐹 POSCO 워치햄스터 파일이 없습니다."
     }
 
     Show-Success "시스템 테스트가 완료되었습니다."

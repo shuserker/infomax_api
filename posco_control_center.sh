@@ -9,10 +9,12 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
 # 공통 라이브러리 로드
-if [[ -f "../lib_wt_common.sh" ]]; then
-    source "../lib_wt_common.sh"
+if [[ -f "./lib_wt_common.sh" ]]; then
+    source "./lib_wt_common.sh"
 else
     echo "Error: lib_wt_common.sh를 찾을 수 없습니다."
+    echo "현재 경로: $(pwd)"
+    echo "스크립트 경로: $SCRIPT_DIR"
     exit 1
 fi
 
@@ -103,8 +105,8 @@ start_watchhamster() {
     fi
 
     # 이미 실행 중인지 확인
-    if pgrep -f "integrated_report_generator.py" >/dev/null; then
-        print_warning "워치햄스터가 이미 실행 중입니다."
+    if pgrep -f "posco_watchhamster_v2.py" >/dev/null; then
+        print_warning "🐹 POSCO 워치햄스터 v2.0이 이미 실행 중입니다."
         echo
         read -p "계속하려면 Enter를 누르세요..."
         main_menu
@@ -112,20 +114,28 @@ start_watchhamster() {
     fi
 
     # Python 스크립트 실행
-    if [[ -f "Monitoring/Posco_News_mini/reports/integrated_report_generator.py" ]]; then
+    if [[ -f "Monitoring/Posco_News_mini/posco_watchhamster_v2.py" ]]; then
         cd "Monitoring/Posco_News_mini"
-        nohup python3 reports/integrated_report_generator.py > ../../posco_monitor.log 2>&1 &
+        nohup python3 posco_watchhamster_v2.py > ../../posco_monitor.log 2>&1 &
         local pid=$!
         cd "$SCRIPT_DIR"
-        sleep 2
+        sleep 3
         
         if kill -0 $pid 2>/dev/null; then
-            print_success "워치햄스터가 성공적으로 시작되었습니다. (PID: $pid)"
+            print_success "🐹 POSCO 워치햄스터 v2.0이 성공적으로 시작되었습니다. (PID: $pid)"
+            print_info "🛡️ 자동 복구 기능이 활성화되었습니다."
+            print_info "📊 프로세스 감시: 5분 간격"
+            print_info "🔄 Git 업데이트 체크: 60분 간격"
+            print_info "📋 정기 상태 알림: 2시간 간격"
+            print_info "📅 스케줄 작업: 06:00, 06:10, 18:00, 18:10, 18:20"
+            print_info "🌙 조용한 모드: 18시 이후 문제 발생 시에만 알림"
+            print_info "🚀 자동 복구 기능 활성화"
         else
             print_error "워치햄스터 시작에 실패했습니다."
+            print_info "로그를 확인하세요: tail -f posco_monitor.log"
         fi
     else
-        print_error "integrated_report_generator.py 파일을 찾을 수 없습니다."
+        print_error "posco_watchhamster_v2.py 파일을 찾을 수 없습니다."
     fi
 
     echo
@@ -152,7 +162,7 @@ stop_watchhamster() {
         sleep 2
         
         # 강제 종료
-        local remaining_pids=$(pgrep -f "integrated_report_generator.py")
+        local remaining_pids=$(pgrep -f "posco_watchhamster_v2.py")
         if [[ -n "$remaining_pids" ]]; then
             for pid in $remaining_pids; do
                 kill -9 $pid 2>/dev/null
@@ -329,7 +339,7 @@ check_system_status() {
     
     # 필수 파일 확인
     print_section "📁 필수 파일 확인"
-    local required_files=("Monitoring/Posco_News_mini/reports/integrated_report_generator.py" "requirements.txt")
+    local required_files=("Monitoring/Posco_News_mini/posco_watchhamster_v2.py" "Monitoring/Posco_News_mini/reports/integrated_report_generator.py" "requirements.txt")
     check_required_files "${required_files[@]}"
     
     # 데이터 파일 확인
@@ -386,14 +396,14 @@ test_system() {
     
     # Python 스크립트 테스트
     print_section "🐍 Python 스크립트 테스트"
-    if [[ -f "Monitoring/Posco_News_mini/reports/integrated_report_generator.py" ]]; then
+    if [[ -f "Monitoring/Posco_News_mini/posco_watchhamster_v2.py" ]]; then
         if python3 -c "import sys; print('Python 스크립트 테스트 통과')" 2>/dev/null; then
-            print_success "integrated_report_generator.py 테스트 통과"
+            print_success "🐹 POSCO 워치햄스터 v2.0 테스트 통과"
         else
-            print_error "integrated_report_generator.py 테스트 실패"
+            print_error "🐹 POSCO 워치햄스터 v2.0 테스트 실패"
         fi
     else
-        print_warning "integrated_report_generator.py 파일이 없습니다."
+        print_warning "🐹 POSCO 워치햄스터 v2.0 파일이 없습니다."
     fi
 
     print_success "시스템 테스트가 완료되었습니다."

@@ -1,0 +1,20 @@
+{
+  "exchange": {
+    "name": "💱 서환마감",
+    "last_title": "",
+    "last_check": "2025-08-05T09:56:32.069477",
+    "api_key": "exchange_rate"
+  },
+  "kospi": {
+    "name": "📈 증시마감",
+    "last_title": "",
+    "last_check": "2025-08-05T09:56:32.069477",
+    "api_key": "kospi_close"
+  },
+  "newyork": {
+    "name": "🌆 뉴욕마켓워치",
+    "last_title": "",
+    "last_check": "2025-08-05T09:56:32.069477",
+    "api_key": "newyork_market"
+  }
+}
