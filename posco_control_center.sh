@@ -103,7 +103,7 @@ start_watchhamster() {
     fi
 
     # 이미 실행 중인지 확인
-    if pgrep -f "run_monitor.py" >/dev/null; then
+    if pgrep -f "integrated_report_generator.py" >/dev/null; then
         print_warning "워치햄스터가 이미 실행 중입니다."
         echo
         read -p "계속하려면 Enter를 누르세요..."
@@ -112,9 +112,11 @@ start_watchhamster() {
     fi
 
     # Python 스크립트 실행
-    if [[ -f "run_monitor.py" ]]; then
-        nohup python3 run_monitor.py > posco_monitor.log 2>&1 &
+    if [[ -f "Monitoring/Posco_News_mini/reports/integrated_report_generator.py" ]]; then
+        cd "Monitoring/Posco_News_mini"
+        nohup python3 reports/integrated_report_generator.py > ../../posco_monitor.log 2>&1 &
         local pid=$!
+        cd "$SCRIPT_DIR"
         sleep 2
         
         if kill -0 $pid 2>/dev/null; then
@@ -123,7 +125,7 @@ start_watchhamster() {
             print_error "워치햄스터 시작에 실패했습니다."
         fi
     else
-        print_error "run_monitor.py 파일을 찾을 수 없습니다."
+        print_error "integrated_report_generator.py 파일을 찾을 수 없습니다."
     fi
 
     echo
@@ -141,7 +143,7 @@ stop_watchhamster() {
         return
     fi
 
-    local pids=$(pgrep -f "run_monitor.py")
+    local pids=$(pgrep -f "integrated_report_scheduler.py")
     
     if [[ -n "$pids" ]]; then
         for pid in $pids; do
@@ -150,7 +152,7 @@ stop_watchhamster() {
         sleep 2
         
         # 강제 종료
-        local remaining_pids=$(pgrep -f "run_monitor.py")
+        local remaining_pids=$(pgrep -f "integrated_report_generator.py")
         if [[ -n "$remaining_pids" ]]; then
             for pid in $remaining_pids; do
                 kill -9 $pid 2>/dev/null
@@ -189,7 +191,7 @@ check_monitoring_status() {
     
     print_section "⚙️ 프로세스 상태"
     
-    local pids=$(pgrep -f "run_monitor.py")
+    local pids=$(pgrep -f "integrated_report_scheduler.py")
     if [[ -n "$pids" ]]; then
         print_success "워치햄스터가 실행 중입니다."
         for pid in $pids; do
@@ -327,7 +329,7 @@ check_system_status() {
     
     # 필수 파일 확인
     print_section "📁 필수 파일 확인"
-    local required_files=("run_monitor.py" "config.py" "requirements.txt")
+    local required_files=("Monitoring/Posco_News_mini/reports/integrated_report_generator.py" "requirements.txt")
     check_required_files "${required_files[@]}"
     
     # 데이터 파일 확인
@@ -384,14 +386,14 @@ test_system() {
     
     # Python 스크립트 테스트
     print_section "🐍 Python 스크립트 테스트"
-    if [[ -f "run_monitor.py" ]]; then
+    if [[ -f "Monitoring/Posco_News_mini/reports/integrated_report_generator.py" ]]; then
         if python3 -c "import sys; print('Python 스크립트 테스트 통과')" 2>/dev/null; then
-            print_success "run_monitor.py 테스트 통과"
+            print_success "integrated_report_generator.py 테스트 통과"
         else
-            print_error "run_monitor.py 테스트 실패"
+            print_error "integrated_report_generator.py 테스트 실패"
         fi
     else
-        print_warning "run_monitor.py 파일이 없습니다."
+        print_warning "integrated_report_generator.py 파일이 없습니다."
     fi
 
     print_success "시스템 테스트가 완료되었습니다."

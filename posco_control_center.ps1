@@ -101,7 +101,7 @@ function Start-WatchHamster {
     }
 
     # 이미 실행 중인지 확인
-    $processes = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*run_monitor.py*" }
+    $processes = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*integrated_report_generator.py*" }
     if ($processes) {
         Show-Warning "워치햄스터가 이미 실행 중입니다."
         Write-Host ""
@@ -111,19 +111,21 @@ function Start-WatchHamster {
     }
 
     # Python 스크립트 실행
-    if (Test-Path "run_monitor.py") {
-        Start-Process -FilePath "python" -ArgumentList "run_monitor.py" -WindowStyle Hidden -RedirectStandardOutput "posco_monitor.log" -RedirectStandardError "posco_monitor.log"
+    if (Test-Path "Monitoring\Posco_News_mini\reports\integrated_report_generator.py") {
+        Set-Location "Monitoring\Posco_News_mini"
+        Start-Process -FilePath "python" -ArgumentList "reports\integrated_report_generator.py" -WindowStyle Hidden -RedirectStandardOutput "..\..\posco_monitor.log" -RedirectStandardError "..\..\posco_monitor.log"
+        Set-Location $SCRIPT_DIR
         Start-Sleep -Seconds 2
         
         # 프로세스 확인
-        $newProcesses = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*run_monitor.py*" }
+        $newProcesses = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*integrated_report_generator.py*" }
         if ($newProcesses) {
             Show-Success "워치햄스터가 성공적으로 시작되었습니다."
         } else {
             Show-Error "워치햄스터 시작에 실패했습니다."
         }
     } else {
-        Show-Error "run_monitor.py 파일을 찾을 수 없습니다."
+        Show-Error "integrated_report_generator.py 파일을 찾을 수 없습니다."
     }
 
     Write-Host ""
@@ -141,7 +143,7 @@ function Stop-WatchHamster {
         return
     }
 
-    $processes = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*run_monitor.py*" }
+    $processes = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*integrated_report_generator.py*" }
     
     if ($processes) {
         foreach ($process in $processes) {
@@ -181,7 +183,7 @@ function Show-MonitoringStatus {
     
     Show-Section "⚙️ 프로세스 상태"
     
-    $processes = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*run_monitor.py*" }
+    $processes = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*integrated_report_generator.py*" }
     if ($processes) {
         Show-Success "워치햄스터가 실행 중입니다."
         foreach ($process in $processes) {
@@ -330,7 +332,7 @@ function Show-SystemStatus {
     
     # 필수 파일 확인
     Show-Section "📁 필수 파일 확인"
-    $requiredFiles = @("run_monitor.py", "config.py", "requirements.txt")
+    $requiredFiles = @("Monitoring\Posco_News_mini\reports\integrated_report_generator.py", "requirements.txt")
     Test-RequiredFiles $requiredFiles
     
     # 데이터 파일 확인
@@ -389,7 +391,7 @@ function Start-SystemTest {
     }
     
     # 파일 시스템 테스트
-    $testFiles = @("run_monitor.py", "config.py")
+    $testFiles = @("Monitoring\Posco_News_mini\reports\integrated_report_generator.py")
     if (Test-RequiredFiles $testFiles) {
         Show-Success "파일 시스템 테스트 통과"
     } else {
@@ -398,16 +400,16 @@ function Start-SystemTest {
     
     # Python 스크립트 테스트
     Show-Section "🐍 Python 스크립트 테스트"
-    if (Test-Path "run_monitor.py") {
+    if (Test-Path "Monitoring\Posco_News_mini\reports\integrated_report_generator.py") {
         try {
             python -c "import sys; print('Python 스크립트 테스트 통과')" 2>$null
-            Show-Success "run_monitor.py 테스트 통과"
+            Show-Success "integrated_report_generator.py 테스트 통과"
         }
         catch {
-            Show-Error "run_monitor.py 테스트 실패"
+            Show-Error "integrated_report_generator.py 테스트 실패"
         }
     } else {
-        Show-Warning "run_monitor.py 파일이 없습니다."
+        Show-Warning "integrated_report_generator.py 파일이 없습니다."
     }
 
     Show-Success "시스템 테스트가 완료되었습니다."
