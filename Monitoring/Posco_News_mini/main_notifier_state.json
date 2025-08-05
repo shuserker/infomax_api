@@ -1,0 +1,26 @@
+{
+  "newyork": {
+    "display_name": "NEWYORK MARKET WATCH",
+    "emoji": "🌆",
+    "last_title": "[뉴욕마켓워치] 탄력 붙은 금리인하 베팅…주식·채권↑달러↓",
+    "last_time": "2025-08-05 06:19:38",
+    "status": "최신",
+    "api_key": "newyork_market"
+  },
+  "kospi": {
+    "display_name": "KOSPI CLOSE",
+    "emoji": "📈",
+    "last_title": "[증시-마감] 저가매수 코스피 0.9% 상승…산업 정책 주목도↑",
+    "last_time": "2025-08-04 154344",
+    "status": "발행 지연",
+    "api_key": "kospi_close"
+  },
+  "exchange": {
+    "display_name": "EXCHANGE RATE",
+    "emoji": "💱",
+    "last_title": "[서환-마감] 美 고용 충격에 급락…16.20원↓",
+    "last_time": "2025-08-04 162831",
+    "status": "발행 대기",
+    "api_key": "exchange_rate"
+  }
+}

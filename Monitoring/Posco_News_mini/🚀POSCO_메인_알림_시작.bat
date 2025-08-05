@@ -58,11 +58,11 @@ if exist "config.py" (
     call :print_info "기본 설정으로 실행됩니다."
 )
 
-REM 워치햄스터 메인 파일 확인
-if exist "monitor_WatchHamster.py" (
-    call :print_success "워치햄스터 메인 파일 확인됨"
+REM 메인 알림 시스템 파일 확인
+if exist "posco_main_notifier.py" (
+    call :print_success "메인 알림 시스템 파일 확인됨"
 ) else (
-    call :print_error "monitor_WatchHamster.py 파일을 찾을 수 없습니다."
+    call :print_error "posco_main_notifier.py 파일을 찾을 수 없습니다."
     pause
     exit /b 1
 )
@@ -87,19 +87,19 @@ REM 시작 시간 기록
 echo %INFO%🕒 시작 시간: %date% %time%%RESET%
 echo.
 
-REM 워치햄스터 실행
-python monitor_WatchHamster.py
+REM 메인 알림 시스템 실행
+python posco_main_notifier.py
 
 REM 종료 처리
 echo.
 call :print_separator
-echo %WARNING%⚠️ 워치햄스터가 종료되었습니다.%RESET%
+echo %WARNING%⚠️ 메인 알림 시스템이 종료되었습니다.%RESET%
 echo %INFO%🕒 종료 시간: %date% %time%%RESET%
 echo.
 
 REM 재시작 옵션
 echo %YELLOW%다음 중 선택하세요:%RESET%
-echo %YELLOW%1.%RESET% %GREEN%🔄 워치햄스터 재시작%RESET%
+echo %YELLOW%1.%RESET% %GREEN%🔄 메인 알림 시스템 재시작%RESET%
 echo %YELLOW%2.%RESET% %CYAN%📋 로그 확인%RESET%
 echo %YELLOW%3.%RESET% %RED%❌ 종료%RESET%
 echo.
@@ -107,7 +107,7 @@ echo.
 set /p restart_choice=%GREEN%선택 (1-3): %RESET%
 
 if "%restart_choice%"=="1" (
-    call :print_info "워치햄스터를 재시작합니다..."
+    call :print_info "메인 알림 시스템을 재시작합니다..."
     timeout /t 3 /nobreak >nul
     goto restart_hamster
 ) else if "%restart_choice%"=="2" (
@@ -129,7 +129,7 @@ if "%restart_choice%"=="1" (
     )
     pause
 ) else (
-    call :print_info "워치햄스터를 종료합니다."
+    call :print_info "메인 알림 시스템을 종료합니다."
 )
 
 exit /b 0
@@ -144,5 +144,5 @@ goto start_monitoring
 echo %SUCCESS%🐹 POSCO 워치햄스터를 시작합니다...%RESET%
 echo %INFO%💡 중단하려면 Ctrl+C를 누르거나 창을 닫으세요.%RESET%
 echo.
-python monitor_WatchHamster.py
+python posco_main_notifier.py
 goto restart_option
