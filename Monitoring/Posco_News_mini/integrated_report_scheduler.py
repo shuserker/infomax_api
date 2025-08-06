@@ -31,9 +31,26 @@ try:
     from core import PoscoNewsAPIClient
     from config import API_CONFIG, DOORAY_WEBHOOK_URL, BOT_PROFILE_IMAGE_URL
     from reports.integrated_report_generator import IntegratedReportGenerator
-    from newyork_monitor import NewYorkMarketMonitor
-    from kospi_monitor import KospiCloseMonitor
-    from exchange_monitor import ExchangeRateMonitor
+    
+    # 개별 모니터들은 선택적으로 import (비활성화된 경우 None으로 설정)
+    try:
+        from newyork_monitor import NewYorkMarketMonitor
+    except ImportError:
+        NewYorkMarketMonitor = None
+        print("[INFO] NewYorkMarketMonitor 비활성화됨 - 통합 리포트 시스템 사용")
+    
+    try:
+        from kospi_monitor import KospiCloseMonitor
+    except ImportError:
+        KospiCloseMonitor = None
+        print("[INFO] KospiCloseMonitor 비활성화됨")
+    
+    try:
+        from exchange_monitor import ExchangeRateMonitor
+    except ImportError:
+        ExchangeRateMonitor = None
+        print("[INFO] ExchangeRateMonitor 비활성화됨")
+        
 except ImportError as e:
     print(f"[ERROR] 필수 모듈을 찾을 수 없습니다: {e}")
     sys.exit(1)
@@ -50,12 +67,26 @@ class IntegratedReportScheduler:
         self.api_client = PoscoNewsAPIClient(API_CONFIG)
         self.report_generator = IntegratedReportGenerator()
         
-        # 각 뉴스 모니터 초기화
-        self.monitors = {
-            'exchange-rate': ExchangeRateMonitor(),
-            'kospi-close': KospiCloseMonitor(),
-            'newyork-market-watch': NewYorkMarketMonitor()
-        }
+        # 각 뉴스 모니터 초기화 (활성화된 것만)
+        self.monitors = {}
+        
+        if ExchangeRateMonitor:
+            self.monitors['exchange-rate'] = ExchangeRateMonitor()
+            print("✅ ExchangeRateMonitor 초기화 완료")
+        else:
+            print("⚠️ ExchangeRateMonitor 비활성화됨")
+            
+        if KospiCloseMonitor:
+            self.monitors['kospi-close'] = KospiCloseMonitor()
+            print("✅ KospiCloseMonitor 초기화 완료")
+        else:
+            print("⚠️ KospiCloseMonitor 비활성화됨")
+            
+        if NewYorkMarketMonitor:
+            self.monitors['newyork-market-watch'] = NewYorkMarketMonitor()
+            print("✅ NewYorkMarketMonitor 초기화 완료")
+        else:
+            print("⚠️ NewYorkMarketMonitor 비활성화됨 - 통합 리포트 시스템 사용")
         
         self.last_report_info = None
         

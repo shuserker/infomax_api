@@ -103,36 +103,58 @@ function Start-WatchHamster {
     }
 
     # 이미 실행 중인지 확인
-    $processes = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*monitor_WatchHamster.py*" }
+    $processes = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { 
+        $_.ProcessName -eq "python" -and (
+            $_.CommandLine -like "*posco_main_notifier.py*" -or 
+            $_.CommandLine -like "*monitor_WatchHamster.py*"
+        )
+    }
     if ($processes) {
-        Show-Warning "🐹 POSCO 워치햄스터가 이미 실행 중입니다."
+        Show-Warning "🐹 POSCO 모니터링 시스템이 이미 실행 중입니다."
         Write-Host ""
         Read-Host "계속하려면 Enter를 누르세요"
         Show-MainMenu
         return
     }
 
-    # Python 스크립트 실행
-    if (Test-Path "Monitoring\Posco_News_mini\monitor_WatchHamster.py") {
+    # Python 스크립트 실행 - POSCO 메인 알림 시스템 우선
+    if (Test-Path "Monitoring\Posco_News_mini\posco_main_notifier.py") {
         Set-Location "Monitoring\Posco_News_mini"
-        Start-Process -FilePath "python" -ArgumentList "monitor_WatchHamster.py" -WindowStyle Hidden -RedirectStandardOutput "..\..\posco_monitor.log" -RedirectStandardError "..\..\posco_monitor.log"
+        Start-Process -FilePath "python" -ArgumentList "posco_main_notifier.py" -WindowStyle Hidden -RedirectStandardOutput "..\..\posco_monitor.log" -RedirectStandardError "..\..\posco_monitor.log"
         Set-Location $SCRIPT_DIR
         Start-Sleep -Seconds 3
         
         # 프로세스 확인
-        $newProcesses = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*monitor_WatchHamster.py*" }
+        $newProcesses = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*posco_main_notifier.py*" }
         if ($newProcesses) {
-            Show-Success "🐹 POSCO 워치햄스터가 성공적으로 시작되었습니다."
-            Show-Info "🛡️ 자동 복구 기능이 활성화되었습니다."
-            Show-Info "📊 프로세스 감시: 5분 간격"
-            Show-Info "🔄 Git 업데이트 체크: 60분 간격"
-            Show-Info "📋 정기 상태 알림: 2시간 간격"
-            Show-Info "🌙 조용한 모드: 18시 이후 문제 발생 시에만 알림"
+            Show-Success "🏭 POSCO 메인 알림 시스템이 성공적으로 시작되었습니다."
+            Show-Info "📊 5가지 BOT 타입 알림 활성화"
+            Show-Info "🔄 실시간 뉴스 모니터링: 30초 간격"
+            Show-Info "📋 스케줄 작업: 06:00, 06:10, 18:00, 18:10, 18:20"
+            Show-Info "🌙 24시간 자동 모니터링 활성화"
         } else {
-            Show-Error "워치햄스터 시작에 실패했습니다."
+            Show-Error "POSCO 메인 알림 시스템 시작에 실패했습니다."
+        }
+    } elseif (Test-Path "Monitoring\Posco_News_mini\posco_main_notifier.py") {
+        Set-Location "Monitoring\Posco_News_mini"
+        Start-Process -FilePath "python" -ArgumentList "posco_main_notifier.py" -WindowStyle Hidden -RedirectStandardOutput "..\..\posco_monitor.log" -RedirectStandardError "..\..\posco_monitor.log"
+        Set-Location $SCRIPT_DIR
+        Start-Sleep -Seconds 3
+        
+        # 프로세스 확인
+        $newProcesses = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*posco_main_notifier.py*" }
+        if ($newProcesses) {
+            Show-Success "🐹 POSCO 메인 알림 시스템이 성공적으로 시작되었습니다."
+            Show-Info "🛡️ 24시간 모니터링 모드 활성화"
+            Show-Info "📊 실시간 뉴스 체크: 1분 간격"
+            Show-Info "🔔 스케줄 알림: 아침 6시, 저녁 6시"
+            Show-Info "📈 5가지 BOT 타입 알림 제공"
+        } else {
+            Show-Error "메인 알림 시스템 시작에 실패했습니다."
         }
     } else {
-        Show-Error "monitor_WatchHamster.py 파일을 찾을 수 없습니다."
+        Show-Error "❌ monitor_WatchHamster.py 파일을 찾을 수 없습니다."
+        Show-Error "❌ posco_main_notifier.py 파일을 찾을 수 없습니다."
     }
 
     Write-Host ""
@@ -150,7 +172,12 @@ function Stop-WatchHamster {
         return
     }
 
-    $processes = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*monitor_WatchHamster.py*" }
+    $processes = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { 
+        $_.ProcessName -eq "python" -and (
+            $_.CommandLine -like "*posco_main_notifier.py*" -or 
+            $_.CommandLine -like "*monitor_WatchHamster.py*"
+        )
+    }
     
     if ($processes) {
         foreach ($process in $processes) {
@@ -158,9 +185,9 @@ function Stop-WatchHamster {
         }
         Start-Sleep -Seconds 2
         
-        Show-Success "🐹 POSCO 워치햄스터가 성공적으로 중지되었습니다."
+        Show-Success "🐹 POSCO 모니터링 시스템이 성공적으로 중지되었습니다."
     } else {
-        Show-Info "실행 중인 워치햄스터가 없습니다."
+        Show-Info "실행 중인 모니터링 시스템이 없습니다."
     }
 
     Write-Host ""
@@ -190,16 +217,22 @@ function Show-MonitoringStatus {
     
     Show-Section "⚙️ 프로세스 상태"
     
-    $processes = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*monitor_WatchHamster.py*" }
+    $processes = Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { 
+        $_.ProcessName -eq "python" -and (
+            $_.CommandLine -like "*posco_main_notifier.py*" -or 
+            $_.CommandLine -like "*monitor_WatchHamster.py*"
+        )
+    }
     if ($processes) {
-        Show-Success "🐹 POSCO 워치햄스터가 실행 중입니다."
+        Show-Success "🐹 POSCO 모니터링 시스템이 실행 중입니다."
         foreach ($process in $processes) {
             $startTime = $process.StartTime
             $runtime = (Get-Date) - $startTime
-            Write-Host "  • PID: $($process.Id), 실행시간: $($runtime.ToString('hh\:mm\:ss'))" -ForegroundColor $GRAY
+            $scriptName = if ($process.CommandLine -like "*posco_main_notifier.py*") { "메인 알림 시스템" } else { "워치햄스터" }
+            Write-Host "  • $scriptName - PID: $($process.Id), 실행시간: $($runtime.ToString('hh\:mm\:ss'))" -ForegroundColor $GRAY
         }
     } else {
-        Show-Warning "🐹 POSCO 워치햄스터가 실행되지 않았습니다."
+        Show-Warning "🐹 POSCO 모니터링 시스템이 실행되지 않았습니다."
     }
 
     Show-Section "📊 시스템 리소스"
@@ -339,7 +372,7 @@ function Show-SystemStatus {
     
     # 필수 파일 확인
     Show-Section "📁 필수 파일 확인"
-    $requiredFiles = @("Monitoring\Posco_News_mini\monitor_WatchHamster.py", "Monitoring\Posco_News_mini\config.py", "requirements.txt")
+    $requiredFiles = @("Monitoring\Posco_News_mini\posco_main_notifier.py", "Monitoring\Posco_News_mini\monitor_WatchHamster.py", "Monitoring\Posco_News_mini\config.py", "requirements.txt")
     Test-RequiredFiles $requiredFiles
     
     # 데이터 파일 확인
@@ -407,7 +440,15 @@ function Start-SystemTest {
     
     # Python 스크립트 테스트
     Show-Section "🐍 Python 스크립트 테스트"
-    if (Test-Path "Monitoring\Posco_News_mini\monitor_WatchHamster.py") {
+    if (Test-Path "Monitoring\Posco_News_mini\posco_main_notifier.py") {
+        try {
+            python -c "import sys; print('Python 스크립트 테스트 통과')" 2>$null
+            Show-Success "🐹 POSCO 메인 알림 시스템 테스트 통과"
+        }
+        catch {
+            Show-Error "🐹 POSCO 메인 알림 시스템 테스트 실패"
+        }
+    } elseif (Test-Path "Monitoring\Posco_News_mini\monitor_WatchHamster.py") {
         try {
             python -c "import sys; print('Python 스크립트 테스트 통과')" 2>$null
             Show-Success "🐹 POSCO 워치햄스터 테스트 통과"
@@ -416,7 +457,7 @@ function Start-SystemTest {
             Show-Error "🐹 POSCO 워치햄스터 테스트 실패"
         }
     } else {
-        Show-Warning "🐹 POSCO 워치햄스터 파일이 없습니다."
+        Show-Warning "🐹 POSCO 모니터링 시스템 파일이 없습니다."
     }
 
     Show-Success "시스템 테스트가 완료되었습니다."

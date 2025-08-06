@@ -37,9 +37,9 @@ main_menu() {
     start_box "${GREEN}"
     echo -e "${GREEN}║${RESET}                           ${CYAN}📊 모니터링 관리${RESET}                                    ${GREEN}║${RESET}"
     echo -e "${GREEN}╠═══════════════════════════════════════════════════════════════════════════════╣${RESET}"
-    print_menu_item "1." "🚀 워치햄스터 시작" "POSCO 뉴스 모니터링 시작"
-    print_menu_item "2." "🛑 워치햄스터 중지" "모니터링 프로세스 중지"
-    print_menu_item "3." "🔄 워치햄스터 재시작" "모니터링 시스템 재시작"
+    print_menu_item "1." "🚀 메인 알림 시스템 시작" "POSCO 뉴스 모니터링 시작"
+    print_menu_item "2." "🛑 메인 알림 시스템 중지" "모니터링 프로세스 중지"
+    print_menu_item "3." "🔄 메인 알림 시스템 재시작" "모니터링 시스템 재시작"
     print_menu_item "4." "📊 실시간 상태 확인" "현재 모니터링 상태 확인"
     end_box
 
@@ -97,7 +97,7 @@ main_menu() {
 # 워치햄스터 시작
 start_watchhamster() {
     clear
-    print_header "🚀 워치햄스터 시작"
+    print_header "🚀 메인 알림 시스템 시작"
     
     if ! confirm_action "POSCO 뉴스 모니터링을 시작하시겠습니까?"; then
         main_menu
@@ -105,42 +105,46 @@ start_watchhamster() {
     fi
 
     # 이미 실행 중인지 확인
-    if pgrep -f "posco_watchhamster_v2.py" >/dev/null; then
-        print_warning "🐹 POSCO 워치햄스터 v2.0이 이미 실행 중입니다."
+    if pgrep -f "posco_main_notifier.py" >/dev/null || pgrep -f "monitor_WatchHamster.py" >/dev/null; then
+        print_warning "🐹 POSCO 모니터링 시스템이 이미 실행 중입니다."
         echo
         read -p "계속하려면 Enter를 누르세요..."
         main_menu
         return
     fi
 
-    # Python 스크립트 실행
-    if [[ -f "Monitoring/Posco_News_mini/posco_watchhamster_v2.py" ]]; then
-        cd "Monitoring/Posco_News_mini"
-        nohup python3 posco_watchhamster_v2.py > ../../posco_monitor.log 2>&1 &
+    # Python 스크립트 실행 - POSCO 메인 알림 시스템 우선
+    if [[ -f "Monitoring/Posco_News_mini/posco_main_notifier.py" ]]; then
+        print_info "🚀 POSCO 메인 알림 시스템 시작 중..."
+        
+        # 절대 경로로 실행
+        nohup python3 "$SCRIPT_DIR/Monitoring/Posco_News_mini/posco_main_notifier.py" > "$SCRIPT_DIR/posco_monitor.log" 2>&1 &
         local pid=$!
-        cd "$SCRIPT_DIR"
-        sleep 3
+        sleep 5
         
         if kill -0 $pid 2>/dev/null; then
-            print_success "🐹 POSCO 워치햄스터 v2.0이 성공적으로 시작되었습니다. (PID: $pid)"
-            print_info "🛡️ 자동 복구 기능이 활성화되었습니다."
-            print_info "📊 프로세스 감시: 5분 간격"
-            print_info "🔄 Git 업데이트 체크: 60분 간격"
-            print_info "📋 정기 상태 알림: 2시간 간격"
-            print_info "📅 스케줄 작업: 06:00, 06:10, 18:00, 18:10, 18:20"
-            print_info "🌙 조용한 모드: 18시 이후 문제 발생 시에만 알림"
-            print_info "🚀 자동 복구 기능 활성화"
+            print_success "🏭 POSCO 메인 알림 시스템이 성공적으로 시작되었습니다. (PID: $pid)"
+            print_info "📊 5가지 BOT 타입 알림 활성화"
+            print_info "🔄 실시간 뉴스 모니터링: 30초 간격"
+            print_info "📋 스케줄 작업: 06:00, 06:10, 18:00, 18:10, 18:20"
+            print_info "🌙 24시간 자동 모니터링 활성화"
         else
-            print_error "워치햄스터 시작에 실패했습니다."
-            print_info "로그를 확인하세요: tail -f posco_monitor.log"
+            print_error "POSCO 메인 알림 시스템 시작에 실패했습니다."
+            print_info "로그를 확인하세요: tail -f $SCRIPT_DIR/posco_monitor.log"
+            
+            # 오류 로그 표시
+            if [[ -f "$SCRIPT_DIR/posco_monitor.log" ]]; then
+                print_info "최근 오류 로그:"
+                tail -5 "$SCRIPT_DIR/posco_monitor.log"
+            fi
         fi
     else
-        print_error "posco_watchhamster_v2.py 파일을 찾을 수 없습니다."
+        print_error "❌ posco_main_notifier.py 파일을 찾을 수 없습니다."
+        print_info "파일 경로: $SCRIPT_DIR/Monitoring/Posco_News_mini/posco_main_notifier.py"
     fi
 
     echo
     read -p "계속하려면 Enter를 누르세요..."
-    main_menu
 }
 
 # 워치햄스터 중지
@@ -153,7 +157,7 @@ stop_watchhamster() {
         return
     fi
 
-    local pids=$(pgrep -f "integrated_report_scheduler.py")
+    local pids=$(pgrep -f "posco_main_notifier.py"; pgrep -f "monitor_WatchHamster.py")
     
     if [[ -n "$pids" ]]; then
         for pid in $pids; do
@@ -162,16 +166,16 @@ stop_watchhamster() {
         sleep 2
         
         # 강제 종료
-        local remaining_pids=$(pgrep -f "posco_watchhamster_v2.py")
+        local remaining_pids=$(pgrep -f "posco_main_notifier.py"; pgrep -f "monitor_WatchHamster.py")
         if [[ -n "$remaining_pids" ]]; then
             for pid in $remaining_pids; do
                 kill -9 $pid 2>/dev/null
             done
         fi
         
-        print_success "워치햄스터가 성공적으로 중지되었습니다."
+        print_success "🐹 POSCO 모니터링 시스템이 성공적으로 중지되었습니다."
     else
-        print_info "실행 중인 워치햄스터가 없습니다."
+        print_info "실행 중인 모니터링 시스템이 없습니다."
     fi
 
     echo
@@ -201,16 +205,22 @@ check_monitoring_status() {
     
     print_section "⚙️ 프로세스 상태"
     
-    local pids=$(pgrep -f "integrated_report_scheduler.py")
+    local pids=$(pgrep -f "posco_main_notifier.py"; pgrep -f "monitor_WatchHamster.py")
     if [[ -n "$pids" ]]; then
-        print_success "워치햄스터가 실행 중입니다."
+        print_success "🐹 POSCO 모니터링 시스템이 실행 중입니다."
         for pid in $pids; do
             local cmd=$(ps -p $pid -o command= 2>/dev/null)
             local time=$(ps -p $pid -o etime= 2>/dev/null)
-            echo -e "  ${GRAY}•${RESET} PID: $pid, 실행시간: $time"
+            local script_name="알 수 없음"
+            if echo "$cmd" | grep -q "posco_main_notifier.py"; then
+                script_name="메인 알림 시스템"
+            elif echo "$cmd" | grep -q "monitor_WatchHamster.py"; then
+                script_name="워치햄스터"
+            fi
+            echo -e "  ${GRAY}•${RESET} $script_name - PID: $pid, 실행시간: $time"
         done
     else
-        print_warning "워치햄스터가 실행되지 않았습니다."
+        print_warning "🐹 POSCO 모니터링 시스템이 실행되지 않았습니다."
     fi
 
     print_section "📊 시스템 리소스"
@@ -339,7 +349,7 @@ check_system_status() {
     
     # 필수 파일 확인
     print_section "📁 필수 파일 확인"
-    local required_files=("Monitoring/Posco_News_mini/posco_watchhamster_v2.py" "Monitoring/Posco_News_mini/reports/integrated_report_generator.py" "requirements.txt")
+    local required_files=("Monitoring/Posco_News_mini/posco_main_notifier.py" "Monitoring/Posco_News_mini/monitor_WatchHamster.py" "Monitoring/Posco_News_mini/config.py" "requirements.txt")
     check_required_files "${required_files[@]}"
     
     # 데이터 파일 확인
@@ -396,14 +406,20 @@ test_system() {
     
     # Python 스크립트 테스트
     print_section "🐍 Python 스크립트 테스트"
-    if [[ -f "Monitoring/Posco_News_mini/posco_watchhamster_v2.py" ]]; then
+    if [[ -f "Monitoring/Posco_News_mini/posco_main_notifier.py" ]]; then
         if python3 -c "import sys; print('Python 스크립트 테스트 통과')" 2>/dev/null; then
-            print_success "🐹 POSCO 워치햄스터 v2.0 테스트 통과"
+            print_success "🐹 POSCO 메인 알림 시스템 테스트 통과"
         else
-            print_error "🐹 POSCO 워치햄스터 v2.0 테스트 실패"
+            print_error "🐹 POSCO 메인 알림 시스템 테스트 실패"
+        fi
+    elif [[ -f "Monitoring/Posco_News_mini/monitor_WatchHamster.py" ]]; then
+        if python3 -c "import sys; print('Python 스크립트 테스트 통과')" 2>/dev/null; then
+            print_success "🐹 POSCO 워치햄스터 테스트 통과"
+        else
+            print_error "🐹 POSCO 워치햄스터 테스트 실패"
         fi
     else
-        print_warning "🐹 POSCO 워치햄스터 v2.0 파일이 없습니다."
+        print_warning "🐹 POSCO 모니터링 시스템 파일이 없습니다."
     fi
 
     print_success "시스템 테스트가 완료되었습니다."

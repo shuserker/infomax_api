@@ -1,7 +1,142 @@
 {
-  "lastUpdate": "2025-08-05T02:22:47.258562+00:00",
-  "totalReports": 14,
+  "lastUpdate": "2025-08-06T04:09:16.020740+00:00",
+  "totalReports": 19,
   "reports": [
+    {
+      "id": "posco_integrated_analysis_20250806_130916",
+      "filename": "posco_integrated_analysis_20250806_130916.html",
+      "title": "POSCO 뉴스 통합 분석 리포트",
+      "type": "integrated",
+      "date": "2025-08-06",
+      "time": "13:09:16",
+      "size": 8109,
+      "summary": {
+        "newsCount": 3,
+        "completionRate": "3/3",
+        "marketSentiment": "긍정",
+        "keyInsights": [
+          "환율 안정",
+          "증시 상승",
+          "뉴욕 호조"
+        ]
+      },
+      "tags": [
+        "통합분석",
+        "일일리포트",
+        "종합"
+      ],
+      "url": "https://shuserker.github.io/infomax_api/reports/posco_integrated_analysis_20250806_130916.html",
+      "createdAt": "2025-08-06T13:09:16+00:00",
+      "checksum": "f7836903e0ccda71bfe5ffe0eb165542"
+    },
+    {
+      "id": "posco_integrated_analysis_20250806_090326",
+      "filename": "posco_integrated_analysis_20250806_090326.html",
+      "title": "POSCO 뉴스 통합 분석 리포트",
+      "type": "integrated",
+      "date": "2025-08-06",
+      "time": "09:03:26",
+      "size": 8109,
+      "summary": {
+        "newsCount": 3,
+        "completionRate": "3/3",
+        "marketSentiment": "긍정",
+        "keyInsights": [
+          "환율 안정",
+          "증시 상승",
+          "뉴욕 호조"
+        ]
+      },
+      "tags": [
+        "통합분석",
+        "일일리포트",
+        "종합"
+      ],
+      "url": "https://shuserker.github.io/infomax_api/reports/posco_integrated_analysis_20250806_090326.html",
+      "createdAt": "2025-08-06T09:03:26+00:00",
+      "checksum": "7bc2c0b79bc86c9bd0e1566974598860"
+    },
+    {
+      "id": "posco_integrated_analysis_20250806_090323",
+      "filename": "posco_integrated_analysis_20250806_090323.html",
+      "title": "POSCO 뉴스 통합 분석 리포트",
+      "type": "integrated",
+      "date": "2025-08-06",
+      "time": "09:03:23",
+      "size": 8109,
+      "summary": {
+        "newsCount": 3,
+        "completionRate": "3/3",
+        "marketSentiment": "긍정",
+        "keyInsights": [
+          "환율 안정",
+          "증시 상승",
+          "뉴욕 호조"
+        ]
+      },
+      "tags": [
+        "통합분석",
+        "일일리포트",
+        "종합"
+      ],
+      "url": "https://shuserker.github.io/infomax_api/reports/posco_integrated_analysis_20250806_090323.html",
+      "createdAt": "2025-08-06T09:03:23+00:00",
+      "checksum": "b8e829e6cdcf755b1864b6d310c002d1"
+    },
+    {
+      "id": "posco_integrated_analysis_20250806_090315",
+      "filename": "posco_integrated_analysis_20250806_090315.html",
+      "title": "POSCO 뉴스 통합 분석 리포트",
+      "type": "integrated",
+      "date": "2025-08-06",
+      "time": "09:03:15",
+      "size": 8109,
+      "summary": {
+        "newsCount": 3,
+        "completionRate": "3/3",
+        "marketSentiment": "긍정",
+        "keyInsights": [
+          "환율 안정",
+          "증시 상승",
+          "뉴욕 호조"
+        ]
+      },
+      "tags": [
+        "통합분석",
+        "일일리포트",
+        "종합"
+      ],
+      "url": "https://shuserker.github.io/infomax_api/reports/posco_integrated_analysis_20250806_090315.html",
+      "createdAt": "2025-08-06T09:03:15+00:00",
+      "checksum": "e7f98253ed1e773e86fdc57cf5dccd50"
+    },
+    {
+      "id": "posco_integrated_analysis_20250806_090231",
+      "filename": "posco_integrated_analysis_20250806_090231.html",
+      "title": "POSCO 뉴스 통합 분석 리포트",
+      "type": "integrated",
+      "date": "2025-08-06",
+      "time": "09:02:31",
+      "size": 8109,
+      "summary": {
+        "newsCount": 3,
+        "completionRate": "3/3",
+        "marketSentiment": "긍정",
+        "keyInsights": [
+          "환율 안정",
+          "증시 상승",
+          "뉴욕 호조"
+        ]
+      },
+      "tags": [
+        "통합분석",
+        "일일리포트",
+        "종합"
+      ],
+      "url": "https://shuserker.github.io/infomax_api/reports/posco_integrated_analysis_20250806_090231.html",
+      "createdAt": "2025-08-06T09:02:31+00:00",
+      "checksum": "da3e9a53bbf4ee0f43c4fe6cdd3de855"
+    },
     {
       "id": "posco_integrated_analysis_20250805_112247",
       "filename": "posco_integrated_analysis_20250805_112247.html",

@@ -52,10 +52,30 @@ try:
     except ImportError:
         ColorfulConsoleUI = None
     # 최적화된 모니터링 시스템 연결
-    from newyork_monitor import NewYorkMarketMonitor
-    from kospi_monitor import KospiCloseMonitor
-    from exchange_monitor import ExchangeRateMonitor
-    from master_news_monitor import MasterNewsMonitor
+    try:
+        from newyork_monitor import NewYorkMarketMonitor
+    except ImportError:
+        NewYorkMarketMonitor = None
+        print("[INFO] NewYorkMarketMonitor 비활성화됨 - 통합 리포트 시스템 사용")
+    
+    try:
+        from kospi_monitor import KospiCloseMonitor
+    except ImportError:
+        KospiCloseMonitor = None
+        print("[INFO] KospiCloseMonitor 비활성화됨")
+    
+    try:
+        from exchange_monitor import ExchangeRateMonitor
+    except ImportError:
+        ExchangeRateMonitor = None
+        print("[INFO] ExchangeRateMonitor 비활성화됨")
+    
+    try:
+        from master_news_monitor import MasterNewsMonitor
+    except ImportError:
+        MasterNewsMonitor = None
+        print("[INFO] MasterNewsMonitor 비활성화됨")
+        
 except ImportError as e:
     print(f"[ERROR] 필수 모듈을 찾을 수 없습니다: {e}")
     print("[INFO] 기본 기능으로 동작합니다.")
@@ -1715,8 +1735,11 @@ class PoscoMonitorWatchHamster:
     
     def run(self):
         """워치햄스터 🛡️ 메인 실행 루프"""
-        # 컬러풀한 시작 배너 출력
-        self.ui.print_startup_banner()
+        # 컬러풀한 시작 배너 출력 (UI가 있는 경우만)
+        if self.ui:
+            self.ui.print_startup_banner()
+        else:
+            print("🐹 POSCO 워치햄스터 시작")
         
         self.log("POSCO 뉴스 모니터 워치햄스터 시작")
         # 기존 워치햄스터 2.0 스타일의 간소한 시작 알림
@@ -1728,16 +1751,25 @@ class PoscoMonitorWatchHamster:
         )
         
         # ProcessManager를 통한 모니터 초기화
-        self.ui.print_info_message("모니터링 시스템 초기화 중...", "process")
+        if self.ui:
+            self.ui.print_info_message("모니터링 시스템 초기화 중...", "process")
+        else:
+            self.log("🔄 모니터링 시스템 초기화 중...")
         
         if self.process_manager.initialize_monitors():
-            self.ui.print_success_message("모니터링 시스템 초기화 성공")
-            
-            # 모니터 상태 표시
-            monitor_status = self.process_manager.get_all_monitor_status()
-            self.ui.print_monitor_status(monitor_status)
+            if self.ui:
+                self.ui.print_success_message("모니터링 시스템 초기화 성공")
+                
+                # 모니터 상태 표시
+                monitor_status = self.process_manager.get_all_monitor_status()
+                self.ui.print_monitor_status(monitor_status)
+            else:
+                self.log("✅ 모니터링 시스템 초기화 성공")
         else:
-            self.ui.print_warning_message("모니터링 시스템 부분 초기화", "일부 모니터 실패")
+            if self.ui:
+                self.ui.print_warning_message("모니터링 시스템 부분 초기화", "일부 모니터 실패")
+            else:
+                self.log("⚠️ 모니터링 시스템 부분 초기화 - 일부 모니터 실패")
         
         try:
             while True:

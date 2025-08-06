@@ -1,26 +1,2 @@
 /Users/jy_lee/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
   warnings.warn(
-error: Your local changes to the following files would be overwritten by checkout:
-	posco_control_center.ps1
-	posco_control_center.sh
-Please commit your changes or stash them before you switch branches.
-Aborting
-⚠️ 현재 데이터 불완전 (2/3) - 직전 영업일 데이터 조회
-📅 2025-08-05 데이터 조회 중...
-   완료율: 0/3
-📅 2025-08-04 데이터 조회 중...
-   완료율: 0/3
-📅 2025-08-01 데이터 조회 중...
-   완료율: 0/3
-📅 2025-08-01 데이터 조회 중...
-   완료율: 0/3
-📅 2025-08-01 데이터 조회 중...
-   완료율: 0/3
-📅 2025-07-31 데이터 조회 중...
-   완료율: 0/3
-⚠️ 완전한 데이터를 찾지 못했습니다. 현재 데이터를 사용합니다.
-✅ 통합 리포트 생성 완료: posco_integrated_analysis_20250805_092439.html
-⚠️ 메타데이터 업데이트 실패: attempted relative import with no known parent package
-❌ publish 브랜치로 전환 실패
-⚠️ GitHub 배포 실패, 기본 URL 사용: https://shuserker.github.io/infomax_api/reports/posco_integrated_analysis_20250805_092439.html
-테스트 완료: {'filename': 'posco_integrated_analysis_20250805_092439.html', 'local_path': 'reports/posco_integrated_analysis_20250805_092439.html', 'github_url': 'https://shuserker.github.io/infomax_api/reports/posco_integrated_analysis_20250805_092439.html', 'web_url': 'https://shuserker.github.io/infomax_api/reports/posco_integrated_analysis_20250805_092439.html', 'display_name': '통합 분석 리포트'}

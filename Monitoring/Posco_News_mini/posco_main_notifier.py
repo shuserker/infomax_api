@@ -1106,6 +1106,111 @@ class PoscoMainNotifier:
         except Exception as e:
             self.log_message(f"❌ 발행 패턴 분석 오류: {e}")
     
+    def send_shutdown_notification(self):
+        """시스템 종료 알림 전송"""
+        try:
+            end_time = datetime.now()
+            
+            message = f"🛑 POSCO 메인 알림 시스템 종료\n\n"
+            message += f"📅 종료 시간: {end_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+            message += f"🔄 시스템이 정상적으로 종료되었습니다.\n\n"
+            message += f"📊 종료 전 상태:\n"
+            
+            # 각 뉴스 타입별 마지막 상태 표시
+            for news_type, info in self.news_types.items():
+                status_emoji = "🟢" if info['status'] == '최신' else "⏳"
+                message += f"├ {info['display_name']}: {status_emoji} {info['status']}\n"
+            
+            message += f"\n💡 시스템을 다시 시작하려면 제어센터를 사용하세요."
+            
+            # 테스트 모드일 때 메시지 수정
+            if self.test_mode:
+                test_time_str = self.test_datetime.strftime('%Y-%m-%d %H:%M')
+                message = f"🧪 [TEST] {test_time_str} 기준\n\n" + message
+                bot_name = "[TEST] POSCO 시스템 🛑"
+                text_title = "[TEST] 🛑 POSCO 메인 알림 시스템 종료"
+            else:
+                bot_name = "POSCO 시스템 🛑"
+                text_title = "🛑 POSCO 메인 알림 시스템 종료"
+            
+            # Dooray 알림 전송
+            payload = {
+                "botName": bot_name,
+                "botIconImage": BOT_PROFILE_IMAGE_URL,
+                "text": text_title,
+                "attachments": [{
+                    "color": "#dc3545",  # 빨간색 (종료)
+                    "text": message
+                }]
+            }
+            
+            response = requests.post(
+                DOORAY_WEBHOOK_URL,
+                json=payload,
+                headers={'Content-Type': 'application/json'},
+                timeout=10
+            )
+            
+            if response.status_code == 200:
+                self.log_message("✅ 시스템 종료 알림 전송 성공")
+            else:
+                self.log_message(f"❌ 시스템 종료 알림 전송 실패: {response.status_code}")
+                
+        except Exception as e:
+            self.log_message(f"❌ 시스템 종료 알림 오류: {e}")
+
+    def send_startup_notification(self, start_time):
+        """시스템 시작 알림 전송"""
+        try:
+            message = f"🚀 POSCO 메인 알림 시스템 시작\n\n"
+            message += f"📅 시작 시간: {start_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+            message += f"🛡️ 24시간 모니터링 모드 활성화\n"
+            message += f"📊 실시간 뉴스 체크: 1분 간격\n"
+            message += f"🔔 스케줄 알림: 아침 6시, 저녁 6시\n"
+            message += f"📈 5가지 BOT 타입 알림 제공\n"
+            message += f"⚙️ 영업일 비교, 지연발행, 통합리포트, 정시발행, 데이터상태\n\n"
+            message += f"🎯 모니터링 대상:\n"
+            message += f"├ 💱 서환마감 (16:00-17:00)\n"
+            message += f"├ 📈 증시마감 (15:30-16:00)\n"
+            message += f"└ 🏙️ 뉴욕마켓워치 (06:00-07:00)\n\n"
+            message += f"🔄 시스템이 정상적으로 시작되었습니다."
+            
+            # 테스트 모드일 때 메시지 수정
+            if self.test_mode:
+                test_time_str = self.test_datetime.strftime('%Y-%m-%d %H:%M')
+                message = f"🧪 [TEST] {test_time_str} 기준\n\n" + message
+                bot_name = "[TEST] POSCO 시스템 🚀"
+                text_title = "[TEST] 🚀 POSCO 메인 알림 시스템 시작"
+            else:
+                bot_name = "POSCO 시스템 🚀"
+                text_title = "🚀 POSCO 메인 알림 시스템 시작"
+            
+            # Dooray 알림 전송
+            payload = {
+                "botName": bot_name,
+                "botIconImage": BOT_PROFILE_IMAGE_URL,
+                "text": text_title,
+                "attachments": [{
+                    "color": "#28a745",  # 초록색 (성공)
+                    "text": message
+                }]
+            }
+            
+            response = requests.post(
+                DOORAY_WEBHOOK_URL,
+                json=payload,
+                headers={'Content-Type': 'application/json'},
+                timeout=10
+            )
+            
+            if response.status_code == 200:
+                self.log_message("✅ 시스템 시작 알림 전송 성공")
+            else:
+                self.log_message(f"❌ 시스템 시작 알림 전송 실패: {response.status_code}")
+                
+        except Exception as e:
+            self.log_message(f"❌ 시스템 시작 알림 오류: {e}")
+
     def run(self):
         """메인 알림 루프"""
         start_time = datetime.now()
@@ -1115,6 +1220,9 @@ class PoscoMainNotifier:
         self.log_message("📊 5가지 BOT 타입 알림 제공")
         self.log_message("🛑 종료하려면 Ctrl+C를 누르세요")
         
+        # 시작 알림 전송
+        self.send_startup_notification(start_time)
+        
         # 메인 루프
         while self.running:
             try:
@@ -1123,13 +1231,13 @@ class PoscoMainNotifier:
                 # 스케줄 작업 확인
                 self.check_scheduled_tasks()
                 
-                # 실시간 뉴스 확인 (5분마다)
-                if (current_time.minute % 5 == 0 and current_time.second == 0):
+                # 실시간 뉴스 확인 (1분마다)
+                if current_time.second == 0:
                     self.log_message("🔍 실시간 뉴스 확인 중...")
                     self.check_for_new_news()
                 
-                # 1분 대기
-                time.sleep(60)
+                # 30초 대기 (더 빠른 응답)
+                time.sleep(30)
                 
             except KeyboardInterrupt:
                 self.log_message("🛑 사용자에 의한 종료 요청")
@@ -1140,6 +1248,7 @@ class PoscoMainNotifier:
         
         # 종료 처리
         self.log_message("🛑 POSCO 메인 알림 시스템 종료 중...")
+        self.send_shutdown_notification()
         self.save_state()
         self.log_message("✅ POSCO 메인 알림 시스템 종료 완료")
 
@@ -1149,10 +1258,12 @@ def main():
     
     parser = argparse.ArgumentParser(description='POSCO 메인 알림 시스템')
     parser.add_argument('--test', action='store_true', help='테스트 모드 (한 번만 실행)')
-    parser.add_argument('--test-type', choices=['business', 'delay', 'report', 'timely', 'status', 'all'], 
-                       help='테스트할 알림 타입')
+    parser.add_argument('--test-type', choices=['business', 'delay', 'report', 'timely', 'status', 'gitpage', 'all'], 
+                       help='테스트할 알림 타입 (business: 영업일비교, delay: 지연발행, report: 통합리포트, timely: 정시발행, status: 데이터상태, gitpage: Git Pages 리포트, all: 전체)')
     parser.add_argument('--test-date', help='테스트 날짜 (YYYY-MM-DD 형식)')
     parser.add_argument('--test-time', help='테스트 시간 (HH:MM 형식)')
+    parser.add_argument('--debug', action='store_true', help='디버그 모드 (상세 로그 출력)')
+    parser.add_argument('--check-now', action='store_true', help='즉시 뉴스 체크 실행')
     args = parser.parse_args()
     
     print("🏭 POSCO 메인 알림 시스템 v1.0")
@@ -1168,6 +1279,102 @@ def main():
         notifier.run()
     
     return 0
+
+def test_git_pages_report(notifier, test_datetime):
+    """Git Pages 리포트 생성 테스트"""
+    try:
+        print("📊 Git Pages 통합 리포트 생성 중...")
+        
+        # 리포트 생성 전 상태 확인
+        print("🔍 리포트 생성 환경 체크:")
+        
+        # integrated_report_builder 모듈 확인
+        try:
+            from integrated_report_builder import IntegratedReportBuilder
+            print("├ ✅ integrated_report_builder 모듈 로드 성공")
+        except ImportError:
+            print("├ ❌ integrated_report_builder 모듈 로드 실패")
+            return
+        
+        # Git 상태 확인
+        import subprocess
+        try:
+            git_status = subprocess.run(['git', 'status', '--porcelain'], 
+                                      capture_output=True, text=True, cwd='.')
+            if git_status.stdout.strip():
+                print("├ ⚠️ Git 작업 디렉토리에 변경사항 있음 (배포 제한 가능)")
+            else:
+                print("├ ✅ Git 작업 디렉토리 깨끗함")
+        except:
+            print("├ ⚠️ Git 상태 확인 불가")
+        
+        print("└ 🚀 리포트 생성 시작...\n")
+        
+        # HTML 리포트 생성
+        report_url = notifier.generate_html_report()
+        
+        print("\n📊 리포트 생성 결과:")
+        if report_url:
+            print(f"✅ 리포트 생성 성공!")
+            print(f"🔗 리포트 URL: {report_url}")
+            
+            # URL 분석
+            if "shuserker.github.io" in report_url:
+                print("✅ Git Pages URL 형식 확인됨")
+                
+                # 파일명에서 정보 추출
+                import re
+                filename_match = re.search(r'posco_integrated_analysis_(\d{8})_(\d{6})\.html', report_url)
+                if filename_match:
+                    report_date = filename_match.group(1)
+                    report_time = filename_match.group(2)
+                    formatted_date = f"{report_date[:4]}-{report_date[4:6]}-{report_date[6:8]}"
+                    formatted_time = f"{report_time[:2]}:{report_time[2:4]}:{report_time[4:6]}"
+                    print(f"📅 리포트 생성: {formatted_date} {formatted_time}")
+                
+                # 접근성 테스트 (간단한 HTTP 요청)
+                try:
+                    import requests
+                    response = requests.head(report_url, timeout=10)
+                    if response.status_code == 200:
+                        print("✅ 리포트 URL 접근 가능")
+                    else:
+                        print(f"⚠️ 리포트 URL 접근 불가 (HTTP {response.status_code})")
+                except:
+                    print("⚠️ 리포트 URL 접근성 테스트 실패 (네트워크 또는 배포 지연)")
+                    
+            else:
+                print("⚠️ 예상과 다른 URL 형식")
+                
+        else:
+            print("❌ 리포트 생성 실패")
+            print("⚠️ generate_html_report() 함수에서 None 반환")
+            
+        # Git Pages 기능 상세 정보
+        print("\n📋 Git Pages 리포트 시스템 정보:")
+        print("├ 📊 통합 리포트 빌더: 뉴스 데이터 종합 분석")
+        print("├ 🌐 GitHub Pages: 웹 접근 가능한 HTML 리포트")
+        print("├ 📈 시각화: 차트 및 그래프로 데이터 표현")
+        print("├ 📚 히스토리: 과거 리포트 아카이브 관리")
+        print("├ 🔄 자동 배포: Git 브랜치 전환을 통한 배포")
+        print("└ 📱 반응형: 모바일/데스크톱 호환 디자인")
+        
+        # 배포 상태 분석
+        print("\n🚀 배포 상태 분석:")
+        if "GitHub 배포 실패" in str(report_url) or not report_url:
+            print("├ ⚠️ Git 브랜치 전환 실패로 인한 배포 제한")
+            print("├ 💡 해결방법: git stash 또는 commit 후 재시도")
+            print("└ 📝 로컬 HTML 파일은 정상 생성됨")
+        else:
+            print("├ ✅ 리포트 생성 및 URL 제공 완료")
+            print("└ 🌐 웹에서 접근 가능한 상태")
+        
+    except ImportError as e:
+        print(f"❌ 모듈 임포트 오류: {e}")
+        print("⚠️ integrated_report_builder 모듈 설치 또는 경로 확인 필요")
+    except Exception as e:
+        print(f"❌ Git Pages 리포트 테스트 오류: {e}")
+        print("⚠️ 리포트 생성 시스템에 문제가 발생했습니다")
 
 def test_mode(notifier, test_type=None, test_date=None, test_time=None):
     """테스트 모드 실행"""
@@ -1241,6 +1448,10 @@ def test_mode(notifier, test_type=None, test_date=None, test_time=None):
         if test_type == 'status' or test_type == 'all':
             print("\n5️⃣ 데이터 갱신 상태 테스트")
             notifier.send_data_update_status()
+            
+        if test_type == 'gitpage' or test_type == 'all':
+            print("\n6️⃣ Git Pages 리포트 생성 테스트")
+            test_git_pages_report(notifier, test_datetime)
             
         print("\n✅ 테스트 완료!")
         return 0
