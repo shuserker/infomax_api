@@ -1,0 +1,30 @@
+[
+  {
+    "timestamp": "2025-08-08T11:17:25.186700",
+    "metric_type": "memory_usage",
+    "value": 77.3,
+    "level": "warning",
+    "message": "⚠️ 메모리 사용률 WARNING: 77.3%"
+  },
+  {
+    "timestamp": "2025-08-08T11:17:25.187327",
+    "metric_type": "process_count",
+    "value": 480,
+    "level": "critical",
+    "message": "🚨 프로세스 수 CRITICAL: 480"
+  },
+  {
+    "timestamp": "2025-08-08T11:20:14.278171",
+    "metric_type": "memory_usage",
+    "value": 77.4,
+    "level": "warning",
+    "message": "⚠️ 메모리 사용률 WARNING: 77.4%"
+  },
+  {
+    "timestamp": "2025-08-08T11:20:14.278901",
+    "metric_type": "process_count",
+    "value": 504,
+    "level": "critical",
+    "message": "🚨 프로세스 수 CRITICAL: 504"
+  }
+]

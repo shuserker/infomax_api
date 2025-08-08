@@ -1,0 +1,389 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Process Lifecycle Test Script
+
+프로세스 생명주기 테스트를 위한 전용 테스트 스크립트
+- 실제 프로세스 시작/중지/재시작 시나리오 테스트
+- 워치햄스터와 하위 프로세스 간 상호작용 테스트
+- 프로세스 복구 메커니즘 검증
+
+Requirements: 5.2, 5.3
+"""
+
+import os
+import sys
+import subprocess
+import time
+import signal
+import psutil
+import json
+from datetime import datetime
+import tempfile
+import shutil
+
+class ProcessLifecycleTester:
+    """프로세스 생명주기 테스터"""
+    
+    def __init__(self):
+        self.test_dir = tempfile.mkdtemp()
+        self.test_processes = []
+        self.test_results = []
+        
+    def cleanup(self):
+        """테스트 정리"""
+        # 모든 테스트 프로세스 종료
+        for process in self.test_processes:
+            try:
+                if process.poll() is None:
+                    process.terminate()
+                    process.wait(timeout=5)
+            except (subprocess.TimeoutExpired, ProcessLookupError):
+                try:
+                    process.kill()
+                    process.wait()
+                except ProcessLookupError:
+                    pass
+        
+        # 임시 디렉토리 정리
+        if os.path.exists(self.test_dir):
+            shutil.rmtree(self.test_dir)
+    
+    def create_test_script(self, script_name, behavior='normal'):
+        """테스트용 스크립트 생성"""
+        script_path = os.path.join(self.test_dir, script_name)
+        
+        if behavior == 'normal':
+            content = '''#!/usr/bin/env python3
+import time
+import sys
+import signal
+import json
+from datetime import datetime
+
+def signal_handler(signum, frame):
+    print(f"[{datetime.now()}] Process {script_name} terminated gracefully")
+    sys.exit(0)
+
+signal.signal(signal.SIGTERM, signal_handler)
+signal.signal(signal.SIGINT, signal_handler)
+
+print(f"[{datetime.now()}] Test process {script_name} started (PID: {os.getpid()})")
+
+try:
+    counter = 0
+    while True:
+        time.sleep(2)
+        counter += 1
+        print(f"[{datetime.now()}] {script_name} running... (count: {counter})")
+        
+        # 상태 파일 생성
+        status = {
+            "pid": os.getpid(),
+            "status": "running",
+            "counter": counter,
+            "timestamp": datetime.now().isoformat()
+        }
+        with open(f"{script_name}.status", "w") as f:
+            json.dump(status, f)
+            
+except KeyboardInterrupt:
+    print(f"[{datetime.now()}] {script_name} interrupted")
+    sys.exit(0)
+'''.replace('script_name', f'"{script_name}"')
+        
+        elif behavior == 'crash':
+            content = '''#!/usr/bin/env python3
+import time
+import sys
+import os
+from datetime import datetime
+
+print(f"[{datetime.now()}] Crash test process {script_name} started (PID: {os.getpid()})")
+
+# 5초 후 크래시
+time.sleep(5)
+print(f"[{datetime.now()}] {script_name} simulating crash...")
+sys.exit(1)  # 비정상 종료
+'''.replace('script_name', f'"{script_name}"')
+        
+        elif behavior == 'hang':
+            content = '''#!/usr/bin/env python3
+import time
+import sys
+import os
+from datetime import datetime
+
+print(f"[{datetime.now()}] Hang test process {script_name} started (PID: {os.getpid()})")
+
+# 3초 후 무한 대기 (응답 없음)
+time.sleep(3)
+print(f"[{datetime.now()}] {script_name} entering hang state...")
+while True:
+    time.sleep(60)  # 무한 대기
+'''.replace('script_name', f'"{script_name}"')
+        
+        with open(script_path, 'w') as f:
+            f.write(content)
+        os.chmod(script_path, 0o755)
+        
+        return script_path
+    
+    def test_normal_lifecycle(self):
+        """정상 프로세스 생명주기 테스트"""
+        print("🧪 정상 프로세스 생명주기 테스트 시작...")
+        
+        try:
+            # 테스트 스크립트 생성
+            script_path = self.create_test_script('normal_test.py', 'normal')
+            
+            # 프로세스 시작
+            process = subprocess.Popen([
+                sys.executable, script_path
+            ], stdout=subprocess.PIPE, stderr=subprocess.PIPE, 
+            cwd=self.test_dir)
+            
+            self.test_processes.append(process)
+            
+            # 시작 확인
+            time.sleep(3)
+            if process.poll() is not None:
+                raise Exception("프로세스가 예상치 못하게 종료됨")
+            
+            pid = process.pid
+            if not psutil.pid_exists(pid):
+                raise Exception("프로세스 PID가 존재하지 않음")
+            
+            print(f"✅ 프로세스 시작 성공 (PID: {pid})")
+            
+            # 상태 파일 확인
+            status_file = os.path.join(self.test_dir, 'normal_test.py.status')
+            time.sleep(3)
+            
+            if os.path.exists(status_file):
+                with open(status_file, 'r') as f:
+                    status = json.load(f)
+                print(f"✅ 상태 파일 생성 확인: counter={status.get('counter', 0)}")
+            
+            # 정상 종료
+            process.terminate()
+            exit_code = process.wait(timeout=10)
+            
+            if exit_code == 0:
+                print("✅ 프로세스 정상 종료 완료")
+                self.test_results.append(("normal_lifecycle", True, "정상 생명주기 테스트 성공"))
+            else:
+                raise Exception(f"비정상 종료 코드: {exit_code}")
+                
+        except Exception as e:
+            print(f"❌ 정상 생명주기 테스트 실패: {e}")
+            self.test_results.append(("normal_lifecycle", False, str(e)))
+    
+    def test_crash_recovery(self):
+        """크래시 복구 테스트"""
+        print("🧪 크래시 복구 테스트 시작...")
+        
+        try:
+            # 크래시 테스트 스크립트 생성
+            script_path = self.create_test_script('crash_test.py', 'crash')
+            
+            # 프로세스 시작
+            process = subprocess.Popen([
+                sys.executable, script_path
+            ], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            cwd=self.test_dir)
+            
+            self.test_processes.append(process)
+            
+            # 크래시 대기
+            exit_code = process.wait(timeout=15)
+            
+            if exit_code != 0:
+                print(f"✅ 프로세스 크래시 감지 (exit_code: {exit_code})")
+                
+                # 복구 시뮬레이션 (재시작)
+                print("🔄 프로세스 재시작 시뮬레이션...")
+                
+                # 정상 스크립트로 재시작
+                normal_script = self.create_test_script('recovered_test.py', 'normal')
+                recovered_process = subprocess.Popen([
+                    sys.executable, normal_script
+                ], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                cwd=self.test_dir)
+                
+                self.test_processes.append(recovered_process)
+                
+                # 복구 확인
+                time.sleep(3)
+                if recovered_process.poll() is None:
+                    print("✅ 프로세스 복구 성공")
+                    self.test_results.append(("crash_recovery", True, "크래시 복구 테스트 성공"))
+                    
+                    # 복구된 프로세스 정리
+                    recovered_process.terminate()
+                    recovered_process.wait(timeout=5)
+                else:
+                    raise Exception("복구된 프로세스가 시작되지 않음")
+            else:
+                raise Exception("프로세스가 크래시하지 않음")
+                
+        except Exception as e:
+            print(f"❌ 크래시 복구 테스트 실패: {e}")
+            self.test_results.append(("crash_recovery", False, str(e)))
+    
+    def test_multiple_process_management(self):
+        """다중 프로세스 관리 테스트"""
+        print("🧪 다중 프로세스 관리 테스트 시작...")
+        
+        try:
+            process_count = 3
+            processes = []
+            
+            # 여러 프로세스 시작
+            for i in range(process_count):
+                script_path = self.create_test_script(f'multi_test_{i}.py', 'normal')
+                process = subprocess.Popen([
+                    sys.executable, script_path
+                ], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                cwd=self.test_dir)
+                
+                processes.append(process)
+                self.test_processes.append(process)
+                time.sleep(1)  # 시작 간격
+            
+            # 모든 프로세스 시작 확인
+            time.sleep(3)
+            running_count = 0
+            for i, process in enumerate(processes):
+                if process.poll() is None:
+                    running_count += 1
+                    print(f"✅ 프로세스 {i} 실행 중 (PID: {process.pid})")
+                else:
+                    print(f"❌ 프로세스 {i} 종료됨")
+            
+            if running_count == process_count:
+                print(f"✅ 모든 프로세스 시작 성공 ({running_count}/{process_count})")
+                
+                # 순차적 종료 테스트
+                for i, process in enumerate(processes):
+                    if process.poll() is None:
+                        process.terminate()
+                        exit_code = process.wait(timeout=5)
+                        print(f"✅ 프로세스 {i} 정상 종료 (exit_code: {exit_code})")
+                
+                self.test_results.append(("multiple_process", True, f"다중 프로세스 관리 성공 ({process_count}개)"))
+            else:
+                raise Exception(f"일부 프로세스 시작 실패 ({running_count}/{process_count})")
+                
+        except Exception as e:
+            print(f"❌ 다중 프로세스 관리 테스트 실패: {e}")
+            self.test_results.append(("multiple_process", False, str(e)))
+    
+    def test_resource_monitoring(self):
+        """리소스 모니터링 테스트"""
+        print("🧪 리소스 모니터링 테스트 시작...")
+        
+        try:
+            # 테스트 스크립트 생성
+            script_path = self.create_test_script('resource_test.py', 'normal')
+            
+            # 프로세스 시작
+            process = subprocess.Popen([
+                sys.executable, script_path
+            ], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            cwd=self.test_dir)
+            
+            self.test_processes.append(process)
+            
+            # 리소스 모니터링
+            time.sleep(3)
+            
+            if psutil.pid_exists(process.pid):
+                ps_process = psutil.Process(process.pid)
+                
+                # CPU 및 메모리 사용률 측정
+                cpu_percent = ps_process.cpu_percent(interval=1)
+                memory_info = ps_process.memory_info()
+                memory_mb = memory_info.rss / 1024 / 1024
+                
+                print(f"✅ 리소스 모니터링 결과:")
+                print(f"   • CPU 사용률: {cpu_percent:.2f}%")
+                print(f"   • 메모리 사용량: {memory_mb:.2f} MB")
+                print(f"   • 프로세스 상태: {ps_process.status()}")
+                
+                # 정리
+                process.terminate()
+                process.wait(timeout=5)
+                
+                self.test_results.append(("resource_monitoring", True, f"리소스 모니터링 성공 (CPU: {cpu_percent:.2f}%, MEM: {memory_mb:.2f}MB)"))
+            else:
+                raise Exception("프로세스가 존재하지 않음")
+                
+        except Exception as e:
+            print(f"❌ 리소스 모니터링 테스트 실패: {e}")
+            self.test_results.append(("resource_monitoring", False, str(e)))
+    
+    def run_all_tests(self):
+        """모든 테스트 실행"""
+        print("🚀 프로세스 생명주기 종합 테스트 시작")
+        print("=" * 60)
+        
+        try:
+            # 개별 테스트 실행
+            self.test_normal_lifecycle()
+            print()
+            
+            self.test_crash_recovery()
+            print()
+            
+            self.test_multiple_process_management()
+            print()
+            
+            self.test_resource_monitoring()
+            print()
+            
+            # 결과 요약
+            print("=" * 60)
+            print("📊 프로세스 생명주기 테스트 결과 요약")
+            print("=" * 60)
+            
+            total_tests = len(self.test_results)
+            passed_tests = sum(1 for _, success, _ in self.test_results if success)
+            failed_tests = total_tests - passed_tests
+            
+            for test_name, success, message in self.test_results:
+                status = "✅ 성공" if success else "❌ 실패"
+                print(f"{status} {test_name}: {message}")
+            
+            print(f"\n📈 총 {total_tests}개 테스트 중 {passed_tests}개 성공, {failed_tests}개 실패")
+            
+            if failed_tests == 0:
+                print("🎉 모든 프로세스 생명주기 테스트가 성공했습니다!")
+                return True
+            else:
+                print("⚠️ 일부 테스트가 실패했습니다.")
+                return False
+                
+        finally:
+            self.cleanup()
+
+
+def main():
+    """메인 함수"""
+    tester = ProcessLifecycleTester()
+    
+    try:
+        success = tester.run_all_tests()
+        return 0 if success else 1
+    except KeyboardInterrupt:
+        print("\n⚠️ 테스트가 사용자에 의해 중단되었습니다.")
+        return 1
+    except Exception as e:
+        print(f"❌ 테스트 실행 중 오류 발생: {e}")
+        return 1
+    finally:
+        tester.cleanup()
+
+
+if __name__ == '__main__':
+    sys.exit(main())

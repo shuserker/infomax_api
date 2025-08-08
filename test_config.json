@@ -1,0 +1,112 @@
+{
+  "end_to_end_test_config": {
+    "system_requirements": {
+      "min_python_version": "3.7",
+      "min_memory_gb": 1,
+      "min_disk_gb": 1,
+      "required_modules": ["psutil", "unittest", "subprocess", "threading"]
+    },
+    "test_categories": {
+      "system_test": {
+        "name": "전체 시스템 테스트",
+        "description": "시스템 시작/종료 및 기본 기능 테스트",
+        "timeout": 180,
+        "critical": true,
+        "tests": [
+          "test_full_system_startup_shutdown",
+          "test_system_restart_scenario"
+        ]
+      },
+      "stress_test": {
+        "name": "스트레스 테스트",
+        "description": "다중 프로세스 및 고부하 상황 테스트",
+        "timeout": 300,
+        "critical": true,
+        "tests": [
+          "test_concurrent_process_management",
+          "test_high_load_stability"
+        ]
+      },
+      "failure_simulation": {
+        "name": "실패 시뮬레이션 테스트",
+        "description": "다양한 오류 조건 및 복구 메커니즘 테스트",
+        "timeout": 240,
+        "critical": true,
+        "tests": [
+          "test_immediate_crash_handling",
+          "test_delayed_failure_detection",
+          "test_resource_exhaustion_handling"
+        ]
+      },
+      "continuous_integration": {
+        "name": "연속 통합 테스트",
+        "description": "지속적인 검증을 위한 통합 테스트 스위트",
+        "timeout": 360,
+        "critical": false,
+        "tests": [
+          "test_continuous_integration_suite"
+        ]
+      }
+    },
+    "performance_thresholds": {
+      "max_startup_time": 30,
+      "max_shutdown_time": 15,
+      "max_cpu_usage_percent": 80,
+      "max_memory_usage_percent": 70,
+      "min_success_rate_percent": 80
+    },
+    "stress_test_parameters": {
+      "concurrent_processes": 5,
+      "load_test_duration": 30,
+      "stability_check_interval": 5,
+      "stability_check_rounds": 6,
+      "high_load_processes": {
+        "cpu_intensive": 3,
+        "memory_intensive": 2,
+        "io_intensive": 2
+      }
+    },
+    "failure_simulation_scenarios": {
+      "immediate_crash": {
+        "description": "프로세스 즉시 크래시",
+        "expected_behavior": "자동 복구 시도"
+      },
+      "delayed_crash": {
+        "description": "지연된 프로세스 크래시",
+        "delay_seconds": 5,
+        "expected_behavior": "실패 감지 및 복구"
+      },
+      "memory_leak": {
+        "description": "메모리 누수 시뮬레이션",
+        "leak_rate_mb_per_second": 10,
+        "max_memory_mb": 100,
+        "expected_behavior": "리소스 모니터링 및 제한"
+      },
+      "infinite_loop": {
+        "description": "무한 루프 (CPU 집약적)",
+        "expected_behavior": "CPU 사용률 모니터링"
+      }
+    },
+    "reporting": {
+      "generate_json_report": true,
+      "generate_markdown_report": true,
+      "include_system_info": true,
+      "include_performance_metrics": true,
+      "save_detailed_logs": false
+    }
+  },
+  "test_environment": {
+    "test_mode": true,
+    "mock_external_services": true,
+    "use_temporary_directories": true,
+    "cleanup_after_tests": true,
+    "verbose_logging": true
+  },
+  "integration_settings": {
+    "webhook_url": "https://test.webhook.url",
+    "bot_profile_image": "https://test.image.url",
+    "api_timeout": 30,
+    "retry_attempts": 3,
+    "retry_delay": 5
+  }
+}

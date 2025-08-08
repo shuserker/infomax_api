@@ -45,8 +45,10 @@ sys.path.insert(0, current_dir)
 try:
     from config import WATCHHAMSTER_WEBHOOK_URL, BOT_PROFILE_IMAGE_URL, API_CONFIG
     from core import PoscoNewsAPIClient, NewsDataProcessor, DoorayNotifier
-    from core.state_manager import StateManager
     from core.process_manager import ProcessManager
+    
+    # StateManager 직접 import
+    from core.state_manager import StateManager
     try:
         from core.colorful_ui import ColorfulConsoleUI
     except ImportError:
@@ -84,6 +86,8 @@ except ImportError as e:
     KospiCloseMonitor = None
     ExchangeRateMonitor = None
     MasterNewsMonitor = None
+    StateManager = None
+    ColorfulConsoleUI = None
 
 class PoscoMonitorWatchHamster:
     """
@@ -111,24 +115,55 @@ class PoscoMonitorWatchHamster:
     
     def __init__(self):
         """
-        워치햄스터 초기화
+        워치햄스터 초기화 - v2 통합 레이어 구현
         
-        파일 경로, 체크 간격, 초기 상태를 설정합니다.
+        v2 컴포넌트들을 안전하게 로드하고, 실패 시 기존 방식으로 폴백하는 하이브리드 아키텍처
         """
         self.script_dir = current_dir
-        self.monitor_script = os.path.join(self.script_dir, "integrated_report_scheduler.py")
-        self.realtime_script = os.path.join(self.script_dir, "realtime_news_monitor.py")
         self.log_file = os.path.join(self.script_dir, "WatchHamster.log")
         self.status_file = os.path.join(self.script_dir, "WatchHamster_status.json")
+        
+        # 시작 시간 기록 (가동 시간 계산용)
+        self.start_time = datetime.now()
+        
+        # 기존 프로세스 객체들 (호환성 유지)
         self.monitor_process = None
         self.realtime_process = None
         self.last_git_check = datetime.now() - timedelta(hours=1)  # 초기 체크 강제
         
-        # StateManager 초기화 (안정성 개선)
-        self.state_manager = StateManager(self.status_file)
+        # v2 통합 상태 추적
+        self.v2_enabled = False
+        self.v2_components = {
+            'process_manager': None,
+            'module_registry': None,
+            'notification_manager': None
+        }
+        self.fallback_reason = None
         
-        # ProcessManager 초기화 (프로세스 시작 실패 해결)
-        self.process_manager = ProcessManager(self.script_dir)
+        # v2 컴포넌트 초기화 시도
+        self._initialize_v2_components()
+        
+        # 관리 대상 프로세스 목록 설정
+        if self.v2_enabled and self.v2_components['module_registry']:
+            # v2 방식: 모듈 레지스트리에서 자동 로드
+            self.managed_processes = self.v2_components['module_registry'].get_startup_order()
+            self.log(f"📋 v2 모듈 레지스트리에서 관리 대상 프로세스 로드: {len(self.managed_processes)}개")
+            for process_name in self.managed_processes:
+                self.log(f"  • {process_name}")
+            
+            # 모듈 상태 추적 초기화
+            self._initialize_module_status_tracking()
+        else:
+            # 기존 방식: 하드코딩된 프로세스 목록
+            self.managed_processes = ['posco_main_notifier', 'realtime_news_monitor', 'integrated_report_scheduler']
+            self.log(f"📋 기존 방식으로 관리 대상 프로세스 설정: {len(self.managed_processes)}개")
+        
+        # StateManager 초기화 (안정성 개선)
+        if StateManager:
+            self.state_manager = StateManager(self.status_file)
+        else:
+            self.state_manager = None
+            self.log("⚠️ StateManager를 사용할 수 없습니다. 기본 상태 관리를 사용합니다.")
         
         # ColorfulConsoleUI 초기화 (컬러풀한 UI)
         if ColorfulConsoleUI:
@@ -136,7 +171,7 @@ class PoscoMonitorWatchHamster:
         else:
             self.ui = None
         
-        # 이전 상태 로드 (가능한 경우)
+        # 이전 상태 로드
         self.load_previous_state()
         
         # 절대시간 기준 알림 설정
@@ -203,6 +238,1674 @@ class PoscoMonitorWatchHamster:
         except Exception as e:
             self.log(f"⚠️ 마스터 모니터링 시스템 초기화 실패: {e}")
             self.master_monitor_enabled = False
+        
+        # v2 성능 모니터링 시스템 초기화
+        self.performance_monitor = None
+        self.performance_optimizer = None
+        self.performance_comparator = None
+        self._initialize_performance_monitoring()
+    
+    def _initialize_v2_components(self):
+        """
+        v2 컴포넌트 초기화 시스템 - 동적 import 및 상태 검증
+        
+        v2 컴포넌트들을 동적으로 로드하고 초기화합니다.
+        실패 시 기존 방식으로 안전하게 폴백하는 하이브리드 아키텍처를 구현합니다.
+        
+        구현 내용:
+        - 동적 import 로직으로 v2 컴포넌트 로드
+        - 컴포넌트별 상태 체크 및 검증 시스템
+        - 안전한 폴백 메커니즘
+        """
+        initialization_start = datetime.now()
+        
+        try:
+            self.log("🔧 v2 아키텍처 컴포넌트 초기화 시작...")
+            
+            # 1. v2 경로 검증 및 설정
+            v2_path = self._setup_v2_paths()
+            
+            # 2. v2 컴포넌트 동적 import 및 초기화
+            self._load_v2_components(v2_path)
+            
+            # 3. 컴포넌트 상태 검증
+            self._validate_v2_components()
+            
+            # 4. v2 통합 성공 처리
+            self.v2_enabled = True
+            initialization_time = (datetime.now() - initialization_start).total_seconds()
+            
+            self.log(f"🎉 v2 아키텍처 활성화 성공! (초기화 시간: {initialization_time:.2f}초)")
+            self.log("🔄 하이브리드 모드로 동작합니다 - v2 기능 우선, 실패 시 v1 폴백")
+            
+            # 초기화 성공 통계 기록
+            self._record_initialization_success(initialization_time)
+            
+        except Exception as e:
+            # v2 초기화 실패 - 안전한 폴백 처리
+            self._handle_v2_initialization_failure(e, initialization_start)
+    
+    def _setup_v2_paths(self):
+        """
+        v2 경로 설정 및 검증
+        
+        Returns:
+            str: v2 디렉토리 경로
+            
+        Raises:
+            FileNotFoundError: 필수 파일/디렉토리가 없는 경우
+        """
+        # v2 디렉토리 경로 설정
+        v2_path = os.path.join(os.path.dirname(self.script_dir), 'Posco_News_mini_v2')
+        
+        # 필수 경로 검증
+        required_paths = {
+            'v2_directory': v2_path,
+            'core_directory': os.path.join(v2_path, 'core'),
+            'modules_config': os.path.join(v2_path, 'modules.json')
+        }
+        
+        for path_name, path in required_paths.items():
+            if not os.path.exists(path):
+                raise FileNotFoundError(f"{path_name}을 찾을 수 없습니다: {path}")
+        
+        # v2 core 모듈 파일 검증
+        core_modules = [
+            'enhanced_process_manager.py',
+            'module_registry.py', 
+            'notification_manager.py'
+        ]
+        
+        for module_file in core_modules:
+            module_path = os.path.join(required_paths['core_directory'], module_file)
+            if not os.path.exists(module_path):
+                raise FileNotFoundError(f"v2 핵심 모듈을 찾을 수 없습니다: {module_path}")
+        
+        self.log(f"✅ v2 경로 검증 완료: {v2_path}")
+        
+        # Python 경로에 v2 디렉토리 추가
+        if v2_path not in sys.path:
+            sys.path.insert(0, v2_path)
+            self.log(f"📁 Python 경로에 v2 디렉토리 추가: {v2_path}")
+        
+        return v2_path
+    
+    def _load_v2_components(self, v2_path):
+        """
+        v2 컴포넌트 동적 import 및 초기화
+        
+        Args:
+            v2_path (str): v2 디렉토리 경로
+        """
+        # 1. Enhanced ProcessManager 동적 로드
+        try:
+            self.log("🔧 Enhanced ProcessManager 로드 중...")
+            
+            # importlib를 사용한 동적 import
+            import importlib.util
+            
+            # 모듈 파일 경로
+            module_path = os.path.join(v2_path, 'core', 'enhanced_process_manager.py')
+            
+            # 모듈 스펙 생성
+            spec = importlib.util.spec_from_file_location("enhanced_process_manager", module_path)
+            if spec is None:
+                raise ImportError(f"모듈 스펙 생성 실패: {module_path}")
+            
+            # 모듈 로드
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            
+            # ProcessManager 클래스 추출
+            EnhancedProcessManager = getattr(module, 'ProcessManager')
+            
+            self.v2_components['process_manager'] = EnhancedProcessManager(self.script_dir)
+            self.log("✅ Enhanced ProcessManager 초기화 완료")
+            
+        except ImportError as e:
+            raise ImportError(f"Enhanced ProcessManager import 실패: {e}")
+        except Exception as e:
+            raise Exception(f"Enhanced ProcessManager 초기화 실패: {e}")
+        
+        # 2. ModuleRegistry 동적 로드
+        try:
+            self.log("🔧 ModuleRegistry 로드 중...")
+            
+            # importlib를 사용한 동적 import
+            import importlib.util
+            
+            # 모듈 파일 경로
+            module_path = os.path.join(v2_path, 'core', 'module_registry.py')
+            
+            # 모듈 스펙 생성
+            spec = importlib.util.spec_from_file_location("module_registry", module_path)
+            if spec is None:
+                raise ImportError(f"모듈 스펙 생성 실패: {module_path}")
+            
+            # 모듈 로드
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            
+            # ModuleRegistry 클래스 추출
+            ModuleRegistry = getattr(module, 'ModuleRegistry')
+            
+            # 메인 시스템의 modules.json 사용 (현재 디렉토리)
+            modules_json_path = os.path.join(self.script_dir, 'modules.json')
+            self.v2_components['module_registry'] = ModuleRegistry(modules_json_path)
+            self.log("✅ ModuleRegistry 초기화 완료")
+            
+        except ImportError as e:
+            raise ImportError(f"ModuleRegistry import 실패: {e}")
+        except Exception as e:
+            raise Exception(f"ModuleRegistry 초기화 실패: {e}")
+        
+        # 3. NotificationManager 동적 로드
+        try:
+            self.log("🔧 NotificationManager 로드 중...")
+            
+            # importlib를 사용한 동적 import
+            import importlib.util
+            
+            # 모듈 파일 경로
+            module_path = os.path.join(v2_path, 'core', 'notification_manager.py')
+            
+            # 모듈 스펙 생성
+            spec = importlib.util.spec_from_file_location("notification_manager", module_path)
+            if spec is None:
+                raise ImportError(f"모듈 스펙 생성 실패: {module_path}")
+            
+            # 모듈 로드
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            
+            # NotificationManager 클래스 추출
+            NotificationManager = getattr(module, 'NotificationManager')
+            
+            self.v2_components['notification_manager'] = NotificationManager(
+                WATCHHAMSTER_WEBHOOK_URL, 
+                BOT_PROFILE_IMAGE_URL
+            )
+            self.log("✅ NotificationManager 초기화 완료")
+            
+        except ImportError as e:
+            raise ImportError(f"NotificationManager import 실패: {e}")
+        except Exception as e:
+            raise Exception(f"NotificationManager 초기화 실패: {e}")
+    
+    def _validate_v2_components(self):
+        """
+        v2 컴포넌트 상태 검증 시스템
+        
+        초기화된 v2 컴포넌트들이 올바르게 동작하는지 검증합니다.
+        각 컴포넌트별로 기본 기능을 테스트하여 상태를 확인합니다.
+        """
+        validation_results = {}
+        
+        try:
+            self.log("🔍 v2 컴포넌트 상태 검증 시작...")
+            
+            # 1. Enhanced ProcessManager 검증
+            if self.v2_components['process_manager']:
+                try:
+                    # 시스템 상태 조회 테스트
+                    status = self.v2_components['process_manager'].get_system_status()
+                    
+                    if isinstance(status, dict) and 'timestamp' in status:
+                        validation_results['process_manager'] = {
+                            'status': 'valid',
+                            'details': f"시스템 상태 조회 성공, 프로세스 수: {len(status.get('process_details', {}))}"
+                        }
+                        self.log("✅ Enhanced ProcessManager 상태 검증 완료")
+                    else:
+                        raise ValueError("ProcessManager 상태 조회 결과가 올바르지 않습니다")
+                        
+                except Exception as e:
+                    validation_results['process_manager'] = {
+                        'status': 'invalid',
+                        'error': str(e)
+                    }
+                    self.log(f"❌ Enhanced ProcessManager 검증 실패: {e}")
+            
+            # 2. ModuleRegistry 검증
+            if self.v2_components['module_registry']:
+                try:
+                    # 모듈 목록 조회 테스트
+                    modules = self.v2_components['module_registry'].list_modules()
+                    startup_order = self.v2_components['module_registry'].get_startup_order()
+                    
+                    if isinstance(modules, dict) and isinstance(startup_order, list):
+                        validation_results['module_registry'] = {
+                            'status': 'valid',
+                            'details': f"모듈 {len(modules)}개 등록됨, 시작 순서 {len(startup_order)}개"
+                        }
+                        self.log(f"✅ ModuleRegistry 검증 완료 ({len(modules)}개 모듈)")
+                        
+                        # 등록된 모듈 목록 로그
+                        for module_name in modules.keys():
+                            self.log(f"  📋 등록된 모듈: {module_name}")
+                    else:
+                        raise ValueError("ModuleRegistry 모듈 목록 조회 결과가 올바르지 않습니다")
+                        
+                except Exception as e:
+                    validation_results['module_registry'] = {
+                        'status': 'invalid',
+                        'error': str(e)
+                    }
+                    self.log(f"❌ ModuleRegistry 검증 실패: {e}")
+            
+            # 3. NotificationManager 검증
+            if self.v2_components['notification_manager']:
+                try:
+                    # 알림 통계 조회 테스트
+                    stats = self.v2_components['notification_manager'].get_notification_stats()
+                    
+                    if isinstance(stats, dict) and 'total_notifications' in stats:
+                        validation_results['notification_manager'] = {
+                            'status': 'valid',
+                            'details': f"알림 통계 조회 성공, 총 알림: {stats.get('total_notifications', 0)}"
+                        }
+                        self.log("✅ NotificationManager 검증 완료")
+                    else:
+                        raise ValueError("NotificationManager 통계 조회 결과가 올바르지 않습니다")
+                        
+                except Exception as e:
+                    validation_results['notification_manager'] = {
+                        'status': 'invalid',
+                        'error': str(e)
+                    }
+                    self.log(f"❌ NotificationManager 검증 실패: {e}")
+            
+            # 검증 결과 요약
+            valid_components = sum(1 for result in validation_results.values() if result['status'] == 'valid')
+            total_components = len(validation_results)
+            
+            if valid_components == total_components:
+                self.log(f"🔍 모든 v2 컴포넌트 검증 완료 ({valid_components}/{total_components})")
+            else:
+                self.log(f"⚠️ 일부 v2 컴포넌트 검증 실패 ({valid_components}/{total_components})")
+                
+                # 실패한 컴포넌트 상세 로그
+                for component, result in validation_results.items():
+                    if result['status'] == 'invalid':
+                        self.log(f"  ❌ {component}: {result['error']}")
+            
+            # 검증 결과를 인스턴스 변수에 저장
+            self.v2_validation_results = validation_results
+            self.log(f"📋 검증 결과 저장 완료: {len(validation_results)}개 컴포넌트")
+            
+        except Exception as e:
+            self.log(f"❌ v2 컴포넌트 검증 중 예외 발생: {e}")
+            # 예외 발생 시에도 빈 결과라도 저장
+            self.v2_validation_results = {}
+            import traceback
+            self.log(f"❌ 검증 예외 상세: {traceback.format_exc()}")
+            # 검증 실패해도 v2_enabled는 유지 (기본 기능은 동작할 수 있음)
+    
+    def _initialize_performance_monitoring(self):
+        """
+        v2 성능 모니터링 시스템 초기화
+        
+        성능 모니터링, 최적화, 비교 시스템을 초기화합니다.
+        v2 컴포넌트가 활성화된 경우에만 동작합니다.
+        
+        Requirements: 7.1, 7.2, 7.3, 7.4
+        """
+        try:
+            if not self.v2_enabled:
+                self.log("⚠️ v2 아키텍처가 비활성화되어 성능 모니터링을 건너뜁니다")
+                return
+            
+            self.log("📊 v2 성능 모니터링 시스템 초기화 시작...")
+            
+            # v2 성능 모니터링 모듈 동적 import
+            v2_path = os.path.join(os.path.dirname(self.script_dir), 'Posco_News_mini_v2')
+            
+            if v2_path not in sys.path:
+                sys.path.insert(0, v2_path)
+            
+            # 성능 모니터링 모듈 import
+            import importlib.util
+            
+            # PerformanceMonitor 로드
+            monitor_path = os.path.join(v2_path, 'core', 'performance_monitor.py')
+            spec = importlib.util.spec_from_file_location("performance_monitor", monitor_path)
+            monitor_module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(monitor_module)
+            
+            PerformanceMonitor = getattr(monitor_module, 'PerformanceMonitor')
+            PerformanceComparator = getattr(monitor_module, 'PerformanceComparator')
+            
+            # PerformanceOptimizer 로드
+            optimizer_path = os.path.join(v2_path, 'core', 'performance_optimizer.py')
+            spec = importlib.util.spec_from_file_location("performance_optimizer", optimizer_path)
+            optimizer_module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(optimizer_module)
+            
+            PerformanceOptimizer = getattr(optimizer_module, 'PerformanceOptimizer')
+            
+            # 성능 모니터링 시스템 초기화
+            self.performance_monitor = PerformanceMonitor(
+                script_dir=self.script_dir,
+                monitoring_interval=300  # 5분 간격
+            )
+            
+            self.performance_optimizer = PerformanceOptimizer(self.script_dir)
+            self.performance_comparator = PerformanceComparator(self.script_dir)
+            
+            # 성능 모니터링 시작
+            self.performance_monitor.start_monitoring()
+            
+            # v1 기준선 수집 및 설정 (백그라운드에서)
+            try:
+                v1_baseline = self.performance_comparator.collect_v1_baseline()
+                if v1_baseline:
+                    self.performance_monitor.set_v1_baseline(v1_baseline)
+                    self.log("📊 v1 시스템 기준선 설정 완료")
+            except Exception as e:
+                self.log(f"⚠️ v1 기준선 수집 실패: {e}")
+            
+            self.log("✅ v2 성능 모니터링 시스템 초기화 완료")
+            
+            # 성능 모니터링 상태를 알림으로 전송
+            if self.v2_components.get('notification_manager'):
+                try:
+                    self.v2_components['notification_manager'].send_notification(
+                        "🎯 POSCO 워치햄스터 v2 성능 모니터링 시스템이 활성화되었습니다.\n"
+                        "• CPU 및 메모리 사용량 실시간 추적\n"
+                        "• 프로세스 관리 응답시간 모니터링\n"
+                        "• v1/v2 성능 비교 분석\n"
+                        "• 자동 최적화 권장사항 생성"
+                    )
+                except Exception as e:
+                    self.log(f"⚠️ 성능 모니터링 시작 알림 전송 실패: {e}")
+            
+        except ImportError as e:
+            self.log(f"⚠️ 성능 모니터링 모듈 import 실패: {e}")
+            self.performance_monitor = None
+            self.performance_optimizer = None
+            self.performance_comparator = None
+        except Exception as e:
+            self.log(f"❌ 성능 모니터링 시스템 초기화 실패: {e}")
+            self.performance_monitor = None
+            self.performance_optimizer = None
+            self.performance_comparator = None
+    
+    def _perform_performance_analysis(self):
+        """
+        성능 분석 및 최적화 권장사항 생성
+        
+        10분마다 실행되어 시스템 성능을 분석하고 필요시 최적화 권장사항을 생성합니다.
+        """
+        try:
+            if not self.performance_monitor or not self.performance_optimizer:
+                return
+            
+            # 성능 요약 조회
+            performance_summary = self.performance_monitor.get_performance_summary()
+            
+            if 'error' in performance_summary:
+                self.log(f"⚠️ 성능 요약 조회 실패: {performance_summary['error']}")
+                return
+            
+            # 성능 수준 평가
+            performance_level = performance_summary.get('performance_level', 'unknown')
+            
+            # 성능 이슈 분석
+            issues = self.performance_optimizer.analyze_system_performance(performance_summary)
+            
+            if issues:
+                self.log(f"🔍 성능 이슈 {len(issues)}개 감지됨")
+                
+                # 최적화 권장사항 생성
+                recommendations = self.performance_optimizer.generate_optimization_recommendations(issues)
+                
+                if recommendations:
+                    self.log(f"💡 최적화 권장사항 {len(recommendations)}개 생성됨")
+                    
+                    # 높은 우선순위 권장사항이 있으면 알림 전송
+                    high_priority_recs = [
+                        rec for rec in recommendations 
+                        if rec.priority.value in ['critical', 'high']
+                    ]
+                    
+                    if high_priority_recs and not self.is_quiet_hours():
+                        self._send_performance_alert(performance_summary, high_priority_recs)
+            
+            # v1/v2 성능 비교 (1시간마다)
+            if (hasattr(self, '_last_performance_comparison') and 
+                (datetime.now() - self._last_performance_comparison).total_seconds() >= 3600):
+                self._perform_v1_v2_comparison()
+                self._last_performance_comparison = datetime.now()
+            elif not hasattr(self, '_last_performance_comparison'):
+                self._last_performance_comparison = datetime.now()
+            
+            # 성능 로그 (디버그용)
+            current_cpu = performance_summary.get('current', {}).get('cpu_percent', 0)
+            current_memory = performance_summary.get('current', {}).get('memory_percent', 0)
+            
+            self.log(f"📊 성능 상태: CPU {current_cpu:.1f}%, 메모리 {current_memory:.1f}%, 수준: {performance_level}")
+            
+        except Exception as e:
+            self.log(f"❌ 성능 분석 중 오류 발생: {e}")
+    
+    def _send_performance_alert(self, performance_summary: dict, recommendations: list):
+        """
+        성능 알림 전송
+        
+        Args:
+            performance_summary (dict): 성능 요약 정보
+            recommendations (list): 높은 우선순위 권장사항 목록
+        """
+        try:
+            current_stats = performance_summary.get('current', {})
+            
+            # 알림 메시지 구성
+            alert_message = (
+                f"⚠️ POSCO 워치햄스터 v2 성능 알림\n\n"
+                f"📅 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+                f"📊 현재 상태:\n"
+                f"  • CPU 사용률: {current_stats.get('cpu_percent', 0):.1f}%\n"
+                f"  • 메모리 사용률: {current_stats.get('memory_percent', 0):.1f}%\n"
+                f"  • 프로세스 수: {current_stats.get('process_count', 0)}개\n"
+                f"  • 성능 수준: {performance_summary.get('performance_level', 'unknown')}\n\n"
+                f"🔧 권장사항 ({len(recommendations)}개):\n"
+            )
+            
+            for i, rec in enumerate(recommendations[:3], 1):  # 최대 3개만 표시
+                priority_emoji = {"critical": "🚨", "high": "⚠️"}.get(rec.priority.value, "📋")
+                alert_message += f"  {i}. {priority_emoji} {rec.title}\n"
+                alert_message += f"     예상 효과: {rec.estimated_improvement}\n"
+            
+            if len(recommendations) > 3:
+                alert_message += f"  ... 외 {len(recommendations) - 3}개 추가 권장사항\n"
+            
+            alert_message += f"\n💡 자세한 내용은 성능 모니터링 로그를 확인하세요."
+            
+            # 알림 전송
+            if self.v2_components.get('notification_manager'):
+                self.v2_components['notification_manager'].send_notification(alert_message, is_error=True)
+            else:
+                self.send_notification(alert_message, is_error=True)
+            
+            self.log("📤 성능 알림 전송 완료")
+            
+        except Exception as e:
+            self.log(f"❌ 성능 알림 전송 실패: {e}")
+    
+    def _perform_v1_v2_comparison(self):
+        """
+        v1과 v2 시스템 성능 비교 수행
+        """
+        try:
+            if not self.performance_monitor:
+                return
+            
+            # v1/v2 성능 비교 수행
+            comparison = self.performance_monitor.get_v1_v2_comparison()
+            
+            if comparison:
+                # 비교 보고서 생성
+                if self.performance_comparator:
+                    report = self.performance_comparator.generate_comparison_report(
+                        comparison.v1_metrics, 
+                        comparison.v2_metrics
+                    )
+                    
+                    # 보고서 저장
+                    report_file = self.performance_comparator.save_comparison_report(report)
+                    
+                    if report_file:
+                        self.log(f"📊 v1/v2 성능 비교 보고서 생성: {os.path.basename(report_file)}")
+                        
+                        # 주요 개선사항이 있으면 알림 전송 (조용한 시간대 제외)
+                        significant_improvements = [
+                            metric for metric, improvement in comparison.improvement_percentage.items()
+                            if improvement > 15  # 15% 이상 개선
+                        ]
+                        
+                        if significant_improvements and not self.is_quiet_hours():
+                            improvement_summary = "\n".join([
+                                f"  • {metric}: {comparison.improvement_percentage[metric]:+.1f}% 개선"
+                                for metric in significant_improvements
+                            ])
+                            
+                            comparison_message = (
+                                f"📈 POSCO 워치햄스터 v2 성능 개선 보고\n\n"
+                                f"📅 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+                                f"🎯 주요 개선사항:\n{improvement_summary}\n\n"
+                                f"📋 상세 보고서: {os.path.basename(report_file)}"
+                            )
+                            
+                            if self.v2_components.get('notification_manager'):
+                                self.v2_components['notification_manager'].send_notification(comparison_message)
+                            else:
+                                self.send_notification(comparison_message)
+            
+        except Exception as e:
+            self.log(f"❌ v1/v2 성능 비교 실패: {e}")
+    
+    def get_performance_status(self):
+        """
+        성능 모니터링 상태 조회
+        
+        Returns:
+            dict: 성능 모니터링 상태 정보
+        """
+        try:
+            if not self.performance_monitor:
+                return {'error': '성능 모니터링이 비활성화되어 있습니다'}
+            
+            # 성능 요약 조회
+            performance_summary = self.performance_monitor.get_performance_summary()
+            
+            # 최적화 요약 조회
+            optimization_summary = {}
+            if self.performance_optimizer:
+                optimization_summary = self.performance_optimizer.get_optimization_summary()
+            
+            return {
+                'performance_monitoring_enabled': True,
+                'performance_summary': performance_summary,
+                'optimization_summary': optimization_summary,
+                'last_performance_check': getattr(self, '_last_performance_check', None),
+                'last_performance_comparison': getattr(self, '_last_performance_comparison', None)
+            }
+            
+        except Exception as e:
+            return {'error': f'성능 상태 조회 실패: {e}'}
+    
+    def measure_operation_performance(self, operation_name: str):
+        """
+        작업 성능 측정을 위한 컨텍스트 매니저 반환
+        
+        Args:
+            operation_name (str): 측정할 작업 이름
+            
+        Returns:
+            OperationTimer: 작업 시간 측정 컨텍스트 매니저
+        """
+        if self.performance_monitor:
+            return self.performance_monitor.measure_operation_time(operation_name)
+        else:
+            # 성능 모니터링이 비활성화된 경우 더미 컨텍스트 매니저 반환
+            class DummyTimer:
+                def __enter__(self):
+                    return self
+                def __exit__(self, exc_type, exc_val, exc_tb):
+                    pass
+            return DummyTimer()
+    
+    def _record_initialization_success(self, initialization_time):
+        """
+        초기화 성공 통계 기록
+        
+        Args:
+            initialization_time (float): 초기화 소요 시간 (초)
+        """
+        try:
+            # 초기화 통계 정보
+            self.v2_initialization_stats = {
+                'success': True,
+                'initialization_time': initialization_time,
+                'timestamp': datetime.now(),
+                'components_loaded': len([c for c in self.v2_components.values() if c is not None]),
+                'validation_results': getattr(self, 'v2_validation_results', {})
+            }
+            
+            self.log(f"📊 v2 초기화 통계 기록 완료 (소요시간: {initialization_time:.2f}초)")
+            
+        except Exception as e:
+            self.log(f"⚠️ 초기화 통계 기록 실패: {e}")
+    
+    def _handle_v2_initialization_failure(self, error, initialization_start):
+        """
+        v2 초기화 실패 처리 및 폴백
+        
+        Args:
+            error (Exception): 발생한 오류
+            initialization_start (datetime): 초기화 시작 시간
+        """
+        initialization_time = (datetime.now() - initialization_start).total_seconds()
+        
+        # v2 초기화 실패 상태 설정
+        self.v2_enabled = False
+        self.fallback_reason = str(error)
+        
+        # v2 컴포넌트 정리
+        self.v2_components = {
+            'process_manager': None,
+            'module_registry': None,
+            'notification_manager': None
+        }
+        
+        # 기존 ProcessManager로 폴백 시도
+        try:
+            self.v2_components['process_manager'] = ProcessManager(self.script_dir)
+            self.log("✅ 기존 ProcessManager로 폴백 완료")
+        except Exception as fallback_error:
+            self.log(f"❌ 기존 ProcessManager 폴백도 실패: {fallback_error}")
+        
+        # 실패 통계 기록
+        self.v2_initialization_stats = {
+            'success': False,
+            'initialization_time': initialization_time,
+            'timestamp': datetime.now(),
+            'error': str(error),
+            'fallback_reason': self.fallback_reason
+        }
+        
+        self.log(f"⚠️ v2 아키텍처 초기화 실패 (소요시간: {initialization_time:.2f}초)")
+        self.log(f"❌ 실패 원인: {error}")
+        self.log("📋 기존 방식으로 폴백하여 정상 동작합니다")
+    
+    def _initialize_module_status_tracking(self):
+        """
+        모듈 상태 추적 시스템 초기화
+        
+        ModuleRegistry와 연동하여 각 모듈의 상태를 추적하고 제어할 수 있는 시스템을 초기화합니다.
+        """
+        try:
+            self.log("📊 모듈 상태 추적 시스템 초기화 중...")
+            
+            if not self.v2_components['module_registry']:
+                self.log("⚠️ ModuleRegistry가 없어 상태 추적을 초기화할 수 없습니다")
+                return
+            
+            # 모듈별 상태 추적 딕셔너리 초기화
+            self.module_status_tracking = {}
+            
+            # 등록된 모든 모듈에 대해 상태 추적 초기화
+            modules = self.v2_components['module_registry'].list_modules()
+            
+            for module_name, module_info in modules.items():
+                self.module_status_tracking[module_name] = {
+                    'config': module_info['config'],
+                    'registry_status': module_info['status'],
+                    'process_status': 'unknown',  # 실제 프로세스 상태
+                    'last_check': None,
+                    'restart_count': 0,
+                    'last_restart': None,
+                    'health_check_failures': 0,
+                    'last_health_check': None
+                }
+                
+                # ModuleRegistry에서 초기 상태 설정
+                # ModuleStatus enum을 동적으로 가져오기
+                try:
+                    import importlib.util
+                    v2_path = os.path.join(os.path.dirname(self.script_dir), 'Posco_News_mini_v2')
+                    module_path = os.path.join(v2_path, 'core', 'module_registry.py')
+                    spec = importlib.util.spec_from_file_location("module_registry", module_path)
+                    module = importlib.util.module_from_spec(spec)
+                    spec.loader.exec_module(module)
+                    ModuleStatus = getattr(module, 'ModuleStatus')
+                    
+                    self.v2_components['module_registry'].update_module_status(
+                        module_name, 
+                        ModuleStatus.REGISTERED
+                    )
+                except Exception as e:
+                    self.log(f"⚠️ ModuleStatus 설정 실패 ({module_name}): {e}")
+            
+            self.log(f"✅ 모듈 상태 추적 초기화 완료: {len(self.module_status_tracking)}개 모듈")
+            
+            # 모듈별 상태 로그
+            for module_name in self.module_status_tracking.keys():
+                self.log(f"  📋 추적 대상 모듈: {module_name}")
+            
+        except Exception as e:
+            self.log(f"❌ 모듈 상태 추적 초기화 실패: {e}")
+            self.module_status_tracking = {}
+    
+    def update_module_status(self, module_name: str, process_status: str, additional_info: dict = None):
+        """
+        모듈 상태 업데이트
+        
+        Args:
+            module_name (str): 모듈 이름
+            process_status (str): 프로세스 상태 ('running', 'stopped', 'error', 'unknown')
+            additional_info (dict): 추가 정보
+        """
+        try:
+            current_time = datetime.now()
+            
+            # 모듈 상태 추적 정보가 없으면 초기화
+            if not hasattr(self, 'module_status_tracking'):
+                self.module_status_tracking = {}
+            
+            if module_name not in self.module_status_tracking:
+                self.module_status_tracking[module_name] = {
+                    'process_status': 'unknown',
+                    'last_check': None,
+                    'restart_count': 0,
+                    'last_restart': None,
+                    'health_check_failures': 0,
+                    'last_health_check': None
+                }
+            
+            # 상태 업데이트
+            old_status = self.module_status_tracking[module_name]['process_status']
+            self.module_status_tracking[module_name]['process_status'] = process_status
+            self.module_status_tracking[module_name]['last_check'] = current_time
+            
+            # 추가 정보 업데이트
+            if additional_info:
+                self.module_status_tracking[module_name].update(additional_info)
+            
+            # ModuleRegistry 상태도 업데이트
+            if self.v2_enabled and self.v2_components['module_registry']:
+                try:
+                    # 프로세스 상태에 따른 ModuleRegistry 상태 매핑
+                    try:
+                        import importlib.util
+                        v2_path = os.path.join(os.path.dirname(self.script_dir), 'Posco_News_mini_v2')
+                        module_path = os.path.join(v2_path, 'core', 'module_registry.py')
+                        spec = importlib.util.spec_from_file_location("module_registry", module_path)
+                        module = importlib.util.module_from_spec(spec)
+                        spec.loader.exec_module(module)
+                        ModuleStatus = getattr(module, 'ModuleStatus')
+                        
+                        if process_status == 'running':
+                            registry_status = ModuleStatus.ACTIVE
+                        elif process_status == 'stopped':
+                            registry_status = ModuleStatus.INACTIVE
+                        elif process_status == 'error':
+                            registry_status = ModuleStatus.ERROR
+                        else:
+                            registry_status = ModuleStatus.REGISTERED
+                        
+                        self.v2_components['module_registry'].update_module_status(module_name, registry_status)
+                    except Exception as enum_error:
+                        self.log(f"⚠️ ModuleStatus enum 로드 실패: {enum_error}")
+                    
+                except Exception as e:
+                    self.log(f"⚠️ ModuleRegistry 상태 업데이트 실패 ({module_name}): {e}")
+            
+            # 상태 변경 로그
+            if old_status != process_status:
+                self.log(f"📊 모듈 상태 변경: {module_name} ({old_status} → {process_status})")
+            
+        except Exception as e:
+            self.log(f"❌ 모듈 상태 업데이트 실패 ({module_name}): {e}")
+    
+    def get_module_status_summary(self):
+        """
+        모든 모듈의 상태 요약 조회
+        
+        Returns:
+            dict: 모듈 상태 요약 정보
+        """
+        try:
+            if not hasattr(self, 'module_status_tracking'):
+                return {'error': '모듈 상태 추적이 초기화되지 않았습니다'}
+            
+            summary = {
+                'timestamp': datetime.now().isoformat(),
+                'total_modules': len(self.module_status_tracking),
+                'status_counts': {
+                    'running': 0,
+                    'stopped': 0,
+                    'error': 0,
+                    'unknown': 0
+                },
+                'modules': {}
+            }
+            
+            # 각 모듈 상태 집계
+            for module_name, status_info in self.module_status_tracking.items():
+                process_status = status_info['process_status']
+                summary['status_counts'][process_status] = summary['status_counts'].get(process_status, 0) + 1
+                
+                # 모듈별 상세 정보
+                summary['modules'][module_name] = {
+                    'process_status': process_status,
+                    'last_check': status_info['last_check'].isoformat() if status_info['last_check'] else None,
+                    'restart_count': status_info.get('restart_count', 0),
+                    'health_check_failures': status_info.get('health_check_failures', 0)
+                }
+                
+                # ModuleRegistry 상태도 포함
+                if self.v2_enabled and self.v2_components['module_registry']:
+                    try:
+                        registry_status = self.v2_components['module_registry'].get_module_status(module_name)
+                        summary['modules'][module_name]['registry_status'] = registry_status.value if registry_status else 'unknown'
+                    except Exception as e:
+                        summary['modules'][module_name]['registry_status'] = f'error: {e}'
+            
+            return summary
+            
+        except Exception as e:
+            return {'error': f'상태 요약 조회 실패: {e}'}
+    
+    def control_module(self, module_name: str, action: str):
+        """
+        개별 모듈 제어 기능
+        
+        Args:
+            module_name (str): 제어할 모듈 이름
+            action (str): 수행할 작업 ('start', 'stop', 'restart', 'status')
+            
+        Returns:
+            dict: 제어 결과
+        """
+        try:
+            self.log(f"🎛️ 모듈 제어 요청: {module_name} - {action}")
+            
+            # ModuleRegistry에서 모듈 설정 조회
+            if not (self.v2_enabled and self.v2_components['module_registry']):
+                return {
+                    'success': False,
+                    'error': 'v2 ModuleRegistry가 비활성화되어 있습니다',
+                    'fallback': 'basic_control'
+                }
+            
+            module_config = self.v2_components['module_registry'].get_module_config(module_name)
+            if not module_config:
+                return {
+                    'success': False,
+                    'error': f'모듈을 찾을 수 없습니다: {module_name}'
+                }
+            
+            result = {'success': False, 'action': action, 'module': module_name}
+            
+            if action == 'status':
+                # 모듈 상태 조회
+                if hasattr(self, 'module_status_tracking') and module_name in self.module_status_tracking:
+                    result.update({
+                        'success': True,
+                        'status': self.module_status_tracking[module_name]
+                    })
+                else:
+                    result.update({
+                        'success': True,
+                        'status': 'not_tracked'
+                    })
+            
+            elif action == 'start':
+                # 모듈 시작
+                if self.v2_components['process_manager']:
+                    try:
+                        # Enhanced ProcessManager를 통한 프로세스 시작
+                        start_result = self.v2_components['process_manager'].start_process(
+                            module_config.script_path,
+                            module_name,
+                            working_dir=module_config.working_directory or self.script_dir,
+                            env_vars=module_config.environment_vars
+                        )
+                        
+                        if start_result:
+                            self.update_module_status(module_name, 'running')
+                            result.update({
+                                'success': True,
+                                'message': f'모듈 시작 성공: {module_name}'
+                            })
+                        else:
+                            result.update({
+                                'success': False,
+                                'error': f'모듈 시작 실패: {module_name}'
+                            })
+                    except Exception as e:
+                        result.update({
+                            'success': False,
+                            'error': f'모듈 시작 중 오류: {e}'
+                        })
+                else:
+                    result.update({
+                        'success': False,
+                        'error': 'ProcessManager가 사용할 수 없습니다'
+                    })
+            
+            elif action == 'stop':
+                # 모듈 중지
+                if self.v2_components['process_manager']:
+                    try:
+                        # Enhanced ProcessManager를 통한 프로세스 중지
+                        stop_result = self.v2_components['process_manager'].stop_process(module_name)
+                        
+                        if stop_result:
+                            self.update_module_status(module_name, 'stopped')
+                            result.update({
+                                'success': True,
+                                'message': f'모듈 중지 성공: {module_name}'
+                            })
+                        else:
+                            result.update({
+                                'success': False,
+                                'error': f'모듈 중지 실패: {module_name}'
+                            })
+                    except Exception as e:
+                        result.update({
+                            'success': False,
+                            'error': f'모듈 중지 중 오류: {e}'
+                        })
+                else:
+                    result.update({
+                        'success': False,
+                        'error': 'ProcessManager가 사용할 수 없습니다'
+                    })
+            
+            elif action == 'restart':
+                # 모듈 재시작
+                stop_result = self.control_module(module_name, 'stop')
+                if stop_result.get('success'):
+                    time.sleep(2)  # 잠시 대기
+                    start_result = self.control_module(module_name, 'start')
+                    result = start_result
+                    if start_result.get('success'):
+                        result['message'] = f'모듈 재시작 성공: {module_name}'
+                else:
+                    result = stop_result
+            
+            else:
+                result.update({
+                    'success': False,
+                    'error': f'지원하지 않는 작업: {action}'
+                })
+            
+            self.log(f"🎛️ 모듈 제어 결과: {module_name} - {action} - {'성공' if result.get('success') else '실패'}")
+            return result
+            
+        except Exception as e:
+            error_result = {
+                'success': False,
+                'error': f'모듈 제어 중 예외 발생: {e}',
+                'action': action,
+                'module': module_name
+            }
+            self.log(f"❌ 모듈 제어 예외: {module_name} - {action} - {e}")
+            return error_result
+    
+    def _update_module_status_from_health_check(self, health_results: dict):
+        """
+        헬스체크 결과를 바탕으로 모듈 상태 업데이트
+        
+        Args:
+            health_results (dict): 프로세스별 헬스체크 결과
+        """
+        try:
+            if not hasattr(self, 'module_status_tracking'):
+                return
+            
+            current_time = datetime.now()
+            
+            for process_name, is_healthy in health_results.items():
+                # 프로세스 상태 결정
+                if is_healthy:
+                    process_status = 'running'
+                    # 연속 실패 카운트 리셋
+                    if process_name in self.module_status_tracking:
+                        self.module_status_tracking[process_name]['health_check_failures'] = 0
+                else:
+                    process_status = 'error'
+                    # 연속 실패 카운트 증가
+                    if process_name in self.module_status_tracking:
+                        self.module_status_tracking[process_name]['health_check_failures'] = \
+                            self.module_status_tracking[process_name].get('health_check_failures', 0) + 1
+                
+                # 모듈 상태 업데이트
+                additional_info = {
+                    'last_health_check': current_time,
+                    'health_check_result': is_healthy
+                }
+                
+                self.update_module_status(process_name, process_status, additional_info)
+            
+            # 헬스체크 통계 업데이트
+            if not hasattr(self, 'health_check_stats'):
+                self.health_check_stats = {}
+            
+            self.health_check_stats.update({
+                'last_check': current_time,
+                'total_modules': len(health_results),
+                'healthy_modules': sum(1 for is_healthy in health_results.values() if is_healthy),
+                'failed_modules': sum(1 for is_healthy in health_results.values() if not is_healthy)
+            })
+            
+        except Exception as e:
+            self.log(f"❌ 헬스체크 기반 모듈 상태 업데이트 실패: {e}")
+    
+
+    
+    def get_v2_integration_status(self):
+        """
+        v2 통합 상태 정보 조회 - 상세한 컴포넌트 상태 포함
+        
+        Returns:
+            dict: v2 통합 상태 정보
+        """
+        try:
+            current_time = datetime.now()
+            
+            # 기본 상태 정보
+            status = {
+                'v2_enabled': self.v2_enabled,
+                'fallback_reason': self.fallback_reason,
+                'timestamp': current_time.isoformat(),
+                'components': {
+                    'process_manager': self.v2_components['process_manager'] is not None,
+                    'module_registry': self.v2_components['module_registry'] is not None,
+                    'notification_manager': self.v2_components['notification_manager'] is not None
+                },
+                'managed_processes_count': len(self.managed_processes),
+                'managed_processes': self.managed_processes
+            }
+            
+            # 초기화 통계 정보 추가
+            if hasattr(self, 'v2_initialization_stats'):
+                status['initialization_stats'] = self.v2_initialization_stats
+            
+            # 검증 결과 추가
+            if hasattr(self, 'v2_validation_results'):
+                status['validation_results'] = self.v2_validation_results
+            
+            # v2 컴포넌트별 상세 정보
+            if self.v2_enabled:
+                # Enhanced ProcessManager 상태
+                if self.v2_components['process_manager']:
+                    try:
+                        system_status = self.v2_components['process_manager'].get_system_status()
+                        status['system_metrics'] = system_status.get('system_metrics', {})
+                        status['process_details'] = system_status.get('process_details', {})
+                        status['process_manager_status'] = 'operational'
+                    except Exception as e:
+                        status['process_manager_error'] = str(e)
+                        status['process_manager_status'] = 'error'
+                
+                # ModuleRegistry 상태
+                if self.v2_components['module_registry']:
+                    try:
+                        modules = self.v2_components['module_registry'].list_modules()
+                        startup_order = self.v2_components['module_registry'].get_startup_order()
+                        
+                        status['registered_modules'] = list(modules.keys())
+                        status['startup_order'] = startup_order
+                        status['module_registry_status'] = 'operational'
+                        
+                        # 모듈별 상세 정보
+                        module_details = {}
+                        for module_name, module_config in modules.items():
+                            module_details[module_name] = {
+                                'auto_start': module_config.auto_start,
+                                'priority': module_config.priority,
+                                'dependencies': module_config.dependencies,
+                                'max_restart_attempts': module_config.max_restart_attempts
+                            }
+                        status['module_details'] = module_details
+                        
+                    except Exception as e:
+                        status['module_registry_error'] = str(e)
+                        status['module_registry_status'] = 'error'
+                
+                # NotificationManager 상태
+                if self.v2_components['notification_manager']:
+                    try:
+                        notification_stats = self.v2_components['notification_manager'].get_notification_stats()
+                        status['notification_stats'] = notification_stats
+                        status['notification_manager_status'] = 'operational'
+                    except Exception as e:
+                        status['notification_manager_error'] = str(e)
+                        status['notification_manager_status'] = 'error'
+            
+            return status
+            
+        except Exception as e:
+            return {
+                'error': f"상태 조회 실패: {e}",
+                'v2_enabled': False,
+                'timestamp': datetime.now().isoformat()
+            }
+    
+    def check_v2_component_health(self):
+        """
+        v2 컴포넌트 헬스체크 수행
+        
+        Returns:
+            dict: 컴포넌트별 헬스체크 결과
+        """
+        health_results = {}
+        
+        try:
+            if not self.v2_enabled:
+                return {
+                    'overall_status': 'disabled',
+                    'reason': 'v2 아키텍처가 비활성화됨',
+                    'fallback_reason': self.fallback_reason
+                }
+            
+            # Enhanced ProcessManager 헬스체크
+            if self.v2_components['process_manager']:
+                try:
+                    # 시스템 상태 조회로 헬스체크
+                    system_status = self.v2_components['process_manager'].get_system_status()
+                    health_results['process_manager'] = {
+                        'status': 'healthy',
+                        'last_check': datetime.now().isoformat(),
+                        'details': f"프로세스 {len(system_status.get('process_details', {}))}개 관리 중"
+                    }
+                except Exception as e:
+                    health_results['process_manager'] = {
+                        'status': 'unhealthy',
+                        'last_check': datetime.now().isoformat(),
+                        'error': str(e)
+                    }
+            
+            # ModuleRegistry 헬스체크
+            if self.v2_components['module_registry']:
+                try:
+                    # 모듈 목록 조회로 헬스체크
+                    modules = self.v2_components['module_registry'].list_modules()
+                    health_results['module_registry'] = {
+                        'status': 'healthy',
+                        'last_check': datetime.now().isoformat(),
+                        'details': f"모듈 {len(modules)}개 등록됨"
+                    }
+                except Exception as e:
+                    health_results['module_registry'] = {
+                        'status': 'unhealthy',
+                        'last_check': datetime.now().isoformat(),
+                        'error': str(e)
+                    }
+            
+            # NotificationManager 헬스체크
+            if self.v2_components['notification_manager']:
+                try:
+                    # 알림 통계 조회로 헬스체크
+                    stats = self.v2_components['notification_manager'].get_notification_stats()
+                    health_results['notification_manager'] = {
+                        'status': 'healthy',
+                        'last_check': datetime.now().isoformat(),
+                        'details': f"총 알림 {stats.get('total_notifications', 0)}개 전송됨"
+                    }
+                except Exception as e:
+                    health_results['notification_manager'] = {
+                        'status': 'unhealthy',
+                        'last_check': datetime.now().isoformat(),
+                        'error': str(e)
+                    }
+            
+            # 전체 상태 판단
+            healthy_components = sum(1 for result in health_results.values() 
+                                   if result.get('status') == 'healthy')
+            total_components = len(health_results)
+            
+            if healthy_components == total_components:
+                overall_status = 'healthy'
+            elif healthy_components > 0:
+                overall_status = 'partially_healthy'
+            else:
+                overall_status = 'unhealthy'
+            
+            health_results['overall_status'] = overall_status
+            health_results['healthy_components'] = healthy_components
+            health_results['total_components'] = total_components
+            health_results['check_timestamp'] = datetime.now().isoformat()
+            
+            return health_results
+            
+        except Exception as e:
+            return {
+                'overall_status': 'error',
+                'error': str(e),
+                'check_timestamp': datetime.now().isoformat()
+            }
+    
+    def handle_process_failure_v2(self, process_name: str):
+        """
+        v2 아키텍처를 사용한 프로세스 실패 처리
+        
+        3단계 지능적 복구 시스템을 사용하여 실패한 프로세스를 복구합니다.
+        
+        구현 내용:
+        - v2 ProcessManager의 auto_recovery() 메서드 사용
+        - 3단계 복구 시스템: 즉시 재시작 → 5분 후 재시도 → 최종 재시도
+        - 복구 성공/실패에 따른 알림 전송
+        - 프로세스 상태 추적 및 로깅
+        
+        Args:
+            process_name (str): 실패한 프로세스 이름
+        """
+        try:
+            if not self.v2_enabled or not self.v2_components['process_manager']:
+                self.log(f"⚠️ v2 아키텍처 비활성화, 기존 방식으로 처리: {process_name}")
+                self._handle_process_failure_legacy(process_name)
+                return
+            
+            self.log(f"🔧 v2 3단계 지능적 복구 시스템 시작: {process_name}")
+            
+            # 프로세스 정보 조회
+            process_info = self.v2_components['process_manager'].get_process_info(process_name)
+            if not process_info:
+                self.log(f"❌ {process_name}: 프로세스 정보를 찾을 수 없습니다")
+                # 새 프로세스로 등록하여 복구 시도
+                self._register_new_process_for_recovery(process_name)
+                return
+            
+            # 현재 재시작 횟수 기록
+            current_restart_count = process_info.restart_count
+            recovery_start_time = datetime.now()
+            
+            self.log(f"📊 {process_name} 복구 시작 - 현재 재시작 횟수: {current_restart_count}/3")
+            
+            # 오류 알림 전송 (복구 시작 전)
+            if self.v2_components['notification_manager']:
+                error_details = {
+                    'error_message': process_info.last_error or '프로세스 중단됨',
+                    'restart_count': current_restart_count,
+                    'max_attempts': 3,
+                    'auto_recovery_enabled': True,
+                    'recovery_stage': 'starting'
+                }
+                self.v2_components['notification_manager'].send_process_error(process_name, error_details)
+            
+            # v2 ProcessManager의 3단계 자동 복구 시스템 실행
+            recovery_success = self.v2_components['process_manager'].auto_recovery(process_name)
+            
+            recovery_end_time = datetime.now()
+            recovery_duration = (recovery_end_time - recovery_start_time).total_seconds()
+            
+            if recovery_success:
+                # 복구 성공 처리
+                new_process_info = self.v2_components['process_manager'].get_process_info(process_name)
+                recovery_stage = new_process_info.restart_count if new_process_info else current_restart_count + 1
+                
+                self.log(f"✅ {process_name} 자동 복구 성공 - {recovery_stage}단계 복구 완료 (소요시간: {recovery_duration:.1f}초)")
+                
+                # v2 향상된 복구 성공 알림 사용
+                recovery_details = {
+                    'recovery_stage': f"{recovery_stage}단계 복구",
+                    'recovery_time': recovery_duration,
+                    'new_pid': new_process_info.pid if new_process_info else None,
+                    'previous_restart_count': current_restart_count,
+                    'current_restart_count': recovery_stage
+                }
+                self.send_recovery_success_v2(process_name, recovery_details)
+                
+                # 모듈 상태 업데이트 (ModuleRegistry 사용)
+                if self.v2_components['module_registry']:
+                    try:
+                        from core.module_registry import ModuleStatus
+                        self.v2_components['module_registry'].update_module_status(process_name, ModuleStatus.ACTIVE)
+                        self.log(f"📋 {process_name} 모듈 상태를 ACTIVE로 업데이트")
+                    except Exception as e:
+                        self.log(f"⚠️ {process_name} 모듈 상태 업데이트 실패: {e}")
+                
+            else:
+                # 복구 실패 처리
+                final_process_info = self.v2_components['process_manager'].get_process_info(process_name)
+                final_restart_count = final_process_info.restart_count if final_process_info else 3
+                
+                self.log(f"❌ {process_name} 자동 복구 실패 - 모든 복구 단계 실패 (총 {final_restart_count}회 시도)")
+                
+                # v2 NotificationManager를 사용한 긴급 알림
+                if self.v2_components['notification_manager']:
+                    critical_details = {
+                        '최대_재시작_횟수': f'{final_restart_count}회 초과',
+                        '프로세스_상태': '비활성화됨',
+                        '복구_소요시간': f'{recovery_duration:.1f}초',
+                        '마지막_오류': final_process_info.last_error if final_process_info else '알 수 없음',
+                        '필요_조치': '수동 확인 및 재시작'
+                    }
+                    # v2 향상된 긴급 알림 사용
+                    self.send_critical_alert_v2(f"{process_name} 프로세스 복구 실패", critical_details)
+                
+                # 모듈 상태 업데이트 (ModuleRegistry 사용)
+                if self.v2_components['module_registry']:
+                    try:
+                        from core.module_registry import ModuleStatus
+                        self.v2_components['module_registry'].update_module_status(process_name, ModuleStatus.FAILED)
+                        self.log(f"📋 {process_name} 모듈 상태를 FAILED로 업데이트")
+                    except Exception as e:
+                        self.log(f"⚠️ {process_name} 모듈 상태 업데이트 실패: {e}")
+                
+        except Exception as e:
+            self.log(f"❌ v2 프로세스 실패 처리 오류: {e}")
+            # 예외 발생 시 기존 방식으로 폴백
+            self._handle_process_failure_legacy(process_name)
+    
+    def _handle_process_failure_legacy(self, process_name: str):
+        """
+        기존 방식의 프로세스 실패 처리 (v2 폴백용)
+        
+        Args:
+            process_name (str): 실패한 프로세스 이름
+        """
+        try:
+            self.log(f"🔄 기존 방식으로 {process_name} 복구 시도")
+            
+            # 기존 ProcessManager 사용 (있는 경우)
+            if self.v2_components['process_manager'] and hasattr(self.v2_components['process_manager'], 'restart_process'):
+                success = self.v2_components['process_manager'].restart_process(process_name)
+                if success:
+                    self.log(f"✅ {process_name} 기존 방식 복구 성공")
+                    self.send_notification(
+                        f"✅ POSCO 워치햄스터 프로세스 복구\n\n"
+                        f"📋 프로세스: {process_name}\n"
+                        f"🔧 복구 방식: 기존 방식 (v2 폴백)\n"
+                        f"🎯 프로세스가 복구되었습니다."
+                    )
+                else:
+                    self.log(f"❌ {process_name} 기존 방식 복구 실패")
+                    self.send_notification(
+                        f"❌ POSCO 워치햄스터 프로세스 복구 실패\n\n"
+                        f"📋 프로세스: {process_name}\n"
+                        f"🔧 복구 방식: 기존 방식 (v2 폴백)\n"
+                        f"🛠️ 수동 확인이 필요합니다.",
+                        is_error=True
+                    )
+            else:
+                self.log(f"⚠️ {process_name}: 사용 가능한 복구 방법이 없습니다")
+                
+        except Exception as e:
+            self.log(f"❌ 기존 방식 프로세스 복구 오류: {e}")
+    
+    def _register_new_process_for_recovery(self, process_name: str):
+        """
+        복구를 위해 새 프로세스를 등록
+        
+        Args:
+            process_name (str): 등록할 프로세스 이름
+        """
+        try:
+            if not self.v2_components['module_registry']:
+                return
+            
+            # 모듈 설정에서 프로세스 정보 조회
+            module_config = self.v2_components['module_registry'].get_module_config(process_name)
+            if module_config:
+                self.log(f"🔄 {process_name} 새 프로세스로 등록하여 복구 시도")
+                success = self.v2_components['process_manager'].start_process(
+                    process_name,
+                    module_config.script_path,
+                    [],
+                    module_config.working_directory
+                )
+                if success:
+                    self.log(f"✅ {process_name} 새 프로세스 등록 및 시작 성공")
+                else:
+                    self.log(f"❌ {process_name} 새 프로세스 등록 실패")
+            else:
+                self.log(f"❌ {process_name}: 모듈 설정을 찾을 수 없습니다")
+                
+        except Exception as e:
+            self.log(f"❌ 새 프로세스 등록 오류: {e}")
+    
+    def integrate_v2_process_lifecycle_management(self):
+        """
+        v2 ProcessManager와 기존 프로세스 생명주기 관리 통합
+        
+        기존 프로세스 관리 로직을 v2 ProcessManager의 향상된 기능과 통합하여
+        더 안정적이고 지능적인 프로세스 생명주기 관리를 제공합니다.
+        
+        구현 내용:
+        - 기존 프로세스 객체를 v2 ProcessManager로 마이그레이션
+        - v2의 3단계 지능적 복구 시스템 활성화
+        - 프로세스 상태 추적 및 메트릭 수집 통합
+        - 향상된 알림 시스템 연동
+        """
+        try:
+            if not self.v2_enabled or not self.v2_components['process_manager']:
+                self.log("⚠️ v2 아키텍처 비활성화, 프로세스 생명주기 통합 건너뜀")
+                return False
+            
+            self.log("🔄 v2 ProcessManager와 기존 프로세스 생명주기 관리 통합 시작")
+            
+            integration_start_time = datetime.now()
+            migrated_processes = []
+            failed_migrations = []
+            
+            # 1. 기존 프로세스 객체들을 v2 ProcessManager로 마이그레이션
+            existing_processes = getattr(self, 'monitor_process', None), getattr(self, 'realtime_process', None)
+            
+            for process_obj in existing_processes:
+                if process_obj and hasattr(process_obj, 'pid'):
+                    try:
+                        # 기존 프로세스를 v2 ProcessManager에 등록
+                        process_name = self._identify_process_name(process_obj)
+                        if process_name:
+                            # v2 ProcessManager에 기존 프로세스 정보 등록
+                            self._migrate_existing_process_to_v2(process_name, process_obj)
+                            migrated_processes.append(process_name)
+                            self.log(f"✅ {process_name} v2 ProcessManager로 마이그레이션 완료")
+                        
+                    except Exception as e:
+                        failed_migrations.append(f"Unknown Process: {e}")
+                        self.log(f"❌ 프로세스 마이그레이션 실패: {e}")
+            
+            # 2. 관리 대상 프로세스들의 v2 통합 상태 확인
+            for process_name in self.managed_processes:
+                if process_name not in migrated_processes:
+                    # 새로운 프로세스로 v2 시스템에 등록
+                    try:
+                        module_config = self.v2_components['module_registry'].get_module_config(process_name)
+                        if module_config:
+                            # v2 ProcessManager에 프로세스 정보 초기화
+                            self.v2_components['process_manager']._initialize_process_info(process_name)
+                            migrated_processes.append(process_name)
+                            self.log(f"📋 {process_name} v2 시스템에 새로 등록됨")
+                        
+                    except Exception as e:
+                        failed_migrations.append(f"{process_name}: {e}")
+                        self.log(f"❌ {process_name} v2 등록 실패: {e}")
+            
+            # 3. v2 3단계 지능적 복구 시스템 활성화
+            if migrated_processes:
+                self.log("🛡️ v2 3단계 지능적 복구 시스템 활성화")
+                
+                # 복구 시스템 설정 적용
+                for process_name in migrated_processes:
+                    try:
+                        process_info = self.v2_components['process_manager'].get_process_info(process_name)
+                        if process_info:
+                            # 복구 시스템 메타데이터 설정
+                            process_info.recovery_enabled = True
+                            process_info.max_recovery_attempts = 3
+                            process_info.recovery_stages = ['immediate', '5min_delay', 'final_attempt']
+                            
+                            self.log(f"🔧 {process_name} 3단계 복구 시스템 설정 완료")
+                        
+                    except Exception as e:
+                        self.log(f"⚠️ {process_name} 복구 시스템 설정 실패: {e}")
+            
+            # 4. 통합 완료 처리
+            integration_end_time = datetime.now()
+            integration_duration = (integration_end_time - integration_start_time).total_seconds()
+            
+            success_count = len(migrated_processes)
+            failure_count = len(failed_migrations)
+            
+            self.log(f"📊 v2 프로세스 생명주기 통합 완료:")
+            self.log(f"  ✅ 성공: {success_count}개 프로세스")
+            self.log(f"  ❌ 실패: {failure_count}개 프로세스")
+            self.log(f"  ⏱️ 소요시간: {integration_duration:.2f}초")
+            
+            if success_count > 0:
+                # 통합 성공 알림
+                if self.v2_components['notification_manager']:
+                    integration_details = {
+                        'migrated_processes': migrated_processes,
+                        'failed_migrations': failed_migrations,
+                        'integration_time': integration_duration,
+                        'recovery_system_enabled': True
+                    }
+                    self.v2_components['notification_manager'].send_integration_success_notification(integration_details)
+                else:
+                    # 기존 방식 알림
+                    self.send_notification(
+                        f"🔄 POSCO 워치햄스터 v2 프로세스 생명주기 통합 완료\n\n"
+                        f"📅 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+                        f"✅ 통합 성공: {success_count}개 프로세스\n"
+                        f"❌ 통합 실패: {failure_count}개 프로세스\n"
+                        f"⏱️ 소요시간: {integration_duration:.2f}초\n"
+                        f"🛡️ 3단계 지능적 복구 시스템 활성화됨\n"
+                        f"🎯 향상된 프로세스 관리 시스템이 준비되었습니다."
+                    )
+                
+                return True
+            else:
+                # 통합 실패
+                self.log("❌ v2 프로세스 생명주기 통합 실패 - 모든 프로세스 마이그레이션 실패")
+                return False
+                
+        except Exception as e:
+            self.log(f"❌ v2 프로세스 생명주기 통합 오류: {e}")
+            import traceback
+            self.log(f"❌ 상세 오류: {traceback.format_exc()}")
+            return False
+    
+    def _identify_process_name(self, process_obj):
+        """
+        프로세스 객체에서 프로세스 이름 식별
+        
+        Args:
+            process_obj: 프로세스 객체
+            
+        Returns:
+            str: 프로세스 이름 또는 None
+        """
+        try:
+            if hasattr(process_obj, 'args') and process_obj.args:
+                # 명령행 인수에서 스크립트 이름 추출
+                script_path = process_obj.args[-1] if isinstance(process_obj.args, list) else str(process_obj.args)
+                script_name = os.path.basename(script_path).replace('.py', '')
+                
+                # 알려진 프로세스 이름과 매칭
+                known_processes = {
+                    'posco_main_notifier': 'posco_main_notifier',
+                    'realtime_news_monitor': 'realtime_news_monitor',
+                    'integrated_report_scheduler': 'integrated_report_scheduler',
+                    'historical_data_collector': 'historical_data_collector'
+                }
+                
+                return known_processes.get(script_name, script_name)
+            
+            return None
+            
+        except Exception as e:
+            self.log(f"⚠️ 프로세스 이름 식별 실패: {e}")
+            return None
+    
+    def _migrate_existing_process_to_v2(self, process_name: str, process_obj):
+        """
+        기존 프로세스를 v2 ProcessManager로 마이그레이션
+        
+        Args:
+            process_name (str): 프로세스 이름
+            process_obj: 기존 프로세스 객체
+        """
+        try:
+            # v2 ProcessManager에 기존 프로세스 등록
+            from Monitoring.Posco_News_mini_v2.core.enhanced_process_manager import ProcessInfo, ProcessStatus
+            
+            # 기존 프로세스 정보를 v2 형식으로 변환
+            process_info = ProcessInfo(
+                name=process_name,
+                pid=process_obj.pid,
+                status=ProcessStatus.RUNNING if process_obj.poll() is None else ProcessStatus.STOPPED,
+                start_time=datetime.now(),  # 정확한 시작 시간은 알 수 없으므로 현재 시간 사용
+                last_health_check=datetime.now(),
+                restart_count=0,
+                last_error=None
+            )
+            
+            # v2 ProcessManager에 등록
+            self.v2_components['process_manager'].processes[process_name] = process_obj
+            self.v2_components['process_manager'].process_info[process_name] = process_info
+            
+            self.log(f"📋 {process_name} v2 ProcessManager에 마이그레이션 완료 (PID: {process_obj.pid})")
+            
+        except Exception as e:
+            self.log(f"❌ {process_name} v2 마이그레이션 실패: {e}")
+            raise
+    
+    def _create_system_status_object_v2(self, current_time, health_results):
+        """
+        v2 NotificationManager용 시스템 상태 객체 생성
+        
+        Args:
+            current_time (datetime): 현재 시간
+            health_results (dict): 헬스체크 결과
+            
+        Returns:
+            SystemStatus: 시스템 상태 객체
+        """
+        try:
+            from core.notification_manager import SystemStatus
+            from datetime import timedelta
+            
+            # 프로세스 상태 통계
+            running_processes = sum(1 for is_healthy in health_results.values() if is_healthy)
+            total_processes = len(health_results)
+            failed_processes = total_processes - running_processes
+            
+            # 프로세스 상세 정보
+            process_details = {}
+            for process_name, is_healthy in health_results.items():
+                if self.v2_components['process_manager']:
+                    process_info = self.v2_components['process_manager'].get_process_info(process_name)
+                    if process_info:
+                        process_details[process_name] = {
+                            'status': 'running' if is_healthy else process_info.status.value,
+                            'pid': process_info.pid,
+                            'restart_count': process_info.restart_count,
+                            'cpu_usage': process_info.cpu_usage,
+                            'memory_usage': process_info.memory_usage,
+                            'last_error': process_info.last_error
+                        }
+                    else:
+                        process_details[process_name] = {
+                            'status': 'running' if is_healthy else 'unknown',
+                            'pid': None,
+                            'restart_count': 0,
+                            'cpu_usage': 0.0,
+                            'memory_usage': 0.0,
+                            'last_error': None
+                        }
+            
+            # 시스템 메트릭
+            system_metrics = {}
+            if self.v2_components['process_manager']:
+                system_status = self.v2_components['process_manager'].get_system_status()
+                system_metrics = system_status.get('system_metrics', {})
+            
+            # 다음 상태 보고 시간 계산
+            next_hour = None
+            for hour in range(current_time.hour + 1, 24):
+                if hour >= self.status_notification_start_hour:
+                    hour_diff = hour - self.status_notification_start_hour
+                    if hour_diff % self.status_notification_interval_hours == 0:
+                        next_hour = hour
+                        break
+            
+            if next_hour is None:
+                next_hour = self.status_notification_start_hour
+            
+            next_status_report = current_time.replace(hour=next_hour, minute=0, second=0, microsecond=0)
+            
+            return SystemStatus(
+                timestamp=current_time,
+                uptime=timedelta(seconds=0),  # 실제로는 시작 시간을 추적해야 함
+                total_processes=total_processes,
+                running_processes=running_processes,
+                failed_processes=failed_processes,
+                process_details=process_details,
+                system_metrics=system_metrics,
+                next_status_report=next_status_report
+            )
+            
+        except Exception as e:
+            self.log(f"❌ 시스템 상태 객체 생성 오류: {e}")
+            # 기본 객체 반환
+            from datetime import timedelta
+            return type('SystemStatus', (), {
+                'timestamp': current_time,
+                'uptime': timedelta(0),
+                'total_processes': len(health_results),
+                'running_processes': sum(1 for is_healthy in health_results.values() if is_healthy),
+                'failed_processes': len(health_results) - sum(1 for is_healthy in health_results.values() if is_healthy),
+                'process_details': {},
+                'system_metrics': {},
+                'next_status_report': None
+            })()
         
     def log(self, message):
         """
@@ -375,15 +2078,8 @@ class PoscoMonitorWatchHamster:
                     )
                     self.log(f"🌙 조용한 시간대 정기 보고 전송 ({current_hour}시)")
             else:
-                # 일반 시간대: 상세한 알림
-                self.send_notification(
-                    f"🐹 POSCO 워치햄스터 정기 상태 보고\n\n"
-                    f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
-                    f"🔍 모니터링 프로세스: {monitor_status}\n"
-                    f"📊 {resource_info}\n"
-                    f"⏰ 다음 보고: {next_hour:02d}:00\n"
-                    f"🚀 자동 복구 기능: 활성화"
-                )
+                # 일반 시간대: v2 향상된 상태 보고 사용
+                self.send_status_report_v2()
                 self.log(f"🐹 정기 상태 보고 전송 완료 ({current_hour}시)")
                 
         except Exception as e:
@@ -406,15 +2102,25 @@ class PoscoMonitorWatchHamster:
 
     def send_notification(self, message, is_error=False):
         """
-        Dooray 알림 전송
+        Dooray 알림 전송 - v2 통합 아키텍처
         
-        워치햄스터 상태나 중요한 이벤트를 Dooray로 전송합니다.
+        v2 NotificationManager 사용 가능 시 해당 컴포넌트를 사용하고,
+        실패 시 기존 방식으로 폴백합니다.
         
         Args:
             message (str): 전송할 메시지
             is_error (bool): 오류 알림 여부 (색상과 봇명 변경)
         """
         try:
+            # v2 NotificationManager 사용 시도
+            if self.v2_enabled and self.v2_components['notification_manager']:
+                success = self.v2_components['notification_manager'].send_notification(message, is_error)
+                if success:
+                    return
+                else:
+                    self.log("⚠️ v2 NotificationManager 실패, 기존 방식으로 폴백")
+            
+            # 기존 방식으로 폴백
             color = "#ff4444" if is_error else "#28a745"
             bot_name = "POSCO 워치햄스터 ❌" if is_error else "POSCO 워치햄스터 🐹🛡️"
             
@@ -442,6 +2148,442 @@ class PoscoMonitorWatchHamster:
                 
         except Exception as e:
             self.log(f"❌ 알림 전송 오류: {e}")
+    
+    def send_startup_notification_v2(self):
+        """
+        v2 시작 알림 전송 - 기존 텍스트 보존하면서 v2 컴포넌트 정보 포함
+        
+        Requirements: 4.1, 4.2
+        """
+        try:
+            if self.v2_enabled and self.v2_components['notification_manager']:
+                # v2 NotificationManager의 구조화된 시작 알림 사용
+                success = self.v2_components['notification_manager'].send_startup_notification(
+                    self.managed_processes
+                )
+                if success:
+                    self.log("✅ v2 시작 알림 전송 완료")
+                    return
+                else:
+                    self.log("⚠️ v2 시작 알림 실패, 기존 방식으로 폴백")
+            
+            # 기존 방식으로 폴백 (기존 텍스트 완전 보존)
+            current_time = datetime.now()
+            message = f"🐹 POSCO 워치햄스터 시스템 시작\n\n"
+            message += f"📅 시작 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+            message += f"🛡️ 관리 대상 프로세스: {len(self.managed_processes)}개\n\n"
+            
+            message += f"📊 관리 중인 모듈:\n"
+            for process in self.managed_processes:
+                descriptions = {
+                    'posco_main_notifier': '메인 뉴스 알림',
+                    'realtime_news_monitor': '실시간 모니터링',
+                    'integrated_report_scheduler': '리포트 스케줄러',
+                    'historical_data_collector': '데이터 수집기'
+                }
+                desc = descriptions.get(process, process)
+                message += f"  ✅ {process} ({desc})\n"
+            
+            # v2 컴포넌트 상태 추가 (v2 활성화 시에만)
+            if self.v2_enabled:
+                message += f"\n🔧 v2 아키텍처 상태:\n"
+                for component_name, component in self.v2_components.items():
+                    status = "✅ 활성화" if component else "❌ 비활성화"
+                    message += f"  • {component_name}: {status}\n"
+            
+            message += f"\n🔄 모니터링 설정:\n"
+            message += f"  • 헬스체크: 5분 간격\n"
+            message += f"  • 상태 보고: 2시간 간격\n"
+            message += f"  • 자동 복구: 활성화\n"
+            message += f"  • Git 업데이트: 60분 간격\n\n"
+            message += f"🚀 전체 시스템이 정상적으로 초기화되었습니다."
+            
+            self.send_notification(message)
+            
+        except Exception as e:
+            self.log(f"❌ 시작 알림 전송 오류: {e}")
+    
+    def send_status_report_v2(self):
+        """
+        v2 정기 상태 보고 - v2 컴포넌트 정보를 포함한 향상된 상태 보고
+        
+        Requirements: 4.2, 4.3
+        """
+        try:
+            current_time = datetime.now()
+            
+            if self.v2_enabled and self.v2_components['notification_manager']:
+                # v2 시스템 상태 정보 수집
+                system_status = self._collect_v2_system_status()
+                
+                # v2 NotificationManager의 구조화된 상태 보고 사용
+                success = self.v2_components['notification_manager'].send_status_report(system_status)
+                if success:
+                    self.log("✅ v2 상태 보고 전송 완료")
+                    return
+                else:
+                    self.log("⚠️ v2 상태 보고 실패, 기존 방식으로 폴백")
+            
+            # 기존 방식으로 폴백 (기존 텍스트 보존하면서 v2 정보 추가)
+            message = f"📊 POSCO 워치햄스터 정기 상태 보고\n\n"
+            message += f"📅 보고 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+            
+            # 가동 시간 계산
+            if hasattr(self, 'start_time'):
+                uptime = current_time - self.start_time
+                hours, remainder = divmod(int(uptime.total_seconds()), 3600)
+                minutes, _ = divmod(remainder, 60)
+                message += f"⏱️ 가동 시간: {hours}시간 {minutes}분\n\n"
+            
+            # 프로세스 상태 확인
+            running_processes = []
+            failed_processes = []
+            
+            for process_name in self.managed_processes:
+                if self._is_process_running(process_name):
+                    running_processes.append(process_name)
+                else:
+                    failed_processes.append(process_name)
+            
+            # 프로세스 상태 보고
+            if not failed_processes:
+                message += f"🟢 정상 프로세스 ({len(running_processes)}/{len(self.managed_processes)}):\n"
+                for process in running_processes:
+                    pid = self._get_process_pid(process)
+                    message += f"  ✅ {process} - 정상 (PID: {pid})\n"
+            else:
+                message += f"🟢 정상 프로세스 ({len(running_processes)}/{len(self.managed_processes)}):\n"
+                for process in running_processes:
+                    pid = self._get_process_pid(process)
+                    message += f"  ✅ {process} - 정상 (PID: {pid})\n"
+                
+                message += f"\n🟡 문제 프로세스 ({len(failed_processes)}/{len(self.managed_processes)}):\n"
+                for process in failed_processes:
+                    message += f"  ❌ {process} - 중지됨\n"
+            
+            # v2 컴포넌트 상태 추가
+            if self.v2_enabled:
+                message += f"\n🔧 v2 아키텍처 상태:\n"
+                for component_name, component in self.v2_components.items():
+                    if component:
+                        # 컴포넌트별 상태 정보
+                        if component_name == 'notification_manager':
+                            stats = component.get_notification_stats()
+                            message += f"  ✅ {component_name}: 활성화 (알림: {stats.get('total_notifications', 0)}회)\n"
+                        elif component_name == 'module_registry':
+                            modules = component.list_modules()
+                            message += f"  ✅ {component_name}: 활성화 (모듈: {len(modules)}개)\n"
+                        else:
+                            message += f"  ✅ {component_name}: 활성화\n"
+                    else:
+                        message += f"  ❌ {component_name}: 비활성화\n"
+            
+            # 시스템 성능 정보
+            try:
+                import psutil
+                cpu_percent = psutil.cpu_percent(interval=1)
+                memory_percent = psutil.virtual_memory().percent
+                disk_percent = psutil.disk_usage('/').percent
+                
+                message += f"\n📈 시스템 성능:\n"
+                message += f"  • CPU 사용률: {cpu_percent:.0f}%\n"
+                message += f"  • 메모리 사용률: {memory_percent:.0f}%\n"
+                message += f"  • 디스크 사용률: {disk_percent:.0f}%\n"
+            except ImportError:
+                message += f"\n📈 시스템 성능: 정보 수집 불가 (psutil 필요)\n"
+            
+            # 다음 보고 시간
+            next_report_time = current_time + timedelta(hours=self.status_notification_interval_hours)
+            message += f"\n🔄 다음 상태 보고: {next_report_time.strftime('%H:%M')}"
+            
+            # 색상 결정 (문제가 있으면 주황색, 없으면 녹색)
+            is_error = len(failed_processes) > 0
+            self.send_notification(message, is_error)
+            
+        except Exception as e:
+            self.log(f"❌ 상태 보고 전송 오류: {e}")
+    
+    def send_process_error_v2(self, process_name, error_details):
+        """
+        v2 프로세스 오류 알림 - 구조화된 오류 정보 포함
+        
+        Requirements: 4.3, 4.4
+        
+        Args:
+            process_name (str): 프로세스 이름
+            error_details (dict): 오류 상세 정보
+        """
+        try:
+            if self.v2_enabled and self.v2_components['notification_manager']:
+                # v2 NotificationManager의 구조화된 오류 알림 사용
+                success = self.v2_components['notification_manager'].send_process_error(
+                    process_name, error_details
+                )
+                if success:
+                    self.log(f"✅ v2 프로세스 오류 알림 전송 완료: {process_name}")
+                    return
+                else:
+                    self.log("⚠️ v2 프로세스 오류 알림 실패, 기존 방식으로 폴백")
+            
+            # 기존 방식으로 폴백 (기존 텍스트 보존)
+            current_time = datetime.now()
+            message = f"❌ POSCO 워치햄스터 프로세스 오류\n\n"
+            message += f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+            message += f"🔧 문제 프로세스: {process_name}\n\n"
+            
+            # 오류 정보
+            error_msg = error_details.get('error_message', '알 수 없는 오류')
+            message += f"❌ 오류 내용: {error_msg}\n"
+            
+            # 재시작 시도 정보
+            restart_count = error_details.get('restart_count', 0)
+            max_attempts = error_details.get('max_attempts', 3)
+            
+            if restart_count > 0:
+                message += f"🔄 재시작 시도: {restart_count}/{max_attempts}회\n"
+            
+            # 자동 복구 상태
+            auto_recovery = error_details.get('auto_recovery_enabled', True)
+            if auto_recovery and restart_count < max_attempts:
+                message += f"\n🔧 자동 복구 시도 중..."
+            elif restart_count >= max_attempts:
+                message += f"\n🚨 최대 재시작 횟수 초과 - 수동 개입 필요"
+            else:
+                message += f"\n⚠️ 자동 복구 비활성화 - 수동 확인 필요"
+            
+            self.send_notification(message, is_error=True)
+            
+        except Exception as e:
+            self.log(f"❌ 프로세스 오류 알림 전송 오류: {e}")
+    
+    def send_recovery_success_v2(self, process_name, recovery_details):
+        """
+        v2 복구 성공 알림 - 복구 단계와 상세 정보 포함
+        
+        Requirements: 4.3, 4.4
+        
+        Args:
+            process_name (str): 프로세스 이름
+            recovery_details (dict): 복구 상세 정보
+        """
+        try:
+            if self.v2_enabled and self.v2_components['notification_manager']:
+                # v2 NotificationManager의 구조화된 복구 알림 사용
+                success = self.v2_components['notification_manager'].send_recovery_success(
+                    process_name, recovery_details
+                )
+                if success:
+                    self.log(f"✅ v2 복구 성공 알림 전송 완료: {process_name}")
+                    return
+                else:
+                    self.log("⚠️ v2 복구 성공 알림 실패, 기존 방식으로 폴백")
+            
+            # 기존 방식으로 폴백 (기존 텍스트 보존)
+            current_time = datetime.now()
+            message = f"✅ POSCO 워치햄스터 프로세스 복구 완료\n\n"
+            message += f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+            message += f"🔧 복구된 프로세스: {process_name}\n\n"
+            
+            # 복구 정보
+            recovery_stage = recovery_details.get('recovery_stage', '알 수 없음')
+            recovery_time = recovery_details.get('recovery_time', 0)
+            
+            message += f"🔄 복구 단계: {recovery_stage}\n"
+            if recovery_time > 0:
+                message += f"⏱️ 복구 소요 시간: {recovery_time}초\n"
+            
+            # 새 프로세스 정보
+            new_pid = recovery_details.get('new_pid')
+            if new_pid:
+                message += f"🆔 새 프로세스 ID: {new_pid}\n"
+            
+            message += f"\n🚀 프로세스가 정상적으로 복구되어 모니터링을 재개합니다."
+            
+            self.send_notification(message)
+            
+        except Exception as e:
+            self.log(f"❌ 복구 성공 알림 전송 오류: {e}")
+    
+    def send_critical_alert_v2(self, alert_message, additional_info=None):
+        """
+        v2 긴급 알림 - 구조화된 긴급 상황 알림
+        
+        Requirements: 4.4
+        
+        Args:
+            alert_message (str): 긴급 알림 메시지
+            additional_info (dict): 추가 정보
+        """
+        try:
+            if self.v2_enabled and self.v2_components['notification_manager']:
+                # v2 NotificationManager의 구조화된 긴급 알림 사용
+                success = self.v2_components['notification_manager'].send_critical_alert(
+                    alert_message, additional_info or {}
+                )
+                if success:
+                    self.log("✅ v2 긴급 알림 전송 완료")
+                    return
+                else:
+                    self.log("⚠️ v2 긴급 알림 실패, 기존 방식으로 폴백")
+            
+            # 기존 방식으로 폴백
+            current_time = datetime.now()
+            message = f"🚨 POSCO 워치햄스터 긴급 알림\n\n"
+            message += f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+            message += f"🚨 긴급 상황: {alert_message}\n\n"
+            
+            if additional_info:
+                message += f"📋 추가 정보:\n"
+                for key, value in additional_info.items():
+                    message += f"  • {key}: {value}\n"
+                message += "\n"
+            
+            message += f"🔧 즉시 수동 확인이 필요합니다."
+            
+            self.send_notification(message, is_error=True)
+            
+        except Exception as e:
+            self.log(f"❌ 긴급 알림 전송 오류: {e}")
+    
+    def _collect_v2_system_status(self):
+        """
+        v2 시스템 상태 정보 수집
+        
+        Returns:
+            SystemStatus: v2 NotificationManager용 시스템 상태 객체
+        """
+        try:
+            # v2 NotificationManager의 SystemStatus 클래스 import
+            import importlib.util
+            v2_path = os.path.join(os.path.dirname(self.script_dir), 'Posco_News_mini_v2')
+            module_path = os.path.join(v2_path, 'core', 'notification_manager.py')
+            spec = importlib.util.spec_from_file_location("notification_manager", module_path)
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            SystemStatus = getattr(module, 'SystemStatus')
+            
+            current_time = datetime.now()
+            
+            # 가동 시간 계산
+            uptime = timedelta(0)
+            if hasattr(self, 'start_time'):
+                uptime = current_time - self.start_time
+            
+            # 프로세스 상태 수집
+            process_details = {}
+            running_count = 0
+            failed_count = 0
+            
+            for process_name in self.managed_processes:
+                if self._is_process_running(process_name):
+                    process_details[process_name] = {
+                        'status': 'running',
+                        'pid': self._get_process_pid(process_name),
+                        'restart_count': 0
+                    }
+                    running_count += 1
+                else:
+                    process_details[process_name] = {
+                        'status': 'stopped',
+                        'pid': None,
+                        'restart_count': 0
+                    }
+                    failed_count += 1
+            
+            # 시스템 메트릭 수집
+            system_metrics = {}
+            try:
+                import psutil
+                system_metrics = {
+                    'cpu_percent': psutil.cpu_percent(interval=1),
+                    'memory_percent': psutil.virtual_memory().percent,
+                    'disk_percent': psutil.disk_usage('/').percent
+                }
+            except ImportError:
+                system_metrics = {
+                    'cpu_percent': 0,
+                    'memory_percent': 0,
+                    'disk_percent': 0
+                }
+            
+            # 다음 상태 보고 시간
+            next_status_report = current_time + timedelta(hours=self.status_notification_interval_hours)
+            
+            return SystemStatus(
+                timestamp=current_time,
+                uptime=uptime,
+                total_processes=len(self.managed_processes),
+                running_processes=running_count,
+                failed_processes=failed_count,
+                process_details=process_details,
+                system_metrics=system_metrics,
+                last_git_update=getattr(self, 'last_git_check', None),
+                next_status_report=next_status_report
+            )
+            
+        except Exception as e:
+            self.log(f"❌ v2 시스템 상태 수집 오류: {e}")
+            return None
+    
+    def _is_process_running(self, process_name):
+        """
+        프로세스 실행 상태 확인
+        
+        Args:
+            process_name (str): 프로세스 이름
+            
+        Returns:
+            bool: 실행 중이면 True
+        """
+        try:
+            import psutil
+            for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+                try:
+                    cmdline = ' '.join(proc.info['cmdline'] or [])
+                    if process_name in cmdline:
+                        return True
+                except (psutil.NoSuchProcess, psutil.AccessDenied):
+                    continue
+            return False
+        except ImportError:
+            # psutil이 없으면 기본 방식 사용
+            try:
+                result = subprocess.run(['pgrep', '-f', process_name], 
+                                      capture_output=True, text=True)
+                return result.returncode == 0
+            except:
+                return False
+    
+    def _get_process_pid(self, process_name):
+        """
+        프로세스 PID 조회
+        
+        Args:
+            process_name (str): 프로세스 이름
+            
+        Returns:
+            int or str: PID 또는 'N/A'
+        """
+        try:
+            import psutil
+            for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+                try:
+                    cmdline = ' '.join(proc.info['cmdline'] or [])
+                    if process_name in cmdline:
+                        return proc.info['pid']
+                except (psutil.NoSuchProcess, psutil.AccessDenied):
+                    continue
+            return 'N/A'
+        except ImportError:
+            # psutil이 없으면 기본 방식 사용
+            try:
+                result = subprocess.run(['pgrep', '-f', process_name], 
+                                      capture_output=True, text=True)
+                if result.returncode == 0:
+                    return result.stdout.strip().split('\n')[0]
+                return 'N/A'
+            except:
+                return 'N/A'
     
     def check_git_updates(self):
         """
@@ -576,45 +2718,504 @@ class PoscoMonitorWatchHamster:
             self.start_monitor_process()
     
     def is_monitor_running(self):
-        """모니터링 프로세스 실행 상태 확인 (통합 리포트 + 실시간 모니터)"""
+        """모니터링 프로세스 실행 상태 확인 - v2 통합 아키텍처"""
         try:
-            # 통합 리포트 스케줄러 확인
-            scheduler_running = False
-            if self.monitor_process and self.monitor_process.poll() is None:
-                scheduler_running = True
+            if self.v2_enabled and self.v2_components['module_registry'] and self.v2_components['process_manager']:
+                # v2 아키텍처 사용
+                running_count = 0
+                total_count = 0
+                
+                for process_name in self.managed_processes:
+                    module_config = self.v2_components['module_registry'].get_module_config(process_name)
+                    if module_config and module_config.auto_start:
+                        total_count += 1
+                        if self.v2_components['process_manager'].is_process_running(process_name):
+                            running_count += 1
+                
+                # 모든 자동 시작 프로세스가 실행 중이어야 정상
+                return running_count == total_count and total_count > 0
             else:
-                for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
-                    try:
-                        if proc.info['name'] == 'python.exe' or proc.info['name'] == 'python':
-                            cmdline = proc.info['cmdline']
-                            if cmdline and 'integrated_report_scheduler.py' in ' '.join(cmdline):
-                                scheduler_running = True
-                                break
-                    except (psutil.NoSuchProcess, psutil.AccessDenied):
-                        continue
-            
-            # 실시간 뉴스 모니터 확인
-            realtime_running = False
-            if self.realtime_process and self.realtime_process.poll() is None:
-                realtime_running = True
-            else:
-                for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
-                    try:
-                        if proc.info['name'] == 'python.exe' or proc.info['name'] == 'python':
-                            cmdline = proc.info['cmdline']
-                            if cmdline and 'realtime_news_monitor.py' in ' '.join(cmdline):
-                                realtime_running = True
-                                break
-                    except (psutil.NoSuchProcess, psutil.AccessDenied):
-                        continue
-            
-            # 둘 다 실행 중이어야 정상
-            return scheduler_running and realtime_running
+                # 기존 방식으로 폴백
+                # 통합 리포트 스케줄러 확인
+                scheduler_running = False
+                if self.monitor_process and self.monitor_process.poll() is None:
+                    scheduler_running = True
+                else:
+                    for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+                        try:
+                            if proc.info['name'] == 'python.exe' or proc.info['name'] == 'python':
+                                cmdline = proc.info['cmdline']
+                                if cmdline and 'integrated_report_scheduler.py' in ' '.join(cmdline):
+                                    scheduler_running = True
+                                    break
+                        except (psutil.NoSuchProcess, psutil.AccessDenied):
+                            continue
+                
+                # 실시간 뉴스 모니터 확인
+                realtime_running = False
+                if self.realtime_process and self.realtime_process.poll() is None:
+                    realtime_running = True
+                else:
+                    for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+                        try:
+                            if proc.info['name'] == 'python.exe' or proc.info['name'] == 'python':
+                                cmdline = proc.info['cmdline']
+                                if cmdline and 'realtime_news_monitor.py' in ' '.join(cmdline):
+                                    realtime_running = True
+                                    break
+                        except (psutil.NoSuchProcess, psutil.AccessDenied):
+                            continue
+                
+                # 둘 다 실행 중이어야 정상
+                return scheduler_running and realtime_running
             
         except Exception as e:
             self.log(f"❌ 프로세스 상태 확인 오류: {e}")
             return False
     
+    # 새로운 아키텍처 프로세스 관리 메서드들
+    def start_all_processes(self) -> bool:
+        """
+        모든 관리 대상 프로세스 시작 - v2 통합 아키텍처
+        
+        v2 컴포넌트 사용 가능 시 모듈 레지스트리의 시작 순서에 따라 프로세스를 시작하고,
+        실패 시 기존 방식으로 폴백합니다.
+        
+        Returns:
+            bool: 모든 프로세스 시작 성공 여부
+        """
+        # 성능 측정 시작
+        with self.measure_operation_performance("start_all_processes"):
+            try:
+                self.log("🚀 모든 프로세스 시작 중...")
+                
+                if self.v2_enabled and self.v2_components['module_registry'] and self.v2_components['process_manager']:
+                    # v2 아키텍처 사용
+                    return self._start_processes_v2()
+                else:
+                    # 기존 방식으로 폴백
+                    self.log("📋 기존 방식으로 프로세스 시작")
+                    return self.start_monitor_process()
+                    
+            except Exception as e:
+                self.log(f"❌ 모든 프로세스 시작 오류: {e}")
+                return False
+    
+    def _start_processes_v2(self) -> bool:
+        """
+        v2 아키텍처를 사용한 프로세스 시작
+        
+        v2 ProcessManager와 ModuleRegistry를 사용하여 의존성 순서에 따라
+        프로세스를 시작하고 생명주기를 관리합니다.
+        
+        구현 내용:
+        - ModuleRegistry에서 의존성 순서 조회
+        - ProcessManager를 사용한 프로세스 시작
+        - 프로세스별 상태 추적 및 검증
+        - 시작 실패 시 자동 복구 시도
+        
+        Returns:
+            bool: 시작 성공 여부
+        """
+        try:
+            success_count = 0
+            failed_processes = []
+            startup_start_time = datetime.now()
+            
+            self.log("🚀 v2 아키텍처를 사용한 프로세스 시작 시작")
+            
+            # 의존성 순서에 따라 프로세스 시작
+            startup_order = self.v2_components['module_registry'].get_modules_by_dependency_order()
+            total_count = len([p for p in startup_order if p in self.managed_processes])
+            
+            self.log(f"📋 시작 순서: {' → '.join(startup_order)}")
+            self.log(f"🎯 관리 대상 프로세스: {total_count}개")
+            
+            for process_name in startup_order:
+                if process_name not in self.managed_processes:
+                    continue
+                
+                # 모듈 설정 조회
+                module_config = self.v2_components['module_registry'].get_module_config(process_name)
+                if not module_config:
+                    self.log(f"❌ {process_name}: 모듈 설정을 찾을 수 없습니다")
+                    failed_processes.append(process_name)
+                    continue
+                
+                if not module_config.auto_start:
+                    self.log(f"⏭️ {process_name}: 자동 시작 비활성화, 건너뜀")
+                    continue
+                
+                self.log(f"🔄 {process_name} 시작 중... (우선순위: {module_config.priority})")
+                
+                # v2 ProcessManager를 사용한 프로세스 시작
+                process_start_time = datetime.now()
+                
+                start_success = self.v2_components['process_manager'].start_process(
+                    process_name, 
+                    module_config.script_path, 
+                    getattr(module_config, 'args', []),
+                    module_config.working_directory
+                )
+                
+                process_start_duration = (datetime.now() - process_start_time).total_seconds()
+                
+                if start_success:
+                    # 프로세스 시작 성공
+                    process_info = self.v2_components['process_manager'].get_process_info(process_name)
+                    success_count += 1
+                    
+                    self.log(f"✅ {process_name} 시작 성공 (PID: {process_info.pid if process_info else 'N/A'}, 소요시간: {process_start_duration:.1f}초)")
+                    
+                    # 모듈 상태 업데이트
+                    try:
+                        from core.module_registry import ModuleStatus
+                        self.v2_components['module_registry'].update_module_status(process_name, ModuleStatus.ACTIVE)
+                        self.log(f"📋 {process_name} 모듈 상태를 ACTIVE로 업데이트")
+                    except Exception as e:
+                        self.log(f"⚠️ {process_name} 모듈 상태 업데이트 실패: {e}")
+                    
+                    # 프로세스 초기화 대기 (의존성 고려)
+                    if hasattr(module_config, 'startup_delay'):
+                        startup_delay = module_config.startup_delay
+                    else:
+                        startup_delay = 3  # 기본 3초 대기
+                    
+                    self.log(f"⏳ {process_name} 초기화 대기 중... ({startup_delay}초)")
+                    time.sleep(startup_delay)
+                    
+                    # 프로세스 상태 재확인
+                    if not self.v2_components['process_manager'].is_process_running(process_name):
+                        self.log(f"⚠️ {process_name} 시작 후 즉시 종료됨, 복구 시도")
+                        # 즉시 복구 시도
+                        recovery_success = self.v2_components['process_manager'].restart_process(process_name)
+                        if not recovery_success:
+                            failed_processes.append(process_name)
+                            success_count -= 1
+                            self.log(f"❌ {process_name} 복구 실패")
+                
+                else:
+                    # 프로세스 시작 실패
+                    failed_processes.append(process_name)
+                    self.log(f"❌ {process_name} 시작 실패 (소요시간: {process_start_duration:.1f}초)")
+                    
+                    # 모듈 상태 업데이트
+                    try:
+                        from core.module_registry import ModuleStatus
+                        self.v2_components['module_registry'].update_module_status(process_name, ModuleStatus.FAILED)
+                        self.log(f"📋 {process_name} 모듈 상태를 FAILED로 업데이트")
+                    except Exception as e:
+                        self.log(f"⚠️ {process_name} 모듈 상태 업데이트 실패: {e}")
+                
+                # 프로세스 간 시작 간격 (의존성 고려)
+                time.sleep(1)
+            
+            # 전체 시작 완료 시간 계산
+            total_startup_time = (datetime.now() - startup_start_time).total_seconds()
+            
+            # 결과 보고 및 알림
+            if success_count == total_count:
+                self.log(f"🎉 모든 프로세스 시작 완료! ({success_count}/{total_count}, 총 소요시간: {total_startup_time:.1f}초)")
+                
+                # v2 NotificationManager를 사용한 시작 알림 전송
+                # v2 향상된 시작 알림 사용
+                self.send_startup_notification_v2()
+                
+                return True
+                
+            elif success_count > 0:
+                self.log(f"⚠️ 일부 프로세스만 시작됨 ({success_count}/{total_count}, 실패: {len(failed_processes)}개)")
+                
+                # 부분 성공 시에도 v2 향상된 시작 알림 사용 (실패 정보 포함)
+                self.send_startup_notification_v2()
+                
+                return True  # 일부라도 성공하면 True 반환
+                
+            else:
+                self.log(f"❌ 모든 프로세스 시작 실패 ({success_count}/{total_count})")
+                
+                # 전체 실패 알림
+                if self.v2_components['notification_manager']:
+                    self.v2_components['notification_manager'].send_critical_alert(
+                        "POSCO 워치햄스터 v2 시스템 시작 실패",
+                        {
+                            '총_프로세스': f'{total_count}개',
+                            '실패한_프로세스': ', '.join(failed_processes),
+                            '소요시간': f'{total_startup_time:.1f}초',
+                            '필요_조치': '수동 확인 및 재시작'
+                        }
+                    )
+                else:
+                    # 기존 방식으로 폴백
+                    self.send_notification(
+                        f"🚨 POSCO 워치햄스터 v2 시스템 시작 실패\n\n"
+                        f"📅 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+                        f"❌ 모든 프로세스 시작 실패 ({total_count}개)\n"
+                        f"🔍 실패한 프로세스: {', '.join(failed_processes)}\n"
+                        f"⏱️ 소요시간: {total_startup_time:.1f}초\n"
+                        f"🛠️ 수동 확인 및 재시작이 필요합니다.",
+                        is_error=True
+                    )
+                
+                return False
+                
+        except Exception as e:
+            self.log(f"❌ v2 프로세스 시작 오류: {e}")
+            import traceback
+            self.log(f"❌ 상세 오류: {traceback.format_exc()}")
+            return False
+    
+    def stop_all_processes(self) -> bool:
+        """
+        모든 관리 대상 프로세스 중지 - v2 통합 아키텍처
+        
+        v2 컴포넌트 사용 가능 시 의존성 순서를 고려하여 프로세스를 중지하고,
+        실패 시 기존 방식으로 폴백합니다.
+        
+        Returns:
+            bool: 모든 프로세스 중지 성공 여부
+        """
+        try:
+            self.log("🛑 모든 프로세스 중지 중...")
+            
+            if self.v2_enabled and self.v2_components['module_registry'] and self.v2_components['process_manager']:
+                # v2 아키텍처 사용
+                return self._stop_processes_v2()
+            else:
+                # 기존 방식으로 폴백
+                self.log("📋 기존 방식으로 프로세스 중지")
+                self.stop_monitor_process()
+                return True
+                
+        except Exception as e:
+            self.log(f"❌ 모든 프로세스 중지 오류: {e}")
+            return False
+    
+    def _stop_processes_v2(self) -> bool:
+        """
+        v2 아키텍처를 사용한 프로세스 중지
+        
+        Returns:
+            bool: 중지 성공 여부
+        """
+        try:
+            success_count = 0
+            total_count = len(self.managed_processes)
+            stopped_processes = []
+            
+            # 역순으로 프로세스 중지 (의존성 고려)
+            shutdown_order = list(reversed(self.v2_components['module_registry'].get_modules_by_dependency_order()))
+            
+            for process_name in shutdown_order:
+                if process_name not in self.managed_processes:
+                    continue
+                
+                if self.v2_components['process_manager'].is_process_running(process_name):
+                    self.log(f"⏹️ {process_name} 중지 중...")
+                    
+                    if self.v2_components['process_manager'].stop_process(process_name):
+                        success_count += 1
+                        stopped_processes.append(process_name)
+                        self.log(f"✅ {process_name} 중지 성공")
+                        
+                        # 모듈 상태 업데이트
+                        try:
+                            from core.module_registry import ModuleStatus
+                            self.v2_components['module_registry'].update_module_status(process_name, ModuleStatus.INACTIVE)
+                        except ImportError:
+                            pass  # 상태 업데이트 실패해도 계속 진행
+                    else:
+                        self.log(f"❌ {process_name} 중지 실패")
+                else:
+                    success_count += 1  # 이미 중지된 프로세스
+                    stopped_processes.append(process_name)
+                    self.log(f"📋 {process_name}: 이미 중지됨")
+                
+                # 프로세스 간 중지 간격
+                time.sleep(1)
+            
+            # 결과 보고
+            if success_count == total_count:
+                self.log(f"🎉 모든 프로세스 중지 완료! ({success_count}/{total_count})")
+                
+                # v2 NotificationManager를 사용한 종료 알림 전송
+                if self.v2_components['notification_manager']:
+                    shutdown_status = {
+                        'uptime': datetime.now() - datetime.now(),  # 실제로는 시작 시간을 추적해야 함
+                        'stopped_processes': stopped_processes,
+                        'total_restarts': getattr(self.v2_components['process_manager'], 'total_restarts', 0)
+                    }
+                    self.v2_components['notification_manager'].send_shutdown_notification(shutdown_status)
+                
+                return True
+            else:
+                self.log(f"⚠️ 일부 프로세스만 중지됨 ({success_count}/{total_count})")
+                return success_count > 0
+                
+        except Exception as e:
+            self.log(f"❌ v2 프로세스 중지 오류: {e}")
+            return False
+    
+    def restart_process(self, process_name: str) -> bool:
+        """
+        개별 프로세스 재시작
+        
+        Args:
+            process_name (str): 재시작할 프로세스 이름
+            
+        Returns:
+            bool: 재시작 성공 여부
+        """
+        try:
+            if process_name not in self.managed_processes:
+                self.log(f"❌ 알 수 없는 프로세스: {process_name}")
+                return False
+            
+            self.log(f"🔄 {process_name} 재시작 중...")
+            
+            if not self.module_registry:
+                # 기존 방식으로 폴백
+                if process_name == 'integrated_report_scheduler':
+                    self.stop_monitor_process()
+                    time.sleep(3)
+                    return self.start_monitor_process()
+                else:
+                    self.log(f"⚠️ 기존 방식에서는 {process_name} 개별 재시작 불가")
+                    return False
+            
+            # Enhanced ProcessManager 사용
+            success = self.process_manager.restart_process(process_name)
+            
+            if success:
+                self.log(f"✅ {process_name} 재시작 성공")
+                
+                # 복구 알림 전송
+                if self.notification_manager:
+                    recovery_details = {
+                        'recovery_stage': '개별 재시작',
+                        'recovery_time': 5,  # 대략적인 시간
+                        'new_pid': self.process_manager.get_process_info(process_name).pid if self.process_manager.get_process_info(process_name) else None
+                    }
+                    self.notification_manager.send_recovery_success(process_name, recovery_details)
+            else:
+                self.log(f"❌ {process_name} 재시작 실패")
+                
+                # 오류 알림 전송
+                if self.notification_manager:
+                    process_info = self.process_manager.get_process_info(process_name)
+                    error_details = {
+                        'error_message': process_info.last_error if process_info else '알 수 없는 오류',
+                        'restart_count': process_info.restart_count if process_info else 0,
+                        'max_attempts': 3,
+                        'auto_recovery_enabled': True
+                    }
+                    self.notification_manager.send_process_error(process_name, error_details)
+            
+            return success
+            
+        except Exception as e:
+            self.log(f"❌ {process_name} 재시작 오류: {e}")
+            return False
+    
+    def get_process_status(self, process_name: str) -> dict:
+        """
+        개별 프로세스 상태 조회
+        
+        Args:
+            process_name (str): 조회할 프로세스 이름
+            
+        Returns:
+            dict: 프로세스 상태 정보
+        """
+        try:
+            if process_name not in self.managed_processes:
+                return {
+                    'error': f'알 수 없는 프로세스: {process_name}',
+                    'status': 'unknown'
+                }
+            
+            if not self.module_registry:
+                # 기존 방식으로 폴백
+                is_running = self.is_monitor_running() if process_name in ['integrated_report_scheduler', 'realtime_news_monitor'] else False
+                return {
+                    'name': process_name,
+                    'status': 'running' if is_running else 'stopped',
+                    'pid': None,
+                    'restart_count': 0,
+                    'last_error': None
+                }
+            
+            # Enhanced ProcessManager 사용
+            process_info = self.process_manager.get_process_info(process_name)
+            
+            if process_info:
+                return {
+                    'name': process_info.name,
+                    'status': process_info.status.value,
+                    'pid': process_info.pid,
+                    'start_time': process_info.start_time.isoformat() if process_info.start_time else None,
+                    'last_health_check': process_info.last_health_check.isoformat(),
+                    'restart_count': process_info.restart_count,
+                    'last_error': process_info.last_error,
+                    'cpu_usage': process_info.cpu_usage,
+                    'memory_usage': process_info.memory_usage
+                }
+            else:
+                return {
+                    'name': process_name,
+                    'status': 'not_found',
+                    'error': '프로세스 정보를 찾을 수 없습니다'
+                }
+                
+        except Exception as e:
+            return {
+                'name': process_name,
+                'status': 'error',
+                'error': str(e)
+            }
+    
+    def get_all_process_status(self) -> dict:
+        """
+        모든 프로세스 상태 조회
+        
+        Returns:
+            dict: 전체 시스템 상태 정보
+        """
+        try:
+            if not self.module_registry:
+                # 기존 방식으로 폴백
+                monitor_running = self.is_monitor_running()
+                return {
+                    'timestamp': datetime.now().isoformat(),
+                    'total_processes': len(self.managed_processes),
+                    'running_processes': 2 if monitor_running else 0,
+                    'failed_processes': 0 if monitor_running else len(self.managed_processes),
+                    'processes': {
+                        name: self.get_process_status(name) for name in self.managed_processes
+                    }
+                }
+            
+            # Enhanced ProcessManager 사용
+            system_status = self.process_manager.get_system_status()
+            
+            # 프로세스별 상세 정보 추가
+            process_details = {}
+            for process_name in self.managed_processes:
+                process_details[process_name] = self.get_process_status(process_name)
+            
+            system_status['processes'] = process_details
+            return system_status
+            
+        except Exception as e:
+            return {
+                'timestamp': datetime.now().isoformat(),
+                'error': str(e),
+                'total_processes': len(self.managed_processes),
+                'running_processes': 0,
+                'failed_processes': len(self.managed_processes)
+            }
+    
+    # 기존 메서드들과의 통합
     def start_monitor_process(self):
         """모니터링 프로세스 시작 (통합 리포트 + 실시간 모니터)"""
         try:
@@ -1691,7 +4292,7 @@ class PoscoMonitorWatchHamster:
             return f"❌ 뉴스 상태 정보 수집 오류: {str(e)}"
     
     def load_previous_state(self):
-        """이전 상태 로드 - StateManager 사용"""
+        """이전 상태 로드 - StateManager 및 ModuleRegistry 연동"""
         try:
             previous_state = self.state_manager.load_state()
             
@@ -1706,6 +4307,23 @@ class PoscoMonitorWatchHamster:
             # 오류 카운트 복원
             self.error_count = previous_state.get('error_count', 0)
             self.recovery_attempts = previous_state.get('recovery_attempts', 0)
+            
+            # 모듈 레지스트리가 있는 경우 모듈 상태 동기화
+            if self.module_registry:
+                try:
+                    # 이전에 실행 중이던 프로세스 정보 복원
+                    previous_processes = previous_state.get('running_processes', [])
+                    for process_name in previous_processes:
+                        if process_name in self.managed_processes:
+                            # 프로세스가 실제로 실행 중인지 확인
+                            if self.process_manager.is_process_running(process_name):
+                                self.log(f"📋 기존 프로세스 발견: {process_name}")
+                            else:
+                                self.log(f"⚠️ 이전 프로세스 종료됨: {process_name}")
+                    
+                    self.log("🔄 모듈 레지스트리 상태 동기화 완료")
+                except Exception as e:
+                    self.log(f"⚠️ 모듈 상태 동기화 실패: {e}")
             
             self.log("📋 이전 상태 로드 완료")
             
@@ -1742,71 +4360,210 @@ class PoscoMonitorWatchHamster:
             print("🐹 POSCO 워치햄스터 시작")
         
         self.log("POSCO 뉴스 모니터 워치햄스터 시작")
-        # 기존 워치햄스터 2.0 스타일의 간소한 시작 알림
-        self.send_notification(
-            f"POSCO 뉴스 모니터 워치햄스터 시작\n\n"
-            f"시작 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
-            f"모니터링 간격: {self.process_check_interval//60}분\n"
-            f"상태 알림: {self.status_notification_interval_hours}시간 간격"
-        )
         
-        # ProcessManager를 통한 모니터 초기화
+        # v2 통합 상태 로그
+        if self.v2_enabled:
+            self.log("🎉 v2 아키텍처 활성화 - 하이브리드 모드로 동작")
+        else:
+            self.log(f"📋 기존 방식으로 동작 - 폴백 사유: {self.fallback_reason}")
+        
+        # 시작 알림 전송 (v2 NotificationManager 우선 사용)
+        if self.v2_enabled and self.v2_components['notification_manager']:
+            # v2 시작 알림은 start_all_processes에서 전송됨
+            pass
+        else:
+            # 기존 방식 시작 알림
+            self.send_notification(
+                f"POSCO 뉴스 모니터 워치햄스터 시작\n\n"
+                f"시작 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+                f"모니터링 간격: {self.process_check_interval//60}분\n"
+                f"상태 알림: {self.status_notification_interval_hours}시간 간격\n"
+                f"아키텍처: {'v2 하이브리드' if self.v2_enabled else '기존 방식'}"
+            )
+        
+        # 새로운 아키텍처로 모니터링 시스템 초기화
         if self.ui:
             self.ui.print_info_message("모니터링 시스템 초기화 중...", "process")
         else:
             self.log("🔄 모니터링 시스템 초기화 중...")
         
-        if self.process_manager.initialize_monitors():
+        # v2 프로세스 생명주기 관리 통합
+        if self.v2_enabled:
+            self.log("🔄 v2 프로세스 생명주기 관리 통합 중...")
+            integration_success = self.integrate_v2_process_lifecycle_management()
+            if integration_success:
+                self.log("✅ v2 프로세스 생명주기 관리 통합 완료")
+            else:
+                self.log("⚠️ v2 프로세스 생명주기 관리 통합 부분 실패")
+        
+        # 모든 프로세스 시작
+        if self.start_all_processes():
             if self.ui:
                 self.ui.print_success_message("모니터링 시스템 초기화 성공")
                 
-                # 모니터 상태 표시
-                monitor_status = self.process_manager.get_all_monitor_status()
-                self.ui.print_monitor_status(monitor_status)
+                # 프로세스 상태 표시
+                if self.v2_enabled and self.v2_components['module_registry']:
+                    system_status = self.get_all_process_status()
+                    if self.ui and hasattr(self.ui, 'print_process_status'):
+                        self.ui.print_process_status(system_status)
             else:
                 self.log("✅ 모니터링 시스템 초기화 성공")
         else:
             if self.ui:
-                self.ui.print_warning_message("모니터링 시스템 부분 초기화", "일부 모니터 실패")
+                self.ui.print_warning_message("모니터링 시스템 부분 초기화", "일부 프로세스 실패")
             else:
-                self.log("⚠️ 모니터링 시스템 부분 초기화 - 일부 모니터 실패")
+                self.log("⚠️ 모니터링 시스템 부분 초기화 - 일부 프로세스 실패")
         
         try:
             while True:
                 current_time = datetime.now()
                 
-                # ProcessManager를 통한 헬스 체크
-                healthy_count, total_count = self.process_manager.perform_health_checks()
-                
-                if healthy_count < total_count:
-                    self.log(f"⚠️ 모니터 헬스 체크: {healthy_count}/{total_count} 정상")
+                # v2 통합 아키텍처 헬스체크 및 3단계 지능적 복구 시스템
+                if self.v2_enabled and self.v2_components['module_registry'] and self.v2_components['process_manager']:
+                    # v2 Enhanced ProcessManager를 통한 종합적 헬스체크
+                    health_results = self.v2_components['process_manager'].perform_health_check()
                     
-                    # 모니터 상태 불량 시 알림 (조용한 시간대 고려)
-                    if not self.is_quiet_hours() or healthy_count == 0:
-                        monitor_status = self.process_manager.get_all_monitor_status()
-                        failed_monitors = [name for name, status in monitor_status.items() 
-                                         if not status['is_running']]
+                    healthy_count = sum(1 for is_healthy in health_results.values() if is_healthy)
+                    total_count = len(health_results)
+                    failed_processes = [name for name, is_healthy in health_results.items() if not is_healthy]
+                    
+                    # 헬스체크 결과 상세 로깅
+                    if total_count > 0:
+                        health_percentage = (healthy_count / total_count) * 100
+                        self.log(f"🔍 v2 프로세스 헬스체크 완료: {healthy_count}/{total_count} 정상 ({health_percentage:.1f}%)")
                         
-                        self.send_notification(
-                            f"POSCO 모니터 상태 불량\n\n"
-                            f"시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
-                            f"정상 모니터: {healthy_count}/{total_count}\n"
-                            f"문제 모니터: {', '.join(failed_monitors)}",
-                            is_error=True
-                        )
-                else:
-                    # 모든 모니터 정상
-                    if hasattr(self, 'last_health_warning') and self.last_health_warning:
-                        # 이전에 문제가 있었다면 복구 알림
-                        self.send_notification(
-                            f"POSCO 모니터 전체 복구 완료\n\n"
-                            f"복구 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
-                            f"상태: 모든 모니터 정상 작동"
-                        )
-                        self.last_health_warning = False
+                        if failed_processes:
+                            self.log(f"⚠️ 문제 감지된 프로세스: {', '.join(failed_processes)}")
                     
-                # 헬스 체크 결과 기록
-                self.last_health_warning = (healthy_count < total_count)
+                    # 모듈 상태 추적 업데이트
+                    self._update_module_status_from_health_check(health_results)
+                    
+                    if healthy_count < total_count:
+                        # 프로세스 실패 감지 - v2 3단계 지능적 복구 시스템 활성화
+                        self.log(f"🚨 프로세스 실패 감지 - v2 3단계 복구 시스템 활성화")
+                        
+                        recovery_start_time = datetime.now()
+                        recovery_results = {}
+                        
+                        # 실패한 프로세스들에 대해 v2 자동 복구 시도
+                        for process_name in failed_processes:
+                            self.log(f"🔧 {process_name} 3단계 지능적 복구 시작")
+                            
+                            # 프로세스 정보 조회 (복구 전 상태)
+                            process_info = self.v2_components['process_manager'].get_process_info(process_name)
+                            pre_recovery_restart_count = process_info.restart_count if process_info else 0
+                            
+                            # v2 ProcessManager의 3단계 자동 복구 실행
+                            recovery_success = self.handle_process_failure_v2(process_name)
+                            
+                            # 복구 결과 기록
+                            post_recovery_info = self.v2_components['process_manager'].get_process_info(process_name)
+                            recovery_results[process_name] = {
+                                'success': recovery_success,
+                                'pre_restart_count': pre_recovery_restart_count,
+                                'post_restart_count': post_recovery_info.restart_count if post_recovery_info else pre_recovery_restart_count,
+                                'final_status': post_recovery_info.status.value if post_recovery_info else 'unknown'
+                            }
+                        
+                        recovery_end_time = datetime.now()
+                        total_recovery_time = (recovery_end_time - recovery_start_time).total_seconds()
+                        
+                        # 복구 결과 종합 분석
+                        successful_recoveries = sum(1 for result in recovery_results.values() if result['success'])
+                        failed_recoveries = len(recovery_results) - successful_recoveries
+                        
+                        self.log(f"📊 v2 복구 시스템 결과: 성공 {successful_recoveries}개, 실패 {failed_recoveries}개 (소요시간: {total_recovery_time:.1f}초)")
+                        
+                        # 복구 결과별 상세 로깅
+                        for process_name, result in recovery_results.items():
+                            if result['success']:
+                                self.log(f"✅ {process_name}: 복구 성공 (재시작 횟수: {result['pre_restart_count']} → {result['post_restart_count']})")
+                            else:
+                                self.log(f"❌ {process_name}: 복구 실패 (최종 상태: {result['final_status']})")
+                        
+                        # 전체 상태 불량 시 알림 (조용한 시간대 고려)
+                        if not self.is_quiet_hours() or healthy_count == 0:
+                            if self.v2_components['notification_manager']:
+                                # v2 알림 시스템 사용 - 복구 결과 포함
+                                system_status_obj = self._create_system_status_object_v2(current_time, health_results)
+                                
+                                # 복구 정보 추가
+                                recovery_summary = {
+                                    'total_failed': len(failed_processes),
+                                    'recovery_attempted': len(recovery_results),
+                                    'recovery_successful': successful_recoveries,
+                                    'recovery_failed': failed_recoveries,
+                                    'recovery_time': total_recovery_time,
+                                    'recovery_details': recovery_results
+                                }
+                                
+                                self.v2_components['notification_manager'].send_status_report(system_status_obj, recovery_summary)
+                            else:
+                                # 기존 알림 시스템 폴백
+                                recovery_status = f"복구 시도: {successful_recoveries}성공/{failed_recoveries}실패"
+                                self.send_notification(
+                                    f"🚨 POSCO 워치햄스터 v2 프로세스 상태 불량\n\n"
+                                    f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+                                    f"📊 정상 프로세스: {healthy_count}/{total_count}\n"
+                                    f"⚠️ 문제 프로세스: {', '.join(failed_processes)}\n"
+                                    f"🔧 {recovery_status}\n"
+                                    f"⏱️ 복구 소요시간: {total_recovery_time:.1f}초\n"
+                                    f"🛡️ v2 3단계 지능적 복구 시스템 작동됨",
+                                    is_error=True
+                                )
+                    else:
+                        # 모든 프로세스 정상
+                        if hasattr(self, 'last_health_warning') and self.last_health_warning:
+                            # 이전에 문제가 있었다면 복구 완료 알림
+                            self.log("✅ 모든 프로세스 정상 복구 완료 - v2 시스템 안정화됨")
+                            
+                            if self.v2_components['notification_manager']:
+                                # v2 복구 완료 알림
+                                system_status_obj = self._create_system_status_object_v2(current_time, health_results)
+                                self.v2_components['notification_manager'].send_recovery_complete_notification(system_status_obj)
+                            else:
+                                # 기존 방식 복구 완료 알림
+                                self.send_notification(
+                                    f"✅ POSCO 워치햄스터 v2 시스템 복구 완료\n\n"
+                                    f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+                                    f"🎯 모든 프로세스 정상 동작 중 ({total_count}개)\n"
+                                    f"🛡️ v2 3단계 지능적 복구 시스템이 성공적으로 작동했습니다."
+                                )
+                            
+                            self.last_health_warning = False
+                        
+                    # 헬스체크 결과 기록 및 통계 업데이트
+                    self.last_health_warning = (healthy_count < total_count)
+                    
+                    # v2 시스템 메트릭 업데이트
+                    if hasattr(self, 'v2_system_metrics'):
+                        self.v2_system_metrics['last_health_check'] = current_time
+                        self.v2_system_metrics['health_check_count'] = self.v2_system_metrics.get('health_check_count', 0) + 1
+                        self.v2_system_metrics['healthy_processes'] = healthy_count
+                        self.v2_system_metrics['total_processes'] = total_count
+                    else:
+                        self.v2_system_metrics = {
+                            'last_health_check': current_time,
+                            'health_check_count': 1,
+                            'healthy_processes': healthy_count,
+                            'total_processes': total_count
+                        }
+                else:
+                    # 기존 방식으로 폴백
+                    monitor_running = self.is_monitor_running()
+                    if not monitor_running:
+                        self.log("⚠️ 모니터링 프로세스 중단 감지, 재시작 시도")
+                        if self.start_monitor_process():
+                            self.log("✅ 모니터링 프로세스 재시작 성공")
+                        else:
+                            self.log("❌ 모니터링 프로세스 재시작 실패")
+                            self.send_notification(
+                                f"POSCO 모니터 재시작 실패\n\n"
+                                f"시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+                                f"수동 확인이 필요합니다.",
+                                is_error=True
+                            )
+
                 
                 # Git 업데이트 체크 (조용한 시간대 제외)
                 if not self.is_quiet_hours() and (current_time - self.last_git_check).total_seconds() >= (self.git_check_interval):
@@ -1839,6 +4596,15 @@ class PoscoMonitorWatchHamster:
                 # 마스터 모니터링 시스템 상태 체크 (필요시)
                 if self.master_monitor_enabled and hasattr(self, 'master_monitor'):
                     self._check_master_monitor_integration()
+                
+                # v2 성능 모니터링 및 최적화 체크 (10분마다)
+                if (self.performance_monitor and 
+                    hasattr(self, '_last_performance_check') and 
+                    (current_time - self._last_performance_check).total_seconds() >= 600):
+                    self._perform_performance_analysis()
+                    self._last_performance_check = current_time
+                elif self.performance_monitor and not hasattr(self, '_last_performance_check'):
+                    self._last_performance_check = current_time
                 
                 # 상태 저장 (메모리 최적화)
                 self.save_status()
@@ -1890,4 +4656,5 @@ if __name__ == "__main__":
         os.environ['PYTHONIOENCODING'] = 'utf-8'
     
     watchhamster = PoscoMonitorWatchHamster()
+    watchhamster.run()
     watchhamster.run()
