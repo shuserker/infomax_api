@@ -1,0 +1,171 @@
+{
+  "analysis_metadata": {
+    "commit_hash": "a763ef84be08b5b1dab0c0ba20594b141baec7ab",
+    "commit_message": "[Final] 워치햄스터 3.0 (잔여파일 정리 전)",
+    "analysis_date": "2025-08-12",
+    "total_files": 1745,
+    "current_files": 4606,
+    "files_to_remove": 2861
+  },
+  
+  "core_system_files": {
+    "main_monitoring_system": {
+      "path": "Monitoring/Posco_News_mini/",
+      "key_files": [
+        {
+          "file": "posco_main_notifier.py",
+          "purpose": "메인 알림 시스템 - 5가지 BOT 타입 알림 생성",
+          "features": [
+            "🏭 POSCO 뉴스 비교알림 BOT (영업일 비교 분석)",
+            "⏰ 증시마감 지연 발행 알림",
+            "📊 일일 통합 분석 리포트",
+            "✅ 정시 발행 알림",
+            "🔔 데이터 갱신 없음 알림"
+          ]
+        },
+        {
+          "file": "monitor_WatchHamster.py",
+          "purpose": "워치햄스터 모니터링 시스템",
+          "features": [
+            "프로세스 상태 감시 및 자동 재시작",
+            "Git 저장소 업데이트 자동 체크",
+            "시스템 리소스 모니터링",
+            "자동 복구 메커니즘",
+            "Dooray 알림 전송"
+          ]
+        },
+        {
+          "file": "config.py",
+          "purpose": "통합 설정 관리",
+          "settings": {
+            "api_config": {
+              "url": "https://dev-global-api.einfomax.co.kr/apis/posco/news",
+              "user": "infomax",
+              "password": "infomax!",
+              "timeout": 10
+            },
+            "webhooks": {
+              "news_webhook": "https://infomax.dooray.com/services/3262462484277387103/4121380745073081229/5FbudzTwTki4wCeBszBrAg",
+              "watchhamster_webhook": "https://infomax.dooray.com/services/3262462484277387103/3281274580264701322/nKUfZnjtRS2rHh-E9i9uZQ"
+            }
+          }
+        }
+      ]
+    },
+    
+    "execution_files": {
+      "windows_bat": [
+        "🎛️POSCO_제어센터_실행.bat",
+        "🎛️POSCO_제어센터_실행_v2.bat",
+        "🐹워치햄스터_총괄_관리_센터.bat",
+        "🐹워치햄스터_총괄_관리_센터_v3.bat",
+        "🐹워치햄스터_총괄_관리_센터_SIMPLE.bat",
+        "🐹워치햄스터_통합_관리_센터.bat",
+        "🚀POSCO_메인_알림_시작_직접.bat",
+        "POSCO_시작.bat"
+      ],
+      "mac_sh_command": [
+        "🎛️POSCO_제어센터_Mac실행.command",
+        "🎛️POSCO_제어센터_실행_v2.sh",
+        "🚀POSCO_메인_알림_시작_직접.sh",
+        "posco_control_mac.sh"
+      ]
+    },
+    
+    "support_files": [
+      "requirements.txt",
+      "README.md",
+      "lib_wt_common.bat",
+      "lib_wt_common.ps1", 
+      "lib_wt_common.sh"
+    ]
+  },
+  
+  "folder_structure": {
+    "essential_folders": [
+      "Monitoring/",
+      "config/",
+      "scripts/",
+      "tools/",
+      "docs/",
+      "reports/",
+      ".kiro/",
+      ".git/"
+    ],
+    "minimal_backup_folders": [
+      ".file_renaming_backup/",
+      ".repair_backups/",
+      ".syntax_repair_backup/"
+    ],
+    "folders_to_remove": [
+      ".aggressive_syntax_repair_backup/",
+      ".comprehensive_repair_backup/",
+      ".enhanced_repair_backups/",
+      ".file_reference_backup/",
+      ".filename_standardization_backup/",
+      ".final_file_reference_cleanup_backup/",
+      ".final_reference_cleanup_backup/",
+      ".final_syntax_repair_backup/",
+      ".focused_file_reference_backup/",
+      ".indentation_backup/",
+      ".naming_backup/",
+      ".refined_file_reference_backup/",
+      ".syntax_repair_backup/",
+      "deployment_backup_20250810_185935/",
+      "webhook_backup/"
+    ]
+  },
+  
+  "data_processing_logic": {
+    "news_sources": [
+      {
+        "name": "NEWYORK MARKET WATCH",
+        "status_types": ["🟢 최신", "⏳ 발행 전", "🔴 발행 지연"]
+      },
+      {
+        "name": "KOSPI CLOSE", 
+        "status_types": ["🟢 최신", "⏳ 발행 전", "🔴 발행 지연"]
+      },
+      {
+        "name": "EXCHANGE RATE",
+        "status_types": ["🟢 최신", "⏳ 발행 전", "🔴 발행 지연"]
+      }
+    ],
+    "bot_types": [
+      "POSCO 뉴스 🔔 BOT",
+      "POSCO 워치햄스터 ❌ BOT",
+      "POSCO 워치햄스터 🎯🛡️ BOT", 
+      "[TEST] POSCO 뉴스 🔔 BOT",
+      "[TEST] POSCO 뉴스 비교알림 BOT"
+    ]
+  },
+  
+  "webhook_message_formats": {
+    "data_update_format": {
+      "title": "[TEST] 📊 데이터 부분 갱신 (1/3)",
+      "timestamp": "✅ [TEST] 2025-08-05 15:00 기준",
+      "sections": [
+        "📊 데이터 부분 갱신 (1/3)",
+        "├ NEWYORK MARKET WATCH",
+        "├ 상태: 🟢 최신",
+        "├ 시간: 2025-08-06 06:20:21",
+        "└ 제목: [뉴욕마켓워치] 관세 여파, 서비스업까지 도달..."
+      ]
+    },
+    "watchhamster_alert_format": {
+      "git_failure": "❌ POSCO 모니터 Git 업데이트 실패",
+      "process_stop": "⚠️ POSCO 모니터 프로세스 중단 감지",
+      "recovery_complete": "✅ POSCO 모니터 자동 복구 완료",
+      "status_report": "🎯 POSCO 워치햄스터 🛡️ 정기 상태 보고"
+    },
+    "ai_report_format": {
+      "title": "📊 POSCO 통합 AI 분석 리포트",
+      "sections": [
+        "🎯 **시장 종합 상황**: 📊 혼조",
+        "📰 **분석 범위**: 3개 뉴스 타입 분석",
+        "⏰ **급일 발행**: 1/3개 완료",
+        "💰 **포트폴리오**: 성장주 50%, 가치주 30%, 현금 20%"
+      ]
+    }
+  }
+}
