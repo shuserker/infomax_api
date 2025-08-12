@@ -1,23 +1,23 @@
 # 🐹 WatchHamster Mac 실행 가이드 v4.0
 
 ## 📋 개요
-워치햄스터 시스템을 Mac 환경에서 실행하기 위한 완전한 가이드입니다. 개선된 기능들과 함께 안정적인 모니터링 시스템을 구축할 수 있습니다.
+WatchHamster 시스템을 Mac 환경에서 실행하기 위한 완전한 가이드입니다. 개선된 기능들과 함께 안정적인 모니터링 시스템을 구축할 수 있습니다.
 
 ## 🚀 빠른 시작
 
 ### 1. 시스템 실행
 ```bash
 # 메인 제어 센터 실행
-bash watchhamster_master_control.sh
+bash .naming_backup/scripts/.naming_backup/scripts/watchhamster_master_control.sh
 
 # 또는 직접 실행
-./watchhamster_master_control.sh
+./.naming_backup/scripts/.naming_backup/scripts/watchhamster_master_control.sh
 ```
 
 ### 2. POSCO 모니터링 실행
 ```bash
 # POSCO 제어 센터 직접 실행
-bash posco_control_center.sh
+bash .naming_backup/scripts/.naming_backup/scripts/posco_control_center.sh
 
 # 또는 메인 메뉴에서 선택
 ```
@@ -34,26 +34,26 @@ infomax_api/
 ├── watchhamster_master_control.ps1     # 메인 제어 센터 (PowerShell용)
 ├── posco_control_center.ps1            # POSCO 제어 센터 (PowerShell용)
 └── Monitoring/
-    └── Posco_News_mini/
+    └── POSCO News/
         └── posco_control_center.sh     # POSCO 모니터링 센터
 ```
 
 ## 🎯 주요 기능
 
 ### 메인 제어 센터 기능
-- 🏭 **POSCO 뉴스 모니터링**: 포스코 뉴스 및 주가 모니터링 시스템
-- 🛡️ **전체 시스템 상태**: 모든 워치햄스터 상태 확인
+- 🏭 **POSCO 뉴스 모니터링**: POSCO News 및 주가 모니터링 시스템
+- 🛡️ **전체 시스템 상태**: 모든 WatchHamster 상태 확인
 - 🔄 **전체 시스템 업데이트**: 모든 시스템 Git 업데이트
 - 📋 **통합 로그 관리**: 모든 시스템 로그 통합 관리
 - 🧪 **전체 시스템 테스트**: 모든 시스템 통합 테스트
 - 📦 **전체 백업 생성**: 모든 시스템 통합 백업
-- 🔧 **워치햄스터 설정**: 총괄 설정 관리
+- 🔧 **WatchHamster 설정**: 총괄 설정 관리
 - 🎨 **UI 테마 변경**: 색상 테마 및 인터페이스 설정
 
 ### POSCO 제어 센터 기능
-- 🚀 **워치햄스터 시작**: POSCO 뉴스 모니터링 시작
-- 🛑 **워치햄스터 중지**: 모니터링 프로세스 중지
-- 🔄 **워치햄스터 재시작**: 모니터링 시스템 재시작
+- 🚀 **WatchHamster 시작**: POSCO 뉴스 모니터링 시작
+- 🛑 **WatchHamster 중지**: 모니터링 프로세스 중지
+- 🔄 **WatchHamster 재시작**: 모니터링 시스템 재시작
 - 📊 **실시간 상태 확인**: 현재 모니터링 상태 확인
 - 📋 **뉴스 로그 확인**: 최신 뉴스 로그 확인
 - 📈 **뉴스 통계 보기**: 뉴스 수집 통계 확인
@@ -170,7 +170,7 @@ brew install bc
 ```bash
 # 상세 로그 활성화
 export WATCHHAMSTER_DEBUG=1
-bash watchhamster_master_control.sh
+bash .naming_backup/scripts/.naming_backup/scripts/watchhamster_master_control.sh
 ```
 
 ## 📈 성능 최적화
@@ -241,7 +241,7 @@ tail -f ~/.watchhamster/logs/error.log
 
 ## 🎉 완료!
 
-워치햄스터 시스템이 성공적으로 설정되었습니다. 이제 안정적이고 효율적인 모니터링 시스템을 사용할 수 있습니다.
+WatchHamster 시스템이 성공적으로 설정되었습니다. 이제 안정적이고 효율적인 모니터링 시스템을 사용할 수 있습니다.
 
 ### 다음 단계
 1. 메인 제어 센터 실행

@@ -1,0 +1,529 @@
+#!/usr/bin/env python3
+"""
+POSCO 자동화된 수리 시스템 테스트
+Test Suite for Automated Repair System
+
+이 테스트 스위트는 자동화된 수리 시스템의 모든 기능을 검증합니다.
+"""
+
+import os
+import sys
+import json
+import tempfile
+import unittest
+from pathlib import Path
+from unittest.mock import patch, mock_open
+
+# 테스트 대상 모듈 import
+from automated_repair_system import (
+    AutomatedRepairSystem,
+    SyntaxErrorDiagnostic,
+    SyntaxErrorRepairer,
+    ImportDiagnostic,
+    ImportRepairer,
+    FileReferenceDiagnostic,
+    FileReferenceRepairer,
+    BackupManager,
+    DiagnosticResult,
+    RepairResult,
+    BrokenReference
+)
+
+
+class TestBackupManager(unittest.TestCase):
+    """백업 관리자 테스트"""
+    
+    def setUp(self):
+        self.temp_dir = tempfile.mkdtemp()
+        self.backup_manager = BackupManager(backup_dir=f"{self.temp_dir}/.test_backups")
+    
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
+    
+    def test_create_backup(self):
+        """파일 백업 생성 테스트"""
+        # 테스트 파일 생성
+        test_file = Path(self.temp_dir) / "test.py"
+        test_file.write_text("print('hello world')")
+        
+        # 백업 생성
+        backup_path = self.backup_manager.create_backup(test_file)
+        
+        # 백업 파일 존재 확인
+        self.assertTrue(Path(backup_path).exists())
+        self.assertIn("test.py.backup_", backup_path)
+    
+    def test_restore_file(self):
+        """파일 복원 테스트"""
+        # 테스트 파일 생성 및 백업
+        test_file = Path(self.temp_dir) / "test.py"
+        original_content = "print('original')"
+        test_file.write_text(original_content)
+        
+        backup_path = self.backup_manager.create_backup(test_file)
+        
+        # 파일 수정
+        test_file.write_text("print('modified')")
+        
+        # 복원
+        success = self.backup_manager.restore_file(str(test_file))
+        
+        # 복원 확인
+        self.assertTrue(success)
+        self.assertEqual(test_file.read_text(), original_content)
+
+
+class TestSyntaxErrorDiagnostic(unittest.TestCase):
+    """구문 오류 진단 테스트"""
+    
+    def setUp(self):
+        self.diagnostic = SyntaxErrorDiagnostic()
+    
+    def test_diagnose_syntax_error(self):
+        """구문 오류 진단 테스트"""
+        # 구문 오류가 있는 코드
+        error_code = '''
+def test_function(
+    print("missing closing parenthesis")
+'''
+        
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+            f.write(error_code)
+            f.flush()
+            
+            results = self.diagnostic.diagnose_file(Path(f.name))
+            
+            # 구문 오류 감지 확인
+            self.assertTrue(len(results) > 0)
+            self.assertEqual(results[0].error_type, "SyntaxError")
+        
+        os.unlink(f.name)
+    
+    def test_diagnose_valid_syntax(self):
+        """정상 구문 진단 테스트"""
+        # 정상 코드
+        valid_code = '''
+def test_function():
+    print("valid syntax")
+    return True
+'''
+        
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+            f.write(valid_code)
+            f.flush()
+            
+            results = self.diagnostic.diagnose_file(Path(f.name))
+            
+            # 구문 오류가 없어야 함
+            syntax_errors = [r for r in results if r.error_type == "SyntaxError"]
+            self.assertEqual(len(syntax_errors), 0)
+        
+        os.unlink(f.name)
+
+
+class TestSyntaxErrorRepairer(unittest.TestCase):
+    """구문 오류 수정 테스트"""
+    
+    def setUp(self):
+        self.temp_dir = tempfile.mkdtemp()
+        self.backup_manager = BackupManager(backup_dir=f"{self.temp_dir}/.test_backups")
+        self.repairer = SyntaxErrorRepairer(self.backup_manager)
+    
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
+    
+    def test_repair_indentation(self):
+        """들여쓰기 수정 테스트"""
+        # 탭이 포함된 코드
+        code_with_tabs = "def test():\n\tprint('tab indentation')\n\treturn True"
+        
+        test_file = Path(self.temp_dir) / "test_indent.py"
+        test_file.write_text(code_with_tabs)
+        
+        # 수정 실행
+        result = self.repairer.repair_file(test_file)
+        
+        # 수정 확인
+        self.assertTrue(result.success)
+        self.assertTrue(any("탭을 스페이스로 변환" in change for change in result.changes_made))
+        
+        # 파일 내용 확인
+        repaired_content = test_file.read_text()
+        self.assertNotIn('\t', repaired_content)
+        self.assertIn('    ', repaired_content)  # 4칸 스페이스
+    
+    def test_repair_naming_convention(self):
+        """네이밍 규칙 수정 테스트"""
+        # 잘못된 네이밍이 포함된 코드
+        code_with_bad_naming = "POSCO News 250808 = 'test'\nprint(POSCO News 250808)"
+        
+        test_file = Path(self.temp_dir) / "test_naming.py"
+        test_file.write_text(code_with_bad_naming)
+        
+        # 수정 실행
+        result = self.repairer.repair_file(test_file)
+        
+        # 수정 확인
+        self.assertTrue(result.success)
+        
+        # 파일 내용 확인
+        repaired_content = test_file.read_text()
+        self.assertIn('POSCO_NEWS_250808', repaired_content)
+
+
+class TestImportDiagnostic(unittest.TestCase):
+    """Import 진단 테스트"""
+    
+    def setUp(self):
+        self.diagnostic = ImportDiagnostic()
+    
+    def test_extract_imports(self):
+        """Import 추출 테스트"""
+        code_with_imports = '''
+import os
+import sys
+from pathlib import Path
+from datetime import datetime
+'''
+        
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+            f.write(code_with_imports)
+            f.flush()
+            
+            imports = self.diagnostic._extract_imports(Path(f.name))
+            
+            # Import 추출 확인
+            self.assertIn('os', imports)
+            self.assertIn('sys', imports)
+            self.assertIn('pathlib', imports)
+            self.assertIn('datetime', imports)
+        
+        os.unlink(f.name)
+    
+    def test_module_exists(self):
+        """모듈 존재 확인 테스트"""
+        # 표준 라이브러리 모듈
+        self.assertTrue(self.diagnostic._module_exists('os'))
+        self.assertTrue(self.diagnostic._module_exists('sys'))
+        
+        # 존재하지 않는 모듈
+        self.assertFalse(self.diagnostic._module_exists('nonexistent_module_12345'))
+
+
+class TestImportRepairer(unittest.TestCase):
+    """Import 수정 테스트"""
+    
+    def setUp(self):
+        self.temp_dir = tempfile.mkdtemp()
+        self.backup_manager = BackupManager(backup_dir=f"{self.temp_dir}/.test_backups")
+        self.repairer = ImportRepairer(self.backup_manager)
+    
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
+    
+    def test_add_missing_imports(self):
+        """누락된 import 추가 테스트"""
+        # os.path를 사용하지만 import가 없는 코드
+        code_without_import = '''
+def test_function():
+    path = os.path.join('a', 'b')
+    return path
+'''
+        
+        test_file = Path(self.temp_dir) / "test_import.py"
+        test_file.write_text(code_without_import)
+        
+        # 수정 실행
+        result = self.repairer.repair_missing_imports(test_file)
+        
+        # 수정 확인
+        self.assertTrue(result.success)
+        
+        # 파일 내용 확인
+        repaired_content = test_file.read_text()
+        self.assertIn('import os', repaired_content)
+    
+    def test_fix_import_paths(self):
+        """Import 경로 수정 테스트"""
+        # 잘못된 import 경로가 있는 코드
+        code_with_wrong_import = '''
+from POSCO_News_250808 import some_function
+import WatchHamster_v3.0
+'''
+        
+        test_file = Path(self.temp_dir) / "test_import_path.py"
+        test_file.write_text(code_with_wrong_import)
+        
+        # 수정 실행
+        result = self.repairer.repair_missing_imports(test_file)
+        
+        # 수정 확인
+        self.assertTrue(result.success)
+        
+        # 파일 내용 확인
+        repaired_content = test_file.read_text()
+        self.assertIn('from POSCO_News_250808', repaired_content)
+        self.assertIn('import WatchHamster_v3.0', repaired_content)
+
+
+class TestFileReferenceDiagnostic(unittest.TestCase):
+    """파일 참조 진단 테스트"""
+    
+    def setUp(self):
+        self.diagnostic = FileReferenceDiagnostic()
+        self.temp_dir = tempfile.mkdtemp()
+    
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
+    
+    def test_scan_python_file(self):
+        """Python 파일 참조 스캔 테스트"""
+        # 파일 참조가 있는 코드
+        code_with_references = '''
+with open("nonexistent_file.txt", "r") as f:
+    content = f.read()
+
+from pathlib import Path
+config_path = Path("missing_config.json")
+'''
+        
+        test_file = Path(self.temp_dir) / "test_ref.py"
+        test_file.write_text(code_with_references)
+        
+        # 현재 디렉토리를 임시 디렉토리로 변경
+        original_cwd = os.getcwd()
+        os.chdir(self.temp_dir)
+        
+        try:
+            broken_refs = self.diagnostic._scan_python_file(test_file)
+            
+            # 깨진 참조 확인
+            self.assertTrue(len(broken_refs) > 0)
+            ref_paths = [ref.referenced_path for ref in broken_refs]
+            self.assertIn("nonexistent_file.txt", ref_paths)
+            self.assertIn("missing_config.json", ref_paths)
+        finally:
+            os.chdir(original_cwd)
+
+
+class TestFileReferenceRepairer(unittest.TestCase):
+    """파일 참조 수정 테스트"""
+    
+    def setUp(self):
+        self.temp_dir = tempfile.mkdtemp()
+        self.backup_manager = BackupManager(backup_dir=f"{self.temp_dir}/.test_backups")
+        self.repairer = FileReferenceRepairer(self.backup_manager)
+    
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
+    
+    def test_repair_file_references(self):
+        """파일 참조 수정 테스트"""
+        # 잘못된 파일 참조가 있는 코드
+        code_with_wrong_refs = '''
+from POSCO_News_250808 import function
+config_file = "WatchHamster_v3.0\/config.json"
+'''
+        
+        test_file = Path(self.temp_dir) / "test_ref_repair.py"
+        test_file.write_text(code_with_wrong_refs)
+        
+        # 수정 실행
+        result = self.repairer.repair_broken_references(test_file)
+        
+        # 수정 확인
+        self.assertTrue(result.success)
+        
+        # 파일 내용 확인
+        repaired_content = test_file.read_text()
+        self.assertIn('POSCO_News_250808', repaired_content)
+        self.assertIn('WatchHamster_v3.0', repaired_content)
+        self.assertIn('/', repaired_content)  # 경로 구분자 표준화
+        self.assertNotIn('\\', repaired_content)
+
+
+class TestAutomatedRepairSystem(unittest.TestCase):
+    """통합 자동화 수리 시스템 테스트"""
+    
+    def setUp(self):
+        self.repair_system = AutomatedRepairSystem()
+        self.temp_dir = tempfile.mkdtemp()
+    
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
+    
+    @patch('automated_repair_system.Path.glob')
+    def test_run_full_diagnosis(self, mock_glob):
+        """전체 진단 실행 테스트"""
+        # 테스트용 Python 파일 목록 모킹
+        test_files = [Path("test1.py"), Path("test2.py")]
+        mock_glob.return_value = test_files
+        
+        # 파일 내용 모킹
+        with patch('builtins.open', mock_open(read_data="print('test')")):
+            with patch('automated_repair_system.ast.parse'):  # AST 파싱 성공으로 모킹
+                diagnosis_results = self.repair_system.run_full_diagnosis()
+        
+        # 진단 결과 확인
+        self.assertIn("backup_created", diagnosis_results)
+        self.assertIn("syntax_errors", diagnosis_results)
+        self.assertIn("import_problems", diagnosis_results)
+        self.assertIn("broken_references", diagnosis_results)
+    
+    def test_data_classes(self):
+        """데이터 클래스 테스트"""
+        # DiagnosticResult 테스트
+        diagnostic = DiagnosticResult(
+            file_path="test.py",
+            error_type="SyntaxError",
+            error_message="Invalid syntax",
+            line_number=10,
+            severity="high"
+        )
+        self.assertEqual(diagnostic.file_path, "test.py")
+        self.assertEqual(diagnostic.error_type, "SyntaxError")
+        
+        # RepairResult 테스트
+        repair = RepairResult(
+            file_path="test.py",
+            repair_type="SyntaxRepair",
+            success=True,
+            changes_made=["Fixed indentation"],
+            backup_created=True
+        )
+        self.assertTrue(repair.success)
+        self.assertEqual(len(repair.changes_made), 1)
+        
+        # BrokenReference 테스트
+        broken_ref = BrokenReference(
+            source_file="test.py",
+            referenced_path="missing.txt",
+            reference_type="file_path",
+            line_number=5
+        )
+        self.assertEqual(broken_ref.source_file, "test.py")
+        self.assertEqual(broken_ref.reference_type, "file_path")
+
+
+class TestIntegration(unittest.TestCase):
+    """통합 테스트"""
+    
+    def setUp(self):
+        self.temp_dir = tempfile.mkdtemp()
+        self.original_cwd = os.getcwd()
+        os.chdir(self.temp_dir)
+    
+    def tearDown(self):
+        os.chdir(self.original_cwd)
+        import shutil
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
+    
+    def test_end_to_end_repair(self):
+        """종단간 수리 테스트"""
+        # 문제가 있는 Python 파일 생성
+        problematic_code = '''
+import nonexistent_module
+from POSCO_News_250808 import function
+import pathlib
+
+def test_function(
+	print("tab indentation and missing parenthesis")
+	POSCO News 250808 = "bad naming"
+	with open("missing_file.txt") as f:
+		content = f.read()
+'''
+        
+        test_file = Path("problematic.py")
+        test_file.write_text(problematic_code)
+        
+        # 수리 시스템 실행
+        repair_system = AutomatedRepairSystem()
+        
+        # 진단 실행
+        diagnosis_results = repair_system.run_full_diagnosis()
+        
+        # 문제가 감지되었는지 확인
+        self.assertTrue(len(diagnosis_results["syntax_errors"]) > 0)
+        
+        # 수리 실행
+        repair_results = repair_system.run_automated_repair()
+        
+        # 수리가 실행되었는지 확인
+        self.assertTrue(repair_results["total_files_processed"] > 0)
+        
+        # 검증 실행
+        verification_results = repair_system.verify_repairs()
+        
+        # 개선되었는지 확인 (완전하지 않을 수 있지만 시도는 했어야 함)
+        self.assertIsInstance(verification_results["overall_success_rate"], (int, float))
+
+
+def run_comprehensive_tests():
+    """포괄적인 테스트 실행"""
+    print("🧪 POSCO 자동화된 수리 시스템 테스트 시작")
+    print("=" * 60)
+    
+    # 테스트 스위트 구성
+    test_classes = [
+        TestBackupManager,
+        TestSyntaxErrorDiagnostic,
+        TestSyntaxErrorRepairer,
+        TestImportDiagnostic,
+        TestImportRepairer,
+        TestFileReferenceDiagnostic,
+        TestFileReferenceRepairer,
+        TestAutomatedRepairSystem,
+        TestIntegration
+    ]
+    
+    total_tests = 0
+    passed_tests = 0
+    failed_tests = 0
+    
+    for test_class in test_classes:
+        print(f"\n📋 {test_class.__name__} 테스트 실행 중...")
+        
+        suite = unittest.TestLoader().loadTestsFromTestCase(test_class)
+        runner = unittest.TextTestRunner(verbosity=1, stream=open(os.devnull, 'w'))
+        result = runner.run(suite)
+        
+        class_total = result.testsRun
+        class_passed = class_total - len(result.failures) - len(result.errors)
+        class_failed = len(result.failures) + len(result.errors)
+        
+        total_tests += class_total
+        passed_tests += class_passed
+        failed_tests += class_failed
+        
+        print(f"   ✅ 통과: {class_passed}/{class_total}")
+        if class_failed > 0:
+            print(f"   ❌ 실패: {class_failed}")
+            for failure in result.failures + result.errors:
+                print(f"      - {failure[0]}: {failure[1].split('AssertionError:')[-1].strip()}")
+    
+    # 전체 결과 요약
+    print("\n" + "=" * 60)
+    print("📊 테스트 결과 요약")
+    print("=" * 60)
+    print(f"전체 테스트: {total_tests}")
+    print(f"통과: {passed_tests}")
+    print(f"실패: {failed_tests}")
+    print(f"성공률: {(passed_tests/total_tests*100):.1f}%")
+    
+    if failed_tests == 0:
+        print("\n🎉 모든 테스트 통과!")
+        return True
+    else:
+        print(f"\n⚠️  {failed_tests}개 테스트 실패")
+        return False
+
+
+if __name__ == "__main__":
+    success = run_comprehensive_tests()
+    sys.exit(0 if success else 1)

@@ -1,22 +1,27 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-최신 통합 리포트를 publish 브랜치에 배포하는 스크립트
+Deploy Latest Report
+POSCO 시스템 테스트
+
+WatchHamster v3.0 및 POSCO News 250808 호환
+Created: 2025-08-08
 """
 
-import os
+import posco_news_250808_monitor.log
 import subprocess
 import glob
 import shutil
 from datetime import datetime
+import os
 
 def get_latest_integrated_report():
     """최신 통합 리포트 파일 찾기"""
     # docs/reports에서 찾기
-    docs_pattern = "docs/reports/posco_integrated_analysis_*.html"
     docs_files = glob.glob(docs_pattern)
     
     # Monitoring에서 찾기
-    monitoring_pattern = "Monitoring/Posco_News_mini/reports/posco_integrated_analysis_*.html"
+    monitoring_pattern = "Monitoring/POSCO News 250808_mini/reports/posco_integrated_analysis_*.html"
     monitoring_files = glob.glob(monitoring_pattern)
     
     all_files = docs_files + monitoring_files
@@ -44,10 +49,10 @@ def deploy_to_publish_branch(report_file):
         
         # publish 브랜치로 전환
         print("🔄 publish 브랜치로 전환...")
-        subprocess.run(['git', 'checkout', 'publish'], check=True)
+subprocess.run(['git',_'checkout',_'publish'],_check = True)
         
         # reports 디렉토리 생성 (없으면)
-        os.makedirs('reports', exist_ok=True)
+os.makedirs('reports',_exist_ok = True)
         
         # 리포트 파일 복사
         dest_path = f"reports/{filename}"
@@ -55,22 +60,22 @@ def deploy_to_publish_branch(report_file):
         print(f"✅ 파일 복사 완료: {dest_path}")
         
         # Git에 추가 및 커밋
-        subprocess.run(['git', 'add', dest_path], check=True)
+subprocess.run(['git',_'add',_dest_path],_check = True)
         
         commit_message = f"Add report: {filename}"
         subprocess.run(['git', 'commit', '-m', commit_message], check=True)
         print(f"✅ 커밋 완료: {commit_message}")
         
         # 원격 저장소에 푸시
-        subprocess.run(['git', 'push', 'origin', 'publish'], check=True)
+subprocess.run(['git',_'push',_'origin',_'publish'],_check = True)
         print("✅ publish 브랜치에 푸시 완료!")
         
         # 원래 브랜치로 돌아가기
-        subprocess.run(['git', 'checkout', current_branch], check=True)
+subprocess.run(['git',_'checkout',_current_branch],_check = True)
         print(f"🔄 {current_branch} 브랜치로 복귀")
         
         # 배포된 URL 출력
-        report_url = f"https://shuserker.github.io/infomax_api/reports/{filename}"
+        report_url = f"https:/shuserker.github.io/infomax_api/reports/{filename}"
         print(f"🌐 배포된 리포트 URL: {report_url}")
         
         return True

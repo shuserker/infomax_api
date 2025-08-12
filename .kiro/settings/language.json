@@ -1,0 +1,21 @@
+{
+  "defaultLanguage": "ko",
+  "responseLanguage": "korean",
+  "forceKorean": true,
+  "projectContext": "POSCO",
+  "languageRules": {
+    "alwaysUseKorean": true,
+    "technicalTermsInKorean": true,
+    "codeCommentsInKorean": true,
+    "errorMessagesInKorean": true,
+    "statusUpdatesInKorean": true
+  },
+  "koreanPhrases": {
+    "taskStart": "작업을 시작하겠습니다",
+    "taskComplete": "작업이 완료되었습니다",
+    "fileCheck": "파일을 확인하고 있습니다",
+    "codeImplementation": "코드를 구현하고 있습니다",
+    "testExecution": "테스트를 실행하고 있습니다",
+    "errorOccurred": "오류가 발생했습니다"
+  }
+}

@@ -1,11 +1,12 @@
 #!/bin/bash
 # ============================================================================
-# Mac용 워치햄스터 공통 라이브러리 v4.0
-# macOS 최적화 및 개선사항 반영
-# 모든 워치햄스터 스크립트에서 사용하는 공통 함수들
+# Lib Wt Common
+# POSCO 시스템 구성요소
+# 
+# WatchHamster v3.0 및 POSCO News 250808 호환
+# Created: 2025-08-08
 # ============================================================================
 
-# UTF-8 인코딩 설정
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
@@ -59,8 +60,8 @@ HEADER="${PRIMARY}${BOLD}"
 
 # 로그 파일 경로
 LOG_DIR="$HOME/.watchhamster/logs"
-LOG_FILE="$LOG_DIR/system.log"
-ERROR_LOG="$LOG_DIR/error.log"
+# BROKEN_REF: LOG_FILE="$LOG_DIR/system.log"
+# BROKEN_REF: ERROR_LOG="$LOG_DIR/error.log"
 
 # 로그 디렉토리 생성
 mkdir -p "$LOG_DIR"

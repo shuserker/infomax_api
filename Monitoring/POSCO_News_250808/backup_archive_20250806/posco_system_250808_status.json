@@ -1,0 +1,27 @@
+{
+  "system_mode": "integrated_reports_only",
+  "transition_date": "2025-08-03T11:36:00.630618",
+  "active_components": [
+    "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/integrated_report_scheduler.py",
+    "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/reports/integrated_report_generator.py",
+    "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/metadata_reset_manager.py"
+  ],
+  "disabled_components": [
+    "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/exchange_monitor.py",
+    "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/kospi_monitor.py",
+    "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/newyork_monitor.py",
+    "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/master_news_monitor.py",
+    "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py",
+# BROKEN_REF:     "reports/html_report_generator.py"
+  ],
+  "description": "POSCO 리포트 시스템이 통합 리포트 전용 모드로 전환됨",
+  "last_update": "2025-08-03T11:36:00.630628",
+  "metadata": {
+    "watchhamster_version": "v3.0",
+    "posco_news_version": "250808",
+    "system_version": "WatchHamster_v3.0_PoscoNews_250808",
+    "last_updated": "2025-08-08T16:01:01",
+    "standardization_date": "2025-08-08",
+    "description": "POSCO News 250808 Configuration"
+  }
+}

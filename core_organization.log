@@ -1,0 +1,25 @@
+[2025-08-10 20:50:58] [INFO] === Task 5: 핵심 시스템 파일 보존 및 정리 시작 ===
+[2025-08-10 20:50:58] [INFO] 백업 생성 완료: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/archive/backups/core_organization_20250810_205058
+[2025-08-10 20:50:58] [INFO] core 디렉토리 구조 생성 완료
+[2025-08-10 20:50:58] [INFO] POSCO News 파일들 정리 시작
+[2025-08-10 20:50:58] [INFO] posco_news_250808_cache.json 이동 완료
+[2025-08-10 20:50:58] [INFO] posco_news_250808_data.json 이동 완료
+[2025-08-10 20:50:58] [INFO] posco_news_250808_historical.json 이동 완료
+[2025-08-10 20:50:58] [INFO] 워치햄스터 제어센터 파일들 정리 시작
+[2025-08-10 20:50:58] [INFO] 🐹WatchHamster_v3.0_Control_Center.bat 이동 완료
+[2025-08-10 20:50:58] [INFO] 🐹WatchHamster_v3.0_Integrated_Center.bat 이동 완료
+[2025-08-10 20:50:58] [INFO] 🐹워치햄스터_총괄_관리_센터.bat 이동 완료
+[2025-08-10 20:50:58] [INFO] 🐹워치햄스터_총괄_관리_센터_SIMPLE.bat 이동 완료
+[2025-08-10 20:50:58] [INFO] 🐹POSCO_워치햄스터_v3_제어센터.command 실행 권한 설정 완료
+[2025-08-10 20:50:58] [INFO] Monitoring 디렉토리 구조 최적화 시작
+[2025-08-10 20:50:58] [INFO] posco_main_notifier.py 복사 완료
+[2025-08-10 20:50:58] [INFO] monitor_WatchHamster_v3.0.py 복사 완료
+[2025-08-10 20:50:58] [INFO] realtime_news_monitor.py 복사 완료
+[2025-08-10 20:50:58] [INFO] completion_notifier.py 복사 완료
+[2025-08-10 20:50:58] [INFO] config.py 복사 완료
+[2025-08-10 20:50:58] [INFO] core 모듈 디렉토리 복사 완료
+[2025-08-10 20:50:58] [INFO] 하위 호환성 링크 생성 시작
+[2025-08-10 20:50:58] [INFO] 웹훅 및 알림 기능 무결성 검증 시작
+[2025-08-10 20:50:58] [INFO] 웹훅 무결성 검증 완료. 보고서: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/webhook_integrity_verification.json
+[2025-08-10 20:50:58] [INFO] 정리 작업 보고서 생성 완료: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/task5_core_organization_report.json, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/task5_core_organization_report.md
+[2025-08-10 20:50:58] [INFO] === Task 5: 핵심 시스템 파일 보존 및 정리 완료 ===

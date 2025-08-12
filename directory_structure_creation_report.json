@@ -1,0 +1,110 @@
+{
+  "creation_timestamp": "2025-08-10T20:43:27.277423",
+  "created_directories": [
+    "core",
+    "core/POSCO_News_250808",
+    "core/watchhamster",
+    "core/monitoring",
+    "tools",
+    "tools/repair",
+    "tools/testing",
+    "tools/quality",
+    "tools/automation",
+    "docs",
+    "docs/user_guides",
+    "docs/technical",
+    "docs/troubleshooting",
+    "docs/api",
+    "archive",
+    "archive/task_summaries",
+    "archive/migration_logs",
+    "archive/backups",
+    "archive/temp",
+    "config",
+    "config/system",
+    "config/language",
+    "config/cleanup",
+    "scripts",
+    "scripts/cleanup",
+    "scripts/verification",
+    "scripts/backup"
+  ],
+  "created_files": [
+    "core/README.md",
+    "tools/README.md",
+    "docs/README.md",
+    "archive/README.md",
+    "config/README.md",
+    "scripts/README.md"
+  ],
+  "symlinks_created": [
+    "POSCO_News_250808.py -> core/POSCO_News_250808/POSCO_News_250808.py",
+    "🐹POSCO_워치햄스터_v3_제어센터.bat -> core/watchhamster/🐹POSCO_워치햄스터_v3_제어센터.bat",
+    "🐹POSCO_워치햄스터_v3_제어센터.command -> core/watchhamster/🐹POSCO_워치햄스터_v3_제어센터.command",
+    "backup_system.py -> scripts/backup/backup_system.py"
+  ],
+  "directory_structure": {
+    "core": {
+      "description": "핵심 시스템 파일들",
+      "purpose": "POSCO 뉴스 모니터링 및 워치햄스터 제어센터 등 핵심 실행 파일들",
+      "subdirs": {
+        "POSCO_News_250808": "메인 뉴스 모니터링 시스템",
+        "watchhamster": "워치햄스터 제어센터 관련 파일들",
+        "monitoring": "모니터링 시스템 파일들"
+      }
+    },
+    "tools": {
+      "description": "개발 및 유지보수 도구들",
+      "purpose": "시스템 수리, 테스트, 품질 관리 등에 사용되는 도구들",
+      "subdirs": {
+        "repair": "시스템 수리 도구들",
+        "testing": "테스트 도구들",
+        "quality": "품질 관리 도구들",
+        "automation": "자동화 도구들"
+      }
+    },
+    "docs": {
+      "description": "문서화 파일들",
+      "purpose": "사용자 가이드, 기술 문서, 트러블슈팅 가이드 등",
+      "subdirs": {
+        "user_guides": "사용자 가이드",
+        "technical": "기술 문서",
+        "troubleshooting": "문제 해결 가이드",
+        "api": "API 문서"
+      }
+    },
+    "archive": {
+      "description": "완료된 작업 및 백업 파일들",
+      "purpose": "작업 완료 보고서, 마이그레이션 로그, 백업 파일 보관",
+      "subdirs": {
+        "task_summaries": "작업 완료 보고서들",
+        "migration_logs": "마이그레이션 로그",
+        "backups": "백업 파일들",
+        "temp": "임시 파일들"
+      }
+    },
+    "config": {
+      "description": "설정 파일들",
+      "purpose": "시스템 설정, 언어 설정, 정리 규칙 등",
+      "subdirs": {
+        "system": "시스템 설정",
+        "language": "언어 설정",
+        "cleanup": "정리 규칙"
+      }
+    },
+    "scripts": {
+      "description": "실행 스크립트들",
+      "purpose": "정리, 검증, 롤백 등 자동화 스크립트들",
+      "subdirs": {
+        "cleanup": "정리 스크립트",
+        "verification": "검증 스크립트",
+        "backup": "백업 스크립트"
+      }
+    }
+  },
+  "summary": {
+    "total_directories": 27,
+    "total_files": 6,
+    "total_symlinks": 4
+  }
+}

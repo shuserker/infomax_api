@@ -1,27 +1,27 @@
-# POSCO WatchHamster v2.0 배포 검증 체크리스트
+# POSCO WatchHamster v3.0 배포 검증 체크리스트
 
 ## 개요
 
-이 문서는 POSCO 워치햄스터 v2.0 시스템의 프로덕션 환경 배포 전 필수 검증 항목들을 정리한 체크리스트입니다.
+이 문서는 POSCO WatchHamster v3.0 시스템의 프로덕션 환경 배포 전 필수 검증 항목들을 정리한 체크리스트입니다.
 
 ## 🔴 필수 검증 항목 (Critical)
 
 ### 1. 핵심 시스템 파일 존재 확인
 
-- [ ] `Monitoring/Posco_News_mini/monitor_WatchHamster.py` - 워치햄스터 메인 스크립트
-- [ ] `Monitoring/Posco_News_mini/posco_main_notifier.py` - 메인 알림 시스템
-- [ ] `Monitoring/Posco_News_mini/config.py` - 시스템 설정 파일
-- [ ] `Monitoring/Posco_News_mini/modules.json` - 모듈 설정 파일
+- [ ] `Monitoring/POSCO News/monitor_WatchHamster.py` - WatchHamster 메인 스크립트
+- [ ] `Monitoring/POSCO News/posco_main_notifier.py` - 메인 알림 시스템
+- [ ] `Monitoring/POSCO News/config.py` - 시스템 설정 파일
+- [ ] `Monitoring/POSCO News/modules.json` - 모듈 설정 파일
 - [ ] `watchhamster_control_center.sh` - 제어센터 스크립트
 - [ ] `requirements.txt` - Python 의존성 목록
 
 ### 2. v2 아키텍처 컴포넌트 확인
 
-- [ ] `Monitoring/Posco_News_mini_v2/core/enhanced_process_manager.py` - 향상된 프로세스 관리자
-- [ ] `Monitoring/Posco_News_mini_v2/core/module_registry.py` - 모듈 레지스트리
-- [ ] `Monitoring/Posco_News_mini_v2/core/notification_manager.py` - 알림 관리자
-- [ ] `Monitoring/Posco_News_mini_v2/core/performance_monitor.py` - 성능 모니터
-- [ ] `Monitoring/Posco_News_mini_v2/core/performance_optimizer.py` - 성능 최적화기
+- [ ] `Monitoring/POSCO News_v2/core/enhanced_process_manager.py` - 향상된 프로세스 관리자
+- [ ] `Monitoring/POSCO News_v2/core/module_registry.py` - 모듈 레지스트리
+- [ ] `Monitoring/POSCO News_v2/core/notification_manager.py` - 알림 관리자
+- [ ] `Monitoring/POSCO News_v2/core/performance_monitor.py` - 성능 모니터
+- [ ] `Monitoring/POSCO News_v2/core/performance_optimizer.py` - 성능 최적화기
 
 ### 3. 설정 파일 유효성 검증
 
@@ -134,7 +134,7 @@ python3 demo_performance_monitoring.py
 
 ### 즉시 확인 (배포 후 10분 이내)
 
-- [ ] 워치햄스터 프로세스 정상 시작 확인
+- [ ] WatchHamster 프로세스 정상 시작 확인
 - [ ] 모든 관리 대상 프로세스 정상 실행 확인
 - [ ] 제어센터 접근 및 기본 기능 동작 확인
 - [ ] 첫 번째 상태 알림 수신 확인
@@ -191,4 +191,4 @@ python3 demo_performance_monitoring.py
 
 **체크리스트 버전**: v2.0-final  
 **최종 업데이트**: 2025-08-06  
-**작성자**: POSCO 워치햄스터 v2.0 개발팀
+**작성자**: POSCO WatchHamster v3.0 개발팀

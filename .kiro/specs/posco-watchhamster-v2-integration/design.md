@@ -77,9 +77,9 @@ class PoscoMonitorWatchHamster:
         """v2 컴포넌트 초기화"""
         sys.path.insert(0, os.path.join(self.script_dir, '..', 'Posco_News_mini_v2'))
         
-        from core.enhanced_process_manager import ProcessManager
-        from core.module_registry import ModuleRegistry
-        from core.notification_manager import NotificationManager
+# BROKEN_REF:         from Monitoring/POSCO_News_250808/core/process_manager.py import ProcessManager
+        from Monitoring/WatchHamster_v3.0/core/module_registry.py import ModuleRegistry_Integration_Summary.md_Integration_Summary.md
+# BROKEN_REF:         from Monitoring/WatchHamster_v3.0/core/notification_manager.py import NotificationManager
         
         self.process_manager = ProcessManager(self.script_dir)
         self.module_registry = ModuleRegistry()
@@ -113,14 +113,14 @@ start_watchhamster() {
     
     # 2. 기존 프로세스 정리
     echo -e "${INFO}🧹 기존 프로세스 정리 중...${RESET}"
-    pkill -f "monitor_WatchHamster.py" 2>/dev/null || true
+    pkill -f ".naming_backup/config_data_backup/watchhamster.log" 2>/dev/null || true
     sleep 2
     
     # 3. 워치햄스터 시작
     echo -e "${INFO}🐹 워치햄스터 시작 중...${RESET}"
     cd "Monitoring/Posco_News_mini"
     
-    nohup python3 monitor_WatchHamster.py > ../../watchhamster.log 2>&1 &
+    nohup python3 .naming_backup/config_data_backup/watchhamster.log > ../../watchhamster.log 2>&1 &
     WATCHHAMSTER_PID=$!
     
     # 4. 초기화 대기
@@ -150,8 +150,8 @@ check_watchhamster_status() {
     print_header "📊 워치햄스터 상태 확인"
     
     # 워치햄스터 프로세스 확인
-    if pgrep -f "monitor_WatchHamster.py" > /dev/null; then
-        WATCHHAMSTER_PID=$(pgrep -f "monitor_WatchHamster.py")
+    if pgrep -f ".naming_backup/config_data_backup/watchhamster.log" > /dev/null; then
+        WATCHHAMSTER_PID=$(pgrep -f ".naming_backup/config_data_backup/watchhamster.log")
         print_success "🐹 워치햄스터가 실행 중입니다"
         echo -e "${INFO}  • PID: $WATCHHAMSTER_PID${RESET}"
         
@@ -181,7 +181,7 @@ check_watchhamster_status() {
 }
 
 check_managed_processes() {
-    local processes=("posco_main_notifier.py" "realtime_news_monitor.py" "integrated_report_scheduler.py")
+    local processes=("Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/posco_main_notifier.py" "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/realtime_news_monitor.py" "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/integrated_report_scheduler.py")
     local running_count=0
     local total_count=${#processes[@]}
     
@@ -211,12 +211,12 @@ check_managed_processes() {
 ```python
 # test_v2_integration.py
 
-import unittest
-import subprocess
-import time
-import os
-import sys
-from datetime import datetime
+# BROKEN_REF: import unittest
+# BROKEN_REF: import subprocess
+import .comprehensive_repair_backup/real.comprehensive_repair_backup/realtime_news_monitor.py.backup_20250809_181657_news_monitor.py.backup_20250809_181657
+import pposco_news_250808_monitor.logco_news_250808_monitor.log
+import system_functionality_verification.pytem_functionality_verification.py
+# BROKEN_REF: from datetime import datetime
 
 class TestWatchHamsterV2Integration(unittest.TestCase):
     """워치햄스터 v2 통합 테스트"""
@@ -226,7 +226,7 @@ class TestWatchHamsterV2Integration(unittest.TestCase):
         self.script_dir = os.path.dirname(os.path.abspath(__file__))
         self.watchhamster_path = os.path.join(
             self.script_dir, 
-            "Monitoring/Posco_News_mini/monitor_WatchHamster.py"
+            ".naming_backup/config_data_backup/watchhamster.log"
         )
         
     def test_v2_components_initialization(self):
@@ -235,9 +235,9 @@ class TestWatchHamsterV2Integration(unittest.TestCase):
         result = subprocess.run([
             "python3", "-c", 
             f"""
-import sys
+import system_functionality_verification.pytem_functionality_verification.py
 sys.path.insert(0, '{self.script_dir}/Monitoring/Posco_News_mini')
-from monitor_WatchHamster import PoscoMonitorWatchHamster
+from .comprehensive_repair_backup/.comprehensive_repair_backup/monitor_WatchHamster_v3.0.py.backup_20250809_181656_v3.0.py.backup_20250809_181656 import .naming_backup/config_data_backup/watchhamster.log
 wh = PoscoMonitorWatchHamster()
 print('v2_enabled:', wh.v2_enabled)
 print('process_manager:', wh.process_manager is not None)
@@ -253,7 +253,7 @@ print('notification_manager:', wh.notification_manager is not None)
         """제어센터 함수 테스트"""
         # 제어센터 스크립트 문법 검사
         result = subprocess.run([
-            "bash", "-n", "watchhamster_control_center.sh"
+            "bash", "-n", ".naming_backup/scripts/.naming_backup/scripts/.naming_backup/scripts/.naming_backup/scripts/watchhamster_control_center.sh"
         ], capture_output=True)
         
         self.assertEqual(result.returncode, 0, "제어센터 스크립트 문법 오류")
@@ -343,7 +343,7 @@ def safe_v2_integration():
         load_v2_components()
         return True, None
     except ImportError as e:
-        return False, f"v2 컴포넌트 import 실패: {e}"
+# BROKEN_REF:         return False, f"v2 컴포넌트 import 실패: {e}"
     except Exception as e:
         return False, f"v2 초기화 실패: {e}"
 

@@ -1,0 +1,1201 @@
+#!/usr/bin/env python3
+"""
+POSCO 네이밍 표준화 검증 시스템
+WatchHamster v3.0 & POSCO News 250808 호환
+
+모든 파일명, 코드 내부 네이밍, 문서 및 주석의 표준화를 검증하는 시스템
+"""
+
+import os
+import re
+import json
+import ast
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Tuple, Any, Optional
+from dataclasses import dataclass, asdict
+import logging
+
+# 로깅 설정
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('naming_verification.log'),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
+
+@dataclass
+class VerificationResult:
+    """검증 결과 데이터 클래스"""
+    file_path: str
+    rule_type: str  # "filename", "code_naming", "comment", "document"
+    status: str     # "pass", "fail", "warning"
+    expected: str
+    actual: str
+    message: str
+    timestamp: str = None
+    
+    def __post_init__(self):
+        if self.timestamp is None:
+            self.timestamp = datetime.now().isoformat()
+
+class NamingStandardizationVerifier:
+    """네이밍 표준화 검증 시스템"""
+    
+    def __init__(self):
+        self.results: List[VerificationResult] = []
+        self.watchhamster_version = "v3.0"
+        self.posco_news_version = "250808"
+        
+        # 네이밍 규칙 패턴 정의
+        self.naming_patterns = {
+            'watchhamster': {
+                'file_patterns': [
+                    r'.*[Ww]atch[Hh]amster.*v3\.0.*',
+                    r'.*watchhamster.*v3_0.*',
+                    r'.*WatchHamster.*V30.*'
+                ],
+                'class_patterns': [
+                    r'.*WatchHamsterV30.*',
+                    r'.*WatchHamster.*V3.*'
+                ],
+                'variable_patterns': [
+                    r'.*watchhamster.*v3.*',
+                    r'.*WATCHHAMSTER.*V3.*'
+                ],
+                'comment_patterns': [
+                    r'.*[Ww]atch[Hh]amster.*v3\.0.*',
+                    r'.*워치햄스터.*v3\.0.*'
+                ]
+            },
+            'posco_news': {
+                'file_patterns': [
+                    r'.*[Pp]osco.*[Nn]ews.*250808.*',
+                    r'.*POSCO.*News.*250808.*',
+                    r'.*posco.*news.*250808.*'
+                ],
+                'class_patterns': [
+                    r'.*PoscoNews250808.*',
+                    r'.*POSCO.*News.*250808.*'
+                ],
+                'variable_patterns': [
+                    r'.*posco.*news.*250808.*',
+                    r'.*POSCO.*NEWS.*250808.*'
+                ],
+                'comment_patterns': [
+                    r'.*[Pp]osco.*[Nn]ews.*250808.*',
+                    r'.*포스코.*뉴스.*250808.*'
+                ]
+            }
+        }
+        
+        # 제외할 파일/폴더 패턴
+        self.exclude_patterns = [
+            r'\.git.*',
+            r'__pycache__.*',
+            r'\.DS_Store',
+            r'.*\.pyc',
+            r'.*\.log',
+            r'.*backup.*',
+            r'.*archive.*',
+            r'.*temp.*',
+            r'.*test_.*\.py$'  # 테스트 파일은 별도 검증
+        ]
+    
+    def should_exclude_file(self, file_path: str) -> bool:
+        """파일이 검증 제외 대상인지 확인"""
+        for pattern in self.exclude_patterns:
+            if re.match(pattern, file_path, re.IGNORECASE):
+                return True
+        return False
+    
+    def verify_filename_standards(self) -> List[VerificationResult]:
+        """파일명 표준화 검증"""
+        logger.info("파일명 표준화 검증 시작...")
+        results = []
+        
+        for root, dirs, files in os.walk('.'):
+            # 제외할 디렉토리 필터링
+            dirs[:] = [d for d in dirs if not self.should_exclude_file(os.path.join(root, d))]
+            
+            for file in files:
+                file_path = os.path.join(root, file)
+                
+                if self.should_exclude_file(file_path):
+                    continue
+                
+                # 워치햄스터 관련 파일 검증
+                if any(keyword in file.lower() for keyword in ['watchhamster', '워치햄스터', 'hamster']):
+                    result = self._verify_watchhamster_filename(file_path, file)
+                    if result:
+                        results.append(result)
+                
+                # 포스코 뉴스 관련 파일 검증
+                elif any(keyword in file.lower() for keyword in ['posco', 'news', '뉴스', '포스코']):
+                    result = self._verify_posco_news_filename(file_path, file)
+                    if result:
+                        results.append(result)
+        
+        logger.info(f"파일명 검증 완료: {len(results)}개 결과")
+        return results
+    
+    def _verify_watchhamster_filename(self, file_path: str, filename: str) -> Optional[VerificationResult]:
+        """워치햄스터 파일명 검증"""
+        patterns = self.naming_patterns['watchhamster']['file_patterns']
+        
+        for pattern in patterns:
+            if re.match(pattern, filename, re.IGNORECASE):
+                return VerificationResult(
+                    file_path=file_path,
+                    rule_type="filename",
+                    status="pass",
+                    expected="WatchHamster v3.0 naming pattern",
+                    actual=filename,
+                    message="파일명이 워치햄스터 v3.0 표준을 준수합니다"
+                )
+        
+        # 구버전 패턴 검사
+        old_patterns = [r'.*v2.*', r'.*mini.*v2.*', r'.*워치햄스터.*v2.*']
+        for old_pattern in old_patterns:
+            if re.match(old_pattern, filename, re.IGNORECASE):
+                return VerificationResult(
+                    file_path=file_path,
+                    rule_type="filename",
+                    status="fail",
+                    expected="WatchHamster v3.0 naming pattern",
+                    actual=filename,
+                    message="구버전 표기가 발견되었습니다. v3.0으로 업데이트가 필요합니다"
+                )
+        
+        return VerificationResult(
+            file_path=file_path,
+            rule_type="filename",
+            status="warning",
+            expected="WatchHamster v3.0 naming pattern",
+            actual=filename,
+            message="워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다"
+        )
+    
+    def _verify_posco_news_filename(self, file_path: str, filename: str) -> Optional[VerificationResult]:
+        """포스코 뉴스 파일명 검증"""
+        patterns = self.naming_patterns['posco_news']['file_patterns']
+        
+        for pattern in patterns:
+            if re.match(pattern, filename, re.IGNORECASE):
+                return VerificationResult(
+                    file_path=file_path,
+                    rule_type="filename",
+                    status="pass",
+                    expected="POSCO News 250808 naming pattern",
+                    actual=filename,
+                    message="파일명이 포스코 뉴스 250808 표준을 준수합니다"
+                )
+        
+        # 구버전 패턴 검사
+        old_patterns = [r'.*mini.*', r'.*_mini_.*', r'.*posco.*news(?!.*250808).*']
+        for old_pattern in old_patterns:
+            if re.match(old_pattern, filename, re.IGNORECASE):
+                return VerificationResult(
+                    file_path=file_path,
+                    rule_type="filename",
+                    status="fail",
+                    expected="POSCO News 250808 naming pattern",
+                    actual=filename,
+                    message="구버전 표기가 발견되었습니다. 250808로 업데이트가 필요합니다"
+                )
+        
+        return VerificationResult(
+            file_path=file_path,
+            rule_type="filename",
+            status="warning",
+            expected="POSCO News 250808 naming pattern",
+            actual=filename,
+            message="포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다"
+        )    
+
+    def verify_code_naming_standards(self) -> List[VerificationResult]:
+        """코드 내부 네이밍 일관성 검증"""
+        logger.info("코드 내부 네이밍 검증 시작...")
+        results = []
+        
+        # Python 파일 검증
+        for root, dirs, files in os.walk('.'):
+            dirs[:] = [d for d in dirs if not self.should_exclude_file(os.path.join(root, d))]
+            
+            for file in files:
+                if file.endswith('.py'):
+                    file_path = os.path.join(root, file)
+                    
+                    if self.should_exclude_file(file_path):
+                        continue
+                    
+                    try:
+                        results.extend(self._verify_python_code_naming(file_path))
+                    except Exception as e:
+                        logger.warning(f"Python 파일 검증 실패 {file_path}: {e}")
+                        results.append(VerificationResult(
+                            file_path=file_path,
+                            rule_type="code_naming",
+                            status="warning",
+                            expected="Valid Python syntax",
+                            actual="Parse error",
+                            message=f"파일 파싱 실패: {str(e)}"
+                        ))
+        
+        # Shell/Batch 스크립트 검증
+        for root, dirs, files in os.walk('.'):
+            dirs[:] = [d for d in dirs if not self.should_exclude_file(os.path.join(root, d))]
+            
+            for file in files:
+                if file.endswith(('.sh', '.bat', '.ps1', '.command')):
+                    file_path = os.path.join(root, file)
+                    
+                    if self.should_exclude_file(file_path):
+                        continue
+                    
+                    try:
+                        results.extend(self._verify_script_naming(file_path))
+                    except Exception as e:
+                        logger.warning(f"스크립트 파일 검증 실패 {file_path}: {e}")
+        
+        logger.info(f"코드 네이밍 검증 완료: {len(results)}개 결과")
+        return results
+    
+    def _verify_python_code_naming(self, file_path: str) -> List[VerificationResult]:
+        """Python 코드 네이밍 검증"""
+        results = []
+        
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            # AST 파싱으로 클래스명, 함수명, 변수명 검증
+            try:
+                tree = ast.parse(content)
+                
+                for node in ast.walk(tree):
+                    # 클래스명 검증
+                    if isinstance(node, ast.ClassDef):
+                        result = self._verify_class_name(file_path, node.name)
+                        if result:
+                            results.append(result)
+                    
+                    # 함수명 검증
+                    elif isinstance(node, ast.FunctionDef):
+                        result = self._verify_function_name(file_path, node.name)
+                        if result:
+                            results.append(result)
+                    
+                    # 변수 할당 검증
+                    elif isinstance(node, ast.Assign):
+                        for target in node.targets:
+                            if isinstance(target, ast.Name):
+                                result = self._verify_variable_name(file_path, target.id)
+                                if result:
+                                    results.append(result)
+            
+            except SyntaxError as e:
+                results.append(VerificationResult(
+                    file_path=file_path,
+                    rule_type="code_naming",
+                    status="warning",
+                    expected="Valid Python syntax",
+                    actual="Syntax error",
+                    message=f"Python 문법 오류: {str(e)}"
+                ))
+            
+            # 문자열 패턴으로 버전 정보 검증
+            results.extend(self._verify_version_strings_in_code(file_path, content))
+            
+        except Exception as e:
+            logger.warning(f"Python 파일 읽기 실패 {file_path}: {e}")
+        
+        return results
+    
+    def _verify_class_name(self, file_path: str, class_name: str) -> Optional[VerificationResult]:
+        """클래스명 검증"""
+        # 워치햄스터 관련 클래스
+        if any(keyword in class_name.lower() for keyword in ['watchhamster', 'hamster']):
+            patterns = self.naming_patterns['watchhamster']['class_patterns']
+            for pattern in patterns:
+                if re.match(pattern, class_name):
+                    return VerificationResult(
+                        file_path=file_path,
+                        rule_type="code_naming",
+                        status="pass",
+                        expected="WatchHamster v3.0 class naming",
+                        actual=class_name,
+                        message="클래스명이 워치햄스터 v3.0 표준을 준수합니다"
+                    )
+            
+            return VerificationResult(
+                file_path=file_path,
+                rule_type="code_naming",
+                status="fail",
+                expected="WatchHamsterV30* pattern",
+                actual=class_name,
+                message="워치햄스터 클래스명이 v3.0 표준을 따르지 않습니다"
+            )
+        
+        # 포스코 뉴스 관련 클래스
+        elif any(keyword in class_name.lower() for keyword in ['posco', 'news']):
+            patterns = self.naming_patterns['posco_news']['class_patterns']
+            for pattern in patterns:
+                if re.match(pattern, class_name):
+                    return VerificationResult(
+                        file_path=file_path,
+                        rule_type="code_naming",
+                        status="pass",
+                        expected="POSCO News 250808 class naming",
+                        actual=class_name,
+                        message="클래스명이 포스코 뉴스 250808 표준을 준수합니다"
+                    )
+            
+            return VerificationResult(
+                file_path=file_path,
+                rule_type="code_naming",
+                status="fail",
+                expected="PoscoNews250808* pattern",
+                actual=class_name,
+                message="포스코 뉴스 클래스명이 250808 표준을 따르지 않습니다"
+            )
+        
+        return None
+    
+    def _verify_function_name(self, file_path: str, function_name: str) -> Optional[VerificationResult]:
+        """함수명 검증"""
+        # 버전 정보가 포함된 함수명 검증
+        if 'v2' in function_name.lower() or 'mini' in function_name.lower():
+            return VerificationResult(
+                file_path=file_path,
+                rule_type="code_naming",
+                status="fail",
+                expected="Updated version in function name",
+                actual=function_name,
+                message="함수명에 구버전 정보가 포함되어 있습니다"
+            )
+        
+        return None
+    
+    def _verify_variable_name(self, file_path: str, variable_name: str) -> Optional[VerificationResult]:
+        """변수명 검증"""
+        # 버전 관련 변수 검증
+        if any(keyword in variable_name.lower() for keyword in ['version', 'ver']):
+            if 'watchhamster' in variable_name.lower() or 'hamster' in variable_name.lower():
+                if 'v3' not in variable_name.lower() and '3_0' not in variable_name.lower():
+                    return VerificationResult(
+                        file_path=file_path,
+                        rule_type="code_naming",
+                        status="fail",
+                        expected="v3.0 version in variable",
+                        actual=variable_name,
+                        message="워치햄스터 버전 변수가 v3.0을 반영하지 않습니다"
+                    )
+            
+            elif 'posco' in variable_name.lower() or 'news' in variable_name.lower():
+                if '250808' not in variable_name:
+                    return VerificationResult(
+                        file_path=file_path,
+                        rule_type="code_naming",
+                        status="fail",
+                        expected="250808 version in variable",
+                        actual=variable_name,
+                        message="포스코 뉴스 버전 변수가 250808을 반영하지 않습니다"
+                    )
+        
+        return None
+    
+    def _verify_version_strings_in_code(self, file_path: str, content: str) -> List[VerificationResult]:
+        """코드 내 버전 문자열 검증"""
+        results = []
+        
+        # 버전 문자열 패턴 검색
+        version_patterns = [
+            (r'".*v2\.0.*"', "워치햄스터 v2.0 문자열 발견"),
+            (r'".*mini.*v2.*"', "mini v2 문자열 발견"),
+            (r'".*워치햄스터.*v2.*"', "워치햄스터 v2 한글 문자열 발견"),
+            (r'".*WatchHamster.*v2.*"', "WatchHamster v2 문자열 발견")
+        ]
+        
+        for pattern, message in version_patterns:
+            matches = re.finditer(pattern, content, re.IGNORECASE)
+            for match in matches:
+                results.append(VerificationResult(
+                    file_path=file_path,
+                    rule_type="code_naming",
+                    status="fail",
+                    expected="Updated version string",
+                    actual=match.group(),
+                    message=f"{message}: {match.group()}"
+                ))
+        
+        return results
+    
+    def _verify_script_naming(self, file_path: str) -> List[VerificationResult]:
+        """스크립트 파일 네이밍 검증"""
+        results = []
+        
+        try:
+            with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                content = f.read()
+            
+            # 스크립트 내 변수명 및 주석 검증
+            lines = content.split('\n')
+            for line_num, line in enumerate(lines, 1):
+                # 변수 할당 검증
+                if '=' in line and not line.strip().startswith('#'):
+                    var_match = re.match(r'^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=', line)
+                    if var_match:
+                        var_name = var_match.group(1)
+                        result = self._verify_script_variable_name(file_path, var_name, line_num)
+                        if result:
+                            results.append(result)
+                
+                # 주석 내 버전 정보 검증
+                if line.strip().startswith('#'):
+                    result = self._verify_comment_version(file_path, line.strip(), line_num)
+                    if result:
+                        results.append(result)
+        
+        except Exception as e:
+            logger.warning(f"스크립트 파일 읽기 실패 {file_path}: {e}")
+        
+        return results
+    
+    def _verify_script_variable_name(self, file_path: str, var_name: str, line_num: int) -> Optional[VerificationResult]:
+        """스크립트 변수명 검증"""
+        if 'version' in var_name.lower() or 'ver' in var_name.lower():
+            if 'watchhamster' in var_name.lower() and 'v3' not in var_name.lower():
+                return VerificationResult(
+                    file_path=f"{file_path}:{line_num}",
+                    rule_type="code_naming",
+                    status="fail",
+                    expected="v3.0 in watchhamster version variable",
+                    actual=var_name,
+                    message="워치햄스터 버전 변수가 v3.0을 반영하지 않습니다"
+                )
+            
+            elif 'posco' in var_name.lower() and '250808' not in var_name:
+                return VerificationResult(
+                    file_path=f"{file_path}:{line_num}",
+                    rule_type="code_naming",
+                    status="fail",
+                    expected="250808 in posco version variable",
+                    actual=var_name,
+                    message="포스코 버전 변수가 250808을 반영하지 않습니다"
+                )
+        
+        return None
+    
+    def verify_document_standards(self) -> List[VerificationResult]:
+        """문서 및 주석 표준화 검증"""
+        logger.info("문서 표준화 검증 시작...")
+        results = []
+        
+        # 마크다운 문서 검증
+        for root, dirs, files in os.walk('.'):
+            dirs[:] = [d for d in dirs if not self.should_exclude_file(os.path.join(root, d))]
+            
+            for file in files:
+                if file.endswith('.md'):
+                    file_path = os.path.join(root, file)
+                    
+                    if self.should_exclude_file(file_path):
+                        continue
+                    
+                    try:
+                        results.extend(self._verify_markdown_document(file_path))
+                    except Exception as e:
+                        logger.warning(f"마크다운 문서 검증 실패 {file_path}: {e}")
+        
+        logger.info(f"문서 표준화 검증 완료: {len(results)}개 결과")
+        return results
+    
+    def _verify_markdown_document(self, file_path: str) -> List[VerificationResult]:
+        """마크다운 문서 검증"""
+        results = []
+        
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            lines = content.split('\n')
+            
+            for line_num, line in enumerate(lines, 1):
+                # 제목에서 버전 정보 검증
+                if line.startswith('#'):
+                    result = self._verify_document_title(file_path, line, line_num)
+                    if result:
+                        results.append(result)
+                
+                # 본문에서 버전 정보 검증
+                result = self._verify_document_content(file_path, line, line_num)
+                if result:
+                    results.append(result)
+        
+        except Exception as e:
+            logger.warning(f"마크다운 파일 읽기 실패 {file_path}: {e}")
+        
+        return results
+    
+    def _verify_document_title(self, file_path: str, title_line: str, line_num: int) -> Optional[VerificationResult]:
+        """문서 제목 검증"""
+        title = title_line.strip()
+        
+        # 워치햄스터 관련 제목
+        if any(keyword in title.lower() for keyword in ['watchhamster', '워치햄스터', 'hamster']):
+            if 'v3.0' in title or 'v3' in title:
+                return VerificationResult(
+                    file_path=f"{file_path}:{line_num}",
+                    rule_type="document",
+                    status="pass",
+                    expected="WatchHamster v3.0 in title",
+                    actual=title,
+                    message="문서 제목이 워치햄스터 v3.0 표준을 준수합니다"
+                )
+            elif 'v2' in title or 'mini' in title.lower():
+                return VerificationResult(
+                    file_path=f"{file_path}:{line_num}",
+                    rule_type="document",
+                    status="fail",
+                    expected="WatchHamster v3.0 in title",
+                    actual=title,
+                    message="문서 제목에 구버전 정보가 포함되어 있습니다"
+                )
+        
+        # 포스코 뉴스 관련 제목
+        elif any(keyword in title.lower() for keyword in ['posco', 'news', '뉴스', '포스코']):
+            if '250808' in title:
+                return VerificationResult(
+                    file_path=f"{file_path}:{line_num}",
+                    rule_type="document",
+                    status="pass",
+                    expected="POSCO News 250808 in title",
+                    actual=title,
+                    message="문서 제목이 포스코 뉴스 250808 표준을 준수합니다"
+                )
+            elif 'mini' in title.lower() and '250808' not in title:
+                return VerificationResult(
+                    file_path=f"{file_path}:{line_num}",
+                    rule_type="document",
+                    status="fail",
+                    expected="POSCO News 250808 in title",
+                    actual=title,
+                    message="문서 제목에 구버전 정보가 포함되어 있습니다"
+                )
+        
+        return None
+    
+    def _verify_document_content(self, file_path: str, line: str, line_num: int) -> Optional[VerificationResult]:
+        """문서 내용 검증"""
+        # 구버전 패턴 검색
+        old_patterns = [
+            (r'워치햄스터.*v2', "워치햄스터 v2 표기 발견"),
+            (r'WatchHamster.*v2', "WatchHamster v2 표기 발견"),
+            (r'mini.*v2', "mini v2 표기 발견"),
+            (r'Posco.*News.*mini(?!.*250808)', "구버전 Posco News mini 표기 발견")
+        ]
+        
+        for pattern, message in old_patterns:
+            if re.search(pattern, line, re.IGNORECASE):
+                return VerificationResult(
+                    file_path=f"{file_path}:{line_num}",
+                    rule_type="document",
+                    status="fail",
+                    expected="Updated version information",
+                    actual=line.strip(),
+                    message=f"{message}: {line.strip()}"
+                )
+        
+        return None
+    
+    def _verify_comment_version(self, file_path: str, comment_line: str, line_num: int) -> Optional[VerificationResult]:
+        """주석 내 버전 정보 검증"""
+        comment = comment_line.strip()
+        
+        # 구버전 패턴 검색
+        old_patterns = [
+            (r'#.*v2\.0', "v2.0 주석 발견"),
+            (r'#.*mini.*v2', "mini v2 주석 발견"),
+            (r'#.*워치햄스터.*v2', "워치햄스터 v2 주석 발견")
+        ]
+        
+        for pattern, message in old_patterns:
+            if re.search(pattern, comment, re.IGNORECASE):
+                return VerificationResult(
+                    file_path=f"{file_path}:{line_num}",
+                    rule_type="comment",
+                    status="fail",
+                    expected="Updated version in comment",
+                    actual=comment,
+                    message=f"{message}: {comment}"
+                )
+        
+        return None
+    
+    def verify_configuration_standards(self) -> List[VerificationResult]:
+        """설정 파일 표준화 검증"""
+        logger.info("설정 파일 표준화 검증 시작...")
+        results = []
+        
+        # JSON 설정 파일 검증
+        for root, dirs, files in os.walk('.'):
+            dirs[:] = [d for d in dirs if not self.should_exclude_file(os.path.join(root, d))]
+            
+            for file in files:
+                if file.endswith('.json'):
+                    file_path = os.path.join(root, file)
+                    
+                    if self.should_exclude_file(file_path):
+                        continue
+                    
+                    try:
+                        results.extend(self._verify_json_configuration(file_path))
+                    except Exception as e:
+                        logger.warning(f"JSON 설정 파일 검증 실패 {file_path}: {e}")
+        
+        logger.info(f"설정 파일 검증 완료: {len(results)}개 결과")
+        return results
+    
+    def _verify_json_configuration(self, file_path: str) -> List[VerificationResult]:
+        """JSON 설정 파일 검증"""
+        results = []
+        
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            
+            # 재귀적으로 JSON 데이터 검증
+            results.extend(self._verify_json_data(file_path, data, ""))
+        
+        except json.JSONDecodeError as e:
+            results.append(VerificationResult(
+                file_path=file_path,
+                rule_type="configuration",
+                status="warning",
+                expected="Valid JSON format",
+                actual="JSON parse error",
+                message=f"JSON 파싱 오류: {str(e)}"
+            ))
+        except Exception as e:
+            logger.warning(f"JSON 파일 읽기 실패 {file_path}: {e}")
+        
+        return results
+    
+    def _verify_json_data(self, file_path: str, data: Any, path: str) -> List[VerificationResult]:
+        """JSON 데이터 재귀 검증"""
+        results = []
+        
+        if isinstance(data, dict):
+            for key, value in data.items():
+                current_path = f"{path}.{key}" if path else key
+                
+                # 키 이름 검증
+                if 'version' in key.lower():
+                    result = self._verify_version_field(file_path, key, value, current_path)
+                    if result:
+                        results.append(result)
+                
+                # 재귀 검증
+                results.extend(self._verify_json_data(file_path, value, current_path))
+        
+        elif isinstance(data, list):
+            for i, item in enumerate(data):
+                current_path = f"{path}[{i}]"
+                results.extend(self._verify_json_data(file_path, item, current_path))
+        
+        elif isinstance(data, str):
+            # 문자열 값에서 버전 정보 검증
+            result = self._verify_string_version(file_path, data, path)
+            if result:
+                results.append(result)
+        
+        return results
+    
+    def _verify_version_field(self, file_path: str, key: str, value: Any, path: str) -> Optional[VerificationResult]:
+        """버전 필드 검증"""
+        if isinstance(value, str):
+            if 'watchhamster' in key.lower() or 'hamster' in key.lower():
+                if value == "v3.0":
+                    return VerificationResult(
+                        file_path=f"{file_path}:{path}",
+                        rule_type="configuration",
+                        status="pass",
+                        expected="v3.0",
+                        actual=value,
+                        message="워치햄스터 버전이 v3.0으로 올바르게 설정되었습니다"
+                    )
+                else:
+                    return VerificationResult(
+                        file_path=f"{file_path}:{path}",
+                        rule_type="configuration",
+                        status="fail",
+                        expected="v3.0",
+                        actual=value,
+                        message="워치햄스터 버전이 v3.0으로 설정되지 않았습니다"
+                    )
+            
+            elif 'posco' in key.lower() or 'news' in key.lower():
+                if value == "250808":
+                    return VerificationResult(
+                        file_path=f"{file_path}:{path}",
+                        rule_type="configuration",
+                        status="pass",
+                        expected="250808",
+                        actual=value,
+                        message="포스코 뉴스 버전이 250808로 올바르게 설정되었습니다"
+                    )
+                else:
+                    return VerificationResult(
+                        file_path=f"{file_path}:{path}",
+                        rule_type="configuration",
+                        status="fail",
+                        expected="250808",
+                        actual=value,
+                        message="포스코 뉴스 버전이 250808로 설정되지 않았습니다"
+                    )
+        
+        return None
+    
+    def _verify_string_version(self, file_path: str, text: str, path: str) -> Optional[VerificationResult]:
+        """문자열 내 버전 정보 검증"""
+        # 구버전 패턴 검색
+        old_patterns = [
+            (r'v2\.0', "v2.0 문자열 발견"),
+            (r'mini.*v2', "mini v2 문자열 발견"),
+            (r'워치햄스터.*v2', "워치햄스터 v2 문자열 발견")
+        ]
+        
+        for pattern, message in old_patterns:
+            if re.search(pattern, text, re.IGNORECASE):
+                return VerificationResult(
+                    file_path=f"{file_path}:{path}",
+                    rule_type="configuration",
+                    status="fail",
+                    expected="Updated version string",
+                    actual=text,
+                    message=f"{message}: {text}"
+                )
+        
+        return None    
+
+    def run_full_verification(self) -> Dict[str, Any]:
+        """전체 검증 실행"""
+        logger.info("=== POSCO 네이밍 표준화 전체 검증 시작 ===")
+        
+        # 모든 검증 실행
+        filename_results = self.verify_filename_standards()
+        code_results = self.verify_code_naming_standards()
+        document_results = self.verify_document_standards()
+        config_results = self.verify_configuration_standards()
+        
+        # 결과 통합
+        all_results = filename_results + code_results + document_results + config_results
+        self.results = all_results
+        
+        # 통계 계산
+        stats = self._calculate_statistics(all_results)
+        
+        logger.info(f"=== 검증 완료: 총 {len(all_results)}개 항목 검증 ===")
+        logger.info(f"통과: {stats['pass']}, 실패: {stats['fail']}, 경고: {stats['warning']}")
+        
+        return {
+            'timestamp': datetime.now().isoformat(),
+            'total_checks': len(all_results),
+            'statistics': stats,
+            'results': [asdict(result) for result in all_results],
+            'summary': self._generate_summary(stats, all_results)
+        }
+    
+    def _calculate_statistics(self, results: List[VerificationResult]) -> Dict[str, int]:
+        """검증 결과 통계 계산"""
+        stats = {'pass': 0, 'fail': 0, 'warning': 0}
+        
+        for result in results:
+            stats[result.status] += 1
+        
+        return stats
+    
+    def _generate_summary(self, stats: Dict[str, int], results: List[VerificationResult]) -> Dict[str, Any]:
+        """검증 결과 요약 생성"""
+        total = sum(stats.values())
+        
+        # 카테고리별 통계
+        category_stats = {}
+        for result in results:
+            if result.rule_type not in category_stats:
+                category_stats[result.rule_type] = {'pass': 0, 'fail': 0, 'warning': 0}
+            category_stats[result.rule_type][result.status] += 1
+        
+        # 주요 문제점 식별
+        critical_issues = [r for r in results if r.status == 'fail']
+        warnings = [r for r in results if r.status == 'warning']
+        
+        return {
+            'overall_score': (stats['pass'] / total * 100) if total > 0 else 0,
+            'compliance_rate': (stats['pass'] / total * 100) if total > 0 else 0,
+            'category_breakdown': category_stats,
+            'critical_issues_count': len(critical_issues),
+            'warnings_count': len(warnings),
+            'top_issues': self._get_top_issues(critical_issues),
+            'recommendations': self._generate_recommendations(critical_issues, warnings)
+        }
+    
+    def _get_top_issues(self, critical_issues: List[VerificationResult]) -> List[Dict[str, Any]]:
+        """주요 문제점 상위 5개 추출"""
+        issue_counts = {}
+        
+        for issue in critical_issues:
+            key = f"{issue.rule_type}: {issue.message}"
+            if key not in issue_counts:
+                issue_counts[key] = {'count': 0, 'example': issue}
+            issue_counts[key]['count'] += 1
+        
+        # 빈도순 정렬
+        sorted_issues = sorted(issue_counts.items(), key=lambda x: x[1]['count'], reverse=True)
+        
+        return [
+            {
+                'issue_type': item[1]['example'].rule_type,
+                'message': item[1]['example'].message,
+                'count': item[1]['count'],
+                'example_file': item[1]['example'].file_path
+            }
+            for item in sorted_issues[:5]
+        ]
+    
+    def _generate_recommendations(self, critical_issues: List[VerificationResult], 
+                                warnings: List[VerificationResult]) -> List[str]:
+        """개선 권장사항 생성"""
+        recommendations = []
+        
+        # 파일명 관련 권장사항
+        filename_issues = [i for i in critical_issues if i.rule_type == 'filename']
+        if filename_issues:
+            recommendations.append(
+                f"파일명 표준화: {len(filename_issues)}개 파일의 이름을 표준 규칙에 맞게 변경하세요"
+            )
+        
+        # 코드 네이밍 관련 권장사항
+        code_issues = [i for i in critical_issues if i.rule_type == 'code_naming']
+        if code_issues:
+            recommendations.append(
+                f"코드 네이밍 표준화: {len(code_issues)}개 코드 요소의 이름을 업데이트하세요"
+            )
+        
+        # 문서 관련 권장사항
+        doc_issues = [i for i in critical_issues if i.rule_type == 'document']
+        if doc_issues:
+            recommendations.append(
+                f"문서 표준화: {len(doc_issues)}개 문서의 버전 정보를 업데이트하세요"
+            )
+        
+        # 설정 파일 관련 권장사항
+        config_issues = [i for i in critical_issues if i.rule_type == 'configuration']
+        if config_issues:
+            recommendations.append(
+                f"설정 파일 표준화: {len(config_issues)}개 설정 항목을 업데이트하세요"
+            )
+        
+        # 전반적인 권장사항
+        if len(critical_issues) > 10:
+            recommendations.append("자동화된 네이밍 표준화 도구 사용을 권장합니다")
+        
+        if len(warnings) > 5:
+            recommendations.append("경고 항목들도 검토하여 일관성을 높이세요")
+        
+        return recommendations
+    
+    def generate_report(self, output_file: str = None) -> str:
+        """검증 결과 보고서 생성"""
+        if not self.results:
+            logger.warning("검증 결과가 없습니다. run_full_verification()을 먼저 실행하세요.")
+            return ""
+        
+        verification_data = self.run_full_verification()
+        
+        # HTML 보고서 생성
+        html_report = self._generate_html_report(verification_data)
+        
+        # 파일 저장
+        if output_file is None:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            output_file = f"naming_verification_report_{timestamp}.html"
+        
+        try:
+            with open(output_file, 'w', encoding='utf-8') as f:
+                f.write(html_report)
+            
+            logger.info(f"검증 보고서가 생성되었습니다: {output_file}")
+            
+            # JSON 결과도 저장
+            json_file = output_file.replace('.html', '.json')
+            with open(json_file, 'w', encoding='utf-8') as f:
+                json.dump(verification_data, f, ensure_ascii=False, indent=2)
+            
+            logger.info(f"JSON 결과가 저장되었습니다: {json_file}")
+            
+            return output_file
+        
+        except Exception as e:
+            logger.error(f"보고서 생성 실패: {e}")
+            return ""
+    
+    def _generate_html_report(self, data: Dict[str, Any]) -> str:
+        """HTML 보고서 생성"""
+        html = f"""
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POSCO 네이밍 표준화 검증 보고서</title>
+    <style>
+        body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background-color: #f5f5f5; }}
+        .container {{ max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
+        .header {{ text-align: center; margin-bottom: 30px; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; }}
+        .stats {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0; }}
+        .stat-card {{ background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center; border-left: 4px solid #007bff; }}
+        .stat-number {{ font-size: 2em; font-weight: bold; color: #007bff; }}
+        .stat-label {{ color: #6c757d; margin-top: 5px; }}
+        .pass {{ color: #28a745; }}
+        .fail {{ color: #dc3545; }}
+        .warning {{ color: #ffc107; }}
+        .section {{ margin: 30px 0; }}
+        .section h2 {{ color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px; }}
+        .results-table {{ width: 100%; border-collapse: collapse; margin: 20px 0; }}
+        .results-table th, .results-table td {{ padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }}
+        .results-table th {{ background-color: #f8f9fa; font-weight: bold; }}
+        .status-pass {{ background-color: #d4edda; color: #155724; }}
+        .status-fail {{ background-color: #f8d7da; color: #721c24; }}
+        .status-warning {{ background-color: #fff3cd; color: #856404; }}
+        .recommendations {{ background: #e7f3ff; padding: 20px; border-radius: 8px; border-left: 4px solid #007bff; }}
+        .recommendations ul {{ margin: 10px 0; padding-left: 20px; }}
+        .progress-bar {{ width: 100%; height: 20px; background-color: #e9ecef; border-radius: 10px; overflow: hidden; }}
+        .progress-fill {{ height: 100%; background: linear-gradient(90deg, #28a745, #20c997); transition: width 0.3s ease; }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 POSCO 네이밍 표준화 검증 보고서</h1>
+            <p>WatchHamster v3.0 & POSCO News 250808 표준 준수 검증</p>
+            <p>생성일시: {data['timestamp']}</p>
+        </div>
+        
+        <div class="section">
+            <h2>📊 전체 요약</h2>
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">{data['total_checks']}</div>
+                    <div class="stat-label">총 검증 항목</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number pass">{data['statistics']['pass']}</div>
+                    <div class="stat-label">통과</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number fail">{data['statistics']['fail']}</div>
+                    <div class="stat-label">실패</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number warning">{data['statistics']['warning']}</div>
+                    <div class="stat-label">경고</div>
+                </div>
+            </div>
+            
+            <div style="margin: 20px 0;">
+                <h3>준수율: {data['summary']['compliance_rate']:.1f}%</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {data['summary']['compliance_rate']:.1f}%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📋 카테고리별 결과</h2>
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>카테고리</th>
+                        <th>통과</th>
+                        <th>실패</th>
+                        <th>경고</th>
+                        <th>총계</th>
+                    </tr>
+                </thead>
+                <tbody>
+        """
+        
+        for category, stats in data['summary']['category_breakdown'].items():
+            total = stats['pass'] + stats['fail'] + stats['warning']
+            html += f"""
+                    <tr>
+                        <td>{category}</td>
+                        <td class="pass">{stats['pass']}</td>
+                        <td class="fail">{stats['fail']}</td>
+                        <td class="warning">{stats['warning']}</td>
+                        <td>{total}</td>
+                    </tr>
+            """
+        
+        html += """
+                </tbody>
+            </table>
+        </div>
+        """
+        
+        # 주요 문제점
+        if data['summary']['top_issues']:
+            html += """
+        <div class="section">
+            <h2>⚠️ 주요 문제점</h2>
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>문제 유형</th>
+                        <th>설명</th>
+                        <th>발생 횟수</th>
+                        <th>예시 파일</th>
+                    </tr>
+                </thead>
+                <tbody>
+            """
+            
+            for issue in data['summary']['top_issues']:
+                html += f"""
+                    <tr>
+                        <td>{issue['issue_type']}</td>
+                        <td>{issue['message']}</td>
+                        <td class="fail">{issue['count']}</td>
+                        <td><code>{issue['example_file']}</code></td>
+                    </tr>
+                """
+            
+            html += """
+                </tbody>
+            </table>
+        </div>
+            """
+        
+        # 권장사항
+        if data['summary']['recommendations']:
+            html += """
+        <div class="section">
+            <h2>💡 개선 권장사항</h2>
+            <div class="recommendations">
+                <ul>
+            """
+            
+            for recommendation in data['summary']['recommendations']:
+                html += f"<li>{recommendation}</li>"
+            
+            html += """
+                </ul>
+            </div>
+        </div>
+            """
+        
+        # 상세 결과 (실패 및 경고만)
+        failed_results = [r for r in data['results'] if r['status'] in ['fail', 'warning']]
+        if failed_results:
+            html += """
+        <div class="section">
+            <h2>🔍 상세 검증 결과 (문제 항목만)</h2>
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>파일</th>
+                        <th>유형</th>
+                        <th>상태</th>
+                        <th>기대값</th>
+                        <th>실제값</th>
+                        <th>메시지</th>
+                    </tr>
+                </thead>
+                <tbody>
+            """
+            
+            for result in failed_results[:50]:  # 최대 50개만 표시
+                status_class = f"status-{result['status']}"
+                html += f"""
+                    <tr>
+                        <td><code>{result['file_path']}</code></td>
+                        <td>{result['rule_type']}</td>
+                        <td class="{status_class}">{result['status'].upper()}</td>
+                        <td>{result['expected']}</td>
+                        <td>{result['actual']}</td>
+                        <td>{result['message']}</td>
+                    </tr>
+                """
+            
+            if len(failed_results) > 50:
+                html += f"""
+                    <tr>
+                        <td colspan="6" style="text-align: center; font-style: italic;">
+                            ... 및 {len(failed_results) - 50}개 추가 항목 (JSON 파일에서 전체 결과 확인)
+                        </td>
+                    </tr>
+                """
+            
+            html += """
+                </tbody>
+            </table>
+        </div>
+            """
+        
+        html += """
+        <div class="section">
+            <h2>📝 검증 완료</h2>
+            <p>이 보고서는 POSCO 프로젝트의 네이밍 컨벤션 표준화 상태를 검증한 결과입니다.</p>
+            <p>문제가 발견된 항목들은 해당 표준화 도구를 사용하여 자동으로 수정할 수 있습니다.</p>
+        </div>
+    </div>
+</body>
+</html>
+        """
+        
+        return html
+
+def main():
+    """메인 실행 함수"""
+    print("🔍 POSCO 네이밍 표준화 검증 시스템")
+    print("=" * 50)
+    
+    verifier = NamingStandardizationVerifier()
+    
+    try:
+        # 전체 검증 실행
+        verification_data = verifier.run_full_verification()
+        
+        # 보고서 생성
+        report_file = verifier.generate_report()
+        
+        print(f"\n✅ 검증 완료!")
+        print(f"📊 총 {verification_data['total_checks']}개 항목 검증")
+        print(f"✅ 통과: {verification_data['statistics']['pass']}")
+        print(f"❌ 실패: {verification_data['statistics']['fail']}")
+        print(f"⚠️  경고: {verification_data['statistics']['warning']}")
+        print(f"📈 준수율: {verification_data['summary']['compliance_rate']:.1f}%")
+        
+        if report_file:
+            print(f"\n📋 보고서 생성됨: {report_file}")
+        
+        # 주요 권장사항 출력
+        if verification_data['summary']['recommendations']:
+            print(f"\n💡 주요 권장사항:")
+            for i, rec in enumerate(verification_data['summary']['recommendations'][:3], 1):
+                print(f"   {i}. {rec}")
+        
+        return verification_data['statistics']['fail'] == 0
+        
+    except Exception as e:
+        logger.error(f"검증 실행 중 오류 발생: {e}")
+        return False
+
+if __name__ == "__main__":
+    success = main()
+    exit(0 if success else 1)

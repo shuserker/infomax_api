@@ -1,0 +1,2135 @@
+2025-08-09 18:16:49,239 - INFO - 🔍 Python 파일 종합 오류 진단 시작
+2025-08-09 18:16:49,260 - INFO - 📁 총 124개 Python 파일 발견
+2025-08-09 18:16:54,457 - INFO - 🚨 총 1931개 오류 발견
+2025-08-09 18:16:54,457 - INFO - 🔧 Python 오류 자동 수정 시작
+2025-08-09 18:16:54,458 - INFO - 🔧 파일 수정 중: dummy
+2025-08-09 18:16:54,458 - ERROR - ❌ 파일 dummy 수정 실패: [Errno 2] No such file or directory: 'dummy'
+2025-08-09 18:16:54,458 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_watchhamster_v3.0_notification.py
+2025-08-09 18:16:54,459 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_watchhamster_v3.0_notification.py
+2025-08-09 18:16:54,459 - INFO -   ✅ 라인 361 수정: invalid_variable_name
+2025-08-09 18:16:54,459 - INFO -   ✅ 라인 162 수정: invalid_variable_name
+2025-08-09 18:16:54,459 - INFO -   ✅ 라인 161 수정: invalid_variable_name
+2025-08-09 18:16:54,497 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_watchhamster_v3.0_notification.py 컴파일 검증 실패
+2025-08-09 18:16:54,497 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/system_functionality_verification.py
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 623 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 609 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 595 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 593 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 584 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 582 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 580 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 578 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 577 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 575 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 572 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 571 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 569 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 566 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 565 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 563 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 560 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 557 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 538 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 521 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 511 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 444 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 443 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 441 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 400 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 399 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 298 수정: invalid_variable_name
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 208 수정: invalid_exception_class
+2025-08-09 18:16:54,499 - INFO -   ✅ 라인 203 수정: invalid_variable_name
+2025-08-09 18:16:54,500 - INFO -   ✅ 라인 152 수정: invalid_variable_name
+2025-08-09 18:16:54,500 - INFO -   ✅ 라인 69 수정: invalid_variable_name
+2025-08-09 18:16:54,538 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/system_functionality_verification.py 컴파일 검증 실패
+2025-08-09 18:16:54,539 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/verify_folder_reorganization.py
+2025-08-09 18:16:54,540 - INFO -   ✅ 라인 218 수정: invalid_variable_name
+2025-08-09 18:16:54,540 - INFO -   ✅ 라인 169 수정: invalid_variable_name
+2025-08-09 18:16:54,540 - INFO -   ✅ 라인 138 수정: invalid_variable_name
+2025-08-09 18:16:54,579 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/verify_folder_reorganization.py 컴파일 검증 실패
+2025-08-09 18:16:54,579 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/posco_file_renamer.py
+2025-08-09 18:16:54,580 - INFO -   ✅ 라인 268 수정: invalid_variable_name
+2025-08-09 18:16:54,580 - INFO -   ✅ 라인 266 수정: invalid_variable_name
+2025-08-09 18:16:54,580 - INFO -   ✅ 라인 264 수정: invalid_variable_name
+2025-08-09 18:16:54,580 - INFO -   ✅ 라인 262 수정: invalid_variable_name
+2025-08-09 18:16:54,580 - INFO -   ✅ 라인 260 수정: invalid_variable_name
+2025-08-09 18:16:54,580 - INFO -   ✅ 라인 258 수정: invalid_variable_name
+2025-08-09 18:16:54,580 - INFO -   ✅ 라인 256 수정: invalid_variable_name
+2025-08-09 18:16:54,580 - INFO -   ✅ 라인 254 수정: invalid_variable_name
+2025-08-09 18:16:54,580 - INFO -   ✅ 라인 225 수정: invalid_variable_name
+2025-08-09 18:16:54,580 - INFO -   ✅ 라인 79 수정: invalid_variable_name
+2025-08-09 18:16:54,580 - INFO -   ✅ 라인 34 수정: syntax_error
+2025-08-09 18:16:54,580 - INFO -   ✅ 라인 34 수정: f-string_error
+2025-08-09 18:16:54,618 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/posco_file_renamer.py 컴파일 검증 실패
+2025-08-09 18:16:54,618 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/final_integration_test_system.py
+2025-08-09 18:16:54,620 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/final_integration_test_system.py
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 959 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 945 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 931 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 929 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 920 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 912 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 856 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 855 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 853 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 806 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 805 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 709 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 652 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 619 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 552 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 483 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 426 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 367 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 296 수정: invalid_variable_name
+2025-08-09 18:16:54,620 - INFO -   ✅ 라인 243 수정: invalid_variable_name
+2025-08-09 18:16:54,621 - INFO -   ✅ 라인 55 수정: invalid_variable_name
+2025-08-09 18:16:54,621 - INFO -   ✅ 라인 44 수정: invalid_variable_name
+2025-08-09 18:16:54,621 - INFO -   ✅ 라인 43 수정: invalid_variable_name
+2025-08-09 18:16:54,657 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/final_integration_test_system.py 컴파일 검증 실패
+2025-08-09 18:16:54,657 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_module_registry_integration.py
+2025-08-09 18:16:54,658 - INFO -   ✅ 라인 226 수정: invalid_variable_name
+2025-08-09 18:16:54,658 - INFO -   ✅ 라인 213 수정: invalid_variable_name
+2025-08-09 18:16:54,658 - INFO -   ✅ 라인 94 수정: syntax_error
+2025-08-09 18:16:54,658 - INFO -   ✅ 라인 32 수정: invalid_variable_name
+2025-08-09 18:16:54,695 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_module_registry_integration.py 컴파일 검증 실패
+2025-08-09 18:16:54,695 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/posco_continuous_monitor.py
+2025-08-09 18:16:54,696 - INFO -   ✅ 라인 47 수정: invalid_variable_name
+2025-08-09 18:16:54,733 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/posco_continuous_monitor.py 컴파일 검증 실패
+2025-08-09 18:16:54,734 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/deploy_latest_report.py
+2025-08-09 18:16:54,735 - INFO -   ✅ 라인 74 수정: invalid_variable_name
+2025-08-09 18:16:54,735 - INFO -   ✅ 라인 70 수정: invalid_variable_name
+2025-08-09 18:16:54,735 - INFO - 보호된 라인 건너뜀: 66
+2025-08-09 18:16:54,735 - INFO -   ✅ 라인 63 수정: invalid_variable_name
+2025-08-09 18:16:54,735 - INFO -   ✅ 라인 55 수정: invalid_variable_name
+2025-08-09 18:16:54,735 - INFO -   ✅ 라인 52 수정: invalid_variable_name
+2025-08-09 18:16:54,771 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/deploy_latest_report.py 컴파일 검증 실패
+2025-08-09 18:16:54,772 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/execute_test_scenario.py
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 435 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 400 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 398 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 396 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 394 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 392 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 390 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 388 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 366 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 365 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 339 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 333 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 327 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 320 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 317 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 313 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 305 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 242 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 118 수정: invalid_variable_name
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 37 수정: invalid_exception_class
+2025-08-09 18:16:54,773 - INFO -   ✅ 라인 32 수정: invalid_variable_name
+2025-08-09 18:16:54,811 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/execute_test_scenario.py 컴파일 검증 실패
+2025-08-09 18:16:54,811 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/run_end_to_end_tests.py
+2025-08-09 18:16:54,812 - INFO -   ✅ 라인 419 수정: invalid_variable_name
+2025-08-09 18:16:54,812 - INFO -   ✅ 라인 363 수정: invalid_variable_name
+2025-08-09 18:16:54,812 - INFO -   ✅ 라인 362 수정: invalid_variable_name
+2025-08-09 18:16:54,813 - INFO -   ✅ 라인 318 수정: invalid_variable_name
+2025-08-09 18:16:54,813 - INFO -   ✅ 라인 304 수정: invalid_variable_name
+2025-08-09 18:16:54,813 - INFO -   ✅ 라인 291 수정: invalid_variable_name
+2025-08-09 18:16:54,813 - INFO -   ✅ 라인 277 수정: invalid_variable_name
+2025-08-09 18:16:54,813 - INFO -   ✅ 라인 270 수정: invalid_variable_name
+2025-08-09 18:16:54,813 - INFO -   ✅ 라인 267 수정: invalid_variable_name
+2025-08-09 18:16:54,813 - INFO -   ✅ 라인 255 수정: invalid_variable_name
+2025-08-09 18:16:54,813 - INFO -   ✅ 라인 184 수정: invalid_variable_name
+2025-08-09 18:16:54,813 - INFO -   ✅ 라인 100 수정: invalid_variable_name
+2025-08-09 18:16:54,852 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/run_end_to_end_tests.py 컴파일 검증 실패
+2025-08-09 18:16:54,852 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_documentation_standardization.py
+2025-08-09 18:16:54,853 - INFO -   ✅ 라인 191 수정: invalid_variable_name
+2025-08-09 18:16:54,854 - INFO -   ✅ 라인 164 수정: invalid_variable_name
+2025-08-09 18:16:54,854 - INFO -   ✅ 라인 128 수정: invalid_variable_name
+2025-08-09 18:16:54,854 - INFO -   ✅ 라인 103 수정: invalid_variable_name
+2025-08-09 18:16:54,854 - INFO -   ✅ 라인 80 수정: invalid_variable_name
+2025-08-09 18:16:54,854 - INFO -   ✅ 라인 59 수정: invalid_variable_name
+2025-08-09 18:16:54,854 - INFO -   ✅ 라인 30 수정: invalid_variable_name
+2025-08-09 18:16:54,892 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_documentation_standardization.py 컴파일 검증 실패
+2025-08-09 18:16:54,892 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_end_to_end_integration.py
+2025-08-09 18:16:54,893 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_end_to_end_integration.py
+2025-08-09 18:16:54,893 - INFO -   ✅ 라인 1053 수정: invalid_variable_name
+2025-08-09 18:16:54,893 - INFO -   ✅ 라인 1026 수정: invalid_variable_name
+2025-08-09 18:16:54,893 - INFO -   ✅ 라인 1021 수정: invalid_variable_name
+2025-08-09 18:16:54,893 - INFO -   ✅ 라인 1011 수정: invalid_variable_name
+2025-08-09 18:16:54,893 - INFO -   ✅ 라인 971 수정: invalid_variable_name
+2025-08-09 18:16:54,893 - INFO -   ✅ 라인 845 수정: invalid_variable_name
+2025-08-09 18:16:54,893 - INFO -   ✅ 라인 812 수정: invalid_variable_name
+2025-08-09 18:16:54,893 - INFO -   ✅ 라인 783 수정: invalid_variable_name
+2025-08-09 18:16:54,894 - INFO -   ✅ 라인 733 수정: invalid_variable_name
+2025-08-09 18:16:54,894 - INFO -   ✅ 라인 703 수정: invalid_variable_name
+2025-08-09 18:16:54,894 - INFO -   ✅ 라인 672 수정: invalid_variable_name
+2025-08-09 18:16:54,894 - INFO -   ✅ 라인 568 수정: invalid_variable_name
+2025-08-09 18:16:54,894 - INFO -   ✅ 라인 538 수정: invalid_variable_name
+2025-08-09 18:16:54,894 - INFO -   ✅ 라인 528 수정: invalid_variable_name
+2025-08-09 18:16:54,894 - INFO -   ✅ 라인 486 수정: invalid_variable_name
+2025-08-09 18:16:54,894 - INFO -   ✅ 라인 456 수정: invalid_variable_name
+2025-08-09 18:16:54,894 - INFO -   ✅ 라인 434 수정: invalid_variable_name
+2025-08-09 18:16:54,894 - INFO -   ✅ 라인 400 수정: invalid_variable_name
+2025-08-09 18:16:54,894 - INFO -   ✅ 라인 351 수정: invalid_variable_name
+2025-08-09 18:16:54,894 - INFO -   ✅ 라인 315 수정: invalid_variable_name
+2025-08-09 18:16:54,894 - INFO -   ✅ 라인 244 수정: invalid_variable_name
+2025-08-09 18:16:54,894 - INFO -   ✅ 라인 226 수정: invalid_variable_name
+2025-08-09 18:16:54,894 - INFO -   ✅ 라인 182 수정: invalid_variable_name
+2025-08-09 18:16:54,894 - INFO -   ✅ 라인 135 수정: invalid_variable_name
+2025-08-09 18:16:54,894 - INFO -   ✅ 라인 123 수정: invalid_variable_name
+2025-08-09 18:16:54,932 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_end_to_end_integration.py 컴파일 검증 실패
+2025-08-09 18:16:54,932 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/run_comprehensive_tests.py
+2025-08-09 18:16:54,933 - INFO -   ✅ 라인 356 수정: invalid_variable_name
+2025-08-09 18:16:54,933 - INFO -   ✅ 라인 354 수정: invalid_variable_name
+2025-08-09 18:16:54,933 - INFO -   ✅ 라인 309 수정: invalid_variable_name
+2025-08-09 18:16:54,933 - INFO -   ✅ 라인 308 수정: invalid_variable_name
+2025-08-09 18:16:54,933 - INFO -   ✅ 라인 274 수정: invalid_variable_name
+2025-08-09 18:16:54,933 - INFO -   ✅ 라인 267 수정: invalid_variable_name
+2025-08-09 18:16:54,933 - INFO -   ✅ 라인 261 수정: invalid_variable_name
+2025-08-09 18:16:54,933 - INFO -   ✅ 라인 254 수정: invalid_variable_name
+2025-08-09 18:16:54,933 - INFO -   ✅ 라인 251 수정: invalid_variable_name
+2025-08-09 18:16:54,933 - INFO - 보호된 라인 건너뜀: 248
+2025-08-09 18:16:54,933 - INFO -   ✅ 라인 239 수정: invalid_variable_name
+2025-08-09 18:16:54,933 - INFO -   ✅ 라인 206 수정: invalid_variable_name
+2025-08-09 18:16:54,933 - INFO -   ✅ 라인 205 수정: invalid_variable_name
+2025-08-09 18:16:54,933 - INFO -   ✅ 라인 204 수정: invalid_variable_name
+2025-08-09 18:16:54,933 - INFO -   ✅ 라인 105 수정: invalid_variable_name
+2025-08-09 18:16:54,972 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/run_comprehensive_tests.py 컴파일 검증 실패
+2025-08-09 18:16:54,972 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/demo_watchhamster_v3.0_integration.py
+2025-08-09 18:16:54,973 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/demo_watchhamster_v3.0_integration.py
+2025-08-09 18:16:54,973 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_shell_batch_standardization.py
+2025-08-09 18:16:54,974 - INFO -   ✅ 라인 282 수정: invalid_variable_name
+2025-08-09 18:16:54,974 - INFO -   ✅ 라인 271 수정: invalid_variable_name
+2025-08-09 18:16:54,974 - INFO -   ✅ 라인 225 수정: invalid_variable_name
+2025-08-09 18:16:54,974 - INFO -   ✅ 라인 222 수정: invalid_variable_name
+2025-08-09 18:16:54,974 - INFO -   ✅ 라인 182 수정: invalid_variable_name
+2025-08-09 18:16:54,974 - INFO -   ✅ 라인 179 수정: invalid_variable_name
+2025-08-09 18:16:54,974 - INFO -   ✅ 라인 108 수정: invalid_variable_name
+2025-08-09 18:16:54,974 - INFO -   ✅ 라인 105 수정: invalid_variable_name
+2025-08-09 18:16:54,974 - INFO -   ✅ 라인 62 수정: invalid_variable_name
+2025-08-09 18:16:55,012 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_shell_batch_standardization.py 컴파일 검증 실패
+2025-08-09 18:16:55,012 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/folder_structure_reorganizer.py
+2025-08-09 18:16:55,013 - INFO -   ✅ 라인 340 수정: invalid_variable_name
+2025-08-09 18:16:55,013 - INFO -   ✅ 라인 339 수정: invalid_variable_name
+2025-08-09 18:16:55,013 - INFO -   ✅ 라인 318 수정: invalid_variable_name
+2025-08-09 18:16:55,013 - INFO -   ✅ 라인 310 수정: invalid_variable_name
+2025-08-09 18:16:55,013 - INFO -   ✅ 라인 259 수정: invalid_variable_name
+2025-08-09 18:16:55,013 - INFO -   ✅ 라인 248 수정: invalid_variable_name
+2025-08-09 18:16:55,013 - INFO -   ✅ 라인 192 수정: invalid_variable_name
+2025-08-09 18:16:55,051 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/folder_structure_reorganizer.py 컴파일 검증 실패
+2025-08-09 18:16:55,052 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/naming_standardization_verification_system.py
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 1150 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 1144 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 1138 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 1136 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 1124 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 1105 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 1096 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 1094 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 1086 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 1078 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 1069 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 1053 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 1045 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 1035 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 1010 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 954 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 953 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 951 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 936 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 929 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 855 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 831 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 818 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 674 수정: invalid_exception_class
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 668 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 522 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 442 수정: invalid_variable_name
+2025-08-09 18:16:55,054 - INFO -   ✅ 라인 272 수정: invalid_variable_name
+2025-08-09 18:16:55,055 - INFO -   ✅ 라인 39 수정: invalid_variable_name
+2025-08-09 18:16:55,092 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/naming_standardization_verification_system.py 컴파일 검증 실패
+2025-08-09 18:16:55,093 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/json_viewer.py
+2025-08-09 18:16:55,093 - INFO -   ✅ 라인 27 수정: invalid_variable_name
+2025-08-09 18:16:55,093 - INFO -   ✅ 라인 26 수정: invalid_variable_name
+2025-08-09 18:16:55,132 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/json_viewer.py 컴파일 검증 실패
+2025-08-09 18:16:55,132 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/documentation_standardizer.py
+2025-08-09 18:16:55,133 - INFO -   ✅ 라인 288 수정: invalid_variable_name
+2025-08-09 18:16:55,133 - INFO -   ✅ 라인 279 수정: invalid_variable_name
+2025-08-09 18:16:55,133 - INFO -   ✅ 라인 273 수정: invalid_variable_name
+2025-08-09 18:16:55,133 - INFO -   ✅ 라인 257 수정: invalid_variable_name
+2025-08-09 18:16:55,133 - INFO -   ✅ 라인 242 수정: invalid_variable_name
+2025-08-09 18:16:55,133 - INFO -   ✅ 라인 236 수정: invalid_variable_name
+2025-08-09 18:16:55,133 - INFO -   ✅ 라인 220 수정: invalid_variable_name
+2025-08-09 18:16:55,133 - INFO -   ✅ 라인 196 수정: invalid_variable_name
+2025-08-09 18:16:55,134 - INFO -   ✅ 라인 190 수정: invalid_variable_name
+2025-08-09 18:16:55,134 - INFO -   ✅ 라인 174 수정: invalid_variable_name
+2025-08-09 18:16:55,134 - INFO -   ✅ 라인 150 수정: invalid_variable_name
+2025-08-09 18:16:55,134 - INFO -   ✅ 라인 144 수정: invalid_variable_name
+2025-08-09 18:16:55,134 - INFO -   ✅ 라인 128 수정: invalid_variable_name
+2025-08-09 18:16:55,134 - INFO -   ✅ 라인 103 수정: invalid_variable_name
+2025-08-09 18:16:55,134 - INFO -   ✅ 라인 97 수정: invalid_variable_name
+2025-08-09 18:16:55,134 - INFO -   ✅ 라인 23 수정: syntax_error
+2025-08-09 18:16:55,134 - INFO -   ✅ 라인 23 수정: invalid_variable_name
+2025-08-09 18:16:55,171 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/documentation_standardizer.py 컴파일 검증 실패
+2025-08-09 18:16:55,172 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/sync_publish_branch.py
+2025-08-09 18:16:55,172 - INFO -   ✅ 라인 97 수정: invalid_variable_name
+2025-08-09 18:16:55,173 - INFO -   ✅ 라인 93 수정: invalid_variable_name
+2025-08-09 18:16:55,173 - INFO - 보호된 라인 건너뜀: 88
+2025-08-09 18:16:55,173 - INFO -   ✅ 라인 84 수정: invalid_variable_name
+2025-08-09 18:16:55,173 - INFO -   ✅ 라인 70 수정: invalid_variable_name
+2025-08-09 18:16:55,173 - INFO -   ✅ 라인 46 수정: invalid_variable_name
+2025-08-09 18:16:55,210 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/sync_publish_branch.py 컴파일 검증 실패
+2025-08-09 18:16:55,210 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/posco_news_viewer.py
+2025-08-09 18:16:55,211 - INFO -   ✅ 라인 147 수정: invalid_variable_name
+2025-08-09 18:16:55,211 - INFO -   ✅ 라인 136 수정: invalid_variable_name
+2025-08-09 18:16:55,211 - INFO -   ✅ 라인 120 수정: invalid_variable_name
+2025-08-09 18:16:55,211 - INFO -   ✅ 라인 32 수정: invalid_variable_name
+2025-08-09 18:16:55,211 - INFO -   ✅ 라인 31 수정: invalid_variable_name
+2025-08-09 18:16:55,211 - INFO -   ✅ 라인 29 수정: invalid_variable_name
+2025-08-09 18:16:55,249 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/posco_news_viewer.py 컴파일 검증 실패
+2025-08-09 18:16:55,249 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/shell_batch_script_standardizer.py
+2025-08-09 18:16:55,250 - INFO -   ✅ 라인 453 수정: invalid_variable_name
+2025-08-09 18:16:55,250 - INFO -   ✅ 라인 402 수정: invalid_variable_name
+2025-08-09 18:16:55,250 - INFO - 보호된 라인 건너뜀: 400
+2025-08-09 18:16:55,250 - INFO -   ✅ 라인 399 수정: invalid_variable_name
+2025-08-09 18:16:55,250 - INFO -   ✅ 라인 397 수정: invalid_variable_name
+2025-08-09 18:16:55,250 - INFO -   ✅ 라인 394 수정: invalid_variable_name
+2025-08-09 18:16:55,251 - INFO -   ✅ 라인 393 수정: invalid_variable_name
+2025-08-09 18:16:55,251 - INFO -   ✅ 라인 391 수정: invalid_variable_name
+2025-08-09 18:16:55,251 - INFO -   ✅ 라인 388 수정: invalid_variable_name
+2025-08-09 18:16:55,251 - INFO -   ✅ 라인 386 수정: invalid_variable_name
+2025-08-09 18:16:55,251 - INFO -   ✅ 라인 192 수정: invalid_variable_name
+2025-08-09 18:16:55,252 - INFO -   ✅ 라인 189 수정: invalid_variable_name
+2025-08-09 18:16:55,252 - INFO -   ✅ 라인 186 수정: invalid_variable_name
+2025-08-09 18:16:55,252 - INFO -   ✅ 라인 165 수정: syntax_error
+2025-08-09 18:16:55,252 - INFO -   ✅ 라인 165 수정: invalid_variable_name
+2025-08-09 18:16:55,252 - INFO -   ✅ 라인 119 수정: invalid_variable_name
+2025-08-09 18:16:55,252 - INFO -   ✅ 라인 116 수정: invalid_variable_name
+2025-08-09 18:16:55,252 - INFO -   ✅ 라인 112 수정: invalid_variable_name
+2025-08-09 18:16:55,252 - INFO -   ✅ 라인 108 수정: invalid_variable_name
+2025-08-09 18:16:55,252 - INFO -   ✅ 라인 44 수정: invalid_variable_name
+2025-08-09 18:16:55,253 - INFO - 보호된 라인 건너뜀: 31
+2025-08-09 18:16:55,291 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/shell_batch_script_standardizer.py 컴파일 검증 실패
+2025-08-09 18:16:55,291 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/naming_convention_manager.py
+2025-08-09 18:16:55,292 - INFO -   ✅ 라인 486 수정: invalid_variable_name
+2025-08-09 18:16:55,292 - INFO -   ✅ 라인 455 수정: invalid_variable_name
+2025-08-09 18:16:55,292 - INFO -   ✅ 라인 453 수정: invalid_variable_name
+2025-08-09 18:16:55,292 - INFO -   ✅ 라인 394 수정: invalid_variable_name
+2025-08-09 18:16:55,292 - INFO -   ✅ 라인 124 수정: invalid_variable_name
+2025-08-09 18:16:55,292 - INFO -   ✅ 라인 110 수정: invalid_variable_name
+2025-08-09 18:16:55,292 - INFO -   ✅ 라인 63 수정: invalid_variable_name
+2025-08-09 18:16:55,292 - INFO -   ✅ 라인 58 수정: syntax_error
+2025-08-09 18:16:55,292 - INFO -   ✅ 라인 58 수정: invalid_variable_name
+2025-08-09 18:16:55,292 - INFO -   ✅ 라인 45 수정: invalid_variable_name
+2025-08-09 18:16:55,331 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/naming_convention_manager.py 컴파일 검증 실패
+2025-08-09 18:16:55,331 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/file_renaming_system.py
+2025-08-09 18:16:55,332 - INFO -   ✅ 라인 546 수정: invalid_variable_name
+2025-08-09 18:16:55,332 - INFO - 보호된 라인 건너뜀: 470
+2025-08-09 18:16:55,332 - INFO -   ✅ 라인 467 수정: invalid_variable_name
+2025-08-09 18:16:55,332 - INFO -   ✅ 라인 444 수정: invalid_variable_name
+2025-08-09 18:16:55,332 - INFO -   ✅ 라인 411 수정: invalid_variable_name
+2025-08-09 18:16:55,332 - INFO -   ✅ 라인 401 수정: invalid_variable_name
+2025-08-09 18:16:55,332 - INFO -   ✅ 라인 400 수정: invalid_variable_name
+2025-08-09 18:16:55,332 - INFO -   ✅ 라인 383 수정: invalid_variable_name
+2025-08-09 18:16:55,332 - INFO -   ✅ 라인 382 수정: invalid_variable_name
+2025-08-09 18:16:55,332 - INFO -   ✅ 라인 250 수정: invalid_variable_name
+2025-08-09 18:16:55,332 - INFO -   ✅ 라인 248 수정: invalid_variable_name
+2025-08-09 18:16:55,332 - INFO -   ✅ 라인 223 수정: invalid_variable_name
+2025-08-09 18:16:55,333 - INFO -   ✅ 라인 125 수정: syntax_error
+2025-08-09 18:16:55,333 - INFO -   ✅ 라인 96 수정: invalid_variable_name
+2025-08-09 18:16:55,333 - INFO -   ✅ 라인 76 수정: invalid_variable_name
+2025-08-09 18:16:55,333 - INFO -   ✅ 라인 75 수정: invalid_variable_name
+2025-08-09 18:16:55,333 - INFO -   ✅ 라인 54 수정: invalid_variable_name
+2025-08-09 18:16:55,333 - INFO -   ✅ 라인 43 수정: invalid_variable_name
+2025-08-09 18:16:55,333 - INFO - 보호된 라인 건너뜀: 42
+2025-08-09 18:16:55,333 - INFO -   ✅ 라인 41 수정: invalid_variable_name
+2025-08-09 18:16:55,370 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/file_renaming_system.py 컴파일 검증 실패
+2025-08-09 18:16:55,370 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_migration_verification_system.py
+2025-08-09 18:16:55,371 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_migration_verification_system.py
+2025-08-09 18:16:55,371 - INFO -   ✅ 라인 658 수정: invalid_variable_name
+2025-08-09 18:16:55,371 - INFO -   ✅ 라인 579 수정: invalid_variable_name
+2025-08-09 18:16:55,371 - INFO -   ✅ 라인 578 수정: invalid_variable_name
+2025-08-09 18:16:55,371 - INFO -   ✅ 라인 423 수정: invalid_variable_name
+2025-08-09 18:16:55,371 - INFO -   ✅ 라인 359 수정: invalid_variable_name
+2025-08-09 18:16:55,371 - INFO -   ✅ 라인 284 수정: invalid_variable_name
+2025-08-09 18:16:55,371 - INFO -   ✅ 라인 283 수정: invalid_variable_name
+2025-08-09 18:16:55,371 - INFO -   ✅ 라인 119 수정: invalid_variable_name
+2025-08-09 18:16:55,371 - INFO -   ✅ 라인 56 수정: invalid_variable_name
+2025-08-09 18:16:55,371 - INFO -   ✅ 라인 55 수정: invalid_variable_name
+2025-08-09 18:16:55,410 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_migration_verification_system.py 컴파일 검증 실패
+2025-08-09 18:16:55,410 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_control_center_integration.py
+2025-08-09 18:16:55,411 - INFO -   ✅ 라인 298 수정: invalid_variable_name
+2025-08-09 18:16:55,411 - INFO -   ✅ 라인 244 수정: invalid_variable_name
+2025-08-09 18:16:55,411 - INFO -   ✅ 라인 201 수정: invalid_variable_name
+2025-08-09 18:16:55,411 - INFO -   ✅ 라인 133 수정: invalid_variable_name
+2025-08-09 18:16:55,411 - INFO -   ✅ 라인 83 수정: invalid_variable_name
+2025-08-09 18:16:55,411 - INFO -   ✅ 라인 63 수정: invalid_variable_name
+2025-08-09 18:16:55,450 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_control_center_integration.py 컴파일 검증 실패
+2025-08-09 18:16:55,450 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/config_data_standardizer.py
+2025-08-09 18:16:55,451 - INFO -   ✅ 라인 492 수정: invalid_variable_name
+2025-08-09 18:16:55,452 - INFO -   ✅ 라인 491 수정: invalid_variable_name
+2025-08-09 18:16:55,452 - INFO -   ✅ 라인 464 수정: invalid_variable_name
+2025-08-09 18:16:55,452 - INFO -   ✅ 라인 246 수정: invalid_variable_name
+2025-08-09 18:16:55,452 - INFO -   ✅ 라인 245 수정: invalid_variable_name
+2025-08-09 18:16:55,452 - INFO -   ✅ 라인 237 수정: invalid_variable_name
+2025-08-09 18:16:55,452 - INFO -   ✅ 라인 118 수정: invalid_variable_name
+2025-08-09 18:16:55,452 - INFO -   ✅ 라인 35 수정: syntax_error
+2025-08-09 18:16:55,452 - INFO -   ✅ 라인 35 수정: invalid_variable_name
+2025-08-09 18:16:55,489 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/config_data_standardizer.py 컴파일 검증 실패
+2025-08-09 18:16:55,490 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_rollback_functionality.py
+2025-08-09 18:16:55,491 - INFO -   ✅ 라인 346 수정: invalid_variable_name
+2025-08-09 18:16:55,491 - INFO -   ✅ 라인 292 수정: invalid_variable_name
+2025-08-09 18:16:55,491 - INFO -   ✅ 라인 202 수정: invalid_variable_name
+2025-08-09 18:16:55,491 - INFO -   ✅ 라인 50 수정: syntax_error
+2025-08-09 18:16:55,529 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_rollback_functionality.py 컴파일 검증 실패
+2025-08-09 18:16:55,529 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/system_output_message_standardizer.py
+2025-08-09 18:16:55,531 - INFO -   ✅ 라인 317 수정: invalid_variable_name
+2025-08-09 18:16:55,531 - INFO -   ✅ 라인 288 수정: invalid_variable_name
+2025-08-09 18:16:55,531 - INFO -   ✅ 라인 286 수정: invalid_variable_name
+2025-08-09 18:16:55,531 - INFO -   ✅ 라인 284 수정: invalid_variable_name
+2025-08-09 18:16:55,531 - INFO -   ✅ 라인 283 수정: invalid_variable_name
+2025-08-09 18:16:55,531 - INFO -   ✅ 라인 281 수정: invalid_variable_name
+2025-08-09 18:16:55,531 - INFO -   ✅ 라인 229 수정: invalid_variable_name
+2025-08-09 18:16:55,531 - INFO -   ✅ 라인 217 수정: invalid_variable_name
+2025-08-09 18:16:55,531 - INFO -   ✅ 라인 174 수정: invalid_variable_name
+2025-08-09 18:16:55,531 - INFO -   ✅ 라인 160 수정: invalid_variable_name
+2025-08-09 18:16:55,571 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/system_output_message_standardizer.py 컴파일 검증 실패
+2025-08-09 18:16:55,572 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/system_optimization_report_generator.py
+2025-08-09 18:16:55,573 - INFO -   ✅ 라인 787 수정: invalid_variable_name
+2025-08-09 18:16:55,573 - INFO -   ✅ 라인 780 수정: invalid_variable_name
+2025-08-09 18:16:55,573 - INFO -   ✅ 라인 779 수정: invalid_variable_name
+2025-08-09 18:16:55,573 - INFO -   ✅ 라인 774 수정: invalid_variable_name
+2025-08-09 18:16:55,573 - INFO -   ✅ 라인 716 수정: invalid_variable_name
+2025-08-09 18:16:55,573 - INFO -   ✅ 라인 681 수정: invalid_variable_name
+2025-08-09 18:16:55,573 - INFO -   ✅ 라인 657 수정: invalid_variable_name
+2025-08-09 18:16:55,573 - INFO -   ✅ 라인 654 수정: invalid_variable_name
+2025-08-09 18:16:55,573 - INFO -   ✅ 라인 648 수정: invalid_variable_name
+2025-08-09 18:16:55,573 - INFO -   ✅ 라인 646 수정: invalid_variable_name
+2025-08-09 18:16:55,573 - INFO -   ✅ 라인 640 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 638 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 629 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 621 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 617 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 613 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 604 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 600 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 587 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 572 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 566 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 559 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 550 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 539 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 534 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 528 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 519 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 499 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 136 수정: invalid_variable_name
+2025-08-09 18:16:55,574 - INFO -   ✅ 라인 44 수정: invalid_variable_name
+2025-08-09 18:16:55,615 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/system_optimization_report_generator.py 컴파일 검증 실패
+2025-08-09 18:16:55,615 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/migration_status_reporter.py
+2025-08-09 18:16:55,616 - INFO -   ✅ 라인 562 수정: invalid_variable_name
+2025-08-09 18:16:55,616 - INFO -   ✅ 라인 560 수정: invalid_variable_name
+2025-08-09 18:16:55,616 - INFO -   ✅ 라인 559 수정: invalid_variable_name
+2025-08-09 18:16:55,617 - INFO -   ✅ 라인 558 수정: invalid_variable_name
+2025-08-09 18:16:55,617 - INFO -   ✅ 라인 502 수정: invalid_variable_name
+2025-08-09 18:16:55,617 - INFO -   ✅ 라인 449 수정: invalid_exception_class
+2025-08-09 18:16:55,617 - INFO -   ✅ 라인 407 수정: invalid_variable_name
+2025-08-09 18:16:55,617 - INFO -   ✅ 라인 376 수정: invalid_variable_name
+2025-08-09 18:16:55,617 - INFO -   ✅ 라인 368 수정: invalid_variable_name
+2025-08-09 18:16:55,617 - INFO -   ✅ 라인 280 수정: invalid_variable_name
+2025-08-09 18:16:55,617 - INFO -   ✅ 라인 279 수정: invalid_variable_name
+2025-08-09 18:16:55,617 - INFO -   ✅ 라인 202 수정: invalid_variable_name
+2025-08-09 18:16:55,617 - INFO -   ✅ 라인 201 수정: invalid_variable_name
+2025-08-09 18:16:55,617 - INFO -   ✅ 라인 172 수정: invalid_variable_name
+2025-08-09 18:16:55,617 - INFO -   ✅ 라인 35 수정: invalid_variable_name
+2025-08-09 18:16:55,617 - INFO -   ✅ 라인 34 수정: invalid_variable_name
+2025-08-09 18:16:55,617 - INFO -   ✅ 라인 33 수정: invalid_variable_name
+2025-08-09 18:16:55,658 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/migration_status_reporter.py 컴파일 검증 실패
+2025-08-09 18:16:55,658 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/convert_config.py
+2025-08-09 18:16:55,659 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/convert_config.py
+2025-08-09 18:16:55,659 - INFO -   ✅ 라인 151 수정: invalid_variable_name
+2025-08-09 18:16:55,660 - INFO -   ✅ 라인 141 수정: invalid_variable_name
+2025-08-09 18:16:55,660 - INFO -   ✅ 라인 140 수정: invalid_variable_name
+2025-08-09 18:16:55,660 - INFO -   ✅ 라인 138 수정: invalid_variable_name
+2025-08-09 18:16:55,660 - INFO -   ✅ 라인 30 수정: invalid_variable_name
+2025-08-09 18:16:55,697 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/convert_config.py 컴파일 검증 실패
+2025-08-09 18:16:55,698 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/post_migration_verification.py
+2025-08-09 18:16:55,698 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/post_migration_verification.py
+2025-08-09 18:16:55,699 - INFO -   ✅ 라인 756 수정: invalid_variable_name
+2025-08-09 18:16:55,699 - INFO -   ✅ 라인 745 수정: invalid_variable_name
+2025-08-09 18:16:55,699 - INFO -   ✅ 라인 669 수정: invalid_variable_name
+2025-08-09 18:16:55,699 - INFO -   ✅ 라인 579 수정: invalid_variable_name
+2025-08-09 18:16:55,699 - INFO -   ✅ 라인 522 수정: invalid_exception_class
+2025-08-09 18:16:55,699 - INFO -   ✅ 라인 458 수정: invalid_variable_name
+2025-08-09 18:16:55,699 - INFO -   ✅ 라인 389 수정: invalid_variable_name
+2025-08-09 18:16:55,699 - INFO -   ✅ 라인 373 수정: invalid_variable_name
+2025-08-09 18:16:55,699 - INFO -   ✅ 라인 338 수정: invalid_variable_name
+2025-08-09 18:16:55,699 - INFO -   ✅ 라인 296 수정: invalid_variable_name
+2025-08-09 18:16:55,699 - INFO -   ✅ 라인 262 수정: invalid_variable_name
+2025-08-09 18:16:55,699 - INFO -   ✅ 라인 171 수정: invalid_variable_name
+2025-08-09 18:16:55,699 - INFO -   ✅ 라인 67 수정: invalid_variable_name
+2025-08-09 18:16:55,699 - INFO -   ✅ 라인 56 수정: invalid_variable_name
+2025-08-09 18:16:55,738 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/post_migration_verification.py 컴파일 검증 실패
+2025-08-09 18:16:55,738 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_process_lifecycle.py
+2025-08-09 18:16:55,739 - INFO -   ✅ 라인 290 수정: invalid_variable_name
+2025-08-09 18:16:55,739 - INFO -   ✅ 라인 256 수정: invalid_variable_name
+2025-08-09 18:16:55,739 - INFO -   ✅ 라인 244 수정: invalid_variable_name
+2025-08-09 18:16:55,739 - INFO -   ✅ 라인 208 수정: invalid_variable_name
+2025-08-09 18:16:55,739 - INFO -   ✅ 라인 190 수정: invalid_variable_name
+2025-08-09 18:16:55,739 - INFO -   ✅ 라인 163 수정: invalid_variable_name
+2025-08-09 18:16:55,739 - INFO -   ✅ 라인 140 수정: invalid_variable_name
+2025-08-09 18:16:55,739 - INFO -   ✅ 라인 74 수정: invalid_variable_name
+2025-08-09 18:16:55,776 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_process_lifecycle.py 컴파일 검증 실패
+2025-08-09 18:16:55,776 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/run_final_integration_tests.py
+2025-08-09 18:16:55,777 - INFO -   ✅ 라인 369 수정: invalid_variable_name
+2025-08-09 18:16:55,777 - INFO -   ✅ 라인 354 수정: invalid_variable_name
+2025-08-09 18:16:55,777 - INFO -   ✅ 라인 352 수정: invalid_variable_name
+2025-08-09 18:16:55,777 - INFO -   ✅ 라인 342 수정: invalid_variable_name
+2025-08-09 18:16:55,777 - INFO -   ✅ 라인 340 수정: invalid_variable_name
+2025-08-09 18:16:55,777 - INFO -   ✅ 라인 331 수정: invalid_variable_name
+2025-08-09 18:16:55,777 - INFO -   ✅ 라인 324 수정: invalid_variable_name
+2025-08-09 18:16:55,777 - INFO -   ✅ 라인 290 수정: invalid_variable_name
+2025-08-09 18:16:55,777 - INFO -   ✅ 라인 259 수정: invalid_variable_name
+2025-08-09 18:16:55,778 - INFO -   ✅ 라인 258 수정: invalid_variable_name
+2025-08-09 18:16:55,778 - INFO -   ✅ 라인 256 수정: invalid_variable_name
+2025-08-09 18:16:55,778 - INFO -   ✅ 라인 203 수정: invalid_variable_name
+2025-08-09 18:16:55,778 - INFO -   ✅ 라인 202 수정: invalid_variable_name
+2025-08-09 18:16:55,778 - INFO -   ✅ 라인 157 수정: invalid_variable_name
+2025-08-09 18:16:55,821 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/run_final_integration_tests.py 컴파일 검증 실패
+2025-08-09 18:16:55,822 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/task11_completion_demonstration.py
+2025-08-09 18:16:55,823 - INFO -   ✅ 라인 193 수정: invalid_variable_name
+2025-08-09 18:16:55,823 - INFO -   ✅ 라인 187 수정: invalid_variable_name
+2025-08-09 18:16:55,823 - INFO -   ✅ 라인 62 수정: invalid_variable_name
+2025-08-09 18:16:55,823 - INFO -   ✅ 라인 48 수정: invalid_variable_name
+2025-08-09 18:16:55,863 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/task11_completion_demonstration.py 컴파일 검증 실패
+2025-08-09 18:16:55,864 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_config_data_standardization.py
+2025-08-09 18:16:55,865 - INFO -   ✅ 라인 340 수정: invalid_variable_name
+2025-08-09 18:16:55,865 - INFO -   ✅ 라인 323 수정: invalid_variable_name
+2025-08-09 18:16:55,865 - INFO -   ✅ 라인 299 수정: invalid_variable_name
+2025-08-09 18:16:55,865 - INFO -   ✅ 라인 268 수정: invalid_variable_name
+2025-08-09 18:16:55,865 - INFO -   ✅ 라인 241 수정: invalid_variable_name
+2025-08-09 18:16:55,865 - INFO -   ✅ 라인 231 수정: invalid_variable_name
+2025-08-09 18:16:55,865 - INFO -   ✅ 라인 209 수정: invalid_variable_name
+2025-08-09 18:16:55,865 - INFO -   ✅ 라인 110 수정: invalid_variable_name
+2025-08-09 18:16:55,865 - INFO -   ✅ 라인 102 수정: invalid_variable_name
+2025-08-09 18:16:55,865 - INFO -   ✅ 라인 87 수정: invalid_variable_name
+2025-08-09 18:16:55,865 - INFO -   ✅ 라인 73 수정: invalid_variable_name
+2025-08-09 18:16:55,865 - INFO -   ✅ 라인 72 수정: invalid_variable_name
+2025-08-09 18:16:55,905 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_config_data_standardization.py 컴파일 검증 실패
+2025-08-09 18:16:55,905 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_naming_standardization_verification.py
+2025-08-09 18:16:55,906 - INFO -   ✅ 라인 439 수정: invalid_variable_name
+2025-08-09 18:16:55,906 - INFO -   ✅ 라인 421 수정: invalid_variable_name
+2025-08-09 18:16:55,906 - INFO -   ✅ 라인 289 수정: invalid_variable_name
+2025-08-09 18:16:55,906 - INFO -   ✅ 라인 281 수정: invalid_variable_name
+2025-08-09 18:16:55,906 - INFO -   ✅ 라인 158 수정: invalid_variable_name
+2025-08-09 18:16:55,906 - INFO -   ✅ 라인 133 수정: invalid_variable_name
+2025-08-09 18:16:55,906 - INFO -   ✅ 라인 125 수정: invalid_variable_name
+2025-08-09 18:16:55,906 - INFO -   ✅ 라인 36 수정: invalid_variable_name
+2025-08-09 18:16:55,946 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_naming_standardization_verification.py 컴파일 검증 실패
+2025-08-09 18:16:55,947 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_performance_monitoring.py
+2025-08-09 18:16:55,948 - INFO -   ✅ 라인 528 수정: invalid_variable_name
+2025-08-09 18:16:55,948 - INFO -   ✅ 라인 405 수정: invalid_variable_name
+2025-08-09 18:16:55,948 - INFO -   ✅ 라인 365 수정: invalid_variable_name
+2025-08-09 18:16:55,991 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_performance_monitoring.py 컴파일 검증 실패
+2025-08-09 18:16:55,991 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_file_renaming_system.py
+2025-08-09 18:16:55,992 - INFO -   ✅ 라인 284 수정: invalid_variable_name
+2025-08-09 18:16:55,992 - INFO -   ✅ 라인 272 수정: invalid_variable_name
+2025-08-09 18:16:55,992 - INFO -   ✅ 라인 76 수정: invalid_variable_name
+2025-08-09 18:16:55,992 - INFO -   ✅ 라인 62 수정: invalid_variable_name
+2025-08-09 18:16:55,992 - INFO -   ✅ 라인 48 수정: syntax_error
+2025-08-09 18:16:55,993 - INFO -   ✅ 라인 48 수정: invalid_variable_name
+2025-08-09 18:16:56,032 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_file_renaming_system.py 컴파일 검증 실패
+2025-08-09 18:16:56,032 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/python_naming_standardizer.py
+2025-08-09 18:16:56,033 - INFO -   ✅ 라인 283 수정: invalid_variable_name
+2025-08-09 18:16:56,033 - INFO -   ✅ 라인 266 수정: invalid_variable_name
+2025-08-09 18:16:56,033 - INFO -   ✅ 라인 264 수정: invalid_variable_name
+2025-08-09 18:16:56,033 - INFO -   ✅ 라인 262 수정: invalid_variable_name
+2025-08-09 18:16:56,033 - INFO -   ✅ 라인 249 수정: invalid_variable_name
+2025-08-09 18:16:56,033 - INFO -   ✅ 라인 248 수정: invalid_variable_name
+2025-08-09 18:16:56,033 - INFO -   ✅ 라인 210 수정: invalid_variable_name
+2025-08-09 18:16:56,033 - INFO -   ✅ 라인 197 수정: invalid_variable_name
+2025-08-09 18:16:56,033 - INFO -   ✅ 라인 163 수정: invalid_variable_name
+2025-08-09 18:16:56,033 - INFO -   ✅ 라인 113 수정: invalid_variable_name
+2025-08-09 18:16:56,034 - INFO -   ✅ 라인 61 수정: invalid_variable_name
+2025-08-09 18:16:56,034 - INFO -   ✅ 라인 28 수정: syntax_error
+2025-08-09 18:16:56,034 - INFO -   ✅ 라인 28 수정: invalid_variable_name
+2025-08-09 18:16:56,075 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/python_naming_standardizer.py 컴파일 검증 실패
+2025-08-09 18:16:56,075 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_system_output_message_standardization.py
+2025-08-09 18:16:56,077 - INFO -   ✅ 라인 285 수정: invalid_variable_name
+2025-08-09 18:16:56,077 - INFO -   ✅ 라인 208 수정: invalid_variable_name
+2025-08-09 18:16:56,077 - INFO -   ✅ 라인 182 수정: invalid_variable_name
+2025-08-09 18:16:56,077 - INFO -   ✅ 라인 158 수정: invalid_variable_name
+2025-08-09 18:16:56,077 - INFO -   ✅ 라인 131 수정: invalid_variable_name
+2025-08-09 18:16:56,077 - INFO -   ✅ 라인 104 수정: invalid_variable_name
+2025-08-09 18:16:56,077 - INFO -   ✅ 라인 79 수정: invalid_variable_name
+2025-08-09 18:16:56,077 - INFO -   ✅ 라인 55 수정: invalid_variable_name
+2025-08-09 18:16:56,077 - INFO -   ✅ 라인 34 수정: invalid_variable_name
+2025-08-09 18:16:56,118 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_system_output_message_standardization.py 컴파일 검증 실패
+2025-08-09 18:16:56,119 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_naming_convention_manager.py
+2025-08-09 18:16:56,120 - INFO -   ✅ 라인 211 수정: invalid_variable_name
+2025-08-09 18:16:56,120 - INFO -   ✅ 라인 137 수정: invalid_variable_name
+2025-08-09 18:16:56,120 - INFO -   ✅ 라인 131 수정: invalid_variable_name
+2025-08-09 18:16:56,120 - INFO -   ✅ 라인 117 수정: invalid_variable_name
+2025-08-09 18:16:56,120 - INFO -   ✅ 라인 96 수정: invalid_variable_name
+2025-08-09 18:16:56,121 - INFO -   ✅ 라인 82 수정: invalid_variable_name
+2025-08-09 18:16:56,160 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_naming_convention_manager.py 컴파일 검증 실패
+2025-08-09 18:16:56,160 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/comprehensive_error_repairer.py
+2025-08-09 18:16:56,161 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/comprehensive_error_repairer.py
+2025-08-09 18:16:56,161 - INFO -   ✅ 라인 591 수정: invalid_variable_name
+2025-08-09 18:16:56,161 - INFO -   ✅ 라인 585 수정: invalid_variable_name
+2025-08-09 18:16:56,161 - INFO -   ✅ 라인 381 수정: invalid_variable_name
+2025-08-09 18:16:56,161 - INFO -   ✅ 라인 375 수정: invalid_variable_name
+2025-08-09 18:16:56,161 - INFO -   ✅ 라인 373 수정: invalid_variable_name
+2025-08-09 18:16:56,161 - INFO -   ✅ 라인 347 수정: invalid_variable_name
+2025-08-09 18:16:56,161 - INFO -   ✅ 라인 299 수정: invalid_variable_name
+2025-08-09 18:16:56,161 - INFO -   ✅ 라인 101 수정: invalid_variable_name
+2025-08-09 18:16:56,161 - INFO -   ✅ 라인 50 수정: invalid_variable_name
+2025-08-09 18:16:56,162 - INFO -   ✅ 라인 40 수정: invalid_variable_name
+2025-08-09 18:16:56,203 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/comprehensive_error_repairer.py 컴파일 검증 실패
+2025-08-09 18:16:56,203 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/demo_performance_monitoring.py
+2025-08-09 18:16:56,204 - INFO -   ✅ 라인 241 수정: invalid_variable_name
+2025-08-09 18:16:56,204 - INFO -   ✅ 라인 30 수정: invalid_variable_name
+2025-08-09 18:16:56,244 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/demo_performance_monitoring.py 컴파일 검증 실패
+2025-08-09 18:16:56,244 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/final_system_integration_verification.py
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 1076 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 1072 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 978 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 969 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 929 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 926 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 913 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 911 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 894 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 883 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 876 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 867 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 859 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 853 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 845 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 841 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 831 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 825 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 814 수정: invalid_variable_name
+2025-08-09 18:16:56,246 - INFO -   ✅ 라인 811 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 809 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 806 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 804 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 796 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 640 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 634 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 609 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 601 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 369 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 346 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 302 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 298 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 281 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 258 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 236 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 210 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 136 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 124 수정: invalid_variable_name
+2025-08-09 18:16:56,247 - INFO -   ✅ 라인 87 수정: invalid_variable_name
+2025-08-09 18:16:56,288 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/final_system_integration_verification.py 컴파일 검증 실패
+2025-08-09 18:16:56,288 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_watchhamster_v3.0_integration.py
+2025-08-09 18:16:56,290 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_watchhamster_v3.0_integration.py
+2025-08-09 18:16:56,290 - INFO -   ✅ 라인 1036 수정: invalid_variable_name
+2025-08-09 18:16:56,290 - INFO -   ✅ 라인 1027 수정: invalid_variable_name
+2025-08-09 18:16:56,290 - INFO -   ✅ 라인 1026 수정: invalid_variable_name
+2025-08-09 18:16:56,290 - INFO -   ✅ 라인 1025 수정: invalid_variable_name
+2025-08-09 18:16:56,290 - INFO -   ✅ 라인 960 수정: invalid_variable_name
+2025-08-09 18:16:56,290 - INFO -   ✅ 라인 897 수정: invalid_variable_name
+2025-08-09 18:16:56,290 - INFO -   ✅ 라인 849 수정: invalid_variable_name
+2025-08-09 18:16:56,290 - INFO -   ✅ 라인 785 수정: invalid_variable_name
+2025-08-09 18:16:56,290 - INFO -   ✅ 라인 749 수정: invalid_variable_name
+2025-08-09 18:16:56,290 - INFO -   ✅ 라인 711 수정: invalid_variable_name
+2025-08-09 18:16:56,290 - INFO -   ✅ 라인 690 수정: invalid_variable_name
+2025-08-09 18:16:56,290 - INFO -   ✅ 라인 681 수정: invalid_variable_name
+2025-08-09 18:16:56,290 - INFO -   ✅ 라인 648 수정: invalid_variable_name
+2025-08-09 18:16:56,290 - INFO -   ✅ 라인 633 수정: invalid_variable_name
+2025-08-09 18:16:56,290 - INFO -   ✅ 라인 594 수정: invalid_variable_name
+2025-08-09 18:16:56,290 - INFO -   ✅ 라인 512 수정: invalid_variable_name
+2025-08-09 18:16:56,290 - INFO -   ✅ 라인 458 수정: invalid_variable_name
+2025-08-09 18:16:56,291 - INFO -   ✅ 라인 370 수정: invalid_variable_name
+2025-08-09 18:16:56,291 - INFO -   ✅ 라인 288 수정: invalid_variable_name
+2025-08-09 18:16:56,291 - INFO -   ✅ 라인 205 수정: invalid_variable_name
+2025-08-09 18:16:56,331 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_watchhamster_v3.0_integration.py 컴파일 검증 실패
+2025-08-09 18:16:56,331 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/migration_verification_system.py
+2025-08-09 18:16:56,332 - INFO -   ✅ 라인 543 수정: invalid_variable_name
+2025-08-09 18:16:56,332 - INFO -   ✅ 라인 466 수정: invalid_variable_name
+2025-08-09 18:16:56,332 - INFO -   ✅ 라인 464 수정: invalid_variable_name
+2025-08-09 18:16:56,332 - INFO -   ✅ 라인 445 수정: invalid_variable_name
+2025-08-09 18:16:56,332 - INFO -   ✅ 라인 443 수정: invalid_variable_name
+2025-08-09 18:16:56,332 - INFO -   ✅ 라인 415 수정: invalid_variable_name
+2025-08-09 18:16:56,333 - INFO -   ✅ 라인 402 수정: invalid_variable_name
+2025-08-09 18:16:56,333 - INFO -   ✅ 라인 400 수정: invalid_variable_name
+2025-08-09 18:16:56,333 - INFO -   ✅ 라인 374 수정: invalid_variable_name
+2025-08-09 18:16:56,333 - INFO -   ✅ 라인 352 수정: invalid_variable_name
+2025-08-09 18:16:56,333 - INFO -   ✅ 라인 204 수정: invalid_variable_name
+2025-08-09 18:16:56,333 - INFO -   ✅ 라인 203 수정: invalid_variable_name
+2025-08-09 18:16:56,333 - INFO -   ✅ 라인 198 수정: invalid_variable_name
+2025-08-09 18:16:56,333 - INFO -   ✅ 라인 178 수정: invalid_variable_name
+2025-08-09 18:16:56,333 - INFO -   ✅ 라인 177 수정: invalid_variable_name
+2025-08-09 18:16:56,333 - INFO -   ✅ 라인 111 수정: invalid_variable_name
+2025-08-09 18:16:56,333 - INFO -   ✅ 라인 88 수정: invalid_variable_name
+2025-08-09 18:16:56,333 - INFO -   ✅ 라인 66 수정: invalid_variable_name
+2025-08-09 18:16:56,333 - INFO -   ✅ 라인 65 수정: invalid_variable_name
+2025-08-09 18:16:56,373 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/migration_verification_system.py 컴파일 검증 실패
+2025-08-09 18:16:56,373 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/syntax_error_repairer.py
+2025-08-09 18:16:56,374 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/syntax_error_repairer.py
+2025-08-09 18:16:56,374 - INFO -   ✅ 라인 448 수정: invalid_variable_name
+2025-08-09 18:16:56,374 - INFO -   ✅ 라인 442 수정: invalid_variable_name
+2025-08-09 18:16:56,374 - INFO -   ✅ 라인 269 수정: invalid_variable_name
+2025-08-09 18:16:56,375 - INFO -   ✅ 라인 263 수정: invalid_variable_name
+2025-08-09 18:16:56,375 - INFO -   ✅ 라인 261 수정: invalid_variable_name
+2025-08-09 18:16:56,375 - INFO -   ✅ 라인 228 수정: invalid_variable_name
+2025-08-09 18:16:56,375 - INFO -   ✅ 라인 104 수정: invalid_variable_name
+2025-08-09 18:16:56,375 - INFO -   ✅ 라인 50 수정: invalid_variable_name
+2025-08-09 18:16:56,375 - INFO -   ✅ 라인 40 수정: invalid_variable_name
+2025-08-09 18:16:56,411 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/syntax_error_repairer.py 컴파일 검증 실패
+2025-08-09 18:16:56,412 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/report_cleanup_manager.py
+2025-08-09 18:16:56,413 - INFO -   ✅ 라인 239 수정: invalid_variable_name
+2025-08-09 18:16:56,413 - INFO -   ✅ 라인 223 수정: invalid_variable_name
+2025-08-09 18:16:56,413 - INFO -   ✅ 라인 222 수정: invalid_variable_name
+2025-08-09 18:16:56,413 - INFO -   ✅ 라인 181 수정: invalid_variable_name
+2025-08-09 18:16:56,413 - INFO -   ✅ 라인 180 수정: invalid_variable_name
+2025-08-09 18:16:56,413 - INFO -   ✅ 라인 121 수정: invalid_variable_name
+2025-08-09 18:16:56,413 - INFO -   ✅ 라인 90 수정: invalid_variable_name
+2025-08-09 18:16:56,413 - INFO -   ✅ 라인 86 수정: invalid_variable_name
+2025-08-09 18:16:56,413 - INFO -   ✅ 라인 80 수정: invalid_variable_name
+2025-08-09 18:16:56,413 - INFO -   ✅ 라인 76 수정: invalid_variable_name
+2025-08-09 18:16:56,450 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/report_cleanup_manager.py 컴파일 검증 실패
+2025-08-09 18:16:56,451 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/integrated_report_builder.py
+2025-08-09 18:16:56,452 - INFO -   ✅ 라인 347 수정: invalid_variable_name
+2025-08-09 18:16:56,452 - INFO -   ✅ 라인 154 수정: invalid_variable_name
+2025-08-09 18:16:56,489 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/integrated_report_builder.py 컴파일 검증 실패
+2025-08-09 18:16:56,490 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/metadata_reset_manager.py
+2025-08-09 18:16:56,491 - INFO -   ✅ 라인 458 수정: invalid_variable_name
+2025-08-09 18:16:56,491 - INFO -   ✅ 라인 352 수정: invalid_variable_name
+2025-08-09 18:16:56,491 - INFO -   ✅ 라인 351 수정: invalid_variable_name
+2025-08-09 18:16:56,491 - INFO -   ✅ 라인 325 수정: invalid_variable_name
+2025-08-09 18:16:56,491 - INFO -   ✅ 라인 127 수정: invalid_variable_name
+2025-08-09 18:16:56,491 - INFO -   ✅ 라인 123 수정: invalid_variable_name
+2025-08-09 18:16:56,491 - INFO -   ✅ 라인 119 수정: invalid_variable_name
+2025-08-09 18:16:56,491 - INFO -   ✅ 라인 111 수정: invalid_variable_name
+2025-08-09 18:16:56,491 - INFO -   ✅ 라인 73 수정: invalid_variable_name
+2025-08-09 18:16:56,491 - INFO -   ✅ 라인 70 수정: invalid_variable_name
+2025-08-09 18:16:56,491 - INFO -   ✅ 라인 69 수정: invalid_variable_name
+2025-08-09 18:16:56,531 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/metadata_reset_manager.py 컴파일 검증 실패
+2025-08-09 18:16:56,532 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/config.py
+2025-08-09 18:16:56,533 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/config.py
+2025-08-09 18:16:56,533 - INFO -   ✅ 라인 200 수정: invalid_variable_name
+2025-08-09 18:16:56,588 - INFO - ✅ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/config.py 컴파일 검증 통과
+2025-08-09 18:16:56,588 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/completion_notifier.py
+2025-08-09 18:16:56,590 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/completion_notifier.py
+2025-08-09 18:16:56,590 - INFO -   ✅ 라인 357 수정: invalid_variable_name
+2025-08-09 18:16:56,590 - INFO -   ✅ 라인 198 수정: invalid_variable_name
+2025-08-09 18:16:56,590 - INFO -   ✅ 라인 145 수정: invalid_variable_name
+2025-08-09 18:16:56,590 - INFO -   ✅ 라인 143 수정: invalid_variable_name
+2025-08-09 18:16:56,590 - INFO -   ✅ 라인 138 수정: invalid_variable_name
+2025-08-09 18:16:56,590 - INFO -   ✅ 라인 135 수정: invalid_variable_name
+2025-08-09 18:16:56,590 - INFO -   ✅ 라인 130 수정: invalid_variable_name
+2025-08-09 18:16:56,653 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/completion_notifier.py 컴파일 검증 실패
+2025-08-09 18:16:56,655 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/posco_main_notifier.py
+2025-08-09 18:16:56,657 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/posco_main_notifier.py
+2025-08-09 18:16:56,658 - INFO -   ✅ 라인 1257 수정: invalid_variable_name
+2025-08-09 18:16:56,658 - INFO -   ✅ 라인 1256 수정: invalid_variable_name
+2025-08-09 18:16:56,658 - INFO -   ✅ 라인 1255 수정: invalid_variable_name
+2025-08-09 18:16:56,658 - INFO -   ✅ 라인 1254 수정: invalid_variable_name
+2025-08-09 18:16:56,658 - INFO -   ✅ 라인 1252 수정: invalid_variable_name
+2025-08-09 18:16:56,658 - INFO -   ✅ 라인 1251 수정: invalid_variable_name
+2025-08-09 18:16:56,658 - INFO - 보호된 라인 건너뜀: 1167
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 1166
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 1165
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 1164
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 1163
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 1162
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 1161
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 1160
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 1159
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 1158
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 1157
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 1115
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 1113
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 1108
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 1107
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 1106
+2025-08-09 18:16:56,659 - INFO -   ✅ 라인 1078 수정: invalid_variable_name
+2025-08-09 18:16:56,659 - INFO -   ✅ 라인 1008 수정: invalid_variable_name
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 915
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 913
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 912
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 911
+2025-08-09 18:16:56,659 - INFO - 보호된 라인 건너뜀: 910
+2025-08-09 18:16:56,659 - INFO -   ✅ 라인 856 수정: invalid_variable_name
+2025-08-09 18:16:56,659 - INFO -   ✅ 라인 852 수정: invalid_variable_name
+2025-08-09 18:16:56,660 - INFO - 보호된 라인 건너뜀: 797
+2025-08-09 18:16:56,660 - INFO - 보호된 라인 건너뜀: 796
+2025-08-09 18:16:56,660 - INFO - 보호된 라인 건너뜀: 795
+2025-08-09 18:16:56,660 - INFO - 보호된 라인 건너뜀: 794
+2025-08-09 18:16:56,660 - INFO - 보호된 라인 건너뜀: 793
+2025-08-09 18:16:56,660 - INFO - 보호된 라인 건너뜀: 749
+2025-08-09 18:16:56,660 - INFO - 보호된 라인 건너뜀: 748
+2025-08-09 18:16:56,660 - INFO - 보호된 라인 건너뜀: 746
+2025-08-09 18:16:56,660 - INFO - 보호된 라인 건너뜀: 745
+2025-08-09 18:16:56,660 - INFO - 보호된 라인 건너뜀: 744
+2025-08-09 18:16:56,660 - INFO -   ✅ 라인 742 수정: invalid_variable_name
+2025-08-09 18:16:56,660 - INFO -   ✅ 라인 741 수정: invalid_variable_name
+2025-08-09 18:16:56,660 - INFO -   ✅ 라인 740 수정: invalid_variable_name
+2025-08-09 18:16:56,660 - INFO - 보호된 라인 건너뜀: 733
+2025-08-09 18:16:56,660 - INFO - 보호된 라인 건너뜀: 732
+2025-08-09 18:16:56,660 - INFO - 보호된 라인 건너뜀: 729
+2025-08-09 18:16:56,660 - INFO - 보호된 라인 건너뜀: 728
+2025-08-09 18:16:56,661 - INFO - 보호된 라인 건너뜀: 725
+2025-08-09 18:16:56,661 - INFO - 보호된 라인 건너뜀: 724
+2025-08-09 18:16:56,661 - INFO -   ✅ 라인 719 수정: invalid_variable_name
+2025-08-09 18:16:56,661 - INFO - 보호된 라인 건너뜀: 661
+2025-08-09 18:16:56,661 - INFO - 보호된 라인 건너뜀: 660
+2025-08-09 18:16:56,661 - INFO - 보호된 라인 건너뜀: 659
+2025-08-09 18:16:56,661 - INFO - 보호된 라인 건너뜀: 658
+2025-08-09 18:16:56,661 - INFO - 보호된 라인 건너뜀: 657
+2025-08-09 18:16:56,661 - INFO - 보호된 라인 건너뜀: 594
+2025-08-09 18:16:56,661 - INFO - 보호된 라인 건너뜀: 592
+2025-08-09 18:16:56,662 - INFO - 보호된 라인 건너뜀: 591
+2025-08-09 18:16:56,662 - INFO - 보호된 라인 건너뜀: 585
+2025-08-09 18:16:56,662 - INFO - 보호된 라인 건너뜀: 584
+2025-08-09 18:16:56,662 - INFO - 보호된 라인 건너뜀: 575
+2025-08-09 18:16:56,662 - INFO - 보호된 라인 건너뜀: 574
+2025-08-09 18:16:56,662 - INFO - 보호된 라인 건너뜀: 567
+2025-08-09 18:16:56,662 - INFO - 보호된 라인 건너뜀: 558
+2025-08-09 18:16:56,662 - INFO - 보호된 라인 건너뜀: 557
+2025-08-09 18:16:56,662 - INFO -   ✅ 라인 550 수정: invalid_variable_name
+2025-08-09 18:16:56,662 - INFO - 보호된 라인 건너뜀: 547
+2025-08-09 18:16:56,662 - INFO -   ✅ 라인 505 수정: invalid_variable_name
+2025-08-09 18:16:56,662 - INFO -   ✅ 라인 409 수정: invalid_variable_name
+2025-08-09 18:16:56,663 - INFO -   ✅ 라인 315 수정: invalid_variable_name
+2025-08-09 18:16:56,663 - INFO -   ✅ 라인 314 수정: invalid_variable_name
+2025-08-09 18:16:56,663 - INFO -   ✅ 라인 164 수정: invalid_variable_name
+2025-08-09 18:16:56,663 - INFO -   ✅ 라인 156 수정: invalid_variable_name
+2025-08-09 18:16:56,663 - INFO -   ✅ 라인 131 수정: invalid_variable_name
+2025-08-09 18:16:56,663 - INFO -   ✅ 라인 122 수정: invalid_variable_name
+2025-08-09 18:16:56,663 - INFO -   ✅ 라인 25 수정: syntax_error
+2025-08-09 18:16:56,710 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/posco_main_notifier.py 컴파일 검증 실패
+2025-08-09 18:16:56,711 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/historical_data_collector.py
+2025-08-09 18:16:56,712 - INFO -   ✅ 라인 193 수정: invalid_variable_name
+2025-08-09 18:16:56,712 - INFO -   ✅ 라인 192 수정: invalid_variable_name
+2025-08-09 18:16:56,712 - INFO -   ✅ 라인 127 수정: invalid_variable_name
+2025-08-09 18:16:56,712 - INFO -   ✅ 라인 126 수정: invalid_variable_name
+2025-08-09 18:16:56,712 - INFO -   ✅ 라인 107 수정: invalid_variable_name
+2025-08-09 18:16:56,712 - INFO -   ✅ 라인 105 수정: invalid_variable_name
+2025-08-09 18:16:56,713 - INFO -   ✅ 라인 68 수정: invalid_variable_name
+2025-08-09 18:16:56,713 - INFO -   ✅ 라인 23 수정: syntax_error
+2025-08-09 18:16:56,758 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/historical_data_collector.py 컴파일 검증 실패
+2025-08-09 18:16:56,758 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/posco_report_system_reset.py
+2025-08-09 18:16:56,760 - INFO -   ✅ 라인 361 수정: invalid_variable_name
+2025-08-09 18:16:56,760 - INFO -   ✅ 라인 304 수정: invalid_variable_name
+2025-08-09 18:16:56,805 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/posco_report_system_reset.py 컴파일 검증 실패
+2025-08-09 18:16:56,806 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/integrated_report_scheduler.py
+2025-08-09 18:16:56,807 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/integrated_report_scheduler.py
+2025-08-09 18:16:56,807 - INFO -   ✅ 라인 24 수정: syntax_error
+2025-08-09 18:16:56,850 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/integrated_report_scheduler.py 컴파일 검증 실패
+2025-08-09 18:16:56,850 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0.py
+2025-08-09 18:16:56,854 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0.py
+2025-08-09 18:16:56,854 - INFO -   ✅ 라인 4629 수정: invalid_variable_name
+2025-08-09 18:16:56,854 - INFO -   ✅ 라인 4334 수정: invalid_variable_name
+2025-08-09 18:16:56,854 - INFO -   ✅ 라인 4331 수정: invalid_variable_name
+2025-08-09 18:16:56,854 - INFO - 보호된 라인 건너뜀: 4020
+2025-08-09 18:16:56,854 - INFO - 보호된 라인 건너뜀: 4018
+2025-08-09 18:16:56,854 - INFO - 보호된 라인 건너뜀: 4016
+2025-08-09 18:16:56,854 - INFO - 보호된 라인 건너뜀: 4012
+2025-08-09 18:16:56,854 - INFO - 보호된 라인 건너뜀: 4006
+2025-08-09 18:16:56,854 - INFO - 보호된 라인 건너뜀: 3998
+2025-08-09 18:16:56,855 - INFO - 보호된 라인 건너뜀: 3993
+2025-08-09 18:16:56,855 - INFO - 보호된 라인 건너뜀: 3992
+2025-08-09 18:16:56,855 - INFO -   ✅ 라인 3441 수정: invalid_variable_name
+2025-08-09 18:16:56,855 - INFO -   ✅ 라인 3259 수정: invalid_variable_name
+2025-08-09 18:16:56,855 - INFO -   ✅ 라인 3234 수정: invalid_variable_name
+2025-08-09 18:16:56,855 - INFO -   ✅ 라인 3016 수정: invalid_variable_name
+2025-08-09 18:16:56,855 - INFO -   ✅ 라인 3003 수정: invalid_variable_name
+2025-08-09 18:16:56,855 - INFO -   ✅ 라인 2880 수정: invalid_variable_name
+2025-08-09 18:16:56,855 - INFO -   ✅ 라인 2852 수정: invalid_variable_name
+2025-08-09 18:16:56,855 - INFO -   ✅ 라인 2722 수정: invalid_variable_name
+2025-08-09 18:16:56,855 - INFO -   ✅ 라인 2719 수정: invalid_variable_name
+2025-08-09 18:16:56,855 - INFO -   ✅ 라인 2717 수정: invalid_variable_name
+2025-08-09 18:16:56,855 - INFO -   ✅ 라인 2539 수정: invalid_variable_name
+2025-08-09 18:16:56,855 - INFO -   ✅ 라인 2484 수정: invalid_variable_name
+2025-08-09 18:16:56,855 - INFO -   ✅ 라인 2477 수정: invalid_variable_name
+2025-08-09 18:16:56,855 - INFO -   ✅ 라인 2470 수정: invalid_variable_name
+2025-08-09 18:16:56,855 - INFO - 보호된 라인 건너뜀: 2427
+2025-08-09 18:16:56,855 - INFO - 보호된 라인 건너뜀: 2425
+2025-08-09 18:16:56,855 - INFO - 보호된 라인 건너뜀: 2424
+2025-08-09 18:16:56,855 - INFO - 보호된 라인 건너뜀: 2422
+2025-08-09 18:16:56,855 - INFO - 보호된 라인 건너뜀: 2419
+2025-08-09 18:16:56,855 - INFO - 보호된 라인 건너뜀: 2418
+2025-08-09 18:16:56,855 - INFO - 보호된 라인 건너뜀: 2386
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2384
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2379
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2377
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2371
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2370
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2338
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2336
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2334
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2329
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2322
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2318
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2317
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2283
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2279
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2277
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2276
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2275
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2274
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2265
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2263
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2261
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2258
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2252
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2248
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2246
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2244
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2241
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2239
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2236
+2025-08-09 18:16:56,856 - INFO - 보호된 라인 건너뜀: 2222
+2025-08-09 18:16:56,857 - INFO -   ✅ 라인 2221 수정: invalid_variable_name
+2025-08-09 18:16:56,857 - INFO -   ✅ 라인 2220 수정: invalid_variable_name
+2025-08-09 18:16:56,857 - INFO - 보호된 라인 건너뜀: 2215
+2025-08-09 18:16:56,857 - INFO - 보호된 라인 건너뜀: 2185
+2025-08-09 18:16:56,857 - INFO - 보호된 라인 건너뜀: 2184
+2025-08-09 18:16:56,857 - INFO - 보호된 라인 건너뜀: 2183
+2025-08-09 18:16:56,857 - INFO - 보호된 라인 건너뜀: 2182
+2025-08-09 18:16:56,857 - INFO - 보호된 라인 건너뜀: 2181
+2025-08-09 18:16:56,857 - INFO - 보호된 라인 건너뜀: 2180
+2025-08-09 18:16:56,857 - INFO - 보호된 라인 건너뜀: 2178
+2025-08-09 18:16:56,857 - INFO - 보호된 라인 건너뜀: 2175
+2025-08-09 18:16:56,857 - INFO - 보호된 라인 건너뜀: 2171
+2025-08-09 18:16:56,857 - INFO - 보호된 라인 건너뜀: 2162
+2025-08-09 18:16:56,857 - INFO - 보호된 라인 건너뜀: 2160
+2025-08-09 18:16:56,857 - INFO - 보호된 라인 건너뜀: 2159
+2025-08-09 18:16:56,857 - INFO -   ✅ 라인 1989 수정: invalid_variable_name
+2025-08-09 18:16:56,857 - INFO -   ✅ 라인 1943 수정: invalid_variable_name
+2025-08-09 18:16:56,857 - INFO -   ✅ 라인 1919 수정: invalid_variable_name
+2025-08-09 18:16:56,857 - INFO - 보호된 라인 건너뜀: 1915
+2025-08-09 18:16:56,857 - INFO -   ✅ 라인 1911 수정: invalid_variable_name
+2025-08-09 18:16:56,857 - INFO - 보호된 라인 건너뜀: 708
+2025-08-09 18:16:56,857 - INFO - 보호된 라인 건너뜀: 706
+2025-08-09 18:16:56,857 - INFO - 보호된 라인 건너뜀: 703
+2025-08-09 18:16:56,857 - INFO - 보호된 라인 건너뜀: 702
+2025-08-09 18:16:56,857 - INFO -   ✅ 라인 33 수정: syntax_error
+2025-08-09 18:16:56,898 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0.py 컴파일 검증 실패
+2025-08-09 18:16:56,899 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/realtime_news_monitor.py
+2025-08-09 18:16:56,900 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/realtime_news_monitor.py
+2025-08-09 18:16:56,900 - INFO - 보호된 라인 건너뜀: 798
+2025-08-09 18:16:56,900 - INFO - 보호된 라인 건너뜀: 797
+2025-08-09 18:16:56,900 - INFO - 보호된 라인 건너뜀: 796
+2025-08-09 18:16:56,900 - INFO - 보호된 라인 건너뜀: 773
+2025-08-09 18:16:56,900 - INFO - 보호된 라인 건너뜀: 772
+2025-08-09 18:16:56,900 - INFO - 보호된 라인 건너뜀: 749
+2025-08-09 18:16:56,900 - INFO - 보호된 라인 건너뜀: 748
+2025-08-09 18:16:56,900 - INFO - 보호된 라인 건너뜀: 747
+2025-08-09 18:16:56,900 - INFO - 보호된 라인 건너뜀: 712
+2025-08-09 18:16:56,901 - INFO - 보호된 라인 건너뜀: 711
+2025-08-09 18:16:56,901 - INFO - 보호된 라인 건너뜀: 688
+2025-08-09 18:16:56,901 - INFO - 보호된 라인 건너뜀: 687
+2025-08-09 18:16:56,901 - INFO - 보호된 라인 건너뜀: 654
+2025-08-09 18:16:56,901 - INFO - 보호된 라인 건너뜀: 653
+2025-08-09 18:16:56,901 - INFO - 보호된 라인 건너뜀: 652
+2025-08-09 18:16:56,901 - INFO -   ✅ 라인 298 수정: invalid_variable_name
+2025-08-09 18:16:56,901 - INFO -   ✅ 라인 170 수정: invalid_variable_name
+2025-08-09 18:16:56,901 - INFO -   ✅ 라인 153 수정: invalid_variable_name
+2025-08-09 18:16:56,901 - INFO -   ✅ 라인 152 수정: invalid_variable_name
+2025-08-09 18:16:56,901 - INFO -   ✅ 라인 125 수정: invalid_variable_name
+2025-08-09 18:16:56,901 - INFO -   ✅ 라인 23 수정: syntax_error
+2025-08-09 18:16:56,942 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/realtime_news_monitor.py 컴파일 검증 실패
+2025-08-09 18:16:56,942 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/github_pages_deployer.py
+2025-08-09 18:16:56,943 - INFO -   ✅ 라인 344 수정: invalid_variable_name
+2025-08-09 18:16:56,943 - INFO -   ✅ 라인 272 수정: invalid_variable_name
+2025-08-09 18:16:56,943 - INFO -   ✅ 라인 271 수정: invalid_variable_name
+2025-08-09 18:16:56,943 - INFO -   ✅ 라인 269 수정: invalid_variable_name
+2025-08-09 18:16:56,943 - INFO -   ✅ 라인 264 수정: invalid_variable_name
+2025-08-09 18:16:56,943 - INFO -   ✅ 라인 260 수정: invalid_variable_name
+2025-08-09 18:16:56,943 - INFO -   ✅ 라인 236 수정: invalid_variable_name
+2025-08-09 18:16:56,943 - INFO -   ✅ 라인 235 수정: invalid_variable_name
+2025-08-09 18:16:56,943 - INFO -   ✅ 라인 113 수정: invalid_variable_name
+2025-08-09 18:16:56,943 - INFO -   ✅ 라인 109 수정: invalid_variable_name
+2025-08-09 18:16:56,943 - INFO -   ✅ 라인 105 수정: invalid_variable_name
+2025-08-09 18:16:56,943 - INFO -   ✅ 라인 100 수정: invalid_variable_name
+2025-08-09 18:16:56,943 - INFO - 보호된 라인 건너뜀: 91
+2025-08-09 18:16:56,943 - INFO -   ✅ 라인 88 수정: invalid_variable_name
+2025-08-09 18:16:56,944 - INFO -   ✅ 라인 81 수정: invalid_variable_name
+2025-08-09 18:16:56,944 - INFO -   ✅ 라인 68 수정: invalid_variable_name
+2025-08-09 18:16:56,944 - INFO -   ✅ 라인 62 수정: invalid_variable_name
+2025-08-09 18:16:56,983 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/github_pages_deployer.py 컴파일 검증 실패
+2025-08-09 18:16:56,984 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/core/state_manager.py
+2025-08-09 18:16:56,985 - INFO -   ✅ 라인 105 수정: invalid_variable_name
+2025-08-09 18:16:56,985 - INFO -   ✅ 라인 84 수정: invalid_variable_name
+2025-08-09 18:16:56,985 - INFO -   ✅ 라인 83 수정: invalid_variable_name
+2025-08-09 18:16:57,025 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/core/state_manager.py 컴파일 검증 실패
+2025-08-09 18:16:57,026 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/core/__init__.py
+2025-08-09 18:16:57,028 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/core/__init__.py
+2025-08-09 18:16:57,028 - INFO -   ✅ 라인 3225 수정: invalid_variable_name
+2025-08-09 18:16:57,028 - INFO -   ✅ 라인 3195 수정: invalid_variable_name
+2025-08-09 18:16:57,028 - INFO -   ✅ 라인 3169 수정: invalid_variable_name
+2025-08-09 18:16:57,028 - INFO - 보호된 라인 건너뜀: 3088
+2025-08-09 18:16:57,028 - INFO - 보호된 라인 건너뜀: 3087
+2025-08-09 18:16:57,028 - INFO - 보호된 라인 건너뜀: 3086
+2025-08-09 18:16:57,028 - INFO - 보호된 라인 건너뜀: 3084
+2025-08-09 18:16:57,028 - INFO - 보호된 라인 건너뜀: 3083
+2025-08-09 18:16:57,028 - INFO - 보호된 라인 건너뜀: 3081
+2025-08-09 18:16:57,028 - INFO - 보호된 라인 건너뜀: 3075
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 3074
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 3073
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 3072
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 3028
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 3027
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 3026
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 3025
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 3024
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 3023
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 3022
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 2986
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 2985
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 2984
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 2983
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 2981
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 2980
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 2978
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 2967
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 2966
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 2964
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 2925
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 2923
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 2922
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 2919
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 2917
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 2916
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 2909
+2025-08-09 18:16:57,029 - INFO - 보호된 라인 건너뜀: 2908
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2905
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2903
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2898
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2891
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2890
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2887
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2885
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2883
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2882
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2879
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2877
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2872
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2870
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2865
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2864
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2861
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2859
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2858
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2855
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2853
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2852
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2849
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2847
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2846
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2843
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2841
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2832
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2824
+2025-08-09 18:16:57,030 - INFO - 보호된 라인 건너뜀: 2823
+2025-08-09 18:16:57,031 - INFO - 보호된 라인 건너뜀: 2820
+2025-08-09 18:16:57,031 - INFO - 보호된 라인 건너뜀: 2818
+2025-08-09 18:16:57,031 - INFO - 보호된 라인 건너뜀: 2815
+2025-08-09 18:16:57,031 - INFO - 보호된 라인 건너뜀: 2812
+2025-08-09 18:16:57,031 - INFO - 보호된 라인 건너뜀: 2805
+2025-08-09 18:16:57,031 - INFO -   ✅ 라인 2789 수정: invalid_variable_name
+2025-08-09 18:16:57,031 - INFO -   ✅ 라인 2752 수정: invalid_variable_name
+2025-08-09 18:16:57,031 - INFO -   ✅ 라인 2750 수정: invalid_variable_name
+2025-08-09 18:16:57,031 - INFO -   ✅ 라인 2713 수정: invalid_variable_name
+2025-08-09 18:16:57,031 - INFO -   ✅ 라인 2301 수정: invalid_variable_name
+2025-08-09 18:16:57,031 - INFO -   ✅ 라인 2295 수정: invalid_variable_name
+2025-08-09 18:16:57,031 - INFO -   ✅ 라인 2291 수정: invalid_variable_name
+2025-08-09 18:16:57,031 - INFO -   ✅ 라인 2285 수정: invalid_variable_name
+2025-08-09 18:16:57,031 - INFO -   ✅ 라인 2281 수정: invalid_variable_name
+2025-08-09 18:16:57,031 - INFO -   ✅ 라인 2279 수정: invalid_variable_name
+2025-08-09 18:16:57,031 - INFO -   ✅ 라인 2219 수정: invalid_variable_name
+2025-08-09 18:16:57,031 - INFO -   ✅ 라인 2163 수정: invalid_variable_name
+2025-08-09 18:16:57,031 - INFO -   ✅ 라인 2053 수정: invalid_variable_name
+2025-08-09 18:16:57,032 - INFO -   ✅ 라인 2034 수정: invalid_variable_name
+2025-08-09 18:16:57,032 - INFO -   ✅ 라인 2031 수정: invalid_variable_name
+2025-08-09 18:16:57,032 - INFO -   ✅ 라인 2029 수정: invalid_variable_name
+2025-08-09 18:16:57,032 - INFO -   ✅ 라인 2027 수정: invalid_variable_name
+2025-08-09 18:16:57,032 - INFO -   ✅ 라인 1935 수정: invalid_variable_name
+2025-08-09 18:16:57,032 - INFO -   ✅ 라인 1933 수정: invalid_variable_name
+2025-08-09 18:16:57,032 - INFO -   ✅ 라인 1931 수정: invalid_variable_name
+2025-08-09 18:16:57,032 - INFO -   ✅ 라인 1929 수정: invalid_variable_name
+2025-08-09 18:16:57,032 - INFO -   ✅ 라인 1925 수정: invalid_variable_name
+2025-08-09 18:16:57,032 - INFO -   ✅ 라인 1923 수정: invalid_variable_name
+2025-08-09 18:16:57,032 - INFO -   ✅ 라인 1881 수정: invalid_variable_name
+2025-08-09 18:16:57,032 - INFO -   ✅ 라인 1737 수정: invalid_variable_name
+2025-08-09 18:16:57,032 - INFO -   ✅ 라인 1736 수정: invalid_variable_name
+2025-08-09 18:16:57,032 - INFO -   ✅ 라인 1732 수정: invalid_variable_name
+2025-08-09 18:16:57,032 - INFO -   ✅ 라인 1731 수정: invalid_variable_name
+2025-08-09 18:16:57,032 - INFO -   ✅ 라인 1728 수정: invalid_variable_name
+2025-08-09 18:16:57,032 - INFO -   ✅ 라인 1727 수정: invalid_variable_name
+2025-08-09 18:16:57,032 - INFO -   ✅ 라인 1631 수정: invalid_variable_name
+2025-08-09 18:16:57,033 - INFO -   ✅ 라인 1628 수정: invalid_variable_name
+2025-08-09 18:16:57,033 - INFO -   ✅ 라인 1583 수정: invalid_variable_name
+2025-08-09 18:16:57,033 - INFO -   ✅ 라인 1581 수정: invalid_variable_name
+2025-08-09 18:16:57,033 - INFO -   ✅ 라인 1579 수정: invalid_variable_name
+2025-08-09 18:16:57,033 - INFO -   ✅ 라인 1514 수정: invalid_variable_name
+2025-08-09 18:16:57,033 - INFO -   ✅ 라인 1498 수정: invalid_variable_name
+2025-08-09 18:16:57,033 - INFO - 보호된 라인 건너뜀: 1188
+2025-08-09 18:16:57,033 - INFO - 보호된 라인 건너뜀: 1185
+2025-08-09 18:16:57,033 - INFO -   ✅ 라인 1169 수정: invalid_variable_name
+2025-08-09 18:16:57,033 - INFO - 보호된 라인 건너뜀: 1164
+2025-08-09 18:16:57,033 - INFO - 보호된 라인 건너뜀: 1162
+2025-08-09 18:16:57,033 - INFO - 보호된 라인 건너뜀: 1161
+2025-08-09 18:16:57,033 - INFO - 보호된 라인 건너뜀: 1158
+2025-08-09 18:16:57,033 - INFO - 보호된 라인 건너뜀: 1156
+2025-08-09 18:16:57,033 - INFO - 보호된 라인 건너뜀: 1154
+2025-08-09 18:16:57,033 - INFO - 보호된 라인 건너뜀: 1153
+2025-08-09 18:16:57,033 - INFO - 보호된 라인 건너뜀: 1152
+2025-08-09 18:16:57,033 - INFO - 보호된 라인 건너뜀: 1151
+2025-08-09 18:16:57,033 - INFO - 보호된 라인 건너뜀: 1146
+2025-08-09 18:16:57,033 - INFO - 보호된 라인 건너뜀: 1145
+2025-08-09 18:16:57,033 - INFO - 보호된 라인 건너뜀: 1144
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 1143
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 1139
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 1138
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 1034
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 1032
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 1030
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 1023
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 1020
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 1018
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 1016
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 1014
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 1011
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 1010
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 1001
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 1000
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 999
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 998
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 946
+2025-08-09 18:16:57,034 - INFO - 보호된 라인 건너뜀: 944
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 941
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 940
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 939
+2025-08-09 18:16:57,035 - INFO -   ✅ 라인 937 수정: invalid_variable_name
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 879
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 877
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 875
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 873
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 871
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 867
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 855
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 852
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 850
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 848
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 844
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 832
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 711
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 709
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 703
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 697
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 693
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 622
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 619
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 617
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 616
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 615
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 612
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 610
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 606
+2025-08-09 18:16:57,035 - INFO - 보호된 라인 건너뜀: 604
+2025-08-09 18:16:57,036 - INFO - 보호된 라인 건너뜀: 600
+2025-08-09 18:16:57,036 - INFO - 보호된 라인 건너뜀: 580
+2025-08-09 18:16:57,036 - INFO -   ✅ 라인 438 수정: invalid_variable_name
+2025-08-09 18:16:57,036 - INFO -   ✅ 라인 409 수정: invalid_variable_name
+2025-08-09 18:16:57,036 - INFO -   ✅ 라인 408 수정: invalid_variable_name
+2025-08-09 18:16:57,036 - INFO -   ✅ 라인 407 수정: invalid_variable_name
+2025-08-09 18:16:57,036 - INFO -   ✅ 라인 369 수정: invalid_variable_name
+2025-08-09 18:16:57,036 - INFO -   ✅ 라인 318 수정: invalid_variable_name
+2025-08-09 18:16:57,036 - INFO -   ✅ 라인 260 수정: invalid_variable_name
+2025-08-09 18:16:57,036 - INFO -   ✅ 라인 258 수정: invalid_variable_name
+2025-08-09 18:16:57,036 - INFO -   ✅ 라인 255 수정: invalid_variable_name
+2025-08-09 18:16:57,036 - INFO -   ✅ 라인 133 수정: invalid_variable_name
+2025-08-09 18:16:57,078 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/core/__init__.py 컴파일 검증 실패
+2025-08-09 18:16:57,079 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/core/colorful_ui.py
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 305 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO - 보호된 라인 건너뜀: 297
+2025-08-09 18:16:57,080 - INFO - 보호된 라인 건너뜀: 295
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 284 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO - 보호된 라인 건너뜀: 282
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 272 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 270 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 260 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 259 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 257 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 247 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 243 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 232 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 230 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 215 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 212 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 208 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 204 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 200 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 196 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 192 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 182 수정: invalid_variable_name
+2025-08-09 18:16:57,080 - INFO -   ✅ 라인 169 수정: invalid_variable_name
+2025-08-09 18:16:57,081 - INFO -   ✅ 라인 157 수정: invalid_variable_name
+2025-08-09 18:16:57,081 - INFO -   ✅ 라인 128 수정: invalid_variable_name
+2025-08-09 18:16:57,081 - INFO -   ✅ 라인 126 수정: invalid_variable_name
+2025-08-09 18:16:57,081 - INFO -   ✅ 라인 124 수정: invalid_variable_name
+2025-08-09 18:16:57,081 - INFO -   ✅ 라인 108 수정: invalid_variable_name
+2025-08-09 18:16:57,081 - INFO -   ✅ 라인 107 수정: invalid_variable_name
+2025-08-09 18:16:57,081 - INFO -   ✅ 라인 106 수정: invalid_variable_name
+2025-08-09 18:16:57,081 - INFO -   ✅ 라인 102 수정: invalid_variable_name
+2025-08-09 18:16:57,081 - INFO -   ✅ 라인 101 수정: invalid_variable_name
+2025-08-09 18:16:57,081 - INFO -   ✅ 라인 100 수정: invalid_variable_name
+2025-08-09 18:16:57,081 - INFO -   ✅ 라인 96 수정: invalid_variable_name
+2025-08-09 18:16:57,081 - INFO -   ✅ 라인 95 수정: invalid_variable_name
+2025-08-09 18:16:57,081 - INFO -   ✅ 라인 94 수정: invalid_variable_name
+2025-08-09 18:16:57,081 - INFO -   ✅ 라인 71 수정: invalid_variable_name
+2025-08-09 18:16:57,122 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/core/colorful_ui.py 컴파일 검증 실패
+2025-08-09 18:16:57,123 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/core/process_manager.py
+2025-08-09 18:16:57,124 - INFO -   ✅ 라인 386 수정: invalid_variable_name
+2025-08-09 18:16:57,124 - INFO -   ✅ 라인 385 수정: invalid_variable_name
+2025-08-09 18:16:57,124 - INFO -   ✅ 라인 363 수정: invalid_variable_name
+2025-08-09 18:16:57,124 - INFO -   ✅ 라인 360 수정: invalid_variable_name
+2025-08-09 18:16:57,124 - INFO -   ✅ 라인 332 수정: invalid_variable_name
+2025-08-09 18:16:57,124 - INFO -   ✅ 라인 280 수정: invalid_variable_name
+2025-08-09 18:16:57,124 - INFO -   ✅ 라인 125 수정: invalid_variable_name
+2025-08-09 18:16:57,124 - INFO -   ✅ 라인 110 수정: invalid_variable_name
+2025-08-09 18:16:57,124 - INFO -   ✅ 라인 56 수정: invalid_variable_name
+2025-08-09 18:16:57,124 - INFO -   ✅ 라인 55 수정: invalid_variable_name
+2025-08-09 18:16:57,124 - INFO -   ✅ 라인 54 수정: invalid_variable_name
+2025-08-09 18:16:57,124 - INFO -   ✅ 라인 53 수정: invalid_variable_name
+2025-08-09 18:16:57,164 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/core/process_manager.py 컴파일 검증 실패
+2025-08-09 18:16:57,165 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/utils/business_day_helper.py
+2025-08-09 18:16:57,166 - INFO -   ✅ 라인 90 수정: invalid_variable_name
+2025-08-09 18:16:57,166 - INFO -   ✅ 라인 62 수정: invalid_variable_name
+2025-08-09 18:16:57,166 - INFO -   ✅ 라인 21 수정: syntax_error
+2025-08-09 18:16:57,206 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/utils/business_day_helper.py 컴파일 검증 실패
+2025-08-09 18:16:57,207 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/backup_archive_20250806/temp_solutions_20250806/simple_news_monitor.py
+2025-08-09 18:16:57,207 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/backup_archive_20250806/temp_solutions_20250806/simple_news_monitor.py
+2025-08-09 18:16:57,207 - INFO -   ✅ 라인 56 수정: invalid_variable_name
+2025-08-09 18:16:57,208 - INFO -   ✅ 라인 53 수정: invalid_variable_name
+2025-08-09 18:16:57,208 - INFO -   ✅ 라인 25 수정: syntax_error
+2025-08-09 18:16:57,247 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/backup_archive_20250806/temp_solutions_20250806/simple_news_monitor.py 컴파일 검증 실패
+2025-08-09 18:16:57,248 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/base_monitor.py
+2025-08-09 18:16:57,249 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/base_monitor.py
+2025-08-09 18:16:57,249 - INFO - 보호된 라인 건너뜀: 297
+2025-08-09 18:16:57,249 - INFO - 보호된 라인 건너뜀: 292
+2025-08-09 18:16:57,249 - INFO - 보호된 라인 건너뜀: 289
+2025-08-09 18:16:57,249 - INFO - 보호된 라인 건너뜀: 288
+2025-08-09 18:16:57,249 - INFO - 보호된 라인 건너뜀: 219
+2025-08-09 18:16:57,249 - INFO - 보호된 라인 건너뜀: 216
+2025-08-09 18:16:57,249 - INFO - 보호된 라인 건너뜀: 212
+2025-08-09 18:16:57,250 - INFO - 보호된 라인 건너뜀: 211
+2025-08-09 18:16:57,250 - INFO - 보호된 라인 건너뜀: 210
+2025-08-09 18:16:57,250 - INFO - 보호된 라인 건너뜀: 209
+2025-08-09 18:16:57,250 - INFO -   ✅ 라인 23 수정: syntax_error
+2025-08-09 18:16:57,305 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/base_monitor.py 컴파일 검증 실패
+2025-08-09 18:16:57,305 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/reports/metadata_manager.py
+2025-08-09 18:16:57,307 - INFO -   ✅ 라인 442 수정: invalid_variable_name
+2025-08-09 18:16:57,308 - INFO -   ✅ 라인 410 수정: invalid_variable_name
+2025-08-09 18:16:57,308 - INFO -   ✅ 라인 407 수정: invalid_variable_name
+2025-08-09 18:16:57,308 - INFO -   ✅ 라인 381 수정: invalid_variable_name
+2025-08-09 18:16:57,308 - INFO -   ✅ 라인 367 수정: invalid_variable_name
+2025-08-09 18:16:57,308 - INFO -   ✅ 라인 366 수정: invalid_variable_name
+2025-08-09 18:16:57,308 - INFO -   ✅ 라인 341 수정: invalid_variable_name
+2025-08-09 18:16:57,308 - INFO -   ✅ 라인 334 수정: invalid_variable_name
+2025-08-09 18:16:57,308 - INFO -   ✅ 라인 333 수정: invalid_variable_name
+2025-08-09 18:16:57,308 - INFO -   ✅ 라인 320 수정: invalid_variable_name
+2025-08-09 18:16:57,308 - INFO -   ✅ 라인 118 수정: invalid_variable_name
+2025-08-09 18:16:57,308 - INFO -   ✅ 라인 117 수정: invalid_variable_name
+2025-08-09 18:16:57,308 - INFO -   ✅ 라인 51 수정: invalid_variable_name
+2025-08-09 18:16:57,308 - INFO -   ✅ 라인 50 수정: invalid_variable_name
+2025-08-09 18:16:57,365 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/reports/metadata_manager.py 컴파일 검증 실패
+2025-08-09 18:16:57,366 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/reports/report_manager.py
+2025-08-09 18:16:57,368 - INFO -   ✅ 라인 230 수정: invalid_variable_name
+2025-08-09 18:16:57,368 - INFO -   ✅ 라인 228 수정: invalid_variable_name
+2025-08-09 18:16:57,368 - INFO -   ✅ 라인 221 수정: invalid_variable_name
+2025-08-09 18:16:57,368 - INFO -   ✅ 라인 218 수정: invalid_variable_name
+2025-08-09 18:16:57,368 - INFO -   ✅ 라인 209 수정: invalid_variable_name
+2025-08-09 18:16:57,368 - INFO -   ✅ 라인 195 수정: invalid_variable_name
+2025-08-09 18:16:57,368 - INFO -   ✅ 라인 192 수정: invalid_variable_name
+2025-08-09 18:16:57,368 - INFO -   ✅ 라인 105 수정: invalid_variable_name
+2025-08-09 18:16:57,368 - INFO -   ✅ 라인 104 수정: invalid_variable_name
+2025-08-09 18:16:57,368 - INFO -   ✅ 라인 102 수정: invalid_variable_name
+2025-08-09 18:16:57,368 - INFO -   ✅ 라인 77 수정: invalid_variable_name
+2025-08-09 18:16:57,368 - INFO -   ✅ 라인 76 수정: invalid_variable_name
+2025-08-09 18:16:57,368 - INFO -   ✅ 라인 66 수정: invalid_variable_name
+2025-08-09 18:16:57,416 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/reports/report_manager.py 컴파일 검증 실패
+2025-08-09 18:16:57,417 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/reports/integrated_report_generator.py
+2025-08-09 18:16:57,418 - INFO -   ✅ 라인 621 수정: invalid_variable_name
+2025-08-09 18:16:57,418 - INFO -   ✅ 라인 605 수정: invalid_variable_name
+2025-08-09 18:16:57,418 - INFO -   ✅ 라인 586 수정: invalid_variable_name
+2025-08-09 18:16:57,418 - INFO -   ✅ 라인 569 수정: invalid_variable_name
+2025-08-09 18:16:57,418 - INFO -   ✅ 라인 568 수정: invalid_variable_name
+2025-08-09 18:16:57,418 - INFO -   ✅ 라인 565 수정: invalid_variable_name
+2025-08-09 18:16:57,419 - INFO -   ✅ 라인 559 수정: invalid_variable_name
+2025-08-09 18:16:57,419 - INFO -   ✅ 라인 558 수정: invalid_variable_name
+2025-08-09 18:16:57,419 - INFO -   ✅ 라인 555 수정: invalid_variable_name
+2025-08-09 18:16:57,419 - INFO -   ✅ 라인 336 수정: invalid_variable_name
+2025-08-09 18:16:57,419 - INFO -   ✅ 라인 334 수정: invalid_variable_name
+2025-08-09 18:16:57,419 - INFO -   ✅ 라인 333 수정: invalid_variable_name
+2025-08-09 18:16:57,419 - INFO -   ✅ 라인 331 수정: invalid_variable_name
+2025-08-09 18:16:57,419 - INFO -   ✅ 라인 216 수정: invalid_variable_name
+2025-08-09 18:16:57,419 - INFO -   ✅ 라인 215 수정: invalid_variable_name
+2025-08-09 18:16:57,419 - INFO -   ✅ 라인 210 수정: invalid_variable_name
+2025-08-09 18:16:57,419 - INFO -   ✅ 라인 209 수정: invalid_variable_name
+2025-08-09 18:16:57,419 - INFO -   ✅ 라인 151 수정: invalid_variable_name
+2025-08-09 18:16:57,419 - INFO -   ✅ 라인 89 수정: invalid_variable_name
+2025-08-09 18:16:57,464 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/reports/integrated_report_generator.py 컴파일 검증 실패
+2025-08-09 18:16:57,465 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/report_cleanup_manager.py
+2025-08-09 18:16:57,466 - INFO -   ✅ 라인 239 수정: invalid_variable_name
+2025-08-09 18:16:57,466 - INFO -   ✅ 라인 223 수정: invalid_variable_name
+2025-08-09 18:16:57,466 - INFO -   ✅ 라인 222 수정: invalid_variable_name
+2025-08-09 18:16:57,466 - INFO -   ✅ 라인 181 수정: invalid_variable_name
+2025-08-09 18:16:57,466 - INFO -   ✅ 라인 180 수정: invalid_variable_name
+2025-08-09 18:16:57,466 - INFO -   ✅ 라인 121 수정: invalid_variable_name
+2025-08-09 18:16:57,466 - INFO -   ✅ 라인 90 수정: invalid_variable_name
+2025-08-09 18:16:57,466 - INFO -   ✅ 라인 86 수정: invalid_variable_name
+2025-08-09 18:16:57,466 - INFO -   ✅ 라인 80 수정: invalid_variable_name
+2025-08-09 18:16:57,466 - INFO -   ✅ 라인 76 수정: invalid_variable_name
+2025-08-09 18:16:57,511 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/report_cleanup_manager.py 컴파일 검증 실패
+2025-08-09 18:16:57,512 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/integrated_report_builder.py
+2025-08-09 18:16:57,513 - INFO -   ✅ 라인 347 수정: invalid_variable_name
+2025-08-09 18:16:57,513 - INFO -   ✅ 라인 154 수정: invalid_variable_name
+2025-08-09 18:16:57,557 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/integrated_report_builder.py 컴파일 검증 실패
+2025-08-09 18:16:57,557 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/metadata_reset_manager.py
+2025-08-09 18:16:57,558 - INFO -   ✅ 라인 458 수정: invalid_variable_name
+2025-08-09 18:16:57,558 - INFO -   ✅ 라인 352 수정: invalid_variable_name
+2025-08-09 18:16:57,558 - INFO -   ✅ 라인 351 수정: invalid_variable_name
+2025-08-09 18:16:57,558 - INFO -   ✅ 라인 325 수정: invalid_variable_name
+2025-08-09 18:16:57,558 - INFO -   ✅ 라인 127 수정: invalid_variable_name
+2025-08-09 18:16:57,558 - INFO -   ✅ 라인 123 수정: invalid_variable_name
+2025-08-09 18:16:57,558 - INFO -   ✅ 라인 119 수정: invalid_variable_name
+2025-08-09 18:16:57,558 - INFO -   ✅ 라인 111 수정: invalid_variable_name
+2025-08-09 18:16:57,558 - INFO -   ✅ 라인 73 수정: invalid_variable_name
+2025-08-09 18:16:57,558 - INFO -   ✅ 라인 70 수정: invalid_variable_name
+2025-08-09 18:16:57,558 - INFO -   ✅ 라인 69 수정: invalid_variable_name
+2025-08-09 18:16:57,604 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/metadata_reset_manager.py 컴파일 검증 실패
+2025-08-09 18:16:57,604 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/config.py
+2025-08-09 18:16:57,605 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/config.py
+2025-08-09 18:16:57,605 - INFO -   ✅ 라인 200 수정: invalid_variable_name
+2025-08-09 18:16:57,645 - INFO - ✅ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/config.py 컴파일 검증 통과
+2025-08-09 18:16:57,646 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/completion_notifier.py
+2025-08-09 18:16:57,646 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/completion_notifier.py
+2025-08-09 18:16:57,647 - INFO -   ✅ 라인 357 수정: invalid_variable_name
+2025-08-09 18:16:57,647 - INFO -   ✅ 라인 198 수정: invalid_variable_name
+2025-08-09 18:16:57,647 - INFO -   ✅ 라인 145 수정: invalid_variable_name
+2025-08-09 18:16:57,647 - INFO -   ✅ 라인 143 수정: invalid_variable_name
+2025-08-09 18:16:57,647 - INFO -   ✅ 라인 138 수정: invalid_variable_name
+2025-08-09 18:16:57,647 - INFO -   ✅ 라인 135 수정: invalid_variable_name
+2025-08-09 18:16:57,647 - INFO -   ✅ 라인 130 수정: invalid_variable_name
+2025-08-09 18:16:57,688 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/completion_notifier.py 컴파일 검증 실패
+2025-08-09 18:16:57,688 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/posco_main_notifier.py
+2025-08-09 18:16:57,690 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/posco_main_notifier.py
+2025-08-09 18:16:57,690 - INFO -   ✅ 라인 1257 수정: invalid_variable_name
+2025-08-09 18:16:57,690 - INFO -   ✅ 라인 1256 수정: invalid_variable_name
+2025-08-09 18:16:57,690 - INFO -   ✅ 라인 1255 수정: invalid_variable_name
+2025-08-09 18:16:57,690 - INFO -   ✅ 라인 1254 수정: invalid_variable_name
+2025-08-09 18:16:57,690 - INFO -   ✅ 라인 1252 수정: invalid_variable_name
+2025-08-09 18:16:57,690 - INFO -   ✅ 라인 1251 수정: invalid_variable_name
+2025-08-09 18:16:57,690 - INFO - 보호된 라인 건너뜀: 1167
+2025-08-09 18:16:57,690 - INFO - 보호된 라인 건너뜀: 1166
+2025-08-09 18:16:57,690 - INFO - 보호된 라인 건너뜀: 1165
+2025-08-09 18:16:57,690 - INFO - 보호된 라인 건너뜀: 1164
+2025-08-09 18:16:57,690 - INFO - 보호된 라인 건너뜀: 1163
+2025-08-09 18:16:57,690 - INFO - 보호된 라인 건너뜀: 1162
+2025-08-09 18:16:57,690 - INFO - 보호된 라인 건너뜀: 1161
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 1160
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 1159
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 1158
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 1157
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 1115
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 1113
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 1108
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 1107
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 1106
+2025-08-09 18:16:57,691 - INFO -   ✅ 라인 1078 수정: invalid_variable_name
+2025-08-09 18:16:57,691 - INFO -   ✅ 라인 1008 수정: invalid_variable_name
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 915
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 913
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 912
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 911
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 910
+2025-08-09 18:16:57,691 - INFO -   ✅ 라인 856 수정: invalid_variable_name
+2025-08-09 18:16:57,691 - INFO -   ✅ 라인 852 수정: invalid_variable_name
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 797
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 796
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 795
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 794
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 793
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 749
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 748
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 746
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 745
+2025-08-09 18:16:57,691 - INFO - 보호된 라인 건너뜀: 744
+2025-08-09 18:16:57,691 - INFO -   ✅ 라인 742 수정: invalid_variable_name
+2025-08-09 18:16:57,691 - INFO -   ✅ 라인 741 수정: invalid_variable_name
+2025-08-09 18:16:57,692 - INFO -   ✅ 라인 740 수정: invalid_variable_name
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 733
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 732
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 729
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 728
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 725
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 724
+2025-08-09 18:16:57,692 - INFO -   ✅ 라인 719 수정: invalid_variable_name
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 661
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 660
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 659
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 658
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 657
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 594
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 592
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 591
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 585
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 584
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 575
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 574
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 567
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 558
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 557
+2025-08-09 18:16:57,692 - INFO -   ✅ 라인 550 수정: invalid_variable_name
+2025-08-09 18:16:57,692 - INFO - 보호된 라인 건너뜀: 547
+2025-08-09 18:16:57,692 - INFO -   ✅ 라인 505 수정: invalid_variable_name
+2025-08-09 18:16:57,692 - INFO -   ✅ 라인 409 수정: invalid_variable_name
+2025-08-09 18:16:57,692 - INFO -   ✅ 라인 315 수정: invalid_variable_name
+2025-08-09 18:16:57,693 - INFO -   ✅ 라인 314 수정: invalid_variable_name
+2025-08-09 18:16:57,693 - INFO -   ✅ 라인 164 수정: invalid_variable_name
+2025-08-09 18:16:57,693 - INFO -   ✅ 라인 156 수정: invalid_variable_name
+2025-08-09 18:16:57,693 - INFO -   ✅ 라인 131 수정: invalid_variable_name
+2025-08-09 18:16:57,693 - INFO -   ✅ 라인 122 수정: invalid_variable_name
+2025-08-09 18:16:57,693 - INFO -   ✅ 라인 25 수정: syntax_error
+2025-08-09 18:16:57,733 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/posco_main_notifier.py 컴파일 검증 실패
+2025-08-09 18:16:57,733 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/historical_data_collector.py
+2025-08-09 18:16:57,735 - INFO -   ✅ 라인 193 수정: invalid_variable_name
+2025-08-09 18:16:57,735 - INFO -   ✅ 라인 192 수정: invalid_variable_name
+2025-08-09 18:16:57,735 - INFO -   ✅ 라인 127 수정: invalid_variable_name
+2025-08-09 18:16:57,735 - INFO -   ✅ 라인 126 수정: invalid_variable_name
+2025-08-09 18:16:57,735 - INFO -   ✅ 라인 107 수정: invalid_variable_name
+2025-08-09 18:16:57,735 - INFO -   ✅ 라인 105 수정: invalid_variable_name
+2025-08-09 18:16:57,735 - INFO -   ✅ 라인 68 수정: invalid_variable_name
+2025-08-09 18:16:57,735 - INFO -   ✅ 라인 23 수정: syntax_error
+2025-08-09 18:16:57,775 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/historical_data_collector.py 컴파일 검증 실패
+2025-08-09 18:16:57,775 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/posco_report_system_reset.py
+2025-08-09 18:16:57,776 - INFO -   ✅ 라인 361 수정: invalid_variable_name
+2025-08-09 18:16:57,776 - INFO -   ✅ 라인 304 수정: invalid_variable_name
+2025-08-09 18:16:57,817 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/posco_report_system_reset.py 컴파일 검증 실패
+2025-08-09 18:16:57,817 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/integrated_report_scheduler.py
+2025-08-09 18:16:57,819 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/integrated_report_scheduler.py
+2025-08-09 18:16:57,819 - INFO -   ✅ 라인 24 수정: syntax_error
+2025-08-09 18:16:57,858 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/integrated_report_scheduler.py 컴파일 검증 실패
+2025-08-09 18:16:57,858 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/monitor_WatchHamster_v3.0.py
+2025-08-09 18:16:57,861 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/monitor_WatchHamster_v3.0.py
+2025-08-09 18:16:57,862 - INFO -   ✅ 라인 4629 수정: invalid_variable_name
+2025-08-09 18:16:57,862 - INFO -   ✅ 라인 4334 수정: invalid_variable_name
+2025-08-09 18:16:57,862 - INFO -   ✅ 라인 4331 수정: invalid_variable_name
+2025-08-09 18:16:57,862 - INFO - 보호된 라인 건너뜀: 4020
+2025-08-09 18:16:57,862 - INFO - 보호된 라인 건너뜀: 4018
+2025-08-09 18:16:57,862 - INFO - 보호된 라인 건너뜀: 4016
+2025-08-09 18:16:57,862 - INFO - 보호된 라인 건너뜀: 4012
+2025-08-09 18:16:57,862 - INFO - 보호된 라인 건너뜀: 4006
+2025-08-09 18:16:57,862 - INFO - 보호된 라인 건너뜀: 3998
+2025-08-09 18:16:57,862 - INFO - 보호된 라인 건너뜀: 3993
+2025-08-09 18:16:57,862 - INFO - 보호된 라인 건너뜀: 3992
+2025-08-09 18:16:57,862 - INFO -   ✅ 라인 3441 수정: invalid_variable_name
+2025-08-09 18:16:57,862 - INFO -   ✅ 라인 3259 수정: invalid_variable_name
+2025-08-09 18:16:57,862 - INFO -   ✅ 라인 3234 수정: invalid_variable_name
+2025-08-09 18:16:57,862 - INFO -   ✅ 라인 3016 수정: invalid_variable_name
+2025-08-09 18:16:57,862 - INFO -   ✅ 라인 3003 수정: invalid_variable_name
+2025-08-09 18:16:57,862 - INFO -   ✅ 라인 2880 수정: invalid_variable_name
+2025-08-09 18:16:57,862 - INFO -   ✅ 라인 2852 수정: invalid_variable_name
+2025-08-09 18:16:57,862 - INFO -   ✅ 라인 2722 수정: invalid_variable_name
+2025-08-09 18:16:57,862 - INFO -   ✅ 라인 2719 수정: invalid_variable_name
+2025-08-09 18:16:57,862 - INFO -   ✅ 라인 2717 수정: invalid_variable_name
+2025-08-09 18:16:57,863 - INFO -   ✅ 라인 2539 수정: invalid_variable_name
+2025-08-09 18:16:57,863 - INFO -   ✅ 라인 2484 수정: invalid_variable_name
+2025-08-09 18:16:57,863 - INFO -   ✅ 라인 2477 수정: invalid_variable_name
+2025-08-09 18:16:57,863 - INFO -   ✅ 라인 2470 수정: invalid_variable_name
+2025-08-09 18:16:57,863 - INFO - 보호된 라인 건너뜀: 2427
+2025-08-09 18:16:57,863 - INFO - 보호된 라인 건너뜀: 2425
+2025-08-09 18:16:57,863 - INFO - 보호된 라인 건너뜀: 2424
+2025-08-09 18:16:57,863 - INFO - 보호된 라인 건너뜀: 2422
+2025-08-09 18:16:57,863 - INFO - 보호된 라인 건너뜀: 2419
+2025-08-09 18:16:57,863 - INFO - 보호된 라인 건너뜀: 2418
+2025-08-09 18:16:57,863 - INFO - 보호된 라인 건너뜀: 2386
+2025-08-09 18:16:57,863 - INFO - 보호된 라인 건너뜀: 2384
+2025-08-09 18:16:57,863 - INFO - 보호된 라인 건너뜀: 2379
+2025-08-09 18:16:57,863 - INFO - 보호된 라인 건너뜀: 2377
+2025-08-09 18:16:57,863 - INFO - 보호된 라인 건너뜀: 2371
+2025-08-09 18:16:57,863 - INFO - 보호된 라인 건너뜀: 2370
+2025-08-09 18:16:57,863 - INFO - 보호된 라인 건너뜀: 2338
+2025-08-09 18:16:57,863 - INFO - 보호된 라인 건너뜀: 2336
+2025-08-09 18:16:57,863 - INFO - 보호된 라인 건너뜀: 2334
+2025-08-09 18:16:57,863 - INFO - 보호된 라인 건너뜀: 2329
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2322
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2318
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2317
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2283
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2279
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2277
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2276
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2275
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2274
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2265
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2263
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2261
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2258
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2252
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2248
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2246
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2244
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2241
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2239
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2236
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2222
+2025-08-09 18:16:57,864 - INFO -   ✅ 라인 2221 수정: invalid_variable_name
+2025-08-09 18:16:57,864 - INFO -   ✅ 라인 2220 수정: invalid_variable_name
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2215
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2185
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2184
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2183
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2182
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2181
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2180
+2025-08-09 18:16:57,864 - INFO - 보호된 라인 건너뜀: 2178
+2025-08-09 18:16:57,865 - INFO - 보호된 라인 건너뜀: 2175
+2025-08-09 18:16:57,865 - INFO - 보호된 라인 건너뜀: 2171
+2025-08-09 18:16:57,865 - INFO - 보호된 라인 건너뜀: 2162
+2025-08-09 18:16:57,865 - INFO - 보호된 라인 건너뜀: 2160
+2025-08-09 18:16:57,865 - INFO - 보호된 라인 건너뜀: 2159
+2025-08-09 18:16:57,865 - INFO -   ✅ 라인 1989 수정: invalid_variable_name
+2025-08-09 18:16:57,865 - INFO -   ✅ 라인 1943 수정: invalid_variable_name
+2025-08-09 18:16:57,865 - INFO -   ✅ 라인 1919 수정: invalid_variable_name
+2025-08-09 18:16:57,865 - INFO - 보호된 라인 건너뜀: 1915
+2025-08-09 18:16:57,865 - INFO -   ✅ 라인 1911 수정: invalid_variable_name
+2025-08-09 18:16:57,865 - INFO - 보호된 라인 건너뜀: 708
+2025-08-09 18:16:57,865 - INFO - 보호된 라인 건너뜀: 706
+2025-08-09 18:16:57,865 - INFO - 보호된 라인 건너뜀: 703
+2025-08-09 18:16:57,865 - INFO - 보호된 라인 건너뜀: 702
+2025-08-09 18:16:57,865 - INFO -   ✅ 라인 33 수정: syntax_error
+2025-08-09 18:16:57,906 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/monitor_WatchHamster_v3.0.py 컴파일 검증 실패
+2025-08-09 18:16:57,906 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/realtime_news_monitor.py
+2025-08-09 18:16:57,908 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/realtime_news_monitor.py
+2025-08-09 18:16:57,908 - INFO - 보호된 라인 건너뜀: 798
+2025-08-09 18:16:57,908 - INFO - 보호된 라인 건너뜀: 797
+2025-08-09 18:16:57,908 - INFO - 보호된 라인 건너뜀: 796
+2025-08-09 18:16:57,908 - INFO - 보호된 라인 건너뜀: 773
+2025-08-09 18:16:57,908 - INFO - 보호된 라인 건너뜀: 772
+2025-08-09 18:16:57,908 - INFO - 보호된 라인 건너뜀: 749
+2025-08-09 18:16:57,908 - INFO - 보호된 라인 건너뜀: 748
+2025-08-09 18:16:57,908 - INFO - 보호된 라인 건너뜀: 747
+2025-08-09 18:16:57,908 - INFO - 보호된 라인 건너뜀: 712
+2025-08-09 18:16:57,908 - INFO - 보호된 라인 건너뜀: 711
+2025-08-09 18:16:57,908 - INFO - 보호된 라인 건너뜀: 688
+2025-08-09 18:16:57,908 - INFO - 보호된 라인 건너뜀: 687
+2025-08-09 18:16:57,908 - INFO - 보호된 라인 건너뜀: 654
+2025-08-09 18:16:57,908 - INFO - 보호된 라인 건너뜀: 653
+2025-08-09 18:16:57,908 - INFO - 보호된 라인 건너뜀: 652
+2025-08-09 18:16:57,908 - INFO -   ✅ 라인 298 수정: invalid_variable_name
+2025-08-09 18:16:57,908 - INFO -   ✅ 라인 170 수정: invalid_variable_name
+2025-08-09 18:16:57,908 - INFO -   ✅ 라인 153 수정: invalid_variable_name
+2025-08-09 18:16:57,908 - INFO -   ✅ 라인 152 수정: invalid_variable_name
+2025-08-09 18:16:57,908 - INFO -   ✅ 라인 125 수정: invalid_variable_name
+2025-08-09 18:16:57,908 - INFO -   ✅ 라인 23 수정: syntax_error
+2025-08-09 18:16:57,949 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/realtime_news_monitor.py 컴파일 검증 실패
+2025-08-09 18:16:57,949 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/github_pages_deployer.py
+2025-08-09 18:16:57,950 - INFO -   ✅ 라인 344 수정: invalid_variable_name
+2025-08-09 18:16:57,950 - INFO -   ✅ 라인 272 수정: invalid_variable_name
+2025-08-09 18:16:57,950 - INFO -   ✅ 라인 271 수정: invalid_variable_name
+2025-08-09 18:16:57,950 - INFO -   ✅ 라인 269 수정: invalid_variable_name
+2025-08-09 18:16:57,951 - INFO -   ✅ 라인 264 수정: invalid_variable_name
+2025-08-09 18:16:57,951 - INFO -   ✅ 라인 260 수정: invalid_variable_name
+2025-08-09 18:16:57,951 - INFO -   ✅ 라인 236 수정: invalid_variable_name
+2025-08-09 18:16:57,951 - INFO -   ✅ 라인 235 수정: invalid_variable_name
+2025-08-09 18:16:57,951 - INFO -   ✅ 라인 113 수정: invalid_variable_name
+2025-08-09 18:16:57,951 - INFO -   ✅ 라인 109 수정: invalid_variable_name
+2025-08-09 18:16:57,951 - INFO -   ✅ 라인 105 수정: invalid_variable_name
+2025-08-09 18:16:57,951 - INFO -   ✅ 라인 100 수정: invalid_variable_name
+2025-08-09 18:16:57,951 - INFO - 보호된 라인 건너뜀: 91
+2025-08-09 18:16:57,951 - INFO -   ✅ 라인 88 수정: invalid_variable_name
+2025-08-09 18:16:57,951 - INFO -   ✅ 라인 81 수정: invalid_variable_name
+2025-08-09 18:16:57,951 - INFO -   ✅ 라인 68 수정: invalid_variable_name
+2025-08-09 18:16:57,951 - INFO -   ✅ 라인 62 수정: invalid_variable_name
+2025-08-09 18:16:57,993 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/github_pages_deployer.py 컴파일 검증 실패
+2025-08-09 18:16:57,993 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/core/state_manager.py
+2025-08-09 18:16:57,994 - INFO -   ✅ 라인 105 수정: invalid_variable_name
+2025-08-09 18:16:57,994 - INFO -   ✅ 라인 84 수정: invalid_variable_name
+2025-08-09 18:16:57,994 - INFO -   ✅ 라인 83 수정: invalid_variable_name
+2025-08-09 18:16:58,033 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/core/state_manager.py 컴파일 검증 실패
+2025-08-09 18:16:58,034 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/core/__init__.py
+2025-08-09 18:16:58,036 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/core/__init__.py
+2025-08-09 18:16:58,037 - INFO -   ✅ 라인 3225 수정: invalid_variable_name
+2025-08-09 18:16:58,037 - INFO -   ✅ 라인 3195 수정: invalid_variable_name
+2025-08-09 18:16:58,037 - INFO -   ✅ 라인 3169 수정: invalid_variable_name
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 3088
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 3087
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 3086
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 3084
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 3083
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 3081
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 3075
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 3074
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 3073
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 3072
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 3028
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 3027
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 3026
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 3025
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 3024
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 3023
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 3022
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 2986
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 2985
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 2984
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 2983
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 2981
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 2980
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 2978
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 2967
+2025-08-09 18:16:58,037 - INFO - 보호된 라인 건너뜀: 2966
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2964
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2925
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2923
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2922
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2919
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2917
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2916
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2909
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2908
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2905
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2903
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2898
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2891
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2890
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2887
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2885
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2883
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2882
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2879
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2877
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2872
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2870
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2865
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2864
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2861
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2859
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2858
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2855
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2853
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2852
+2025-08-09 18:16:58,038 - INFO - 보호된 라인 건너뜀: 2849
+2025-08-09 18:16:58,039 - INFO - 보호된 라인 건너뜀: 2847
+2025-08-09 18:16:58,039 - INFO - 보호된 라인 건너뜀: 2846
+2025-08-09 18:16:58,039 - INFO - 보호된 라인 건너뜀: 2843
+2025-08-09 18:16:58,039 - INFO - 보호된 라인 건너뜀: 2841
+2025-08-09 18:16:58,039 - INFO - 보호된 라인 건너뜀: 2832
+2025-08-09 18:16:58,039 - INFO - 보호된 라인 건너뜀: 2824
+2025-08-09 18:16:58,039 - INFO - 보호된 라인 건너뜀: 2823
+2025-08-09 18:16:58,039 - INFO - 보호된 라인 건너뜀: 2820
+2025-08-09 18:16:58,039 - INFO - 보호된 라인 건너뜀: 2818
+2025-08-09 18:16:58,039 - INFO - 보호된 라인 건너뜀: 2815
+2025-08-09 18:16:58,039 - INFO - 보호된 라인 건너뜀: 2812
+2025-08-09 18:16:58,039 - INFO - 보호된 라인 건너뜀: 2805
+2025-08-09 18:16:58,039 - INFO -   ✅ 라인 2789 수정: invalid_variable_name
+2025-08-09 18:16:58,039 - INFO -   ✅ 라인 2752 수정: invalid_variable_name
+2025-08-09 18:16:58,039 - INFO -   ✅ 라인 2750 수정: invalid_variable_name
+2025-08-09 18:16:58,039 - INFO -   ✅ 라인 2713 수정: invalid_variable_name
+2025-08-09 18:16:58,039 - INFO -   ✅ 라인 2301 수정: invalid_variable_name
+2025-08-09 18:16:58,039 - INFO -   ✅ 라인 2295 수정: invalid_variable_name
+2025-08-09 18:16:58,039 - INFO -   ✅ 라인 2291 수정: invalid_variable_name
+2025-08-09 18:16:58,039 - INFO -   ✅ 라인 2285 수정: invalid_variable_name
+2025-08-09 18:16:58,039 - INFO -   ✅ 라인 2281 수정: invalid_variable_name
+2025-08-09 18:16:58,039 - INFO -   ✅ 라인 2279 수정: invalid_variable_name
+2025-08-09 18:16:58,039 - INFO -   ✅ 라인 2219 수정: invalid_variable_name
+2025-08-09 18:16:58,039 - INFO -   ✅ 라인 2163 수정: invalid_variable_name
+2025-08-09 18:16:58,039 - INFO -   ✅ 라인 2053 수정: invalid_variable_name
+2025-08-09 18:16:58,039 - INFO -   ✅ 라인 2034 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 2031 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 2029 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 2027 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1935 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1933 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1931 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1929 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1925 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1923 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1881 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1737 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1736 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1732 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1731 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1728 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1727 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1631 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1628 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1583 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1581 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1579 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1514 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1498 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO - 보호된 라인 건너뜀: 1188
+2025-08-09 18:16:58,040 - INFO - 보호된 라인 건너뜀: 1185
+2025-08-09 18:16:58,040 - INFO -   ✅ 라인 1169 수정: invalid_variable_name
+2025-08-09 18:16:58,040 - INFO - 보호된 라인 건너뜀: 1164
+2025-08-09 18:16:58,040 - INFO - 보호된 라인 건너뜀: 1162
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1161
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1158
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1156
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1154
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1153
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1152
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1151
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1146
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1145
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1144
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1143
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1139
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1138
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1034
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1032
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1030
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1023
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1020
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1018
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1016
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1014
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1011
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1010
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1001
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 1000
+2025-08-09 18:16:58,041 - INFO - 보호된 라인 건너뜀: 999
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 998
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 946
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 944
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 941
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 940
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 939
+2025-08-09 18:16:58,042 - INFO -   ✅ 라인 937 수정: invalid_variable_name
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 879
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 877
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 875
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 873
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 871
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 867
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 855
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 852
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 850
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 848
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 844
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 832
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 711
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 709
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 703
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 697
+2025-08-09 18:16:58,042 - INFO - 보호된 라인 건너뜀: 693
+2025-08-09 18:16:58,043 - INFO - 보호된 라인 건너뜀: 622
+2025-08-09 18:16:58,043 - INFO - 보호된 라인 건너뜀: 619
+2025-08-09 18:16:58,043 - INFO - 보호된 라인 건너뜀: 617
+2025-08-09 18:16:58,043 - INFO - 보호된 라인 건너뜀: 616
+2025-08-09 18:16:58,043 - INFO - 보호된 라인 건너뜀: 615
+2025-08-09 18:16:58,043 - INFO - 보호된 라인 건너뜀: 612
+2025-08-09 18:16:58,043 - INFO - 보호된 라인 건너뜀: 610
+2025-08-09 18:16:58,043 - INFO - 보호된 라인 건너뜀: 606
+2025-08-09 18:16:58,043 - INFO - 보호된 라인 건너뜀: 604
+2025-08-09 18:16:58,043 - INFO - 보호된 라인 건너뜀: 600
+2025-08-09 18:16:58,043 - INFO - 보호된 라인 건너뜀: 580
+2025-08-09 18:16:58,043 - INFO -   ✅ 라인 438 수정: invalid_variable_name
+2025-08-09 18:16:58,043 - INFO -   ✅ 라인 409 수정: invalid_variable_name
+2025-08-09 18:16:58,043 - INFO -   ✅ 라인 408 수정: invalid_variable_name
+2025-08-09 18:16:58,043 - INFO -   ✅ 라인 407 수정: invalid_variable_name
+2025-08-09 18:16:58,043 - INFO -   ✅ 라인 369 수정: invalid_variable_name
+2025-08-09 18:16:58,043 - INFO -   ✅ 라인 318 수정: invalid_variable_name
+2025-08-09 18:16:58,043 - INFO -   ✅ 라인 260 수정: invalid_variable_name
+2025-08-09 18:16:58,043 - INFO -   ✅ 라인 258 수정: invalid_variable_name
+2025-08-09 18:16:58,043 - INFO -   ✅ 라인 255 수정: invalid_variable_name
+2025-08-09 18:16:58,043 - INFO -   ✅ 라인 133 수정: invalid_variable_name
+2025-08-09 18:16:58,083 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/core/__init__.py 컴파일 검증 실패
+2025-08-09 18:16:58,084 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/core/colorful_ui.py
+2025-08-09 18:16:58,085 - INFO -   ✅ 라인 305 수정: invalid_variable_name
+2025-08-09 18:16:58,085 - INFO - 보호된 라인 건너뜀: 297
+2025-08-09 18:16:58,085 - INFO - 보호된 라인 건너뜀: 295
+2025-08-09 18:16:58,085 - INFO -   ✅ 라인 284 수정: invalid_variable_name
+2025-08-09 18:16:58,085 - INFO - 보호된 라인 건너뜀: 282
+2025-08-09 18:16:58,085 - INFO -   ✅ 라인 272 수정: invalid_variable_name
+2025-08-09 18:16:58,085 - INFO -   ✅ 라인 270 수정: invalid_variable_name
+2025-08-09 18:16:58,085 - INFO -   ✅ 라인 260 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 259 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 257 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 247 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 243 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 232 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 230 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 215 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 212 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 208 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 204 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 200 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 196 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 192 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 182 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 169 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 157 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 128 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 126 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 124 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 108 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 107 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 106 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 102 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 101 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 100 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 96 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 95 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 94 수정: invalid_variable_name
+2025-08-09 18:16:58,086 - INFO -   ✅ 라인 71 수정: invalid_variable_name
+2025-08-09 18:16:58,126 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/core/colorful_ui.py 컴파일 검증 실패
+2025-08-09 18:16:58,127 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/core/process_manager.py
+2025-08-09 18:16:58,128 - INFO -   ✅ 라인 386 수정: invalid_variable_name
+2025-08-09 18:16:58,128 - INFO -   ✅ 라인 385 수정: invalid_variable_name
+2025-08-09 18:16:58,128 - INFO -   ✅ 라인 363 수정: invalid_variable_name
+2025-08-09 18:16:58,128 - INFO -   ✅ 라인 360 수정: invalid_variable_name
+2025-08-09 18:16:58,128 - INFO -   ✅ 라인 332 수정: invalid_variable_name
+2025-08-09 18:16:58,128 - INFO -   ✅ 라인 280 수정: invalid_variable_name
+2025-08-09 18:16:58,128 - INFO -   ✅ 라인 125 수정: invalid_variable_name
+2025-08-09 18:16:58,128 - INFO -   ✅ 라인 110 수정: invalid_variable_name
+2025-08-09 18:16:58,128 - INFO -   ✅ 라인 56 수정: invalid_variable_name
+2025-08-09 18:16:58,128 - INFO -   ✅ 라인 55 수정: invalid_variable_name
+2025-08-09 18:16:58,128 - INFO -   ✅ 라인 54 수정: invalid_variable_name
+2025-08-09 18:16:58,128 - INFO -   ✅ 라인 53 수정: invalid_variable_name
+2025-08-09 18:16:58,168 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/core/process_manager.py 컴파일 검증 실패
+2025-08-09 18:16:58,168 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/utils/business_day_helper.py
+2025-08-09 18:16:58,169 - INFO -   ✅ 라인 90 수정: invalid_variable_name
+2025-08-09 18:16:58,169 - INFO -   ✅ 라인 62 수정: invalid_variable_name
+2025-08-09 18:16:58,169 - INFO -   ✅ 라인 21 수정: syntax_error
+2025-08-09 18:16:58,210 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/utils/business_day_helper.py 컴파일 검증 실패
+2025-08-09 18:16:58,210 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/backup_archive_20250806/temp_solutions_20250806/simple_news_monitor.py
+2025-08-09 18:16:58,211 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/backup_archive_20250806/temp_solutions_20250806/simple_news_monitor.py
+2025-08-09 18:16:58,211 - INFO -   ✅ 라인 56 수정: invalid_variable_name
+2025-08-09 18:16:58,211 - INFO -   ✅ 라인 53 수정: invalid_variable_name
+2025-08-09 18:16:58,211 - INFO -   ✅ 라인 25 수정: syntax_error
+2025-08-09 18:16:58,250 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/backup_archive_20250806/temp_solutions_20250806/simple_news_monitor.py 컴파일 검증 실패
+2025-08-09 18:16:58,250 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/backup_archive_20250806/disabled_monitors_20250803/base_monitor.py
+2025-08-09 18:16:58,251 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/backup_archive_20250806/disabled_monitors_20250803/base_monitor.py
+2025-08-09 18:16:58,251 - INFO - 보호된 라인 건너뜀: 297
+2025-08-09 18:16:58,251 - INFO - 보호된 라인 건너뜀: 292
+2025-08-09 18:16:58,251 - INFO - 보호된 라인 건너뜀: 289
+2025-08-09 18:16:58,251 - INFO - 보호된 라인 건너뜀: 288
+2025-08-09 18:16:58,251 - INFO - 보호된 라인 건너뜀: 219
+2025-08-09 18:16:58,251 - INFO - 보호된 라인 건너뜀: 216
+2025-08-09 18:16:58,251 - INFO - 보호된 라인 건너뜀: 212
+2025-08-09 18:16:58,252 - INFO - 보호된 라인 건너뜀: 211
+2025-08-09 18:16:58,252 - INFO - 보호된 라인 건너뜀: 210
+2025-08-09 18:16:58,252 - INFO - 보호된 라인 건너뜀: 209
+2025-08-09 18:16:58,252 - INFO -   ✅ 라인 23 수정: syntax_error
+2025-08-09 18:16:58,291 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/backup_archive_20250806/disabled_monitors_20250803/base_monitor.py 컴파일 검증 실패
+2025-08-09 18:16:58,291 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/reports/metadata_manager.py
+2025-08-09 18:16:58,292 - INFO -   ✅ 라인 442 수정: invalid_variable_name
+2025-08-09 18:16:58,292 - INFO -   ✅ 라인 410 수정: invalid_variable_name
+2025-08-09 18:16:58,292 - INFO -   ✅ 라인 407 수정: invalid_variable_name
+2025-08-09 18:16:58,292 - INFO -   ✅ 라인 381 수정: invalid_variable_name
+2025-08-09 18:16:58,293 - INFO -   ✅ 라인 367 수정: invalid_variable_name
+2025-08-09 18:16:58,293 - INFO -   ✅ 라인 366 수정: invalid_variable_name
+2025-08-09 18:16:58,293 - INFO -   ✅ 라인 341 수정: invalid_variable_name
+2025-08-09 18:16:58,293 - INFO -   ✅ 라인 334 수정: invalid_variable_name
+2025-08-09 18:16:58,293 - INFO -   ✅ 라인 333 수정: invalid_variable_name
+2025-08-09 18:16:58,293 - INFO -   ✅ 라인 320 수정: invalid_variable_name
+2025-08-09 18:16:58,293 - INFO -   ✅ 라인 118 수정: invalid_variable_name
+2025-08-09 18:16:58,293 - INFO -   ✅ 라인 117 수정: invalid_variable_name
+2025-08-09 18:16:58,293 - INFO -   ✅ 라인 51 수정: invalid_variable_name
+2025-08-09 18:16:58,293 - INFO -   ✅ 라인 50 수정: invalid_variable_name
+2025-08-09 18:16:58,332 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/reports/metadata_manager.py 컴파일 검증 실패
+2025-08-09 18:16:58,333 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/reports/report_manager.py
+2025-08-09 18:16:58,334 - INFO -   ✅ 라인 230 수정: invalid_variable_name
+2025-08-09 18:16:58,334 - INFO -   ✅ 라인 228 수정: invalid_variable_name
+2025-08-09 18:16:58,334 - INFO -   ✅ 라인 221 수정: invalid_variable_name
+2025-08-09 18:16:58,334 - INFO -   ✅ 라인 218 수정: invalid_variable_name
+2025-08-09 18:16:58,334 - INFO -   ✅ 라인 209 수정: invalid_variable_name
+2025-08-09 18:16:58,334 - INFO -   ✅ 라인 195 수정: invalid_variable_name
+2025-08-09 18:16:58,334 - INFO -   ✅ 라인 192 수정: invalid_variable_name
+2025-08-09 18:16:58,334 - INFO -   ✅ 라인 105 수정: invalid_variable_name
+2025-08-09 18:16:58,334 - INFO -   ✅ 라인 104 수정: invalid_variable_name
+2025-08-09 18:16:58,334 - INFO -   ✅ 라인 102 수정: invalid_variable_name
+2025-08-09 18:16:58,334 - INFO -   ✅ 라인 77 수정: invalid_variable_name
+2025-08-09 18:16:58,334 - INFO -   ✅ 라인 76 수정: invalid_variable_name
+2025-08-09 18:16:58,334 - INFO -   ✅ 라인 66 수정: invalid_variable_name
+2025-08-09 18:16:58,374 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/reports/report_manager.py 컴파일 검증 실패
+2025-08-09 18:16:58,374 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/reports/integrated_report_generator.py
+2025-08-09 18:16:58,375 - INFO -   ✅ 라인 621 수정: invalid_variable_name
+2025-08-09 18:16:58,375 - INFO -   ✅ 라인 605 수정: invalid_variable_name
+2025-08-09 18:16:58,375 - INFO -   ✅ 라인 586 수정: invalid_variable_name
+2025-08-09 18:16:58,375 - INFO -   ✅ 라인 569 수정: invalid_variable_name
+2025-08-09 18:16:58,375 - INFO -   ✅ 라인 568 수정: invalid_variable_name
+2025-08-09 18:16:58,375 - INFO -   ✅ 라인 565 수정: invalid_variable_name
+2025-08-09 18:16:58,375 - INFO -   ✅ 라인 559 수정: invalid_variable_name
+2025-08-09 18:16:58,376 - INFO -   ✅ 라인 558 수정: invalid_variable_name
+2025-08-09 18:16:58,376 - INFO -   ✅ 라인 555 수정: invalid_variable_name
+2025-08-09 18:16:58,376 - INFO -   ✅ 라인 336 수정: invalid_variable_name
+2025-08-09 18:16:58,376 - INFO -   ✅ 라인 334 수정: invalid_variable_name
+2025-08-09 18:16:58,376 - INFO -   ✅ 라인 333 수정: invalid_variable_name
+2025-08-09 18:16:58,376 - INFO -   ✅ 라인 331 수정: invalid_variable_name
+2025-08-09 18:16:58,376 - INFO -   ✅ 라인 216 수정: invalid_variable_name
+2025-08-09 18:16:58,376 - INFO -   ✅ 라인 215 수정: invalid_variable_name
+2025-08-09 18:16:58,376 - INFO -   ✅ 라인 210 수정: invalid_variable_name
+2025-08-09 18:16:58,376 - INFO -   ✅ 라인 209 수정: invalid_variable_name
+2025-08-09 18:16:58,376 - INFO -   ✅ 라인 151 수정: invalid_variable_name
+2025-08-09 18:16:58,376 - INFO -   ✅ 라인 89 수정: invalid_variable_name
+2025-08-09 18:16:58,413 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini/reports/integrated_report_generator.py 컴파일 검증 실패
+2025-08-09 18:16:58,413 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/WatchHamster_v3.0/core/enhanced_process_manager.py
+2025-08-09 18:16:58,414 - INFO -   ✅ 라인 478 수정: invalid_variable_name
+2025-08-09 18:16:58,414 - INFO -   ✅ 라인 249 수정: invalid_variable_name
+2025-08-09 18:16:58,414 - INFO -   ✅ 라인 248 수정: invalid_variable_name
+2025-08-09 18:16:58,415 - INFO -   ✅ 라인 67 수정: invalid_variable_name
+2025-08-09 18:16:58,415 - INFO -   ✅ 라인 66 수정: invalid_variable_name
+2025-08-09 18:16:58,415 - INFO -   ✅ 라인 43 수정: invalid_variable_name
+2025-08-09 18:16:58,415 - INFO -   ✅ 라인 42 수정: invalid_variable_name
+2025-08-09 18:16:58,451 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/WatchHamster_v3.0/core/enhanced_process_manager.py 컴파일 검증 실패
+2025-08-09 18:16:58,451 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/WatchHamster_v3.0/core/performance_monitor.py
+2025-08-09 18:16:58,452 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/WatchHamster_v3.0/core/performance_monitor.py
+2025-08-09 18:16:58,453 - INFO -   ✅ 라인 967 수정: invalid_variable_name
+2025-08-09 18:16:58,453 - INFO -   ✅ 라인 829 수정: invalid_variable_name
+2025-08-09 18:16:58,453 - INFO -   ✅ 라인 828 수정: invalid_variable_name
+2025-08-09 18:16:58,453 - INFO -   ✅ 라인 738 수정: invalid_variable_name
+2025-08-09 18:16:58,453 - INFO -   ✅ 라인 737 수정: invalid_variable_name
+2025-08-09 18:16:58,453 - INFO -   ✅ 라인 530 수정: invalid_variable_name
+2025-08-09 18:16:58,453 - INFO -   ✅ 라인 451 수정: invalid_variable_name
+2025-08-09 18:16:58,453 - INFO -   ✅ 라인 450 수정: invalid_variable_name
+2025-08-09 18:16:58,453 - INFO -   ✅ 라인 439 수정: invalid_exception_class
+2025-08-09 18:16:58,453 - INFO -   ✅ 라인 437 수정: invalid_variable_name
+2025-08-09 18:16:58,453 - INFO -   ✅ 라인 380 수정: invalid_variable_name
+2025-08-09 18:16:58,453 - INFO -   ✅ 라인 171 수정: invalid_variable_name
+2025-08-09 18:16:58,453 - INFO -   ✅ 라인 107 수정: invalid_variable_name
+2025-08-09 18:16:58,453 - INFO -   ✅ 라인 106 수정: invalid_variable_name
+2025-08-09 18:16:58,453 - INFO -   ✅ 라인 105 수정: invalid_variable_name
+2025-08-09 18:16:58,454 - INFO -   ✅ 라인 73 수정: invalid_variable_name
+2025-08-09 18:16:58,454 - INFO -   ✅ 라인 60 수정: invalid_variable_name
+2025-08-09 18:16:58,454 - INFO -   ✅ 라인 59 수정: invalid_variable_name
+2025-08-09 18:16:58,454 - INFO -   ✅ 라인 47 수정: invalid_variable_name
+2025-08-09 18:16:58,454 - INFO -   ✅ 라인 46 수정: invalid_variable_name
+2025-08-09 18:16:58,454 - INFO -   ✅ 라인 45 수정: invalid_variable_name
+2025-08-09 18:16:58,495 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/WatchHamster_v3.0/core/performance_monitor.py 컴파일 검증 실패
+2025-08-09 18:16:58,495 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/WatchHamster_v3.0/core/module_registry.py
+2025-08-09 18:16:58,496 - INFO -   ✅ 라인 381 수정: invalid_variable_name
+2025-08-09 18:16:58,496 - INFO -   ✅ 라인 370 수정: invalid_variable_name
+2025-08-09 18:16:58,496 - INFO -   ✅ 라인 160 수정: invalid_variable_name
+2025-08-09 18:16:58,496 - INFO -   ✅ 라인 159 수정: invalid_variable_name
+2025-08-09 18:16:58,496 - INFO -   ✅ 라인 88 수정: invalid_variable_name
+2025-08-09 18:16:58,496 - INFO -   ✅ 라인 68 수정: invalid_variable_name
+2025-08-09 18:16:58,497 - INFO -   ✅ 라인 67 수정: invalid_variable_name
+2025-08-09 18:16:58,497 - INFO -   ✅ 라인 41 수정: invalid_variable_name
+2025-08-09 18:16:58,497 - INFO -   ✅ 라인 40 수정: invalid_variable_name
+2025-08-09 18:16:58,497 - INFO -   ✅ 라인 39 수정: invalid_variable_name
+2025-08-09 18:16:58,497 - INFO -   ✅ 라인 38 수정: invalid_variable_name
+2025-08-09 18:16:58,497 - INFO -   ✅ 라인 37 수정: invalid_variable_name
+2025-08-09 18:16:58,497 - INFO -   ✅ 라인 36 수정: invalid_variable_name
+2025-08-09 18:16:58,497 - INFO -   ✅ 라인 35 수정: invalid_variable_name
+2025-08-09 18:16:58,497 - INFO -   ✅ 라인 34 수정: invalid_variable_name
+2025-08-09 18:16:58,497 - INFO -   ✅ 라인 33 수정: invalid_variable_name
+2025-08-09 18:16:58,537 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/WatchHamster_v3.0/core/module_registry.py 컴파일 검증 실패
+2025-08-09 18:16:58,538 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/WatchHamster_v3.0/core/watchhamster_integration.py
+2025-08-09 18:16:58,538 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/WatchHamster_v3.0/core/watchhamster_integration.py
+2025-08-09 18:16:58,539 - INFO -   ✅ 라인 165 수정: invalid_variable_name
+2025-08-09 18:16:58,577 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/WatchHamster_v3.0/core/watchhamster_integration.py 컴파일 검증 실패
+2025-08-09 18:16:58,577 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/WatchHamster_v3.0/core/notification_manager.py
+2025-08-09 18:16:58,578 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/WatchHamster_v3.0/core/notification_manager.py
+2025-08-09 18:16:58,578 - INFO -   ✅ 라인 473 수정: invalid_variable_name
+2025-08-09 18:16:58,578 - INFO -   ✅ 라인 472 수정: invalid_variable_name
+2025-08-09 18:16:58,578 - INFO - 보호된 라인 건너뜀: 401
+2025-08-09 18:16:58,578 - INFO - 보호된 라인 건너뜀: 399
+2025-08-09 18:16:58,578 - INFO - 보호된 라인 건너뜀: 398
+2025-08-09 18:16:58,578 - INFO - 보호된 라인 건너뜀: 396
+2025-08-09 18:16:58,578 - INFO - 보호된 라인 건너뜀: 393
+2025-08-09 18:16:58,578 - INFO - 보호된 라인 건너뜀: 392
+2025-08-09 18:16:58,578 - INFO - 보호된 라인 건너뜀: 364
+2025-08-09 18:16:58,578 - INFO - 보호된 라인 건너뜀: 362
+2025-08-09 18:16:58,578 - INFO - 보호된 라인 건너뜀: 357
+2025-08-09 18:16:58,578 - INFO - 보호된 라인 건너뜀: 355
+2025-08-09 18:16:58,578 - INFO - 보호된 라인 건너뜀: 349
+2025-08-09 18:16:58,578 - INFO - 보호된 라인 건너뜀: 348
+2025-08-09 18:16:58,578 - INFO - 보호된 라인 건너뜀: 320
+2025-08-09 18:16:58,578 - INFO - 보호된 라인 건너뜀: 318
+2025-08-09 18:16:58,578 - INFO - 보호된 라인 건너뜀: 316
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 311
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 304
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 300
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 299
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 268
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 263
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 262
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 261
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 260
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 256
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 254
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 248
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 246
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 242
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 240
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 236
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 228
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 227
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 199
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 197
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 196
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 195
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 190
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 188
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 183
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 182
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 154
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 153
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 152
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 151
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 150
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 149
+2025-08-09 18:16:58,579 - INFO - 보호된 라인 건너뜀: 147
+2025-08-09 18:16:58,580 - INFO -   ✅ 라인 142 수정: syntax_error
+2025-08-09 18:16:58,580 - INFO - 보호된 라인 건너뜀: 137
+2025-08-09 18:16:58,580 - INFO - 보호된 라인 건너뜀: 135
+2025-08-09 18:16:58,580 - INFO - 보호된 라인 건너뜀: 134
+2025-08-09 18:16:58,580 - INFO -   ✅ 라인 38 수정: invalid_variable_name
+2025-08-09 18:16:58,580 - INFO -   ✅ 라인 37 수정: invalid_variable_name
+2025-08-09 18:16:58,616 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/WatchHamster_v3.0/core/notification_manager.py 컴파일 검증 실패
+2025-08-09 18:16:58,616 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/WatchHamster_v3.0/core/performance_optimizer.py
+2025-08-09 18:16:58,618 - INFO -   ✅ 라인 588 수정: invalid_variable_name
+2025-08-09 18:16:58,618 - INFO -   ✅ 라인 587 수정: invalid_variable_name
+2025-08-09 18:16:58,618 - INFO -   ✅ 라인 533 수정: invalid_variable_name
+2025-08-09 18:16:58,618 - INFO -   ✅ 라인 83 수정: invalid_variable_name
+2025-08-09 18:16:58,618 - INFO -   ✅ 라인 82 수정: invalid_variable_name
+2025-08-09 18:16:58,618 - INFO -   ✅ 라인 51 수정: invalid_variable_name
+2025-08-09 18:16:58,618 - INFO -   ✅ 라인 50 수정: invalid_variable_name
+2025-08-09 18:16:58,654 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/WatchHamster_v3.0/core/performance_optimizer.py 컴파일 검증 실패
+2025-08-09 18:16:58,654 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini_v2/core/enhanced_process_manager.py
+2025-08-09 18:16:58,655 - INFO -   ✅ 라인 478 수정: invalid_variable_name
+2025-08-09 18:16:58,656 - INFO -   ✅ 라인 249 수정: invalid_variable_name
+2025-08-09 18:16:58,656 - INFO -   ✅ 라인 248 수정: invalid_variable_name
+2025-08-09 18:16:58,656 - INFO -   ✅ 라인 67 수정: invalid_variable_name
+2025-08-09 18:16:58,656 - INFO -   ✅ 라인 66 수정: invalid_variable_name
+2025-08-09 18:16:58,656 - INFO -   ✅ 라인 43 수정: invalid_variable_name
+2025-08-09 18:16:58,656 - INFO -   ✅ 라인 42 수정: invalid_variable_name
+2025-08-09 18:16:58,693 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini_v2/core/enhanced_process_manager.py 컴파일 검증 실패
+2025-08-09 18:16:58,693 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini_v2/core/performance_monitor.py
+2025-08-09 18:16:58,694 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini_v2/core/performance_monitor.py
+2025-08-09 18:16:58,694 - INFO -   ✅ 라인 967 수정: invalid_variable_name
+2025-08-09 18:16:58,694 - INFO -   ✅ 라인 829 수정: invalid_variable_name
+2025-08-09 18:16:58,694 - INFO -   ✅ 라인 828 수정: invalid_variable_name
+2025-08-09 18:16:58,694 - INFO -   ✅ 라인 738 수정: invalid_variable_name
+2025-08-09 18:16:58,694 - INFO -   ✅ 라인 737 수정: invalid_variable_name
+2025-08-09 18:16:58,694 - INFO -   ✅ 라인 530 수정: invalid_variable_name
+2025-08-09 18:16:58,694 - INFO -   ✅ 라인 451 수정: invalid_variable_name
+2025-08-09 18:16:58,694 - INFO -   ✅ 라인 450 수정: invalid_variable_name
+2025-08-09 18:16:58,694 - INFO -   ✅ 라인 439 수정: invalid_exception_class
+2025-08-09 18:16:58,695 - INFO -   ✅ 라인 437 수정: invalid_variable_name
+2025-08-09 18:16:58,695 - INFO -   ✅ 라인 380 수정: invalid_variable_name
+2025-08-09 18:16:58,695 - INFO -   ✅ 라인 171 수정: invalid_variable_name
+2025-08-09 18:16:58,695 - INFO -   ✅ 라인 107 수정: invalid_variable_name
+2025-08-09 18:16:58,695 - INFO -   ✅ 라인 106 수정: invalid_variable_name
+2025-08-09 18:16:58,695 - INFO -   ✅ 라인 105 수정: invalid_variable_name
+2025-08-09 18:16:58,695 - INFO -   ✅ 라인 73 수정: invalid_variable_name
+2025-08-09 18:16:58,695 - INFO -   ✅ 라인 60 수정: invalid_variable_name
+2025-08-09 18:16:58,695 - INFO -   ✅ 라인 59 수정: invalid_variable_name
+2025-08-09 18:16:58,695 - INFO -   ✅ 라인 47 수정: invalid_variable_name
+2025-08-09 18:16:58,695 - INFO -   ✅ 라인 46 수정: invalid_variable_name
+2025-08-09 18:16:58,695 - INFO -   ✅ 라인 45 수정: invalid_variable_name
+2025-08-09 18:16:58,732 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini_v2/core/performance_monitor.py 컴파일 검증 실패
+2025-08-09 18:16:58,732 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini_v2/core/module_registry.py
+2025-08-09 18:16:58,733 - INFO -   ✅ 라인 381 수정: invalid_variable_name
+2025-08-09 18:16:58,733 - INFO -   ✅ 라인 370 수정: invalid_variable_name
+2025-08-09 18:16:58,733 - INFO -   ✅ 라인 160 수정: invalid_variable_name
+2025-08-09 18:16:58,733 - INFO -   ✅ 라인 159 수정: invalid_variable_name
+2025-08-09 18:16:58,733 - INFO -   ✅ 라인 88 수정: invalid_variable_name
+2025-08-09 18:16:58,734 - INFO -   ✅ 라인 68 수정: invalid_variable_name
+2025-08-09 18:16:58,734 - INFO -   ✅ 라인 67 수정: invalid_variable_name
+2025-08-09 18:16:58,734 - INFO -   ✅ 라인 41 수정: invalid_variable_name
+2025-08-09 18:16:58,734 - INFO -   ✅ 라인 40 수정: invalid_variable_name
+2025-08-09 18:16:58,734 - INFO -   ✅ 라인 39 수정: invalid_variable_name
+2025-08-09 18:16:58,734 - INFO -   ✅ 라인 38 수정: invalid_variable_name
+2025-08-09 18:16:58,734 - INFO -   ✅ 라인 37 수정: invalid_variable_name
+2025-08-09 18:16:58,734 - INFO -   ✅ 라인 36 수정: invalid_variable_name
+2025-08-09 18:16:58,734 - INFO -   ✅ 라인 35 수정: invalid_variable_name
+2025-08-09 18:16:58,734 - INFO -   ✅ 라인 34 수정: invalid_variable_name
+2025-08-09 18:16:58,734 - INFO -   ✅ 라인 33 수정: invalid_variable_name
+2025-08-09 18:16:58,771 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini_v2/core/module_registry.py 컴파일 검증 실패
+2025-08-09 18:16:58,771 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini_v2/core/watchhamster_integration.py
+2025-08-09 18:16:58,772 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini_v2/core/watchhamster_integration.py
+2025-08-09 18:16:58,772 - INFO -   ✅ 라인 165 수정: invalid_variable_name
+2025-08-09 18:16:58,811 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini_v2/core/watchhamster_integration.py 컴파일 검증 실패
+2025-08-09 18:16:58,811 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini_v2/core/notification_manager.py
+2025-08-09 18:16:58,812 - WARNING - ⚠️ 보호된 내용이 포함된 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini_v2/core/notification_manager.py
+2025-08-09 18:16:58,812 - INFO -   ✅ 라인 473 수정: invalid_variable_name
+2025-08-09 18:16:58,812 - INFO -   ✅ 라인 472 수정: invalid_variable_name
+2025-08-09 18:16:58,812 - INFO - 보호된 라인 건너뜀: 401
+2025-08-09 18:16:58,812 - INFO - 보호된 라인 건너뜀: 399
+2025-08-09 18:16:58,812 - INFO - 보호된 라인 건너뜀: 398
+2025-08-09 18:16:58,812 - INFO - 보호된 라인 건너뜀: 396
+2025-08-09 18:16:58,812 - INFO - 보호된 라인 건너뜀: 393
+2025-08-09 18:16:58,812 - INFO - 보호된 라인 건너뜀: 392
+2025-08-09 18:16:58,812 - INFO - 보호된 라인 건너뜀: 364
+2025-08-09 18:16:58,812 - INFO - 보호된 라인 건너뜀: 362
+2025-08-09 18:16:58,812 - INFO - 보호된 라인 건너뜀: 357
+2025-08-09 18:16:58,812 - INFO - 보호된 라인 건너뜀: 355
+2025-08-09 18:16:58,812 - INFO - 보호된 라인 건너뜀: 349
+2025-08-09 18:16:58,812 - INFO - 보호된 라인 건너뜀: 348
+2025-08-09 18:16:58,812 - INFO - 보호된 라인 건너뜀: 320
+2025-08-09 18:16:58,812 - INFO - 보호된 라인 건너뜀: 318
+2025-08-09 18:16:58,812 - INFO - 보호된 라인 건너뜀: 316
+2025-08-09 18:16:58,812 - INFO - 보호된 라인 건너뜀: 311
+2025-08-09 18:16:58,812 - INFO - 보호된 라인 건너뜀: 304
+2025-08-09 18:16:58,812 - INFO - 보호된 라인 건너뜀: 300
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 299
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 268
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 263
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 262
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 261
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 260
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 256
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 254
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 248
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 246
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 242
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 240
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 236
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 228
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 227
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 199
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 197
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 196
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 195
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 190
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 188
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 183
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 182
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 154
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 153
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 152
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 151
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 150
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 149
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 147
+2025-08-09 18:16:58,813 - INFO -   ✅ 라인 142 수정: syntax_error
+2025-08-09 18:16:58,813 - INFO - 보호된 라인 건너뜀: 137
+2025-08-09 18:16:58,814 - INFO - 보호된 라인 건너뜀: 135
+2025-08-09 18:16:58,814 - INFO - 보호된 라인 건너뜀: 134
+2025-08-09 18:16:58,814 - INFO -   ✅ 라인 38 수정: invalid_variable_name
+2025-08-09 18:16:58,814 - INFO -   ✅ 라인 37 수정: invalid_variable_name
+2025-08-09 18:16:58,851 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini_v2/core/notification_manager.py 컴파일 검증 실패
+2025-08-09 18:16:58,852 - INFO - 🔧 파일 수정 중: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini_v2/core/performance_optimizer.py
+2025-08-09 18:16:58,853 - INFO -   ✅ 라인 588 수정: invalid_variable_name
+2025-08-09 18:16:58,853 - INFO -   ✅ 라인 587 수정: invalid_variable_name
+2025-08-09 18:16:58,853 - INFO -   ✅ 라인 533 수정: invalid_variable_name
+2025-08-09 18:16:58,853 - INFO -   ✅ 라인 83 수정: invalid_variable_name
+2025-08-09 18:16:58,853 - INFO -   ✅ 라인 82 수정: invalid_variable_name
+2025-08-09 18:16:58,853 - INFO -   ✅ 라인 51 수정: invalid_variable_name
+2025-08-09 18:16:58,853 - INFO -   ✅ 라인 50 수정: invalid_variable_name
+2025-08-09 18:16:58,892 - WARNING - ⚠️ /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini_v2/core/performance_optimizer.py 컴파일 검증 실패
+2025-08-09 18:16:58,892 - INFO - ✅ 106개 파일 수정 완료
+2025-08-09 18:16:58,892 - INFO - 🔍 수정 결과 검증 중...
+2025-08-09 18:17:02,948 - INFO - 📊 검증 결과: {'total_files': 106, 'successful_repairs': 105, 'failed_repairs': 1, 'compilable_files': 2, 'non_compilable_files': 104}
+2025-08-09 18:17:02,949 - INFO - 🔍 수정 결과 검증 중...
+2025-08-09 18:17:06,644 - INFO - 📊 검증 결과: {'total_files': 106, 'successful_repairs': 105, 'failed_repairs': 1, 'compilable_files': 2, 'non_compilable_files': 104}

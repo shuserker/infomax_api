@@ -1,0 +1,1063 @@
+#!/usr/bin/env python3
+"""
+POSCO 시스템 종합 테스트 시스템
+Comprehensive Test System for POSCO System Repair and Completion
+
+이 모듈은 다음 기능들을 제공합니다:
+1. 자동화된 구문 검증 시스템
+2. 모듈 Import 테스트 자동화
+3. 파일 참조 무결성 자동 검증
+4. 성능 및 메모리 사용량 모니터링
+"""
+
+import ast
+import sys
+import os
+import json
+import time
+import psutil
+import importlib
+import traceback
+from pathlib import Path
+from typing import Dict, List, Optional, Tuple, Any
+from dataclasses import dataclass, asdict
+from datetime import datetime
+import subprocess
+import re
+import gc
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+@dataclass
+class TestResult:
+    """테스트 결과를 저장하는 데이터 클래스"""
+    test_name: str
+    success: bool
+    message: str
+    details: Optional[Dict[str, Any]] = None
+    execution_time: float = 0.0
+    timestamp: str = ""
+
+@dataclass
+class SyntaxTestResult(TestResult):
+    """구문 테스트 결과"""
+    file_path: str = ""
+    line_number: int = 0
+    error_type: str = ""
+
+@dataclass
+class ImportTestResult(TestResult):
+    """Import 테스트 결과"""
+    module_name: str = ""
+    import_path: str = ""
+    dependency_chain: List[str] = None
+
+@dataclass
+class FileReferenceTestResult(TestResult):
+    """파일 참조 테스트 결과"""
+    source_file: str = ""
+    referenced_file: str = ""
+    reference_type: str = ""
+
+@dataclass
+class PerformanceTestResult(TestResult):
+    """성능 테스트 결과"""
+    cpu_usage: float = 0.0
+    memory_usage: float = 0.0
+    disk_io: Dict[str, float] = None
+    network_io: Dict[str, float] = None
+
+class SyntaxVerificationSystem:
+    """자동화된 구문 검증 시스템"""
+    
+    def __init__(self):
+        self.python_files = []
+        self.results = []
+        
+    def discover_python_files(self, root_path: Path = None) -> List[Path]:
+        """Python 파일들을 자동으로 발견"""
+        if root_path is None:
+            root_path = Path.cwd()
+            
+        python_files = []
+        
+        # 제외할 디렉토리 패턴
+        exclude_patterns = [
+            '__pycache__',
+            '.git',
+            '.vscode',
+            'node_modules',
+            '.pytest_cache',
+            '.backup',
+            'backup',
+            '.repair_backup',
+            '.enhanced_repair_backup',
+            '.aggressive_syntax_repair_backup',
+            '.comprehensive_repair_backup',
+            '.file_reference_backup',
+            '.file_renaming_backup',
+            '.filename_standardization_backup',
+            '.final_file_reference_cleanup_backup',
+            '.final_reference_cleanup_backup',
+            '.final_syntax_repair_backup',
+            '.focused_file_reference_backup',
+            '.indentation_backup',
+            '.naming_backup',
+            '.refined_file_reference_backup',
+            '.repair_backups',
+            '.syntax_repair_backup'
+        ]
+        
+        # 안전한 파일 탐색 (깊이 제한 및 경로 길이 체크)
+        def safe_rglob(path: Path, pattern: str, max_depth: int = 10):
+            """안전한 재귀 파일 탐색"""
+            try:
+                for file_path in path.rglob(pattern):
+                    # 경로 길이 체크 (macOS 파일명 길이 제한 고려)
+                    if len(str(file_path)) > 1000:
+                        continue
+                    
+                    # 깊이 체크
+                    relative_path = file_path.relative_to(path)
+                    if len(relative_path.parts) > max_depth:
+                        continue
+                    
+                    # 제외 패턴 확인
+                    if any(pattern in str(file_path) for pattern in exclude_patterns):
+                        continue
+                    
+                    yield file_path
+            except (OSError, ValueError) as e:
+                # 파일 시스템 오류 무시하고 계속 진행
+                print(f"⚠️  파일 탐색 중 오류 (무시됨): {e}")
+                return
+        
+        for file_path in safe_rglob(root_path, "*.py"):
+            python_files.append(file_path)
+            
+        self.python_files = python_files
+        return python_files
+    
+    def verify_syntax(self, file_path: Path) -> SyntaxTestResult:
+        """개별 파일의 구문을 검증"""
+        start_time = time.time()
+        
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+                
+            # AST 파싱으로 구문 검증
+            ast.parse(content)
+            
+            # py_compile로 추가 검증
+            result = subprocess.run([
+                sys.executable, '-m', 'py_compile', str(file_path)
+            ], capture_output=True, text=True, timeout=30)
+            
+            execution_time = time.time() - start_time
+            
+            if result.returncode == 0:
+                return SyntaxTestResult(
+                    test_name=f"syntax_check_{file_path.name}",
+                    success=True,
+                    message="구문 검증 성공",
+                    file_path=str(file_path),
+                    execution_time=execution_time,
+                    timestamp=datetime.now().isoformat()
+                )
+            else:
+                return SyntaxTestResult(
+                    test_name=f"syntax_check_{file_path.name}",
+                    success=False,
+                    message=f"컴파일 오류: {result.stderr}",
+                    file_path=str(file_path),
+                    error_type="compilation_error",
+                    execution_time=execution_time,
+                    timestamp=datetime.now().isoformat()
+                )
+                
+        except SyntaxError as e:
+            execution_time = time.time() - start_time
+            return SyntaxTestResult(
+                test_name=f"syntax_check_{file_path.name}",
+                success=False,
+                message=f"구문 오류: {str(e)}",
+                file_path=str(file_path),
+                line_number=e.lineno or 0,
+                error_type="syntax_error",
+                execution_time=execution_time,
+                timestamp=datetime.now().isoformat()
+            )
+        except Exception as e:
+            execution_time = time.time() - start_time
+            return SyntaxTestResult(
+                test_name=f"syntax_check_{file_path.name}",
+                success=False,
+                message=f"검증 실패: {str(e)}",
+                file_path=str(file_path),
+                error_type="verification_error",
+                execution_time=execution_time,
+                timestamp=datetime.now().isoformat()
+            )
+    
+    def verify_all_files(self, max_workers: int = 4) -> List[SyntaxTestResult]:
+        """모든 Python 파일의 구문을 병렬로 검증"""
+        if not self.python_files:
+            self.discover_python_files()
+            
+        results = []
+        
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            future_to_file = {
+                executor.submit(self.verify_syntax, file_path): file_path 
+                for file_path in self.python_files
+            }
+            
+            for future in as_completed(future_to_file):
+                file_path = future_to_file[future]
+                try:
+                    result = future.result()
+                    results.append(result)
+                except Exception as e:
+                    results.append(SyntaxTestResult(
+                        test_name=f"syntax_check_{file_path.name}",
+                        success=False,
+                        message=f"테스트 실행 실패: {str(e)}",
+                        file_path=str(file_path),
+                        error_type="execution_error",
+                        timestamp=datetime.now().isoformat()
+                    ))
+        
+        self.results = results
+        return results
+    
+    def generate_syntax_report(self) -> Dict[str, Any]:
+        """구문 검증 보고서 생성"""
+        if not self.results:
+            return {"error": "검증 결과가 없습니다. verify_all_files()를 먼저 실행하세요."}
+            
+        total_files = len(self.results)
+        successful_files = sum(1 for r in self.results if r.success)
+        failed_files = total_files - successful_files
+        
+        error_types = {}
+        for result in self.results:
+            if not result.success and result.error_type:
+                error_types[result.error_type] = error_types.get(result.error_type, 0) + 1
+        
+        return {
+            "summary": {
+                "total_files": total_files,
+                "successful_files": successful_files,
+                "failed_files": failed_files,
+                "success_rate": (successful_files / total_files * 100) if total_files > 0 else 0
+            },
+            "error_types": error_types,
+            "failed_files": [
+                {
+                    "file": result.file_path,
+                    "error": result.message,
+                    "line": result.line_number,
+                    "type": result.error_type
+                }
+                for result in self.results if not result.success
+            ],
+            "execution_time": sum(r.execution_time for r in self.results),
+            "timestamp": datetime.now().isoformat()
+        }
+
+class ModuleImportTestSystem:
+    """모듈 Import 테스트 자동화 시스템"""
+    
+    def __init__(self):
+        self.core_modules = [
+            'naming_convention_manager',
+            'file_renaming_system',
+            'python_naming_standardizer',
+            'shell_batch_script_standardizer',
+            'documentation_standardizer',
+            'config_data_standardizer',
+            'system_output_message_standardizer',
+            'folder_structure_reorganizer',
+            'naming_standardization_verification_system'
+        ]
+        self.results = []
+        
+    def test_module_import(self, module_name: str) -> ImportTestResult:
+        """개별 모듈의 import를 테스트"""
+        start_time = time.time()
+        
+        try:
+            # 기존 모듈이 있다면 제거 (재로딩을 위해)
+            if module_name in sys.modules:
+                del sys.modules[module_name]
+            
+            # 모듈 import 시도
+            module = importlib.import_module(module_name)
+            
+            execution_time = time.time() - start_time
+            
+            return ImportTestResult(
+                test_name=f"import_{module_name}",
+                success=True,
+                message="모듈 import 성공",
+                module_name=module_name,
+                import_path=getattr(module, '__file__', 'unknown'),
+                execution_time=execution_time,
+                timestamp=datetime.now().isoformat()
+            )
+            
+        except ImportError as e:
+            execution_time = time.time() - start_time
+            return ImportTestResult(
+                test_name=f"import_{module_name}",
+                success=False,
+                message=f"Import 오류: {str(e)}",
+                module_name=module_name,
+                execution_time=execution_time,
+                timestamp=datetime.now().isoformat()
+            )
+        except Exception as e:
+            execution_time = time.time() - start_time
+            return ImportTestResult(
+                test_name=f"import_{module_name}",
+                success=False,
+                message=f"예상치 못한 오류: {str(e)}",
+                module_name=module_name,
+                execution_time=execution_time,
+                timestamp=datetime.now().isoformat()
+            )
+    
+    def test_all_core_modules(self) -> List[ImportTestResult]:
+        """모든 핵심 모듈의 import를 테스트"""
+        results = []
+        
+        for module_name in self.core_modules:
+            result = self.test_module_import(module_name)
+            results.append(result)
+            
+        self.results = results
+        return results
+    
+    def test_dependency_chain(self, module_name: str) -> ImportTestResult:
+        """모듈의 의존성 체인을 테스트"""
+        start_time = time.time()
+        dependency_chain = []
+        
+        try:
+            # 모듈 파일 찾기
+            module_file = None
+            for py_file in Path.cwd().rglob(f"{module_name}.py"):
+                module_file = py_file
+                break
+                
+            if not module_file:
+                return ImportTestResult(
+                    test_name=f"dependency_{module_name}",
+                    success=False,
+                    message=f"모듈 파일을 찾을 수 없음: {module_name}",
+                    module_name=module_name,
+                    timestamp=datetime.now().isoformat()
+                )
+            
+            # 파일에서 import 구문 추출
+            with open(module_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+                
+            # import 구문 파싱
+            tree = ast.parse(content)
+            for node in ast.walk(tree):
+                if isinstance(node, ast.Import):
+                    for alias in node.names:
+                        dependency_chain.append(alias.name)
+                elif isinstance(node, ast.ImportFrom):
+                    if node.module:
+                        dependency_chain.append(node.module)
+            
+            execution_time = time.time() - start_time
+            
+            return ImportTestResult(
+                test_name=f"dependency_{module_name}",
+                success=True,
+                message=f"의존성 체인 분석 완료: {len(dependency_chain)}개 의존성",
+                module_name=module_name,
+                dependency_chain=dependency_chain,
+                execution_time=execution_time,
+                timestamp=datetime.now().isoformat()
+            )
+            
+        except Exception as e:
+            execution_time = time.time() - start_time
+            return ImportTestResult(
+                test_name=f"dependency_{module_name}",
+                success=False,
+                message=f"의존성 분석 실패: {str(e)}",
+                module_name=module_name,
+                execution_time=execution_time,
+                timestamp=datetime.now().isoformat()
+            )
+    
+    def generate_import_report(self) -> Dict[str, Any]:
+        """Import 테스트 보고서 생성"""
+        if not self.results:
+            return {"error": "테스트 결과가 없습니다. test_all_core_modules()를 먼저 실행하세요."}
+            
+        total_modules = len(self.results)
+        successful_imports = sum(1 for r in self.results if r.success)
+        failed_imports = total_modules - successful_imports
+        
+        return {
+            "summary": {
+                "total_modules": total_modules,
+                "successful_imports": successful_imports,
+                "failed_imports": failed_imports,
+                "success_rate": (successful_imports / total_modules * 100) if total_modules > 0 else 0
+            },
+            "failed_modules": [
+                {
+                    "module": result.module_name,
+                    "error": result.message
+                }
+                for result in self.results if not result.success
+            ],
+            "execution_time": sum(r.execution_time for r in self.results),
+            "timestamp": datetime.now().isoformat()
+        }
+
+class FileReferenceIntegritySystem:
+    """파일 참조 무결성 자동 검증 시스템"""
+    
+    def __init__(self):
+        self.results = []
+        self.file_references = []
+        
+    def scan_file_references(self, root_path: Path = None) -> List[Dict[str, Any]]:
+        """모든 파일 참조를 스캔"""
+        if root_path is None:
+            root_path = Path.cwd()
+            
+        references = []
+        
+        # 제외할 디렉토리 패턴
+        exclude_patterns = [
+            '__pycache__', '.git', '.vscode', 'node_modules', '.pytest_cache',
+            '.backup', 'backup', '.repair_backup', '.enhanced_repair_backup',
+            '.aggressive_syntax_repair_backup', '.comprehensive_repair_backup',
+            '.file_reference_backup', '.file_renaming_backup', '.filename_standardization_backup',
+            '.final_file_reference_cleanup_backup', '.final_reference_cleanup_backup',
+            '.final_syntax_repair_backup', '.focused_file_reference_backup',
+            '.indentation_backup', '.naming_backup', '.refined_file_reference_backup',
+            '.repair_backups', '.syntax_repair_backup'
+        ]
+        
+        # 안전한 파일 탐색 함수
+        def safe_scan_files(path: Path, pattern: str):
+            """안전한 파일 스캔"""
+            try:
+                for file_path in path.rglob(pattern):
+                    # 경로 길이 체크
+                    if len(str(file_path)) > 1000:
+                        continue
+                    
+                    # 제외 패턴 확인
+                    if any(exclude_pattern in str(file_path) for exclude_pattern in exclude_patterns):
+                        continue
+                    
+                    yield file_path
+            except (OSError, ValueError):
+                # 파일 시스템 오류 무시
+                return
+        
+        # Python 파일에서 import 구문 스캔
+        for py_file in safe_scan_files(root_path, "*.py"):
+                
+            try:
+                with open(py_file, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                    
+                # import 구문 찾기 (더 정확한 패턴)
+                import_lines = [line.strip() for line in content.split('\n') if line.strip().startswith(('import ', 'from '))]
+                for line_num, line in enumerate(content.split('\n'), 1):
+                    line = line.strip()
+                    if line.startswith('import ') and not line.startswith('import '):
+                        continue
+                    
+                    # 표준 import 패턴
+                    import_match = re.match(r'^import\s+([a-zA-Z_][a-zA-Z0-9_]*(?:\.[a-zA-Z_][a-zA-Z0-9_]*)*)', line)
+                    if import_match:
+                        module_name = import_match.group(1)
+                        # 표준 라이브러리나 로컬 모듈만 포함
+                        if not any(skip in module_name for skip in ['__', 'site-packages']):
+                            references.append({
+                                'source_file': str(py_file),
+                                'referenced_file': module_name,
+                                'reference_type': 'import',
+                                'line_number': line_num
+                            })
+                    
+                    # from import 패턴
+                    from_match = re.match(r'^from\s+([a-zA-Z_][a-zA-Z0-9_]*(?:\.[a-zA-Z_][a-zA-Z0-9_]*)*)\s+import', line)
+                    if from_match:
+                        module_name = from_match.group(1)
+                        if not any(skip in module_name for skip in ['__', 'site-packages']) and not module_name.startswith('.'):
+                            references.append({
+                                'source_file': str(py_file),
+                                'referenced_file': module_name,
+                                'reference_type': 'import',
+                                'line_number': line_num
+                            })
+                
+                # 파일 경로 참조 찾기 (더 엄격한 패턴)
+                # 실제 파일 경로로 보이는 것들만 포함
+                path_patterns = [
+                    r'open\s*\(\s*["\']([^"\']+\.(?:py|sh|bat|json|md|txt|log|csv))["\']',  # open() 함수
+                    r'Path\s*\(\s*["\']([^"\']+\.(?:py|sh|bat|json|md|txt|log|csv))["\']',  # Path() 함수
+                    r'["\']([^"\']*[/\\][^"\']+\.(?:py|sh|bat|json|md|txt|log|csv))["\']',  # 경로가 포함된 파일
+                    r'subprocess\.run\s*\(\s*\[["\']([^"\']+\.(?:py|sh|bat))["\']',  # subprocess 실행
+                ]
+                
+                for pattern in path_patterns:
+                    for match in re.finditer(pattern, content):
+                        file_path = match.group(1)
+                        # 너무 긴 경로나 특수 문자가 많은 경우 제외
+                        if len(file_path) < 200 and not any(char in file_path for char in ['*', '?', '<', '>', '|']):
+                            references.append({
+                                'source_file': str(py_file),
+                                'referenced_file': file_path,
+                                'reference_type': 'file_path',
+                                'line_number': content[:match.start()].count('\n') + 1
+                            })
+                    
+            except Exception as e:
+                continue
+        
+        # 설정 파일에서 파일 참조 스캔
+        for config_file in safe_scan_files(root_path, "*.json"):
+                
+            try:
+                with open(config_file, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                    
+                # JSON 내 파일 경로 찾기 (더 정확한 패턴)
+                try:
+                    import json
+                    json_data = json.loads(content)
+                    
+                    def extract_file_paths(obj, path=""):
+                        """JSON 객체에서 파일 경로 추출"""
+                        if isinstance(obj, dict):
+                            for key, value in obj.items():
+                                if isinstance(value, str) and any(ext in value for ext in ['.py', '.sh', '.bat', '.json', '.md', '.txt', '.log']):
+                                    if len(value) < 200 and '/' in value or '\\' in value or value.endswith(('.py', '.sh', '.bat', '.json', '.md', '.txt', '.log')):
+                                        references.append({
+                                            'source_file': str(config_file),
+                                            'referenced_file': value,
+                                            'reference_type': 'config',
+                                            'line_number': 1  # JSON에서는 정확한 라인 번호 추적이 어려움
+                                        })
+                                elif isinstance(value, (dict, list)):
+                                    extract_file_paths(value, f"{path}.{key}" if path else key)
+                        elif isinstance(obj, list):
+                            for i, item in enumerate(obj):
+                                if isinstance(item, (dict, list)):
+                                    extract_file_paths(item, f"{path}[{i}]")
+                    
+                    extract_file_paths(json_data)
+                    
+                except (json.JSONDecodeError, UnicodeDecodeError):
+                    # JSON 파싱 실패 시 텍스트 패턴으로 대체
+                    path_pattern = r'"([^"]+\.(?:py|sh|bat|json|md|txt|log))"'
+                    for match in re.finditer(path_pattern, content):
+                        file_path = match.group(1)
+                        if len(file_path) < 200:
+                            references.append({
+                                'source_file': str(config_file),
+                                'referenced_file': file_path,
+                                'reference_type': 'config',
+                                'line_number': content[:match.start()].count('\n') + 1
+                            })
+                    
+            except Exception as e:
+                continue
+        
+        self.file_references = references
+        return references
+    
+    def verify_reference(self, reference: Dict[str, Any]) -> FileReferenceTestResult:
+        """개별 파일 참조를 검증"""
+        start_time = time.time()
+        
+        source_file = reference['source_file']
+        referenced_file = reference['referenced_file']
+        reference_type = reference['reference_type']
+        
+        try:
+            if reference_type == 'import':
+                # 모듈 import 검증
+                try:
+                    importlib.import_module(referenced_file)
+                    success = True
+                    message = "모듈 참조 유효"
+                except ImportError:
+                    # 로컬 모듈인지 확인
+                    local_file = Path(referenced_file + '.py')
+                    if local_file.exists():
+                        success = True
+                        message = "로컬 모듈 참조 유효"
+                    else:
+                        success = False
+                        message = f"모듈을 찾을 수 없음: {referenced_file}"
+                        
+            else:
+                # 파일 경로 검증
+                ref_path = Path(referenced_file)
+                if not ref_path.is_absolute():
+                    # 상대 경로인 경우 소스 파일 기준으로 해석
+                    source_dir = Path(source_file).parent
+                    ref_path = source_dir / ref_path
+                
+                if ref_path.exists():
+                    success = True
+                    message = "파일 참조 유효"
+                else:
+                    success = False
+                    message = f"파일을 찾을 수 없음: {referenced_file}"
+            
+            execution_time = time.time() - start_time
+            
+            return FileReferenceTestResult(
+                test_name=f"reference_{Path(source_file).name}_{referenced_file}",
+                success=success,
+                message=message,
+                source_file=source_file,
+                referenced_file=referenced_file,
+                reference_type=reference_type,
+                execution_time=execution_time,
+                timestamp=datetime.now().isoformat()
+            )
+            
+        except Exception as e:
+            execution_time = time.time() - start_time
+            return FileReferenceTestResult(
+                test_name=f"reference_{Path(source_file).name}_{referenced_file}",
+                success=False,
+                message=f"검증 실패: {str(e)}",
+                source_file=source_file,
+                referenced_file=referenced_file,
+                reference_type=reference_type,
+                execution_time=execution_time,
+                timestamp=datetime.now().isoformat()
+            )
+    
+    def verify_all_references(self, max_workers: int = 4, show_progress: bool = True) -> List[FileReferenceTestResult]:
+        """모든 파일 참조를 병렬로 검증"""
+        if not self.file_references:
+            self.scan_file_references()
+            
+        total_refs = len(self.file_references)
+        if total_refs == 0:
+            return []
+        
+        # 너무 많은 참조가 있으면 경고하고 샘플링
+        if total_refs > 10000:
+            print(f"⚠️  참조가 너무 많습니다 ({total_refs}개). 처음 5000개만 검증합니다.")
+            self.file_references = self.file_references[:5000]
+            total_refs = 5000
+        
+        results = []
+        completed = 0
+        
+        # 적절한 워커 수 조정 (너무 많으면 오히려 느려짐)
+        optimal_workers = min(max_workers, max(1, total_refs // 100))
+        
+        with ThreadPoolExecutor(max_workers=optimal_workers) as executor:
+            future_to_ref = {
+                executor.submit(self.verify_reference, ref): ref 
+                for ref in self.file_references
+            }
+            
+            for future in as_completed(future_to_ref):
+                reference = future_to_ref[future]
+                completed += 1
+                
+                # 진행률 표시
+                if show_progress and completed % max(1, total_refs // 20) == 0:
+                    progress = (completed / total_refs) * 100
+                    print(f"  진행률: {progress:.1f}% ({completed}/{total_refs})")
+                
+                try:
+                    result = future.result()
+                    results.append(result)
+                except Exception as e:
+                    results.append(FileReferenceTestResult(
+                        test_name=f"reference_error",
+                        success=False,
+                        message=f"테스트 실행 실패: {str(e)}",
+                        source_file=reference.get('source_file', ''),
+                        referenced_file=reference.get('referenced_file', ''),
+                        reference_type=reference.get('reference_type', ''),
+                        timestamp=datetime.now().isoformat()
+                    ))
+        
+        if show_progress:
+            print(f"  완료: 100.0% ({total_refs}/{total_refs})")
+        
+        self.results = results
+        return results
+    
+    def generate_integrity_report(self) -> Dict[str, Any]:
+        """파일 참조 무결성 보고서 생성"""
+        if not self.results:
+            return {"error": "검증 결과가 없습니다. verify_all_references()를 먼저 실행하세요."}
+            
+        total_references = len(self.results)
+        valid_references = sum(1 for r in self.results if r.success)
+        broken_references = total_references - valid_references
+        
+        reference_types = {}
+        for result in self.results:
+            ref_type = result.reference_type
+            if ref_type not in reference_types:
+                reference_types[ref_type] = {'total': 0, 'valid': 0, 'broken': 0}
+            reference_types[ref_type]['total'] += 1
+            if result.success:
+                reference_types[ref_type]['valid'] += 1
+            else:
+                reference_types[ref_type]['broken'] += 1
+        
+        return {
+            "summary": {
+                "total_references": total_references,
+                "valid_references": valid_references,
+                "broken_references": broken_references,
+                "integrity_rate": (valid_references / total_references * 100) if total_references > 0 else 0
+            },
+            "by_type": reference_types,
+            "broken_references": [
+                {
+                    "source": result.source_file,
+                    "reference": result.referenced_file,
+                    "type": result.reference_type,
+                    "error": result.message
+                }
+                for result in self.results if not result.success
+            ],
+            "execution_time": sum(r.execution_time for r in self.results),
+            "timestamp": datetime.now().isoformat()
+        }
+
+class PerformanceMonitoringSystem:
+    """성능 및 메모리 사용량 모니터링 시스템"""
+    
+    def __init__(self):
+        self.monitoring_active = False
+        self.monitoring_thread = None
+        self.performance_data = []
+        self.results = []
+        
+    def start_monitoring(self, interval: float = 1.0):
+        """성능 모니터링 시작"""
+        self.monitoring_active = True
+        self.monitoring_thread = threading.Thread(
+            target=self._monitor_performance, 
+            args=(interval,)
+        )
+        self.monitoring_thread.start()
+    
+    def stop_monitoring(self):
+        """성능 모니터링 중지"""
+        self.monitoring_active = False
+        if self.monitoring_thread:
+            self.monitoring_thread.join()
+    
+    def _monitor_performance(self, interval: float):
+        """성능 데이터를 주기적으로 수집"""
+        while self.monitoring_active:
+            try:
+                # CPU 사용률
+                cpu_percent = psutil.cpu_percent(interval=0.1)
+                
+                # 메모리 사용률
+                memory = psutil.virtual_memory()
+                memory_percent = memory.percent
+                memory_used_mb = memory.used / (1024 * 1024)
+                
+                # 디스크 I/O
+                disk_io = psutil.disk_io_counters()
+                disk_data = {
+                    'read_bytes': disk_io.read_bytes if disk_io else 0,
+                    'write_bytes': disk_io.write_bytes if disk_io else 0
+                }
+                
+                # 네트워크 I/O
+                net_io = psutil.net_io_counters()
+                network_data = {
+                    'bytes_sent': net_io.bytes_sent if net_io else 0,
+                    'bytes_recv': net_io.bytes_recv if net_io else 0
+                }
+                
+                # 프로세스별 정보
+                current_process = psutil.Process()
+                process_memory = current_process.memory_info().rss / (1024 * 1024)  # MB
+                
+                performance_point = {
+                    'timestamp': datetime.now().isoformat(),
+                    'cpu_percent': cpu_percent,
+                    'memory_percent': memory_percent,
+                    'memory_used_mb': memory_used_mb,
+                    'process_memory_mb': process_memory,
+                    'disk_io': disk_data,
+                    'network_io': network_data
+                }
+                
+                self.performance_data.append(performance_point)
+                
+                time.sleep(interval)
+                
+            except Exception as e:
+                print(f"성능 모니터링 오류: {e}")
+                time.sleep(interval)
+    
+    def run_performance_test(self, test_function, test_name: str = "performance_test") -> PerformanceTestResult:
+        """특정 함수의 성능을 테스트"""
+        # 가비지 컬렉션 실행
+        gc.collect()
+        
+        # 초기 상태 측정
+        initial_memory = psutil.virtual_memory().used / (1024 * 1024)
+        initial_process_memory = psutil.Process().memory_info().rss / (1024 * 1024)
+        
+        # 모니터링 시작
+        self.performance_data = []
+        self.start_monitoring(0.5)
+        
+        start_time = time.time()
+        
+        try:
+            # 테스트 함수 실행
+            result = test_function()
+            success = True
+            message = "성능 테스트 완료"
+        except Exception as e:
+            result = None
+            success = False
+            message = f"테스트 실행 실패: {str(e)}"
+        
+        execution_time = time.time() - start_time
+        
+        # 모니터링 중지
+        self.stop_monitoring()
+        
+        # 최종 상태 측정
+        final_memory = psutil.virtual_memory().used / (1024 * 1024)
+        final_process_memory = psutil.Process().memory_info().rss / (1024 * 1024)
+        
+        # 성능 데이터 분석
+        if self.performance_data:
+            avg_cpu = sum(p['cpu_percent'] for p in self.performance_data) / len(self.performance_data)
+            max_cpu = max(p['cpu_percent'] for p in self.performance_data)
+            avg_memory = sum(p['memory_percent'] for p in self.performance_data) / len(self.performance_data)
+            max_memory = max(p['memory_percent'] for p in self.performance_data)
+        else:
+            avg_cpu = max_cpu = avg_memory = max_memory = 0
+        
+        performance_result = PerformanceTestResult(
+            test_name=test_name,
+            success=success,
+            message=message,
+            cpu_usage=avg_cpu,
+            memory_usage=avg_memory,
+            execution_time=execution_time,
+            details={
+                'max_cpu_usage': max_cpu,
+                'max_memory_usage': max_memory,
+                'memory_delta_mb': final_memory - initial_memory,
+                'process_memory_delta_mb': final_process_memory - initial_process_memory,
+                'data_points': len(self.performance_data),
+                'result': str(result) if result else None
+            },
+            timestamp=datetime.now().isoformat()
+        )
+        
+        self.results.append(performance_result)
+        return performance_result
+    
+    def generate_performance_report(self) -> Dict[str, Any]:
+        """성능 테스트 보고서 생성"""
+        if not self.results:
+            return {"error": "성능 테스트 결과가 없습니다."}
+            
+        total_tests = len(self.results)
+        successful_tests = sum(1 for r in self.results if r.success)
+        
+        avg_cpu = sum(r.cpu_usage for r in self.results) / total_tests
+        avg_memory = sum(r.memory_usage for r in self.results) / total_tests
+        total_execution_time = sum(r.execution_time for r in self.results)
+        
+        return {
+            "summary": {
+                "total_tests": total_tests,
+                "successful_tests": successful_tests,
+                "average_cpu_usage": avg_cpu,
+                "average_memory_usage": avg_memory,
+                "total_execution_time": total_execution_time
+            },
+            "test_results": [
+                {
+                    "test_name": result.test_name,
+                    "success": result.success,
+                    "cpu_usage": result.cpu_usage,
+                    "memory_usage": result.memory_usage,
+                    "execution_time": result.execution_time,
+                    "details": result.details
+                }
+                for result in self.results
+            ],
+            "timestamp": datetime.now().isoformat()
+        }
+
+class ComprehensiveTestSystem:
+    """종합 테스트 시스템 - 모든 테스트 시스템을 통합"""
+    
+    def __init__(self):
+        self.syntax_system = SyntaxVerificationSystem()
+        self.import_system = ModuleImportTestSystem()
+        self.reference_system = FileReferenceIntegritySystem()
+        self.performance_system = PerformanceMonitoringSystem()
+        
+    def run_all_tests(self, include_performance: bool = True) -> Dict[str, Any]:
+        """모든 테스트를 실행하고 종합 보고서 생성"""
+        print("🚀 POSCO 시스템 종합 테스트 시작...")
+        
+        overall_start_time = time.time()
+        test_results = {}
+        
+        # 1. 구문 검증 테스트
+        print("\n📝 구문 검증 테스트 실행 중...")
+        try:
+            self.syntax_system.verify_all_files()
+            syntax_report = self.syntax_system.generate_syntax_report()
+            test_results['syntax_verification'] = syntax_report
+            print(f"   ✅ 구문 검증 완료: {syntax_report['summary']['success_rate']:.1f}% 성공")
+        except Exception as e:
+            test_results['syntax_verification'] = {"error": str(e)}
+            print(f"   ❌ 구문 검증 실패: {e}")
+        
+        # 2. 모듈 Import 테스트
+        print("\n📦 모듈 Import 테스트 실행 중...")
+        try:
+            self.import_system.test_all_core_modules()
+            import_report = self.import_system.generate_import_report()
+            test_results['module_import'] = import_report
+            print(f"   ✅ Import 테스트 완료: {import_report['summary']['success_rate']:.1f}% 성공")
+        except Exception as e:
+            test_results['module_import'] = {"error": str(e)}
+            print(f"   ❌ Import 테스트 실패: {e}")
+        
+        # 3. 파일 참조 무결성 테스트
+        print("\n🔗 파일 참조 무결성 테스트 실행 중...")
+        try:
+            self.reference_system.verify_all_references()
+            integrity_report = self.reference_system.generate_integrity_report()
+            test_results['file_reference_integrity'] = integrity_report
+            print(f"   ✅ 참조 무결성 완료: {integrity_report['summary']['integrity_rate']:.1f}% 유효")
+        except Exception as e:
+            test_results['file_reference_integrity'] = {"error": str(e)}
+            print(f"   ❌ 참조 무결성 테스트 실패: {e}")
+        
+        # 4. 성능 모니터링 테스트 (선택적)
+        if include_performance:
+            print("\n⚡ 성능 모니터링 테스트 실행 중...")
+            try:
+                # 샘플 성능 테스트 실행
+                def sample_test():
+                    time.sleep(2)  # 2초 대기
+                    return "성능 테스트 완료"
+                
+                perf_result = self.performance_system.run_performance_test(
+                    sample_test, "comprehensive_test_performance"
+                )
+                performance_report = self.performance_system.generate_performance_report()
+                test_results['performance_monitoring'] = performance_report
+                print(f"   ✅ 성능 모니터링 완료: CPU {perf_result.cpu_usage:.1f}%, 메모리 {perf_result.memory_usage:.1f}%")
+            except Exception as e:
+                test_results['performance_monitoring'] = {"error": str(e)}
+                print(f"   ❌ 성능 모니터링 실패: {e}")
+        
+        overall_execution_time = time.time() - overall_start_time
+        
+        # 종합 보고서 생성
+        comprehensive_report = {
+            "test_summary": {
+                "execution_time": overall_execution_time,
+                "timestamp": datetime.now().isoformat(),
+                "tests_run": len(test_results),
+                "overall_success": all(
+                    'error' not in result for result in test_results.values()
+                )
+            },
+            "detailed_results": test_results
+        }
+        
+        print(f"\n🎯 종합 테스트 완료! 총 실행 시간: {overall_execution_time:.2f}초")
+        
+        return comprehensive_report
+    
+    def save_report(self, report: Dict[str, Any], filename: str = None) -> str:
+        """테스트 보고서를 파일로 저장"""
+        if filename is None:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"comprehensive_test_report_{timestamp}.json"
+        
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(report, f, indent=2, ensure_ascii=False)
+        
+        return filename
+
+def main():
+    """메인 실행 함수"""
+    print("🔧 POSCO 시스템 종합 테스트 시스템")
+    print("=" * 50)
+    
+    # 종합 테스트 시스템 초기화
+    test_system = ComprehensiveTestSystem()
+    
+    # 모든 테스트 실행
+    report = test_system.run_all_tests(include_performance=True)
+    
+    # 보고서 저장
+    report_file = test_system.save_report(report)
+    print(f"\n📊 테스트 보고서 저장됨: {report_file}")
+    
+    # 요약 출력
+    print("\n📋 테스트 결과 요약:")
+    print("-" * 30)
+    
+    if 'syntax_verification' in report['detailed_results']:
+        syntax_data = report['detailed_results']['syntax_verification']
+        if 'summary' in syntax_data:
+            print(f"구문 검증: {syntax_data['summary']['success_rate']:.1f}% 성공 "
+                  f"({syntax_data['summary']['successful_files']}/{syntax_data['summary']['total_files']})")
+    
+    if 'module_import' in report['detailed_results']:
+        import_data = report['detailed_results']['module_import']
+        if 'summary' in import_data:
+            print(f"모듈 Import: {import_data['summary']['success_rate']:.1f}% 성공 "
+                  f"({import_data['summary']['successful_imports']}/{import_data['summary']['total_modules']})")
+    
+    if 'file_reference_integrity' in report['detailed_results']:
+        integrity_data = report['detailed_results']['file_reference_integrity']
+        if 'summary' in integrity_data:
+            print(f"파일 참조: {integrity_data['summary']['integrity_rate']:.1f}% 유효 "
+                  f"({integrity_data['summary']['valid_references']}/{integrity_data['summary']['total_references']})")
+    
+    if 'performance_monitoring' in report['detailed_results']:
+        perf_data = report['detailed_results']['performance_monitoring']
+        if 'summary' in perf_data:
+            print(f"성능 테스트: {perf_data['summary']['successful_tests']}/{perf_data['summary']['total_tests']} 성공")
+    
+    print(f"\n전체 실행 시간: {report['test_summary']['execution_time']:.2f}초")
+    print(f"전체 성공 여부: {'✅ 성공' if report['test_summary']['overall_success'] else '❌ 실패'}")
+
+if __name__ == "__main__":
+    main()

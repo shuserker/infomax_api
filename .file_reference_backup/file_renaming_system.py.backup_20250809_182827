@@ -1,0 +1,148 @@
+#!/usr/bin/env python3
+"""
+POSCO 파일 리네이밍 시스템
+POSCO File Renaming System
+
+파일 및 폴더명을 표준 네이밍 규칙에 맞게 변경합니다.
+"""
+
+from enum import Enum
+from dataclasses import dataclass
+from datetime import datetime
+from pathlib import Path
+from typing import List, Dict, Optional
+import shutil
+import json
+
+class OperationType(Enum):
+    """작업 타입"""
+    RENAME_FILE = "rename_file"
+    RENAME_FOLDER = "rename_folder"
+    MOVE_FILE = "move_file"
+
+@dataclass
+class FileOperation:
+    """파일 작업 정보"""
+    operation_id: str
+    operation_type: OperationType
+    source_path: str
+    target_path: str
+    component: str
+    timestamp: datetime
+
+class FileRenamingSystem:
+    """파일 리네이밍 시스템"""
+    
+    def __init__(self):
+        self.workspace_root = Path.cwd()
+        self.backup_dir = self.workspace_root / ".file_renaming_backup"
+        self.backup_dir.mkdir(exist_ok=True)
+        self.operations_log = []
+    
+    def rename_file(self, source_path: Path, target_name: str) -> bool:
+        """파일 이름 변경"""
+        try:
+            target_path = source_path.parent / target_name
+            
+            # 백업 생성
+            self._create_backup(source_path)
+            
+            # 파일 이름 변경
+            source_path.rename(target_path)
+            
+            # 작업 로그 기록
+            operation = FileOperation(
+                operation_id=f"rename_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+                operation_type=OperationType.RENAME_FILE,
+                source_path=str(source_path),
+                target_path=str(target_path),
+                component="unknown",
+                timestamp=datetime.now()
+            )
+            self.operations_log.append(operation)
+            
+            return True
+            
+        except Exception as e:
+            print(f"파일 이름 변경 실패: {e}")
+            return False
+    
+    def rename_folder(self, source_path: Path, target_name: str) -> bool:
+        """폴더 이름 변경"""
+        try:
+            target_path = source_path.parent / target_name
+            
+            # 폴더 이름 변경
+            source_path.rename(target_path)
+            
+            # 작업 로그 기록
+            operation = FileOperation(
+                operation_id=f"rename_folder_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+                operation_type=OperationType.RENAME_FOLDER,
+                source_path=str(source_path),
+                target_path=str(target_path),
+                component="unknown",
+                timestamp=datetime.now()
+            )
+            self.operations_log.append(operation)
+            
+            return True
+            
+        except Exception as e:
+            print(f"폴더 이름 변경 실패: {e}")
+            return False
+    
+    def batch_rename_files(self, file_mappings: Dict[str, str]) -> List[bool]:
+        """파일들 일괄 이름 변경"""
+        results = []
+        
+        for source_name, target_name in file_mappings.items():
+            source_path = self.workspace_root / source_name
+            if source_path.exists():
+                result = self.rename_file(source_path, target_name)
+                results.append(result)
+            else:
+                print(f"파일을 찾을 수 없음: {source_name}")
+                results.append(False)
+        
+        return results
+    
+    def _create_backup(self, file_path: Path):
+        """파일 백업 생성"""
+        if file_path.is_file():
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            backup_name = f"{file_path.name}.backup_{timestamp}"
+            backup_path = self.backup_dir / backup_name
+            shutil.copy2(file_path, backup_path)
+    
+    def save_operations_log(self, log_file: str = "file_operations.json"):
+        """작업 로그 저장"""
+        log_data = []
+        for op in self.operations_log:
+            log_data.append({
+                "operation_id": op.operation_id,
+                "operation_type": op.operation_type.value,
+                "source_path": op.source_path,
+                "target_path": op.target_path,
+                "component": op.component,
+                "timestamp": op.timestamp.isoformat()
+            })
+        
+        with open(log_file, 'w', encoding='utf-8') as f:
+            json.dump(log_data, f, ensure_ascii=False, indent=2)
+    
+    def get_operations_summary(self) -> Dict:
+        """작업 요약 반환"""
+        return {
+            "total_operations": len(self.operations_log),
+            "file_renames": len([op for op in self.operations_log if op.operation_type == OperationType.RENAME_FILE]),
+            "folder_renames": len([op for op in self.operations_log if op.operation_type == OperationType.RENAME_FOLDER]),
+            "move_operations": len([op for op in self.operations_log if op.operation_type == OperationType.MOVE_FILE])
+        }
+
+# 전역 인스턴스
+file_renaming_system = FileRenamingSystem()
+
+def get_file_renaming_system() -> FileRenamingSystem:
+    """파일 리네이밍 시스템 인스턴스 반환"""
+    return file_renaming_system

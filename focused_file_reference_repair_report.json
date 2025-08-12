@@ -1,0 +1,166 @@
+{
+  "timestamp": "20250809_192911",
+  "summary": {
+    "critical_files_scanned": 13,
+    "critical_issues_found": 11,
+    "broken_imports": 11,
+    "missing_files": 0
+  },
+  "critical_issues": [
+    {
+      "source_file": "file_renaming_system.py",
+      "referenced_path": "datetime",
+      "line_number": 11,
+      "issue_type": "broken_import",
+      "suggested_fix": "from datetime import datetime"
+    },
+    {
+      "source_file": "filename_standardizer.py",
+      "referenced_path": "datetime",
+      "line_number": 12,
+      "issue_type": "broken_import",
+      "suggested_fix": "from datetime import datetime"
+    },
+    {
+      "source_file": "python_naming_standardizer.py",
+      "referenced_path": "datetime",
+      "line_number": 16,
+      "issue_type": "broken_import",
+      "suggested_fix": "from datetime import datetime"
+    },
+    {
+      "source_file": "shell_batch_script_standardizer.py",
+      "referenced_path": "datetime",
+      "line_number": 17,
+      "issue_type": "broken_import",
+      "suggested_fix": "from datetime import datetime"
+    },
+    {
+      "source_file": "documentation_standardizer.py",
+      "referenced_path": "glob",
+      "line_number": 13,
+      "issue_type": "broken_import",
+      "suggested_fix": "import glob"
+    },
+    {
+      "source_file": "documentation_standardizer.py",
+      "referenced_path": "datetime",
+      "line_number": 15,
+      "issue_type": "broken_import",
+      "suggested_fix": "from datetime import datetime"
+    },
+    {
+      "source_file": "config_data_standardizer.py",
+      "referenced_path": "datetime",
+      "line_number": 25,
+      "issue_type": "broken_import",
+      "suggested_fix": "from datetime import datetime"
+    },
+    {
+      "source_file": "system_output_message_standardizer.py",
+      "referenced_path": "datetime",
+      "line_number": 16,
+      "issue_type": "broken_import",
+      "suggested_fix": "from datetime import datetime"
+    },
+    {
+      "source_file": "naming_standardization_verification_system.py",
+      "referenced_path": "datetime",
+      "line_number": 13,
+      "issue_type": "broken_import",
+      "suggested_fix": "from datetime import datetime"
+    },
+    {
+      "source_file": "final_integration_test_system.py",
+      "referenced_path": "datetime",
+      "line_number": 23,
+      "issue_type": "broken_import",
+      "suggested_fix": "from datetime import datetime"
+    },
+    {
+      "source_file": "system_functionality_verification.py",
+      "referenced_path": "datetime",
+      "line_number": 16,
+      "issue_type": "broken_import",
+      "suggested_fix": "from datetime import datetime"
+    }
+  ],
+  "repair_results": {
+    "repaired_files": 10,
+    "successful_repairs": 10,
+    "total_changes": 11,
+    "results": [
+      {
+        "file_path": "file_renaming_system.py",
+        "success": true,
+        "changes": [
+          "Line 11: datetime → from datetime import datetime"
+        ]
+      },
+      {
+        "file_path": "filename_standardizer.py",
+        "success": true,
+        "changes": [
+          "Line 12: datetime → from datetime import datetime"
+        ]
+      },
+      {
+        "file_path": "python_naming_standardizer.py",
+        "success": true,
+        "changes": [
+          "Line 16: datetime → from datetime import datetime"
+        ]
+      },
+      {
+        "file_path": "shell_batch_script_standardizer.py",
+        "success": true,
+        "changes": [
+          "Line 17: datetime → from datetime import datetime"
+        ]
+      },
+      {
+        "file_path": "documentation_standardizer.py",
+        "success": true,
+        "changes": [
+          "Line 15: datetime → from datetime import datetime",
+          "Line 13: glob → import glob"
+        ]
+      },
+      {
+        "file_path": "config_data_standardizer.py",
+        "success": true,
+        "changes": [
+          "Line 25: datetime → from datetime import datetime"
+        ]
+      },
+      {
+        "file_path": "system_output_message_standardizer.py",
+        "success": true,
+        "changes": [
+          "Line 16: datetime → from datetime import datetime"
+        ]
+      },
+      {
+        "file_path": "naming_standardization_verification_system.py",
+        "success": true,
+        "changes": [
+          "Line 13: datetime → from datetime import datetime"
+        ]
+      },
+      {
+        "file_path": "final_integration_test_system.py",
+        "success": true,
+        "changes": [
+          "Line 23: datetime → from datetime import datetime"
+        ]
+      },
+      {
+        "file_path": "system_functionality_verification.py",
+        "success": true,
+        "changes": [
+          "Line 16: datetime → from datetime import datetime"
+        ]
+      }
+    ]
+  }
+}

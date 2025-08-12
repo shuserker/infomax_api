@@ -1,9 +1,12 @@
 #!/bin/bash
 # ============================================================================
-# POSCO 제어 센터 실행기 v2 (Mac용)
+# Posco 제어센터 실행 V2
+# POSCO 시스템 구성요소
+# 
+# WatchHamster v3.0 및 POSCO News 250808 호환
+# Created: 2025-08-08
 # ============================================================================
 
-# 색상 정의
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -30,10 +33,10 @@ echo -e "${BLUE}📍 Bash 스크립트를 실행합니다...${RESET}"
 echo
 
 # 파일 존재 확인
-if [[ -f "posco_control_center.sh" ]]; then
-    echo -e "${GREEN}✅ posco_control_center.sh 파일 발견${RESET}"
+if [[ -f "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/posco_news_250808_control_center.sh" ]]; then
+    echo -e "${GREEN}✅ posco_news_250808_control_center.sh 파일 발견${RESET}"
 else
-    echo -e "${RED}❌ posco_control_center.sh 파일을 찾을 수 없습니다.${RESET}"
+    echo -e "${RED}❌ posco_news_250808_control_center.sh 파일을 찾을 수 없습니다.${RESET}"
     echo -e "${BLUE}📍 현재 경로: $(pwd)${RESET}"
     echo
     read -p "계속하려면 Enter를 누르세요..."
@@ -54,12 +57,12 @@ echo
 echo -e "${CYAN}🚀 Bash 스크립트 실행 중...${RESET}"
 
 # 실행 권한 확인 및 부여
-if [[ ! -x "posco_control_center.sh" ]]; then
-    chmod +x posco_control_center.sh
+if [[ ! -x "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/posco_news_250808_control_center.sh" ]]; then
+    chmod +x posco_news_250808_control_center.sh
 fi
 
 # 스크립트 실행
-bash posco_control_center.sh
+bash Monitoring/POSCO_News_250808/posco_news_250808_control_center.sh
 
 exit_code=$?
 
@@ -68,7 +71,7 @@ if [[ $exit_code -ne 0 ]]; then
     echo -e "${RED}❌ 스크립트 실행에 실패했습니다. (오류 코드: $exit_code)${RESET}"
     echo -e "${YELLOW}💡 해결 방법:${RESET}"
     echo -e "${WHITE}   1. Bash가 설치되어 있는지 확인${RESET}"
-    echo -e "${WHITE}   2. 스크립트 실행 권한 확인 (chmod +x posco_control_center.sh)${RESET}"
+    echo -e "${WHITE}   2. 스크립트 실행 권한 확인 (chmod +x posco_news_250808_control_center.sh)${RESET}"
     echo -e "${WHITE}   3. 필요한 파일들이 모두 있는지 확인${RESET}"
     echo
     read -p "계속하려면 Enter를 누르세요..."

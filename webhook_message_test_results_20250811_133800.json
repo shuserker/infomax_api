@@ -1,0 +1,325 @@
+{
+  "function_tests": {
+    "total_functions": 13,
+    "passed_functions": 11,
+    "failed_functions": 2,
+    "function_results": {
+      "send_status_notification": {
+        "exists": true,
+        "message_format": {
+          "valid": true,
+          "errors": [],
+          "warnings": [
+            "웹훅 URL이 발견되지 않음 (설정 파일에서 로드될 수 있음)"
+          ],
+          "details": {
+            "linebreaks": {
+              "valid_count": 21,
+              "invalid_count": 0
+            },
+            "product_names": [
+              "POSCO 워치햄스터",
+              "워치햄스터"
+            ],
+            "webhook_urls": [],
+            "korean_text_count": 118
+          }
+        }
+      },
+      "send_notification": {
+        "exists": true,
+        "message_format": {
+          "valid": true,
+          "errors": [],
+          "warnings": [
+            "웹훅 URL이 발견되지 않음 (설정 파일에서 로드될 수 있음)"
+          ],
+          "details": {
+            "linebreaks": {
+              "valid_count": 1,
+              "invalid_count": 0
+            },
+            "product_names": [
+              "POSCO 워치햄스터",
+              "워치햄스터"
+            ],
+            "webhook_urls": [],
+            "korean_text_count": 43
+          }
+        }
+      },
+      "send_status_report_v2": {
+        "exists": true,
+        "message_format": {
+          "valid": true,
+          "errors": [],
+          "warnings": [
+            "웹훅 URL이 발견되지 않음 (설정 파일에서 로드될 수 있음)"
+          ],
+          "details": {
+            "linebreaks": {
+              "valid_count": 26,
+              "invalid_count": 0
+            },
+            "product_names": [
+              "POSCO 워치햄스터",
+              "워치햄스터"
+            ],
+            "webhook_urls": [],
+            "korean_text_count": 113
+          }
+        }
+      },
+      "send_startup_notification_v2": {
+        "exists": true,
+        "message_format": {
+          "valid": true,
+          "errors": [],
+          "warnings": [
+            "웹훅 URL이 발견되지 않음 (설정 파일에서 로드될 수 있음)"
+          ],
+          "details": {
+            "linebreaks": {
+              "valid_count": 17,
+              "invalid_count": 0
+            },
+            "product_names": [
+              "POSCO 워치햄스터",
+              "워치햄스터"
+            ],
+            "webhook_urls": [],
+            "korean_text_count": 84
+          }
+        }
+      },
+      "send_process_error_v2": {
+        "exists": true,
+        "message_format": {
+          "valid": true,
+          "errors": [],
+          "warnings": [
+            "웹훅 URL이 발견되지 않음 (설정 파일에서 로드될 수 있음)"
+          ],
+          "details": {
+            "linebreaks": {
+              "valid_count": 10,
+              "invalid_count": 0
+            },
+            "product_names": [
+              "POSCO 워치햄스터",
+              "워치햄스터"
+            ],
+            "webhook_urls": [],
+            "korean_text_count": 96
+          }
+        }
+      },
+      "send_recovery_success_v2": {
+        "exists": true,
+        "message_format": {
+          "valid": true,
+          "errors": [],
+          "warnings": [
+            "웹훅 URL이 발견되지 않음 (설정 파일에서 로드될 수 있음)"
+          ],
+          "details": {
+            "linebreaks": {
+              "valid_count": 0,
+              "invalid_count": 0
+            },
+            "product_names": [
+              "POSCO 워치햄스터",
+              "워치햄스터"
+            ],
+            "webhook_urls": [],
+            "korean_text_count": 69
+          }
+        }
+      },
+      "send_critical_alert_v2": {
+        "exists": true,
+        "message_format": {
+          "valid": false,
+          "errors": [
+            "제품명이 메시지에 포함되지 않음"
+          ],
+          "warnings": [
+            "웹훅 URL이 발견되지 않음 (설정 파일에서 로드될 수 있음)"
+          ],
+          "details": {
+            "linebreaks": {
+              "valid_count": 0,
+              "invalid_count": 0
+            },
+            "product_names": [],
+            "webhook_urls": [],
+            "korean_text_count": 11
+          }
+        }
+      },
+      "send_enhanced_status_notification": {
+        "exists": true,
+        "message_format": {
+          "valid": false,
+          "errors": [
+            "제품명이 메시지에 포함되지 않음"
+          ],
+          "warnings": [
+            "웹훅 URL이 발견되지 않음 (설정 파일에서 로드될 수 있음)"
+          ],
+          "details": {
+            "linebreaks": {
+              "valid_count": 0,
+              "invalid_count": 0
+            },
+            "product_names": [],
+            "webhook_urls": [],
+            "korean_text_count": 21
+          }
+        }
+      },
+      "send_status_report_v3_0": {
+        "exists": true,
+        "message_format": {
+          "valid": true,
+          "errors": [],
+          "warnings": [
+            "웹훅 URL이 발견되지 않음 (설정 파일에서 로드될 수 있음)"
+          ],
+          "details": {
+            "linebreaks": {
+              "valid_count": 0,
+              "invalid_count": 0
+            },
+            "product_names": [
+              "POSCO WatchHamster"
+            ],
+            "webhook_urls": [],
+            "korean_text_count": 112
+          }
+        }
+      },
+      "send_startup_notification_v3_0": {
+        "exists": true,
+        "message_format": {
+          "valid": true,
+          "errors": [],
+          "warnings": [
+            "웹훅 URL이 발견되지 않음 (설정 파일에서 로드될 수 있음)"
+          ],
+          "details": {
+            "linebreaks": {
+              "valid_count": 0,
+              "invalid_count": 0
+            },
+            "product_names": [
+              "POSCO WatchHamster"
+            ],
+            "webhook_urls": [],
+            "korean_text_count": 80
+          }
+        }
+      },
+      "send_process_error_v3_0": {
+        "exists": true,
+        "message_format": {
+          "valid": true,
+          "errors": [],
+          "warnings": [
+            "웹훅 URL이 발견되지 않음 (설정 파일에서 로드될 수 있음)"
+          ],
+          "details": {
+            "linebreaks": {
+              "valid_count": 0,
+              "invalid_count": 0
+            },
+            "product_names": [
+              "POSCO WatchHamster"
+            ],
+            "webhook_urls": [],
+            "korean_text_count": 79
+          }
+        }
+      },
+      "send_recovery_success_v3_0": {
+        "exists": true,
+        "message_format": {
+          "valid": true,
+          "errors": [],
+          "warnings": [
+            "웹훅 URL이 발견되지 않음 (설정 파일에서 로드될 수 있음)"
+          ],
+          "details": {
+            "linebreaks": {
+              "valid_count": 0,
+              "invalid_count": 0
+            },
+            "product_names": [
+              "POSCO WatchHamster"
+            ],
+            "webhook_urls": [],
+            "korean_text_count": 68
+          }
+        }
+      },
+      "send_critical_alert_v3_0": {
+        "exists": true,
+        "message_format": {
+          "valid": true,
+          "errors": [],
+          "warnings": [
+            "웹훅 URL이 발견되지 않음 (설정 파일에서 로드될 수 있음)"
+          ],
+          "details": {
+            "linebreaks": {
+              "valid_count": 0,
+              "invalid_count": 0
+            },
+            "product_names": [
+              "POSCO WatchHamster"
+            ],
+            "webhook_urls": [],
+            "korean_text_count": 44
+          }
+        }
+      }
+    },
+    "summary": {
+      "success_rate": 84.61538461538461,
+      "total": 13,
+      "passed": 11,
+      "failed": 2
+    }
+  },
+  "config_tests": {
+    "valid": true,
+    "errors": [],
+    "warnings": [],
+    "details": {
+      "webhook_urls": [
+        "https://infomax.dooray.com/services/3262462484277387103/4121380745073081229/5FbudzTwTki4wCeBszBrAg",
+        "https://infomax.dooray.com/services/3262462484277387103/3281274580264701322/nKUfZnjtRS2rHh-E9i9uZQ"
+      ],
+      "bot_image_urls": [
+        "https://raw.githubusercontent.com/shuserker/infomax_api/main/Monitoring/POSCO_News_250808/posco_logo_mini.jpg"
+      ]
+    }
+  },
+  "consistency_tests": {
+    "valid": true,
+    "errors": [],
+    "warnings": [
+      "여러 제품명 변형이 사용됨: ['POSCO 워치햄스터', 'POSCO WatchHamster', '워치햄스터']"
+    ],
+    "details": {
+      "product_name_usage": {
+        "POSCO 워치햄스터": 17,
+        "POSCO WatchHamster": 22,
+        "워치햄스터": 29
+      },
+      "message_colors": [
+        "#17a2b8"
+      ]
+    }
+  }
+}

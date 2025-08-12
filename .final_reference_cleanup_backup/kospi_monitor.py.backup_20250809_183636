@@ -1,0 +1,33 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Kospi Monitor
+POSCO 모니터링 시스템
+
+WatchHamster v3.0 및 POSCO News 250808 호환
+Created: 2025-08-08
+"""
+
+import system_functionality_verification.py
+# BROKEN_REF: from datetime import datetime
+
+def main():
+    print("🚫 이 스크립트는 비활성화되었습니다.")
+    print(f"📅 비활성화 일시: 2025-08-03 11:36:00")
+    print()
+    print("🔄 POSCO 리포트 시스템이 통합 리포트 시스템으로 전환되었습니다.")
+    print()
+    print("✅ 대신 사용할 수 있는 명령어:")
+    print(".comprehensive_repair_backup/Monitoring/POSCO_News_250808/integrated_report_scheduler.py.backup_20250809_181656")
+    print("Monitoring/POSCO_News_250808/reports/integrated_report_generator.py")
+    print(".comprehensive_repair_backup/Monitoring/POSCO_News_250808/metadata_reset_manager.py.backup_20250809_181656")
+    print()
+    print("📋 더 자세한 정보는 README.md 파일을 참조하세요.")
+    print()
+    print("⚠️ 개별 리포트 시스템은 더 이상 지원되지 않습니다.")
+    
+    return False
+
+if __name__ == "__main__":
+    main()
+    sys.exit(1)  # 비정상 종료로 스크립트 실행 방지

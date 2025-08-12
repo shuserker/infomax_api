@@ -120,7 +120,7 @@ class ProcessManager:
 
 ```python
 class ModuleRegistry:
-    def __init__(self, config_file="modules.json"):
+    def __init__(self, config_file=".naming_backup/config_data_backup/Monitoring/Posco_News_mini/.naming_backup/config_data_backup/Monitoring/Posco_News_mini/.naming_backup/config_data_backup/Monitoring/Posco_News_mini/.naming_backup/config_data_backup/Monitoring/Posco_News_mini/modules.json"):
         self.config_file = config_file
         self.modules = {}
         
@@ -137,7 +137,7 @@ class ModuleRegistry:
 {
     "modules": {
         "posco_main_notifier": {
-            "script": "posco_main_notifier.py",
+            "script": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/posco_main_notifier.py",
             "description": "POSCO 메인 뉴스 알림 시스템",
             "auto_start": true,
             "restart_on_failure": true,
@@ -146,7 +146,7 @@ class ModuleRegistry:
             "dependencies": []
         },
         "realtime_news_monitor": {
-            "script": "realtime_news_monitor.py",
+            "script": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/realtime_news_monitor.py",
             "description": "실시간 뉴스 모니터링",
             "auto_start": true,
             "restart_on_failure": true,

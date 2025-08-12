@@ -1,13 +1,13 @@
-# POSCO WatchHamster v2 종합 테스트 프레임워크
+# POSCO WatchHamster v3.0 종합 테스트 프레임워크
 
 ## 개요
 
-POSCO 워치햄스터 v2.0 통합 및 테스트를 위한 종합적인 테스트 프레임워크입니다.
+POSCO WatchHamster v3.0 통합 및 테스트를 위한 종합적인 테스트 프레임워크입니다.
 
 ### 구현된 테스트 요구사항
 
 - ✅ **5.1**: v2 컴포넌트 초기화를 위한 단위 테스트
-- ✅ **5.2**: 워치햄스터-v2 컴포넌트 통신을 위한 통합 테스트  
+- ✅ **5.2**: WatchHamster-v2 컴포넌트 통신을 위한 통합 테스트  
 - ✅ **5.3**: 시작/중지/재시작 시나리오를 위한 프로세스 생명주기 테스트
 - ✅ **5.4**: 자동 복구 시뮬레이션 및 검증 테스트
 
@@ -19,10 +19,10 @@ POSCO 워치햄스터 v2.0 통합 및 테스트를 위한 종합적인 테스트
 - **목적**: v2 컴포넌트 초기화 및 통합 테스트
 - **테스트 클래스**:
   - `TestV2ComponentInitialization`: v2 컴포넌트 초기화 단위 테스트
-  - `TestWatchHamsterV2Communication`: 워치햄스터-v2 컴포넌트 통신 테스트
+  - `TestWatchHamster v3.0Communication`: WatchHamster-v2 컴포넌트 통신 테스트
 - **주요 테스트**:
   - v2 컴포넌트 파일 구조 검증
-  - 워치햄스터 초기화 테스트
+  - WatchHamster 초기화 테스트
   - v2 폴백 메커니즘 테스트
   - 프로세스 관리 통합 테스트
   - 3단계 지능적 복구 시스템 테스트
@@ -133,7 +133,7 @@ cat test_results.json
 ### 출력 예시
 
 ```
-🎯 POSCO WatchHamster v2 종합 테스트 결과 보고서
+🎯 POSCO WatchHamster v3.0 종합 테스트 결과 보고서
 ================================================================================
 
 📊 전체 실행 통계
@@ -159,7 +159,7 @@ cat test_results.json
 - ✅ 컴포넌트 상태 검증
 - ✅ 폴백 메커니즘 검증
 
-### 워치햄스터-v2 통신 테스트
+### WatchHamster-v2 통신 테스트
 - ✅ 컴포넌트 간 통신 검증
 - ✅ 상태 정보 교환 테스트
 - ✅ 알림 시스템 통합 테스트
@@ -205,7 +205,7 @@ cat test_results.json
 
 1. **상세 로그 확인**
    ```bash
-   python3 test_v2_integration.py -v
+# BROKEN_REF:    python3 test_v2_integration.py -v
    ```
 
 2. **개별 테스트 실행**
@@ -250,4 +250,4 @@ cat test_results.json
 
 ## 라이선스
 
-이 테스트 프레임워크는 POSCO 워치햄스터 프로젝트의 일부입니다.
+이 테스트 프레임워크는 POSCO WatchHamster 프로젝트의 일부입니다.

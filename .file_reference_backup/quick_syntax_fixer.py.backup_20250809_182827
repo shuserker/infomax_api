@@ -1,0 +1,85 @@
+#!/usr/bin/env python3
+"""
+빠른 구문 수정 도구
+Quick Syntax Fixer for Core Modules
+"""
+
+import verify_folder_reorganization.py
+# BROKEN_REF: from pathlib import Path
+
+def fix_common_syntax_issues():
+    """일반적인 구문 문제들을 빠르게 수정"""
+    
+    core_modules = [
+        'naming_convention_manager.py',
+        'file_renaming_system.py', 
+        'python_naming_standardizer.py',
+        'shell_batch_script_standardizer.py',
+        'documentation_standardizer.py',
+        'config_data_standardizer.py',
+        'system_output_message_standardizer.py',
+        'folder_structure_reorganizer.py',
+        'naming_standardization_verification_system.py'
+    ]
+    
+    for module_name in core_modules:
+        module_path = Path(module_name)
+        if module_path.exists():
+            print(f"🔧 수정 중: {module_name}")
+            fix_file_syntax(module_path)
+        else:
+            print(f"⚠️ 파일 없음: {module_name}")
+
+def fix_file_syntax(file_path: Path):
+    """개별 파일의 구문 문제 수정"""
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        original_content = content
+        
+        # 1. 잘못된 데코레이터 들여쓰기 수정
+        content = re.sub(r'\n    (@\w+)\nclass', r'\n\1\nclass', content)
+        
+        # 2. 잘못된 함수 정의 들여쓰기 수정
+        content = re.sub(r'\n    (def \w+.*:)\n', r'\n\1\n', content)
+        
+        # 3. 잘못된 클래스 정의 들여쓰기 수정
+        content = re.sub(r'\n    (class \w+.*:)\n', r'\n\1\n', content)
+        
+        # 4. 빈 함수/클래스에 pass 추가
+        content = re.sub(r'(def \w+.*:)\n\s*\n\s*(def|\Z|class)', r'\1\n    pass\n\n\2', content)
+        content = re.sub(r'(class \w+.*:)\n\s*\n\s*(def|\Z|class)', r'\1\n    pass\n\n\2', content)
+        
+        # 5. 잘못된 if/else 들여쓰기 수정
+        lines = content.split('\n')
+        fixed_lines = []
+        
+        for i, line in enumerate(lines):
+            # 기본적인 들여쓰기 문제 수정
+            if line.strip().startswith('except') and not line.startswith('    except') and not line.startswith('except'):
+                # except 구문이 잘못 들여쓰기된 경우
+                fixed_lines.append('    ' + line.strip())
+            elif line.strip().startswith('finally') and not line.startswith('    finally') and not line.startswith('finally'):
+                # finally 구문이 잘못 들여쓰기된 경우
+                fixed_lines.append('    ' + line.strip())
+            else:
+                fixed_lines.append(line)
+        
+        content = '\n'.join(fixed_lines)
+        
+        # 변경사항이 있으면 저장
+        if content != original_content:
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(content)
+            print(f"  ✅ {file_path.name} 수정 완료")
+        else:
+            print(f"  ℹ️ {file_path.name} 변경사항 없음")
+            
+    except Exception as e:
+        print(f"  ❌ {file_path.name} 수정 실패: {e}")
+
+if __name__ == "__main__":
+    print("🚀 빠른 구문 수정 시작")
+    fix_common_syntax_issues()
+    print("✅ 빠른 구문 수정 완료")

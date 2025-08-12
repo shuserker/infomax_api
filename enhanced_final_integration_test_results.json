@@ -1,0 +1,256 @@
+{
+  "test_summary": {
+    "timestamp": "2025-08-10T18:24:15.298277",
+    "platform_info": {
+      "system": "Darwin",
+      "platform": "macOS-26.0-arm64-arm-64bit",
+      "architecture": [
+        "64bit",
+        ""
+      ],
+      "python_version": "3.9.6",
+      "processor": "arm"
+    },
+    "test_configuration": {
+      "timeout_seconds": 30,
+      "max_workers": 4,
+      "memory_threshold_mb": 1000,
+      "cpu_threshold_percent": 80,
+      "target_success_rate": 95.0,
+      "performance_benchmark_enabled": true,
+      "cross_platform_tests_enabled": true,
+      "e2e_tests_enabled": true
+    },
+    "overall_results": {
+      "success_rate": 14.285714285714285,
+      "overall_status": "POOR",
+      "total_tests": 7,
+      "passed_tests": 1,
+      "warning_tests": 1,
+      "failed_tests": 5,
+      "total_execution_time": 2.53604793548584,
+      "avg_execution_time": 0.032726594379970005,
+      "total_memory_usage": 11.265625,
+      "avg_cpu_usage": 61.916666666666664,
+      "target_achieved": false
+    }
+  },
+  "detailed_results": [
+    {
+      "test_name": "wrapper",
+      "category": "System Error",
+      "status": "FAIL",
+      "message": "Test execution failed: [Errno 63] File name too long: '/Users/jy_lee/Desktop/GIT_DEV/infomax_api/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups'",
+      "execution_time": 0.0,
+      "memory_usage": 0.0,
+      "cpu_usage": 0.0,
+      "details": null,
+      "timestamp": "2025-08-10T18:24:12.948594"
+    },
+    {
+      "test_name": "Comprehensive Module Import Testing",
+      "category": "Module Import",
+      "status": "FAIL",
+      "message": "Success rate: 11.1% (1/9)",
+      "execution_time": 0.024117231369018555,
+      "memory_usage": 3.0625,
+      "cpu_usage": 90.7,
+      "details": {
+        "total_modules": 9,
+        "successful_imports": [
+          "file_renaming_system"
+        ],
+        "failed_imports": [
+          {
+            "module": "naming_convention_manager",
+            "error": "Unexpected error: invalid syntax (verify_folder_reorganization.py, line 12)"
+          },
+          {
+            "module": "python_naming_standardizer",
+            "error": "Syntax error: Syntax error (line 59): closing parenthesis ']' does not match opening parenthesis '('"
+          },
+          {
+            "module": "shell_batch_script_standardizer",
+            "error": "Syntax error: Syntax error (line 83): unindent does not match any outer indentation level"
+          },
+          {
+            "module": "documentation_standardizer",
+            "error": "Syntax error: Syntax error (line 13): invalid syntax"
+          },
+          {
+            "module": "config_data_standardizer",
+            "error": "Syntax error: Syntax error (line 44): invalid syntax"
+          },
+          {
+            "module": "system_output_message_standardizer",
+            "error": "Syntax error: Syntax error (line 160): invalid syntax"
+          },
+          {
+            "module": "folder_structure_reorganizer",
+            "error": "Syntax error: Syntax error (line 84): unindent does not match any outer indentation level"
+          },
+          {
+            "module": "naming_standardization_verification_system",
+            "error": "Syntax error: Syntax error (line 12): invalid decimal literal"
+          }
+        ],
+        "success_rate": 11.11111111111111
+      },
+      "timestamp": "2025-08-10T18:24:12.972730"
+    },
+    {
+      "test_name": "wrapper",
+      "category": "System Error",
+      "status": "FAIL",
+      "message": "Test execution failed: [Errno 63] File name too long: '/Users/jy_lee/Desktop/GIT_DEV/infomax_api/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups'",
+      "execution_time": 0.0,
+      "memory_usage": 0.0,
+      "cpu_usage": 0.0,
+      "details": null,
+      "timestamp": "2025-08-10T18:24:13.004652"
+    },
+    {
+      "test_name": "Comprehensive System Execution Testing",
+      "category": "System Execution",
+      "status": "PASS",
+      "message": "Success rate: 100.0% (4/4)",
+      "execution_time": 0.19492721557617188,
+      "memory_usage": 8.203125,
+      "cpu_usage": 58.55,
+      "details": {
+        "total_tests": 4,
+        "passed_tests": 4,
+        "success_rate": 100.0,
+        "execution_results": [
+          {
+            "test": "WatchHamster Control Center",
+            "status": "PASS",
+            "message": "Command file exists and is executable"
+          },
+          {
+            "test": "POSCO News Monitoring",
+            "status": "PASS",
+            "message": "Main news file exists and has valid syntax"
+          },
+          {
+            "test": "Shell/Batch Scripts",
+            "status": "PASS",
+            "message": "Executable scripts: 3/3 (100%)"
+          },
+          {
+            "test": "Webhook Connectivity",
+            "status": "PASS",
+            "message": "Accessible webhooks: 2/2 (100%)"
+          }
+        ]
+      },
+      "timestamp": "2025-08-10T18:24:13.199587"
+    },
+    {
+      "test_name": "wrapper",
+      "category": "System Error",
+      "status": "FAIL",
+      "message": "Test execution failed: [Errno 63] File name too long: '/Users/jy_lee/Desktop/GIT_DEV/infomax_api/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups'",
+      "execution_time": 0.0,
+      "memory_usage": 0.0,
+      "cpu_usage": 0.0,
+      "details": null,
+      "timestamp": "2025-08-10T18:24:15.266960"
+    },
+    {
+      "test_name": "wrapper",
+      "category": "System Error",
+      "status": "FAIL",
+      "message": "Test execution failed: [Errno 63] File name too long: '/Users/jy_lee/Desktop/GIT_DEV/infomax_api/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups'",
+      "execution_time": 0.0,
+      "memory_usage": 0.0,
+      "cpu_usage": 0.0,
+      "details": null,
+      "timestamp": "2025-08-10T18:24:15.287905"
+    },
+    {
+      "test_name": "User Scenario-based E2E Testing",
+      "category": "End-to-End",
+      "status": "WARNING",
+      "message": "E2E success rate: 75.0%",
+      "execution_time": 0.01004171371459961,
+      "memory_usage": -0.75,
+      "cpu_usage": 36.5,
+      "details": {
+        "total_scenarios": 4,
+        "passed_scenarios": 3,
+        "e2e_success_rate": 75.0,
+        "scenario_results": [
+          {
+            "scenario": "WatchHamster Startup",
+            "status": "PASS",
+            "message": "Control center files available: 3/3",
+            "details": [
+              "🐹POSCO_워치햄스터_v3_제어센터.command",
+              "🐹POSCO_워치햄스터_v3_제어센터.bat",
+              "🎛️WatchHamster_v3.0_Control_Panel.bat"
+            ]
+          },
+          {
+            "scenario": "POSCO News Check",
+            "status": "PASS",
+            "message": "News monitoring files available: 3/3",
+            "details": [
+              "POSCO_News_250808.py",
+              "Monitoring/POSCO_News_250808/posco_main_notifier_minimal.py",
+              "Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0_minimal.py"
+            ]
+          },
+          {
+            "scenario": "System Status Check",
+            "status": "PASS",
+            "message": "System status files available: 3/3",
+            "details": [
+              "system_functionality_verification.py",
+              "final_integration_test_system.py",
+              "comprehensive_system_execution_test.py"
+            ]
+          },
+          {
+            "scenario": "User Testing",
+            "status": "FAIL",
+            "message": "Scenario test error: [Errno 63] File name too long: '/Users/jy_lee/Desktop/GIT_DEV/infomax_api/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups/full_system_backup_20250810_173854/.repair_backups'"
+          }
+        ]
+      },
+      "timestamp": "2025-08-10T18:24:15.297950"
+    }
+  ],
+  "performance_analysis": {
+    "execution_times": [
+      0.0,
+      0.024117231369018555,
+      0.0,
+      0.19492721557617188,
+      0.0,
+      0.0,
+      0.01004171371459961
+    ],
+    "memory_usage": [
+      3.0625,
+      8.203125
+    ],
+    "cpu_usage": [
+      90.7,
+      58.55,
+      36.5
+    ]
+  },
+  "recommendations": [
+    "🎯 Target success rate of 95.0% not achieved. Current: 14.3%",
+    "📦 Resolve module import issues and dependencies"
+  ],
+  "next_steps": [
+    "🔧 Address failed test cases in priority order",
+    "🐍 Run syntax repair tools for Python files",
+    "📦 Fix module import dependencies",
+    "🔗 Repair broken file references",
+    "🔄 Re-run integration tests after fixes",
+    "📈 Monitor progress towards 95% target"
+  ]
+}

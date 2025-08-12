@@ -1,0 +1,72 @@
+/Users/jy_lee/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+[INFO] NewYorkMarketMonitor 비활성화됨 - 통합 리포트 시스템 사용
+[INFO] KospiCloseMonitor 비활성화됨
+[INFO] ExchangeRateMonitor 비활성화됨
+[INFO] MasterNewsMonitor 비활성화됨
+[2025-08-07 14:38:15] 🔍 v2_path: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/Posco_News_mini_v2
+[2025-08-07 14:38:15] 🔍 v2_path exists: True
+[2025-08-07 14:38:15] 🔧 새로운 아키텍처 컴포넌트 초기화 완료
+[2025-08-07 14:38:15] 📋 관리 대상 프로세스 로드: 3개
+[2025-08-07 14:38:15]   • posco_main_notifier
+[2025-08-07 14:38:15]   • realtime_news_monitor
+[2025-08-07 14:38:15]   • integrated_report_scheduler
+[2025-08-07 14:38:15] 🔄 모듈 레지스트리 상태 동기화 완료
+[2025-08-07 14:38:15] 📋 이전 상태 로드 완료
+[2025-08-07 14:38:15] 🧠 스마트 상태 판단 시스템 초기화 완료
+[2025-08-07 14:38:15] 🔄 개별 모니터링 비활성화 - 통합 리포트 시스템으로 전환됨
+[INFO] NewYorkMarketMonitor 비활성화됨 - 통합 리포트 시스템 사용
+[INFO] KospiCloseMonitor 비활성화됨
+[INFO] ExchangeRateMonitor 비활성화됨
+⚠️ ExchangeRateMonitor 비활성화됨
+⚠️ KospiCloseMonitor 비활성화됨
+⚠️ NewYorkMarketMonitor 비활성화됨 - 통합 리포트 시스템 사용
+📊 통합 리포트 스케줄러 초기화 완료
+[2025-08-07 14:38:15] 📊 통합 리포트 스케줄러 초기화 완료
+[2025-08-07 14:38:15] ⚠️ 마스터 모니터링 시스템 비활성화 (모듈 없음)
+🐹 POSCO 워치햄스터 시작
+[2025-08-07 14:38:15] POSCO 뉴스 모니터 워치햄스터 시작
+[2025-08-07 14:38:15] ✅ 알림 전송 성공: POSCO 뉴스 모니터 워치햄스터 시작
+[2025-08-07 14:38:15] 🔄 모니터링 시스템 초기화 중...
+[2025-08-07 14:38:15] 🚀 모든 프로세스 시작 중...
+[2025-08-07 14:38:15] 🔄 posco_main_notifier 시작 중...
+[2025-08-07 14:38:18] ✅ posco_main_notifier 시작 성공
+[2025-08-07 14:38:20] 🔄 realtime_news_monitor 시작 중...
+❌ realtime_news_monitor 프로세스 시작 실패
+[2025-08-07 14:38:23] ❌ realtime_news_monitor 시작 실패
+[2025-08-07 14:38:25] 🔄 integrated_report_scheduler 시작 중...
+[2025-08-07 14:38:28] ✅ integrated_report_scheduler 시작 성공
+[2025-08-07 14:38:30] ⚠️ 일부 프로세스만 시작됨 (2/3)
+[2025-08-07 14:38:30] ✅ 모니터링 시스템 초기화 성공
+[2025-08-07 14:38:30] ⚠️ 프로세스 헬스체크: 2/3 정상
+[2025-08-07 14:38:30] 🔧 realtime_news_monitor 자동 복구 시작
+❌ realtime_news_monitor 프로세스 시작 실패
+❌ realtime_news_monitor 프로세스 시작 실패
+❌ realtime_news_monitor 프로세스 시작 실패
+❌ realtime_news_monitor: 모든 복구 시도 실패, 프로세스 비활성화
+[2025-08-07 14:48:54] ❌ realtime_news_monitor 자동 복구 실패
+[2025-08-07 14:48:54] ❌ 워치햄스터 🛡️ 오류: 'PoscoMonitorWatchHamster' object has no attribute '_create_system_status_object'
+[2025-08-07 14:48:54] ✅ 알림 전송 성공: POSCO 모니터 워치햄스터 오류
+🐹 POSCO 워치햄스터 시작
+[2025-08-07 14:48:54] POSCO 뉴스 모니터 워치햄스터 시작
+[2025-08-07 14:48:54] ✅ 알림 전송 성공: POSCO 뉴스 모니터 워치햄스터 시작
+[2025-08-07 14:48:54] 🔄 모니터링 시스템 초기화 중...
+[2025-08-07 14:48:54] 🚀 모든 프로세스 시작 중...
+[2025-08-07 14:48:54] 🔄 posco_main_notifier 시작 중...
+[2025-08-07 14:49:20] ✅ posco_main_notifier 시작 성공
+[2025-08-07 14:49:22] 🔄 realtime_news_monitor 시작 중...
+❌ realtime_news_monitor 프로세스 시작 실패
+[2025-08-07 14:49:25] ❌ realtime_news_monitor 시작 실패
+[2025-08-07 14:49:27] 🔄 integrated_report_scheduler 시작 중...
+[2025-08-07 14:49:30] ✅ integrated_report_scheduler 시작 성공
+[2025-08-07 14:49:32] ⚠️ 일부 프로세스만 시작됨 (2/3)
+[2025-08-07 14:49:32] ✅ 모니터링 시스템 초기화 성공
+[2025-08-07 14:49:32] ⚠️ 프로세스 헬스체크: 2/3 정상
+[2025-08-07 14:49:32] 🔧 realtime_news_monitor 자동 복구 시작
+❌ realtime_news_monitor 프로세스 시작 실패
+❌ realtime_news_monitor 프로세스 시작 실패
+❌ realtime_news_monitor 프로세스 시작 실패
+❌ realtime_news_monitor: 모든 복구 시도 실패, 프로세스 비활성화
+[2025-08-07 14:59:54] ❌ realtime_news_monitor 자동 복구 실패
+[2025-08-07 14:59:54] ❌ 워치햄스터 🛡️ 오류: 'PoscoMonitorWatchHamster' object has no attribute '_create_system_status_object'
+[2025-08-07 14:59:54] ✅ 알림 전송 성공: POSCO 모니터 워치햄스터 오류

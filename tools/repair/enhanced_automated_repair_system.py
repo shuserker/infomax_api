@@ -1,0 +1,810 @@
+#!/usr/bin/env python3
+"""
+Enhanced POSCO 시스템 자동화된 수리 도구
+Enhanced Automated Repair System for POSCO System
+
+기존 시스템의 문제점을 개선한 향상된 자동 수리 도구입니다.
+- 더 안전한 백업 시스템
+- 향상된 구문 오류 감지 및 수정
+- 개선된 Import 문제 해결
+- 강화된 파일 참조 복구
+"""
+
+import ast
+import os
+import re
+import sys
+import json
+import shutil
+import hashlib
+import importlib
+import traceback
+from pathlib import Path
+from typing import Dict, List, Optional, Tuple, Set, Any
+from dataclasses import dataclass, asdict
+from datetime import datetime
+import subprocess
+import tempfile
+import datetime
+import pathlib
+
+
+@dataclass
+class RepairTask:
+    """수리 작업을 나타내는 데이터 클래스"""
+    task_id: str
+    file_path: str
+    task_type: str  # 'syntax', 'import', 'reference'
+    description: str
+    priority: int  # 1=high, 2=medium, 3=low
+    estimated_time: int  # seconds
+    dependencies: List[str] = None  # 의존하는 다른 task_id들
+
+
+@dataclass
+class RepairResult:
+    """수리 결과를 저장하는 데이터 클래스"""
+    task_id: str
+    file_path: str
+    success: bool
+    changes_made: List[str]
+    backup_created: bool
+    execution_time: float
+    error_message: Optional[str] = None
+
+
+class SafeBackupManager:
+    """안전한 백업 관리자"""
+    
+    def __init__(self, backup_dir: str = ".enhanced_repair_backups"):
+        self.backup_dir = Path(backup_dir)
+        self.backup_dir.mkdir(exist_ok=True)
+        self.backup_registry = {}
+        self.max_backups_per_file = 5
+    
+    def create_file_backup(self, file_path: Path) -> str:
+        """개별 파일의 안전한 백업 생성"""
+        try:
+            if not file_path.exists():
+                return ""
+            
+            # 파일 크기 제한 (10MB)
+            if file_path.stat().st_size > 10 * 1024 * 1024:
+                print(f"파일이 너무 큼, 백업 건너뛰기: {file_path}")
+                return ""
+            
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            safe_name = str(file_path).replace("/", "_").replace("\\", "_")
+            backup_name = f"{safe_name}.backup_{timestamp}"
+            backup_path = self.backup_dir / backup_name
+            
+            # 백업 경로 길이 제한
+            if len(str(backup_path)) > 200:
+                backup_name = f"file_{hashlib.md5(str(file_path).encode()).hexdigest()[:8]}.backup_{timestamp}"
+                backup_path = self.backup_dir / backup_name
+            
+            shutil.copy2(file_path, backup_path)
+            
+            # 백업 레지스트리에 등록
+            file_key = str(file_path)
+            if file_key not in self.backup_registry:
+                self.backup_registry[file_key] = []
+            
+            self.backup_registry[file_key].append({
+                "backup_path": str(backup_path),
+                "timestamp": timestamp,
+                "file_hash": self._calculate_hash(file_path)
+            })
+            
+            # 오래된 백업 정리
+            self._cleanup_old_backups(file_key)
+            
+            return str(backup_path)
+        except Exception as e:
+            print(f"백업 생성 실패 {file_path}: {e}")
+            return ""
+    
+    def restore_file(self, file_path: str) -> bool:
+        """파일을 최신 백업에서 복원"""
+        try:
+            if file_path not in self.backup_registry:
+                return False
+            
+            backups = self.backup_registry[file_path]
+            if not backups:
+                return False
+            
+            latest_backup = backups[-1]
+            backup_path = Path(latest_backup["backup_path"])
+            
+            if backup_path.exists():
+                shutil.copy2(backup_path, file_path)
+                return True
+            
+            return False
+        except Exception as e:
+            print(f"파일 복원 실패 {file_path}: {e}")
+            return False
+    
+    def _calculate_hash(self, file_path: Path) -> str:
+        """파일 해시 계산"""
+        try:
+            with open(file_path, 'rb') as f:
+                return hashlib.md5(f.read()).hexdigest()
+        except:
+            return ""
+    
+    def _cleanup_old_backups(self, file_key: str):
+        """오래된 백업 정리"""
+        if file_key not in self.backup_registry:
+            return
+        
+        backups = self.backup_registry[file_key]
+        if len(backups) > self.max_backups_per_file:
+            # 오래된 백업 삭제
+            old_backups = backups[:-self.max_backups_per_file]
+            for backup in old_backups:
+                try:
+                    Path(backup["backup_path"]).unlink(missing_ok=True)
+                except:
+                    pass
+            
+            # 레지스트리 업데이트
+            self.backup_registry[file_key] = backups[-self.max_backups_per_file:]
+
+
+class EnhancedSyntaxRepairer:
+    """향상된 구문 오류 수정기"""
+    
+    def __init__(self, backup_manager: SafeBackupManager):
+        self.backup_manager = backup_manager
+        self.common_fixes = {
+            # f-string 오류 패턴
+            r'f"([^"]*/{[^}]*/}[^}]*)/}"': r'f"/1"',
+            r"f'([^']*/{[^}]*/}[^}]*)/}'": r"f'/1'",
+            
+            # 일반적인 네이밍 수정
+            r'/bPOSCO News 250808/b': 'POSCO_NEWS_250808',
+            r'/bWatchHamster v3/.0/b': 'WATCHHAMSTER_V30',
+            r'/bposco news/b': 'posco_news',
+        }
+    
+    def repair_file_syntax(self, file_path: Path) -> RepairResult:
+        """파일의 구문 오류 수정"""
+        task_id = f"syntax_{file_path.name}_{datetime.now().strftime('%H%M%S')}"
+        start_time = datetime.now()
+        changes_made = []
+        
+        try:
+            # 백업 생성
+            backup_path = self.backup_manager.create_file_backup(file_path)
+            backup_created = bool(backup_path)
+            
+            with open(file_path, 'r', encoding='utf-8') as f:
+                original_content = f.read()
+            
+            content = original_content
+            
+            # 1. 기본 구문 오류 수정
+            content, basic_changes = self._fix_basic_syntax_errors(content)
+            changes_made.extend(basic_changes)
+            
+            # 2. 들여쓰기 수정
+            content, indent_changes = self._fix_indentation(content)
+            changes_made.extend(indent_changes)
+            
+            # 3. 일반적인 패턴 수정
+            content, pattern_changes = self._fix_common_patterns(content)
+            changes_made.extend(pattern_changes)
+            
+            # 4. AST 검증
+            try:
+                ast.parse(content)
+                syntax_valid = True
+            except SyntaxError as e:
+                syntax_valid = False
+                changes_made.append(f"구문 검증 실패: {e}")
+            
+            # 변경사항이 있고 구문이 유효하면 저장
+            if content != original_content and syntax_valid:
+                with open(file_path, 'w', encoding='utf-8') as f:
+                    f.write(content)
+            elif content != original_content and not syntax_valid:
+                # 구문이 유효하지 않으면 원본으로 복원
+                changes_made.append("구문 오류로 인해 변경사항 롤백")
+                content = original_content
+            
+            execution_time = (datetime.now() - start_time).total_seconds()
+            
+            return RepairResult(
+                task_id=task_id,
+                file_path=str(file_path),
+                success=len(changes_made) > 0 and syntax_valid,
+                changes_made=changes_made,
+                backup_created=backup_created,
+                execution_time=execution_time
+            )
+            
+        except Exception as e:
+            execution_time = (datetime.now() - start_time).total_seconds()
+            return RepairResult(
+                task_id=task_id,
+                file_path=str(file_path),
+                success=False,
+                changes_made=[],
+                backup_created=False,
+                execution_time=execution_time,
+                error_message=str(e)
+            )
+    
+    def _fix_basic_syntax_errors(self, content: str) -> Tuple[str, List[str]]:
+        """기본 구문 오류 수정"""
+        changes = []
+        
+        # 일반적인 패턴 수정
+        for pattern, replacement in self.common_fixes.items():
+            if re.search(pattern, content):
+                content = re.sub(pattern, replacement, content)
+                changes.append(f"패턴 수정: {pattern} -> {replacement}")
+        
+        return content, changes
+    
+    def _fix_indentation(self, content: str) -> Tuple[str, List[str]]:
+        """들여쓰기 수정"""
+        changes = []
+        lines = content.split('\n')
+        
+        for i, line in enumerate(lines):
+            if line.strip():  # 빈 라인이 아닌 경우
+                # 탭을 4칸 스페이스로 변환
+                if '\t' in line:
+                    lines[i] = line.replace('\t', '    ')
+                    changes.append(f"라인 {i+1}: 탭을 스페이스로 변환")
+        
+        return '\n'.join(lines), changes
+    
+    def _fix_common_patterns(self, content: str) -> Tuple[str, List[str]]:
+        """일반적인 오류 패턴 수정"""
+        changes = []
+        
+        # with_open 오류 수정
+        if 'with_open(' in content:
+            content = content.replace('with_open(', 'with open(')
+            changes.append("with_open을 with open으로 수정")
+        
+        # 잘못된 언더스코어 패턴 수정
+        content = re.sub(r',_\'', ', \'', content)
+        content = re.sub(r'_encoding/s*=', ' encoding=', content)
+        if ',_\'' in content or '_encoding' in content:
+            changes.append("잘못된 언더스코어 패턴 수정")
+        
+        # 잘못된 줄바꿈 문자 수정
+        if '/n' in content:
+            content = content.replace('/n', '\\n')
+            changes.append("잘못된 줄바꿈 문자 수정")
+        
+        return content, changes
+
+
+class EnhancedImportRepairer:
+    """향상된 Import 문제 해결기"""
+    
+    def __init__(self, backup_manager: SafeBackupManager):
+        self.backup_manager = backup_manager
+        self.import_mappings = {
+            'Posco_News_mini': 'POSCO_News_250808',
+            'WatchHamster_v3.0': 'WatchHamster_v3.0',
+            'posco_news_250808': 'posco_news_250808',
+        }
+    
+    def repair_file_imports(self, file_path: Path) -> RepairResult:
+        """파일의 Import 문제 수정"""
+        task_id = f"import_{file_path.name}_{datetime.now().strftime('%H%M%S')}"
+        start_time = datetime.now()
+        changes_made = []
+        
+        try:
+            # 백업 생성
+            backup_path = self.backup_manager.create_file_backup(file_path)
+            backup_created = bool(backup_path)
+            
+            with open(file_path, 'r', encoding='utf-8') as f:
+                original_content = f.read()
+            
+            content = original_content
+            
+            # Import 경로 수정
+            content, import_changes = self._fix_import_paths(content)
+            changes_made.extend(import_changes)
+            
+            # 필요한 import 추가
+            content, missing_changes = self._add_missing_imports(content)
+            changes_made.extend(missing_changes)
+            
+            # 변경사항이 있으면 저장
+            if content != original_content:
+                with open(file_path, 'w', encoding='utf-8') as f:
+                    f.write(content)
+            
+            execution_time = (datetime.now() - start_time).total_seconds()
+            
+            return RepairResult(
+                task_id=task_id,
+                file_path=str(file_path),
+                success=len(changes_made) > 0,
+                changes_made=changes_made,
+                backup_created=backup_created,
+                execution_time=execution_time
+            )
+            
+        except Exception as e:
+            execution_time = (datetime.now() - start_time).total_seconds()
+            return RepairResult(
+                task_id=task_id,
+                file_path=str(file_path),
+                success=False,
+                changes_made=[],
+                backup_created=False,
+                execution_time=execution_time,
+                error_message=str(e)
+            )
+    
+    def _fix_import_paths(self, content: str) -> Tuple[str, List[str]]:
+        """Import 경로 수정"""
+        changes = []
+        
+        for old_path, new_path in self.import_mappings.items():
+            patterns = [
+                f'from {old_path}',
+                f'import {old_path}',
+            ]
+            
+            for pattern in patterns:
+                if pattern in content:
+                    new_pattern = pattern.replace(old_path, new_path)
+                    content = content.replace(pattern, new_pattern)
+                    changes.append(f"Import 경로 수정: {pattern} -> {new_pattern}")
+        
+        return content, changes
+    
+    def _add_missing_imports(self, content: str) -> Tuple[str, List[str]]:
+        """필요한 import 추가"""
+        changes = []
+        lines = content.split('\n')
+        
+        # 자주 사용되는 모듈 패턴 확인
+        common_patterns = {
+            'os': ['os.path', 'os.environ', 'os.getcwd'],
+            'sys': ['sys.path', 'sys.argv', 'sys.exit'],
+            'json': ['json.load', 'json.dump', 'json.loads'],
+            'datetime': ['datetime.now', 'datetime.strftime'],
+            'pathlib': ['Path('],
+            're': ['re.search', 're.match', 're.sub', 're.findall'],
+        }
+        
+        existing_imports = set()
+        import_section_end = 0
+        
+        # 기존 import 확인
+        for i, line in enumerate(lines):
+            stripped = line.strip()
+            if stripped.startswith(('import ', 'from ')):
+                existing_imports.add(stripped)
+                import_section_end = i + 1
+        
+        # 필요한 import 찾기
+        imports_to_add = []
+        for module, patterns in common_patterns.items():
+            for pattern in patterns:
+                if pattern in content:
+                    import_stmt = f'import {module}'
+                    if import_stmt not in existing_imports and import_stmt not in imports_to_add:
+                        imports_to_add.append(import_stmt)
+                        changes.append(f"필요한 import 추가: {module}")
+                        break
+        
+        # import 추가
+        if imports_to_add:
+            for imp in imports_to_add:
+                lines.insert(import_section_end, imp)
+                import_section_end += 1
+        
+        return '\n'.join(lines), changes
+
+
+class EnhancedReferenceRepairer:
+    """향상된 파일 참조 복구기"""
+    
+    def __init__(self, backup_manager: SafeBackupManager):
+        self.backup_manager = backup_manager
+        self.reference_mappings = {
+            'POSCO_News_250808.py': 'POSCO_News_250808.py',
+            'WatchHamster_v3.0': 'WatchHamster_v3.0',
+            'posco_news_250808': 'posco_news_250808',
+        }
+    
+    def repair_file_references(self, file_path: Path) -> RepairResult:
+        """파일의 참조 문제 수정"""
+        task_id = f"reference_{file_path.name}_{datetime.now().strftime('%H%M%S')}"
+        start_time = datetime.now()
+        changes_made = []
+        
+        try:
+            # 백업 생성
+            backup_path = self.backup_manager.create_file_backup(file_path)
+            backup_created = bool(backup_path)
+            
+            with open(file_path, 'r', encoding='utf-8') as f:
+                original_content = f.read()
+            
+            content = original_content
+            
+            # 파일 참조 수정
+            content, ref_changes = self._fix_file_references(content)
+            changes_made.extend(ref_changes)
+            
+            # 경로 구분자 표준화
+            content, path_changes = self._standardize_path_separators(content)
+            changes_made.extend(path_changes)
+            
+            # 변경사항이 있으면 저장
+            if content != original_content:
+                with open(file_path, 'w', encoding='utf-8') as f:
+                    f.write(content)
+            
+            execution_time = (datetime.now() - start_time).total_seconds()
+            
+            return RepairResult(
+                task_id=task_id,
+                file_path=str(file_path),
+                success=len(changes_made) > 0,
+                changes_made=changes_made,
+                backup_created=backup_created,
+                execution_time=execution_time
+            )
+            
+        except Exception as e:
+            execution_time = (datetime.now() - start_time).total_seconds()
+            return RepairResult(
+                task_id=task_id,
+                file_path=str(file_path),
+                success=False,
+                changes_made=[],
+                backup_created=False,
+                execution_time=execution_time,
+                error_message=str(e)
+            )
+    
+    def _fix_file_references(self, content: str) -> Tuple[str, List[str]]:
+        """파일 참조 수정"""
+        changes = []
+        
+        for old_ref, new_ref in self.reference_mappings.items():
+            if old_ref in content:
+                content = content.replace(old_ref, new_ref)
+                changes.append(f"파일 참조 수정: {old_ref} -> {new_ref}")
+        
+        return content, changes
+    
+    def _standardize_path_separators(self, content: str) -> Tuple[str, List[str]]:
+        """경로 구분자 표준화"""
+        changes = []
+        
+        # Windows 경로를 Unix 스타일로 변경
+        if '\\' in content:
+            # 문자열 내의 백슬래시만 변경 (이스케이프 시퀀스 제외)
+            content = re.sub(r'\/(?!\[nrt"\'\/\])', '/', content)
+            changes.append("경로 구분자 표준화 (\/를 /로 변경)")
+        
+        return content, changes
+
+
+class EnhancedAutomatedRepairSystem:
+    """향상된 통합 자동화 수리 시스템"""
+    
+    def __init__(self):
+        self.backup_manager = SafeBackupManager()
+        self.syntax_repairer = EnhancedSyntaxRepairer(self.backup_manager)
+        self.import_repairer = EnhancedImportRepairer(self.backup_manager)
+        self.reference_repairer = EnhancedReferenceRepairer(self.backup_manager)
+        
+        self.repair_tasks = []
+        self.repair_results = []
+    
+    def analyze_system(self) -> Dict[str, Any]:
+        """시스템 분석 및 수리 작업 계획 수립"""
+        print("🔍 시스템 분석 시작...")
+        
+        analysis_results = {
+            "timestamp": datetime.now().isoformat(),
+            "total_files": 0,
+            "python_files": 0,
+            "files_with_issues": 0,
+            "estimated_repair_time": 0,
+            "repair_tasks": []
+        }
+        
+        # Python 파일 분석
+        python_files = list(Path(".").glob("**/*.py"))
+        # 백업 디렉토리 제외
+        python_files = [f for f in python_files if not any(
+            exclude in str(f) for exclude in [
+                ".git", "__pycache__", ".backup", "backup_", 
+                "full_system_backup", ".enhanced_repair_backups"
+            ]
+        )]
+        
+        analysis_results["total_files"] = len(python_files)
+        analysis_results["python_files"] = len(python_files)
+        
+        # 각 파일 분석
+        for py_file in python_files[:50]:  # 처음 50개 파일만 분석
+            try:
+                with open(py_file, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                
+                file_issues = []
+                
+                # 구문 오류 확인
+                try:
+                    ast.parse(content)
+                except SyntaxError:
+                    file_issues.append("syntax_error")
+                
+                # 일반적인 문제 패턴 확인
+                if 'with_open(' in content:
+                    file_issues.append("with_open_error")
+                if 'Posco_News_mini' in content:
+                    file_issues.append("legacy_import")
+                if '\\' in content and not content.count('\\n'):
+                    file_issues.append("path_separator")
+                
+                if file_issues:
+                    analysis_results["files_with_issues"] += 1
+                    
+                    # 수리 작업 생성
+                    for issue in file_issues:
+                        task = RepairTask(
+                            task_id=f"{issue}_{py_file.name}_{len(self.repair_tasks)}",
+                            file_path=str(py_file),
+                            task_type=self._get_task_type(issue),
+                            description=f"{issue} in {py_file.name}",
+                            priority=self._get_priority(issue),
+                            estimated_time=self._estimate_time(issue)
+                        )
+                        self.repair_tasks.append(task)
+                        analysis_results["repair_tasks"].append(asdict(task))
+            
+            except Exception as e:
+                print(f"파일 분석 중 오류: {py_file} - {e}")
+                continue
+        
+        analysis_results["estimated_repair_time"] = sum(
+            task.estimated_time for task in self.repair_tasks
+        )
+        
+        print(f"✅ 분석 완료: {analysis_results['files_with_issues']}개 파일에서 {len(self.repair_tasks)}개 작업 발견")
+        return analysis_results
+    
+    def execute_repairs(self, max_files: int = 20) -> Dict[str, Any]:
+        """수리 작업 실행"""
+        print(f"🔧 수리 작업 실행 시작 (최대 {max_files}개 파일)...")
+        
+        execution_results = {
+            "timestamp": datetime.now().isoformat(),
+            "total_tasks": len(self.repair_tasks),
+            "executed_tasks": 0,
+            "successful_tasks": 0,
+            "failed_tasks": 0,
+            "total_execution_time": 0,
+            "results": []
+        }
+        
+        # 우선순위별로 정렬
+        sorted_tasks = sorted(self.repair_tasks, key=lambda x: x.priority)
+        
+        # 파일별로 그룹화
+        files_processed = set()
+        
+        for task in sorted_tasks:
+            if len(files_processed) >= max_files:
+                break
+            
+            if task.file_path in files_processed:
+                continue
+            
+            files_processed.add(task.file_path)
+            file_path = Path(task.file_path)
+            
+            if not file_path.exists():
+                continue
+            
+            print(f"  🔧 수리 중: {file_path.name}")
+            
+            # 파일별로 모든 수리 작업 실행
+            file_results = []
+            
+            # 구문 수리
+            syntax_result = self.syntax_repairer.repair_file_syntax(file_path)
+            file_results.append(syntax_result)
+            
+            # Import 수리
+            import_result = self.import_repairer.repair_file_imports(file_path)
+            file_results.append(import_result)
+            
+            # 참조 수리
+            reference_result = self.reference_repairer.repair_file_references(file_path)
+            file_results.append(reference_result)
+            
+            # 결과 집계
+            for result in file_results:
+                execution_results["executed_tasks"] += 1
+                if result.success:
+                    execution_results["successful_tasks"] += 1
+                else:
+                    execution_results["failed_tasks"] += 1
+                
+                execution_results["total_execution_time"] += result.execution_time
+                execution_results["results"].append(asdict(result))
+                self.repair_results.append(result)
+        
+        print(f"✅ 수리 완료: {execution_results['successful_tasks']}/{execution_results['executed_tasks']} 성공")
+        return execution_results
+    
+    def verify_repairs(self) -> Dict[str, Any]:
+        """수리 결과 검증"""
+        print("🔍 수리 결과 검증 중...")
+        
+        verification_results = {
+            "timestamp": datetime.now().isoformat(),
+            "files_checked": 0,
+            "syntax_errors": 0,
+            "import_errors": 0,
+            "overall_success_rate": 0.0,
+            "details": []
+        }
+        
+        # 수리된 파일들 검증
+        repaired_files = set(result.file_path for result in self.repair_results if result.success)
+        
+        for file_path_str in repaired_files:
+            file_path = Path(file_path_str)
+            if not file_path.exists():
+                continue
+            
+            verification_results["files_checked"] += 1
+            file_details = {"file": str(file_path), "issues": []}
+            
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                
+                # 구문 검증
+                try:
+                    ast.parse(content)
+                except SyntaxError as e:
+                    verification_results["syntax_errors"] += 1
+                    file_details["issues"].append(f"구문 오류: {e}")
+                
+                # Import 검증 (간단한 패턴 확인)
+                if 'Posco_News_mini' in content or 'WatchHamster_v3.0' in content:
+                    verification_results["import_errors"] += 1
+                    file_details["issues"].append("레거시 import 패턴 발견")
+                
+                if file_details["issues"]:
+                    verification_results["details"].append(file_details)
+            
+            except Exception as e:
+                file_details["issues"].append(f"검증 중 오류: {e}")
+                verification_results["details"].append(file_details)
+        
+        # 전체 성공률 계산
+        total_issues = verification_results["syntax_errors"] + verification_results["import_errors"]
+        if verification_results["files_checked"] > 0:
+            verification_results["overall_success_rate"] = max(
+                0, 100 - (total_issues / verification_results["files_checked"] * 100)
+            )
+        
+        print(f"✅ 검증 완료: {verification_results['overall_success_rate']:.1f}% 성공률")
+        return verification_results
+    
+    def _get_task_type(self, issue: str) -> str:
+        """이슈 타입에 따른 작업 타입 반환"""
+        if issue in ['syntax_error', 'with_open_error']:
+            return 'syntax'
+        elif issue in ['legacy_import']:
+            return 'import'
+        elif issue in ['path_separator']:
+            return 'reference'
+        else:
+            return 'general'
+    
+    def _get_priority(self, issue: str) -> int:
+        """이슈에 따른 우선순위 반환"""
+        priority_map = {
+            'syntax_error': 1,  # 높음
+            'with_open_error': 1,
+            'legacy_import': 2,  # 중간
+            'path_separator': 3,  # 낮음
+        }
+        return priority_map.get(issue, 2)
+    
+    def _estimate_time(self, issue: str) -> int:
+        """이슈에 따른 예상 시간 반환 (초)"""
+        time_map = {
+            'syntax_error': 30,
+            'with_open_error': 10,
+            'legacy_import': 15,
+            'path_separator': 5,
+        }
+        return time_map.get(issue, 20)
+
+
+def main():
+    """메인 실행 함수"""
+    print("🚀 Enhanced POSCO 시스템 자동화된 수리 도구 v2.0")
+    print("=" * 60)
+    
+    repair_system = EnhancedAutomatedRepairSystem()
+    
+    try:
+        # 1단계: 시스템 분석
+        print("\n1️⃣ 시스템 분석 단계")
+        analysis_results = repair_system.analyze_system()
+        
+        if len(repair_system.repair_tasks) == 0:
+            print("✅ 수리가 필요한 문제가 발견되지 않았습니다.")
+            return
+        
+        print(f"   발견된 문제: {len(repair_system.repair_tasks)}개")
+        print(f"   예상 수리 시간: {analysis_results['estimated_repair_time']}초")
+        
+        # 2단계: 수리 실행
+        print("\n2️⃣ 수리 실행 단계")
+        execution_results = repair_system.execute_repairs(max_files=20)
+        
+        # 3단계: 검증
+        print("\n3️⃣ 수리 검증 단계")
+        verification_results = repair_system.verify_repairs()
+        
+        # 결과 요약
+        print("\n" + "=" * 60)
+        print("📊 최종 수리 결과 요약")
+        print("=" * 60)
+        print(f"분석된 파일: {analysis_results['python_files']}개")
+        print(f"문제 발견 파일: {analysis_results['files_with_issues']}개")
+        print(f"실행된 작업: {execution_results['executed_tasks']}개")
+        print(f"성공한 작업: {execution_results['successful_tasks']}개")
+        print(f"실패한 작업: {execution_results['failed_tasks']}개")
+        print(f"전체 실행 시간: {execution_results['total_execution_time']:.1f}초")
+        print(f"검증 성공률: {verification_results['overall_success_rate']:.1f}%")
+        
+        if verification_results['overall_success_rate'] >= 90:
+            print("\n🎉 수리 목표 달성! (90% 이상)")
+        elif verification_results['overall_success_rate'] >= 70:
+            print("\n👍 양호한 수리 결과입니다.")
+        else:
+            print("\n⚠️  추가 수리가 필요할 수 있습니다.")
+        
+        # 결과 저장
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        results_file = f"enhanced_repair_results_{timestamp}.json"
+        
+        combined_results = {
+            "analysis": analysis_results,
+            "execution": execution_results,
+            "verification": verification_results
+        }
+        
+        with open(results_file, 'w', encoding='utf-8') as f:
+            json.dump(combined_results, f, indent=2, ensure_ascii=False)
+        
+        print(f"\n💾 상세 결과가 저장되었습니다: {results_file}")
+        
+    except Exception as e:
+        print(f"❌ 수리 시스템 실행 중 오류 발생: {e}")
+        traceback.print_exc()
+
+
+if __name__ == "__main__":
+    main()

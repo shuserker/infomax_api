@@ -1,0 +1,208 @@
+# POSCO 네이밍 컨벤션 관리 시스템 가이드
+
+## 개요
+
+POSCO 프로젝트의 모든 파일, 폴더, 클래스, 변수명을 일관된 네이밍 컨벤션으로 표준화하는 시스템입니다.
+
+## 버전 체계
+
+### WatchHamster v3.0
+- **적용 범위**: WatchHamster 관련 모든 요소
+- **파일명**: `*_v3.0_*` 형식
+- **폴더명**: `WatchHamster_v3.0_*` 형식
+- **클래스명**: `*WatchHamster v3.00*` 형식
+- **변수명**: `watchhamster_v3_0_*` 형식
+
+### POSCO News 250808
+- **적용 범위**: POSCO News 관련 모든 요소
+- **파일명**: `*_250808_*` 형식
+- **폴더명**: `POSCO_News_250808_*` 형식
+- **클래스명**: `*POSCO News 250808*` 형식
+- **변수명**: `posco_news_250808_*` 형식
+
+## 사용법
+
+### 기본 사용법
+
+```python
+from naming_convention_manager import NamingConventionManager
+
+# 매니저 인스턴스 생성
+manager = NamingConventionManager()
+
+# 파일명 표준화
+result = manager.standardize_filename("demo_v2_integration.py")
+print(f"{result.original} → {result.converted}")
+# 출력: demo_v2_integration.py → demo_watchhamster_v3.0_integration.py
+
+# 폴더명 표준화
+result = manager.standardize_foldername("POSCO News")
+print(f"{result.original} → {result.converted}")
+# 출력: POSCO News → POSCO_News_250808
+
+# 클래스명 표준화
+result = manager.standardize_classname("PoscoNewsMonitor")
+print(f"{result.original} → {result.converted}")
+# 출력: PoscoNewsMonitor → POSCO News 250808Monitor
+
+# 변수명 표준화
+result = manager.standardize_variable_name("watchhamster_v2_config")
+print(f"{result.original} → {result.converted}")
+# 출력: watchhamster_v2_config → watchhamster_v3_0_config
+```
+
+### 변환 통계 확인
+
+```python
+# 변환 통계 확인
+stats = manager.get_conversion_statistics()
+print(f"총 변환 시도: {stats['total_conversions']}")
+print(f"성공한 변환: {stats['successful_conversions']}")
+print(f"실패한 변환: {stats['failed_conversions']}")
+
+# 변환 보고서 생성
+report = manager.generate_conversion_report()
+print(report)
+```
+
+## 변환 규칙
+
+### WatchHamster 관련 변환
+
+#### 파일명 변환
+- `🐹WatchHamster_총괄_관리_센터_v3.bat` → `🐹WatchHamster_v3.0_Control_Center.bat`
+- `demo_v2_integration.py` → `demo_watchhamster_v3.0_integration.py`
+- `test_v2_integration.py` → `test_watchhamster_v3.0_integration.py`
+- `monitor_WatchHamster.py` → `monitor_WatchHamster_v3.0.py`
+
+#### 폴더명 변환
+- `POSCO News_v2` → `WatchHamster_v3.0`
+- `posco-watchhamster-v2-integration` → `watchhamster-v3.0-integration`
+
+#### 클래스명 변환
+- `PoscoMonitorWatchHamster` → `WatchHamster v3.00Monitor`
+- `EnhancedProcessManager` → `WatchHamster v3.00ProcessManager`
+- `NotificationManager` → `WatchHamster v3.00NotificationManager`
+
+### POSCO News 관련 변환
+
+#### 파일명 변환
+- `POSCO News.py` → `POSCO_News_250808.py`
+- `posco_main_notifier.py` → `posco_news_250808_notifier.py`
+- `posco_news_data.json` → `posco_news_250808_data.json`
+
+#### 폴더명 변환
+- `POSCO News` → `POSCO_News_250808`
+
+#### 클래스명 변환
+- `PoscoNewsMonitor` → `POSCO News 250808Monitor`
+- `MainNotifier` → `POSCO News 250808Notifier`
+- `RealtimeMonitor` → `POSCO News 250808RealtimeMonitor`
+
+## 컴포넌트 감지 로직
+
+시스템은 다음 키워드를 기반으로 컴포넌트 타입을 자동 감지합니다:
+
+### WatchHamster 키워드
+- `watchhamster`, `WatchHamster`, `hamster`
+- `demo_v2`, `test_v2`, `control_center`
+- `enhancedprocessmanager`, `notificationmanager`
+
+### POSCO News 키워드
+- `posco_news`, `posco_main`, `posco_continuous`
+- `news_mini`, `main_notifier`, `realtime_news`
+- `posco_mini`, `news_version`
+
+## 특별 케이스 처리
+
+### 우선순위 규칙
+1. **특별 케이스**: `POSCO News 250808_v2`는 WatchHamster로 분류
+2. **WatchHamster 우선**: 키워드 충돌 시 WatchHamster가 우선
+3. **정확한 매칭**: 클래스명은 정확한 패턴 매칭 사용
+
+## 에러 처리
+
+### 알 수 없는 컴포넌트
+```python
+result = manager.standardize_filename("unknown_file.py")
+print(f"성공: {result.success}")  # False
+print(f"이유: {result.reason}")   # "Unknown component type"
+```
+
+### 변환 실패 추적
+모든 변환 시도는 기록되며, 실패한 경우 이유가 함께 저장됩니다.
+
+## 테스트 실행
+
+```bash
+# 단위 테스트 실행
+python3 test_naming_convention_manager.py
+
+# 데모 실행
+python3 naming_convention_manager.py
+```
+
+## API 참조
+
+### NamingConventionManager 클래스
+
+#### 메서드
+- `standardize_filename(filename: str) -> ConversionResult`
+- `standardize_foldername(foldername: str) -> ConversionResult`
+- `standardize_classname(classname: str) -> ConversionResult`
+- `standardize_variable_name(variable_name: str) -> ConversionResult`
+- `detect_component_type(name: str) -> ComponentType`
+- `get_version_info() -> Dict[str, str]`
+- `get_conversion_statistics() -> Dict[str, int]`
+- `generate_conversion_report() -> str`
+
+#### 상수
+- `WATCHHAMSTER_VERSION = "v3.0"`
+- `POSCO_NEWS_VERSION = "250808"`
+
+### ConversionResult 데이터 클래스
+
+```python
+@dataclass
+class ConversionResult:
+    original: str           # 원본 이름
+    converted: str          # 변환된 이름
+    component: ComponentType # 컴포넌트 타입
+    conversion_type: str    # 변환 타입 ("file", "folder", "class", "variable")
+    success: bool           # 변환 성공 여부
+    reason: str = ""        # 실패 이유 (선택적)
+```
+
+## 확장 가능성
+
+시스템은 다음과 같이 확장할 수 있습니다:
+
+1. **새로운 컴포넌트 타입 추가**
+2. **추가 변환 규칙 정의**
+3. **커스텀 네이밍 패턴 지원**
+4. **배치 처리 기능 추가**
+
+## 주의사항
+
+1. **기능 보존**: 네이밍만 변경하고 코드 로직은 보존
+2. **호환성 유지**: 기존 데이터 파일과의 호환성 보장
+3. **점진적 적용**: 단계별로 변환 적용 권장
+4. **백업 필수**: 변환 전 반드시 백업 수행
+
+## 문제 해결
+
+### 일반적인 문제
+1. **컴포넌트 감지 실패**: 키워드 목록 확인 및 추가
+2. **패턴 매칭 실패**: 정규식 패턴 검토 및 수정
+3. **변환 결과 불일치**: 테스트 케이스 추가 및 검증
+
+### 디버깅 팁
+```python
+# 컴포넌트 감지 확인
+component = manager.detect_component_type("your_filename")
+print(f"감지된 컴포넌트: {component}")
+
+# 변환 과정 추적
+result = manager.standardize_filename("your_filename")
+print(f"변환 결과: {result}")
+```

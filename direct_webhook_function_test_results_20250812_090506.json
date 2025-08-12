@@ -1,0 +1,13 @@
+{
+  "test_summary": {
+    "start_time": "2025-08-12T09:05:06.697862",
+    "end_time": "2025-08-12T09:05:06.698340",
+    "total_tests": 0,
+    "successful_tests": 0,
+    "success_rate": "0%",
+    "available_functions": []
+  },
+  "test_results": [],
+  "monitor_available": false,
+  "monitor_instance_created": false
+}

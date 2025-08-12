@@ -1,0 +1,64 @@
+2025-08-09 16:32:28,862 - INFO - === POSCO 폴더 구조 재구성 시작 ===
+2025-08-09 16:32:28,862 - INFO - 새로운 폴더 구조 생성 시작...
+2025-08-09 16:32:28,862 - INFO - 폴더 생성: Monitoring/POSCO_News_250808
+2025-08-09 16:32:28,863 - INFO - 폴더 생성: Monitoring/WatchHamster_v3.0
+2025-08-09 16:32:28,863 - INFO - 폴더 이미 존재: Monitoring/docs
+2025-08-09 16:32:28,863 - INFO - POSCO News 파일들 이동: Monitoring/Posco_News_mini -> Monitoring/POSCO_News_250808
+2025-08-09 16:32:28,864 - INFO - 파일 복사: Monitoring/Posco_News_mini/🔧POSCO_시스템_상태확인.bat -> Monitoring/POSCO_News_250808/🔧POSCO_시스템_상태확인.bat
+2025-08-09 16:32:28,865 - INFO - 파일 복사: Monitoring/Posco_News_mini/WatchHamster_v3.0_status.json -> Monitoring/POSCO_News_250808/WatchHamster_v3.0_status.json
+2025-08-09 16:32:28,866 - INFO - 파일 복사: Monitoring/Posco_News_mini/📋POSCO_시스템_유지보수_메뉴얼.md -> Monitoring/POSCO_News_250808/📋POSCO_시스템_유지보수_메뉴얼.md
+2025-08-09 16:32:28,867 - INFO - 파일 복사: Monitoring/Posco_News_mini/WatchHamster_v3.0.log -> Monitoring/POSCO_News_250808/WatchHamster_v3.0.log
+2025-08-09 16:32:28,869 - INFO - 파일 복사: Monitoring/Posco_News_mini/report_cleanup_manager.py -> Monitoring/POSCO_News_250808/report_cleanup_manager.py
+2025-08-09 16:32:28,870 - INFO - 파일 복사: Monitoring/Posco_News_mini/integrated_report_builder.py -> Monitoring/POSCO_News_250808/integrated_report_builder.py
+2025-08-09 16:32:28,871 - INFO - 파일 복사: Monitoring/Posco_News_mini/metadata_reset_manager.py -> Monitoring/POSCO_News_250808/metadata_reset_manager.py
+2025-08-09 16:32:28,872 - INFO - 파일 복사: Monitoring/Posco_News_mini/posco_news_250808_control_center.sh -> Monitoring/POSCO_News_250808/posco_news_250808_control_center.sh
+2025-08-09 16:32:28,873 - INFO - 파일 복사: Monitoring/Posco_News_mini/📊POSCO_뉴스_알림시스템_전체구조_검수완료.md -> Monitoring/POSCO_News_250808/📊POSCO_뉴스_알림시스템_전체구조_검수완료.md
+2025-08-09 16:32:28,874 - INFO - 파일 복사: Monitoring/Posco_News_mini/🧪POSCO_테스트_실행.bat -> Monitoring/POSCO_News_250808/🧪POSCO_테스트_실행.bat
+2025-08-09 16:32:28,874 - INFO - 파일 복사: Monitoring/Posco_News_mini/config.py -> Monitoring/POSCO_News_250808/config.py
+2025-08-09 16:32:28,878 - INFO - 폴더 복사: Monitoring/Posco_News_mini/core -> Monitoring/POSCO_News_250808/core
+2025-08-09 16:32:28,880 - INFO - 파일 복사: Monitoring/Posco_News_mini/requirements.txt -> Monitoring/POSCO_News_250808/requirements.txt
+2025-08-09 16:32:28,880 - INFO - 파일 복사: Monitoring/Posco_News_mini/🎛️POSCO_메인_시스템.bat -> Monitoring/POSCO_News_250808/🎛️POSCO_메인_시스템.bat
+2025-08-09 16:32:28,881 - INFO - 파일 복사: Monitoring/Posco_News_mini/completion_notifier.py -> Monitoring/POSCO_News_250808/completion_notifier.py
+2025-08-09 16:32:28,881 - INFO - 파일 복사: Monitoring/Posco_News_mini/posco_main_notifier.py -> Monitoring/POSCO_News_250808/posco_main_notifier.py
+2025-08-09 16:32:28,882 - INFO - 파일 복사: Monitoring/Posco_News_mini/REPORT_ACCESS_GUIDE.md -> Monitoring/POSCO_News_250808/REPORT_ACCESS_GUIDE.md
+2025-08-09 16:32:28,883 - INFO - 파일 복사: Monitoring/Posco_News_mini/posco_news_250808_notifier.log -> Monitoring/POSCO_News_250808/posco_news_250808_notifier.log
+2025-08-09 16:32:28,884 - INFO - 파일 복사: Monitoring/Posco_News_mini/main_notifier_state.json -> Monitoring/POSCO_News_250808/main_notifier_state.json
+2025-08-09 16:32:28,885 - INFO - 파일 복사: Monitoring/Posco_News_mini/performance_alerts.json -> Monitoring/POSCO_News_250808/performance_alerts.json
+2025-08-09 16:32:28,887 - INFO - 폴더 복사: Monitoring/Posco_News_mini/utils -> Monitoring/POSCO_News_250808/utils
+2025-08-09 16:32:28,888 - INFO - 파일 복사: Monitoring/Posco_News_mini/test_watchhamster_notification.py -> Monitoring/POSCO_News_250808/test_watchhamster_notification.py
+2025-08-09 16:32:28,907 - INFO - 폴더 복사: Monitoring/Posco_News_mini/docs -> Monitoring/POSCO_News_250808/docs
+2025-08-09 16:32:28,909 - INFO - 파일 복사: Monitoring/Posco_News_mini/historical_data_collector.py -> Monitoring/POSCO_News_250808/historical_data_collector.py
+2025-08-09 16:32:28,919 - INFO - 폴더 복사: Monitoring/Posco_News_mini/backup_archive_20250806 -> Monitoring/POSCO_News_250808/backup_archive_20250806
+2025-08-09 16:32:28,920 - INFO - 파일 복사: Monitoring/Posco_News_mini/📋POSCO_시스템_정리_및_검증_완료_20250806.md -> Monitoring/POSCO_News_250808/📋POSCO_시스템_정리_및_검증_완료_20250806.md
+2025-08-09 16:32:28,921 - INFO - 파일 복사: Monitoring/Posco_News_mini/README.md -> Monitoring/POSCO_News_250808/README.md
+2025-08-09 16:32:28,922 - INFO - 파일 복사: Monitoring/Posco_News_mini/🔄POSCO_Git_업데이트.bat -> Monitoring/POSCO_News_250808/🔄POSCO_Git_업데이트.bat
+2025-08-09 16:32:28,922 - INFO - 파일 복사: Monitoring/Posco_News_mini/INTEGRATED_REPORT_SYSTEM_GUIDE.md -> Monitoring/POSCO_News_250808/INTEGRATED_REPORT_SYSTEM_GUIDE.md
+2025-08-09 16:32:28,948 - INFO - 파일 복사: Monitoring/Posco_News_mini/posco_report_system_reset.py -> Monitoring/POSCO_News_250808/posco_report_system_reset.py
+2025-08-09 16:32:28,950 - INFO - 파일 복사: Monitoring/Posco_News_mini/🛑🛑POSCO_News_250808_Stop.bat -> Monitoring/POSCO_News_250808/🛑🛑POSCO_News_250808_Stop.bat
+2025-08-09 16:32:28,952 - INFO - 파일 복사: Monitoring/Posco_News_mini/integrated_report_scheduler.py -> Monitoring/POSCO_News_250808/integrated_report_scheduler.py
+2025-08-09 16:32:28,953 - INFO - 파일 복사: Monitoring/Posco_News_mini/modules.json -> Monitoring/POSCO_News_250808/modules.json
+2025-08-09 16:32:29,001 - INFO - 파일 복사: Monitoring/Posco_News_mini/📋POSCO_로그_확인.bat -> Monitoring/POSCO_News_250808/📋POSCO_로그_확인.bat
+2025-08-09 16:32:29,003 - INFO - 파일 복사: Monitoring/Posco_News_mini/monitor_WatchHamster_v3.0.py -> Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0.py
+2025-08-09 16:32:29,003 - INFO - 파일 복사: Monitoring/Posco_News_mini/realtime_news_monitor.py -> Monitoring/POSCO_News_250808/realtime_news_monitor.py
+2025-08-09 16:32:29,004 - INFO - 파일 복사: Monitoring/Posco_News_mini/🚀🚀POSCO_News_250808_Start.bat -> Monitoring/POSCO_News_250808/🚀🚀POSCO_News_250808_Start.bat
+2025-08-09 16:32:29,038 - INFO - 폴더 복사: Monitoring/Posco_News_mini/reports -> Monitoring/POSCO_News_250808/reports
+2025-08-09 16:32:29,039 - INFO - 파일 복사: Monitoring/Posco_News_mini/posco_logo_mini.jpg -> Monitoring/POSCO_News_250808/posco_logo_mini.jpg
+2025-08-09 16:32:29,039 - INFO - 파일 복사: Monitoring/Posco_News_mini/github_pages_deployer.py -> Monitoring/POSCO_News_250808/github_pages_deployer.py
+2025-08-09 16:32:29,039 - INFO - WatchHamster 파일들 이동: Monitoring/Posco_News_mini_v2 -> Monitoring/WatchHamster_v3.0
+2025-08-09 16:32:29,045 - INFO - 폴더 복사: Monitoring/Posco_News_mini_v2/core -> Monitoring/WatchHamster_v3.0/core
+2025-08-09 16:32:29,046 - INFO - 파일 복사: Monitoring/Posco_News_mini_v2/README.md -> Monitoring/WatchHamster_v3.0/README.md
+2025-08-09 16:32:29,046 - INFO - 파일 복사: Monitoring/Posco_News_mini_v2/modules.json -> Monitoring/WatchHamster_v3.0/modules.json
+2025-08-09 16:32:29,046 - INFO - 상대 경로 참조 업데이트 시작...
+2025-08-09 16:32:29,071 - INFO - 파일 업데이트: file_renaming_simulation_report.txt
+2025-08-09 16:32:29,077 - INFO - 파일 업데이트: posco_renaming_simulation_report.txt
+2025-08-09 16:32:29,078 - INFO - 파일 업데이트: folder_structure_reorganizer.py
+2025-08-09 16:32:29,087 - INFO - 파일 업데이트: config_data_standardization_report.json
+2025-08-09 16:32:29,089 - INFO - 파일 업데이트: documentation_standardization_report.md
+2025-08-09 16:32:29,101 - INFO - 파일 업데이트: final_integration_verification_results.json
+2025-08-09 16:32:29,109 - INFO - 파일 업데이트: system_output_message_standardization_report.md
+2025-08-09 16:32:29,119 - INFO - 파일 업데이트: test_results.json
+2025-08-09 16:32:29,122 - INFO - 총 8개 파일의 경로 참조 업데이트 완료
+2025-08-09 16:32:29,130 - INFO - 폴더 구조 문서 생성: Monitoring/FOLDER_STRUCTURE_GUIDE.md
+2025-08-09 16:32:29,132 - INFO - 변경 사항 로그 저장: folder_reorganization_log.json
+2025-08-09 16:32:29,132 - INFO - === POSCO 폴더 구조 재구성 완료 ===
+2025-08-09 16:32:29,132 - INFO - 총 53개 항목이 변경되었습니다.

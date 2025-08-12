@@ -1,0 +1,575 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+POSCO 설정 파일 및 데이터 파일 표준화 시스템
+Configuration and Data File Standardization System
+
+이 모듈은 POSCO 프로젝트의 모든 JSON 설정 파일, 데이터 파일, 환경 변수, 로그 파일명을
+일관된 네이밍 컨벤션으로 표준화합니다.
+
+주요 기능:
+- JSON 설정 파일의 버전 정보 필드 표준화
+- 환경 변수명 통일 및 표준화  
+- 로그 파일명 및 데이터 파일명 표준화
+- 설정 파일 내부 주석 및 설명 표준화
+
+버전 체계:
+- WatchHamster: v3.0 (메이저.마이너)
+- POSCO News 250808 250808 250808 250808 250808: 250808 (날짜 기반)
+"""
+
+import os
+import json
+import re
+import shutil
+from datetime import datetime
+from typing import Dict, List, Tuple, Any, Optional
+from pathlib import Path
+import logging
+
+class ConfigDataStandardizer:
+    """설정 파일 및 데이터 파일 표준화 클래스"""
+    
+    # 버전 정보 상수
+    WATCHHAMSTER_VERSION = "v3.0"
+POSCO_News_250808_250808_250808_250808_250808_250808_VERSION =  "250808"
+    
+    # 표준화 규칙
+    STANDARD_VERSION_FIELDS = {
+        "watchhamster_version": WATCHHAMSTER_VERSION,
+        "POSCO News 250808 250808 250808 250808 250808 250808_version": POSCO News 250808 250808 250808 250808 250808 250808_VERSION,
+        "system_version": f"WatchHamster_{WATCHHAMSTER_VERSION}_POSCO News 250808 250808 250808 250808 250808 250808_{POSCO News 250808 250808 250808 250808 250808 250808_VERSION}",
+        "last_updated": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+        "standardization_date": datetime.now().strftime("%Y-%m-%d")
+    }
+    
+    # 환경 변수 표준화 매핑
+    ENV_VAR_MAPPING = {
+        # WatchHamster 관련
+        "WATCHHAMSTER_VERSION": WATCHHAMSTER_VERSION,
+        "WATCHHAMSTER_V3_0_ENABLED": "true",
+        "WATCHHAMSTER_V3_0_LOG_LEVEL": "INFO",
+        "WATCHHAMSTER_V3_0_CONFIG_PATH": "./config",
+        
+        # POSCO News 250808 250808 250808 250808 250808 관련
+        "POSCO News 250808 250808 250808 250808 250808 250808_VERSION": POSCO News 250808 250808 250808 250808 250808 250808_VERSION,
+        "POSCO News 250808 250808 250808 250808 250808 250808_250808_ENABLED": "true",
+        "POSCO News 250808 250808 250808 250808 250808 250808_250808_LOG_LEVEL": "INFO",
+        "POSCO News 250808 250808 250808 250808 250808 250808_250808_DATA_PATH": "./data",
+        
+        # 시스템 공통
+        "POSCO_SYSTEM_VERSION": f"WatchHamster_{WATCHHAMSTER_VERSION}_POSCO News 250808 250808 250808 250808 250808 250808_{POSCO News 250808 250808 250808 250808 250808 250808_VERSION}",
+        "POSCO_STANDARDIZATION_ENABLED": "true"
+    }
+    
+    # 파일명 표준화 패턴
+    FILE_NAMING_PATTERNS = {
+        # 로그 파일
+        "log_files": {
+            "watchhamster": "WatchHamster_v3.0_{suffix}.log",
+            "POSCO News 250808 250808 250808 250808 250808 250808": "POSCO News 250808 250808 250808 250808 250808 250808_250808_{suffix}.log",
+            "system": "posco_system_{suffix}.log"
+        },
+        
+        # 데이터 파일
+        "data_files": {
+            "watchhamster": "watchhamster_v3_0_{suffix}.json",
+            "POSCO News 250808 250808 250808 250808 250808 250808": "POSCO News 250808 250808 250808 250808 250808 250808_250808_{suffix}.json",
+            "config": "posco_config_{suffix}.json"
+        },
+        
+        # 상태 파일
+        "status_files": {
+            "watchhamster": "WatchHamster_v3.0_status.json",
+            "POSCO News 250808 250808 250808 250808 250808 250808": "POSCO News 250808 250808 250808 250808 250808 250808_250808_status.json",
+            "system": "posco_system_status.json"
+        }
+    }
+    
+    def __init__(self, workspace_root: str = "."):
+        """
+        초기화
+        
+        Args:
+            workspace_root: 작업 공간 루트 디렉토리
+        """
+        self.workspace_root = Path(workspace_root).resolve()
+        self.backup_dir = self.workspace_root / ".naming_backup" / "config_data_backup"
+        self.backup_dir.mkdir(parents=True, exist_ok=True)
+        
+        # 로깅 설정
+        self.setup_logging()
+        
+        # 변경 작업 추적
+        self.changes_log = []
+        
+        self.logger.info("🔧 POSCO 설정 파일 및 데이터 파일 표준화 시스템 초기화 완료")
+        self.logger.info(f"📁 작업 공간: {self.workspace_root}")
+        self.logger.info(f"💾 백업 디렉토리: {self.backup_dir}")
+    
+    def setup_logging(self):
+        """로깅 설정"""
+        log_file = self.workspace_root / "config_data_standardization.log"
+        
+        logging.basicConfig(
+            level=logging.INFO,
+            format='%(asctime)s - %(levelname)s - %(message)s',
+            handlers=[
+logging.FileHandler(log_file,_encoding = 'utf-8'),
+                logging.StreamHandler()
+            ]
+        )
+        self.logger = logging.getLogger(__name__)
+    
+    def find_json_files(self) -> List[Path]:
+        """JSON 파일 찾기"""
+        json_files = []
+        
+        # 주요 JSON 파일 패턴
+        patterns = [
+            "*.json",
+            "**/modules.json",
+            "**/config.json",
+            "**/settings.json",
+            "**/*_config.json",
+            "**/*_data.json",
+            "**/*_cache.json",
+            "**/*_status.json"
+        ]
+        
+        for pattern in patterns:
+            json_files.extend(self.workspace_root.glob(pattern))
+        
+        # 중복 제거 및 정렬
+        json_files = list(set(json_files))
+        json_files.sort()
+        
+        self.logger.info(f"📋 발견된 JSON 파일: {len(json_files)}개")
+        for file_path in json_files:
+            self.logger.info(f"  • {file_path.relative_to(self.workspace_root)}")
+        
+        return json_files
+    
+    def backup_file(self, file_path: Path) -> Path:
+        """파일 백업"""
+        relative_path = file_path.relative_to(self.workspace_root)
+        backup_path = self.backup_dir / relative_path
+        backup_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        shutil.copy2(file_path, backup_path)
+        self.logger.info(f"💾 백업 완료: {relative_path}")
+        
+        return backup_path
+    
+    def standardize_json_content(self, content: Dict[str, Any], file_path: Path) -> Tuple[Dict[str, Any], bool]:
+        """JSON 내용 표준화"""
+        modified = False
+        standardized_content = content.copy()
+        
+        # 1. 메타데이터 섹션 추가/업데이트
+        if "metadata" not in standardized_content:
+            standardized_content["metadata"] = {}
+            modified = True
+        
+        # 2. 버전 정보 표준화
+        metadata = standardized_content["metadata"]
+        for field, value in self.STANDARD_VERSION_FIELDS.items():
+            if field not in metadata or metadata[field] != value:
+                metadata[field] = value
+                modified = True
+        
+        # 3. 설명 필드 표준화
+        if "description" not in metadata:
+            if "watchhamster" in str(file_path).lower() or "v3" in str(file_path).lower():
+                metadata["description"] = f"POSCO WatchHamster {self.WATCHHAMSTER_VERSION} Configuration"
+            elif "POSCO News 250808 250808 250808 250808 250808 250808" in str(file_path).lower() or "250808" in str(file_path).lower():
+                metadata["description"] = f"POSCO News 250808 250808 250808 250808 250808 {self.POSCO News 250808 250808 250808 250808 250808 250808_VERSION} Configuration"
+            else:
+                metadata["description"] = f"POSCO System Configuration - {self.STANDARD_VERSION_FIELDS['system_version']}"
+            modified = True
+        
+        # 4. 모듈 설정 표준화 (modules.json의 경우)
+        if "modules" in standardized_content:
+            modules = standardized_content["modules"]
+            for module_name, module_config in modules.items():
+                if isinstance(module_config, dict):
+                    # 환경 변수 표준화
+                    if "environment_vars" in module_config:
+                        env_vars = module_config["environment_vars"]
+                        for env_key, env_value in self.ENV_VAR_MAPPING.items():
+                            if env_key not in env_vars:
+                                env_vars[env_key] = env_value
+                                modified = True
+                    
+                    # 설명 필드 표준화
+                    if "description" in module_config:
+                        desc = module_config["description"]
+                        # 버전 정보 업데이트
+                        if "v2" in desc or "mini_v2" in desc:
+                            desc = desc.replace("v2", self.WATCHHAMSTER_VERSION)
+                            desc = desc.replace("mini_v2", self.POSCO News 250808 250808 250808 250808 250808 250808_VERSION)
+                            module_config["description"] = desc
+                            modified = True
+        
+        # 5. 시스템 설정 표준화
+        if "system_info" in standardized_content:
+            system_info = standardized_content["system_info"]
+            for field, value in self.STANDARD_VERSION_FIELDS.items():
+                if field not in system_info or system_info[field] != value:
+                    system_info[field] = value
+                    modified = True
+        
+        return standardized_content, modified
+    
+    def standardize_json_files(self) -> List[Dict[str, Any]]:
+        """JSON 파일들 표준화"""
+        json_files = self.find_json_files()
+        results = []
+        
+        for file_path in json_files:
+            try:
+                self.logger.info(f"🔧 JSON 파일 표준화 시작: {file_path.relative_to(self.workspace_root)}")
+                
+                # 백업 생성
+                backup_path = self.backup_file(file_path)
+                
+                # JSON 파일 읽기
+with_open(file_path,_'r',_encoding = 'utf-8') as f:
+                    content = json.load(f)
+                
+                # 내용 표준화
+                standardized_content, modified = self.standardize_json_content(content, file_path)
+                
+                if modified:
+                    # 표준화된 내용으로 파일 업데이트
+with_open(file_path,_'w',_encoding = 'utf-8') as f:
+json.dump(standardized_content,_f,_ensure_ascii = False, indent=2)
+                    
+                    result = {
+                        "file": str(file_path.relative_to(self.workspace_root)),
+                        "status": "modified",
+                        "backup": str(backup_path.relative_to(self.workspace_root)),
+                        "changes": "버전 정보 및 메타데이터 표준화"
+                    }
+                    self.logger.info(f"✅ JSON 파일 표준화 완료: {file_path.name}")
+                else:
+                    result = {
+                        "file": str(file_path.relative_to(self.workspace_root)),
+                        "status": "unchanged",
+                        "backup": str(backup_path.relative_to(self.workspace_root)),
+                        "changes": "변경 사항 없음"
+                    }
+                    self.logger.info(f"ℹ️ JSON 파일 변경 없음: {file_path.name}")
+                
+                results.append(result)
+                self.changes_log.append(result)
+                
+            except Exception as e:
+                error_result = {
+                    "file": str(file_path.relative_to(self.workspace_root)),
+                    "status": "error",
+                    "error": str(e)
+                }
+                results.append(error_result)
+                self.logger.error(f"❌ JSON 파일 표준화 실패: {file_path.name} - {e}")
+        
+        return results
+    
+    def standardize_log_file_names(self) -> List[Dict[str, Any]]:
+        """로그 파일명 표준화"""
+        results = []
+        
+        # 로그 파일 패턴 찾기
+        log_patterns = ["*.log", "**/*.log"]
+        log_files = []
+        
+        for pattern in log_patterns:
+            log_files.extend(self.workspace_root.glob(pattern))
+        
+        log_files = list(set(log_files))
+        
+        for log_file in log_files:
+            try:
+                old_name = log_file.name
+                new_name = self.get_standardized_log_name(old_name)
+                
+                if new_name != old_name:
+                    new_path = log_file.parent / new_name
+                    
+                    # 백업 생성
+                    backup_path = self.backup_file(log_file)
+                    
+                    # 파일명 변경
+                    log_file.rename(new_path)
+                    
+                    result = {
+                        "old_name": old_name,
+                        "new_name": new_name,
+                        "path": str(log_file.parent.relative_to(self.workspace_root)),
+                        "status": "renamed",
+                        "backup": str(backup_path.relative_to(self.workspace_root))
+                    }
+                    
+                    self.logger.info(f"📝 로그 파일명 변경: {old_name} → {new_name}")
+                else:
+                    result = {
+                        "old_name": old_name,
+                        "new_name": new_name,
+                        "path": str(log_file.parent.relative_to(self.workspace_root)),
+                        "status": "unchanged"
+                    }
+                
+                results.append(result)
+                
+            except Exception as e:
+                error_result = {
+                    "old_name": log_file.name,
+                    "status": "error",
+                    "error": str(e)
+                }
+                results.append(error_result)
+                self.logger.error(f"❌ 로그 파일명 변경 실패: {log_file.name} - {e}")
+        
+        return results
+    
+    def get_standardized_log_name(self, filename: str) -> str:
+        """표준화된 로그 파일명 생성"""
+        # 기존 패턴 매칭 및 변환
+        patterns = [
+            # WatchHamster 관련
+            (r"watchhamster.*\.log", lambda m: f"WatchHamster_{self.WATCHHAMSTER_VERSION}.log"),
+            (r"WatchHamster.*\.log", lambda m: f"WatchHamster_{self.WATCHHAMSTER_VERSION}.log"),
+            
+            # POSCO News 250808 250808 250808 250808 250808 관련
+            (r"POSCO News 250808 250808 250808 250808 250808 250808.*\.log", lambda m: f"POSCO News 250808 250808 250808 250808 250808 250808_{self.POSCO News 250808 250808 250808 250808 250808 250808_VERSION}.log"),
+            (r"posco_main.*\.log", lambda m: f"POSCO News 250808 250808 250808 250808 250808 250808_{self.POSCO News 250808 250808 250808 250808 250808 250808_VERSION}_main.log"),
+            (r"posco_monitor.*\.log", lambda m: f"POSCO News 250808 250808 250808 250808 250808 250808_{self.POSCO News 250808 250808 250808 250808 250808 250808_VERSION}_monitor.log"),
+            
+            # 일반 시스템 로그
+            (r"main_notifier.*\.log", lambda m: f"POSCO News 250808 250808 250808 250808 250808 250808_{self.POSCO News 250808 250808 250808 250808 250808 250808_VERSION}_notifier.log"),
+            (r"simple_monitor.*\.log", lambda m: f"POSCO News 250808 250808 250808 250808 250808 250808_{self.POSCO News 250808 250808 250808 250808 250808 250808_VERSION}_simple_monitor.log"),
+        ]
+        
+        for pattern, replacement in patterns:
+            if re.match(pattern, filename, re.IGNORECASE):
+                return replacement(None)
+        
+        return filename
+    
+    def standardize_data_file_names(self) -> List[Dict[str, Any]]:
+        """데이터 파일명 표준화"""
+        results = []
+        
+        # 데이터 파일 패턴
+        data_patterns = [
+            "*_data.json", "*_cache.json", "*_status.json",
+            "**/*_data.json", "**/*_cache.json", "**/*_status.json"
+        ]
+        
+        data_files = []
+        for pattern in data_patterns:
+            data_files.extend(self.workspace_root.glob(pattern))
+        
+        data_files = list(set(data_files))
+        
+        for data_file in data_files:
+            try:
+                old_name = data_file.name
+                new_name = self.get_standardized_data_name(old_name)
+                
+                if new_name != old_name:
+                    new_path = data_file.parent / new_name
+                    
+                    # 백업 생성
+                    backup_path = self.backup_file(data_file)
+                    
+                    # 파일명 변경
+                    data_file.rename(new_path)
+                    
+                    result = {
+                        "old_name": old_name,
+                        "new_name": new_name,
+                        "path": str(data_file.parent.relative_to(self.workspace_root)),
+                        "status": "renamed",
+                        "backup": str(backup_path.relative_to(self.workspace_root))
+                    }
+                    
+                    self.logger.info(f"💾 데이터 파일명 변경: {old_name} → {new_name}")
+                else:
+                    result = {
+                        "old_name": old_name,
+                        "new_name": new_name,
+                        "path": str(data_file.parent.relative_to(self.workspace_root)),
+                        "status": "unchanged"
+                    }
+                
+                results.append(result)
+                
+            except Exception as e:
+                error_result = {
+                    "old_name": data_file.name,
+                    "status": "error",
+                    "error": str(e)
+                }
+                results.append(error_result)
+                self.logger.error(f"❌ 데이터 파일명 변경 실패: {data_file.name} - {e}")
+        
+        return results
+    
+    def get_standardized_data_name(self, filename: str) -> str:
+        """표준화된 데이터 파일명 생성"""
+        patterns = [
+            # POSCO News 250808 250808 250808 250808 250808 데이터 파일
+            (r"POSCO News 250808 250808 250808 250808 250808 250808_data\.json", f"POSCO News 250808 250808 250808 250808 250808 250808_{self.POSCO News 250808 250808 250808 250808 250808 250808_VERSION}_data.json"),
+            (r"POSCO News 250808 250808 250808 250808 250808 250808_cache\.json", f"POSCO News 250808 250808 250808 250808 250808 250808_{self.POSCO News 250808 250808 250808 250808 250808 250808_VERSION}_cache.json"),
+            (r"POSCO News 250808 250808 250808 250808 250808 250808_historical.*\.json", f"POSCO News 250808 250808 250808 250808 250808 250808_{self.POSCO News 250808 250808 250808 250808 250808 250808_VERSION}_historical.json"),
+            
+            # WatchHamster 상태 파일
+            (r"WatchHamster_status\.json", f"WatchHamster_{self.WATCHHAMSTER_VERSION}_status.json"),
+            
+            # 기타 시스템 파일
+            (r"system_status\.json", f"posco_system_{self.POSCO News 250808 250808 250808 250808 250808 250808_VERSION}_status.json"),
+            (r"main_notifier_state\.json", f"POSCO News 250808 250808 250808 250808 250808 250808_{self.POSCO News 250808 250808 250808 250808 250808 250808_VERSION}_notifier_state.json"),
+        ]
+        
+        for pattern, replacement in patterns:
+            if re.match(pattern, filename, re.IGNORECASE):
+                return replacement
+        
+        return filename
+    
+    def create_environment_variables_file(self) -> str:
+        """환경 변수 파일 생성"""
+        env_file_path = self.workspace_root / "posco_environment_variables.env"
+        
+        env_content = [
+            "# POSCO 시스템 환경 변수 설정",
+            f"# 생성일: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+            f"# 표준화 버전: WatchHamster {self.WATCHHAMSTER_VERSION}, POSCO News 250808 250808 250808 250808 250808 {self.POSCO News 250808 250808 250808 250808 250808 250808_VERSION}",
+            "",
+            "# WatchHamster v3.0 관련 환경 변수",
+        ]
+        
+        for env_key, env_value in self.ENV_VAR_MAPPING.items():
+            env_content.append(f"{env_key}={env_value}")
+        
+        env_content.extend([
+            "",
+            "# 사용법:",
+            "# Linux/Mac: source posco_environment_variables.env",
+            "# Windows: 각 변수를 개별적으로 set 명령어로 설정",
+            ""
+        ])
+        
+with_open(env_file_path,_'w',_encoding = 'utf-8') as f:
+            f.write('\n'.join(env_content))
+        
+        self.logger.info(f"🌍 환경 변수 파일 생성: {env_file_path.name}")
+        return str(env_file_path)
+    
+    def generate_standardization_report(self) -> Dict[str, Any]:
+        """표준화 작업 보고서 생성"""
+        report = {
+            "standardization_info": {
+                "timestamp": datetime.now().isoformat(),
+                "watchhamster_version": self.WATCHHAMSTER_VERSION,
+                "POSCO News 250808 250808 250808 250808 250808 250808_version": self.POSCO News 250808 250808 250808 250808 250808 250808_VERSION,
+                "workspace_root": str(self.workspace_root)
+            },
+            "summary": {
+                "total_changes": len(self.changes_log),
+                "successful_changes": len([c for c in self.changes_log if c.get("status") == "modified"]),
+                "failed_changes": len([c for c in self.changes_log if c.get("status") == "error"]),
+                "unchanged_files": len([c for c in self.changes_log if c.get("status") == "unchanged"])
+            },
+            "changes_log": self.changes_log,
+            "backup_location": str(self.backup_dir.relative_to(self.workspace_root))
+        }
+        
+        # 보고서 파일 저장
+        report_file = self.workspace_root / "config_data_standardization_report.json"
+with_open(report_file,_'w',_encoding = 'utf-8') as f:
+json.dump(report,_f,_ensure_ascii = False, indent=2)
+        
+        self.logger.info(f"📊 표준화 보고서 생성: {report_file.name}")
+        return report
+    
+    def run_full_standardization(self) -> Dict[str, Any]:
+        """전체 표준화 작업 실행"""
+        self.logger.info("🚀 POSCO 설정 파일 및 데이터 파일 전체 표준화 시작")
+        
+        try:
+            # 1. JSON 파일 표준화
+            self.logger.info("📋 1단계: JSON 설정 파일 표준화")
+            json_results = self.standardize_json_files()
+            
+            # 2. 로그 파일명 표준화
+            self.logger.info("📝 2단계: 로그 파일명 표준화")
+            log_results = self.standardize_log_file_names()
+            
+            # 3. 데이터 파일명 표준화
+            self.logger.info("💾 3단계: 데이터 파일명 표준화")
+            data_results = self.standardize_data_file_names()
+            
+            # 4. 환경 변수 파일 생성
+            self.logger.info("🌍 4단계: 환경 변수 파일 생성")
+            env_file = self.create_environment_variables_file()
+            
+            # 5. 보고서 생성
+            self.logger.info("📊 5단계: 표준화 보고서 생성")
+            report = self.generate_standardization_report()
+            
+            # 결과 요약
+            total_files = len(json_results) + len(log_results) + len(data_results)
+            modified_files = (
+                len([r for r in json_results if r.get("status") == "modified"]) +
+                len([r for r in log_results if r.get("status") == "renamed"]) +
+                len([r for r in data_results if r.get("status") == "renamed"])
+            )
+            
+            self.logger.info("🎉 POSCO 설정 파일 및 데이터 파일 표준화 완료!")
+            self.logger.info(f"📊 처리된 파일: {total_files}개")
+            self.logger.info(f"✅ 변경된 파일: {modified_files}개")
+            self.logger.info(f"💾 백업 위치: {self.backup_dir}")
+            
+            return {
+                "success": True,
+                "json_results": json_results,
+                "log_results": log_results,
+                "data_results": data_results,
+                "env_file": env_file,
+                "report": report
+            }
+            
+        except Exception as e:
+            self.logger.error(f"❌ 표준화 작업 중 오류 발생: {e}")
+            return {
+                "success": False,
+                "error": str(e)
+            }
+
+def main():
+    """메인 실행 함수"""
+    print("🔧 POSCO 설정 파일 및 데이터 파일 표준화 시스템")
+    print("=" * 60)
+    
+    # 표준화 시스템 초기화
+    standardizer = ConfigDataStandardizer()
+    
+    # 전체 표준화 실행
+    results = standardizer.run_full_standardization()
+    
+    if results["success"]:
+        print("\n✅ 표준화 작업이 성공적으로 완료되었습니다!")
+        print(f"📊 JSON 파일: {len(results['json_results'])}개 처리")
+        print(f"📝 로그 파일: {len(results['log_results'])}개 처리")
+        print(f"💾 데이터 파일: {len(results['data_results'])}개 처리")
+        print(f"🌍 환경 변수 파일: {results['env_file']}")
+    else:
+        print(f"\n❌ 표준화 작업 실패: {results['error']}")
+        return 1
+    
+    return 0
+
+if __name__ == "__main__":
+    exit(main())

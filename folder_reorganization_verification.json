@@ -1,0 +1,54 @@
+{
+  "folder_structure": {
+    "passed": 3,
+    "failed": 0,
+    "details": [
+      {
+        "folder": "Monitoring/POSCO_News_250808",
+        "status": "존재함",
+        "result": "PASS"
+      },
+      {
+        "folder": "Monitoring/WatchHamster_v3.0",
+        "status": "존재함",
+        "result": "PASS"
+      },
+      {
+        "folder": "Monitoring/docs",
+        "status": "존재함",
+        "result": "PASS"
+      }
+    ]
+  },
+  "file_migration": {
+    "passed": 2,
+    "failed": 0,
+    "details": [
+      {
+        "folder": "POSCO_News_250808",
+        "file_count": 111,
+        "status": "111개 파일 존재",
+        "result": "PASS"
+      },
+      {
+        "folder": "WatchHamster_v3.0",
+        "file_count": 9,
+        "status": "9개 파일 존재",
+        "result": "PASS"
+      }
+    ]
+  },
+  "path_references": {
+    "passed": 90,
+    "failed": 0,
+    "details": [
+      {
+        "checked_files": 90,
+        "problematic_files": 0,
+        "status": "모든 경로 참조가 업데이트됨",
+        "result": "PASS"
+      }
+    ]
+  },
+  "overall_status": "success"
+}

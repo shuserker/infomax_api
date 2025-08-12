@@ -1,0 +1,427 @@
+@echo off
+setlocal enabledelayedexpansion
+title 🏭 POSCO 모니터링 관리 센터 v3.0 - Windows Terminal 최적화
+
+REM 공통 라이브러리 로드 (상위 디렉토리에서)
+call "lib_wt_common.ps1" init
+
+REM ============================================================================
+REM 메인 메뉴
+REM ============================================================================
+:main_menu
+cls
+call :print_header "🏭 POSCO 모니터링 관리 센터 v3.0 🏢"
+echo %INFO%📊 POSCO 뉴스 및 주가 모니터링 시스템 전용 관리 센터%RESET%
+echo.
+
+echo %YELLOW%🎯 원하는 작업을 선택하세요:%RESET%
+echo.
+
+REM 시스템 운영
+call :start_box %GREEN%
+echo %GREEN%║%RESET%                            %CYAN%🚀 시스템 운영%RESET%                                    %GREEN%║%RESET%
+echo %GREEN%╠═══════════════════════════════════════════════════════════════════════════════╣%RESET%
+call :print_menu_item "1." "🚀 워치햄스터 시작" "24시간 모니터링 시작"
+call :print_menu_item "2." "🛑 워치햄스터 중지" "모니터링 시스템 중지"
+call :print_menu_item "3." "🔄 시스템 재시작" "모니터링 시스템 재시작"
+call :end_box
+
+echo.
+
+REM 모니터링 관리
+call :start_box %BLUE%
+echo %BLUE%║%RESET%                           %MAGENTA%📊 모니터링 관리%RESET%                                   %BLUE%║%RESET%
+echo %BLUE%╠═══════════════════════════════════════════════════════════════════════════════╣%RESET%
+call :print_menu_item "4." "📈 실시간 상태 확인" "현재 모니터링 상태 및 통계"
+call :print_menu_item "5." "📋 로그 확인" "시스템 로그 및 오류 확인"
+call :print_menu_item "6." "📊 리포트 생성" "모니터링 결과 리포트"
+call :end_box
+
+echo.
+
+REM 시스템 관리
+call :start_box %YELLOW%
+echo %YELLOW%║%RESET%                           %WHITE%🔧 시스템 관리%RESET%                                     %YELLOW%║%RESET%
+echo %YELLOW%╠═══════════════════════════════════════════════════════════════════════════════╣%RESET%
+call :print_menu_item "7." "🧪 시스템 테스트" "모든 구성 요소 테스트"
+call :print_menu_item "8." "🔄 Git 업데이트" "최신 코드로 업데이트"
+call :print_menu_item "9." "⚙️ 설정 관리" "모니터링 설정 변경"
+call :end_box
+
+echo.
+
+REM 고급 기능
+call :start_box %RED%
+echo %RED%║%RESET%                           %WHITE%🎛️ 고급 기능%RESET%                                       %RED%║%RESET%
+echo %RED%╠═══════════════════════════════════════════════════════════════════════════════╣%RESET%
+call :print_menu_item "A." "📦 데이터 백업" "모니터링 데이터 백업"
+call :print_menu_item "B." "🔧 시스템 복구" "시스템 상태 복구"
+call :print_menu_item "C." "📈 성능 분석" "시스템 성능 분석"
+call :end_box
+
+echo.
+echo %GRAY%0. 🔙 총괄 관리 센터로 돌아가기%RESET%
+echo.
+
+call :print_system_info
+
+set /p choice=%GREEN%🎯 선택하세요 (1-9, A-C, 0): %RESET%
+
+if "%choice%"=="1" goto start_watchhamster
+if "%choice%"=="2" goto stop_watchhamster
+if "%choice%"=="3" goto restart_system
+if "%choice%"=="4" goto realtime_status
+if "%choice%"=="5" goto check_logs
+if "%choice%"=="6" goto generate_report
+if "%choice%"=="7" goto system_test
+if "%choice%"=="8" goto git_update
+if "%choice%"=="9" goto config_management
+if /i "%choice%"=="A" goto data_backup
+if /i "%choice%"=="B" goto system_recovery
+if /i "%choice%"=="C" goto performance_analysis
+if "%choice%"=="0" goto exit_to_main
+goto invalid_choice
+
+REM ============================================================================
+REM 워치햄스터 시작
+REM ============================================================================
+:start_watchhamster
+cls
+call :print_header "🚀 POSCO WatchHamster v3.0 시작"
+call :show_loading "WatchHamster v3.0 초기화하고 있습니다"
+
+call :print_section "🔍 시스템 환경 확인"
+
+REM Python 환경 확인
+python --version >nul 2>&1
+if errorlevel 1 (
+    call :print_error "Python이 설치되지 않았거나 PATH에 없습니다."
+    call :print_info "Python 3.8 이상을 설치해주세요."
+    pause
+    goto return_to_menu
+) else (
+    for /f "tokens=2" %%v in ('python --version 2^>^&1') do (
+        call :print_success "Python %%v 확인됨"
+    )
+)
+
+REM 필수 파일 확인
+if exist ".naming_backup/config_data_backup/watchhamster.log" (
+    call :print_success "워치햄스터 메인 파일 확인됨"
+) else (
+    call :print_error "monitor_WatchHamster.py 파일을 찾을 수 없습니다."
+    pause
+    goto return_to_menu
+)
+
+if exist "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/config.py" (
+    call :print_success "설정 파일 확인됨"
+) else (
+    call :print_warning "config.py 파일을 찾을 수 없습니다. 기본 설정을 사용합니다."
+)
+
+echo.
+call :print_section "🚀 워치햄스터 시작"
+echo %SUCCESS%🐹 POSCO WatchHamster v3.0 시작합니다...%RESET%
+echo %INFO%💡 중단하려면 Ctrl+C를 누르거나 창을 닫으세요.%RESET%
+echo.
+
+REM 워치햄스터 실행
+python .naming_backup/config_data_backup/watchhamster.log
+
+echo.
+call :print_info "워치햄스터가 종료되었습니다."
+pause
+goto return_to_menu
+
+REM ============================================================================
+REM 워치햄스터 중지
+REM ============================================================================
+:stop_watchhamster
+cls
+call :print_header "🛑 POSCO WatchHamster v3.0 중지"
+call :show_loading "실행 중인 워치햄스터 프로세스를 확인하고 있습니다"
+
+call :print_section "🔍 프로세스 확인"
+
+REM Python 프로세스 확인 및 종료
+tasklist /fi "imagename eq python.exe" | find "python.exe" >nul
+if not errorlevel 1 (
+    call :print_warning "실행 중인 Python 프로세스를 발견했습니다."
+    echo %YELLOW%다음 프로세스들이 종료됩니다:%RESET%
+    tasklist /fi "imagename eq python.exe" /fo table
+    echo.
+    
+    set /p confirm=%RED%정말로 모든 Python 프로세스를 종료하시겠습니까? (Y/N): %RESET%
+    if /i "!confirm!"=="Y" (
+        taskkill /f /im python.exe >nul 2>&1
+        call :print_success "워치햄스터 프로세스가 종료되었습니다."
+    ) else (
+        call :print_info "작업이 취소되었습니다."
+    )
+) else (
+    call :print_info "실행 중인 워치햄스터 프로세스가 없습니다."
+)
+
+echo.
+pause
+goto return_to_menu
+
+REM ============================================================================
+REM 시스템 재시작
+REM ============================================================================
+:restart_system
+cls
+call :print_header "🔄 POSCO 모니터링 시스템 재시작"
+call :show_loading "시스템을 재시작하고 있습니다"
+
+call :print_section "🛑 시스템 중지"
+taskkill /f /im python.exe >nul 2>&1
+call :print_success "기존 프로세스 종료 완료"
+
+timeout /t 3 /nobreak >nul
+
+call :print_section "🚀 시스템 시작"
+echo %SUCCESS%🐹 POSCO WatchHamster v3.0 시작합니다...%RESET%
+echo %INFO%💡 중단하려면 Ctrl+C를 누르거나 창을 닫으세요.%RESET%
+echo.
+
+python .naming_backup/config_data_backup/watchhamster.log
+
+echo.
+call :print_info "워치햄스터가 종료되었습니다."
+pause
+goto return_to_menu
+
+REM ============================================================================
+REM 실시간 상태 확인
+REM ============================================================================
+:realtime_status
+cls
+call :print_header "📈 POSCO 모니터링 실시간 상태"
+
+:status_loop
+cls
+call :print_header "📈 POSCO 모니터링 실시간 상태"
+echo %INFO%🔄 자동 새로고침 중... (ESC로 종료)%RESET%
+echo.
+
+call :print_section "🖥️ 시스템 상태"
+
+REM 프로세스 상태 확인
+tasklist /fi "imagename eq python.exe" | find "python.exe" >nul
+if not errorlevel 1 (
+    call :print_success "워치햄스터 실행 중"
+    for /f "tokens=2,5" %%a in ('tasklist /fi "imagename eq python.exe" /fo csv ^| find "python.exe"') do (
+        echo %INFO%📊 PID: %%a, 메모리: %%b%RESET%
+    )
+) else (
+    call :print_warning "워치햄스터 중지됨"
+)
+
+echo.
+call :print_section "📊 모니터링 통계"
+
+REM 로그 파일 확인
+# BROKEN_REF: if exist "*.log" (
+    for %%f in (*.log) do (
+        echo %CYAN%📄 %%f:%RESET%
+        for /f %%a in ('find /c /v "" "%%f" 2^>nul') do echo %WHITE%  라인 수: %%a%RESET%
+    )
+) else (
+    call :print_info "로그 파일이 없습니다."
+)
+
+echo.
+call :print_section "💾 시스템 리소스"
+echo %INFO%🕒 현재 시간: %date% %time%%RESET%
+
+REM 5초 대기 후 새로고침
+timeout /t 5 /nobreak >nul
+goto status_loop
+
+REM ============================================================================
+REM 로그 확인
+REM ============================================================================
+:check_logs
+cls
+call :print_header "📋 POSCO 시스템 로그 확인"
+
+if exist "📋POSCO_로그_확인.bat" (
+    call "📋POSCO_로그_확인.bat"
+) else (
+    call :show_loading "로그 파일을 검색하고 있습니다"
+    
+    call :print_section "📄 사용 가능한 로그 파일"
+    
+# BROKEN_REF:     if exist "*.log" (
+        for %%f in (*.log) do (
+            echo %CYAN%📄 %%f%RESET%
+            for /f %%a in ('find /c /v "" "%%f" 2^>nul') do echo %WHITE%  라인 수: %%a%RESET%
+            echo %GRAY%  수정 날짜: %%~tf%RESET%
+            echo.
+        )
+        
+        echo %YELLOW%로그 파일을 선택하여 내용을 확인하시겠습니까? (Y/N): %RESET%
+        set /p log_choice=
+        if /i "!log_choice!"=="Y" (
+            for %%f in (*.log) do (
+                echo.
+                call :print_section "📖 %%f 내용 (최근 20줄)"
+                type "%%f" | more
+                echo.
+                pause
+            )
+        )
+    ) else (
+        call :print_info "로그 파일이 없습니다."
+    )
+)
+
+pause
+goto return_to_menu
+
+REM ============================================================================
+REM 리포트 생성
+REM ============================================================================
+:generate_report
+cls
+call :print_header "📊 POSCO 모니터링 리포트 생성"
+call :show_loading "리포트를 생성하고 있습니다"
+
+call :print_section "📈 리포트 생성 옵션"
+echo %YELLOW%1.%RESET% %CYAN%📊 일일 리포트%RESET% - 오늘의 모니터링 결과
+echo %YELLOW%2.%RESET% %CYAN%📈 주간 리포트%RESET% - 지난 7일간의 통계
+echo %YELLOW%3.%RESET% %CYAN%📉 월간 리포트%RESET% - 이번 달 전체 통계
+echo %YELLOW%4.%RESET% %CYAN%🔍 사용자 정의%RESET% - 기간 직접 설정
+echo %YELLOW%0.%RESET% %GRAY%🔙 돌아가기%RESET%
+echo.
+
+set /p report_choice=%GREEN%리포트 유형 선택 (1-4, 0): %RESET%
+
+if "%report_choice%"=="1" goto daily_report
+if "%report_choice%"=="2" goto weekly_report
+if "%report_choice%"=="3" goto monthly_report
+if "%report_choice%"=="4" goto custom_report
+if "%report_choice%"=="0" goto return_to_menu
+goto generate_report
+
+:daily_report
+call :print_info "일일 리포트를 생성하고 있습니다..."
+if exist "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/integrated_report_builder.py" (
+    python Monitoring/POSCO_News_250808/integrated_report_builder.py --daily
+    call :print_success "일일 리포트 생성 완료"
+) else (
+    call :print_warning "리포트 생성 스크립트를 찾을 수 없습니다."
+)
+pause
+goto generate_report
+
+:weekly_report
+call :print_info "주간 리포트를 생성하고 있습니다..."
+if exist "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/integrated_report_builder.py" (
+    python Monitoring/POSCO_News_250808/integrated_report_builder.py --weekly
+    call :print_success "주간 리포트 생성 완료"
+) else (
+    call :print_warning "리포트 생성 스크립트를 찾을 수 없습니다."
+)
+pause
+goto generate_report
+
+:monthly_report
+call :print_info "월간 리포트를 생성하고 있습니다..."
+if exist "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/integrated_report_builder.py" (
+    python Monitoring/POSCO_News_250808/integrated_report_builder.py --monthly
+    call :print_success "월간 리포트 생성 완료"
+) else (
+    call :print_warning "리포트 생성 스크립트를 찾을 수 없습니다."
+)
+pause
+goto generate_report
+
+:custom_report
+call :print_info "사용자 정의 리포트 기능은 개발 중입니다."
+pause
+goto generate_report
+
+REM ============================================================================
+REM 나머지 기능들 (간단 구현)
+REM ============================================================================
+:system_test
+cls
+call :print_header "🧪 POSCO 시스템 테스트"
+if exist "🧪POSCO_테스트_실행.bat" (
+    call "🧪POSCO_테스트_실행.bat"
+) else (
+    call :print_warning "테스트 스크립트를 찾을 수 없습니다."
+)
+pause
+goto return_to_menu
+
+:git_update
+cls
+call :print_header "🔄 Git 업데이트"
+if exist "🔄POSCO_Git_업데이트.bat" (
+    call "🔄POSCO_Git_업데이트.bat"
+) else (
+    call :print_warning "Git 업데이트 스크립트를 찾을 수 없습니다."
+)
+pause
+goto return_to_menu
+
+:config_management
+cls
+call :print_header "⚙️ 설정 관리"
+call :print_warning "설정 관리 기능은 개발 중입니다."
+pause
+goto return_to_menu
+
+:data_backup
+cls
+call :print_header "📦 데이터 백업"
+call :print_warning "데이터 백업 기능은 개발 중입니다."
+pause
+goto return_to_menu
+
+:system_recovery
+cls
+call :print_header "🔧 시스템 복구"
+call :print_warning "시스템 복구 기능은 개발 중입니다."
+pause
+goto return_to_menu
+
+:performance_analysis
+cls
+call :print_header "📈 성능 분석"
+call :print_warning "성능 분석 기능은 개발 중입니다."
+pause
+goto return_to_menu
+
+REM ============================================================================
+REM 공통 처리
+REM ============================================================================
+:invalid_choice
+cls
+call :print_error "잘못된 선택입니다. 다시 선택해주세요."
+pause
+goto main_menu
+
+:return_to_menu
+echo.
+call :print_section "🎯 작업 완료"
+echo %YELLOW%1.%RESET% %CYAN%🔙 메인 메뉴로 돌아가기%RESET%
+echo %YELLOW%2.%RESET% %RED%❌ 총괄 센터로 돌아가기%RESET%
+echo.
+
+set /p return_choice=%GREEN%선택 (1-2): %RESET%
+if "%return_choice%"=="1" goto main_menu
+if "%return_choice%"=="2" goto exit_to_main
+goto main_menu
+
+:exit_to_main
+cls
+call :print_header "🔙 총괄 관리 센터로 돌아갑니다"
+echo %INFO%🏭 POSCO 모니터링 관리를 종료합니다.%RESET%
+echo.
+pause
+exit /b 0

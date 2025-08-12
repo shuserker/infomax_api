@@ -1,0 +1,572 @@
+# 🔧 POSCO WatchHamster v3.0 문제 해결 가이드
+
+## 📖 목차
+1. [빠른 진단 체크리스트](#빠른-진단-체크리스트)
+2. [일반적인 문제 해결](#일반적인-문제-해결)
+3. [모듈별 문제 해결](#모듈별-문제-해결)
+4. [로그 분석 가이드](#로그-분석-가이드)
+5. [응급 복구 절차](#응급-복구-절차)
+
+---
+
+## ⚡ 빠른 진단 체크리스트
+
+### 🔍 1단계: 기본 상태 확인 (30초)
+```bash
+# 제어센터 실행
+./posco_control_center.sh
+
+# 메뉴 4번 선택: 📊 WatchHamster 상태
+```
+
+**확인사항:**
+- [ ] WatchHamster 프로세스가 실행 중인가?
+- [ ] 관리 중인 모듈들이 정상 작동 중인가?
+- [ ] 시스템 리소스가 정상 범위인가? (CPU < 80%, 메모리 < 85%)
+
+### 🔍 2단계: 프로세스 상태 확인 (1분)
+```bash
+# 터미널에서 직접 확인
+ps aux | grep -E "(monitor_WatchHamster|posco_main_notifier|realtime_news_monitor)"
+```
+
+**정상 상태 예시:**
+```
+user  12345  0.1  0.8  python3 monitor_WatchHamster.py
+user  12346  0.1  0.5  python3 posco_main_notifier.py  
+user  12347  0.1  0.4  python3 realtime_news_monitor.py
+```
+
+### 🔍 3단계: 로그 확인 (2분)
+```bash
+# 최근 오류 확인
+tail -20 watchhamster.log | grep -i error
+
+# 최근 활동 확인  
+tail -10 watchhamster.log
+```
+
+---
+
+## 🚨 일반적인 문제 해결
+
+### 1. WatchHamster가 시작되지 않음
+
+#### ❌ 증상
+```
+❌ POSCO WatchHamster 시작에 실패했습니다.
+로그를 확인하세요: tail -f watchhamster.log
+```
+
+#### 🔍 원인 분석
+1. **Python 환경 문제**
+   ```bash
+   # Python3 설치 확인
+   python3 --version
+   
+   # 필요한 패키지 확인
+   python3 -c "import requests, psutil, json"
+   ```
+
+2. **파일 권한 문제**
+   ```bash
+   # 실행 권한 확인
+   ls -la Monitoring/POSCO News/monitor_WatchHamster.py
+   
+   # 권한 수정
+   chmod +x Monitoring/POSCO News/monitor_WatchHamster.py
+   ```
+
+3. **포트 충돌 문제**
+   ```bash
+   # 포트 사용 확인
+   lsof -i :8080  # 예시 포트
+   ```
+
+#### ✅ 해결방법
+```bash
+# 1. 환경 정리
+pkill -f "monitor_WatchHamster.py"
+pkill -f "posco_main_notifier.py"
+
+# 2. 로그 파일 확인
+tail -50 watchhamster.log
+
+# 3. 수동 시작 테스트
+cd Monitoring/POSCO News
+python3 monitor_WatchHamster.py
+
+# 4. 제어센터에서 재시작
+./posco_control_center.sh → 메뉴 1번
+```
+
+### 2. 모듈이 자동으로 재시작되지 않음
+
+#### ❌ 증상
+```
+⚠️ 일부 모듈만 작동 중입니다. (2/4)
+❌ posco_main_notifier (중지됨)
+```
+
+#### 🔍 원인 분석
+1. **최대 재시작 횟수 초과**
+   - 3회 재시작 시도 후 자동 비활성화
+   - 로그에서 "최대 재시작 횟수 초과" 메시지 확인
+
+2. **스크립트 오류**
+   - Python 문법 오류
+   - 의존성 모듈 누락
+   - 설정 파일 문제
+
+3. **리소스 부족**
+   - 메모리 부족
+   - CPU 과부하
+   - 디스크 공간 부족
+
+#### ✅ 해결방법
+
+**단계 1: 개별 모듈 재시작**
+```bash
+# 제어센터에서
+./posco_control_center.sh
+→ 메뉴 5번 (모듈 관리)
+→ 해당 모듈 번호 선택
+```
+
+**단계 2: 수동 테스트**
+```bash
+# 문제 모듈 직접 실행
+cd Monitoring/POSCO News
+python3 posco_main_notifier.py
+```
+
+**단계 3: 전체 재시작**
+```bash
+# 제어센터에서
+./posco_control_center.sh
+→ 메뉴 3번 (WatchHamster 재시작)
+```
+
+### 3. 알림이 오지 않음
+
+#### ❌ 증상
+- Dooray에 알림이 전송되지 않음
+- 정기 상태 보고가 누락됨
+
+#### 🔍 원인 분석
+1. **웹훅 URL 문제**
+   ```bash
+   # config.py 확인
+   grep -n "WEBHOOK_URL" Monitoring/POSCO News/config.py
+   ```
+
+2. **네트워크 연결 문제**
+   ```bash
+   # 인터넷 연결 확인
+   curl -I https://dooray.com
+   
+   # 웹훅 URL 테스트
+   curl -X POST "YOUR_WEBHOOK_URL" \
+        -H "Content-Type: application/json" \
+        -d '{"text":"테스트 메시지"}'
+   ```
+
+3. **알림 시스템 비활성화**
+   ```bash
+   # WatchHamster 로그에서 알림 관련 오류 확인
+   grep -i "notification\|알림" watchhamster.log
+   ```
+
+#### ✅ 해결방법
+```bash
+# 1. 설정 확인
+cat Monitoring/POSCO News/config.py | grep WEBHOOK
+
+# 2. 테스트 알림 전송
+cd Monitoring/POSCO News
+python3 test_watchhamster_notification.py
+
+# 3. WatchHamster 재시작
+./posco_control_center.sh → 메뉴 3번
+```
+
+### 4. 시스템 리소스 과부하
+
+#### ❌ 증상
+```
+🚨 POSCO WatchHamster 정기 보고 - 중요 문제 감지
+🚨 감지된 문제:
+   • ❌ 시스템 리소스 임계값 초과
+💻 CPU: 95.2% | 🧠 메모리: 92.8% | 💾 디스크: 98.1%
+```
+
+#### 🔍 원인 분석
+```bash
+# CPU 사용률 높은 프로세스 확인
+top -o %CPU
+
+# 메모리 사용률 확인
+free -h
+
+# 디스크 사용률 확인
+df -h
+
+# POSCO 관련 프로세스 리소스 확인
+ps aux | grep -E "(posco|monitor)" | awk '{print $3, $4, $11}'
+```
+
+#### ✅ 해결방법
+
+**즉시 조치:**
+```bash
+# 1. 불필요한 프로세스 종료
+pkill -f "historical_data_collector.py"  # 선택적 모듈
+
+# 2. 로그 파일 정리
+find . -name "*.log" -size +100M -exec truncate -s 50M {} \;
+
+# 3. 임시 파일 정리
+rm -rf /tmp/posco_*
+```
+
+**근본 해결:**
+```bash
+# 1. 로그 로테이션 설정
+# 2. 모니터링 간격 조정 (config.py)
+# 3. 시스템 업그레이드 검토
+```
+
+---
+
+## 🔧 모듈별 문제 해결
+
+### 1. posco_main_notifier.py
+
+#### 일반적인 문제
+- **API 연결 실패**: `Connection refused`, `Timeout`
+- **인증 오류**: `401 Unauthorized`, `403 Forbidden`  
+- **데이터 파싱 오류**: `JSON decode error`, `KeyError`
+
+#### 해결방법
+```bash
+# 1. 직접 실행으로 오류 확인
+cd Monitoring/POSCO News
+python3 posco_main_notifier.py
+
+# 2. API 설정 확인
+grep -n "API_CONFIG" config.py
+
+# 3. 네트워크 연결 테스트
+ping api.posco.com  # 예시
+```
+
+### 2. realtime_news_monitor.py
+
+#### 일반적인 문제
+- **실시간 연결 끊김**: WebSocket 연결 실패
+- **데이터 수집 중단**: RSS 피드 오류
+- **메모리 누수**: 장시간 실행 시 메모리 증가
+
+#### 해결방법
+```bash
+# 1. 실시간 연결 상태 확인
+netstat -an | grep :80  # 웹 연결 확인
+
+# 2. 메모리 사용량 모니터링
+ps -o pid,vsz,rss,comm -p $(pgrep -f realtime_news_monitor)
+
+# 3. 정기 재시작 (임시 해결)
+# 제어센터 → 모듈 관리 → 2번 선택
+```
+
+### 3. integrated_report_scheduler.py
+
+#### 일반적인 문제
+- **스케줄 작업 실패**: Cron 작업 오류
+- **리포트 생성 실패**: 템플릿 오류, 데이터 부족
+- **파일 권한 오류**: 리포트 파일 생성 실패
+
+#### 해결방법
+```bash
+# 1. 스케줄 상태 확인
+crontab -l | grep posco
+
+# 2. 리포트 디렉토리 권한 확인
+ls -la reports/
+
+# 3. 수동 리포트 생성 테스트
+cd Monitoring/POSCO News
+python3 -c "from integrated_report_scheduler import *; generate_daily_report()"
+```
+
+### 4. historical_data_collector.py
+
+#### 일반적인 문제
+- **데이터베이스 연결 실패**: DB 접속 오류
+- **대용량 데이터 처리**: 메모리 부족, 처리 시간 초과
+- **중복 데이터**: 동일 데이터 반복 수집
+
+#### 해결방법
+```bash
+# 1. DB 연결 테스트
+python3 -c "import sqlite3; print('DB OK')"
+
+# 2. 데이터 크기 확인
+du -sh Monitoring/POSCO News/*.db
+
+# 3. 선택적 비활성화 (리소스 절약)
+# modules.json에서 auto_start: false 설정
+```
+
+---
+
+## 📊 로그 분석 가이드
+
+### 1. 로그 파일 종류 및 위치
+
+```
+📁 로그 파일 구조:
+├── watchhamster.log              # 메인 WatchHamster 로그
+├── WatchHamster.log              # 기존 WatchHamster 로그
+├── posco_monitor.log             # 통합 모니터링 로그
+├── main_notifier.log             # 메인 알림 시스템 로그
+├── realtime_monitor.log          # 실시간 모니터 로그
+├── integrated_report.log         # 통합 리포트 로그
+└── error.log                     # 오류 전용 로그
+```
+
+### 2. 로그 레벨 이해
+
+```
+🔍 로그 레벨:
+[INFO]    - 일반 정보 (정상 동작)
+[WARNING] - 경고 (주의 필요)
+[ERROR]   - 오류 (문제 발생)
+[CRITICAL]- 치명적 오류 (즉시 조치 필요)
+```
+
+### 3. 주요 로그 패턴
+
+#### 정상 동작 로그
+```
+[2025-08-07 14:00:00] 🔧 새로운 아키텍처 컴포넌트 초기화 완료
+[2025-08-07 14:00:01] 📋 관리 대상 프로세스 로드: 3개
+[2025-08-07 14:00:02] ✅ posco_main_notifier 시작 성공
+[2025-08-07 14:00:03] 🐹 POSCO WatchHamster 정기 상태 보고
+```
+
+#### 문제 발생 로그
+```
+[2025-08-07 14:00:00] ❌ posco_main_notifier 시작 실패
+[2025-08-07 14:00:01] 🔄 posco_main_notifier 재시작 시도 (1/3)
+[2025-08-07 14:05:00] 🔄 posco_main_notifier 재시작 시도 (2/3)
+[2025-08-07 14:10:00] ❌ posco_main_notifier 최대 재시작 횟수 초과
+```
+
+#### 복구 성공 로그
+```
+[2025-08-07 14:15:00] ✅ posco_main_notifier 자동 복구 성공
+[2025-08-07 14:15:01] 🚀 프로세스가 정상적으로 복구되어 모니터링 재개
+```
+
+### 4. 로그 분석 명령어
+
+#### 기본 분석
+```bash
+# 최근 오류 확인
+grep -i "error\|fail\|❌" watchhamster.log | tail -10
+
+# 특정 시간대 로그
+grep "2025-08-07 14:" watchhamster.log
+
+# 특정 모듈 관련 로그
+grep "posco_main_notifier" watchhamster.log
+
+# 재시작 관련 로그
+grep -i "restart\|재시작" watchhamster.log
+```
+
+#### 고급 분석
+```bash
+# 오류 빈도 분석
+grep -i "error" watchhamster.log | cut -d' ' -f1-2 | sort | uniq -c
+
+# 프로세스별 문제 통계
+grep "❌" watchhamster.log | grep -o "posco_[a-z_]*" | sort | uniq -c
+
+# 시간대별 활동 분석
+grep "$(date +%Y-%m-%d)" watchhamster.log | cut -d' ' -f2 | cut -d':' -f1 | sort | uniq -c
+```
+
+### 5. 로그 관리
+
+#### 로그 크기 관리
+```bash
+# 로그 파일 크기 확인
+du -sh *.log
+
+# 큰 로그 파일 압축
+gzip watchhamster.log.old
+
+# 로그 파일 분할 (100MB 이상)
+split -b 100M watchhamster.log watchhamster_part_
+```
+
+#### 로그 정리
+```bash
+# 30일 이전 로그 삭제
+find . -name "*.log" -mtime +30 -delete
+
+# 로그 파일 백업
+tar -czf logs_backup_$(date +%Y%m%d).tar.gz *.log
+```
+
+---
+
+## 🚨 응급 복구 절차
+
+### 1. 전체 시스템 중단 시
+
+#### 🚨 상황: 모든 모듈이 중단됨
+```bash
+# 1. 즉시 확인
+ps aux | grep -E "(monitor_WatchHamster|posco_)"
+
+# 2. 강제 정리
+pkill -9 -f "monitor_WatchHamster"
+pkill -9 -f "posco_"
+
+# 3. 환경 확인
+python3 --version
+df -h
+free -h
+
+# 4. 재시작
+./posco_control_center.sh → 메뉴 1번
+```
+
+### 2. 반복적인 크래시 발생 시
+
+#### 🚨 상황: 시작 후 즉시 종료 반복
+```bash
+# 1. 안전 모드 시작 (최소 기능만)
+cd Monitoring/POSCO News
+python3 -c "
+import sys
+sys.path.insert(0, '.')
+from monitor_WatchHamster import PoscoMonitorWatchHamster
+wh = PoscoMonitorWatchHamster()
+print('초기화 완료')
+"
+
+# 2. 설정 파일 검증
+python3 -c "
+import json
+with open('../POSCO News_v2/modules.json') as f:
+    config = json.load(f)
+    print('설정 파일 정상')
+"
+
+# 3. 의존성 확인
+pip3 list | grep -E "(requests|psutil)"
+```
+
+### 3. 디스크 공간 부족 시
+
+#### 🚨 상황: 디스크 사용률 95% 이상
+```bash
+# 1. 즉시 공간 확보
+rm -rf /tmp/*
+find . -name "*.log" -size +500M -exec rm {} \;
+
+# 2. 큰 파일 찾기
+find . -size +100M -ls
+
+# 3. 로그 압축
+gzip *.log
+
+# 4. 임시 비활성화
+# historical_data_collector 중지
+```
+
+### 4. 메모리 부족 시
+
+#### 🚨 상황: 메모리 사용률 90% 이상
+```bash
+# 1. 메모리 사용량 확인
+ps aux --sort=-%mem | head -10
+
+# 2. 불필요한 프로세스 종료
+pkill -f "historical_data_collector"
+
+# 3. 캐시 정리
+sync && echo 3 > /proc/sys/vm/drop_caches
+
+# 4. 스왑 확인
+swapon -s
+```
+
+### 5. 네트워크 연결 문제 시
+
+#### 🚨 상황: 알림 전송 실패, API 연결 불가
+```bash
+# 1. 네트워크 연결 확인
+ping -c 3 8.8.8.8
+curl -I https://dooray.com
+
+# 2. DNS 확인
+nslookup dooray.com
+
+# 3. 방화벽 확인
+sudo iptables -L
+
+# 4. 오프라인 모드 활성화
+# config.py에서 OFFLINE_MODE = True 설정
+```
+
+---
+
+## 📞 지원 및 에스컬레이션
+
+### 1. 1차 지원 (사용자 자가 해결)
+- ✅ 제어센터를 통한 재시작
+- ✅ 로그 확인 및 기본 문제 해결
+- ✅ 시스템 리소스 확인
+
+### 2. 2차 지원 (시스템 관리자)
+- 🔧 설정 파일 수정
+- 🔧 의존성 패키지 설치
+- 🔧 시스템 환경 조정
+
+### 3. 3차 지원 (개발팀)
+- 🛠️ 코드 수정 필요
+- 🛠️ 아키텍처 변경 필요
+- 🛠️ 새로운 기능 개발
+
+### 📋 문제 보고 시 포함할 정보
+```
+🔍 문제 보고 템플릿:
+
+1. 발생 시간: 2025-08-07 14:00:00
+2. 증상: WatchHamster 시작 실패
+3. 오류 메시지: [로그에서 복사]
+4. 시스템 환경:
+   - OS: macOS 13.0
+   - Python: 3.9.7
+   - 메모리: 16GB
+   - 디스크: 500GB (사용률 45%)
+5. 재현 단계:
+   - ./posco_control_center.sh 실행
+   - 메뉴 1번 선택
+   - 오류 발생
+6. 시도한 해결방법:
+   - 재시작 시도
+   - 로그 확인
+7. 첨부 파일:
+   - watchhamster.log (최근 100줄)
+   - 시스템 상태 스크린샷
+```
+
+---
+
+*🔧 이 문제 해결 가이드는 POSCO WatchHamster v3.0 (2025-08-07) 기준으로 작성되었습니다.*

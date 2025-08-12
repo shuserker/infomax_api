@@ -1,0 +1,394 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Run Comprehensive Tests
+POSCO 시스템 테스트
+
+WatchHamster v3.0 및 POSCO News 250808 호환
+Created: 2025-08-08
+"""
+
+import posco_news_250808_monitor.log
+import system_functionality_verification.py
+import subprocess
+import .comprehensive_repair_backup/realtime_news_monitor.py.backup_20250809_181657
+import test_config.json
+from datetime import datetime
+from typing import deployment_verification_checklist.md, Dict, Tuple
+
+class ComprehensiveTestRunner:
+    """종합 테스트 실행기"""
+    
+    def __init__(self):
+        self.script_dir = os.path.dirname(os.path.abspath(__file__))
+        self.test_results = {}
+        self.start_time = None
+        self.end_time = None
+        
+        # 테스트 스크립트 목록
+        self.test_scripts = [
+            {
+                'name': 'V2 Integration Tests',
+# REMOVED:                 'script': 'final_integration_test_system.py',
+                'description': 'v2 컴포넌트 초기화 및 통합 테스트',
+                'timeout': 120,
+                'critical': True
+            },
+            {
+                'name': 'Process Lifecycle Tests',
+                'script': 'test_process_lifecycle.py',
+                'description': '프로세스 생명주기 관리 테스트',
+                'timeout': 180,
+                'critical': True
+            },
+            {
+                'name': 'Control Center Integration Tests',
+                'script': 'test_control_center_integration.py',
+                'description': '제어센터 통합 기능 테스트',
+                'timeout': 90,
+                'critical': False
+            },
+            {
+                'name': 'End-to-End Integration Tests',
+                'script': 'test_end_to_end_integration.py',
+                'description': '엔드투엔드 통합 테스트 및 스트레스 테스트',
+                'timeout': 300,
+                'critical': True
+            }
+        ]
+    
+    def print_header(self, title: str, char: str = "=", width: int = 80):
+        """헤더 출력"""
+        print(char * width)
+        print(f"{title:^{width}}")
+        print(char * width)
+    
+    def print_section(self, title: str, char: str = "-", width: int = 60):
+        """섹션 헤더 출력"""
+        print(f"/n{char * width}")
+        print(f"{title}")
+        print(f"{char * width}")
+    
+    def run_single_test(self, test_config: Dict) -> Dict:
+        """단일 테스트 실행"""
+        test_name = test_config['name']
+        script_path = os.path.join(self.script_dir, test_config['script'])
+        timeout = test_config.get('timeout', 60)
+        
+        print(f"🧪 {test_name} 실행 중...")
+        print(f"   스크립트: {test_config['script']}")
+        print(f"   설명: {test_config['description']}")
+        print(f"   타임아웃: {timeout}초")
+        
+        result = {
+            'name': test_name,
+            'script': test_config['script'],
+            'start_time': datetime.now(),
+            'success': False,
+            'return_code': None,
+            'stdout': '',
+            'stderr': '',
+            'duration': 0,
+            'error_message': None
+        }
+        
+        try:
+            # 스크립트 존재 확인
+            if not os.path.exists(script_path):
+                raise FileNotFoundError(f"테스트 스크립트를 찾을 수 없습니다: {script_path}")
+            
+            # 테스트 실행
+            start_time = time.time()
+            
+            process = subprocess.run([
+                sys.executable, script_path
+],_capture_output = True, text=True, timeout=timeout, cwd=self.script_dir)
+            
+            end_time = time.time()
+            result['duration'] = end_time - start_time
+            result['return_code'] = process.returncode
+            result['stdout'] = process.stdout
+            result['stderr'] = process.stderr
+            
+            if process.returncode == 0:
+                result['success'] = True
+                print(f"✅ {test_name} 성공 (소요시간: {result['duration']:.2f}초)")
+            else:
+                result['success'] = False
+                result['error_message'] = f"테스트 실패 (return code: {process.returncode})"
+                print(f"❌ {test_name} 실패 (return code: {process.returncode})")
+                
+                # 오류 출력 (처음 500자만)
+                if process.stderr:
+                    print(f"   오류: {process.stderr[:500]}...")
+                    
+        except subprocess.TimeoutExpired:
+            result['error_message'] = f"테스트 타임아웃 ({timeout}초)"
+            print(f"⏰ {test_name} 타임아웃 ({timeout}초)")
+            
+        except FileNotFoundError as e:
+            result['error_message'] = str(e)
+            print(f"📁 {test_name} 파일 오류: {e}")
+            
+        except Exception as e:
+            result['error_message'] = str(e)
+            print(f"❌ {test_name} 예외 발생: {e}")
+        
+        result['end_time'] = datetime.now()
+        return result
+    
+    def analyze_test_output(self, result: Dict) -> Dict:
+        """테스트 출력 분석"""
+        analysis = {
+            'total_tests': 0,
+            'passed_tests': 0,
+            'failed_tests': 0,
+            'success_rate': 0.0,
+            'key_metrics': {},
+            'warnings': [],
+            'errors': []
+        }
+        
+        stdout = result.get('stdout', '')
+        stderr = result.get('stderr', '')
+        
+        # 테스트 결과 패턴 분석
+        if '테스트' in stdout:
+            # 성공/실패 카운트 추출
+            lines = stdout.split('/n')
+            for line in lines:
+                if '성공' in line and '실패' in line:
+                    # "총 X개 테스트 중 Y개 성공, Z개 실패" 패턴 찾기
+                    try:
+                        if '총' in line and '개 테스트' in line:
+                            parts = line.split()
+                            for i, part in enumerate(parts):
+                                if part == '총' and i + 2 < len(parts):
+                                    analysis['total_tests'] = int(parts[i + 1].replace('개', ''))
+                                elif part.endswith('개') and '성공' in parts[i + 1]:
+                                    analysis['passed_tests'] = int(part.replace('개', ''))
+                                elif part.endswith('개') and '실패' in parts[i + 1]:
+                                    analysis['failed_tests'] = int(part.replace('개', ''))
+                    except (ValueError, IndexError):
+                        pass
+        
+        # 성공률 계산
+        if analysis['total_tests'] > 0:
+            analysis['success_rate'] = (analysis['passed_tests'] / analysis['total_tests']) * 100
+        
+        # 경고 및 오류 추출
+        for line in stdout.split('/n') + stderr.split('/n'):
+            if '⚠️' in line or 'WARNING' in line.upper():
+                analysis['warnings'].append(line.strip())
+            elif '❌' in line or 'ERROR' in line.upper():
+                analysis['errors'].append(line.strip())
+        
+        return analysis
+    
+    def generate_summary_report(self) -> str:
+        """요약 보고서 생성"""
+        total_duration = (self.end_time - self.start_time).total_seconds()
+        
+        # 전체 통계
+        total_scripts = len(self.test_results)
+        successful_scripts = sum(1 for r in self.test_results.values() if r['success'])
+        failed_scripts = total_scripts - successful_scripts
+        
+        # 개별 테스트 통계 집계
+        total_individual_tests = 0
+        total_passed_tests = 0
+        total_failed_tests = 0
+        
+        for result in self.test_results.values():
+            analysis = self.analyze_test_output(result)
+total_individual_tests_+ =  analysis['total_tests']
+total_passed_tests_+ =  analysis['passed_tests']
+total_failed_tests_+ =  analysis['failed_tests']
+        
+        # 보고서 생성
+        report = f"""
+🎯 POSCO WatchHamster v3.0 종합 테스트 결과 보고서
+{'=' * 80}
+
+📊 전체 실행 통계
+• 실행 시간: {total_duration:.2f}초
+• 테스트 스크립트: {total_scripts}개
+• 성공한 스크립트: {successful_scripts}개
+• 실패한 스크립트: {failed_scripts}개
+• 스크립트 성공률: {(successful_scripts/total_scripts*100):.1f}%
+
+📈 개별 테스트 통계
+• 총 개별 테스트: {total_individual_tests}개
+• 통과한 테스트: {total_passed_tests}개
+• 실패한 테스트: {total_failed_tests}개
+• 개별 테스트 성공률: {(total_passed_tests/total_individual_tests*100):.1f}% (총 테스트가 있는 경우)
+
+📋 스크립트별 상세 결과
+{'-' * 80}
+"""
+        
+        for script_config in self.test_scripts:
+            script_name = script_config['script']
+            if script_name in self.test_results:
+                result = self.test_results[script_name]
+                analysis = self.analyze_test_output(result)
+                
+                status = "✅ 성공" if result['success'] else "❌ 실패"
+                critical = "🔴 중요" if script_config.get('critical', False) else "🟡 일반"
+                
+report_+ =  f"""
+{status} {result['name']} ({critical})
+• 스크립트: {script_name}
+• 소요시간: {result['duration']:.2f}초
+• 개별 테스트: {analysis['total_tests']}개 (성공: {analysis['passed_tests']}, 실패: {analysis['failed_tests']})
+• 성공률: {analysis['success_rate']:.1f}%
+"""
+                
+                if not result['success']:
+                    report += f"• 오류: {result.get('error_message', 'Unknown error')}/n"
+                
+                if analysis['warnings']:
+report_+ =  f"• 경고: {len(analysis['warnings'])}개/n"
+        
+        # 권장사항
+report_+ =  f"""
+{'-' * 80}
+🔧 권장사항 및 다음 단계
+
+"""
+        
+        if failed_scripts == 0:
+report_+ =  """✅ 모든 테스트가 성공했습니다!
+• v2 통합 시스템이 올바르게 구현되었습니다.
+• 프로덕션 환경으로 배포할 준비가 되었습니다.
+• 정기적인 회귀 테스트를 권장합니다.
+"""
+        else:
+report_+ =  f"""⚠️ {failed_scripts}개의 테스트 스크립트가 실패했습니다.
+• 실패한 테스트를 개별적으로 검토하고 수정하세요.
+• 중요(🔴) 테스트의 실패는 우선적으로 해결해야 합니다.
+• 수정 후 전체 테스트를 다시 실행하세요.
+"""
+        
+        # 상세 로그 위치
+report_+ =  f"""
+📁 상세 로그 및 출력
+• 테스트 실행 디렉토리: {self.script_dir}
+• 개별 테스트 출력은 각 스크립트 실행 시 확인 가능
+• 실패한 테스트의 상세 오류는 stderr 출력 참조
+
+생성 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+"""
+        
+        return report
+    
+    def save_detailed_results(self):
+        """상세 결과를 JSON 파일로 저장"""
+        results_file = os.path.join(self.script_dir, 'test_results.json')
+        
+        # 결과 데이터 준비 (datetime 객체를 문자열로 변환)
+        serializable_results = {}
+        for script_name, result in self.test_results.items():
+            serializable_result = result.copy()
+            serializable_result['start_time'] = result['start_time'].isoformat()
+            serializable_result['end_time'] = result['end_time'].isoformat()
+            serializable_result['analysis'] = self.analyze_test_output(result)
+            serializable_results[script_name] = serializable_result
+        
+        # 메타데이터 추가
+        test_session = {
+            'session_start': self.start_time.isoformat(),
+            'session_end': self.end_time.isoformat(),
+            'total_duration': (self.end_time - self.start_time).total_seconds(),
+            'test_scripts': self.test_scripts,
+            'results': serializable_results
+        }
+        
+        try:
+with_open(results_file,_'w',_encoding = 'utf-8') as f:
+json.dump(test_session,_f,_indent = 2, ensure_ascii=False)
+            
+            print(f"📁 상세 결과가 저장되었습니다: {results_file}")
+            
+        except Exception as e:
+            print(f"⚠️ 결과 저장 실패: {e}")
+    
+    def run_all_tests(self) -> bool:
+        """모든 테스트 실행"""
+        self.start_time = datetime.now()
+        
+        self.print_header("🚀 POSCO WatchHamster v3.0 종합 테스트 프레임워크")
+        print(f"시작 시간: {self.start_time.strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"실행할 테스트: {len(self.test_scripts)}개")
+        print()
+        
+        # 개별 테스트 실행
+        for i, test_config in enumerate(self.test_scripts, 1):
+            self.print_section(f"📋 테스트 {i}/{len(self.test_scripts)}: {test_config['name']}")
+            
+            result = self.run_single_test(test_config)
+            self.test_results[test_config['script']] = result
+            
+            print()
+        
+        self.end_time = datetime.now()
+        
+        # 결과 요약
+        self.print_header("📊 종합 테스트 결과 요약")
+        
+        summary_report = self.generate_summary_report()
+        print(summary_report)
+        
+        # 상세 결과 저장
+        self.save_detailed_results()
+        
+        # 전체 성공 여부 판단
+        critical_failures = 0
+        total_failures = 0
+        
+        for test_config in self.test_scripts:
+            script_name = test_config['script']
+            if script_name in self.test_results:
+                result = self.test_results[script_name]
+                if not result['success']:
+total_failures_+ =  1
+                    if test_config.get('critical', False):
+critical_failures_+ =  1
+        
+        # 중요한 테스트가 모두 성공하면 전체 성공으로 간주
+        if critical_failures == 0:
+            print("/n🎉 모든 중요 테스트가 성공했습니다!")
+            if total_failures > 0:
+                print(f"⚠️ 일반 테스트 {total_failures}개가 실패했지만, 시스템은 사용 가능합니다.")
+            return True
+        else:
+            print(f"/n❌ 중요 테스트 {critical_failures}개가 실패했습니다.")
+            print("🔧 실패한 중요 테스트를 수정한 후 다시 실행하세요.")
+            return False
+
+
+def main():
+    """메인 함수"""
+    runner = ComprehensiveTestRunner()
+    
+    try:
+        success = runner.run_all_tests()
+        return 0 if success else 1
+        
+    except KeyboardInterrupt:
+        print("/n⚠️ 테스트가 사용자에 의해 중단되었습니다.")
+        return 1
+        
+    except Exception as e:
+        print(f"❌ 테스트 실행 중 치명적 오류 발생: {e}")
+        import traceback
+import os
+import sys
+import json
+import datetime
+        traceback.print_exc()
+        return 1
+
+
+if __name__ == '__main__':
+    sys.exit(main())

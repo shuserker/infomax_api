@@ -1,0 +1,132 @@
+[2025-08-10 18:48:16] 🔍 모니터링 및 알림 시스템 검증 시작
+[2025-08-10 18:48:16] 🚀 종합 모니터링 및 알림 시스템 검증 시작
+[2025-08-10 18:48:16] 1️⃣ 웹훅 기능 검증 실행
+[2025-08-10 18:48:16] 🔗 웹훅 기능 검증 시작
+[2025-08-10 18:48:16] 📋 웹훅 발견: DOORAY_WEBHOOK
+[2025-08-10 18:48:16] 📋 웹훅 발견: WATCHHAMSTER_WEBHOOK
+[2025-08-10 18:48:16] 📋 웹훅 발견: GENERIC_WEBHOOK
+[2025-08-10 18:48:16] 📋 웹훅 발견: GENERIC_WEBHOOK_2
+[2025-08-10 18:48:16] 🔗 웹훅 테스트: DOORAY_WEBHOOK
+[2025-08-10 18:48:16]   ✅ 접근 가능 (상태: 200)
+[2025-08-10 18:48:16] 🔗 웹훅 테스트: WATCHHAMSTER_WEBHOOK
+[2025-08-10 18:48:16]   ✅ 접근 가능 (상태: 200)
+[2025-08-10 18:48:16] 🔗 웹훅 테스트: GENERIC_WEBHOOK
+[2025-08-10 18:48:16]   ✅ 접근 가능 (상태: 200)
+[2025-08-10 18:48:16] 🔗 웹훅 테스트: GENERIC_WEBHOOK_2
+[2025-08-10 18:48:17]   ✅ 접근 가능 (상태: 200)
+[2025-08-10 18:48:17] ✅ 모든 웹훅이 정상 접근 가능합니다
+[2025-08-10 18:48:17] 2️⃣ 알림 메시지 무결성 검증 실행
+[2025-08-10 18:48:17] 📝 알림 메시지 무결성 검증 시작
+[2025-08-10 18:48:17] 📋 알림 파일 8개 발견
+[2025-08-10 18:48:17] 📝 메시지 검증: posco_continuous_monitor.py
+[2025-08-10 18:48:17] 📝 메시지 검증: test_performance_monitoring.py
+[2025-08-10 18:48:17] 📝 메시지 검증: monitoring_alert_system_verification.py
+[2025-08-10 18:48:17] 📝 메시지 검증: demo_performance_monitoring.py
+[2025-08-10 18:48:17] 📝 메시지 검증: monitor_WatchHamster_v3.0.py
+[2025-08-10 18:48:17] 📝 메시지 검증: completion_notifier.py
+[2025-08-10 18:48:17] 📝 메시지 검증: posco_main_notifier.py
+[2025-08-10 18:48:17] 📝 메시지 검증: realtime_news_monitor.py
+[2025-08-10 18:48:17] ✅ 모든 알림 메시지가 보존되었습니다
+[2025-08-10 18:48:17] 3️⃣ 비즈니스 로직 무결성 검증 실행
+[2025-08-10 18:48:17] 🧠 비즈니스 로직 무결성 검증 시작
+[2025-08-10 18:48:17] 📋 비즈니스 로직 파일 20개 발견
+[2025-08-10 18:48:17] 🧠 로직 검증: posco_main_notifier.py
+[2025-08-10 18:48:17] 🧠 로직 검증: monitor_WatchHamster_v3.0.py
+[2025-08-10 18:48:17] 🧠 로직 검증: realtime_news_monitor.py
+[2025-08-10 18:48:17] 🧠 로직 검증: integrated_report_scheduler.py
+[2025-08-10 18:48:17] 🧠 로직 검증: POSCO_News_250808.py
+[2025-08-10 18:48:17] 🧠 로직 검증: report_cleanup_manager.py
+[2025-08-10 18:48:17] 🧠 로직 검증: integrated_report_builder.py
+[2025-08-10 18:48:17] 🧠 로직 검증: metadata_reset_manager.py
+[2025-08-10 18:48:17] 🧠 로직 검증: config.py
+[2025-08-10 18:48:17] 🧠 로직 검증: completion_notifier.py
+[2025-08-10 18:48:17] 🧠 로직 검증: monitor_WatchHamster_v3.0_minimal.py
+[2025-08-10 18:48:17] 🧠 로직 검증: test_watchhamster_notification.py
+[2025-08-10 18:48:17] 🧠 로직 검증: historical_data_collector.py
+[2025-08-10 18:48:17] 🧠 로직 검증: posco_report_system_reset.py
+[2025-08-10 18:48:17] 🧠 로직 검증: posco_main_notifier_minimal.py
+[2025-08-10 18:48:17] 🧠 로직 검증: github_pages_deployer.py
+[2025-08-10 18:48:17] 🧠 로직 검증: posco_continuous_monitor.py
+[2025-08-10 18:48:17] 🧠 로직 검증: monitoring_alert_system_verification.py
+[2025-08-10 18:48:17] 🧠 로직 검증: test_performance_monitoring.py
+[2025-08-10 18:48:17] 🧠 로직 검증: demo_performance_monitoring.py
+[2025-08-10 18:48:17] ⚠️ 일부 로직에 문제 있음 (검증율: 80.0%)
+[2025-08-10 18:48:17] 4️⃣ 데이터 호환성 검증 실행
+[2025-08-10 18:48:17] 📊 데이터 호환성 검증 시작
+[2025-08-10 18:48:17] 📋 데이터 파일 72개 발견
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250805_111543.html
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250803_112920.html
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250805_090329.html
+[2025-08-10 18:48:17] 📊 데이터 검증: documentation_standardization.log
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250805_094802.html
+[2025-08-10 18:48:17] 📊 데이터 검증: migration_verification.log
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_news_250808_cache.json
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_news_250808_historical.json
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_news_250808_monitor.log
+[2025-08-10 18:48:17] 📊 데이터 검증: folder_reorganization_log.json
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250805_093753.html
+[2025-08-10 18:48:17] 📊 데이터 검증: system_optimization_data.json
+[2025-08-10 18:48:17] 📊 데이터 검증: file_reference_validation_report.json
+[2025-08-10 18:48:17] 📊 데이터 검증: config_data_standardization_report.json
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250806_090315.html
+[2025-08-10 18:48:17] 📊 데이터 검증: folder_reorganization.log
+[2025-08-10 18:48:17] 📊 데이터 검증: focused_file_reference_repair_report.json
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250805_101014.html
+[2025-08-10 18:48:17] 📊 데이터 검증: folder_reorganization_verification.json
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250803_180039.html
+[2025-08-10 18:48:17] 📊 데이터 검증: WatchHamster_v3.0.log
+[2025-08-10 18:48:17] 📊 데이터 검증: repair_config.json
+[2025-08-10 18:48:17] 📊 데이터 검증: syntax_repair.log
+[2025-08-10 18:48:17] 📊 데이터 검증: script_standardization.log
+[2025-08-10 18:48:17] 📊 데이터 검증: task4_file_reference_integrity_verification.json
+[2025-08-10 18:48:17] 📊 데이터 검증: final_file_reference_cleanup_report.json
+[2025-08-10 18:48:17] 📊 데이터 검증: final_integration_verification_results.json
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250805_094256.html
+[2025-08-10 18:48:17] 📊 데이터 검증: comprehensive_repair.log
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250805_105449.html
+[2025-08-10 18:48:17] 📊 데이터 검증: test_results.json
+[2025-08-10 18:48:17] 📊 데이터 검증: test_config.json
+[2025-08-10 18:48:17] 📊 데이터 검증: refined_file_reference_repair_report.json
+[2025-08-10 18:48:17] 📊 데이터 검증: file_renaming.log
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250803_114734.html
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250805_104146.html
+[2025-08-10 18:48:17] 📊 데이터 검증: monitoring_alert_verification.log
+[2025-08-10 18:48:17] 📊 데이터 검증: system_execution_verification_results.json
+[2025-08-10 18:48:17] 📊 데이터 검증: config_data_standardization.log
+[2025-08-10 18:48:17] 📊 데이터 검증: modules.json
+[2025-08-10 18:48:17] 📊 데이터 검증: comprehensive_system_execution_test_results.json
+[2025-08-10 18:48:17] 📊 데이터 검증: performance_alerts.json
+[2025-08-10 18:48:17] 📊 데이터 검증: simplified_integration_test_results.json
+[2025-08-10 18:48:17] 📊 데이터 검증: naming_verification.log
+[2025-08-10 18:48:17] 📊 데이터 검증: main_notifier_state.json
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250805_110936.html
+[2025-08-10 18:48:17] 📊 데이터 검증: system_functionality_verification_report.json
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250806_090231.html
+[2025-08-10 18:48:17] 📊 데이터 검증: optimization_history.json
+[2025-08-10 18:48:17] 📊 데이터 검증: enhanced_repair_results_20250810_175726.json
+[2025-08-10 18:48:17] 📊 데이터 검증: performance_data_20250808_105531.json
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250805_104713.html
+[2025-08-10 18:48:17] 📊 데이터 검증: final_integration_test_report.json
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250806_090323.html
+[2025-08-10 18:48:17] 📊 데이터 검증: file_reference_repair_report.json
+[2025-08-10 18:48:17] 📊 데이터 검증: enhanced_final_integration_test_results.json
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250805_093246.html
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_business_day_mapping.json
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_news_250808_data.json
+[2025-08-10 18:48:17] 📊 데이터 검증: naming_verification_report_20250809_171232.json
+[2025-08-10 18:48:17] 📊 데이터 검증: enhanced_final_integration_test.log
+[2025-08-10 18:48:17] 📊 데이터 검증: reports_index.json
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250805_112247.html
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250806_130916.html
+[2025-08-10 18:48:17] 📊 데이터 검증: WatchHamster_v3.0_status.json
+[2025-08-10 18:48:17] 📊 데이터 검증: final_integration_test.log
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250805_092322.html
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250805_092439.html
+[2025-08-10 18:48:17] 📊 데이터 검증: comprehensive_test_config.json
+[2025-08-10 18:48:17] 📊 데이터 검증: performance_data_20250808_112257.json
+[2025-08-10 18:48:17] 📊 데이터 검증: posco_integrated_analysis_20250805_105046.html
+[2025-08-10 18:48:17] 📊 데이터 검증: performance_alerts.json
+[2025-08-10 18:48:17] ⚠️ 일부 데이터 호환성 문제 (90.3%)
+[2025-08-10 18:48:17] ✅ 종합 검증 완료 (소요시간: 0.61초)
+[2025-08-10 18:48:17] 📊 전체 점수: 75/100, 상태: acceptable
+[2025-08-10 18:48:17] 📄 검증 보고서 생성: monitoring_alert_verification_report_20250810_184817.json

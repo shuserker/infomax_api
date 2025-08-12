@@ -1,9 +1,9 @@
-# 🐹 POSCO 워치햄스터 v2.0 사용자 가이드
+# 🐹 POSCO WatchHamster v3.0 사용자 가이드
 
 ## 📖 목차
 1. [개요](#개요)
 2. [새로운 제어센터 사용법](#새로운-제어센터-사용법)
-3. [워치햄스터 상태 확인](#워치햄스터-상태-확인)
+3. [WatchHamster 상태 확인](#WatchHamster-상태-확인)
 4. [문제 해결 가이드](#문제-해결-가이드)
 5. [알림 시스템 이해](#알림-시스템-이해)
 
@@ -11,19 +11,19 @@
 
 ## 🎯 개요
 
-POSCO 워치햄스터 v2.0은 기존의 모든 기능을 보존하면서 새로운 아키텍처를 도입하여 더욱 안정적이고 지능적인 모니터링 시스템으로 발전했습니다.
+POSCO WatchHamster v3.0은 기존의 모든 기능을 보존하면서 새로운 아키텍처를 도입하여 더욱 안정적이고 지능적인 모니터링 시스템으로 발전했습니다.
 
 ### 🆕 주요 개선사항
 - **🛡️ 3단계 지능적 자동 복구**: 즉시 재시작 → 5분 후 재시도 → 최종 재시도 → 비활성화
 - **📊 향상된 프로세스 관리**: 개별 모듈 상태 추적 및 제어
-- **🎛️ 워치햄스터 중심 제어센터**: 직관적인 관리 인터페이스
+- **🎛️ WatchHamster 중심 제어센터**: 직관적인 관리 인터페이스
 - **🔔 기존 알림 시스템 완전 보존**: 모든 기존 알림 기능 유지
 - **🔄 폴백 메커니즘**: 새로운 기능 실패 시 기존 방식으로 안전하게 동작
 
 ### 🏗️ 시스템 구조
 ```
-🐹 워치햄스터 v2.0
-├── 🛡️ 메인 워치햄스터 (monitor_WatchHamster.py)
+🐹 WatchHamster v3.0
+├── 🛡️ 메인 WatchHamster (monitor_WatchHamster.py)
 │   ├── 📊 Enhanced ProcessManager (새로운 프로세스 관리)
 │   ├── 📋 ModuleRegistry (모듈 설정 관리)
 │   ├── 🔔 NotificationManager (향상된 알림)
@@ -33,7 +33,7 @@ POSCO 워치햄스터 v2.0은 기존의 모든 기능을 보존하면서 새로�
 │   ├── realtime_news_monitor.py
 │   ├── integrated_report_scheduler.py
 │   └── historical_data_collector.py
-└── 🎛️ 워치햄스터 제어센터 (watchhamster_control_center.sh)
+└── 🎛️ WatchHamster 제어센터 (watchhamster_control_center.sh)
 ```
 
 ---
@@ -43,20 +43,20 @@ POSCO 워치햄스터 v2.0은 기존의 모든 기능을 보존하면서 새로�
 ### 1. 제어센터 실행
 ```bash
 # Mac/Linux
-./watchhamster_control_center.sh
+./.naming_backup/scripts/.naming_backup/scripts/watchhamster_control_center.sh
 
 # Windows (Git Bash 또는 WSL)
-bash watchhamster_control_center.sh
+bash .naming_backup/scripts/.naming_backup/scripts/watchhamster_control_center.sh
 ```
 
 ### 2. 메뉴 구조
 
-#### 🐹 워치햄스터 관리 (최상위)
+#### 🐹 WatchHamster 관리 (최상위)
 ```
-1. 🚀 워치햄스터 시작     - 전체 모니터링 시스템 시작
-2. 🛑 워치햄스터 중지     - 전체 모니터링 시스템 중지  
-3. 🔄 워치햄스터 재시작   - 전체 모니터링 시스템 재시작
-4. 📊 워치햄스터 상태     - 전체 시스템 상태 확인
+1. 🚀 WatchHamster 시작     - 전체 모니터링 시스템 시작
+2. 🛑 WatchHamster 중지     - 전체 모니터링 시스템 중지  
+3. 🔄 WatchHamster 재시작   - 전체 모니터링 시스템 재시작
+4. 📊 WatchHamster 상태     - 전체 시스템 상태 확인
 5. 🔧 모듈 관리          - 개별 모듈 상태 및 제어
 ```
 
@@ -74,20 +74,20 @@ E. 🧪 시스템 테스트     - 모니터링 시스템 테스트
 F. 📦 데이터 백업       - 뉴스 데이터 백업
 ```
 
-### 3. 워치햄스터 시작 과정
+### 3. WatchHamster 시작 과정
 
 #### 단계별 진행
 1. **환경 체크**: Python3 설치 및 스크립트 파일 확인
 2. **프로세스 정리**: 기존 실행 중인 프로세스 안전 종료
-3. **워치햄스터 시작**: 백그라운드에서 워치햄스터 실행
+3. **WatchHamster 시작**: 백그라운드에서 WatchHamster 실행
 4. **시스템 초기화**: 10초 대기 후 하위 모듈들 자동 시작
 5. **상태 확인**: 전체 시스템 상태 점검 및 보고
 
 #### 시작 성공 시 표시되는 정보
 ```
-🎉 POSCO 워치햄스터가 성공적으로 시작되었습니다! (PID: 12345)
+🎉 POSCO WatchHamster가 성공적으로 시작되었습니다! (PID: 12345)
 
-🛡️ 워치햄스터 기능:
+🛡️ WatchHamster 기능:
   • 📊 모든 하위 모듈 자동 관리
   • 🔄 프로세스 자동 복구 (3단계 지능적 복구)
   • 📱 실시간 상태 알림 (2시간 간격)
@@ -102,13 +102,13 @@ F. 📦 데이터 백업       - 뉴스 데이터 백업
 
 ---
 
-## 📊 워치햄스터 상태 확인
+## 📊 WatchHamster 상태 확인
 
 ### 1. 전체 상태 보기 (메뉴 4번)
 
-#### 워치햄스터 프로세스 정보
+#### WatchHamster 프로세스 정보
 ```
-🐹 워치햄스터가 실행 중입니다.
+🐹 WatchHamster가 실행 중입니다.
   • PID: 12345
   • 실행시간: 2:30:45
   • CPU 사용률: 1.2%
@@ -158,7 +158,7 @@ L. 📋 로그 보기
 🔄 메인 알림 시스템 재시작 중...
 
 ⏹️ 기존 프로세스 종료 중... (PID: 12346)
-⏳ 워치햄스터의 자동 복구 대기 중... (10초)
+⏳ WatchHamster의 자동 복구 대기 중... (10초)
 ✅ 메인 알림 시스템이 성공적으로 재시작되었습니다. (PID: 12350)
 ```
 
@@ -181,13 +181,13 @@ sudo apt update && sudo apt install python3
 sudo yum install python3
 ```
 
-#### ❌ 워치햄스터 스크립트를 찾을 수 없습니다
+#### ❌ WatchHamster 스크립트를 찾을 수 없습니다
 **해결방법:**
 1. 올바른 디렉토리에서 제어센터를 실행했는지 확인
-2. `Monitoring/Posco_News_mini/monitor_WatchHamster.py` 파일 존재 확인
-3. 파일 권한 확인: `chmod +x Monitoring/Posco_News_mini/monitor_WatchHamster.py`
+2. `Monitoring/POSCO News/monitor_WatchHamster.py` 파일 존재 확인
+3. 파일 권한 확인: `chmod +x Monitoring/POSCO News/monitor_WatchHamster.py`
 
-#### ❌ 워치햄스터 시작 실패
+#### ❌ WatchHamster 시작 실패
 **해결방법:**
 1. **로그 확인**: `tail -f watchhamster.log`
 2. **포트 충돌 확인**: 다른 프로세스가 같은 포트 사용 중인지 확인
@@ -205,13 +205,13 @@ sudo yum install python3
 **해결방법:**
 1. **로그 확인**: 제어센터 → 모듈 관리 → 로그 보기
 2. **수동 재시작**: 개별 모듈 재시작 시도
-3. **전체 재시작**: 워치햄스터 전체 재시작
+3. **전체 재시작**: WatchHamster 전체 재시작
 
 #### 📱 알림이 오지 않음
 **확인사항:**
 1. **웹훅 URL**: Dooray 웹훅 URL이 올바른지 확인
 2. **네트워크**: 인터넷 연결 상태 확인
-3. **워치햄스터 상태**: 워치햄스터가 정상 실행 중인지 확인
+3. **WatchHamster 상태**: WatchHamster가 정상 실행 중인지 확인
 
 ### 3. 3단계 자동 복구 과정
 
@@ -244,8 +244,8 @@ sudo yum install python3
 #### 주요 로그 파일들
 ```
 📁 로그 파일 위치:
-├── watchhamster.log          # 워치햄스터 메인 로그
-├── WatchHamster.log          # 기존 워치햄스터 로그  
+├── watchhamster.log          # WatchHamster 메인 로그
+├── WatchHamster.log          # 기존 WatchHamster 로그  
 ├── posco_monitor.log         # 메인 알림 시스템 로그
 ├── realtime_monitor.log      # 실시간 모니터 로그
 └── integrated_report.log     # 통합 리포트 로그
@@ -274,7 +274,7 @@ grep "2025-08-07 14:" watchhamster.log
 
 #### 🐹 정기 상태 보고 (2시간 간격)
 ```
-🐹 POSCO 워치햄스터 정기 상태 보고
+🐹 POSCO WatchHamster 정기 상태 보고
 
 📅 시간: 2025-08-07 14:00:00
 🔍 모니터링 프로세스: 🟢 정상 작동
@@ -285,7 +285,7 @@ grep "2025-08-07 14:" watchhamster.log
 
 #### 🕐 매시간 상태 체크
 ```
-🕐 POSCO 워치햄스터 매시간 상태 체크
+🕐 POSCO WatchHamster 매시간 상태 체크
 
 📅 시간: 2025-08-07 14:00:00
 🔍 모니터링: 🟢 정상 작동
@@ -295,7 +295,7 @@ grep "2025-08-07 14:" watchhamster.log
 
 #### 🚨 중요 문제 감지 알림
 ```
-🚨 POSCO 워치햄스터 정기 보고 - 중요 문제 감지
+🚨 POSCO WatchHamster 정기 보고 - 중요 문제 감지
 
 📅 시간: 2025-08-07 14:00:00
 🚨 감지된 문제:
@@ -314,7 +314,7 @@ grep "2025-08-07 14:" watchhamster.log
 
 #### 🚀 시스템 시작 알림
 ```
-🐹 POSCO 워치햄스터 시스템 시작
+🐹 POSCO WatchHamster 시스템 시작
 
 📅 시작 시간: 2025-08-07 14:00:00
 🛡️ 관리 대상 프로세스: 4개
@@ -336,7 +336,7 @@ grep "2025-08-07 14:" watchhamster.log
 
 #### ❌ 프로세스 오류 알림
 ```
-❌ POSCO 워치햄스터 프로세스 오류
+❌ POSCO WatchHamster 프로세스 오류
 
 📅 시간: 2025-08-07 14:00:00
 🔧 문제 프로세스: posco_main_notifier
@@ -349,7 +349,7 @@ grep "2025-08-07 14:" watchhamster.log
 
 #### ✅ 복구 성공 알림
 ```
-✅ POSCO 워치햄스터 프로세스 복구 완료
+✅ POSCO WatchHamster 프로세스 복구 완료
 
 📅 시간: 2025-08-07 14:05:00
 🔧 복구된 프로세스: posco_main_notifier
@@ -366,7 +366,7 @@ grep "2025-08-07 14:" watchhamster.log
 조용한 시간대에는 중요한 문제가 있을 때만 알림을 전송합니다:
 
 ```
-🌙 POSCO 워치햄스터 정기 보고 (조용한 시간)
+🌙 POSCO WatchHamster 정기 보고 (조용한 시간)
 
 📅 시간: 2025-08-07 22:00:00
 🔍 모니터링: 🟢 정상 작동
@@ -386,7 +386,7 @@ grep "2025-08-07 14:" watchhamster.log
 
 ## 🎯 마무리
 
-POSCO 워치햄스터 v2.0은 기존의 모든 기능을 보존하면서 더욱 강력하고 지능적인 모니터링 시스템으로 발전했습니다. 
+POSCO WatchHamster v3.0은 기존의 모든 기능을 보존하면서 더욱 강력하고 지능적인 모니터링 시스템으로 발전했습니다. 
 
 ### 📞 지원 및 문의
 - 문제 발생 시 로그 파일을 확인하여 원인을 파악하세요
@@ -394,10 +394,10 @@ POSCO 워치햄스터 v2.0은 기존의 모든 기능을 보존하면서 더욱 
 - 지속적인 문제가 발생하면 시스템 관리자에게 문의하세요
 
 ### 🔄 정기 점검 권장사항
-- **일일**: 워치햄스터 상태 확인 (제어센터 메뉴 4번)
+- **일일**: WatchHamster 상태 확인 (제어센터 메뉴 4번)
 - **주간**: 로그 파일 크기 및 시스템 리소스 확인
 - **월간**: 전체 시스템 재시작 및 업데이트 확인
 
 ---
 
-*📝 이 가이드는 POSCO 워치햄스터 v2.0 (2025-08-07) 기준으로 작성되었습니다.*
+*📝 이 가이드는 POSCO WatchHamster v3.0 (2025-08-07) 기준으로 작성되었습니다.*

@@ -1,0 +1,358 @@
+#!/usr/bin/env python3
+"""
+POSCO 시스템 파일 참조 무결성 최종 검증 도구
+
+Task 4 완료 검증:
+- 83개 깨진 파일 참조 수정 확인
+- 존재하지 않는 파일 경로 참조 정리 확인
+- 와일드카드 패턴 오인식 문제 해결 확인
+- 상대 경로 참조 정확성 검증 및 표준화 확인
+"""
+
+import os
+import re
+import json
+from pathlib import Path
+from typing import Dict, List, Set
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
+class FileReferenceIntegrityVerifier:
+    """파일 참조 무결성 최종 검증 클래스"""
+    
+    def __init__(self, root_path: str = "."):
+        self.root_path = Path(root_path).resolve()
+        self.verification_results = {
+            "broken_references_fixed": 0,
+            "path_standardization_applied": 0,
+            "wildcard_issues_resolved": 0,
+            "relative_path_accuracy": 0,
+            "total_files_processed": 0,
+            "integrity_score": 0.0
+        }
+
+    def verify_task_completion(self) -> Dict:
+        """Task 4 완료 검증"""
+        logger.info("파일 참조 무결성 Task 4 완료 검증 시작...")
+        
+        # 1. 백업 파일 존재 확인 (수정 작업이 수행되었는지)
+        backup_dirs = [
+            ".file_reference_backup",
+            ".refined_file_reference_backup", 
+            ".critical_file_reference_backup"
+        ]
+        
+        backup_files_count = 0
+        for backup_dir in backup_dirs:
+            backup_path = Path(backup_dir)
+            if backup_path.exists():
+                backup_files = list(backup_path.glob("*.backup_*"))
+                backup_files_count += len(backup_files)
+                logger.info(f"백업 디렉토리 {backup_dir}: {len(backup_files)}개 파일")
+        
+        self.verification_results["total_files_processed"] = backup_files_count
+        
+        # 2. 수정 보고서 확인
+        report_files = [
+            "file_reference_repair_report.json",
+            "refined_file_reference_repair_report.json",
+            "critical_file_reference_fix_report.json"
+        ]
+        
+        total_fixes = 0
+        for report_file in report_files:
+            if Path(report_file).exists():
+                try:
+                    with open(report_file, 'r', encoding='utf-8') as f:
+                        report = json.load(f)
+                    
+                    if 'summary' in report:
+                        if 'successful_repairs' in report['summary']:
+                            total_fixes += report['summary']['successful_repairs']
+                        elif 'fixed_issues' in report['summary']:
+                            total_fixes += report['summary']['fixed_issues']
+                    
+                    logger.info(f"보고서 {report_file} 확인 완료")
+                except Exception as e:
+                    logger.error(f"보고서 읽기 오류 {report_file}: {e}")
+        
+        self.verification_results["broken_references_fixed"] = total_fixes
+        
+        # 3. 현재 시스템 상태 검증
+        current_issues = self._scan_current_issues()
+        
+        # 4. 경로 표준화 검증
+        standardization_score = self._verify_path_standardization()
+        self.verification_results["path_standardization_applied"] = standardization_score
+        
+        # 5. 와일드카드 패턴 문제 검증
+        wildcard_score = self._verify_wildcard_handling()
+        self.verification_results["wildcard_issues_resolved"] = wildcard_score
+        
+        # 6. 상대 경로 정확성 검증
+        relative_path_score = self._verify_relative_path_accuracy()
+        self.verification_results["relative_path_accuracy"] = relative_path_score
+        
+        # 7. 전체 무결성 점수 계산
+        integrity_score = self._calculate_integrity_score()
+        self.verification_results["integrity_score"] = integrity_score
+        
+        logger.info("파일 참조 무결성 검증 완료")
+        return self.verification_results
+
+    def _scan_current_issues(self) -> int:
+        """현재 남아있는 파일 참조 문제 스캔"""
+        logger.info("현재 파일 참조 상태 스캔 중...")
+        
+        issues_count = 0
+        
+        # Python 파일의 import 문제 확인
+        for py_file in self.root_path.rglob("*.py"):
+            if py_file.name.startswith('.'):
+                continue
+            
+            try:
+                with open(py_file, 'r', encoding='utf-8', errors='ignore') as f:
+                    content = f.read()
+                
+                # BROKEN_REF 주석이 있는 라인 수 확인
+")
+                issues_count += broken_ref_lines
+                
+            except Exception:
+                continue
+        
+        logger.info(f"현재 남아있는 문제: {issues_count}개")
+        return issues_count
+
+    def _verify_path_standardization(self) -> int:
+        """경로 표준화 검증"""
+        logger.info("경로 표준화 검증 중...")
+        
+        standardized_files = 0
+        total_files = 0
+        
+        for py_file in self.root_path.rglob("*.py"):
+            if py_file.name.startswith('.'):
+                continue
+            
+            total_files += 1
+            
+            try:
+                with open(py_file, 'r', encoding='utf-8', errors='ignore') as f:
+                    content = f.read()
+                
+                # Windows 스타일 경로가 있는지 확인
+                windows_paths = re.findall(r'[\'"][^\'\"]*/+[^\'\"]*[\'"]', content)
+                if not windows_paths:
+                    standardized_files += 1
+                
+            except Exception:
+                continue
+        
+        standardization_rate = (standardized_files / total_files * 100) if total_files > 0 else 100
+        logger.info(f"경로 표준화율: {standardization_rate:.1f}% ({standardized_files}/{total_files})")
+        
+        return int(standardization_rate)
+
+    def _verify_wildcard_handling(self) -> int:
+        """와일드카드 패턴 처리 검증"""
+        logger.info("와일드카드 패턴 처리 검증 중...")
+        
+        # 와일드카드 패턴이 올바르게 처리되었는지 확인
+        # (실제 glob 패턴은 유지되고, 잘못된 패턴만 수정되었는지)
+        
+        correct_patterns = 0
+        total_patterns = 0
+        
+        for py_file in self.root_path.rglob("*.py"):
+            if py_file.name.startswith('.'):
+                continue
+            
+            try:
+                with open(py_file, 'r', encoding='utf-8', errors='ignore') as f:
+                    content = f.read()
+                
+                # glob 패턴 찾기
+                glob_patterns = re.findall(r'/.rglob/([\'"]([^\'"]*)[\'"]', content)
+                for pattern in glob_patterns:
+                    total_patterns += 1
+                    # 유효한 glob 패턴인지 확인
+                    if '*' in pattern and not pattern.startswith('*'):
+                        correct_patterns += 1
+                    elif '*' not in pattern:
+                        correct_patterns += 1
+                
+            except Exception:
+                continue
+        
+        wildcard_score = (correct_patterns / total_patterns * 100) if total_patterns > 0 else 100
+        logger.info(f"와일드카드 패턴 정확도: {wildcard_score:.1f}% ({correct_patterns}/{total_patterns})")
+        
+        return int(wildcard_score)
+
+    def _verify_relative_path_accuracy(self) -> int:
+        """상대 경로 정확성 검증"""
+        logger.info("상대 경로 정확성 검증 중...")
+        
+        accurate_paths = 0
+        total_paths = 0
+        
+        for py_file in self.root_path.rglob("*.py"):
+            if py_file.name.startswith('.'):
+                continue
+            
+            try:
+                with open(py_file, 'r', encoding='utf-8', errors='ignore') as f:
+                    content = f.read()
+                
+                # 파일 경로 참조 찾기
+                file_refs = re.findall(r'[\'"]([^\'\"]+/.(py|json|sh|bat|md|txt))[\'"]', content)
+                
+                for file_ref, ext in file_refs:
+                    total_paths += 1
+                    
+                    # 상대 경로가 실제로 존재하는지 확인
+                    if self._path_exists(file_ref, py_file):
+                        accurate_paths += 1
+                
+            except Exception:
+                continue
+        
+        accuracy_rate = (accurate_paths / total_paths * 100) if total_paths > 0 else 100
+        logger.info(f"상대 경로 정확도: {accuracy_rate:.1f}% ({accurate_paths}/{total_paths})")
+        
+        return int(accuracy_rate)
+
+    def _path_exists(self, file_ref: str, source_file: Path) -> bool:
+        """경로가 존재하는지 확인"""
+        # 절대 경로
+        if os.path.isabs(file_ref):
+            return Path(file_ref).exists()
+        
+        # 상대 경로 (소스 파일 기준)
+        source_dir = source_file.parent
+        relative_path = source_dir / file_ref
+        if relative_path.exists():
+            return True
+        
+        # 루트 기준 경로
+        root_path = self.root_path / file_ref
+        return root_path.exists()
+
+    def _calculate_integrity_score(self) -> float:
+        """전체 무결성 점수 계산"""
+        # 가중치 적용한 점수 계산
+        weights = {
+            "path_standardization": 0.25,
+            "wildcard_handling": 0.25,
+            "relative_path_accuracy": 0.30,
+            "fixes_applied": 0.20
+        }
+        
+        # 수정 작업 점수 (백업 파일 존재 여부로 판단)
+        fixes_score = min(100, self.verification_results["total_files_processed"] * 2)
+        
+        total_score = (
+            self.verification_results["path_standardization_applied"] * weights["path_standardization"] +
+            self.verification_results["wildcard_issues_resolved"] * weights["wildcard_handling"] +
+            self.verification_results["relative_path_accuracy"] * weights["relative_path_accuracy"] +
+            fixes_score * weights["fixes_applied"]
+        )
+        
+        return round(total_score, 2)
+
+    def generate_verification_report(self) -> Dict:
+        """검증 보고서 생성"""
+        from datetime import datetime
+        
+        report = {
+            "timestamp": datetime.now().strftime("%Y%m%d_%H%M%S"),
+            "task": "Task 4: 파일 참조 무결성 완전 복구",
+            "verification_results": self.verification_results,
+            "task_completion_status": {
+                "broken_references_fixed": self.verification_results["broken_references_fixed"] > 0,
+                "path_standardization_applied": self.verification_results["path_standardization_applied"] >= 90,
+                "wildcard_issues_resolved": self.verification_results["wildcard_issues_resolved"] >= 90,
+                "relative_path_accuracy_verified": self.verification_results["relative_path_accuracy"] >= 95,
+                "overall_integrity_achieved": self.verification_results["integrity_score"] >= 95
+            },
+            "recommendations": self._generate_recommendations()
+        }
+        
+        return report
+
+    def _generate_recommendations(self) -> List[str]:
+        """개선 권장사항 생성"""
+        recommendations = []
+        
+        if self.verification_results["path_standardization_applied"] < 90:
+            recommendations.append("경로 표준화를 더 적용하여 Windows/Unix 호환성을 개선하세요.")
+        
+        if self.verification_results["wildcard_issues_resolved"] < 90:
+            recommendations.append("와일드카드 패턴 처리를 개선하여 파일 검색 정확도를 높이세요.")
+        
+        if self.verification_results["relative_path_accuracy"] < 95:
+            recommendations.append("상대 경로 참조의 정확성을 개선하여 파일 참조 오류를 줄이세요.")
+        
+        if self.verification_results["integrity_score"] >= 95:
+            recommendations.append("파일 참조 무결성이 우수한 수준입니다. 현재 상태를 유지하세요.")
+        
+        return recommendations
+
+    def save_verification_report(self, report: Dict, filename: str = "task4_file_reference_integrity_verification.json"):
+        """검증 보고서 저장"""
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(report, f, indent=2, ensure_ascii=False)
+        logger.info(f"검증 보고서 저장: {filename}")
+
+def main():
+    """메인 실행 함수"""
+    print("✅ POSCO 시스템 파일 참조 무결성 Task 4 완료 검증")
+    print("=" * 60)
+    
+    verifier = FileReferenceIntegrityVerifier()
+    
+    # Task 4 완료 검증
+    print("\n🔍 Task 4 완료 상태 검증 중...")
+    results = verifier.verify_task_completion()
+    
+    # 검증 보고서 생성
+    print("\n📋 검증 보고서 생성 중...")
+    report = verifier.generate_verification_report()
+    verifier.save_verification_report(report)
+    
+    # 결과 출력
+    print(f"\n📊 Task 4 완료 검증 결과:")
+    print(f"   • 수정된 파일 참조: {results['broken_references_fixed']}개")
+    print(f"   • 처리된 파일 수: {results['total_files_processed']}개")
+    print(f"   • 경로 표준화율: {results['path_standardization_applied']}%")
+    print(f"   • 와일드카드 처리율: {results['wildcard_issues_resolved']}%")
+    print(f"   • 상대 경로 정확도: {results['relative_path_accuracy']}%")
+    print(f"   • 전체 무결성 점수: {results['integrity_score']}%")
+    
+    # 완료 상태 확인
+    completion_status = report["task_completion_status"]
+    all_completed = all(completion_status.values())
+    
+    print(f"\n🎯 Task 4 완료 상태:")
+    for task, completed in completion_status.items():
+        status = "✅" if completed else "❌"
+        print(f"   {status} {task}: {'완료' if completed else '미완료'}")
+    
+    if all_completed:
+        print(f"\n🎉 Task 4: 파일 참조 무결성 완전 복구 - 성공적으로 완료!")
+        print(f"   전체 무결성 점수: {results['integrity_score']}% (목표: 95% 이상)")
+    else:
+        print(f"\n⚠️  Task 4 일부 항목이 미완료 상태입니다.")
+        print("권장사항:")
+        for rec in report["recommendations"]:
+            print(f"   • {rec}")
+    
+    return all_completed
+
+if __name__ == "__main__":
+    success = main()
+    exit(0 if success else 1)

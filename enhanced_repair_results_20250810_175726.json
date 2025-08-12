@@ -1,0 +1,1645 @@
+{
+  "analysis": {
+    "timestamp": "2025-08-10T17:57:26.552596",
+    "total_files": 134,
+    "python_files": 134,
+    "files_with_issues": 42,
+    "estimated_repair_time": 1625,
+    "repair_tasks": [
+      {
+        "task_id": "syntax_error_test_watchhamster_v3.0_notification.py_0",
+        "file_path": "test_watchhamster_v3.0_notification.py",
+        "task_type": "syntax",
+        "description": "syntax_error in test_watchhamster_v3.0_notification.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "legacy_import_test_watchhamster_v3.0_notification.py_1",
+        "file_path": "test_watchhamster_v3.0_notification.py",
+        "task_type": "import",
+        "description": "legacy_import in test_watchhamster_v3.0_notification.py",
+        "priority": 2,
+        "estimated_time": 15,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_system_functionality_verification.py_2",
+        "file_path": "system_functionality_verification.py",
+        "task_type": "syntax",
+        "description": "syntax_error in system_functionality_verification.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_system_functionality_verification.py_3",
+        "file_path": "system_functionality_verification.py",
+        "task_type": "syntax",
+        "description": "with_open_error in system_functionality_verification.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_verify_folder_reorganization.py_4",
+        "file_path": "verify_folder_reorganization.py",
+        "task_type": "syntax",
+        "description": "syntax_error in verify_folder_reorganization.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_verify_folder_reorganization.py_5",
+        "file_path": "verify_folder_reorganization.py",
+        "task_type": "syntax",
+        "description": "with_open_error in verify_folder_reorganization.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "legacy_import_verify_folder_reorganization.py_6",
+        "file_path": "verify_folder_reorganization.py",
+        "task_type": "import",
+        "description": "legacy_import in verify_folder_reorganization.py",
+        "priority": 2,
+        "estimated_time": 15,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_posco_file_renamer.py_7",
+        "file_path": "posco_file_renamer.py",
+        "task_type": "syntax",
+        "description": "syntax_error in posco_file_renamer.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_posco_file_renamer.py_8",
+        "file_path": "posco_file_renamer.py",
+        "task_type": "syntax",
+        "description": "with_open_error in posco_file_renamer.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_final_integration_test_system.py_9",
+        "file_path": "final_integration_test_system.py",
+        "task_type": "syntax",
+        "description": "syntax_error in final_integration_test_system.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_final_integration_test_system.py_10",
+        "file_path": "final_integration_test_system.py",
+        "task_type": "syntax",
+        "description": "with_open_error in final_integration_test_system.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "legacy_import_final_integration_test_system.py_11",
+        "file_path": "final_integration_test_system.py",
+        "task_type": "import",
+        "description": "legacy_import in final_integration_test_system.py",
+        "priority": 2,
+        "estimated_time": 15,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_test_module_registry_integration.py_12",
+        "file_path": "test_module_registry_integration.py",
+        "task_type": "syntax",
+        "description": "syntax_error in test_module_registry_integration.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_test_module_registry_integration.py_13",
+        "file_path": "test_module_registry_integration.py",
+        "task_type": "syntax",
+        "description": "with_open_error in test_module_registry_integration.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "legacy_import_test_module_registry_integration.py_14",
+        "file_path": "test_module_registry_integration.py",
+        "task_type": "import",
+        "description": "legacy_import in test_module_registry_integration.py",
+        "priority": 2,
+        "estimated_time": 15,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_posco_continuous_monitor.py_15",
+        "file_path": "posco_continuous_monitor.py",
+        "task_type": "syntax",
+        "description": "syntax_error in posco_continuous_monitor.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_deploy_latest_report.py_16",
+        "file_path": "deploy_latest_report.py",
+        "task_type": "syntax",
+        "description": "syntax_error in deploy_latest_report.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_execute_test_scenario.py_17",
+        "file_path": "execute_test_scenario.py",
+        "task_type": "syntax",
+        "description": "syntax_error in execute_test_scenario.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_execute_test_scenario.py_18",
+        "file_path": "execute_test_scenario.py",
+        "task_type": "syntax",
+        "description": "with_open_error in execute_test_scenario.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "legacy_import_automated_repair_system.py_19",
+        "file_path": "automated_repair_system.py",
+        "task_type": "import",
+        "description": "legacy_import in automated_repair_system.py",
+        "priority": 2,
+        "estimated_time": 15,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_run_end_to_end_tests.py_20",
+        "file_path": "run_end_to_end_tests.py",
+        "task_type": "syntax",
+        "description": "syntax_error in run_end_to_end_tests.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_run_end_to_end_tests.py_21",
+        "file_path": "run_end_to_end_tests.py",
+        "task_type": "syntax",
+        "description": "with_open_error in run_end_to_end_tests.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_test_documentation_standardization.py_22",
+        "file_path": "test_documentation_standardization.py",
+        "task_type": "syntax",
+        "description": "syntax_error in test_documentation_standardization.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_test_documentation_standardization.py_23",
+        "file_path": "test_documentation_standardization.py",
+        "task_type": "syntax",
+        "description": "with_open_error in test_documentation_standardization.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_test_end_to_end_integration.py_24",
+        "file_path": "test_end_to_end_integration.py",
+        "task_type": "syntax",
+        "description": "syntax_error in test_end_to_end_integration.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_test_end_to_end_integration.py_25",
+        "file_path": "test_end_to_end_integration.py",
+        "task_type": "syntax",
+        "description": "with_open_error in test_end_to_end_integration.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_run_comprehensive_tests.py_26",
+        "file_path": "run_comprehensive_tests.py",
+        "task_type": "syntax",
+        "description": "syntax_error in run_comprehensive_tests.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_run_comprehensive_tests.py_27",
+        "file_path": "run_comprehensive_tests.py",
+        "task_type": "syntax",
+        "description": "with_open_error in run_comprehensive_tests.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_demo_watchhamster_v3.0_integration.py_28",
+        "file_path": "demo_watchhamster_v3.0_integration.py",
+        "task_type": "syntax",
+        "description": "syntax_error in demo_watchhamster_v3.0_integration.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "legacy_import_demo_watchhamster_v3.0_integration.py_29",
+        "file_path": "demo_watchhamster_v3.0_integration.py",
+        "task_type": "import",
+        "description": "legacy_import in demo_watchhamster_v3.0_integration.py",
+        "priority": 2,
+        "estimated_time": 15,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_file_renaming_system_old.py_30",
+        "file_path": "file_renaming_system_old.py",
+        "task_type": "syntax",
+        "description": "syntax_error in file_renaming_system_old.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_file_renaming_system_old.py_31",
+        "file_path": "file_renaming_system_old.py",
+        "task_type": "syntax",
+        "description": "with_open_error in file_renaming_system_old.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_naming_convention_manager_old.py_32",
+        "file_path": "naming_convention_manager_old.py",
+        "task_type": "syntax",
+        "description": "syntax_error in naming_convention_manager_old.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_test_shell_batch_standardization.py_33",
+        "file_path": "test_shell_batch_standardization.py",
+        "task_type": "syntax",
+        "description": "syntax_error in test_shell_batch_standardization.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_test_shell_batch_standardization.py_34",
+        "file_path": "test_shell_batch_standardization.py",
+        "task_type": "syntax",
+        "description": "with_open_error in test_shell_batch_standardization.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_folder_structure_reorganizer.py_35",
+        "file_path": "folder_structure_reorganizer.py",
+        "task_type": "syntax",
+        "description": "syntax_error in folder_structure_reorganizer.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_folder_structure_reorganizer.py_36",
+        "file_path": "folder_structure_reorganizer.py",
+        "task_type": "syntax",
+        "description": "with_open_error in folder_structure_reorganizer.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "legacy_import_folder_structure_reorganizer.py_37",
+        "file_path": "folder_structure_reorganizer.py",
+        "task_type": "import",
+        "description": "legacy_import in folder_structure_reorganizer.py",
+        "priority": 2,
+        "estimated_time": 15,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_naming_standardization_verification_system.py_38",
+        "file_path": "naming_standardization_verification_system.py",
+        "task_type": "syntax",
+        "description": "syntax_error in naming_standardization_verification_system.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_naming_standardization_verification_system.py_39",
+        "file_path": "naming_standardization_verification_system.py",
+        "task_type": "syntax",
+        "description": "with_open_error in naming_standardization_verification_system.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_json_viewer.py_40",
+        "file_path": "json_viewer.py",
+        "task_type": "syntax",
+        "description": "syntax_error in json_viewer.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_json_viewer.py_41",
+        "file_path": "json_viewer.py",
+        "task_type": "syntax",
+        "description": "with_open_error in json_viewer.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_documentation_standardizer.py_42",
+        "file_path": "documentation_standardizer.py",
+        "task_type": "syntax",
+        "description": "syntax_error in documentation_standardizer.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_documentation_standardizer.py_43",
+        "file_path": "documentation_standardizer.py",
+        "task_type": "syntax",
+        "description": "with_open_error in documentation_standardizer.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_sync_publish_branch.py_44",
+        "file_path": "sync_publish_branch.py",
+        "task_type": "syntax",
+        "description": "syntax_error in sync_publish_branch.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "legacy_import_test_automated_repair_system.py_45",
+        "file_path": "test_automated_repair_system.py",
+        "task_type": "import",
+        "description": "legacy_import in test_automated_repair_system.py",
+        "priority": 2,
+        "estimated_time": 15,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_posco_news_viewer.py_46",
+        "file_path": "posco_news_viewer.py",
+        "task_type": "syntax",
+        "description": "syntax_error in posco_news_viewer.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_posco_news_viewer.py_47",
+        "file_path": "posco_news_viewer.py",
+        "task_type": "syntax",
+        "description": "with_open_error in posco_news_viewer.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_shell_batch_script_standardizer.py_48",
+        "file_path": "shell_batch_script_standardizer.py",
+        "task_type": "syntax",
+        "description": "syntax_error in shell_batch_script_standardizer.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_shell_batch_script_standardizer.py_49",
+        "file_path": "shell_batch_script_standardizer.py",
+        "task_type": "syntax",
+        "description": "with_open_error in shell_batch_script_standardizer.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_test_migration_verification_system.py_50",
+        "file_path": "test_migration_verification_system.py",
+        "task_type": "syntax",
+        "description": "syntax_error in test_migration_verification_system.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_test_migration_verification_system.py_51",
+        "file_path": "test_migration_verification_system.py",
+        "task_type": "syntax",
+        "description": "with_open_error in test_migration_verification_system.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "legacy_import_test_migration_verification_system.py_52",
+        "file_path": "test_migration_verification_system.py",
+        "task_type": "import",
+        "description": "legacy_import in test_migration_verification_system.py",
+        "priority": 2,
+        "estimated_time": 15,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_test_control_center_integration.py_53",
+        "file_path": "test_control_center_integration.py",
+        "task_type": "syntax",
+        "description": "syntax_error in test_control_center_integration.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_test_control_center_integration.py_54",
+        "file_path": "test_control_center_integration.py",
+        "task_type": "syntax",
+        "description": "with_open_error in test_control_center_integration.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_config_data_standardizer.py_55",
+        "file_path": "config_data_standardizer.py",
+        "task_type": "syntax",
+        "description": "syntax_error in config_data_standardizer.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_config_data_standardizer.py_56",
+        "file_path": "config_data_standardizer.py",
+        "task_type": "syntax",
+        "description": "with_open_error in config_data_standardizer.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "legacy_import_config_data_standardizer.py_57",
+        "file_path": "config_data_standardizer.py",
+        "task_type": "import",
+        "description": "legacy_import in config_data_standardizer.py",
+        "priority": 2,
+        "estimated_time": 15,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_test_rollback_functionality.py_58",
+        "file_path": "test_rollback_functionality.py",
+        "task_type": "syntax",
+        "description": "syntax_error in test_rollback_functionality.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_test_rollback_functionality.py_59",
+        "file_path": "test_rollback_functionality.py",
+        "task_type": "syntax",
+        "description": "with_open_error in test_rollback_functionality.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_enhanced_automated_repair_system.py_60",
+        "file_path": "enhanced_automated_repair_system.py",
+        "task_type": "syntax",
+        "description": "with_open_error in enhanced_automated_repair_system.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "legacy_import_enhanced_automated_repair_system.py_61",
+        "file_path": "enhanced_automated_repair_system.py",
+        "task_type": "import",
+        "description": "legacy_import in enhanced_automated_repair_system.py",
+        "priority": 2,
+        "estimated_time": 15,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_indentation_fixer.py_62",
+        "file_path": "indentation_fixer.py",
+        "task_type": "syntax",
+        "description": "syntax_error in indentation_fixer.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_system_output_message_standardizer.py_63",
+        "file_path": "system_output_message_standardizer.py",
+        "task_type": "syntax",
+        "description": "syntax_error in system_output_message_standardizer.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_system_output_message_standardizer.py_64",
+        "file_path": "system_output_message_standardizer.py",
+        "task_type": "syntax",
+        "description": "with_open_error in system_output_message_standardizer.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_system_optimization_report_generator.py_65",
+        "file_path": "system_optimization_report_generator.py",
+        "task_type": "syntax",
+        "description": "syntax_error in system_optimization_report_generator.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_system_optimization_report_generator.py_66",
+        "file_path": "system_optimization_report_generator.py",
+        "task_type": "syntax",
+        "description": "with_open_error in system_optimization_report_generator.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_migration_status_reporter.py_67",
+        "file_path": "migration_status_reporter.py",
+        "task_type": "syntax",
+        "description": "syntax_error in migration_status_reporter.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_migration_status_reporter.py_68",
+        "file_path": "migration_status_reporter.py",
+        "task_type": "syntax",
+        "description": "with_open_error in migration_status_reporter.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_convert_config.py_69",
+        "file_path": "convert_config.py",
+        "task_type": "syntax",
+        "description": "syntax_error in convert_config.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_convert_config.py_70",
+        "file_path": "convert_config.py",
+        "task_type": "syntax",
+        "description": "with_open_error in convert_config.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_final_reference_cleanup.py_71",
+        "file_path": "final_reference_cleanup.py",
+        "task_type": "syntax",
+        "description": "syntax_error in final_reference_cleanup.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_post_migration_verification.py_72",
+        "file_path": "post_migration_verification.py",
+        "task_type": "syntax",
+        "description": "syntax_error in post_migration_verification.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_post_migration_verification.py_73",
+        "file_path": "post_migration_verification.py",
+        "task_type": "syntax",
+        "description": "with_open_error in post_migration_verification.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      },
+      {
+        "task_id": "legacy_import_post_migration_verification.py_74",
+        "file_path": "post_migration_verification.py",
+        "task_type": "import",
+        "description": "legacy_import in post_migration_verification.py",
+        "priority": 2,
+        "estimated_time": 15,
+        "dependencies": null
+      },
+      {
+        "task_id": "legacy_import_critical_file_reference_fixer.py_75",
+        "file_path": "critical_file_reference_fixer.py",
+        "task_type": "import",
+        "description": "legacy_import in critical_file_reference_fixer.py",
+        "priority": 2,
+        "estimated_time": 15,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_test_process_lifecycle.py_76",
+        "file_path": "test_process_lifecycle.py",
+        "task_type": "syntax",
+        "description": "syntax_error in test_process_lifecycle.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_refined_file_reference_repairer.py_77",
+        "file_path": "refined_file_reference_repairer.py",
+        "task_type": "syntax",
+        "description": "syntax_error in refined_file_reference_repairer.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "syntax_error_run_final_integration_tests.py_78",
+        "file_path": "run_final_integration_tests.py",
+        "task_type": "syntax",
+        "description": "syntax_error in run_final_integration_tests.py",
+        "priority": 1,
+        "estimated_time": 30,
+        "dependencies": null
+      },
+      {
+        "task_id": "with_open_error_run_final_integration_tests.py_79",
+        "file_path": "run_final_integration_tests.py",
+        "task_type": "syntax",
+        "description": "with_open_error in run_final_integration_tests.py",
+        "priority": 1,
+        "estimated_time": 10,
+        "dependencies": null
+      }
+    ]
+  },
+  "execution": {
+    "timestamp": "2025-08-10T17:57:26.694360",
+    "total_tasks": 80,
+    "executed_tasks": 60,
+    "successful_tasks": 22,
+    "failed_tasks": 38,
+    "total_execution_time": 0.14689600000000003,
+    "results": [
+      {
+        "task_id": "syntax_test_watchhamster_v3.0_notification.py_175726",
+        "file_path": "test_watchhamster_v3.0_notification.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "패턴 수정: \\bPOSCO News 250808\\b -> POSCO_NEWS_250808",
+          "패턴 수정: \\bWatchHamster v3\\.0\\b -> WATCHHAMSTER_V30",
+          "잘못된 줄바꿈 문자 수정",
+          "구문 검증 실패: invalid syntax (<unknown>, line 21)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.00313,
+        "error_message": null
+      },
+      {
+        "task_id": "import_test_watchhamster_v3.0_notification.py_175726",
+        "file_path": "test_watchhamster_v3.0_notification.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: os",
+          "필요한 import 추가: sys"
+        ],
+        "backup_created": true,
+        "execution_time": 0.003174,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_test_watchhamster_v3.0_notification.py_175726",
+        "file_path": "test_watchhamster_v3.0_notification.py",
+        "success": false,
+        "changes_made": [],
+        "backup_created": true,
+        "execution_time": 0.00039,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_system_functionality_verification.py_175726",
+        "file_path": "system_functionality_verification.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "패턴 수정: \\bWatchHamster v3\\.0\\b -> WATCHHAMSTER_V30",
+          "with_open을 with open으로 수정",
+          "잘못된 줄바꿈 문자 수정",
+          "구문 검증 실패: f-string: expecting '}' (<unknown>, line 80)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.00353,
+        "error_message": null
+      },
+      {
+        "task_id": "import_system_functionality_verification.py_175726",
+        "file_path": "system_functionality_verification.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: sys",
+          "필요한 import 추가: json",
+          "필요한 import 추가: datetime",
+          "필요한 import 추가: pathlib",
+          "필요한 import 추가: re"
+        ],
+        "backup_created": true,
+        "execution_time": 0.001161,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_system_functionality_verification.py_175726",
+        "file_path": "system_functionality_verification.py",
+        "success": true,
+        "changes_made": [
+          "경로 구분자 표준화 (\\를 /로 변경)"
+        ],
+        "backup_created": true,
+        "execution_time": 0.00086,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_verify_folder_reorganization.py_175726",
+        "file_path": "verify_folder_reorganization.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "with_open을 with open으로 수정",
+          "잘못된 줄바꿈 문자 수정",
+          "구문 검증 실패: invalid syntax (<unknown>, line 12)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.002309,
+        "error_message": null
+      },
+      {
+        "task_id": "import_verify_folder_reorganization.py_175726",
+        "file_path": "verify_folder_reorganization.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: json",
+          "필요한 import 추가: pathlib"
+        ],
+        "backup_created": true,
+        "execution_time": 0.000829,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_verify_folder_reorganization.py_175726",
+        "file_path": "verify_folder_reorganization.py",
+        "success": false,
+        "changes_made": [],
+        "backup_created": true,
+        "execution_time": 0.000327,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_posco_file_renamer.py_175726",
+        "file_path": "posco_file_renamer.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "패턴 수정: \\bPOSCO News 250808\\b -> POSCO_NEWS_250808",
+          "패턴 수정: \\bWatchHamster v3\\.0\\b -> WATCHHAMSTER_V30",
+          "with_open을 with open으로 수정",
+          "잘못된 줄바꿈 문자 수정",
+          "구문 검증 실패: f-string: expecting '}' (<unknown>, line 33)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.001256,
+        "error_message": null
+      },
+      {
+        "task_id": "import_posco_file_renamer.py_175726",
+        "file_path": "posco_file_renamer.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: sys",
+          "필요한 import 추가: pathlib"
+        ],
+        "backup_created": true,
+        "execution_time": 0.001474,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_posco_file_renamer.py_175726",
+        "file_path": "posco_file_renamer.py",
+        "success": false,
+        "changes_made": [],
+        "backup_created": true,
+        "execution_time": 0.000512,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_final_integration_test_system.py_175726",
+        "file_path": "final_integration_test_system.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "패턴 수정: \\bWatchHamster v3\\.0\\b -> WATCHHAMSTER_V30",
+          "패턴 수정: \\bposco news\\b -> posco_news",
+          "with_open을 with open으로 수정",
+          "잘못된 줄바꿈 문자 수정",
+          "구문 검증 실패: unexpected indent (<unknown>, line 56)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.009281,
+        "error_message": null
+      },
+      {
+        "task_id": "import_final_integration_test_system.py_175726",
+        "file_path": "final_integration_test_system.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: sys",
+          "필요한 import 추가: json",
+          "필요한 import 추가: datetime",
+          "필요한 import 추가: pathlib",
+          "필요한 import 추가: re"
+        ],
+        "backup_created": true,
+        "execution_time": 0.005101,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_final_integration_test_system.py_175726",
+        "file_path": "final_integration_test_system.py",
+        "success": false,
+        "changes_made": [],
+        "backup_created": true,
+        "execution_time": 0.001144,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_test_module_registry_integration.py_175726",
+        "file_path": "test_module_registry_integration.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "패턴 수정: \\bPOSCO News 250808\\b -> POSCO_NEWS_250808",
+          "패턴 수정: \\bWatchHamster v3\\.0\\b -> WATCHHAMSTER_V30",
+          "with_open을 with open으로 수정",
+          "잘못된 줄바꿈 문자 수정",
+          "구문 검증 실패: expected an indented block (<unknown>, line 32)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.001599,
+        "error_message": null
+      },
+      {
+        "task_id": "import_test_module_registry_integration.py_175726",
+        "file_path": "test_module_registry_integration.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: os",
+          "필요한 import 추가: sys",
+          "필요한 import 추가: json"
+        ],
+        "backup_created": true,
+        "execution_time": 0.000756,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_test_module_registry_integration.py_175726",
+        "file_path": "test_module_registry_integration.py",
+        "success": false,
+        "changes_made": [],
+        "backup_created": true,
+        "execution_time": 0.000387,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_posco_continuous_monitor.py_175726",
+        "file_path": "posco_continuous_monitor.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "패턴 수정: \\bPOSCO News 250808\\b -> POSCO_NEWS_250808",
+          "패턴 수정: \\bWatchHamster v3\\.0\\b -> WATCHHAMSTER_V30",
+          "잘못된 줄바꿈 문자 수정",
+          "구문 검증 실패: invalid syntax (<unknown>, line 13)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.001262,
+        "error_message": null
+      },
+      {
+        "task_id": "import_posco_continuous_monitor.py_175726",
+        "file_path": "posco_continuous_monitor.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: os",
+          "필요한 import 추가: sys",
+          "필요한 import 추가: datetime"
+        ],
+        "backup_created": true,
+        "execution_time": 0.001571,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_posco_continuous_monitor.py_175726",
+        "file_path": "posco_continuous_monitor.py",
+        "success": false,
+        "changes_made": [],
+        "backup_created": true,
+        "execution_time": 0.000527,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_deploy_latest_report.py_175726",
+        "file_path": "deploy_latest_report.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "패턴 수정: \\bPOSCO News 250808\\b -> POSCO_NEWS_250808",
+          "패턴 수정: \\bWatchHamster v3\\.0\\b -> WATCHHAMSTER_V30",
+          "구문 검증 실패: f-string: expecting '}' (<unknown>, line 48)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.001962,
+        "error_message": null
+      },
+      {
+        "task_id": "import_deploy_latest_report.py_175726",
+        "file_path": "deploy_latest_report.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: os"
+        ],
+        "backup_created": true,
+        "execution_time": 0.000484,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_deploy_latest_report.py_175726",
+        "file_path": "deploy_latest_report.py",
+        "success": false,
+        "changes_made": [],
+        "backup_created": true,
+        "execution_time": 0.000289,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_execute_test_scenario.py_175726",
+        "file_path": "execute_test_scenario.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "패턴 수정: \\bPOSCO News 250808\\b -> POSCO_NEWS_250808",
+          "패턴 수정: \\bWatchHamster v3\\.0\\b -> WATCHHAMSTER_V30",
+          "with_open을 with open으로 수정",
+          "잘못된 줄바꿈 문자 수정",
+          "구문 검증 실패: invalid syntax (<unknown>, line 16)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.001469,
+        "error_message": null
+      },
+      {
+        "task_id": "import_execute_test_scenario.py_175726",
+        "file_path": "execute_test_scenario.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: os",
+          "필요한 import 추가: sys",
+          "필요한 import 추가: json",
+          "필요한 import 추가: datetime"
+        ],
+        "backup_created": true,
+        "execution_time": 0.001256,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_execute_test_scenario.py_175726",
+        "file_path": "execute_test_scenario.py",
+        "success": false,
+        "changes_made": [],
+        "backup_created": true,
+        "execution_time": 0.000722,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_run_end_to_end_tests.py_175726",
+        "file_path": "run_end_to_end_tests.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "패턴 수정: \\bPOSCO News 250808\\b -> POSCO_NEWS_250808",
+          "패턴 수정: \\bWatchHamster v3\\.0\\b -> WATCHHAMSTER_V30",
+          "with_open을 with open으로 수정",
+          "잘못된 줄바꿈 문자 수정",
+          "구문 검증 실패: invalid syntax (<unknown>, line 14)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.001685,
+        "error_message": null
+      },
+      {
+        "task_id": "import_run_end_to_end_tests.py_175726",
+        "file_path": "run_end_to_end_tests.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: os",
+          "필요한 import 추가: sys",
+          "필요한 import 추가: json",
+          "필요한 import 추가: datetime"
+        ],
+        "backup_created": true,
+        "execution_time": 0.001547,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_run_end_to_end_tests.py_175726",
+        "file_path": "run_end_to_end_tests.py",
+        "success": false,
+        "changes_made": [],
+        "backup_created": true,
+        "execution_time": 0.00222,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_test_documentation_standardization.py_175726",
+        "file_path": "test_documentation_standardization.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "패턴 수정: \\bPOSCO News 250808\\b -> POSCO_NEWS_250808",
+          "패턴 수정: \\bWatchHamster v3\\.0\\b -> WATCHHAMSTER_V30",
+          "with_open을 with open으로 수정",
+          "잘못된 언더스코어 패턴 수정",
+          "잘못된 줄바꿈 문자 수정",
+          "구문 검증 실패: invalid syntax (<unknown>, line 15)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.002939,
+        "error_message": null
+      },
+      {
+        "task_id": "import_test_documentation_standardization.py_175726",
+        "file_path": "test_documentation_standardization.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: os",
+          "필요한 import 추가: re"
+        ],
+        "backup_created": true,
+        "execution_time": 0.003678,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_test_documentation_standardization.py_175726",
+        "file_path": "test_documentation_standardization.py",
+        "success": true,
+        "changes_made": [
+          "파일 참조 수정: POSCO_WatchHamster_v3 -> WatchHamster_v3.0"
+        ],
+        "backup_created": true,
+        "execution_time": 0.000937,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_test_end_to_end_integration.py_175726",
+        "file_path": "test_end_to_end_integration.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "패턴 수정: \\bPOSCO News 250808\\b -> POSCO_NEWS_250808",
+          "패턴 수정: \\bWatchHamster v3\\.0\\b -> WATCHHAMSTER_V30",
+          "with_open을 with open으로 수정",
+          "잘못된 줄바꿈 문자 수정",
+          "구문 검증 실패: invalid syntax (<unknown>, line 15)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.010536,
+        "error_message": null
+      },
+      {
+        "task_id": "import_test_end_to_end_integration.py_175726",
+        "file_path": "test_end_to_end_integration.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: os",
+          "필요한 import 추가: sys",
+          "필요한 import 추가: json",
+          "필요한 import 추가: datetime"
+        ],
+        "backup_created": true,
+        "execution_time": 0.004122,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_test_end_to_end_integration.py_175726",
+        "file_path": "test_end_to_end_integration.py",
+        "success": false,
+        "changes_made": [],
+        "backup_created": true,
+        "execution_time": 0.000582,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_run_comprehensive_tests.py_175726",
+        "file_path": "run_comprehensive_tests.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "패턴 수정: \\bPOSCO News 250808\\b -> POSCO_NEWS_250808",
+          "패턴 수정: \\bWatchHamster v3\\.0\\b -> WATCHHAMSTER_V30",
+          "with_open을 with open으로 수정",
+          "잘못된 줄바꿈 문자 수정",
+          "구문 검증 실패: invalid syntax (<unknown>, line 14)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.001278,
+        "error_message": null
+      },
+      {
+        "task_id": "import_run_comprehensive_tests.py_175726",
+        "file_path": "run_comprehensive_tests.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: os",
+          "필요한 import 추가: sys",
+          "필요한 import 추가: json",
+          "필요한 import 추가: datetime"
+        ],
+        "backup_created": true,
+        "execution_time": 0.000671,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_run_comprehensive_tests.py_175726",
+        "file_path": "run_comprehensive_tests.py",
+        "success": false,
+        "changes_made": [],
+        "backup_created": true,
+        "execution_time": 0.00029,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_demo_watchhamster_v3.0_integration.py_175726",
+        "file_path": "demo_watchhamster_v3.0_integration.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "패턴 수정: \\bPOSCO News 250808\\b -> POSCO_NEWS_250808",
+          "패턴 수정: \\bWatchHamster v3\\.0\\b -> WATCHHAMSTER_V30",
+          "구문 검증 실패: invalid syntax (<unknown>, line 17)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.000759,
+        "error_message": null
+      },
+      {
+        "task_id": "import_demo_watchhamster_v3.0_integration.py_175726",
+        "file_path": "demo_watchhamster_v3.0_integration.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: os",
+          "필요한 import 추가: sys"
+        ],
+        "backup_created": true,
+        "execution_time": 0.000609,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_demo_watchhamster_v3.0_integration.py_175726",
+        "file_path": "demo_watchhamster_v3.0_integration.py",
+        "success": false,
+        "changes_made": [],
+        "backup_created": true,
+        "execution_time": 0.000362,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_file_renaming_system_old.py_175726",
+        "file_path": "file_renaming_system_old.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "패턴 수정: \\bPOSCO News 250808\\b -> POSCO_NEWS_250808",
+          "패턴 수정: \\bWatchHamster v3\\.0\\b -> WATCHHAMSTER_V30",
+          "with_open을 with open으로 수정",
+          "잘못된 줄바꿈 문자 수정",
+          "구문 검증 실패: invalid syntax (<unknown>, line 186)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.004592,
+        "error_message": null
+      },
+      {
+        "task_id": "import_file_renaming_system_old.py_175726",
+        "file_path": "file_renaming_system_old.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: json",
+          "필요한 import 추가: datetime",
+          "필요한 import 추가: pathlib"
+        ],
+        "backup_created": true,
+        "execution_time": 0.00247,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_file_renaming_system_old.py_175726",
+        "file_path": "file_renaming_system_old.py",
+        "success": false,
+        "changes_made": [],
+        "backup_created": true,
+        "execution_time": 0.003961,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_naming_convention_manager_old.py_175726",
+        "file_path": "naming_convention_manager_old.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "패턴 수정: \\bPOSCO News 250808\\b -> POSCO_NEWS_250808",
+          "패턴 수정: \\bWatchHamster v3\\.0\\b -> WATCHHAMSTER_V30",
+          "잘못된 줄바꿈 문자 수정",
+          "구문 검증 실패: invalid syntax (<unknown>, line 77)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.006722,
+        "error_message": null
+      },
+      {
+        "task_id": "import_naming_convention_manager_old.py_175726",
+        "file_path": "naming_convention_manager_old.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: datetime",
+          "필요한 import 추가: re"
+        ],
+        "backup_created": true,
+        "execution_time": 0.003306,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_naming_convention_manager_old.py_175726",
+        "file_path": "naming_convention_manager_old.py",
+        "success": false,
+        "changes_made": [],
+        "backup_created": true,
+        "execution_time": 0.000768,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_test_shell_batch_standardization.py_175726",
+        "file_path": "test_shell_batch_standardization.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "패턴 수정: \\bPOSCO News 250808\\b -> POSCO_NEWS_250808",
+          "패턴 수정: \\bWatchHamster v3\\.0\\b -> WATCHHAMSTER_V30",
+          "with_open을 with open으로 수정",
+          "잘못된 줄바꿈 문자 수정",
+          "구문 검증 실패: f-string: expecting '}' (<unknown>, line 56)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.002602,
+        "error_message": null
+      },
+      {
+        "task_id": "import_test_shell_batch_standardization.py_175726",
+        "file_path": "test_shell_batch_standardization.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: pathlib",
+          "필요한 import 추가: re"
+        ],
+        "backup_created": true,
+        "execution_time": 0.000734,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_test_shell_batch_standardization.py_175726",
+        "file_path": "test_shell_batch_standardization.py",
+        "success": false,
+        "changes_made": [],
+        "backup_created": true,
+        "execution_time": 0.00041,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_folder_structure_reorganizer.py_175726",
+        "file_path": "folder_structure_reorganizer.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "with_open을 with open으로 수정",
+          "잘못된 줄바꿈 문자 수정",
+          "구문 검증 실패: f-string: expecting '}' (<unknown>, line 79)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.00494,
+        "error_message": null
+      },
+      {
+        "task_id": "import_folder_structure_reorganizer.py_175726",
+        "file_path": "folder_structure_reorganizer.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: json",
+          "필요한 import 추가: pathlib"
+        ],
+        "backup_created": true,
+        "execution_time": 0.002488,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_folder_structure_reorganizer.py_175726",
+        "file_path": "folder_structure_reorganizer.py",
+        "success": false,
+        "changes_made": [],
+        "backup_created": true,
+        "execution_time": 0.001254,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_naming_standardization_verification_system.py_175726",
+        "file_path": "naming_standardization_verification_system.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "패턴 수정: \\bWatchHamster v3\\.0\\b -> WATCHHAMSTER_V30",
+          "with_open을 with open으로 수정",
+          "잘못된 줄바꿈 문자 수정",
+          "구문 검증 실패: invalid decimal literal (<unknown>, line 12)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.024302,
+        "error_message": null
+      },
+      {
+        "task_id": "import_naming_standardization_verification_system.py_175726",
+        "file_path": "naming_standardization_verification_system.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: os",
+          "필요한 import 추가: json",
+          "필요한 import 추가: datetime",
+          "필요한 import 추가: re"
+        ],
+        "backup_created": true,
+        "execution_time": 0.006952,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_naming_standardization_verification_system.py_175726",
+        "file_path": "naming_standardization_verification_system.py",
+        "success": false,
+        "changes_made": [],
+        "backup_created": true,
+        "execution_time": 0.001124,
+        "error_message": null
+      },
+      {
+        "task_id": "syntax_json_viewer.py_175726",
+        "file_path": "json_viewer.py",
+        "success": false,
+        "changes_made": [
+          "패턴 수정: f\"([^\"]*\\{[^}]*\\}[^}]*)\\}\" -> f\"\\1\"",
+          "패턴 수정: \\bPOSCO News 250808\\b -> POSCO_NEWS_250808",
+          "패턴 수정: \\bWatchHamster v3\\.0\\b -> WATCHHAMSTER_V30",
+          "with_open을 with open으로 수정",
+          "잘못된 줄바꿈 문자 수정",
+          "구문 검증 실패: unexpected unindent (<unknown>, line 26)",
+          "구문 오류로 인해 변경사항 롤백"
+        ],
+        "backup_created": true,
+        "execution_time": 0.000538,
+        "error_message": null
+      },
+      {
+        "task_id": "import_json_viewer.py_175726",
+        "file_path": "json_viewer.py",
+        "success": true,
+        "changes_made": [
+          "필요한 import 추가: json"
+        ],
+        "backup_created": true,
+        "execution_time": 0.000493,
+        "error_message": null
+      },
+      {
+        "task_id": "reference_json_viewer.py_175726",
+        "file_path": "json_viewer.py",
+        "success": false,
+        "changes_made": [],
+        "backup_created": true,
+        "execution_time": 0.000263,
+        "error_message": null
+      }
+    ]
+  },
+  "verification": {
+    "timestamp": "2025-08-10T17:57:26.847058",
+    "files_checked": 20,
+    "syntax_errors": 20,
+    "import_errors": 6,
+    "overall_success_rate": 0,
+    "details": [
+      {
+        "file": "verify_folder_reorganization.py",
+        "issues": [
+          "구문 오류: invalid syntax (<unknown>, line 12)",
+          "레거시 import 패턴 발견"
+        ]
+      },
+      {
+        "file": "test_documentation_standardization.py",
+        "issues": [
+          "구문 오류: invalid syntax (<unknown>, line 15)"
+        ]
+      },
+      {
+        "file": "run_end_to_end_tests.py",
+        "issues": [
+          "구문 오류: invalid syntax (<unknown>, line 14)"
+        ]
+      },
+      {
+        "file": "demo_watchhamster_v3.0_integration.py",
+        "issues": [
+          "구문 오류: invalid syntax (<unknown>, line 17)",
+          "레거시 import 패턴 발견"
+        ]
+      },
+      {
+        "file": "posco_continuous_monitor.py",
+        "issues": [
+          "구문 오류: invalid syntax (<unknown>, line 13)"
+        ]
+      },
+      {
+        "file": "system_functionality_verification.py",
+        "issues": [
+          "구문 오류: expected an indented block (<unknown>, line 208)"
+        ]
+      },
+      {
+        "file": "naming_convention_manager_old.py",
+        "issues": [
+          "구문 오류: invalid syntax (<unknown>, line 79)"
+        ]
+      },
+      {
+        "file": "run_comprehensive_tests.py",
+        "issues": [
+          "구문 오류: invalid syntax (<unknown>, line 14)"
+        ]
+      },
+      {
+        "file": "final_integration_test_system.py",
+        "issues": [
+          "구문 오류: unexpected indent (<unknown>, line 61)",
+          "레거시 import 패턴 발견"
+        ]
+      },
+      {
+        "file": "deploy_latest_report.py",
+        "issues": [
+          "구문 오류: unexpected unindent (<unknown>, line 53)"
+        ]
+      },
+      {
+        "file": "naming_standardization_verification_system.py",
+        "issues": [
+          "구문 오류: invalid decimal literal (<unknown>, line 12)"
+        ]
+      },
+      {
+        "file": "json_viewer.py",
+        "issues": [
+          "구문 오류: unexpected unindent (<unknown>, line 27)"
+        ]
+      },
+      {
+        "file": "test_watchhamster_v3.0_notification.py",
+        "issues": [
+          "구문 오류: invalid syntax (<unknown>, line 21)",
+          "레거시 import 패턴 발견"
+        ]
+      },
+      {
+        "file": "test_shell_batch_standardization.py",
+        "issues": [
+          "구문 오류: cannot assign to function call (<unknown>, line 64)"
+        ]
+      },
+      {
+        "file": "test_module_registry_integration.py",
+        "issues": [
+          "구문 오류: expected an indented block (<unknown>, line 32)",
+          "레거시 import 패턴 발견"
+        ]
+      },
+      {
+        "file": "folder_structure_reorganizer.py",
+        "issues": [
+          "구문 오류: unindent does not match any outer indentation level (<unknown>, line 84)",
+          "레거시 import 패턴 발견"
+        ]
+      },
+      {
+        "file": "posco_file_renamer.py",
+        "issues": [
+          "구문 오류: f-string: single '}' is not allowed (<unknown>, line 36)"
+        ]
+      },
+      {
+        "file": "execute_test_scenario.py",
+        "issues": [
+          "구문 오류: invalid syntax (<unknown>, line 16)"
+        ]
+      },
+      {
+        "file": "test_end_to_end_integration.py",
+        "issues": [
+          "구문 오류: invalid syntax (<unknown>, line 15)"
+        ]
+      },
+      {
+        "file": "file_renaming_system_old.py",
+        "issues": [
+          "구문 오류: invalid syntax (<unknown>, line 128)"
+        ]
+      }
+    ]
+  }
+}

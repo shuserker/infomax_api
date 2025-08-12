@@ -13,13 +13,13 @@
 
 #### 구현 내용
 - **실시간 시스템 성능 모니터링**: CPU, 메모리, 디스크, 프로세스 수 추적
-- **프로세스별 성능 데이터 수집**: 워치햄스터 관련 프로세스의 개별 성능 메트릭
+- **프로세스별 성능 데이터 수집**: WatchHamster 관련 프로세스의 개별 성능 메트릭
 - **성능 임계값 기반 알림 시스템**: 설정 가능한 임계값으로 자동 알림 발생
 - **성능 히스토리 관리**: 24시간 분량의 성능 데이터 저장 및 분석
 
 #### 핵심 컴포넌트
 ```python
-# Monitoring/Posco_News_mini_v2/core/performance_monitor.py
+# Monitoring/POSCO News_v2/core/performance_monitor.py
 class PerformanceMonitor:
     - 실시간 시스템 성능 스냅샷 수집
     - 프로세스별 성능 메트릭 추적
@@ -42,7 +42,7 @@ class PerformanceMonitor:
 
 #### 핵심 컴포넌트
 ```python
-# Monitoring/Posco_News_mini_v2/core/performance_monitor.py
+# Monitoring/POSCO News_v2/core/performance_monitor.py
 class PerformanceComparator:
     - v1 시스템 기준선 데이터 수집
     - v1/v2 성능 메트릭 비교 분석
@@ -91,7 +91,7 @@ performance_monitor.record_response_time("manual_operation", 2.5)
 
 #### 핵심 컴포넌트
 ```python
-# Monitoring/Posco_News_mini_v2/core/performance_optimizer.py
+# Monitoring/POSCO News_v2/core/performance_optimizer.py
 class PerformanceOptimizer:
     - 성능 이슈 자동 분석
     - 최적화 권장사항 생성
@@ -108,7 +108,7 @@ class PerformanceOptimizer:
 
 ## 🔧 통합 구현
 
-### 워치햄스터 메인 시스템 통합
+### WatchHamster 메인 시스템 통합
 
 #### 성능 모니터링 초기화
 ```python
@@ -205,8 +205,8 @@ thresholds = {
 ## 📁 생성된 파일 목록
 
 ### 핵심 모듈
-1. `Monitoring/Posco_News_mini_v2/core/performance_monitor.py` - 성능 모니터링 시스템
-2. `Monitoring/Posco_News_mini_v2/core/performance_optimizer.py` - 성능 최적화 시스템
+1. `Monitoring/POSCO News_v2/core/performance_monitor.py` - 성능 모니터링 시스템
+2. `Monitoring/POSCO News_v2/core/performance_optimizer.py` - 성능 최적화 시스템
 
 ### 테스트 및 데모
 3. `test_performance_monitoring.py` - 통합 테스트 스위트
@@ -216,7 +216,7 @@ thresholds = {
 5. `Task9_Performance_Monitoring_Implementation_Summary.md` - 구현 완료 보고서
 
 ### 통합 수정
-6. `Monitoring/Posco_News_mini/monitor_WatchHamster.py` - 메인 시스템 통합
+6. `Monitoring/POSCO News/monitor_WatchHamster.py` - 메인 시스템 통합
 
 ## 🎉 완료 상태
 
@@ -225,7 +225,7 @@ thresholds = {
 - [x] v1과 v2 시스템 간 성능 비교 도구 생성
 - [x] 프로세스 관리 작업을 위한 응답 시간 모니터링 추가
 - [x] 성능 알림 및 최적화 권장사항 구현
-- [x] 워치햄스터 메인 시스템과의 통합
+- [x] WatchHamster 메인 시스템과의 통합
 - [x] 종합적인 테스트 프레임워크 구현
 - [x] 실제 동작 데모 시스템 구현
 

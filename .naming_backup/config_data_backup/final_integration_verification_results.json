@@ -1,0 +1,249 @@
+{
+  "session_start": "2025-08-08T11:17:22.642433",
+  "session_end": "2025-08-08T11:23:13.308411",
+  "total_duration": 350.665978,
+  "verification_stages": [
+    {
+      "name": "comprehensive_test_suite",
+      "title": "완전한 테스트 스위트 실행",
+      "description": "모든 테스트 스크립트 실행 및 통합 문제 수정",
+      "critical": true
+    },
+    {
+      "name": "control_center_verification",
+      "title": "제어센터 메뉴 기능 검증",
+      "description": "모든 제어센터 메뉴가 올바르게 작동하는지 검증",
+      "critical": true
+    },
+    {
+      "name": "performance_benchmarking",
+      "title": "최종 성능 벤치마킹",
+      "description": "성능 벤치마킹 및 최적화 수행",
+      "critical": false
+    },
+    {
+      "name": "deployment_checklist",
+      "title": "배포 검증 체크리스트",
+      "description": "배포 준비 상태 확인 및 문서화",
+      "critical": true
+    }
+  ],
+  "results": {
+    "comprehensive_test_suite": {
+      "stage": "comprehensive_test_suite",
+      "success": false,
+      "details": {
+        "comprehensive_tests": {
+          "return_code": 1,
+          "stdout": "================================================================================\n                      🚀 POSCO WatchHamster v2 종합 테스트 프레임워크                      \n================================================================================\n시작 시간: 2025-08-08 11:17:22\n실행할 테스트: 4개\n\n\n------------------------------------------------------------\n📋 테스트 1/4: V2 Integration Tests\n------------------------------------------------------------\n🧪 V2 Integration Tests 실행 중...\n   스크립트: test_v2_integration.py\n   설명: v2 컴포넌트 초기화 및 통합 테스트\n   타임아웃: 120초\n❌ V2 Integration Tests 실패 (return code: 1)\n   오류: /Users/jy_lee/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n⚠️ 메모리 사용률 WARNING: 77.3%\n🚨 프로세스 수 CRITICAL: 480\n❌ 알림 전송 오류: HTTPSConnectionPool(host='test.webhook.url', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at...\n\n\n------------------------------------------------------------\n📋 테스트 2/4: Process Lifecycle Tests\n------------------------------------------------------------\n🧪 Process Lifecycle Tests 실행 중...\n   스크립트: test_process_lifecycle.py\n   설명: 프로세스 생명주기 관리 테스트\n   타임아웃: 180초\n❌ Process Lifecycle Tests 실패 (return code: 1)\n\n\n------------------------------------------------------------\n📋 테스트 3/4: Control Center Integration Tests\n------------------------------------------------------------\n🧪 Control Center Integration Tests 실행 중...\n   스크립트: test_control_center_integration.py\n   설명: 제어센터 통합 기능 테스트\n   타임아웃: 90초\n❌ Control Center Integration Tests 실패 (return code: 1)\n\n\n------------------------------------------------------------\n📋 테스트 4/4: End-to-End Integration Tests\n------------------------------------------------------------\n🧪 End-to-End Integration Tests 실행 중...\n   스크립트: test_end_to_end_integration.py\n   설명: 엔드투엔드 통합 테스트 및 스트레스 테스트\n   타임아웃: 300초\n❌ End-to-End Integration Tests 실패 (return code: 1)\n   오류: test_full_system_startup_shutdown (__main__.EndToEndSystemTest)\n전체 시스템 시작 및 종료 테스트 ... ok\ntest_system_restart_scenario (__main__.EndToEndSystemTest)\n시스템 재시작 시나리오 테스트 ... ok\ntest_concurrent_process_management (__main__.StressTest)\n동시 다중 프로세스 관리 테스트 ... FAIL\ntest_high_load_stability (__main__.StressTest)\n고부하 안정성 테스트 ... FAIL\ntest_delayed_failure_detection (__main__.FailureSimulationTest)\n지연된 실패 감지 테스트 ... FAIL\ntest_immediate_crash_handling (__main__.FailureSimulationTest)\n즉시 크래시 처리 테스트 ... ok\ntest...\n\n================================================================================\n                                 📊 종합 테스트 결과 요약                                 \n================================================================================\n\n🎯 POSCO WatchHamster v2 종합 테스트 결과 보고서\n================================================================================\n\n📊 전체 실행 통계\n• 실행 시간: 169.26초\n• 테스트 스크립트: 4개\n• 성공한 스크립트: 0개\n• 실패한 스크립트: 4개\n• 스크립트 성공률: 0.0%\n\n📈 개별 테스트 통계\n• 총 개별 테스트: 12개\n• 통과한 테스트: 6개\n• 실패한 테스트: 6개\n• 개별 테스트 성공률: 50.0% (총 테스트가 있는 경우)\n\n📋 스크립트별 상세 결과\n--------------------------------------------------------------------------------\n\n❌ 실패 V2 Integration Tests (🔴 중요)\n• 스크립트: test_v2_integration.py\n• 소요시간: 14.27초\n• 개별 테스트: 0개 (성공: 0, 실패: 0)\n• 성공률: 0.0%\n• 오류: 테스트 실패 (return code: 1)\n• 경고: 95개\n\n❌ 실패 Process Lifecycle Tests (🔴 중요)\n• 스크립트: test_process_lifecycle.py\n• 소요시간: 15.16초\n• 개별 테스트: 4개 (성공: 0, 실패: 4)\n• 성공률: 0.0%\n• 오류: 테스트 실패 (return code: 1)\n• 경고: 1개\n\n❌ 실패 Control Center Integration Tests (🟡 일반)\n• 스크립트: test_control_center_integration.py\n• 소요시간: 0.08초\n• 개별 테스트: 8개 (성공: 6, 실패: 2)\n• 성공률: 75.0%\n• 오류: 테스트 실패 (return code: 1)\n• 경고: 3개\n\n❌ 실패 End-to-End Integration Tests (🔴 중요)\n• 스크립트: test_end_to_end_integration.py\n• 소요시간: 139.75초\n• 개별 테스트: 0개 (성공: 0, 실패: 0)\n• 성공률: 0.0%\n• 오류: 테스트 실패 (return code: 1)\n• 경고: 2개\n\n--------------------------------------------------------------------------------\n🔧 권장사항 및 다음 단계\n\n⚠️ 4개의 테스트 스크립트가 실패했습니다.\n• 실패한 테스트를 개별적으로 검토하고 수정하세요.\n• 중요(🔴) 테스트의 실패는 우선적으로 해결해야 합니다.\n• 수정 후 전체 테스트를 다시 실행하세요.\n\n📁 상세 로그 및 출력\n• 테스트 실행 디렉토리: /Users/jy_lee/Desktop/GIT_DEV/infomax_api\n• 개별 테스트 출력은 각 스크립트 실행 시 확인 가능\n• 실패한 테스트의 상세 오류는 stderr 출력 참조\n\n생성 시간: 2025-08-08 11:20:11\n\n📁 상세 결과가 저장되었습니다: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_results.json\n\n❌ 중요 테스트 3개가 실패했습니다.\n🔧 실패한 중요 테스트를 수정한 후 다시 실행하세요.\n",
+          "stderr": "",
+          "status": "failed"
+        },
+        "individual_tests": {
+# BROKEN_REF:           "test_v2_integration.py": {
+            "status": "failed",
+            "return_code": 1,
+            "stdout": "🧪 POSCO WatchHamster v2 종합 테스트 프레임워크 시작\n================================================================================\n\n📋 TestV2ComponentInitialization 실행 중...\n------------------------------------------------------------\ntest_process_lifecycle_management (__main__.TestV2ComponentInitialization)\n프로세스 생명주기 관리 테스트 ... [INFO] NewYorkMarketMonitor 비활성화됨 - 통합 리포트 시스템 사용\n[INFO] KospiCloseMonitor 비활성화됨\n[INFO] ExchangeRateMonitor 비활성화됨\n[INFO] MasterNewsMonitor 비활성화됨\n[2025-08-08 11:20:12] 🔧 v2 아키텍처 컴포넌트",
+            "stderr": "/Users/jy_lee/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n⚠️ 메모리 사용률 WARNING: 77.4%\n🚨 프로세스 수 CRITICAL: 504\n❌ 알림 전송 오류: HTTPSConnectionPool(host='test.webhook.url', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at"
+          },
+          "test_process_lifecycle.py": {
+            "status": "failed",
+            "return_code": 1,
+            "stdout": "🚀 프로세스 생명주기 종합 테스트 시작\n============================================================\n🧪 정상 프로세스 생명주기 테스트 시작...\n❌ 정상 생명주기 테스트 실패: 프로세스가 예상치 못하게 종료됨\n\n🧪 크래시 복구 테스트 시작...\n✅ 프로세스 크래시 감지 (exit_code: 1)\n🔄 프로세스 재시작 시뮬레이션...\n❌ 크래시 복구 테스트 실패: 복구된 프로세스가 시작되지 않음\n\n🧪 다중 프로세스 관리 테스트 시작...\n❌ 프로세스 0 종료됨\n❌ 프로세스 1 종료됨\n❌ 프로세스 2 종료됨\n❌ 다중 프로세스 관리 테스트 실패: 일부 프로세스 시작 실패 (0/3)\n\n🧪 리소스 모니터링 테스트 시작...\n❌ 리소스 모니터링 테스트 실패: PID still exists but it's a zombie (pid=26731)\n\n===========================================================",
+            "stderr": ""
+          },
+          "test_control_center_integration.py": {
+            "status": "failed",
+            "return_code": 1,
+            "stdout": "🚀 제어센터 통합 테스트 시작\n============================================================\n🧪 제어센터 스크립트 존재 및 권한 확인...\n✅ 스크립트 파일 존재 확인: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/watchhamster_control_center.sh\n✅ 실행 권한 확인 완료\n✅ 스크립트 크기: 31610 bytes\n\n🧪 제어센터 스크립트 문법 검사...\n✅ 스크립트 문법 검사 통과\n\n🧪 제어센터 필수 함수 존재 확인...\n✅ 함수 발견: main_menu\n✅ 함수 발견: start_watchhamster\n✅ 함수 발견: stop_watchhamster\n✅ 함수 발견: restart_watchhamster\n✅ 함수 발견: check_watchhamster_status\n✅ 함수 발견: manage_modules\n✅ 함수 발견: check_managed_processes\n✅ 모든 필수 함수 확",
+            "stderr": ""
+          },
+          "test_end_to_end_integration.py": {
+            "status": "timeout",
+            "error": "Test execution timeout"
+          }
+        },
+        "test_summary": {
+          "total_tests": 4,
+          "passed_tests": 0,
+          "failed_tests": 4,
+          "success_rate": 0.0
+        }
+      },
+      "issues": [
+        "종합 테스트 실패",
+        "test_v2_integration.py 테스트 실패",
+        "test_process_lifecycle.py 테스트 실패",
+        "test_control_center_integration.py 테스트 실패",
+        "test_end_to_end_integration.py 타임아웃"
+      ],
+      "recommendations": [
+        "실패한 테스트들을 수정하고 다시 실행하세요"
+      ]
+    },
+    "control_center_verification": {
+      "stage": "control_center_verification",
+      "success": true,
+      "details": {
+        "syntax_check": {
+          "return_code": 0,
+          "stderr": ""
+        },
+        "function_definitions": {
+          "start_watchhamster": true,
+          "stop_watchhamster": true,
+          "check_watchhamster_status": true,
+          "manage_modules": true,
+          "check_managed_processes": true
+        },
+        "function_tests": {
+          "return_code": 0,
+          "stdout": "🧪 Testing Control Center Functions\n==================================\n1. Testing script syntax...\n✅ Script syntax is valid\n\n2. Testing function definitions in file...\n✅ start_watchhamster function is defined\n✅ stop_watchhamster function is defined\n✅ check_watchhamster_status function is defined\n✅ manage_modules function is defined\n✅ check_managed_processes function is defined\n✅ control_individual_module function is defined\n✅ restart_individual_module function is defined\n✅ stop_individual_module function is defined\n✅ show_individual_module_log function is defined\n\n3. Testing process detection logic (current system state)...\nTesting managed processes detection:\n  ❌ posco_main_notifier - NOT RUNNING\n  ❌ realtime_news_monitor - NOT RUNNING\n  ❌ integrated_report_scheduler - NOT RUNNING\n  📊 Status: 0/3 modules running\n\n4. Testing watchhamster detection...\n❌ WatchHamster is not running\n\n5. Testing required files...\n✅ lib_wt_common.sh exists\n✅ Monitoring/Posco_News_mini/monitor_WatchHamster.py exists\n\n🎉 Control Center Function Testing completed!\nAll required functions are properly implemented and ready for use.\n",
+          "stderr": ""
+        },
+        "system_status": {
+          "watchhamster_running": false,
+          "posco_main_notifier.py_running": false,
+          "realtime_news_monitor.py_running": false,
+          "integrated_report_scheduler.py_running": false,
+          "managed_processes_count": 0,
+          "total_managed_processes": 3
+        }
+      },
+      "issues": [],
+      "recommendations": []
+    },
+    "performance_benchmarking": {
+      "stage": "performance_benchmarking",
+      "success": false,
+      "details": {
+        "performance_demo": {
+          "return_code": 0,
+          "stdout": ": ⏳ 대기중\n\n📋 프로세스 최적화\n   카테고리: process | 우선순위: medium | 상태: ⏳ 대기중\n\n💡 다음 단계 권장사항\n------------------------------\n• 현재 모든 고우선순위 최적화가 완료되었습니다.\n• 정기적인 성능 모니터링을 계속 진행하세요.\n\n============================================================\n────────────────────────────────────────────────────────────\n\n📋 8. 성능 데이터 내보내기\n----------------------------------------\n✅ 성능 데이터 내보내기 완료: performance_data_20250808_112257.json\n📁 파일 크기: 4.5KB\n📊 내보낸 데이터 구조:\n  • 모니터링 기간: 16초\n  • 총 측정 횟수: 5회\n  • 알림 발생 횟수: 10회\n  • 메트릭 히스토리: 5개 데이터 포인트\n\n📋 9. 성능 모니터링 시스템 종료\n----------------------------------------\n🛑 성능 모니터링 중지됨\n📊 최종 통계:\n  • 총 가동시간: 0:00:18\n  • 총 측정 횟수: 6회\n  • 총 알림 횟수: 12회\n\n============================================================\n🎯 성능 모니터링 데모 완료\n============================================================\n🎉 POSCO 워치햄스터 v2 성능 모니터링 시스템 데모가 성공적으로 완료되었습니다!\n\n주요 기능:\n✅ 실시간 CPU/메모리 사용량 추적\n✅ 프로세스 관리 작업 응답시간 모니터링\n✅ v1/v2 시스템 간 성능 비교 분석\n✅ 자동 성능 이슈 감지 및 분석\n✅ 최적화 권장사항 생성 및 관리\n✅ 성능 알림 및 보고서 시스템\n✅ 성능 데이터 내보내기 및 히스토리 관리\n\n👋 데모를 종료합니다.\n",
+          "stderr": "_init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n⚠️ 메모리 사용률 WARNING: 77.9%\n🚨 프로세스 수 CRITICAL: 511\n⚠️ 메모리 사용률 WARNING: 77.7%\n🚨 프로세스 수 CRITICAL: 512\n⚠️ 메모리 사용률 WARNING: 77.3%\n🚨 프로세스 수 CRITICAL: 513\n⚠️ 메모리 사용률 WARNING: 76.9%\n🚨 프로세스 수 CRITICAL: 514\n⚠️ 메모리 사용률 WARNING: 76.9%\n🚨 프로세스 수 CRITICAL: 514\n⚠️ 메모리 사용률 WARNING: 76.9%\n🚨 프로세스 수 CRITICAL: 515\n"
+        },
+        "performance_tests": {
+          "return_code": 0,
+          "stdout": "🚀 POSCO 워치햄스터 v2 성능 모니터링 통합 테스트 시작\n============================================================\n\n📋 비교 보고서 생성 테스트...\n✅ 비교 보고서 생성 성공\n\n💡 최적화 권장사항 생성 테스트...\n✅ 최적화 권장사항 생성 성공: 2개 권장사항\n\n📋 최적화 보고서 생성 테스트...\n✅ 최적화 보고서 생성 성공\n\n📊 최적화 요약 조회 테스트...\n✅ 최적화 요약 조회 성공\n\n🔍 성능 비교 테스트...\n✅ 성능 비교 테스트 성공\n\n💾 성능 데이터 내보내기 테스트...\n✅ 성능 데이터 내보내기 성공: /var/folders/zt/79p6fdkd5ngf_t0xjs0bbgph0000gn/T/tmp2fuh_gya/performance_data_20250808_112304.json\n\n🔍 성능 이슈 분석 테스트...\n✅ 성능 이슈 분석 성공: 4개 이슈 발견\n\n🔧 성능 모니터 초기화 테스트...\n✅ 성능 모니터 초기화 성공\n\n🚀 성능 모니터링 시작/중지 테스트...\n✅ 성능 모니터링 시작/중지 성공\n\n🔧 성능 최적화기 초기화 테스트...\n✅ 성능 최적화기 초기화 성공\n\n📋 성능 요약 조회 테스트...\n✅ 성능 요약 조회 성공\n\n⏱️ 응답 시간 측정 테스트...\n✅ 응답 시간 측정 성공\n\n📊 시스템 스냅샷 수집 테스트...\n✅ 스냅샷 수집 성공: CPU 26.9%, 메모리 78.3%\n\n📊 v1 기준선 수집 테스트...\n✅ v1 기준선 수집 성공\n\n============================================================\n📊 테스트 결과 요약\n============================================================\n총 테스트: 14\n성공: 14\n실패: 0\n오류: 0\n\n🎉 모든 성능 모니터링 테스트가 성공했습니다!\n",
+          "stderr": " ok\ntest_performance_summary (__main__.TestPerformanceMonitoring)\n성능 요약 조회 테스트 ... ⚠️ 메모리 사용률 WARNING: 78.5%\n🚨 프로세스 수 CRITICAL: 526\nok\ntest_response_time_measurement (__main__.TestPerformanceMonitoring)\n응답 시간 측정 테스트 ... ok\ntest_system_snapshot_collection (__main__.TestPerformanceMonitoring)\n시스템 스냅샷 수집 테스트 ... ok\ntest_v1_baseline_collection (__main__.TestPerformanceMonitoring)\nv1 기준선 수집 테스트 ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 11.500s\n\nOK\n"
+        },
+        "system_resources": {
+          "cpu_percent": 24.6,
+          "memory_percent": 78.2,
+          "memory_available_gb": 3.4871063232421875,
+          "disk_percent": 4.8219556102738315,
+          "measurement_time": "2025-08-08T11:23:12.857405"
+        },
+        "performance_issues": [
+          "메모리 사용률이 70%를 초과함"
+        ],
+        "performance_files": [
+          "performance_data_20250808_112257.json",
+          "performance_data_20250808_105531.json",
+          "performance_comparison_20250808_112257.txt",
+          "performance_comparison_20250808_105531.txt"
+        ],
+        "optimization_recommendations": [
+          {
+            "category": "메모리 최적화",
+            "recommendation": "메모리 사용량 모니터링 및 가비지 컬렉션 최적화",
+            "priority": "medium"
+          },
+          {
+            "category": "프로세스 관리",
+            "recommendation": "프로세스 재시작 간격 최적화 및 복구 로직 개선",
+            "priority": "low"
+          }
+        ]
+      },
+      "issues": [
+        "메모리 사용률이 70%를 초과함"
+      ],
+      "recommendations": [
+        "시스템 리소스 사용량을 최적화하세요",
+        "메모리 사용량 모니터링 및 가비지 컬렉션 최적화",
+        "프로세스 재시작 간격 최적화 및 복구 로직 개선"
+      ]
+    },
+    "deployment_checklist": {
+      "stage": "deployment_checklist",
+      "success": true,
+      "details": {
+        "file_check": {
+          "essential_files": [
+            ".naming_backup/config_data_backup/watchhamster.log",
+            "Monitoring/POSCO_News_250808/posco_main_notifier.py",
+            "Monitoring/POSCO_News_250808/config.py",
+            "Monitoring/Posco_News_mini/modules.json",
+            ".naming_backup/scripts/.naming_backup/scripts/watchhamster_control_center.sh",
+            "requirements.txt"
+          ],
+          "existing_files": [
+            ".naming_backup/config_data_backup/watchhamster.log",
+            "Monitoring/POSCO_News_250808/posco_main_notifier.py",
+            "Monitoring/POSCO_News_250808/config.py",
+            "Monitoring/Posco_News_mini/modules.json",
+            ".naming_backup/scripts/.naming_backup/scripts/watchhamster_control_center.sh",
+            "requirements.txt"
+          ],
+          "missing_files": [],
+          "completion_rate": 100.0
+        },
+        "v2_components": {
+          "total_components": 4,
+          "existing_components": [
+            "Monitoring/Posco_News_mini_v2/core/enhanced_process_manager.py",
+            "Monitoring/Posco_News_mini_v2/core/module_registry.py",
+            "Monitoring/Posco_News_mini_v2/core/notification_manager.py",
+            "Monitoring/Posco_News_mini_v2/core/performance_monitor.py"
+          ],
+          "missing_components": [],
+          "completion_rate": 100.0
+        },
+        "config_validation": {
+          "Monitoring/POSCO_News_250808/config.py": {
+            "valid": true,
+            "error": null
+          },
+          "Monitoring/Posco_News_mini/modules.json": {
+            "valid": true,
+            "error": null
+          }
+        },
+        "dependencies": {
+          "total_requirements": 6,
+          "satisfied_dependencies": [
+            "requests",
+            "pandas",
+            "ipywidgets",
+            "IPython",
+            "openpyxl",
+            "voila"
+          ],
+          "missing_dependencies": [],
+          "satisfaction_rate": 100.0
+        },
+        "documentation": {
+          "total_docs": 3,
+          "existing_docs": [
+            "README.md",
+            "END_TO_END_TEST_GUIDE.md",
+            "TEST_FRAMEWORK_README.md"
+          ],
+          "missing_docs": [],
+          "completion_rate": 100.0
+        },
+        "deployment_readiness": {
+          "file_completeness": 100.0,
+          "v2_components_completeness": 100.0,
+          "configuration_validity": 100.0,
+          "dependencies_satisfaction": 100.0,
+          "documentation_completeness": 100.0,
+          "overall_readiness_score": 100.0
+        }
+      },
+      "issues": [],
+      "recommendations": []
+    }
+  }
+}

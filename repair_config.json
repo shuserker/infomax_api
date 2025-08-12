@@ -1,0 +1,121 @@
+{
+  "repair_settings": {
+    "syntax_repair": {
+      "enabled": true,
+      "fix_indentation": true,
+      "fix_fstring_errors": true,
+      "fix_bracket_mismatches": true,
+      "standardize_naming": true,
+      "indentation_spaces": 4
+    },
+    "import_repair": {
+      "enabled": true,
+      "add_missing_imports": true,
+      "fix_import_paths": true,
+      "remove_unused_imports": false,
+      "common_modules": [
+        "os",
+        "sys",
+        "json",
+        "datetime",
+        "pathlib",
+        "re"
+      ]
+    },
+    "file_reference_repair": {
+      "enabled": true,
+      "fix_broken_references": true,
+      "standardize_path_separators": true,
+      "update_legacy_names": true
+    }
+  },
+  "file_mappings": {
+    "legacy_to_standard": {
+      "Posco_News_mini.py": "POSCO_News_250808.py",
+      "POSCO_WatchHamster_v3": "WatchHamster_v3.0",
+      "posco_news_mini": "posco_news_250808",
+      "POSCO News 250808": "POSCO_NEWS_250808",
+      "WatchHamster v3.0": "WATCHHAMSTER_V30"
+    }
+  },
+  "backup_settings": {
+    "create_backups": true,
+    "backup_directory": ".repair_backups",
+    "max_backup_age_days": 30,
+    "compress_old_backups": true
+  },
+  "safety_checks": {
+    "verify_syntax_before_save": true,
+    "create_backup_before_repair": true,
+    "skip_binary_files": true,
+    "max_file_size_mb": 10
+  },
+  "exclusion_patterns": [
+    ".git/**",
+    "__pycache__/**",
+    "*.pyc",
+    ".backup/**",
+    "node_modules/**",
+    ".vscode/**",
+    ".idea/**"
+  ],
+  "target_file_patterns": [
+    "**/*.py",
+    "**/*.sh",
+    "**/*.bat",
+    "**/*.md",
+    "**/*.json",
+    "**/*.txt"
+  ],
+  "naming_conventions": {
+    "python": {
+      "variables": "snake_case",
+      "functions": "snake_case",
+      "classes": "PascalCase",
+      "constants": "UPPER_SNAKE_CASE",
+      "modules": "snake_case"
+    },
+    "files": {
+      "python_files": "snake_case",
+      "script_files": "snake_case",
+      "config_files": "snake_case",
+      "document_files": "descriptive_with_emojis"
+    }
+  },
+  "repair_priorities": {
+    "high": [
+      "syntax_errors",
+      "import_errors",
+      "missing_files"
+    ],
+    "medium": [
+      "naming_conventions",
+      "path_separators",
+      "broken_references"
+    ],
+    "low": [
+      "code_style",
+      "documentation_links"
+    ]
+  },
+  "verification_settings": {
+    "run_syntax_check": true,
+    "run_import_check": true,
+    "run_reference_check": true,
+    "success_threshold_percent": 95,
+    "max_verification_time_seconds": 300
+  },
+  "logging": {
+    "level": "INFO",
+    "log_file": "repair_system.log",
+    "log_format": "%(asctime)s - %(levelname)s - %(message)s",
+    "max_log_size_mb": 10,
+    "backup_count": 5
+  },
+  "performance": {
+    "max_parallel_processes": 4,
+    "chunk_size": 100,
+    "memory_limit_mb": 512,
+    "timeout_seconds": 60
+  }
+}

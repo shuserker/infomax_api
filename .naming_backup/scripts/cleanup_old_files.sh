@@ -1,0 +1,135 @@
+#!/bin/bash
+# POSCO WatchHamster v3.0.0 프로젝트 정리 스크립트
+
+echo "🗂️ POSCO WatchHamster v3.0 시작"
+
+# 색상 정의
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+print_success() {
+    echo -e "${GREEN}✅ $1${NC}"
+}
+
+print_warning() {
+    echo -e "${YELLOW}⚠️ $1${NC}"
+}
+
+print_info() {
+    echo -e "${BLUE}📋 $1${NC}"
+}
+
+# 백업 디렉토리 생성
+CLEANUP_BACKUP="cleanup_backup_$(date +%Y%m%d_%H%M%S)"
+mkdir -p "$CLEANUP_BACKUP"
+
+print_info "백업 디렉토리 생성: $CLEANUP_BACKUP"
+
+echo ""
+echo "📦 삭제 예정 파일들을 백업 중..."
+
+# 구버전 제어센터 스크립트들 백업 후 삭제
+OLD_SCRIPTS=(
+    "🎛️POSCO_제어센터_실행_v2.bat"
+    "🎛️POSCO_제어센터_실행_v2.sh"
+    "🎛️POSCO_제어센터_실행.bat"
+    "🎛️POSCO_제어센터_Mac실행.command"
+    "🐹워치햄스터_총괄_관리_센터_SIMPLE.bat"
+    ".naming_backup/config_data_backup/watchhamster.log"
+    "🐹워치햄스터_총괄_관리_센터.bat"
+    "🐹워치햄스터_통합_관리_센터.bat"
+    "watchhamster_master_control.ps1"
+    "watchhamster_master_control.sh"
+    "posco_control_center.sh"
+    "posco_control_center.ps1"
+    "posco_control_mac.sh"
+)
+
+echo ""
+print_info "구버전 제어센터 스크립트 정리 중..."
+for file in "${OLD_SCRIPTS[@]}"; do
+    if [ -f "$file" ]; then
+        cp "$file" "$CLEANUP_BACKUP/"
+        rm "$file"
+        print_success "삭제: $file"
+    fi
+done
+
+# 구버전 문서들 백업 후 삭제
+OLD_DOCS=(
+    "워치햄스터_사용법.md"
+    "워치햄스터_시스템_재구축_완료_보고서_v4.md"
+    "Mac_워치햄스터_실행_가이드_v4.md"
+    "🎨WINDOWS_TERMINAL_UPGRADE_v3.md"
+    "🎨WINDOWS_TERMINAL_UPGRADE_v4.md"
+)
+
+echo ""
+print_info "구버전 문서 정리 중..."
+for file in "${OLD_DOCS[@]}"; do
+    if [ -f "$file" ]; then
+        cp "$file" "$CLEANUP_BACKUP/"
+        rm "$file"
+        print_success "삭제: $file"
+    fi
+done
+
+# 임시 파일들 백업 후 삭제
+TEMP_FILES=(
+    "🚀POSCO_메인_알림_시작_직접.bat"
+    "🚀POSCO_메인_알림_시작_직접.sh"
+    "POSCO_시작.bat"
+    "🔄Git_덮어씌우기.bat"
+)
+
+echo ""
+print_info "임시 파일 정리 중..."
+for file in "${TEMP_FILES[@]}"; do
+    if [ -f "$file" ]; then
+        cp "$file" "$CLEANUP_BACKUP/"
+        rm "$file"
+        print_success "삭제: $file"
+    fi
+done
+
+# 시스템 파일들 삭제
+echo ""
+print_info "시스템 파일 정리 중..."
+
+if [ -f ".DS_Store" ]; then
+    rm ".DS_Store"
+    print_success "삭제: .DS_Store"
+fi
+
+if [ -d "__pycache__" ]; then
+    rm -rf "__pycache__"
+    print_success "삭제: __pycache__/"
+fi
+
+# Python 캐시 파일들 정리
+find . -name "*.pyc" -delete 2>/dev/null
+find . -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null
+
+echo ""
+echo "🎉 정리 완료!"
+echo ""
+print_info "백업 위치: $CLEANUP_BACKUP"
+echo ""
+echo "📋 정리 결과:"
+echo "  ✅ 구버전 제어센터 스크립트 정리"
+echo "  ✅ 구버전 문서 정리"
+echo "  ✅ 임시 파일 정리"
+echo "  ✅ 시스템 파일 정리"
+echo ""
+echo "🚀 이제 깔끔한 v2.0 환경이 준비되었습니다!"
+echo ""
+echo "📋 남은 핵심 파일들:"
+echo "  • watchhamster_control_center.sh (워치햄스터 메인 제어센터)"
+echo "  • Monitoring/ (모니터링 시스템)"
+echo "  • 📋POSCO_WatchHamster v3.0_*.md (v2.0 문서들)"
+echo "  • migrate_to_v2.sh (마이그레이션 도구)"
+echo ""
+echo "💡 참고: 백업된 파일들은 $CLEANUP_BACKUP 에서 확인할 수 있습니다."

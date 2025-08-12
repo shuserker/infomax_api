@@ -1,4 +1,12 @@
 @echo off
+REM ============================================================================
+REM Git 덮어씌우기
+REM POSCO 시스템 구성요소
+REM 
+REM WatchHamster v3.0 및 POSCO News 250808 호환
+REM Created: 2025-08-08
+REM ============================================================================
+
 setlocal enabledelayedexpansion
 chcp 65001 > nul
 title 🔄 Git 덮어씌우기 도구 - Modern Edition

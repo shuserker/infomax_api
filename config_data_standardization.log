@@ -1,0 +1,134 @@
+2025-08-08 16:01:01,314 - INFO - 🔧 POSCO 설정 파일 및 데이터 파일 표준화 시스템 초기화 완료
+2025-08-08 16:01:01,314 - INFO - 📁 작업 공간: /Users/jy_lee/Desktop/GIT_DEV/infomax_api
+2025-08-08 16:01:01,314 - INFO - 💾 백업 디렉토리: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/.naming_backup/config_data_backup
+2025-08-08 16:01:01,314 - INFO - 🚀 POSCO 설정 파일 및 데이터 파일 전체 표준화 시작
+2025-08-08 16:01:01,314 - INFO - 📋 1단계: JSON 설정 파일 표준화
+2025-08-08 16:01:01,392 - INFO - 📋 발견된 JSON 파일: 19개
+2025-08-08 16:01:01,392 - INFO -   • .vscode/settings.json
+2025-08-08 16:01:01,392 - INFO -   • Monitoring/Posco_News_mini/WatchHamster_status.json
+2025-08-08 16:01:01,392 - INFO -   • Monitoring/Posco_News_mini/backup_archive_20250806/WatchHamster_status.json
+2025-08-08 16:01:01,393 - INFO -   • Monitoring/Posco_News_mini/backup_archive_20250806/system_status.json
+2025-08-08 16:01:01,393 - INFO -   • Monitoring/Posco_News_mini/modules.json
+2025-08-08 16:01:01,393 - INFO -   • Monitoring/Posco_News_mini_v2/modules.json
+2025-08-08 16:01:01,393 - INFO -   • final_integration_verification_results.json
+2025-08-08 16:01:01,393 - INFO -   • optimization_history.json
+2025-08-08 16:01:01,393 - INFO -   • performance_alerts.json
+2025-08-08 16:01:01,394 - INFO -   • performance_data_20250808_105531.json
+2025-08-08 16:01:01,394 - INFO -   • performance_data_20250808_112257.json
+2025-08-08 16:01:01,394 - INFO -   • posco_business_day_mapping.json
+2025-08-08 16:01:01,394 - INFO -   • posco_news_cache.json
+2025-08-08 16:01:01,394 - INFO -   • posco_news_data.json
+2025-08-08 16:01:01,394 - INFO -   • posco_news_historical_cache.json
+2025-08-08 16:01:01,394 - INFO -   • reports_index.json
+2025-08-08 16:01:01,395 - INFO -   • system_optimization_data.json
+2025-08-08 16:01:01,395 - INFO -   • test_config.json
+2025-08-08 16:01:01,395 - INFO -   • test_results.json
+2025-08-08 16:01:01,395 - INFO - 🔧 JSON 파일 표준화 시작: .vscode/settings.json
+2025-08-08 16:01:01,396 - INFO - 💾 백업 완료: .vscode/settings.json
+2025-08-08 16:01:01,398 - INFO - ✅ JSON 파일 표준화 완료: settings.json
+2025-08-08 16:01:01,398 - INFO - 🔧 JSON 파일 표준화 시작: Monitoring/Posco_News_mini/WatchHamster_status.json
+2025-08-08 16:01:01,399 - INFO - 💾 백업 완료: Monitoring/Posco_News_mini/WatchHamster_status.json
+2025-08-08 16:01:01,399 - INFO - ✅ JSON 파일 표준화 완료: WatchHamster_status.json
+2025-08-08 16:01:01,399 - INFO - 🔧 JSON 파일 표준화 시작: Monitoring/Posco_News_mini/backup_archive_20250806/WatchHamster_status.json
+2025-08-08 16:01:01,400 - INFO - 💾 백업 완료: Monitoring/Posco_News_mini/backup_archive_20250806/WatchHamster_status.json
+2025-08-08 16:01:01,401 - INFO - ✅ JSON 파일 표준화 완료: WatchHamster_status.json
+2025-08-08 16:01:01,401 - INFO - 🔧 JSON 파일 표준화 시작: Monitoring/Posco_News_mini/backup_archive_20250806/system_status.json
+2025-08-08 16:01:01,401 - INFO - 💾 백업 완료: Monitoring/Posco_News_mini/backup_archive_20250806/system_status.json
+2025-08-08 16:01:01,402 - INFO - ✅ JSON 파일 표준화 완료: system_status.json
+2025-08-08 16:01:01,402 - INFO - 🔧 JSON 파일 표준화 시작: Monitoring/Posco_News_mini/modules.json
+2025-08-08 16:01:01,402 - INFO - 💾 백업 완료: Monitoring/Posco_News_mini/modules.json
+2025-08-08 16:01:01,404 - INFO - ✅ JSON 파일 표준화 완료: modules.json
+2025-08-08 16:01:01,404 - INFO - 🔧 JSON 파일 표준화 시작: Monitoring/Posco_News_mini_v2/modules.json
+2025-08-08 16:01:01,405 - INFO - 💾 백업 완료: Monitoring/Posco_News_mini_v2/modules.json
+2025-08-08 16:01:01,406 - INFO - ✅ JSON 파일 표준화 완료: modules.json
+2025-08-08 16:01:01,406 - INFO - 🔧 JSON 파일 표준화 시작: final_integration_verification_results.json
+2025-08-08 16:01:01,407 - INFO - 💾 백업 완료: final_integration_verification_results.json
+2025-08-08 16:01:01,409 - INFO - ✅ JSON 파일 표준화 완료: final_integration_verification_results.json
+2025-08-08 16:01:01,409 - INFO - 🔧 JSON 파일 표준화 시작: optimization_history.json
+2025-08-08 16:01:01,409 - INFO - 💾 백업 완료: optimization_history.json
+2025-08-08 16:01:01,410 - INFO - ✅ JSON 파일 표준화 완료: optimization_history.json
+2025-08-08 16:01:01,410 - INFO - 🔧 JSON 파일 표준화 시작: performance_alerts.json
+2025-08-08 16:01:01,410 - INFO - 💾 백업 완료: performance_alerts.json
+2025-08-08 16:01:01,411 - ERROR - ❌ JSON 파일 표준화 실패: performance_alerts.json - list indices must be integers or slices, not str
+2025-08-08 16:01:01,411 - INFO - 🔧 JSON 파일 표준화 시작: performance_data_20250808_105531.json
+2025-08-08 16:01:01,412 - INFO - 💾 백업 완료: performance_data_20250808_105531.json
+2025-08-08 16:01:01,413 - INFO - ✅ JSON 파일 표준화 완료: performance_data_20250808_105531.json
+2025-08-08 16:01:01,413 - INFO - 🔧 JSON 파일 표준화 시작: performance_data_20250808_112257.json
+2025-08-08 16:01:01,414 - INFO - 💾 백업 완료: performance_data_20250808_112257.json
+2025-08-08 16:01:01,415 - INFO - ✅ JSON 파일 표준화 완료: performance_data_20250808_112257.json
+2025-08-08 16:01:01,415 - INFO - 🔧 JSON 파일 표준화 시작: posco_business_day_mapping.json
+2025-08-08 16:01:01,416 - INFO - 💾 백업 완료: posco_business_day_mapping.json
+2025-08-08 16:01:01,416 - INFO - ✅ JSON 파일 표준화 완료: posco_business_day_mapping.json
+2025-08-08 16:01:01,416 - INFO - 🔧 JSON 파일 표준화 시작: posco_news_cache.json
+2025-08-08 16:01:01,417 - INFO - 💾 백업 완료: posco_news_cache.json
+2025-08-08 16:01:01,418 - INFO - ✅ JSON 파일 표준화 완료: posco_news_cache.json
+2025-08-08 16:01:01,418 - INFO - 🔧 JSON 파일 표준화 시작: posco_news_data.json
+2025-08-08 16:01:01,419 - INFO - 💾 백업 완료: posco_news_data.json
+2025-08-08 16:01:01,420 - INFO - ✅ JSON 파일 표준화 완료: posco_news_data.json
+2025-08-08 16:01:01,420 - INFO - 🔧 JSON 파일 표준화 시작: posco_news_historical_cache.json
+2025-08-08 16:01:01,421 - INFO - 💾 백업 완료: posco_news_historical_cache.json
+2025-08-08 16:01:01,423 - INFO - ✅ JSON 파일 표준화 완료: posco_news_historical_cache.json
+2025-08-08 16:01:01,423 - INFO - 🔧 JSON 파일 표준화 시작: reports_index.json
+2025-08-08 16:01:01,424 - INFO - 💾 백업 완료: reports_index.json
+2025-08-08 16:01:01,426 - INFO - ✅ JSON 파일 표준화 완료: reports_index.json
+2025-08-08 16:01:01,426 - INFO - 🔧 JSON 파일 표준화 시작: system_optimization_data.json
+2025-08-08 16:01:01,427 - INFO - 💾 백업 완료: system_optimization_data.json
+2025-08-08 16:01:01,428 - INFO - ✅ JSON 파일 표준화 완료: system_optimization_data.json
+2025-08-08 16:01:01,428 - INFO - 🔧 JSON 파일 표준화 시작: test_config.json
+2025-08-08 16:01:01,429 - INFO - 💾 백업 완료: test_config.json
+2025-08-08 16:01:01,430 - INFO - ✅ JSON 파일 표준화 완료: test_config.json
+2025-08-08 16:01:01,430 - INFO - 🔧 JSON 파일 표준화 시작: test_results.json
+2025-08-08 16:01:01,431 - INFO - 💾 백업 완료: test_results.json
+2025-08-08 16:01:01,432 - INFO - ✅ JSON 파일 표준화 완료: test_results.json
+2025-08-08 16:01:01,432 - INFO - 📝 2단계: 로그 파일명 표준화
+2025-08-08 16:01:01,444 - INFO - 💾 백업 완료: Monitoring/Posco_News_mini/backup_archive_20250806/WatchHamster.log
+2025-08-08 16:01:01,445 - INFO - 📝 로그 파일명 변경: WatchHamster.log → WatchHamster_v3.0.log
+2025-08-08 16:01:01,446 - INFO - 💾 백업 완료: Monitoring/Posco_News_mini/backup_archive_20250806/simple_monitor.log
+2025-08-08 16:01:01,446 - INFO - 📝 로그 파일명 변경: simple_monitor.log → posco_news_250808_simple_monitor.log
+2025-08-08 16:01:01,447 - INFO - 💾 백업 완료: Monitoring/Posco_News_mini/WatchHamster.log
+2025-08-08 16:01:01,448 - INFO - 📝 로그 파일명 변경: WatchHamster.log → WatchHamster_v3.0.log
+2025-08-08 16:01:01,450 - INFO - 💾 백업 완료: Monitoring/Posco_News_mini/main_notifier.log
+2025-08-08 16:01:01,450 - INFO - 📝 로그 파일명 변경: main_notifier.log → posco_news_250808_notifier.log
+2025-08-08 16:01:01,455 - INFO - 💾 백업 완료: Monitoring/Posco_News_mini/backup_archive_20250806/posco_monitor.log
+2025-08-08 16:01:01,455 - INFO - 📝 로그 파일명 변경: posco_monitor.log → posco_news_250808_monitor.log
+2025-08-08 16:01:01,457 - INFO - 💾 백업 완료: Monitoring/Posco_News_mini/backup_archive_20250806/main_notifier.log
+2025-08-08 16:01:01,458 - INFO - 📝 로그 파일명 변경: main_notifier.log → posco_news_250808_notifier.log
+2025-08-08 16:01:01,459 - INFO - 💾 백업 완료: posco_monitor.log
+2025-08-08 16:01:01,459 - INFO - 📝 로그 파일명 변경: posco_monitor.log → posco_news_250808_monitor.log
+2025-08-08 16:01:01,461 - INFO - 💾 백업 완료: Monitoring/Posco_News_mini/backup_archive_20250806/WatchHamster_v2.log
+2025-08-08 16:01:01,462 - INFO - 📝 로그 파일명 변경: WatchHamster_v2.log → WatchHamster_v3.0.log
+2025-08-08 16:01:01,464 - INFO - 💾 백업 완료: watchhamster.log
+2025-08-08 16:01:01,464 - INFO - 📝 로그 파일명 변경: watchhamster.log → WatchHamster_v3.0.log
+2025-08-08 16:01:01,464 - INFO - 💾 3단계: 데이터 파일명 표준화
+2025-08-08 16:01:01,506 - INFO - 💾 백업 완료: .naming_backup/config_data_backup/posco_news_historical_cache.json
+2025-08-08 16:01:01,507 - INFO - 💾 데이터 파일명 변경: posco_news_historical_cache.json → posco_news_250808_historical.json
+2025-08-08 16:01:01,508 - INFO - 💾 백업 완료: Monitoring/Posco_News_mini/backup_archive_20250806/system_status.json
+2025-08-08 16:01:01,508 - INFO - 💾 데이터 파일명 변경: system_status.json → posco_system_250808_status.json
+2025-08-08 16:01:01,509 - INFO - 💾 백업 완료: Monitoring/Posco_News_mini/backup_archive_20250806/WatchHamster_status.json
+2025-08-08 16:01:01,509 - INFO - 💾 데이터 파일명 변경: WatchHamster_status.json → WatchHamster_v3.0_status.json
+2025-08-08 16:01:01,509 - INFO - 💾 백업 완료: .naming_backup/config_data_backup/posco_news_cache.json
+2025-08-08 16:01:01,509 - INFO - 💾 데이터 파일명 변경: posco_news_cache.json → posco_news_250808_cache.json
+2025-08-08 16:01:01,518 - INFO - 💾 백업 완료: posco_news_cache.json
+2025-08-08 16:01:01,518 - INFO - 💾 데이터 파일명 변경: posco_news_cache.json → posco_news_250808_cache.json
+2025-08-08 16:01:01,521 - INFO - 💾 백업 완료: .naming_backup/config_data_backup/Monitoring/Posco_News_mini/WatchHamster_status.json
+2025-08-08 16:01:01,524 - INFO - 💾 데이터 파일명 변경: WatchHamster_status.json → WatchHamster_v3.0_status.json
+2025-08-08 16:01:01,525 - INFO - 💾 백업 완료: .naming_backup/config_data_backup/Monitoring/Posco_News_mini/backup_archive_20250806/system_status.json
+2025-08-08 16:01:01,526 - INFO - 💾 데이터 파일명 변경: system_status.json → posco_system_250808_status.json
+2025-08-08 16:01:01,526 - INFO - 💾 백업 완료: Monitoring/Posco_News_mini/WatchHamster_status.json
+2025-08-08 16:01:01,527 - INFO - 💾 데이터 파일명 변경: WatchHamster_status.json → WatchHamster_v3.0_status.json
+2025-08-08 16:01:01,603 - INFO - 💾 백업 완료: posco_news_data.json
+2025-08-08 16:01:01,603 - INFO - 💾 데이터 파일명 변경: posco_news_data.json → posco_news_250808_data.json
+2025-08-08 16:01:01,604 - INFO - 💾 백업 완료: .naming_backup/config_data_backup/Monitoring/Posco_News_mini/backup_archive_20250806/WatchHamster_status.json
+2025-08-08 16:01:01,604 - INFO - 💾 데이터 파일명 변경: WatchHamster_status.json → WatchHamster_v3.0_status.json
+2025-08-08 16:01:01,605 - INFO - 💾 백업 완료: .naming_backup/config_data_backup/posco_news_data.json
+2025-08-08 16:01:01,605 - INFO - 💾 데이터 파일명 변경: posco_news_data.json → posco_news_250808_data.json
+2025-08-08 16:01:01,605 - INFO - 💾 백업 완료: posco_news_historical_cache.json
+2025-08-08 16:01:01,606 - INFO - 💾 데이터 파일명 변경: posco_news_historical_cache.json → posco_news_250808_historical.json
+2025-08-08 16:01:01,606 - INFO - 🌍 4단계: 환경 변수 파일 생성
+2025-08-08 16:01:01,606 - INFO - 🌍 환경 변수 파일 생성: posco_environment_variables.env
+2025-08-08 16:01:01,606 - INFO - 📊 5단계: 표준화 보고서 생성
+2025-08-08 16:01:01,606 - INFO - 📊 표준화 보고서 생성: config_data_standardization_report.json
+2025-08-08 16:01:01,606 - INFO - 🎉 POSCO 설정 파일 및 데이터 파일 표준화 완료!
+2025-08-08 16:01:01,606 - INFO - 📊 처리된 파일: 48개
+2025-08-08 16:01:01,606 - INFO - ✅ 변경된 파일: 39개
+2025-08-08 16:01:01,606 - INFO - 💾 백업 위치: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/.naming_backup/config_data_backup

@@ -1,8 +1,8 @@
-# POSCO WatchHamster v2 엔드투엔드 통합 테스트 가이드
+# POSCO WatchHamster v3.0 엔드투엔드 통합 테스트 가이드
 
 ## 개요
 
-이 문서는 POSCO WatchHamster v2 시스템의 엔드투엔드 통합 테스트 프레임워크에 대한 종합적인 가이드입니다.
+이 문서는 POSCO WatchHamster v3.0 시스템의 엔드투엔드 통합 테스트 프레임워크에 대한 종합적인 가이드입니다.
 
 ## 테스트 구성
 
@@ -15,7 +15,7 @@
 - `test_system_restart_scenario`: 시스템 재시작 시나리오
 
 **검증 항목**:
-- 워치햄스터 프로세스 정상 시작
+- WatchHamster 프로세스 정상 시작
 - v2 컴포넌트 초기화 확인
 - 관리 대상 프로세스 시작 확인
 - 상태 파일 생성 및 업데이트
@@ -238,7 +238,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: test-results
-        path: '*_test_results.json'
+        path: 'test_results.json'
 ```
 
 ## 확장 가능성
@@ -272,4 +272,4 @@ class CustomTest(unittest.TestCase):
 
 ## 결론
 
-이 엔드투엔드 통합 테스트 프레임워크는 POSCO WatchHamster v2 시스템의 모든 주요 기능과 시나리오를 포괄적으로 검증합니다. 정기적인 테스트 실행을 통해 시스템의 안정성과 신뢰성을 지속적으로 보장할 수 있습니다.
+이 엔드투엔드 통합 테스트 프레임워크는 POSCO WatchHamster v3.0 시스템의 모든 주요 기능과 시나리오를 포괄적으로 검증합니다. 정기적인 테스트 실행을 통해 시스템의 안정성과 신뢰성을 지속적으로 보장할 수 있습니다.

@@ -1,8 +1,8 @@
-# 🔄 POSCO 워치햄스터 v2.0 마이그레이션
+# 🔄 POSCO WatchHamster v3.0 마이그레이션
 
 ## 📋 개요
 
-이 문서는 POSCO 워치햄스터 v1.x에서 v2.0으로의 안전한 마이그레이션을 위한 가이드입니다.
+이 문서는 POSCO WatchHamster v1.x에서 v2.0으로의 안전한 마이그레이션을 위한 가이드입니다.
 
 ## 🚀 빠른 시작
 
@@ -18,8 +18,8 @@
 
 ### 3단계: 시스템 시작
 ```bash
-./watchhamster_control_center.sh
-# 메뉴에서 "1. 🚀 워치햄스터 시작" 선택
+./.naming_backup/scripts/.naming_backup/scripts/watchhamster_control_center.sh
+# 메뉴에서 "1. 🚀 WatchHamster 시작" 선택
 ```
 
 ## 📁 마이그레이션 스크립트
@@ -42,7 +42,7 @@
 ### 시스템 업그레이드
 - v2 아키텍처 컴포넌트 설치
 - 설정 파일 변환 (`modules.json` 생성)
-- 워치햄스터 메인 파일 업데이트
+- WatchHamster 메인 파일 업데이트
 - 제어센터 스크립트 업데이트
 
 ### 검증 및 테스트
@@ -76,7 +76,7 @@ backup_YYYYMMDD_HHMMSS/
 ### 기존 시스템 (v1.x)
 ```
 📁 기존 구조
-├── monitor_WatchHamster.py     # 메인 워치햄스터
+├── monitor_WatchHamster.py     # 메인 WatchHamster
 ├── posco_main_notifier.py      # 개별 모듈들
 ├── realtime_news_monitor.py
 ├── integrated_report_scheduler.py
@@ -86,12 +86,12 @@ backup_YYYYMMDD_HHMMSS/
 ### 새로운 시스템 (v2.0)
 ```
 📁 새로운 구조
-├── monitor_WatchHamster.py     # 개선된 워치햄스터
+├── monitor_WatchHamster.py     # 개선된 WatchHamster
 ├── posco_main_notifier.py      # 기존 모듈들 (그대로 유지)
 ├── realtime_news_monitor.py
 ├── integrated_report_scheduler.py
 ├── posco_control_center.sh     # 개선된 제어센터
-└── Posco_News_mini_v2/         # 새로운 아키텍처
+└── POSCO News_v2/         # 새로운 아키텍처
     ├── core/
     │   ├── enhanced_process_manager.py
     │   ├── module_registry.py
@@ -121,7 +121,7 @@ backup_YYYYMMDD_HHMMSS/
 - 다양한 알림 타입 지원
 
 ### 개선된 제어센터
-- 워치햄스터 중심 메뉴 구조
+- WatchHamster 중심 메뉴 구조
 - 개별 모듈 상태 관리
 - 실시간 상태 모니터링
 - 향상된 사용자 인터페이스
@@ -135,7 +135,7 @@ backup_YYYYMMDD_HHMMSS/
 
 ### 일반적인 문제
 
-#### Q: 마이그레이션 후 워치햄스터가 시작되지 않습니다.
+#### Q: 마이그레이션 후 WatchHamster가 시작되지 않습니다.
 A: 
 1. Python 버전 확인: `python3 --version`
 2. 필수 패키지 확인: `pip3 list | grep -E "(requests|psutil)"`
@@ -168,10 +168,10 @@ ps aux | grep python | grep posco >> debug_info.txt
 
 # 최근 로그
 tail -100 watchhamster.log > debug_log.txt
-tail -100 Monitoring/Posco_News_mini/WatchHamster.log >> debug_log.txt
+tail -100 Monitoring/POSCO News/WatchHamster.log >> debug_log.txt
 
 # 설정 파일
-cp Monitoring/Posco_News_mini_v2/modules.json debug_config.json
+cp Monitoring/POSCO News_v2/modules.json debug_config.json
 ```
 
 ### 연락처

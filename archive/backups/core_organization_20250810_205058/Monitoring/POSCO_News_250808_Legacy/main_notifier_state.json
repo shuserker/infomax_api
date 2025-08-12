@@ -1,0 +1,26 @@
+{
+  "newyork": {
+    "display_name": "NEWYORK MARKET WATCH",
+    "emoji": "🌆",
+    "last_title": "[뉴욕마켓워치] 관세 여파, 서비스업까지 도달…주식↓달러↑채권 혼조",
+    "last_time": "2025-08-06 06:20:21",
+    "status": "최신",
+    "api_key": "newyork_market"
+  },
+  "kospi": {
+    "display_name": "KOSPI CLOSE",
+    "emoji": "📈",
+    "last_title": "[증시-마감] 저가매수 코스피 0.9% 상승…산업 정책 주목도↑",
+    "last_time": "2025-08-04 154344",
+    "status": "발행 지연",
+    "api_key": "kospi_close"
+  },
+  "exchange": {
+    "display_name": "EXCHANGE RATE",
+    "emoji": "💱",
+    "last_title": "[서환-마감] 美 고용 충격에 급락…16.20원↓",
+    "last_time": "2025-08-04 162831",
+    "status": "발행 지연",
+    "api_key": "exchange_rate"
+  }
+}

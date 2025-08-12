@@ -1,0 +1,443 @@
+#!/usr/bin/env python3
+"""
+POSCO 네이밍 표준화 검증 시스템 테스트
+WatchHamster v3.0 & POSCO News 250808 호환
+
+네이밍 표준화 검증 시스템의 모든 기능을 테스트
+"""
+
+import unittest
+import tempfile
+import posco_news_250808_monitor.log
+import test_config.json
+import shutil
+from pathlib import Path
+# REMOVED: from naming_standardization_verification_system.py import (
+    NamingStandardizationVerifier, 
+    VerificationResult
+)
+
+class TestNamingStandardizationVerifier(unittest.TestCase):
+    """네이밍 표준화 검증 시스템 테스트"""
+    
+    def setUp(self):
+        """테스트 환경 설정"""
+        self.verifier = NamingStandardizationVerifier()
+        self.test_dir = tempfile.mkdtemp()
+        self.original_cwd = os.getcwd()
+        os.chdir(self.test_dir)
+        
+        # 테스트용 파일 구조 생성
+        self._create_test_files()
+    
+    def tearDown(self):
+        """테스트 환경 정리"""
+        os.chdir(self.original_cwd)
+shutil.rmtree(self.test_dir,_ignore_errors = True)
+    
+    def _create_test_files(self):
+        """테스트용 파일들 생성"""
+        # 워치햄스터 관련 파일들
+        self._create_file("WatchHamster_v3.0.log", '''
+"""
+WatchHamster v3.0 Monitor
+워치햄스터 v3.0 모니터링 시스템
+"""
+
+class WatchHamsterV30Monitor:
+    def __init__(self):
+        self.watchhamster_version = "v3.0"
+        self.system_name = "WatchHamster v3.0"
+    
+    def start_monitoring(self):
+        # WatchHamster v3.0 모니터링 시작
+        pass
+''')
+        
+        # 구버전 워치햄스터 파일 (실패 케이스)
+        self._create_file(".naming_backup/config_data_backup/watchhamster.log", '''
+"""
+WatchHamster v2.0 Old System
+워치햄스터 v2.0 구버전 시스템
+"""
+
+class WatchHamsterV2Monitor:
+    def __init__(self):
+        self.watchhamster_version = "v2.0"
+        self.system_name = "WatchHamster v2.0"
+''')
+        
+        # 포스코 뉴스 관련 파일들
+        self._create_file("POSCO_News_250808.py", '''
+"""
+POSCO News 250808 Notifier
+포스코 뉴스 250808 알림 시스템
+"""
+
+class PoscoNews250808Notifier:
+    def __init__(self):
+        self.posco_news_version = "250808"
+        self.system_name = "POSCO News 250808"
+''')
+        
+        # 구버전 포스코 뉴스 파일 (실패 케이스)
+        self._create_file("Posco_News_mini", '''
+"""
+POSCO News Mini System
+포스코 뉴스 미니 시스템
+"""
+
+class PoscoNewsMini:
+    def __init__(self):
+        self.posco_news_version = "mini"
+''')
+        
+        # 마크다운 문서들
+        self._create_file("WatchHamster_v3.0.log", '''
+# WatchHamster v3.0 사용자 가이드
+
+이 문서는 WatchHamster v3.0 시스템의 사용법을 설명합니다.
+
+## 개요
+WatchHamster v3.0은 최신 버전의 모니터링 시스템입니다.
+''')
+        
+        # 구버전 문서 (실패 케이스)
+        self._create_file(".naming_backup/config_data_backup/watchhamster.log", '''
+# 워치햄스터 v2.0 구버전 가이드
+
+이 문서는 워치햄스터 v2.0 시스템을 설명합니다.
+''')
+        
+        # JSON 설정 파일들
+        self._create_file(".git/config", json.dumps({
+            "system_info": {
+                "watchhamster_version": "v3.0",
+                "posco_news_version": "250808",
+                "last_updated": "2025-08-08"
+            },
+            "modules": [
+                {
+                    "name": "WatchHamster v3.0 Monitor",
+                    "version": "v3.0"
+                }
+            ]
+},_indent = 2))
+        
+        # 구버전 설정 파일 (실패 케이스)
+        self._create_file(".git/config", json.dumps({
+            "system_info": {
+                "watchhamster_version": "v2.0",
+                "posco_news_version": "mini"
+            }
+},_indent = 2))
+        
+        # Shell 스크립트들
+        self._create_file("WatchHamster_v3.0.log", '''#!/bin/bash
+# WatchHamster v3.0 Control Script
+# 워치햄스터 v3.0 제어 스크립트
+
+WATCHHAMSTER_VERSION="v3.0"
+SYSTEM_NAME="WatchHamster v3.0"
+
+echo "Starting WatchHamster v3.0..."
+''')
+        
+        # 구버전 스크립트 (실패 케이스)
+        self._create_file(".naming_backup/config_data_backup/watchhamster.log", '''#!/bin/bash
+# WatchHamster v2.0 Old Script
+
+WATCHHAMSTER_VERSION="v2.0"
+echo "Starting WatchHamster v2.0..."
+''')
+    
+    def _create_file(self, filename: str, content: str):
+        """테스트 파일 생성"""
+        file_path = Path(self.test_dir) / filename
+        file_path.parent.mkdir(parents=True, exist_ok=True)
+with_open(file_path,_'w',_encoding = 'utf-8') as f:
+            f.write(content)
+    
+    def test_filename_verification_pass(self):
+        """파일명 검증 - 통과 케이스"""
+        results = self.verifier.verify_filename_standards()
+        
+        # 올바른 파일명들이 통과하는지 확인
+        pass_results = [r for r in results if r.status == 'pass']
+        self.assertGreater(len(pass_results), 0, "올바른 파일명이 통과해야 합니다")
+        
+        # WatchHamster v3.0 파일 확인
+        watchhamster_pass = [r for r in pass_results if 'WatchHamster_v3.0' in r.file_path]
+        self.assertGreater(len(watchhamster_pass), 0, "WatchHamster v3.0 파일이 통과해야 합니다")
+        
+        # POSCO News 250808 파일 확인
+        posco_pass = [r for r in pass_results if '250808' in r.file_path]
+        self.assertGreater(len(posco_pass), 0, "POSCO News 250808 파일이 통과해야 합니다")
+    
+    def test_filename_verification_fail(self):
+        """파일명 검증 - 실패 케이스"""
+        results = self.verifier.verify_filename_standards()
+        
+        # 구버전 파일들이 실패하는지 확인
+        fail_results = [r for r in results if r.status == 'fail']
+        self.assertGreater(len(fail_results), 0, "구버전 파일명이 실패해야 합니다")
+        
+        # v2.0 파일 확인
+        v2_fails = [r for r in fail_results if 'v2' in r.file_path.lower()]
+        self.assertGreater(len(v2_fails), 0, "v2.0 파일이 실패해야 합니다")
+        
+        # mini 파일 확인
+        mini_fails = [r for r in fail_results if 'mini' in r.file_path.lower()]
+        self.assertGreater(len(mini_fails), 0, "mini 파일이 실패해야 합니다")
+    
+    def test_code_naming_verification(self):
+        """코드 내부 네이밍 검증"""
+        results = self.verifier.verify_code_naming_standards()
+        
+        # 결과가 있는지 확인
+        self.assertGreater(len(results), 0, "코드 네이밍 검증 결과가 있어야 합니다")
+        
+        # 통과 케이스 확인
+        pass_results = [r for r in results if r.status == 'pass']
+        self.assertGreater(len(pass_results), 0, "올바른 코드 네이밍이 통과해야 합니다")
+        
+        # 실패 케이스 확인
+        fail_results = [r for r in results if r.status == 'fail']
+        self.assertGreater(len(fail_results), 0, "구버전 코드 네이밍이 실패해야 합니다")
+    
+    def test_document_verification(self):
+        """문서 표준화 검증"""
+        results = self.verifier.verify_document_standards()
+        
+        # 결과가 있는지 확인
+        self.assertGreater(len(results), 0, "문서 검증 결과가 있어야 합니다")
+        
+        # 올바른 문서 제목 통과 확인
+        pass_results = [r for r in results if r.status == 'pass']
+        v3_pass = [r for r in pass_results if 'v3.0' in r.actual]
+        self.assertGreater(len(v3_pass), 0, "v3.0 문서가 통과해야 합니다")
+        
+        # 구버전 문서 실패 확인
+        fail_results = [r for r in results if r.status == 'fail']
+        v2_fail = [r for r in fail_results if 'v2' in r.actual.lower()]
+        self.assertGreater(len(v2_fail), 0, "v2.0 문서가 실패해야 합니다")
+    
+    def test_configuration_verification(self):
+        """설정 파일 검증"""
+        results = self.verifier.verify_configuration_standards()
+        
+        # 결과가 있는지 확인
+        self.assertGreater(len(results), 0, "설정 파일 검증 결과가 있어야 합니다")
+        
+        # 올바른 설정 통과 확인
+        pass_results = [r for r in results if r.status == 'pass']
+        self.assertGreater(len(pass_results), 0, "올바른 설정이 통과해야 합니다")
+        
+        # 구버전 설정 실패 확인
+        fail_results = [r for r in results if r.status == 'fail']
+        self.assertGreater(len(fail_results), 0, "구버전 설정이 실패해야 합니다")
+    
+    def test_full_verification(self):
+        """전체 검증 실행"""
+        verification_data = self.verifier.run_full_verification()
+        
+        # 기본 구조 확인
+        self.assertIn('timestamp', verification_data)
+        self.assertIn('total_checks', verification_data)
+        self.assertIn('statistics', verification_data)
+        self.assertIn('results', verification_data)
+        self.assertIn('summary', verification_data)
+        
+        # 통계 확인
+        stats = verification_data['statistics']
+        self.assertIn('pass', stats)
+        self.assertIn('fail', stats)
+        self.assertIn('warning', stats)
+        
+        # 총 검증 수가 맞는지 확인
+        total_from_stats = stats['pass'] + stats['fail'] + stats['warning']
+        self.assertEqual(verification_data['total_checks'], total_from_stats)
+        
+        # 요약 정보 확인
+        summary = verification_data['summary']
+        self.assertIn('overall_score', summary)
+        self.assertIn('compliance_rate', summary)
+        self.assertIn('category_breakdown', summary)
+        self.assertIn('recommendations', summary)
+    
+    def test_report_generation(self):
+        """보고서 생성 테스트"""
+        # 먼저 검증 실행
+        self.verifier.run_full_verification()
+        
+        # 보고서 생성
+        report_file = self.verifier.generate_report("posco_news_report.html")
+        
+        # 파일이 생성되었는지 확인
+        self.assertTrue(os.path.exists(report_file), "보고서 파일이 생성되어야 합니다")
+        self.assertTrue(os.path.exists("final_integration_test_system.py"), "JSON 결과 파일이 생성되어야 합니다")
+        
+        # HTML 내용 확인
+with_open(report_file,_'r',_encoding = 'utf-8') as f:
+            html_content = f.read()
+        
+        self.assertIn("POSCO 네이밍 표준화 검증 보고서", html_content)
+        self.assertIn("WatchHamster v3.0", html_content)
+        self.assertIn("POSCO News 250808", html_content)
+        
+        # JSON 내용 확인
+with_open("final_integration_test_system.py",_'r',_encoding = 'utf-8') as f:
+            json_data = json.load(f)
+        
+        self.assertIn('statistics', json_data)
+        self.assertIn('results', json_data)
+    
+    def test_exclude_patterns(self):
+        """제외 패턴 테스트"""
+        # 제외되어야 할 파일들 생성
+        self._create_file(".git/config", "git config")
+        self._create_file("__pycache__/test.pyc", "compiled python")
+# REMOVED:         self._create_file("backup/old_file.py", "backup file")
+        
+        # 파일명 검증 실행
+        results = self.verifier.verify_filename_standards()
+        
+        # 제외된 파일들이 결과에 없는지 확인
+        excluded_files = [r.file_path for r in results if '.git' in r.file_path or '__pycache__' in r.file_path or 'backup' in r.file_path]
+        self.assertEqual(len(excluded_files), 0, "제외 패턴 파일들이 검증에서 제외되어야 합니다")
+    
+    def test_verification_result_structure(self):
+        """검증 결과 구조 테스트"""
+        results = self.verifier.verify_filename_standards()
+        
+        if results:
+            result = results[0]
+            
+            # 필수 필드 확인
+            self.assertTrue(hasattr(result, 'file_path'))
+            self.assertTrue(hasattr(result, 'rule_type'))
+            self.assertTrue(hasattr(result, 'status'))
+            self.assertTrue(hasattr(result, 'expected'))
+            self.assertTrue(hasattr(result, 'actual'))
+            self.assertTrue(hasattr(result, 'message'))
+            self.assertTrue(hasattr(result, 'timestamp'))
+            
+            # 상태 값 확인
+            self.assertIn(result.status, ['pass', 'fail', 'warning'])
+    
+    def test_statistics_calculation(self):
+        """통계 계산 테스트"""
+        # 테스트용 결과 생성
+        test_results = [
+# REMOVED:             VerificationResult("file1.py", "filename", "pass", "expected", "actual", "message"),
+# REMOVED:             VerificationResult("file2.py", "filename", "fail", "expected", "actual", "message"),
+# REMOVED:             VerificationResult("file3.py", "code_naming", "warning", "expected", "actual", "message"),
+# REMOVED:             VerificationResult("file4.py", "code_naming", "pass", "expected", "actual", "message"),
+        ]
+        
+        stats = self.verifier._calculate_statistics(test_results)
+        
+        self.assertEqual(stats['pass'], 2)
+        self.assertEqual(stats['fail'], 1)
+        self.assertEqual(stats['warning'], 1)
+    
+    def test_top_issues_identification(self):
+        """주요 문제점 식별 테스트"""
+        # 중복 문제가 있는 테스트 결과 생성
+        test_results = [
+# REMOVED:             VerificationResult("file1.py", "filename", "fail", "expected", "actual", "구버전 발견"),
+# REMOVED:             VerificationResult("file2.py", "filename", "fail", "expected", "actual", "구버전 발견"),
+# REMOVED:             VerificationResult("file3.py", "code_naming", "fail", "expected", "actual", "다른 문제"),
+        ]
+        
+        top_issues = self.verifier._get_top_issues(test_results)
+        
+        self.assertGreater(len(top_issues), 0)
+        self.assertEqual(top_issues[0]['count'], 2)  # 가장 많이 발생한 문제
+    
+    def test_recommendations_generation(self):
+        """권장사항 생성 테스트"""
+        # 다양한 유형의 문제가 있는 테스트 결과 생성
+        critical_issues = [
+# REMOVED:             VerificationResult("file1.py", "filename", "fail", "expected", "actual", "파일명 문제"),
+# REMOVED:             VerificationResult("file2.py", "code_naming", "fail", "expected", "actual", "코드 네이밍 문제"),
+# REMOVED:             VerificationResult("file3.md", "document", "fail", "expected", "actual", "문서 문제"),
+        ]
+        
+        warnings = [
+# REMOVED:             VerificationResult("file4.py", "filename", "warning", "expected", "actual", "경고"),
+        ]
+        
+        recommendations = self.verifier._generate_recommendations(critical_issues, warnings)
+        
+        self.assertGreater(len(recommendations), 0)
+        self.assertTrue(any("파일명 표준화" in rec for rec in recommendations))
+        self.assertTrue(any("코드 네이밍 표준화" in rec for rec in recommendations))
+        self.assertTrue(any("문서 표준화" in rec for rec in recommendations))
+
+class TestIntegration(unittest.TestCase):
+    """통합 테스트"""
+    
+    def test_real_project_structure(self):
+        """실제 프로젝트 구조에서의 검증 테스트"""
+        verifier = NamingStandardizationVerifier()
+        
+        # 실제 프로젝트에서 검증 실행 (에러 없이 완료되는지 확인)
+        try:
+            verification_data = verifier.run_full_verification()
+            
+            # 기본 구조가 올바른지 확인
+            self.assertIsInstance(verification_data, dict)
+            self.assertIn('total_checks', verification_data)
+            self.assertIn('statistics', verification_data)
+            
+            print(f"✅ 실제 프로젝트 검증 완료: {verification_data['total_checks']}개 항목")
+            print(f"   통과: {verification_data['statistics']['pass']}")
+            print(f"   실패: {verification_data['statistics']['fail']}")
+            print(f"   경고: {verification_data['statistics']['warning']}")
+            
+        except Exception as e:
+            self.fail(f"실제 프로젝트 검증 중 오류 발생: {e}")
+
+def run_verification_tests():
+    """검증 테스트 실행"""
+    print("🧪 POSCO 네이밍 표준화 검증 시스템 테스트 시작")
+    print("=" * 60)
+    
+    # 테스트 스위트 생성
+    test_suite = unittest.TestSuite()
+    
+    # 단위 테스트 추가
+    test_suite.addTest(unittest.makeSuite(TestNamingStandardizationVerifier))
+    
+    # 통합 테스트 추가
+    test_suite.addTest(unittest.makeSuite(TestIntegration))
+    
+    # 테스트 실행
+    runner = unittest.TextTestRunner(verbosity=2)
+    result = runner.run(test_suite)
+    
+    # 결과 요약
+print("/n"_+_" = " * 60)
+    print(f"🧪 테스트 완료")
+    print(f"✅ 성공: {result.testsRun - len(result.failures) - len(result.errors)}")
+    print(f"❌ 실패: {len(result.failures)}")
+    print(f"🚨 오류: {len(result.errors)}")
+    
+    if result.failures:
+        print("/n❌ 실패한 테스트:")
+        for test, traceback in result.failures:
+            error_msg = traceback.split('AssertionError: ')[-1].split('/n')[0]
+            print(f"   - {test}: {error_msg}")
+    
+    if result.errors:
+        print("/n🚨 오류가 발생한 테스트:")
+        for test, traceback in result.errors:
+            error_msg = traceback.split('/n')[-2]
+            print(f"   - {test}: {error_msg}")
+    
+return_len(result.failures) = = 0 and len(result.errors) == 0
+
+if __name__ == "__main__":
+    success = run_verification_tests()
+    exit(0 if success else 1)

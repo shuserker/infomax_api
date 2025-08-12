@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Init
+POSCO 시스템 구성요소
+
+WatchHamster v3.0 및 POSCO News 250808 호환
+Created: 2025-08-08
+"""
+
+# BROKEN_REF: from Monitoring/POSCO_News_250808/core/process_manager.py import ProcessManager
+from Monitoring/WatchHamster_v3.0/core/module_registry.py import ModuleRegistry_Integration_Summary.md
+# BROKEN_REF: from Monitoring/WatchHamster_v3.0/core/notification_manager.py import NotificationManager
+
+__all__ = ['ProcessManager', 'ModuleRegistry', 'NotificationManager']

@@ -1,0 +1,818 @@
+{
+  "verification_summary": {
+    "timestamp": "2025-08-09T17:50:47.754677",
+    "total_categories": 7,
+    "passed_categories": 3,
+    "failed_categories": 4,
+    "overall_status": "FAIL",
+    "success_rate": 42.86
+  },
+  "category_results": [
+    {
+      "category": "Python Scripts Syntax",
+      "total_files": 121,
+      "valid_files": 83,
+      "invalid_files": 38,
+      "status": "FAIL",
+      "details": {
+        "valid_scripts": [
+          "system_functionality_verification.py",
+          "verify_folder_reorganization.py",
+          "final_integration_test_system.py",
+          "deploy_latest_report.py",
+          "execute_test_scenario.py",
+          "run_end_to_end_tests.py",
+          "test_documentation_standardization.py",
+          "run_comprehensive_tests.py",
+          "test_shell_batch_standardization.py",
+          "folder_structure_reorganizer.py"
+        ],
+        "invalid_scripts": [
+          {
+            "file": "test_watchhamster_v3.0_notification.py",
+            "error": "구문 오류 (라인 21): invalid syntax"
+          },
+          {
+            "file": "posco_file_renamer.py",
+            "error": "구문 오류 (라인 34): f-string: single '}' is not allowed"
+          },
+          {
+            "file": "test_module_registry_integration.py",
+            "error": "구문 오류 (라인 94): invalid syntax"
+          },
+          {
+            "file": "posco_continuous_monitor.py",
+            "error": "구문 오류 (라인 18): invalid syntax"
+          },
+          {
+            "file": "test_end_to_end_integration.py",
+            "error": "구문 오류 (라인 29): invalid syntax"
+          },
+          {
+            "file": "demo_watchhamster_v3.0_integration.py",
+            "error": "구문 오류 (라인 17): invalid syntax"
+          },
+          {
+            "file": "documentation_standardizer.py",
+            "error": "구문 오류 (라인 23): invalid syntax"
+          },
+          {
+            "file": "shell_batch_script_standardizer.py",
+            "error": "구문 오류 (라인 165): invalid syntax"
+          },
+          {
+            "file": "naming_convention_manager.py",
+            "error": "구문 오류 (라인 21): invalid syntax"
+          },
+          {
+            "file": "file_renaming_system.py",
+            "error": "구문 오류 (라인 125): invalid syntax"
+          },
+          {
+            "file": "config_data_standardizer.py",
+            "error": "구문 오류 (라인 35): invalid syntax"
+          },
+          {
+            "file": "test_rollback_functionality.py",
+            "error": "구문 오류 (라인 50): invalid syntax"
+          },
+          {
+            "file": "test_process_lifecycle.py",
+            "error": "구문 오류 (라인 22): invalid syntax"
+          },
+          {
+            "file": "test_performance_monitoring.py",
+            "error": "구문 오류 (라인 39): invalid syntax"
+          },
+          {
+            "file": "test_file_renaming_system.py",
+            "error": "구문 오류 (라인 48): invalid syntax"
+          },
+          {
+            "file": "python_naming_standardizer.py",
+            "error": "구문 오류 (라인 28): invalid syntax"
+          },
+          {
+            "file": "test_naming_convention_manager.py",
+            "error": "구문 오류 (라인 19): invalid syntax"
+          },
+          {
+            "file": "test_watchhamster_v3.0_integration.py",
+            "error": "구문 오류 (라인 27): invalid syntax"
+          },
+          {
+            "file": "Monitoring/POSCO_News_250808/posco_main_notifier.py",
+            "error": "구문 오류 (라인 25): invalid syntax"
+          },
+          {
+            "file": "Monitoring/POSCO_News_250808/historical_data_collector.py",
+            "error": "구문 오류 (라인 23): invalid syntax"
+          },
+          {
+            "file": "Monitoring/POSCO_News_250808/integrated_report_scheduler.py",
+            "error": "구문 오류 (라인 24): invalid syntax"
+          },
+          {
+            "file": "Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0.py",
+            "error": "구문 오류 (라인 33): invalid syntax"
+          },
+          {
+            "file": "Monitoring/POSCO_News_250808/realtime_news_monitor.py",
+            "error": "구문 오류 (라인 23): invalid syntax"
+          },
+          {
+            "file": "Monitoring/POSCO_News_250808/core/__init__.py",
+            "error": "구문 오류 (라인 32): invalid syntax"
+          },
+          {
+            "file": "Monitoring/POSCO_News_250808/utils/business_day_helper.py",
+            "error": "구문 오류 (라인 21): invalid syntax"
+          },
+          {
+            "file": "Monitoring/POSCO_News_250808/backup_archive_20250806/temp_solutions_20250806/simple_news_monitor.py",
+            "error": "구문 오류 (라인 25): invalid syntax"
+          },
+          {
+            "file": "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/base_monitor.py",
+            "error": "구문 오류 (라인 23): invalid syntax"
+          },
+          {
+            "file": "Monitoring/POSCO_News_250808/posco_main_notifier.py",
+            "error": "구문 오류 (라인 25): invalid syntax"
+          },
+          {
+            "file": "Monitoring/POSCO_News_250808/historical_data_collector.py",
+            "error": "구문 오류 (라인 23): invalid syntax"
+          },
+          {
+            "file": "Monitoring/POSCO_News_250808/integrated_report_scheduler.py",
+            "error": "구문 오류 (라인 24): invalid syntax"
+          },
+          {
+            "file": "Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0.py",
+            "error": "구문 오류 (라인 33): invalid syntax"
+          },
+          {
+            "file": "Monitoring/POSCO_News_250808/realtime_news_monitor.py",
+            "error": "구문 오류 (라인 23): invalid syntax"
+          },
+          {
+            "file": "Monitoring/POSCO_News_250808/core/__init__.py",
+            "error": "구문 오류 (라인 32): invalid syntax"
+          },
+          {
+            "file": "Monitoring/POSCO_News_250808/utils/business_day_helper.py",
+            "error": "구문 오류 (라인 21): invalid syntax"
+          },
+          {
+            "file": "Monitoring/POSCO_News_250808/backup_archive_20250806/temp_solutions_20250806/simple_news_monitor.py",
+            "error": "구문 오류 (라인 25): invalid syntax"
+          },
+          {
+            "file": "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/base_monitor.py",
+            "error": "구문 오류 (라인 23): invalid syntax"
+          },
+          {
+            "file": "Monitoring/WatchHamster_v3.0/core/notification_manager.py",
+            "error": "구문 오류 (라인 142): invalid syntax"
+          },
+          {
+            "file": "Monitoring/Posco_News_mini_v2/core/notification_manager.py",
+            "error": "구문 오류 (라인 142): invalid syntax"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Shell Scripts Syntax",
+      "total_files": 31,
+      "valid_files": 31,
+      "invalid_files": 0,
+      "status": "PASS",
+      "details": {
+        "valid_scripts": [
+          "test_runner.sh",
+          "cleanup_old_files.sh",
+          "check_migration_requirements.sh",
+          "posco_news_250808_control_mac.sh",
+          "test_control_center_functions.sh",
+          "rollback_migration.sh",
+          "watchhamster_v3.0_master_control.sh",
+          "run_migration_verification.sh",
+          "🚀🚀POSCO_News_250808_Direct_Start.sh",
+          "migrate_to_v2.sh",
+          "watchhamster_v3.0_control_center.sh",
+          "verify_task6_implementation.sh",
+          "lib_wt_common.sh",
+          "🎛️POSCO_제어센터_실행_v2.sh",
+          ".naming_backup/scripts/test_runner.sh",
+          ".naming_backup/scripts/cleanup_old_files.sh",
+          ".naming_backup/scripts/check_migration_requirements.sh",
+          ".naming_backup/scripts/test_control_center_functions.sh",
+          ".naming_backup/scripts/posco_control_center.sh",
+          ".naming_backup/scripts/rollback_migration.sh",
+          ".naming_backup/scripts/watchhamster_control_center.sh",
+          ".naming_backup/scripts/run_migration_verification.sh",
+          ".naming_backup/scripts/🚀POSCO_메인_알림_시작_직접.sh",
+          ".naming_backup/scripts/migrate_to_v2.sh",
+          ".naming_backup/scripts/watchhamster_master_control.sh",
+          ".naming_backup/scripts/verify_task6_implementation.sh",
+          ".naming_backup/scripts/lib_wt_common.sh",
+          ".naming_backup/scripts/posco_control_mac.sh",
+          ".naming_backup/scripts/🎛️POSCO_제어센터_실행_v2.sh",
+          "Monitoring/POSCO_News_250808/posco_news_250808_control_center.sh",
+          "Monitoring/POSCO_News_250808/posco_news_250808_control_center.sh"
+        ],
+        "invalid_scripts": []
+      }
+    },
+    {
+      "category": "Batch Scripts",
+      "total_files": 45,
+      "valid_files": 45,
+      "invalid_files": 0,
+      "status": "PASS",
+      "details": {
+        "valid_scripts": [
+          "lib_wt_common.bat",
+          "🐹워치햄스터_총괄_관리_센터.bat",
+          "🐹POSCO_워치햄스터_v3_제어센터.bat",
+          "🚀🚀POSCO_News_250808_Direct_Start.bat",
+          "🐹WatchHamster_v3.0_Integrated_Center.bat",
+          "PowerShell_진단.bat",
+          "🎛️POSCO_제어센터_실행.bat",
+          "🐹워치햄스터_총괄_관리_센터_SIMPLE.bat",
+          "🎛️WatchHamster_v3.0_Control_Panel.bat",
+          "POSCO_시작.bat",
+          "🐹WatchHamster_v3.0_Control_Center.bat",
+          "🔄Git_덮어씌우기.bat",
+          ".naming_backup/scripts/🔧POSCO_시스템_상태확인.bat",
+          ".naming_backup/scripts/🎛️POSCO_제어센터_실행_v2.bat",
+          ".naming_backup/scripts/🐹워치햄스터_총괄_관리_센터_v3.bat",
+          ".naming_backup/scripts/lib_wt_common.bat",
+          ".naming_backup/scripts/🐹워치햄스터_총괄_관리_센터.bat",
+          ".naming_backup/scripts/🧪POSCO_테스트_실행.bat",
+          ".naming_backup/scripts/🐹워치햄스터_통합_관리_센터.bat",
+          ".naming_backup/scripts/🐹POSCO_워치햄스터_v3_제어센터.bat",
+          ".naming_backup/scripts/🎛️POSCO_메인_시스템.bat",
+          ".naming_backup/scripts/PowerShell_진단.bat",
+          ".naming_backup/scripts/🎛️POSCO_제어센터_실행.bat",
+          ".naming_backup/scripts/🔄POSCO_Git_업데이트.bat",
+          ".naming_backup/scripts/🐹워치햄스터_총괄_관리_센터_SIMPLE.bat",
+          ".naming_backup/scripts/POSCO_시작.bat",
+          ".naming_backup/scripts/📋POSCO_로그_확인.bat",
+          ".naming_backup/scripts/🛑POSCO_메인_알림_중지.bat",
+          ".naming_backup/scripts/🚀POSCO_메인_알림_시작_직접.bat",
+          ".naming_backup/scripts/🚀POSCO_메인_알림_시작.bat",
+          ".naming_backup/scripts/🔄Git_덮어씌우기.bat",
+          "Monitoring/POSCO_News_250808/🔧POSCO_시스템_상태확인.bat",
+          "Monitoring/POSCO_News_250808/🧪POSCO_테스트_실행.bat",
+          "Monitoring/POSCO_News_250808/🎛️POSCO_메인_시스템.bat",
+          "Monitoring/POSCO_News_250808/🔄POSCO_Git_업데이트.bat",
+          "Monitoring/POSCO_News_250808/🛑🛑POSCO_News_250808_Stop.bat",
+          "Monitoring/POSCO_News_250808/📋POSCO_로그_확인.bat",
+          "Monitoring/POSCO_News_250808/🚀🚀POSCO_News_250808_Start.bat",
+          "Monitoring/POSCO_News_250808/🔧POSCO_시스템_상태확인.bat",
+          "Monitoring/POSCO_News_250808/🧪POSCO_테스트_실행.bat",
+          "Monitoring/POSCO_News_250808/🎛️POSCO_메인_시스템.bat",
+          "Monitoring/POSCO_News_250808/🔄POSCO_Git_업데이트.bat",
+          "Monitoring/POSCO_News_250808/🛑🛑POSCO_News_250808_Stop.bat",
+          "Monitoring/POSCO_News_250808/📋POSCO_로그_확인.bat",
+          "Monitoring/POSCO_News_250808/🚀🚀POSCO_News_250808_Start.bat"
+        ],
+        "invalid_scripts": []
+      }
+    },
+    {
+      "category": "JSON Configuration Files",
+      "total_files": 67,
+      "valid_files": 67,
+      "invalid_files": 0,
+      "status": "PASS",
+      "details": {
+        "valid_configs": [
+          "test_config.json",
+          "optimization_history.json",
+          "posco_news_250808_data.json",
+          "posco_news_250808_cache.json",
+          "performance_alerts.json",
+          "system_optimization_data.json",
+          "config_data_standardization_report.json",
+          "folder_reorganization_log.json",
+          "performance_data_20250808_112257.json",
+          "performance_data_20250808_105531.json"
+        ],
+        "invalid_configs": []
+      }
+    },
+    {
+      "category": "Module Imports",
+      "total_modules": 9,
+      "successful_imports": 3,
+      "failed_imports": 6,
+      "status": "FAIL",
+      "details": {
+        "successful_imports": [
+          "system_output_message_standardizer",
+          "folder_structure_reorganizer",
+          "naming_standardization_verification_system"
+        ],
+        "failed_imports": [
+          {
+            "module": "naming_convention_manager",
+            "error": "검증 실패: invalid syntax (naming_convention_manager.py, line 21)"
+          },
+          {
+            "module": "file_renaming_system",
+            "error": "검증 실패: invalid syntax (file_renaming_system.py, line 125)"
+          },
+          {
+            "module": "python_naming_standardizer",
+            "error": "검증 실패: invalid syntax (python_naming_standardizer.py, line 28)"
+          },
+          {
+            "module": "shell_batch_script_standardizer",
+            "error": "검증 실패: invalid syntax (shell_batch_script_standardizer.py, line 165)"
+          },
+          {
+            "module": "documentation_standardizer",
+            "error": "검증 실패: invalid syntax (documentation_standardizer.py, line 23)"
+          },
+          {
+            "module": "config_data_standardizer",
+            "error": "검증 실패: invalid syntax (config_data_standardizer.py, line 35)"
+          }
+        ]
+      }
+    },
+    {
+      "category": "File Reference Integrity",
+      "valid_references": 22,
+      "broken_references": 83,
+      "status": "FAIL",
+      "details": {
+        "valid_references": [
+          "shell_batch_script_standardizer.py -> .naming_backup/scripts",
+          "Monitoring/WatchHamster_v3.0/modules.json",
+          "Monitoring/WatchHamster_v3.0/modules.json",
+          "Monitoring/WatchHamster_v3.0/core/enhanced_process_manager.py",
+          "Monitoring/WatchHamster_v3.0/core/module_registry.py",
+          "Monitoring/WatchHamster_v3.0/core/notification_manager.py",
+          "Monitoring/WatchHamster_v3.0/core/watchhamster_integration.py",
+          "Monitoring/WatchHamster_v3.0/modules.json",
+          "Monitoring/WatchHamster_v3.0/modules.json",
+          "Monitoring/WatchHamster_v3.0/modules.json"
+        ],
+        "broken_references": [
+          {
+            "source_file": "posco_continuous_monitor.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/reports/integrated_report_generator.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "posco_continuous_monitor.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/reports/integrated_report_generator.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "test_documentation_standardization.py",
+# BROKEN_REF:             "referenced_file": "**/*.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "test_documentation_standardization.py",
+# BROKEN_REF:             "referenced_file": "**/*.sh",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "test_documentation_standardization.py",
+# BROKEN_REF:             "referenced_file": "**/*.bat",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "test_documentation_standardization.py",
+            "referenced_file": "**/*.md",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "test_documentation_standardization.py",
+            "referenced_file": "README.md",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "test_documentation_standardization.py",
+# BROKEN_REF:             "referenced_file": "**/*.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "test_shell_batch_standardization.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/🚀🚀POSCO_News_250808_Start.bat",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "test_shell_batch_standardization.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/🛑🛑POSCO_News_250808_Stop.bat",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "test_shell_batch_standardization.py",
+# BROKEN_REF:             "referenced_file": "Monitoring/POSCO News 250808 250808_mini/POSCO News 250808 250808_250808_control_center.sh",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "test_shell_batch_standardization.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "test_shell_batch_standardization.py",
+# BROKEN_REF:             "referenced_file": "Monitoring/POSCO News 250808 250808_mini/POSCO News 250808 250808_250808_control_center.sh",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "documentation_standardizer.py",
+# BROKEN_REF:             "referenced_file": "**/*.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "documentation_standardizer.py",
+# BROKEN_REF:             "referenced_file": "**/*.sh",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "documentation_standardizer.py",
+# BROKEN_REF:             "referenced_file": "**/*.bat",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "documentation_standardizer.py",
+            "referenced_file": "**/*.md",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "documentation_standardizer.py",
+            "referenced_file": "README.md",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "documentation_standardizer.py",
+            "referenced_file": "TEST_FRAMEWORK_README.md",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "documentation_standardizer.py",
+            "referenced_file": "README.md",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "file_renaming_system.py",
+# BROKEN_REF:             "referenced_file": "**/*.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "file_renaming_system.py",
+# BROKEN_REF:             "referenced_file": "**/*.bat",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "file_renaming_system.py",
+# BROKEN_REF:             "referenced_file": "**/*.sh",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "file_renaming_system.py",
+            "referenced_file": "**/*.md",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "file_renaming_system.py",
+            "referenced_file": "**/*.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "file_renaming_system.py",
+            "referenced_file": "**/*.log",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "test_migration_verification_system.py",
+            "referenced_file": ".naming_backup/config_data_backup/watchhamster.log",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "test_migration_verification_system.py",
+# BROKEN_REF:             "referenced_file": "Monitoring/test_file.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "test_migration_verification_system.py",
+            "referenced_file": ".naming_backup/config_data_backup/watchhamster.log",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "test_migration_verification_system.py",
+            "referenced_file": ".naming_backup/config_data_backup/watchhamster.log",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "config_data_standardizer.py",
+            "referenced_file": ".naming_backup/config_data_backup/Monitoring/Posco_News_mini/modules.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "config_data_standardizer.py",
+            "referenced_file": "test_config.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "config_data_standardizer.py",
+            "referenced_file": ".naming_backup/config_data_backup/.vscode/settings.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "config_data_standardizer.py",
+            "referenced_file": ".git/config",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "config_data_standardizer.py",
+# BROKEN_REF:             "referenced_file": "**/*_data.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "config_data_standardizer.py",
+# BROKEN_REF:             "referenced_file": "**/*_cache.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "config_data_standardizer.py",
+            "referenced_file": "docs/status.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "config_data_standardizer.py",
+            "referenced_file": "**/*.log",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "config_data_standardizer.py",
+# BROKEN_REF:             "referenced_file": "**/*_data.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "config_data_standardizer.py",
+# BROKEN_REF:             "referenced_file": "**/*_cache.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "config_data_standardizer.py",
+            "referenced_file": "docs/status.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "test_rollback_functionality.py",
+            "referenced_file": ".naming_backup/config_data_backup/watchhamster.log",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "test_rollback_functionality.py",
+            "referenced_file": ".naming_backup/config_data_backup/watchhamster.log",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "migration_status_reporter.py",
+            "referenced_file": ".naming_backup/config_data_backup/watchhamster.log",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "migration_status_reporter.py",
+            "referenced_file": "rollback_migration.sh",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "migration_status_reporter.py",
+            "referenced_file": "migration_verification_system.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "convert_config.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/config.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "post_migration_verification.py",
+            "referenced_file": ".naming_backup/config_data_backup/watchhamster.log",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "post_migration_verification.py",
+            "referenced_file": ".naming_backup/config_data_backup/watchhamster.log",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "test_naming_standardization_verification.py",
+# BROKEN_REF:             "referenced_file": "backup/old_file.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "final_system_integration_verification.py",
+            "referenced_file": ".naming_backup/config_data_backup/watchhamster.log",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "final_system_integration_verification.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/posco_main_notifier.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "final_system_integration_verification.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/config.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "final_system_integration_verification.py",
+            "referenced_file": ".naming_backup/config_data_backup/Monitoring/Posco_News_mini/modules.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "final_system_integration_verification.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/config.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "final_system_integration_verification.py",
+            "referenced_file": ".naming_backup/config_data_backup/Monitoring/Posco_News_mini/modules.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "migration_verification_system.py",
+            "referenced_file": ".naming_backup/config_data_backup/watchhamster.log",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/completion_notifier.py",
+            "referenced_file": "docs/reports_index.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/posco_main_notifier.py",
+# BROKEN_REF:             "referenced_file": "../../POSCO News 250808_historical_cache.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/posco_main_notifier.py",
+            "referenced_file": "posco_business_day_mapping.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/posco_main_notifier.py",
+# BROKEN_REF:             "referenced_file": "../../POSCO News 250808_cache.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/posco_main_notifier.py",
+# BROKEN_REF:             "referenced_file": "../POSCO News 250808_cache.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/historical_data_collector.py",
+# BROKEN_REF:             "referenced_file": "../../POSCO News 250808_historical_cache.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/historical_data_collector.py",
+            "referenced_file": "posco_business_day_mapping.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/posco_report_system_reset.py",
+            "referenced_file": "docs/reports_index.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/reports/integrated_report_generator.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/kospi_monitor.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/reports/integrated_report_generator.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/master_news_monitor.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/reports/integrated_report_generator.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/exchange_monitor.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/reports/integrated_report_generator.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/newyork_monitor.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/reports/integrated_report_generator.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/completion_notifier.py",
+            "referenced_file": "docs/reports_index.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/posco_main_notifier.py",
+# BROKEN_REF:             "referenced_file": "../../POSCO News 250808_historical_cache.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/posco_main_notifier.py",
+            "referenced_file": "posco_business_day_mapping.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/posco_main_notifier.py",
+# BROKEN_REF:             "referenced_file": "../../POSCO News 250808_cache.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/posco_main_notifier.py",
+# BROKEN_REF:             "referenced_file": "../POSCO News 250808_cache.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/historical_data_collector.py",
+# BROKEN_REF:             "referenced_file": "../../POSCO News 250808_historical_cache.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/historical_data_collector.py",
+            "referenced_file": "posco_business_day_mapping.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/posco_report_system_reset.py",
+            "referenced_file": "docs/reports_index.json",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/reports/integrated_report_generator.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/kospi_monitor.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/reports/integrated_report_generator.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/master_news_monitor.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/reports/integrated_report_generator.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/exchange_monitor.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/reports/integrated_report_generator.py",
+            "error": "참조된 파일이 존재하지 않음"
+          },
+          {
+            "source_file": "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/newyork_monitor.py",
+            "referenced_file": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/reports/integrated_report_generator.py",
+            "error": "참조된 파일이 존재하지 않음"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Execution Permissions",
+      "executable_files": 50,
+      "permission_issues": 1,
+      "status": "FAIL",
+      "details": {
+        "executable_files": [
+          "test_runner.sh",
+          "cleanup_old_files.sh",
+          "check_migration_requirements.sh",
+          "posco_news_250808_control_mac.sh",
+          "test_control_center_functions.sh",
+          "rollback_migration.sh",
+          "watchhamster_v3.0_master_control.sh",
+          "run_migration_verification.sh",
+          "🚀🚀POSCO_News_250808_Direct_Start.sh",
+          "migrate_to_v2.sh"
+        ],
+        "permission_issues": [
+          {
+            "file": ".naming_backup/scripts/posco_control_mac.sh",
+            "issue": "실행 권한 없음"
+          }
+        ]
+      }
+    }
+  ],
+  "recommendations": [
+    "Python 스크립트의 구문 오류를 수정하세요.",
+# BROKEN_REF:     "모듈 import 오류를 해결하고 의존성을 확인하세요.",
+    "깨진 파일 참조를 수정하고 경로를 확인하세요.",
+    "스크립트 파일의 실행 권한을 설정하세요."
+  ]
+}

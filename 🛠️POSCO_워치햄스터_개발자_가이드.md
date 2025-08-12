@@ -1,11 +1,11 @@
-# 🛠️ POSCO 워치햄스터 v2.0 개발자 가이드
+# 🛠️ POSCO WatchHamster v3.0 개발자 가이드
 
 ## 📖 목차
 1. [개발 환경 설정](#개발-환경-설정)
 2. [아키텍처 이해](#아키텍처-이해)
 3. [새로운 모듈 개발](#새로운-모듈-개발)
 4. [ModuleRegistry 설정](#moduleregistry-설정)
-5. [워치햄스터 확장](#워치햄스터-확장)
+5. [WatchHamster 확장](#WatchHamster-확장)
 
 ---
 
@@ -18,12 +18,12 @@
 
 ### 개발 디렉토리 구조
 ```
-📁 POSCO 워치햄스터 v2.0
-├── Monitoring/Posco_News_mini/          # 기존 시스템
-│   ├── monitor_WatchHamster.py          # 메인 워치햄스터
+📁 POSCO WatchHamster v3.0
+├── Monitoring/POSCO News/          # 기존 시스템
+│   ├── monitor_WatchHamster.py          # 메인 WatchHamster
 │   ├── posco_main_notifier.py           # 기존 모듈들
 │   └── config.py                        # 설정 파일
-├── Monitoring/Posco_News_mini_v2/       # 새로운 아키텍처
+├── Monitoring/POSCO News_v2/       # 새로운 아키텍처
 │   ├── core/                            # 핵심 컴포넌트
 │   │   ├── enhanced_process_manager.py  # 프로세스 관리
 │   │   ├── module_registry.py           # 모듈 레지스트리
@@ -56,23 +56,23 @@ pip install -r requirements.txt
 #### 1. Enhanced ProcessManager
 - **역할**: 하위 프로세스 생명주기 관리
 - **기능**: 시작/중지/재시작, 헬스체크, 자동 복구
-- **파일**: `Monitoring/Posco_News_mini_v2/core/enhanced_process_manager.py`
+- **파일**: `Monitoring/POSCO News_v2/core/enhanced_process_manager.py`
 
 #### 2. ModuleRegistry  
 - **역할**: 모듈 설정 및 메타데이터 관리
 - **기능**: JSON 기반 설정, 의존성 관리, 동적 등록/해제
-- **파일**: `Monitoring/Posco_News_mini_v2/core/module_registry.py`
+- **파일**: `Monitoring/POSCO News_v2/core/module_registry.py`
 
 #### 3. NotificationManager
 - **역할**: 통합 알림 시스템
 - **기능**: 다양한 알림 타입, 템플릿 시스템, 통계 추적
-- **파일**: `Monitoring/Posco_News_mini_v2/core/notification_manager.py`
+- **파일**: `Monitoring/POSCO News_v2/core/notification_manager.py`
 
 ### 데이터 흐름
 ```
-🔄 워치햄스터 v2.0 데이터 흐름
+🔄 WatchHamster v3.0 데이터 흐름
 
-1. 워치햄스터 시작
+1. WatchHamster 시작
    ↓
 2. ModuleRegistry에서 설정 로드
    ↓  
@@ -100,11 +100,11 @@ pip install -r requirements.txt
 모듈 설명을 여기에 작성하세요.
 """
 
-import os
-import sys
-import time
-import logging
-from datetime import datetime
+import pposco_news_250808_monitor.logco_news_250808_monitor.log
+import system_functionality_verification.pytem_functionality_verification.py
+import .comprehensive_repair_backup/real.comprehensive_repair_backup/realtime_news_monitor.py.backup_20250809_181657_news_monitor.py.backup_20250809_181657
+# BROKEN_REF: import logging
+# BROKEN_REF: from datetime import datetime
 
 class YourNewModule:
     """새로운 모듈 클래스"""
@@ -164,7 +164,7 @@ class YourNewModule:
         pass
     
     def health_check(self):
-        """헬스체크 메서드 (워치햄스터에서 호출)"""
+        """헬스체크 메서드 (WatchHamster에서 호출)"""
         try:
             # 모듈 상태 확인 로직
             return True  # 정상
@@ -195,10 +195,10 @@ if __name__ == "__main__":
 CPU, 메모리, 디스크 사용률을 모니터링하고 임계값 초과 시 알림을 전송합니다.
 """
 
-import psutil
-import time
-import logging
-from datetime import datetime
+# BROKEN_REF: import psutil
+import .comprehensive_repair_backup/real.comprehensive_repair_backup/realtime_news_monitor.py.backup_20250809_181657_news_monitor.py.backup_20250809_181657
+# BROKEN_REF: import logging
+# BROKEN_REF: from datetime import datetime
 
 class SystemResourceMonitor:
     """시스템 리소스 모니터링 클래스"""
@@ -319,7 +319,7 @@ if __name__ == "__main__":
   },
   "modules": {
     "your_new_module": {
-      "script_path": "your_new_module.py",
+# BROKEN_REF:       "script_path": "your_new_module.py",
       "description": "새로운 모듈 설명",
       "auto_start": true,
       "restart_on_failure": true,
@@ -329,7 +329,7 @@ if __name__ == "__main__":
       "environment_vars": {
         "PYTHONUNBUFFERED": "1"
       },
-      "working_directory": "../Posco_News_mini",
+      "working_directory": "../POSCO News",
       "timeout": 30,
       "priority": 5
     }
@@ -361,10 +361,10 @@ if __name__ == "__main__":
 #### 단계 1: 모듈 개발 완료
 ```bash
 # 모듈 파일 생성
-touch Monitoring/Posco_News_mini/your_new_module.py
+touch Monitoring/POSCO News/your_new_module.py
 
 # 실행 권한 부여
-chmod +x Monitoring/Posco_News_mini/your_new_module.py
+chmod +x Monitoring/POSCO News/your_new_module.py
 ```
 
 #### 단계 2: modules.json 업데이트
@@ -372,7 +372,7 @@ chmod +x Monitoring/Posco_News_mini/your_new_module.py
 {
   "modules": {
     "system_resource_monitor": {
-      "script_path": "system_resource_monitor.py",
+# BROKEN_REF:       "script_path": "system_resource_monitor.py",
       "description": "시스템 리소스 모니터링 모듈",
       "auto_start": true,
       "restart_on_failure": true,
@@ -383,7 +383,7 @@ chmod +x Monitoring/Posco_News_mini/your_new_module.py
         "PYTHONUNBUFFERED": "1",
         "LOG_LEVEL": "INFO"
       },
-      "working_directory": "../Posco_News_mini",
+      "working_directory": "../POSCO News",
       "timeout": 30,
       "priority": 5
     }
@@ -394,8 +394,8 @@ chmod +x Monitoring/Posco_News_mini/your_new_module.py
 #### 단계 3: 설정 검증
 ```python
 # 설정 검증 스크립트
-import json
-import os
+import test_config.test_config.json
+import pposco_news_250808_monitor.logco_news_250808_monitor.log
 
 def validate_module_config(config_path):
     """모듈 설정 검증"""
@@ -412,7 +412,7 @@ def validate_module_config(config_path):
                     return False
             
             # 스크립트 파일 존재 확인
-            script_path = os.path.join('../Posco_News_mini', module['script_path'])
+            script_path = os.path.join('../POSCO News', module['script_path'])
             if not os.path.exists(script_path):
                 print(f"❌ {name}: 스크립트 파일 없음 - {script_path}")
                 return False
@@ -426,15 +426,15 @@ def validate_module_config(config_path):
         return False
 
 # 검증 실행
-if validate_module_config('Monitoring/Posco_News_mini_v2/modules.json'):
+if validate_module_config('.naming_backup/config_data_backup/Monitoring/Posco_News_mini/modules.json'):
     print("🎉 모든 모듈 설정이 유효합니다!")
 ```
 
-#### 단계 4: 워치햄스터 재시작
+#### 단계 4: WatchHamster 재시작
 ```bash
 # 제어센터에서 재시작
-./posco_control_center.sh
-→ 메뉴 3번 (워치햄스터 재시작)
+./.naming_backup/scripts/.naming_backup/scripts/posco_control_center.sh
+→ 메뉴 3번 (WatchHamster 재시작)
 ```
 
 ### 4. 의존성 관리
@@ -444,17 +444,17 @@ if validate_module_config('Monitoring/Posco_News_mini_v2/modules.json'):
 {
   "modules": {
     "data_collector": {
-      "script_path": "data_collector.py",
+      "script_path": ".comprehensive_repair_backup/historical_.comprehensive_repair_backup/historical_.comprehensive_repair_backup/historical_.comprehensive_repair_backup/historical_data_collector.py.backup_20250809_181656.backup_20250809_181656.backup_20250809_181656.backup_20250809_181656",
       "dependencies": [],
       "priority": 1
     },
     "data_processor": {
-      "script_path": "data_processor.py", 
+# BROKEN_REF:       "script_path": "data_processor.py", 
       "dependencies": ["data_collector"],
       "priority": 2
     },
     "report_generator": {
-      "script_path": "report_generator.py",
+      "script_path": "system_optimization_system_optimization_system_optimization_system_optimization_report_generator.py",
       "dependencies": ["data_collector", "data_processor"],
       "priority": 3
     }
@@ -472,13 +472,13 @@ if validate_module_config('Monitoring/Posco_News_mini_v2/modules.json'):
 #### 런타임 모듈 등록
 ```python
 # 새 모듈을 런타임에 등록
-from core.module_registry import ModuleRegistry, ModuleConfig
+from Monitoring/WatchHamster_v3.0/core/module_registry.py import ModuleRegistry_Integration_Summary.md_Integration_Summary.md, ModuleConfig
 
-registry = ModuleRegistry('modules.json')
+registry = ModuleRegistry('.naming_backup/config_data_backup/Monitoring/Posco_News_mini/.naming_backup/config_data_backup/Monitoring/Posco_News_mini/.naming_backup/config_data_backup/Monitoring/Posco_News_mini/.naming_backup/config_data_backup/Monitoring/Posco_News_mini/modules.json')
 
 new_module = ModuleConfig(
     name='dynamic_module',
-    script_path='dynamic_module.py',
+# BROKEN_REF:     script_path='dynamic_module.py',
     description='동적으로 추가된 모듈',
     auto_start=True,
     restart_on_failure=True,
@@ -504,7 +504,7 @@ else:
 ```---
 
 ##
- 🔧 워치햄스터 확장
+ 🔧 WatchHamster 확장
 
 ### 1. 새로운 알림 타입 추가
 
@@ -541,7 +541,7 @@ def send_custom_alert(self, alert_type: str, message: str, details: Dict[str, An
         })
         
         # 메시지 구성
-        alert_message = f"{config['icon']} POSCO 워치햄스터 {alert_type} 알림\n\n"
+        alert_message = f"{config['icon']} POSCO WatchHamster {alert_type} 알림\n\n"
         alert_message += f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
         alert_message += f"📢 메시지: {message}\n"
         
@@ -648,7 +648,7 @@ def _measure_response_time(self, process_name: str) -> Optional[float]:
         
         # 실제 측정 로직은 모듈별로 다르게 구현
         # 여기서는 예시로 간단한 파일 체크
-        log_file = f"{process_name}.log"
+# BROKEN_REF:         log_file = f"{process_name}.log"
         if os.path.exists(log_file):
             os.path.getmtime(log_file)
         
@@ -661,7 +661,7 @@ def _calculate_error_rate(self, process_name: str) -> float:
     """프로세스 오류율 계산"""
     try:
         # 최근 1시간 동안의 로그에서 오류율 계산
-        log_file = f"{process_name}.log"
+# BROKEN_REF:         log_file = f"{process_name}.log"
         if not os.path.exists(log_file):
             return 0.0
         
@@ -684,8 +684,8 @@ def _calculate_error_rate(self, process_name: str) -> float:
 ```python
 # core/recovery_strategies.py (새 파일)
 
-from abc import ABC, abstractmethod
-from typing import Dict, Any, Optional
+from .git/objects/78/314cc0a938d1506e96c8c3cb46.git/objects/78/314cc0a938d1506e96c8c3cb46abcc4f972b61c4f972b61 import .git/objects/78/314cc0a938d1506e96c8c3cb46.git/objects/78/314cc0a938d1506e96c8c3cb46abcc4f972b61c4f972b61, abstractmethod
+# BROKEN_REF: from typing import Dict, Any, Optional
 
 class RecoveryStrategy(ABC):
     """복구 전략 인터페이스"""
@@ -717,7 +717,7 @@ class MemoryLeakRecoveryStrategy(RecoveryStrategy):
         """메모리 정리 후 재시작"""
         try:
             # 1. 프로세스 강제 종료
-            import psutil
+# BROKEN_REF:             import psutil
             pid = error_info.get('pid')
             if pid:
                 process = psutil.Process(pid)
@@ -725,7 +725,7 @@ class MemoryLeakRecoveryStrategy(RecoveryStrategy):
                 process.wait(timeout=10)
             
             # 2. 메모리 정리
-            import gc
+# BROKEN_REF:             import gc
             gc.collect()
             
             # 3. 잠시 대기 후 재시작
@@ -753,7 +753,7 @@ class NetworkErrorRecoveryStrategy(RecoveryStrategy):
         """네트워크 연결 복구 시도"""
         try:
             # 1. 네트워크 연결 테스트
-            import requests
+# BROKEN_REF:             import requests
             response = requests.get('https://www.google.com', timeout=5)
             
             if response.status_code != 200:
@@ -778,14 +778,14 @@ class NetworkErrorRecoveryStrategy(RecoveryStrategy):
 ```python
 # dashboard/web_dashboard.py (새 파일)
 
-from flask import Flask, render_template, jsonify
-import json
-from datetime import datetime
+# BROKEN_REF: from flask import Flask, render_template, jsonify
+import test_config.test_config.json
+# BROKEN_REF: from datetime import datetime
 
 app = Flask(__name__)
 
 class WatchHamsterDashboard:
-    """워치햄스터 웹 대시보드"""
+    """WatchHamster 웹 대시보드"""
     
     def __init__(self, watchhamster_instance):
         self.watchhamster = watchhamster_instance
@@ -836,7 +836,7 @@ class WatchHamsterDashboard:
 
 # 사용 예시
 if __name__ == "__main__":
-    from monitor_WatchHamster import PoscoMonitorWatchHamster
+    from .comprehensive_repair_backup/.comprehensive_repair_backup/monitor_WatchHamster_v3.0.py.backup_20250809_181656_v3.0.py.backup_20250809_181656 import .naming_backup/config_data_backup/watchhamster.log
     
     watchhamster = PoscoMonitorWatchHamster()
     dashboard = WatchHamsterDashboard(watchhamster)
@@ -852,14 +852,14 @@ if __name__ == "__main__":
 ```python
 # tests/test_new_module.py
 
-import unittest
-from unittest.mock import Mock, patch
-import sys
-import os
+# BROKEN_REF: import unittest
+# BROKEN_REF: from unittest.mock import Mock, patch
+import system_functionality_verification.pytem_functionality_verification.py
+import pposco_news_250808_monitor.logco_news_250808_monitor.log
 
 # 테스트 대상 모듈 import
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'Monitoring', 'Posco_News_mini'))
-from your_new_module import YourNewModule
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'Monitoring', 'POSCO News'))
+# BROKEN_REF: from your_new_module import YourNewModule
 
 class TestYourNewModule(unittest.TestCase):
     """새 모듈 테스트"""
@@ -905,16 +905,16 @@ if __name__ == '__main__':
 ```python
 # tests/test_integration.py
 
-import unittest
-import time
-import os
-import sys
+# BROKEN_REF: import unittest
+import .comprehensive_repair_backup/real.comprehensive_repair_backup/realtime_news_monitor.py.backup_20250809_181657_news_monitor.py.backup_20250809_181657
+import pposco_news_250808_monitor.logco_news_250808_monitor.log
+import system_functionality_verification.pytem_functionality_verification.py
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'Monitoring', 'Posco_News_mini'))
-from monitor_WatchHamster import PoscoMonitorWatchHamster
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'Monitoring', 'POSCO News'))
+from .comprehensive_repair_backup/.comprehensive_repair_backup/monitor_WatchHamster_v3.0.py.backup_20250809_181656_v3.0.py.backup_20250809_181656 import .naming_backup/config_data_backup/watchhamster.log
 
 class TestWatchHamsterIntegration(unittest.TestCase):
-    """워치햄스터 통합 테스트"""
+    """WatchHamster 통합 테스트"""
     
     def setUp(self):
         """테스트 설정"""
@@ -947,4 +947,4 @@ if __name__ == '__main__':
 
 ---
 
-*🛠️ 이 개발자 가이드는 POSCO 워치햄스터 v2.0 (2025-08-07) 기준으로 작성되었습니다.*
+*🛠️ 이 개발자 가이드는 POSCO WatchHamster v3.0 (2025-08-07) 기준으로 작성되었습니다.*

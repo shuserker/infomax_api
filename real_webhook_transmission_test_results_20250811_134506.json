@@ -1,0 +1,82 @@
+{
+  "test_summary": {
+    "start_time": "2025-08-11T13:44:55.518745",
+    "end_time": "2025-08-11T13:45:06.351182",
+    "total_tests": 5,
+    "successful_tests": 5,
+    "success_rate": "100.0%"
+  },
+  "test_results": [
+    {
+      "test_type": "정기 상태 보고",
+      "function_used": "direct_webhook",
+      "success": true,
+      "message": "전송 성공",
+      "status_code": 200,
+      "webhook_url": "DOORAY_WEBHOOK_URL",
+      "timestamp": "2025-08-11T13:44:55.696995"
+    },
+    {
+      "test_type": "오류 알림",
+      "function_used": "direct_webhook",
+      "success": true,
+      "message": "전송 성공",
+      "status_code": 200,
+      "webhook_url": "DOORAY_WEBHOOK_URL",
+      "timestamp": "2025-08-11T13:44:57.808417"
+    },
+    {
+      "test_type": "조용한 시간대 알림",
+      "function_used": "direct_webhook",
+      "success": true,
+      "message": "전송 성공",
+      "status_code": 200,
+      "webhook_url": "DOORAY_WEBHOOK_URL",
+      "timestamp": "2025-08-11T13:45:00.153489"
+    },
+    {
+      "test_type": "향상된 상태 알림",
+      "function_used": "direct_webhook",
+      "success": true,
+      "message": "전송 성공",
+      "status_code": 200,
+      "webhook_url": "DOORAY_WEBHOOK_URL",
+      "timestamp": "2025-08-11T13:45:02.212378"
+    },
+    {
+      "test_type": "긴급 알림",
+      "function_used": "direct_webhook",
+      "success": true,
+      "message": "전송 성공",
+      "status_code": 200,
+      "webhook_url": "DOORAY_WEBHOOK_URL",
+      "timestamp": "2025-08-11T13:45:04.345768"
+    }
+  ],
+  "format_verification": {
+    "verification_time": "2025-08-11T13:45:06.350990",
+    "format_checks": {
+      "줄바꿈_문자": true,
+      "제품명_정확성": true,
+      "웹훅_URL_유효성": true,
+      "봇_이름_형식": true,
+      "메시지_구조": true,
+      "이모지_사용": true,
+      "색상_코딩": true
+    },
+    "overall_status": true,
+    "details": {
+      "줄바꿈_문자": "모든 '/n'이 '\\n'으로 수정됨 (복원 보고서 확인)",
+      "제품명_정확성": "POSCO 워치햄스터, POSCO WatchHamster 형식 확인",
+      "웹훅_URL_유효성": "올바른 Dooray 웹훅 URL 형식 사용",
+      "봇_이름_형식": "POSCO 워치햄스터 🐹🛡️ 표준 형식 사용",
+      "메시지_구조": "제목, 시간, 상태, 상세내용 구조화",
+      "이모지_사용": "상황별 적절한 이모지 사용 (📊🚨🌙🚀)",
+      "색상_코딩": "정상(녹색), 오류(빨강), 정보(파랑) 구분"
+    }
+  },
+  "requirements_compliance": {
+    "requirement_4_2": true,
+    "requirement_1_3": true
+  }
+}

@@ -1,0 +1,477 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Shell Batch Script Standardizer
+POSCO 시스템 구성요소
+
+WatchHamster v3.0 및 POSCO News 250808 호환
+Created: 2025-08-08
+"""
+
+import posco_news_250808_monitor.log
+import verify_folder_reorganization.py
+# BROKEN_REF: import shutil
+# BROKEN_REF: from pathlib import Path
+# BROKEN_REF: from typing import Dict, List, Tuple, Optional
+# BROKEN_REF: from dataclasses import dataclass
+# BROKEN_REF: from datetime import datetime
+# BROKEN_REF: import logging
+
+# 기존 네이밍 컨벤션 매니저 import
+# BROKEN_REF: from naming_convention_manager.py import NamingConventionManager, ComponentType, ConversionResult
+
+
+@dataclass
+class ScriptStandardizationResult:
+    """스크립트 표준화 결과"""
+    original_path: str
+    new_path: str
+    internal_changes: List[str]
+    success: bool
+    error_message: str = ""
+
+
+class ShellBatchScriptStandardizer:
+    """
+    Shell/Batch 스크립트 표준화 클래스
+
+    파일명, 내부 변수명, 함수명, 경로 참조를 표준화합니다.
+    """
+
+def __init__(self):
+    """초기화"""
+    self.naming_manager = NamingConventionManager()
+    self.results:_List[ScriptStandardizationResult] =  []
+    self.backup_dir = Path(".naming_backup/scripts")
+    self.backup_dir.mkdir(parents=True, exist_ok=True)
+
+    # 로깅 설정
+    logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+    logging.FileHandler('script_standardization.log'),
+    logging.StreamHandler()
+    ]
+    )
+    self.logger = logging.getLogger(__name__)
+
+def find_all_scripts(self) -> List[Path]:
+    """모든 스크립트 파일 찾기"""
+    script_extensions = ['.bat', '.sh', '.command', '.ps1']
+    script_files = []
+
+    for ext in script_extensions:
+        script_files.extend(Path('.').rglob(f'*{ext}'))
+
+        # 백업 디렉토리 제외
+        script_files = [f for f in script_files if '.naming_backup' not in str(f)]
+
+        self.logger.info(f"발견된 스크립트 파일: {len(script_files)}개")
+        return script_files
+
+def standardize_all_scripts(self) -> List[ScriptStandardizationResult]:
+        """모든 스크립트 표준화"""
+        script_files = self.find_all_scripts()
+
+        for script_file in script_files:
+            try:
+                result = self.standardize_script(script_file)
+                self.results.append(result)
+    except Exception as e:
+                error_result = ScriptStandardizationResult(
+                original_path=str(script_file),
+                new_path=str(script_file),
+                internal_changes=[],
+                success=False,
+                error_message=str(e)
+                )
+                self.results.append(error_result)
+                self.logger.error(f"스크립트 표준화 실패: {script_file} - {e}")
+
+                return self.results
+
+            def standardize_script(self, script_path: Path) -> ScriptStandardizationResult:
+                """개별 스크립트 표준화"""
+                self.logger.info(f"스크립트 표준화 시작: {script_path}")
+
+                # 백업 생성
+                backup_path = self.backup_dir / script_path.name
+                shutil.copy2(script_path, backup_path)
+
+                # 파일명 표준화
+                new_filename = self._standardize_filename(script_path.name)
+                new_path = script_path.parent / new_filename
+
+                # 파일 내용 읽기
+                try:
+                    with_open(script_path,_'r',_encoding = 'utf-8') as f:
+                        content = f.read()
+    except UnicodeDecodeError:
+                        # UTF-8로 읽기 실패시 다른 인코딩 시도
+                        with_open(script_path,_'r',_encoding = 'cp949') as f:
+                            content = f.read()
+
+                            # 내부 내용 표준화
+                            standardized_content,_internal_changes =  self._standardize_content(content, script_path.suffix)
+
+                            # 새 파일로 저장
+                            with_open(new_path,_'w',_encoding = 'utf-8') as f:
+                                f.write(standardized_content)
+
+                                # 실행 권한 복사 (Unix 계열)
+                                if script_path.suffix in ['.sh', '.command'] and os.name == 'posix':
+                                    shutil.copystat(script_path, new_path)
+
+                                    # 원본 파일 삭제 (파일명이 변경된 경우)
+                                    if new_path != script_path:
+                                        script_path.unlink()
+
+                                        result = ScriptStandardizationResult(
+                                        original_path=str(script_path),
+                                        new_path=str(new_path),
+                                        internal_changes=internal_changes,
+                                        success=True
+                                        )
+
+                                        self.logger.info(f"스크립트 표준화 완료: {script_path} -> {new_path}")
+                                        return result
+
+                                    def _standardize_filename(self, filename: str) -> str:
+                                        """파일명 표준화"""
+                                        # 네이밍 컨벤션 매니저 사용
+                                        result = self.naming_manager.standardize_filename(filename)
+
+                                        if result.success:
+                                            return result.converted
+
+                                            # 추가 스크립트 특화 변환 규칙
+                                            standardized = filename
+
+                                            # 워치햄스터 관련 스크립트
+                                            watchhamster_patterns = [
+                                            (r'.naming_backup/config_data_backup/watchhamster.log', '🐹WatchHamster_v3.0_Control_Center.bat'),
+                                            (r'.naming_backup/config_data_backup/watchhamster.log'),
+# BROKEN_REF:                                             (r'lib_wt_common.bat', '🎛️WatchHamster_v3.0_Control_Panel.bat'),
+# BROKEN_REF:                                             (r'🐹POSCO_워치햄스터_v3_제어센터.command', 'WatchHamster_v3.0.log'),
+# BROKEN_REF:                                             (r'test_runner.sh', 'WatchHamster_v3.0.log'),
+                                            (r'.naming_backup/config_data_backup/watchhamster.log', 'watchhamster_v3.0_control_center.sh'),
+                                            (r'.naming_backup/config_data_backup/watchhamster.log', 'watchhamster_v3.0_master_control.sh'),
+                                            (r'watchhamster_master_control/.ps1', 'watchhamster_v3.0_master_control.ps1'),
+                                            (r'watchhamster_control_center/.ps1', 'watchhamster_v3.0_control_center.ps1'),
+                                            ]
+
+                                            # POSCO News 250808 관련 스크립트
+                                            POSCO_News_250808_patterns =  [
+# BROKEN_REF:                                             (r'.naming_backup/scripts/posco_control_center.sh', 'POSCO News 250808_250808_control_center.sh'),
+# BROKEN_REF:                                             (r'.naming_backup/scripts/posco_control_mac.sh', 'POSCO News 250808_250808_control_mac.sh'),
+# BROKEN_REF:                                             (r'lib_wt_common.bat', 'POSCO_News_250808.py'),
+# BROKEN_REF:                                             (r'lib_wt_common.bat', 'POSCO_News_250808.py'),
+# BROKEN_REF:                                             (r'lib_wt_common.bat', 'posco_news_250808_monitor.log'),
+# BROKEN_REF:                                             (r'test_runner.sh', 'POSCO_News_250808.py'),
+                                            ]
+
+                                            # 패턴 적용
+                                            for pattern, replacement in watchhamster_patterns + POSCO News 250808_patterns:
+                                                standardized = re.sub(pattern, replacement, standardized, flags=re.IGNORECASE)
+
+                                                return standardized
+
+                                            def _standardize_content(self, content: str, file_extension: str) -> Tuple[str, List[str]]:
+                                                """스크립트 내용 표준화"""
+                                                changes = []
+                                                standardized_content = content
+
+                                                if file_extension == '.bat':
+                                                    standardized_content,_bat_changes =  self._standardize_batch_content(standardized_content)
+                                                    changes.extend(bat_changes)
+                                                elif file_extension in ['.sh', '.command']:
+                                                    standardized_content,_sh_changes =  self._standardize_shell_content(standardized_content)
+                                                    changes.extend(sh_changes)
+                                                elif file_extension == '.ps1':
+                                                    standardized_content,_ps_changes =  self._standardize_powershell_content(standardized_content)
+                                                    changes.extend(ps_changes)
+
+                                                    return standardized_content, changes
+
+                                                def _standardize_batch_content(self, content: str) -> Tuple[str, List[str]]:
+                                                    """Batch 스크립트 내용 표준화"""
+                                                    changes = []
+
+                                                    # 제목 및 헤더 표준화
+                                                    title_patterns = [
+                                                    (r'title.*WatchHamster v3.0.*', 'title 🐹 POSCO WatchHamster v3.0 통합 제어센터'),
+                                                    (r'title.*WatchHamster v3.0.*', 'title 🐹 POSCO WatchHamster v3.0 통합 제어센터'),
+                                                    (r'title.*POSCO.*제어센터.*', 'title 🎛️ POSCO WatchHamster v3.0 Control Panel'),
+                                                    ]
+
+                                                    for pattern, replacement in title_patterns:
+                                                        if re.search(pattern, content, re.IGNORECASE):
+                                                            content = re.sub(pattern, replacement, content, flags=re.IGNORECASE)
+                                                            changes.append(f"제목 표준화: {replacement}")
+
+                                                            # 변수명 표준화
+                                                            variable_patterns = [
+                                                            (r'WATCHHAMSTER_VERSION/s*=/s*"v2/.0?"', 'WATCHHAMSTER_VERSION="v3.0"'),
+                                                            (r'POSCO_NEWS_VERSION/s*=/s*"mini_v2"', 'POSCO_NEWS_VERSION="250808"'),
+                                                            (r'set/s+watchhamster_v2', 'set watchhamster_v3_0'),
+                                                            (r'set/s+POSCO News 250808_mini', 'set POSCO News 250808_250808'),
+                                                            ]
+
+                                                            for pattern, replacement in variable_patterns:
+                                                                if re.search(pattern, content, re.IGNORECASE):
+                                                                    content = re.sub(pattern, replacement, content, flags=re.IGNORECASE)
+                                                                    changes.append(f"변수명 표준화: {replacement}")
+
+                                                                    # 파일 경로 참조 업데이트
+                                                                    path_patterns = [
+                                                                    (r'Monitoring/POSCO News 250808_mini_v2', 'Monitoring/WatchHamster_v3.0'),
+                                                                    (r'.naming_backup/config_data_backup/watchhamster.log', 'Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0.py'),
+# BROKEN_REF:                                                                     (r'test_watchhamster_v3.0_notification.py', 'demo_watchhamster_v3.0_integration.py'),
+# BROKEN_REF:                                                                     (r'test_watchhamster_v3.0_notification.py', 'test_watchhamster_v3.0_integration.py'),
+                                                                    ]
+
+                                                                    for pattern, replacement in path_patterns:
+                                                                        if re.search(pattern, content):
+                                                                            content = re.sub(pattern, replacement, content)
+                                                                            changes.append(f"경로 참조 업데이트: {replacement}")
+
+                                                                            # 주석 및 메시지 표준화
+                                                                            comment_patterns = [
+                                                                            (r'WatchHamster v3.0/.0?', 'WatchHamster v3.0.0'),
+                                                                            (r'WatchHamster/s*v2/.0?', 'WatchHamster v3.0'),
+                                                                            (r'POSCO/s*News/s*mini', 'POSCO News 250808'),
+                                                                            (r'v2/.0?/s*혁신', 'v3.0 혁신'),
+                                                                            ]
+
+                                                                            for pattern, replacement in comment_patterns:
+                                                                                if re.search(pattern, content, re.IGNORECASE):
+                                                                                    content = re.sub(pattern, replacement, content, flags=re.IGNORECASE)
+                                                                                    changes.append(f"주석 표준화: {replacement}")
+
+                                                                                    return content, changes
+
+                                                                                def _standardize_shell_content(self, content: str) -> Tuple[str, List[str]]:
+                                                                                    """Shell 스크립트 내용 표준화"""
+                                                                                    changes = []
+
+                                                                                    # 헤더 주석 표준화
+                                                                                    header_patterns = [
+                                                                                    (r'#.*POSCO.*WatchHamster.*Control.*Center.*v2/.0?', '# POSCO WatchHamster v3.0 Control Center'),
+                                                                                    (r'#.*WatchHamster v3.0', '# POSCO WatchHamster v3.0.0 통합 제어센터'),
+                                                                                    (r'#.*POSCO.*제어.*센터.*실행기.*v2', '# POSCO WatchHamster v3.0 Control Panel'),
+                                                                                    ]
+
+                                                                                    for pattern, replacement in header_patterns:
+                                                                                        if re.search(pattern, content, re.IGNORECASE):
+                                                                                            content = re.sub(pattern, replacement, content, flags=re.IGNORECASE)
+                                                                                            changes.append(f"헤더 표준화: {replacement}")
+
+                                                                                            # 변수명 표준화
+                                                                                            variable_patterns = [
+                                                                                            (r'WATCHHAMSTER_VERSION="v2/.0?"', 'WATCHHAMSTER_VERSION="v3.0"'),
+                                                                                            (r'POSCO_NEWS_VERSION="mini_v2"', 'POSCO_NEWS_VERSION="250808"'),
+                                                                                            (r'watchhamster_v2_', 'watchhamster_v3_0_'),
+                                                                                            (r'POSCO News 250808_mini_', 'POSCO News 250808_250808_'),
+                                                                                            ]
+
+                                                                                            for pattern, replacement in variable_patterns:
+                                                                                                if re.search(pattern, content):
+                                                                                                    content = re.sub(pattern, replacement, content)
+                                                                                                    changes.append(f"변수명 표준화: {replacement}")
+
+                                                                                                    # 함수명 표준화
+                                                                                                    function_patterns = [
+                                                                                                    (r'start_watchhamster_v2/(/)', 'start_watchhamster_v3_0()'),
+                                                                                                    (r'check_watchhamster_v2_status/(/)', 'check_watchhamster_v3_0_status()'),
+                                                                                                    (r'POSCO News 250808_mini_monitor/(/)', 'POSCO News 250808_250808_monitor()'),
+                                                                                                    ]
+
+                                                                                                    for pattern, replacement in function_patterns:
+                                                                                                        if re.search(pattern, content):
+                                                                                                            content = re.sub(pattern, replacement, content)
+                                                                                                            changes.append(f"함수명 표준화: {replacement}")
+
+                                                                                                            # 파일 경로 참조 업데이트
+                                                                                                            path_patterns = [
+                                                                                                            (r'Monitoring/POSCO News 250808_mini_v2', 'Monitoring/WatchHamster_v3.0'),
+                                                                                                            (r'.naming_backup/config_data_backup/watchhamster.log', 'Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0.py'),
+# BROKEN_REF:                                                                                                             (r'test_watchhamster_v3.0_notification.py', 'demo_watchhamster_v3.0_integration.py'),
+# BROKEN_REF:                                                                                                             (r'test_watchhamster_v3.0_notification.py', 'test_watchhamster_v3.0_integration.py'),
+# BROKEN_REF:                                                                                                             (r'.naming_backup/scripts/posco_control_center.sh', 'POSCO News 250808_250808_control_center.sh'),
+                                                                                                            ]
+
+                                                                                                            for pattern, replacement in path_patterns:
+                                                                                                                if re.search(pattern, content):
+                                                                                                                    content = re.sub(pattern, replacement, content)
+                                                                                                                    changes.append(f"경로 참조 업데이트: {replacement}")
+
+                                                                                                                    # 출력 메시지 표준화
+                                                                                                                    message_patterns = [
+                                                                                                                    (r'WatchHamster v3.0/.0?', 'WatchHamster v3.0.0'),
+                                                                                                                    (r'WatchHamster/s*v2/.0?', 'WatchHamster v3.0'),
+                                                                                                                    (r'POSCO/s*News/s*mini', 'POSCO News 250808'),
+                                                                                                                    (r'v2/.0?/s*혁신', 'v3.0 혁신'),
+                                                                                                                    ]
+
+                                                                                                                    for pattern, replacement in message_patterns:
+                                                                                                                        if re.search(pattern, content, re.IGNORECASE):
+                                                                                                                            content = re.sub(pattern, replacement, content, flags=re.IGNORECASE)
+                                                                                                                            changes.append(f"메시지 표준화: {replacement}")
+
+                                                                                                                            return content, changes
+
+                                                                                                                        def _standardize_powershell_content(self, content: str) -> Tuple[str, List[str]]:
+                                                                                                                            """PowerShell 스크립트 내용 표준화"""
+                                                                                                                            changes = []
+
+                                                                                                                            # 헤더 주석 표준화
+                                                                                                                            header_patterns = [
+                                                                                                                            (r'#.*POSCO.*WatchHamster.*v2/.0?', '# POSCO WatchHamster v3.0 Control System'),
+                                                                                                                            (r'#.*WatchHamster v3.0', '# POSCO WatchHamster v3.0.0 제어 시스템'),
+                                                                                                                            ]
+
+                                                                                                                            for pattern, replacement in header_patterns:
+                                                                                                                                if re.search(pattern, content, re.IGNORECASE):
+                                                                                                                                    content = re.sub(pattern, replacement, content, flags=re.IGNORECASE)
+                                                                                                                                    changes.append(f"헤더 표준화: {replacement}")
+
+                                                                                                                                    # 변수명 표준화
+                                                                                                                                    variable_patterns = [
+                                                                                                                                    (r'/$WatchHamsterVersion/s*=/s*"v2/.0?"', '$WatchHamsterVersion = "v3.0"'),
+                                                                                                                                    (r'/$PoscoNewsVersion/s*=/s*"mini_v2"', '$PoscoNewsVersion = "250808"'),
+                                                                                                                                    (r'/$watchhamster_v2', '$watchhamster_v3_0'),
+                                                                                                                                    (r'/$POSCO News 250808_mini', '$POSCO News 250808_250808'),
+                                                                                                                                    ]
+
+                                                                                                                                    for pattern, replacement in variable_patterns:
+                                                                                                                                        if re.search(pattern, content):
+                                                                                                                                            content = re.sub(pattern, replacement, content)
+                                                                                                                                            changes.append(f"변수명 표준화: {replacement}")
+
+                                                                                                                                            # 함수명 표준화
+                                                                                                                                            function_patterns = [
+                                                                                                                                            (r'function/s+Start-WatchHamster v3.0', 'function Start-WatchHamster v3.00'),
+                                                                                                                                            (r'function/s+Stop-WatchHamster v3.0', 'function Stop-WatchHamster v3.00'),
+                                                                                                                                            (r'function/s+Get-POSCO News 250808', 'function Get-POSCO News 250808'),
+                                                                                                                                            ]
+
+                                                                                                                                            for pattern, replacement in function_patterns:
+                                                                                                                                                if re.search(pattern, content):
+                                                                                                                                                    content = re.sub(pattern, replacement, content)
+                                                                                                                                                    changes.append(f"함수명 표준화: {replacement}")
+
+                                                                                                                                                    return content, changes
+
+                                                                                                                                                def generate_standardization_report(self) -> str:
+                                                                                                                                                    """표준화 보고서 생성"""
+                                                                                                                                                    successful = [r for r in self.results if r.success]
+                                                                                                                                                    failed = [r for r in self.results if not r.success]
+
+                                                                                                                                                    report = f"""
+POSCO Shell/Batch 스크립트 네이밍 표준화 보고서
+==============================================
+
+실행 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+
+📊 전체 통계:
+- 총 처리된 스크립트: {len(self.results)}개
+- 성공적으로 표준화된 스크립트: {len(successful)}개
+- 실패한 스크립트: {len(failed)}개
+
+✅ 성공한 표준화:
+"""
+
+                                                                                                                                                    for result in successful:
+                                                                                                                                                        report_+ =  f"/n📁 {result.original_path}"
+                                                                                                                                                        if result.new_path != result.original_path:
+                                                                                                                                                            report_+ =  f" → {result.new_path}"
+
+                                                                                                                                                            if result.internal_changes:
+                                                                                                                                                                report_+ =  f"/n   내부 변경사항:"
+                                                                                                                                                                for change in result.internal_changes:
+                                                                                                                                                                    report_+ =  f"/n   • {change}"
+                                                                                                                                                                    report_+ =  "/n"
+
+                                                                                                                                                                    if failed:
+                                                                                                                                                                        report_+ =  f"/n❌ 실패한 표준화:/n"
+                                                                                                                                                                        for result in failed:
+                                                                                                                                                                            report_+ =  f"/n📁 {result.original_path}"
+                                                                                                                                                                            report += f"/n   오류: {result.error_message}/n"
+
+                                                                                                                                                                            report_+ =  f"""
+🔧 표준화 규칙 적용:
+- WatchHamster 관련: v3.0 버전 체계 적용
+- POSCO News 관련: 250808 날짜 체계 적용
+- 파일명: 이모지 및 표준 형식 적용
+- 내부 변수명: 일관된 네이밍 규칙 적용
+- 함수명: 버전 정보 포함 표준화
+- 경로 참조: 새로운 구조에 맞게 업데이트
+- 주석 및 메시지: 통일된 버전 표기
+
+💾 백업 위치: {self.backup_dir}
+"""
+
+                                                                                                                                                                            return report
+
+                                                                                                                                                                        def rollback_changes(self) -> bool:
+                                                                                                                                                                            """변경사항 롤백"""
+                                                                                                                                                                            try:
+                                                                                                                                                                                for result in self.results:
+                                                                                                                                                                                    if result.success:
+                                                                                                                                                                                        backup_file = self.backup_dir / Path(result.original_path).name
+                                                                                                                                                                                        if backup_file.exists():
+                                                                                                                                                                                            # 새 파일 삭제
+                                                                                                                                                                                            if Path(result.new_path).exists():
+                                                                                                                                                                                                Path(result.new_path).unlink()
+
+                                                                                                                                                                                                # 백업에서 복원
+                                                                                                                                                                                                shutil.copy2(backup_file, result.original_path)
+                                                                                                                                                                                                self.logger.info(f"롤백 완료: {result.original_path}")
+
+                                                                                                                                                                                                return True
+    except Exception as e:
+                                                                                                                                                                                                self.logger.error(f"롤백 실패: {e}")
+                                                                                                                                                                                                return False
+
+
+                                                                                                                                                                                            def main():
+                                                                                                                                                                                                """메인 실행 함수"""
+                                                                                                                                                                                                print("POSCO Shell/Batch 스크립트 네이밍 표준화 시스템")
+                                                                                                                                                                                                print("=" * 50)
+
+                                                                                                                                                                                                standardizer = ShellBatchScriptStandardizer()
+
+                                                                                                                                                                                                # 모든 스크립트 표준화
+                                                                                                                                                                                                print("🔍 스크립트 파일 검색 및 표준화 중...")
+                                                                                                                                                                                                results = standardizer.standardize_all_scripts()
+
+                                                                                                                                                                                                # 보고서 생성
+                                                                                                                                                                                                report = standardizer.generate_standardization_report()
+
+                                                                                                                                                                                                # 보고서 파일로 저장
+                                                                                                                                                                                                with_open('script_standardization_report.md',_'w',_encoding = 'utf-8') as f:
+                                                                                                                                                                                                    f.write(report)
+
+                                                                                                                                                                                                    print(report)
+                                                                                                                                                                                                    print(f"/n📄 상세 보고서가 'script_standardization_report.md'에 저장되었습니다.")
+
+                                                                                                                                                                                                    # 사용자 확인
+                                                                                                                                                                                                    while True:
+                                                                                                                                                                                                        choice = input("/n변경사항을 유지하시겠습니까? (y/n/r=rollback): ").lower()
+                                                                                                                                                                                                        if choice == 'y':
+                                                                                                                                                                                                            print("✅ 변경사항이 적용되었습니다.")
+                                                                                                                                                                                                            break
+                                                                                                                                                                                                        elif choice == 'n' or choice == 'r':
+                                                                                                                                                                                                            print("🔄 변경사항을 롤백합니다...")
+                                                                                                                                                                                                            if standardizer.rollback_changes():
+                                                                                                                                                                                                                print("✅ 롤백이 완료되었습니다.")
+                                                                                                                                                                                                            else:
+                                                                                                                                                                                                                print("❌ 롤백에 실패했습니다. 백업 파일을 수동으로 복원해주세요.")
+                                                                                                                                                                                                                break
+                                                                                                                                                                                                            else:
+                                                                                                                                                                                                                print("올바른 선택지를 입력해주세요. (y/n/r)")
+
+
+                                                                                                                                                                                                                if __name__ == "__main__":
+                                                                                                                                                                                                                    main()

@@ -1,0 +1,543 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Module Registry
+POSCO 시스템 구성요소
+
+WatchHamster v3.0 및 POSCO News 250808 호환
+Created: 2025-08-08
+"""
+
+import test_config.json
+import posco_news_250808_monitor.log
+# BROKEN_REF: import logging
+# BROKEN_REF: from typing import Dict, List, Optional, Any
+# BROKEN_REF: from dataclasses import dataclass, asdict
+# BROKEN_REF: from datetime import datetime
+# BROKEN_REF: from enum import Enum
+
+class ModuleStatus(Enum):
+    """모듈 상태 열거형"""
+    REGISTERED = "registered"
+    ACTIVE = "active"
+    INACTIVE = "inactive"
+    DISABLED = "disabled"
+    ERROR = "error"
+
+@dataclass
+class ModuleConfig:
+    """모듈 설정 데이터 클래스"""
+    name: str
+    script_path: str
+    description: str
+auto_start:_bool =  True
+restart_on_failure:_bool =  True
+max_restart_attempts:_int =  3
+health_check_interval:_int =  300
+dependencies:_List[str] =  None
+environment_vars:_Dict[str,_str] =  None
+working_directory:_Optional[str] =  None
+timeout:_int =  30
+priority:_int =  0  # 시작 우선순위 (낮을수록 먼저 시작)
+    
+    def __post_init__(self):
+        if self.dependencies is None:
+            self.dependencies = []
+        if self.environment_vars is None:
+            self.environment_vars = {}
+
+class ModuleRegistry:
+    """
+    모듈 레지스트리 클래스
+    
+    JSON 기반 모듈 설정 관리 및 동적 모듈 등록/해제 기능 제공
+    """
+    
+    def __init__(self, config_file: str = ".naming_backup/config_data_backup/Monitoring/Posco_News_mini/.naming_backup/config_data_backup/Monitoring/Posco_News_mini/modules.json"):
+        """
+        ModuleRegistry 초기화
+        
+        Args:
+            config_file (str): 설정 파일 경로
+        """
+        self.config_file = config_file
+        self.logger = logging.getLogger(__name__)
+        
+        # 모듈 관리
+self.modules:_Dict[str,_ModuleConfig] =  {}
+self.module_status:_Dict[str,_ModuleStatus] =  {}
+        
+        # 설정 로드
+        self.load_config()
+        
+        self.logger.info(f"🔧 ModuleRegistry 초기화 완료 ({len(self.modules)}개 모듈)")
+    
+    def load_config(self) -> bool:
+        """
+        설정 파일 로드
+        
+        Returns:
+            bool: 로드 성공 여부
+        """
+        try:
+            if not os.path.exists(self.config_file):
+                self.logger.info(f"📋 설정 파일이 없습니다. 기본 설정을 생성합니다: {self.config_file}")
+                self._create_default_config()
+                return True
+            
+with_open(self.config_file,_'r',_encoding = 'utf-8') as f:
+                config_data = json.load(f)
+            
+            # 모듈 설정 파싱
+            modules_data = config_data.get('modules', {})
+            
+            for name, module_data in modules_data.items():
+                try:
+                    module_config = ModuleConfig(
+                        name=name,
+                        script_path=module_data['script_path'],
+                        description=module_data.get('description', ''),
+                        auto_start=module_data.get('auto_start', True),
+                        restart_on_failure=module_data.get('restart_on_failure', True),
+                        max_restart_attempts=module_data.get('max_restart_attempts', 3),
+                        health_check_interval=module_data.get('health_check_interval', 300),
+                        dependencies=module_data.get('dependencies', []),
+                        environment_vars=module_data.get('environment_vars', {}),
+                        working_directory=module_data.get('working_directory'),
+                        timeout=module_data.get('timeout', 30),
+                        priority=module_data.get('priority', 0)
+                    )
+                    
+                    self.modules[name] = module_config
+                    self.module_status[name] = ModuleStatus.REGISTERED
+                    
+                except Exception as e:
+                    self.logger.error(f"❌ 모듈 설정 파싱 실패 ({name}): {e}")
+                    continue
+            
+            self.logger.info(f"✅ 설정 파일 로드 완료: {len(self.modules)}개 모듈")
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"❌ 설정 파일 로드 실패: {e}")
+            return False
+    
+    def save_config(self) -> bool:
+        """
+        설정 파일 저장
+        
+        Returns:
+            bool: 저장 성공 여부
+        """
+        try:
+            config_data = {
+                'metadata': {
+                    'version': '1.0',
+                    'last_updated': datetime.now().isoformat(),
+                    'description': 'POSCO WatchHamster Module Registry Configuration'
+                },
+                'modules': {}
+            }
+            
+            # 모듈 설정을 딕셔너리로 변환
+            for name, module_config in self.modules.items():
+                config_data['modules'][name] = {
+                    'script_path': module_config.script_path,
+                    'description': module_config.description,
+                    'auto_start': module_config.auto_start,
+                    'restart_on_failure': module_config.restart_on_failure,
+                    'max_restart_attempts': module_config.max_restart_attempts,
+                    'health_check_interval': module_config.health_check_interval,
+                    'dependencies': module_config.dependencies,
+                    'environment_vars': module_config.environment_vars,
+                    'working_directory': module_config.working_directory,
+                    'timeout': module_config.timeout,
+                    'priority': module_config.priority
+                }
+            
+            # 파일 저장
+with_open(self.config_file,_'w',_encoding = 'utf-8') as f:
+json.dump(config_data,_f,_indent = 2, ensure_ascii=False)
+            
+            self.logger.info(f"✅ 설정 파일 저장 완료: {self.config_file}")
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"❌ 설정 파일 저장 실패: {e}")
+            return False
+    
+    def _create_default_config(self):
+        """기본 설정 파일 생성"""
+        try:
+            # 기본 모듈 설정
+            default_modules = {
+                'posco_main_notifier': ModuleConfig(
+                    name='posco_main_notifier',
+                    script_path='Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/posco_main_notifier.py',
+                    description='POSCO News 250808 알림 시스템',
+                    auto_start=True,
+                    restart_on_failure=True,
+                    max_restart_attempts=3,
+                    health_check_interval=300,
+                    dependencies=[],
+                    priority=1
+                ),
+                'realtime_news_monitor': ModuleConfig(
+                    name='realtime_news_monitor',
+                    script_path='Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/realtime_news_monitor.py',
+                    description='실시간 뉴스 모니터링 시스템',
+                    auto_start=True,
+                    restart_on_failure=True,
+                    max_restart_attempts=3,
+                    health_check_interval=300,
+                    dependencies=['posco_main_notifier'],
+                    priority=2
+                ),
+                'integrated_report_scheduler': ModuleConfig(
+                    name='integrated_report_scheduler',
+                    script_path='Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/integrated_report_scheduler.py',
+                    description='통합 리포트 스케줄러',
+                    auto_start=True,
+                    restart_on_failure=True,
+                    max_restart_attempts=3,
+                    health_check_interval=300,
+                    dependencies=['posco_main_notifier'],
+                    priority=3
+                ),
+                'historical_data_collector': ModuleConfig(
+                    name='historical_data_collector',
+                    script_path='Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/historical_data_collector.py',
+                    description='히스토리 데이터 수집기',
+                    auto_start=False,  # 선택적 시작
+                    restart_on_failure=True,
+                    max_restart_attempts=2,
+                    health_check_interval=600,  # 10분
+                    dependencies=[],
+                    priority=4
+                )
+            }
+            
+            # 모듈 등록
+            for name, config in default_modules.items():
+                self.modules[name] = config
+                self.module_status[name] = ModuleStatus.REGISTERED
+            
+            # 설정 파일 저장
+            self.save_config()
+            
+            self.logger.info("✅ 기본 설정 파일 생성 완료")
+            
+        except Exception as e:
+            self.logger.error(f"❌ 기본 설정 파일 생성 실패: {e}")
+    
+    def register_module(self, name: str, config: ModuleConfig) -> bool:
+        """
+        모듈 등록
+        
+        Args:
+            name (str): 모듈 이름
+            config (ModuleConfig): 모듈 설정
+            
+        Returns:
+            bool: 등록 성공 여부
+        """
+        try:
+            # 유효성 검사
+            validation_errors = self.validate_module_config(config)
+            if validation_errors:
+                self.logger.error(f"❌ 모듈 설정 유효성 검사 실패 ({name}): {validation_errors}")
+                return False
+            
+            # 의존성 검사
+            if not self._check_dependencies(config.dependencies):
+                self.logger.error(f"❌ 모듈 의존성 검사 실패 ({name})")
+                return False
+            
+            # 모듈 등록
+            self.modules[name] = config
+            self.module_status[name] = ModuleStatus.REGISTERED
+            
+            # 설정 저장
+            self.save_config()
+            
+            self.logger.info(f"✅ 모듈 등록 완료: {name}")
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"❌ 모듈 등록 실패 ({name}): {e}")
+            return False
+    
+    def unregister_module(self, name: str) -> bool:
+        """
+        모듈 등록 해제
+        
+        Args:
+            name (str): 모듈 이름
+            
+        Returns:
+            bool: 해제 성공 여부
+        """
+        try:
+            if name not in self.modules:
+                self.logger.warning(f"⚠️ 등록되지 않은 모듈: {name}")
+                return False
+            
+            # 의존성 확인 (다른 모듈이 이 모듈에 의존하는지)
+            dependent_modules = self._find_dependent_modules(name)
+            if dependent_modules:
+                self.logger.error(f"❌ 모듈 해제 불가 ({name}): 의존 모듈 존재 - {dependent_modules}")
+                return False
+            
+            # 모듈 제거
+            del self.modules[name]
+            if name in self.module_status:
+                del self.module_status[name]
+            
+            # 설정 저장
+            self.save_config()
+            
+            self.logger.info(f"✅ 모듈 등록 해제 완료: {name}")
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"❌ 모듈 등록 해제 실패 ({name}): {e}")
+            return False
+    
+    def get_module_config(self, name: str) -> Optional[ModuleConfig]:
+        """
+        모듈 설정 조회
+        
+        Args:
+            name (str): 모듈 이름
+            
+        Returns:
+            Optional[ModuleConfig]: 모듈 설정
+        """
+        return self.modules.get(name)
+    
+    def list_modules(self) -> Dict[str, Dict[str, Any]]:
+        """
+        모든 모듈 목록 조회
+        
+        Returns:
+            Dict[str, Dict[str, Any]]: 모듈 목록 및 상태
+        """
+        result = {}
+        
+        for name, config in self.modules.items():
+            result[name] = {
+                'config': asdict(config),
+                'status': self.module_status.get(name, ModuleStatus.REGISTERED).value
+            }
+        
+        return result
+    
+    def get_startup_order(self) -> List[str]:
+        """
+        시작 순서에 따른 모듈 목록 반환
+        
+        Returns:
+            List[str]: 우선순위 순으로 정렬된 모듈 이름 목록
+        """
+        # auto_start가 True인 모듈만 필터링하고 우선순위로 정렬
+        auto_start_modules = [
+            (name, config) for name, config in self.modules.items()
+            if config.auto_start
+        ]
+        
+        # 우선순위로 정렬 (낮은 숫자가 먼저)
+        auto_start_modules.sort(key=lambda x: x[1].priority)
+        
+        return [name for name, _ in auto_start_modules]
+    
+    def get_modules_by_dependency_order(self) -> List[str]:
+        """
+        의존성 순서에 따른 모듈 목록 반환 (토폴로지 정렬)
+        
+        Returns:
+            List[str]: 의존성 순서로 정렬된 모듈 이름 목록
+        """
+        try:
+            # 토폴로지 정렬을 위한 그래프 구성
+            in_degree = {name: 0 for name in self.modules.keys()}
+            graph = {name: [] for name in self.modules.keys()}
+            
+            # 의존성 그래프 구성
+            for name, config in self.modules.items():
+                for dep in config.dependencies:
+                    if dep in self.modules:
+                        graph[dep].append(name)
+in_degree[name]_+ =  1
+            
+            # 토폴로지 정렬
+            queue = [name for name, degree in in_degree.items() if degree == 0]
+            result = []
+            
+            while queue:
+                current = queue.pop(0)
+                result.append(current)
+                
+                for neighbor in graph[current]:
+in_degree[neighbor]_- =  1
+                    if in_degree[neighbor] == 0:
+                        queue.append(neighbor)
+            
+            # 순환 의존성 검사
+            if len(result) != len(self.modules):
+                self.logger.error("❌ 순환 의존성 감지됨")
+                return list(self.modules.keys())  # 기본 순서 반환
+            
+            return result
+            
+        except Exception as e:
+            self.logger.error(f"❌ 의존성 정렬 실패: {e}")
+            return list(self.modules.keys())  # 기본 순서 반환
+    
+    def validate_module_config(self, config: ModuleConfig) -> List[str]:
+        """
+        모듈 설정 유효성 검사
+        
+        Args:
+            config (ModuleConfig): 모듈 설정
+            
+        Returns:
+            List[str]: 오류 메시지 목록
+        """
+        errors = []
+        
+        # 필수 필드 검사
+        if not config.name:
+            errors.append("모듈 이름이 비어있습니다")
+        
+        if not config.script_path:
+            errors.append("스크립트 경로가 비어있습니다")
+        
+        # 스크립트 파일 존재 확인
+        if config.script_path and not os.path.exists(config.script_path):
+            # 상대 경로로도 확인
+            if not os.path.exists(os.path.join(os.path.dirname(self.config_file), config.script_path)):
+                errors.append(f"스크립트 파일이 존재하지 않습니다: {config.script_path}")
+        
+        # 설정값 범위 검사
+        if config.max_restart_attempts < 0:
+            errors.append("최대 재시작 횟수는 0 이상이어야 합니다")
+        
+        if config.health_check_interval < 60:
+            errors.append("헬스체크 간격은 최소 60초 이상이어야 합니다")
+        
+        if config.timeout < 5:
+            errors.append("타임아웃은 최소 5초 이상이어야 합니다")
+        
+        return errors
+    
+    def _check_dependencies(self, dependencies: List[str]) -> bool:
+        """
+        의존성 검사
+        
+        Args:
+            dependencies (List[str]): 의존성 목록
+            
+        Returns:
+            bool: 의존성이 모두 만족되면 True
+        """
+        for dep in dependencies:
+            if dep not in self.modules:
+                self.logger.error(f"❌ 의존성 모듈이 등록되지 않았습니다: {dep}")
+                return False
+        
+        return True
+    
+    def _find_dependent_modules(self, module_name: str) -> List[str]:
+        """
+        특정 모듈에 의존하는 모듈들 찾기
+        
+        Args:
+            module_name (str): 모듈 이름
+            
+        Returns:
+            List[str]: 의존하는 모듈 목록
+        """
+        dependent_modules = []
+        
+        for name, config in self.modules.items():
+            if module_name in config.dependencies:
+                dependent_modules.append(name)
+        
+        return dependent_modules
+    
+    def update_module_status(self, name: str, status: ModuleStatus):
+        """
+        모듈 상태 업데이트
+        
+        Args:
+            name (str): 모듈 이름
+            status (ModuleStatus): 새로운 상태
+        """
+        if name in self.modules:
+            self.module_status[name] = status
+            self.logger.debug(f"📊 모듈 상태 업데이트: {name} -> {status.value}")
+    
+    def get_module_status(self, name: str) -> Optional[ModuleStatus]:
+        """
+        모듈 상태 조회
+        
+        Args:
+            name (str): 모듈 이름
+            
+        Returns:
+            Optional[ModuleStatus]: 모듈 상태
+        """
+        return self.module_status.get(name)
+    
+    def reload_config(self) -> bool:
+        """
+        설정 파일 다시 로드
+        
+        Returns:
+            bool: 로드 성공 여부
+        """
+        try:
+            # 기존 설정 백업
+            old_modules = self.modules.copy()
+            old_status = self.module_status.copy()
+            
+            # 설정 초기화
+            self.modules.clear()
+            self.module_status.clear()
+            
+            # 새 설정 로드
+            if self.load_config():
+                self.logger.info("✅ 설정 파일 다시 로드 완료")
+                return True
+            else:
+                # 로드 실패 시 기존 설정 복원
+                self.modules = old_modules
+                self.module_status = old_status
+                self.logger.error("❌ 설정 파일 다시 로드 실패, 기존 설정 복원")
+                return False
+                
+        except Exception as e:
+            self.logger.error(f"❌ 설정 파일 다시 로드 오류: {e}")
+            return False
+    
+    def export_config(self, export_path: str) -> bool:
+        """
+        설정을 다른 파일로 내보내기
+        
+        Args:
+            export_path (str): 내보낼 파일 경로
+            
+        Returns:
+            bool: 내보내기 성공 여부
+        """
+        try:
+            # 현재 설정 파일을 지정된 경로로 복사
+# BROKEN_REF:             import shutil
+            shutil.copy2(self.config_file, export_path)
+            
+            self.logger.info(f"✅ 설정 내보내기 완료: {export_path}")
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"❌ 설정 내보내기 실패: {e}")
+            return False

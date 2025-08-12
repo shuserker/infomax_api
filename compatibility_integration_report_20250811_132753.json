@@ -1,0 +1,654 @@
+{
+  "test_summary": {
+    "test_date": "2025-08-11 13:27:53",
+    "target_file": "core/monitoring/monitor_WatchHamster_v3.0.py",
+    "source_commit": "a763ef8",
+    "test_status": "completed"
+  },
+  "pre_restoration_check": {
+    "function_conflicts": 1,
+    "variable_conflicts": 1,
+    "import_conflicts": 28,
+    "system_conflicts": 11,
+    "total_issues": 41,
+    "details": {
+      "functions": [
+        {
+          "issue_type": "v3_method_conflict",
+          "severity": "medium",
+          "description": "웹훅 함수 'send_notification'가 v3.0 컴포넌트 메서드와 충돌할 수 있습니다",
+          "affected_component": "send_notification",
+          "conflict_details": {
+            "v3_method": "send_notification"
+          },
+          "resolution_suggestion": "메서드명 변경 또는 네임스페이스 분리",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 2152
+        }
+      ],
+      "variables": [
+        {
+          "issue_type": "namespace_conflict",
+          "severity": "low",
+          "description": "전역 변수 'status'가 네임스페이스 충돌을 일으킬 수 있습니다",
+          "affected_component": "status",
+          "conflict_details": {
+            "global_variable": "status"
+          },
+          "resolution_suggestion": "변수명에 접두사 추가 또는 모듈 네임스페이스 사용",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 4836
+        }
+      ],
+      "imports": [
+        {
+          "issue_type": "duplicate_import",
+          "severity": "low",
+          "description": "중복된 import 발견: importlib.util",
+          "affected_component": "importlib.util",
+          "conflict_details": {
+            "module": "importlib.util",
+            "line_number": 373,
+            "statement": "import importlib.util"
+          },
+          "resolution_suggestion": "중복된 import 문 제거",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 373
+        },
+        {
+          "issue_type": "duplicate_import",
+          "severity": "low",
+          "description": "중복된 import 발견: importlib.util",
+          "affected_component": "importlib.util",
+          "conflict_details": {
+            "module": "importlib.util",
+            "line_number": 405,
+            "statement": "import importlib.util"
+          },
+          "resolution_suggestion": "중복된 import 문 제거",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 405
+        },
+        {
+          "issue_type": "duplicate_import",
+          "severity": "low",
+          "description": "중복된 import 발견: importlib.util",
+          "affected_component": "importlib.util",
+          "conflict_details": {
+            "module": "importlib.util",
+            "line_number": 566,
+            "statement": "import importlib.util"
+          },
+          "resolution_suggestion": "중복된 import 문 제거",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 566
+        },
+        {
+          "issue_type": "duplicate_import",
+          "severity": "low",
+          "description": "중복된 import 발견: importlib.util",
+          "affected_component": "importlib.util",
+          "conflict_details": {
+            "module": "importlib.util",
+            "line_number": 959,
+            "statement": "import importlib.util"
+          },
+          "resolution_suggestion": "중복된 import 문 제거",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 959
+        },
+        {
+          "issue_type": "duplicate_import",
+          "severity": "low",
+          "description": "중복된 import 발견: importlib.util",
+          "affected_component": "importlib.util",
+          "conflict_details": {
+            "module": "importlib.util",
+            "line_number": 1024,
+            "statement": "import importlib.util"
+          },
+          "resolution_suggestion": "중복된 import 문 제거",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 1024
+        },
+        {
+          "issue_type": "duplicate_import",
+          "severity": "low",
+          "description": "중복된 import 발견: traceback",
+          "affected_component": "traceback",
+          "conflict_details": {
+            "module": "traceback",
+            "line_number": 1790,
+            "statement": "import traceback"
+          },
+          "resolution_suggestion": "중복된 import 문 제거",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 1790
+        },
+        {
+          "issue_type": "duplicate_import",
+          "severity": "low",
+          "description": "중복된 import 발견: psutil",
+          "affected_component": "psutil",
+          "conflict_details": {
+            "module": "psutil",
+            "line_number": 2068,
+            "statement": "import psutil"
+          },
+          "resolution_suggestion": "중복된 import 문 제거",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 2068
+        },
+        {
+          "issue_type": "duplicate_import",
+          "severity": "low",
+          "description": "중복된 import 발견: psutil",
+          "affected_component": "psutil",
+          "conflict_details": {
+            "module": "psutil",
+            "line_number": 2367,
+            "statement": "import psutil"
+          },
+          "resolution_suggestion": "중복된 import 문 제거",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 2367
+        },
+        {
+          "issue_type": "duplicate_import",
+          "severity": "low",
+          "description": "중복된 import 발견: importlib.util",
+          "affected_component": "importlib.util",
+          "conflict_details": {
+            "module": "importlib.util",
+            "line_number": 2576,
+            "statement": "import importlib.util"
+          },
+          "resolution_suggestion": "중복된 import 문 제거",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 2576
+        },
+        {
+          "issue_type": "duplicate_import",
+          "severity": "low",
+          "description": "중복된 import 발견: psutil",
+          "affected_component": "psutil",
+          "conflict_details": {
+            "module": "psutil",
+            "line_number": 2616,
+            "statement": "import psutil"
+          },
+          "resolution_suggestion": "중복된 import 문 제거",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 2616
+        },
+        {
+          "issue_type": "duplicate_import",
+          "severity": "low",
+          "description": "중복된 import 발견: psutil",
+          "affected_component": "psutil",
+          "conflict_details": {
+            "module": "psutil",
+            "line_number": 2659,
+            "statement": "import psutil"
+          },
+          "resolution_suggestion": "중복된 import 문 제거",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 2659
+        },
+        {
+          "issue_type": "duplicate_import",
+          "severity": "low",
+          "description": "중복된 import 발견: psutil",
+          "affected_component": "psutil",
+          "conflict_details": {
+            "module": "psutil",
+            "line_number": 2688,
+            "statement": "import psutil"
+          },
+          "resolution_suggestion": "중복된 import 문 제거",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 2688
+        },
+        {
+          "issue_type": "duplicate_import",
+          "severity": "low",
+          "description": "중복된 import 발견: traceback",
+          "affected_component": "traceback",
+          "conflict_details": {
+            "module": "traceback",
+            "line_number": 3105,
+            "statement": "import traceback"
+          },
+          "resolution_suggestion": "중복된 import 문 제거",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 3105
+        },
+        {
+          "issue_type": "duplicate_import",
+          "severity": "low",
+          "description": "중복된 import 발견: psutil",
+          "affected_component": "psutil",
+          "conflict_details": {
+            "module": "psutil",
+            "line_number": 3891,
+            "statement": "import psutil"
+          },
+          "resolution_suggestion": "중복된 import 문 제거",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 3891
+        },
+        {
+          "issue_type": "duplicate_import",
+          "severity": "low",
+          "description": "중복된 import 발견: psutil",
+          "affected_component": "psutil",
+          "conflict_details": {
+            "module": "psutil",
+            "line_number": 4928,
+            "statement": "import psutil"
+          },
+          "resolution_suggestion": "중복된 import 문 제거",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 4928
+        },
+        {
+          "issue_type": "duplicate_import",
+          "severity": "low",
+          "description": "중복된 import 발견: subprocess",
+          "affected_component": "subprocess",
+          "conflict_details": {
+            "module": "subprocess",
+            "line_number": 5159,
+            "statement": "import subprocess"
+          },
+          "resolution_suggestion": "중복된 import 문 제거",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 5159
+        },
+        {
+          "issue_type": "shared_import",
+          "severity": "info",
+          "description": "'subprocess' 모듈이 v3.0 컴포넌트와 공유됩니다",
+          "affected_component": "subprocess",
+          "conflict_details": {
+            "shared_module": "subprocess"
+          },
+          "resolution_suggestion": "모듈 사용 패턴 확인 및 최적화",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 11
+        },
+        {
+          "issue_type": "shared_import",
+          "severity": "info",
+          "description": "'json' 모듈이 v3.0 컴포넌트와 공유됩니다",
+          "affected_component": "json",
+          "conflict_details": {
+            "shared_module": "json"
+          },
+          "resolution_suggestion": "모듈 사용 패턴 확인 및 최적화",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 14
+        },
+        {
+          "issue_type": "shared_import",
+          "severity": "info",
+          "description": "'requests' 모듈이 v3.0 컴포넌트와 공유됩니다",
+          "affected_component": "requests",
+          "conflict_details": {
+            "shared_module": "requests"
+          },
+          "resolution_suggestion": "모듈 사용 패턴 확인 및 최적화",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 15
+        },
+        {
+          "issue_type": "shared_import",
+          "severity": "info",
+          "description": "'psutil' 모듈이 v3.0 컴포넌트와 공유됩니다",
+          "affected_component": "psutil",
+          "conflict_details": {
+            "shared_module": "psutil"
+          },
+          "resolution_suggestion": "모듈 사용 패턴 확인 및 최적화",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 17
+        },
+        {
+          "issue_type": "shared_import",
+          "severity": "info",
+          "description": "'psutil' 모듈이 v3.0 컴포넌트와 공유됩니다",
+          "affected_component": "psutil",
+          "conflict_details": {
+            "shared_module": "psutil"
+          },
+          "resolution_suggestion": "모듈 사용 패턴 확인 및 최적화",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 2068
+        },
+        {
+          "issue_type": "shared_import",
+          "severity": "info",
+          "description": "'psutil' 모듈이 v3.0 컴포넌트와 공유됩니다",
+          "affected_component": "psutil",
+          "conflict_details": {
+            "shared_module": "psutil"
+          },
+          "resolution_suggestion": "모듈 사용 패턴 확인 및 최적화",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 2367
+        },
+        {
+          "issue_type": "shared_import",
+          "severity": "info",
+          "description": "'psutil' 모듈이 v3.0 컴포넌트와 공유됩니다",
+          "affected_component": "psutil",
+          "conflict_details": {
+            "shared_module": "psutil"
+          },
+          "resolution_suggestion": "모듈 사용 패턴 확인 및 최적화",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 2616
+        },
+        {
+          "issue_type": "shared_import",
+          "severity": "info",
+          "description": "'psutil' 모듈이 v3.0 컴포넌트와 공유됩니다",
+          "affected_component": "psutil",
+          "conflict_details": {
+            "shared_module": "psutil"
+          },
+          "resolution_suggestion": "모듈 사용 패턴 확인 및 최적화",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 2659
+        },
+        {
+          "issue_type": "shared_import",
+          "severity": "info",
+          "description": "'psutil' 모듈이 v3.0 컴포넌트와 공유됩니다",
+          "affected_component": "psutil",
+          "conflict_details": {
+            "shared_module": "psutil"
+          },
+          "resolution_suggestion": "모듈 사용 패턴 확인 및 최적화",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 2688
+        },
+        {
+          "issue_type": "shared_import",
+          "severity": "info",
+          "description": "'psutil' 모듈이 v3.0 컴포넌트와 공유됩니다",
+          "affected_component": "psutil",
+          "conflict_details": {
+            "shared_module": "psutil"
+          },
+          "resolution_suggestion": "모듈 사용 패턴 확인 및 최적화",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 3891
+        },
+        {
+          "issue_type": "shared_import",
+          "severity": "info",
+          "description": "'psutil' 모듈이 v3.0 컴포넌트와 공유됩니다",
+          "affected_component": "psutil",
+          "conflict_details": {
+            "shared_module": "psutil"
+          },
+          "resolution_suggestion": "모듈 사용 패턴 확인 및 최적화",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 4928
+        },
+        {
+          "issue_type": "shared_import",
+          "severity": "info",
+          "description": "'subprocess' 모듈이 v3.0 컴포넌트와 공유됩니다",
+          "affected_component": "subprocess",
+          "conflict_details": {
+            "shared_module": "subprocess"
+          },
+          "resolution_suggestion": "모듈 사용 패턴 확인 및 최적화",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": 5159
+        }
+      ],
+      "system": [
+        {
+          "issue_type": "component_unavailable",
+          "severity": "medium",
+          "description": "v3.0 컴포넌트 'ProcessManager'가 비활성화되어 있습니다",
+          "affected_component": "ProcessManager",
+          "conflict_details": {
+            "available": false,
+            "reason": "import_error: No module named 'core.process_manager'"
+          },
+          "resolution_suggestion": "컴포넌트 활성화 또는 대체 방안 구현",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": null
+        },
+        {
+          "issue_type": "component_unavailable",
+          "severity": "medium",
+          "description": "v3.0 컴포넌트 'StateManager'가 비활성화되어 있습니다",
+          "affected_component": "StateManager",
+          "conflict_details": {
+            "available": false,
+            "reason": "import_error: No module named 'core.state_manager'"
+          },
+          "resolution_suggestion": "컴포넌트 활성화 또는 대체 방안 구현",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": null
+        },
+        {
+          "issue_type": "component_unavailable",
+          "severity": "medium",
+          "description": "v3.0 컴포넌트 'ColorfulConsoleUI'가 비활성화되어 있습니다",
+          "affected_component": "ColorfulConsoleUI",
+          "conflict_details": {
+            "available": false,
+            "reason": "not_implemented"
+          },
+          "resolution_suggestion": "컴포넌트 활성화 또는 대체 방안 구현",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": null
+        },
+        {
+          "issue_type": "component_unavailable",
+          "severity": "medium",
+          "description": "v3.0 컴포넌트 'ModuleRegistry'가 비활성화되어 있습니다",
+          "affected_component": "ModuleRegistry",
+          "conflict_details": {
+            "available": false,
+            "reason": "not_implemented"
+          },
+          "resolution_suggestion": "컴포넌트 활성화 또는 대체 방안 구현",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": null
+        },
+        {
+          "issue_type": "component_unavailable",
+          "severity": "medium",
+          "description": "v3.0 컴포넌트 'NotificationManager'가 비활성화되어 있습니다",
+          "affected_component": "NotificationManager",
+          "conflict_details": {
+            "available": false,
+            "reason": "not_implemented"
+          },
+          "resolution_suggestion": "컴포넌트 활성화 또는 대체 방안 구현",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": null
+        },
+        {
+          "issue_type": "component_unavailable",
+          "severity": "medium",
+          "description": "v3.0 컴포넌트 'PerformanceMonitor'가 비활성화되어 있습니다",
+          "affected_component": "PerformanceMonitor",
+          "conflict_details": {
+            "available": false,
+            "reason": "not_implemented"
+          },
+          "resolution_suggestion": "컴포넌트 활성화 또는 대체 방안 구현",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": null
+        },
+        {
+          "issue_type": "component_unavailable",
+          "severity": "medium",
+          "description": "v3.0 컴포넌트 'PerformanceOptimizer'가 비활성화되어 있습니다",
+          "affected_component": "PerformanceOptimizer",
+          "conflict_details": {
+            "available": false,
+            "reason": "not_implemented"
+          },
+          "resolution_suggestion": "컴포넌트 활성화 또는 대체 방안 구현",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": null
+        },
+        {
+          "issue_type": "component_unavailable",
+          "severity": "medium",
+          "description": "v3.0 컴포넌트 'IntegratedReportScheduler'가 비활성화되어 있습니다",
+          "affected_component": "IntegratedReportScheduler",
+          "conflict_details": {
+            "available": false,
+            "reason": "not_implemented"
+          },
+          "resolution_suggestion": "컴포넌트 활성화 또는 대체 방안 구현",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": null
+        },
+        {
+          "issue_type": "component_unavailable",
+          "severity": "medium",
+          "description": "v3.0 컴포넌트 'MasterNewsMonitor'가 비활성화되어 있습니다",
+          "affected_component": "MasterNewsMonitor",
+          "conflict_details": {
+            "available": false,
+            "reason": "not_implemented"
+          },
+          "resolution_suggestion": "컴포넌트 활성화 또는 대체 방안 구현",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": null
+        },
+        {
+          "issue_type": "performance_monitoring",
+          "severity": "info",
+          "description": "웹훅 기능의 성능 모니터링 필요",
+          "affected_component": "webhook_performance",
+          "conflict_details": {
+            "monitoring_needed": true
+          },
+          "resolution_suggestion": "웹훅 전송 시간 및 성공률 모니터링 추가",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": null
+        },
+        {
+          "issue_type": "scheduler_compatibility",
+          "severity": "low",
+          "description": "통합 리포트 스케줄러와 웹훅 알림 시간 조정 필요",
+          "affected_component": "IntegratedReportScheduler",
+          "conflict_details": {
+            "timing_conflict": "possible"
+          },
+          "resolution_suggestion": "스케줄러와 웹훅 알림 시간 조정 또는 통합",
+          "file_location": "core/monitoring/monitor_WatchHamster_v3.0.py",
+          "line_number": null
+        }
+      ]
+    }
+  },
+  "webhook_extraction": {
+    "functions_extracted": 12,
+    "constants_extracted": 0,
+    "extraction_success": true
+  },
+  "compatibility_analysis": {
+    "total_issues": 3,
+    "critical_issues": 0,
+    "medium_issues": 2,
+    "low_issues": 1
+  },
+  "integration_issues": [
+    {
+      "type": "v3_components_inactive",
+      "severity": "medium",
+      "description": "v3.0 컴포넌트 2개가 비활성화되어 있습니다",
+      "inactive_components": [
+        "ProcessManager",
+        "StateManager"
+      ],
+      "recommendation": "비활성화된 컴포넌트 활성화 또는 대체 방안 구현"
+    },
+    {
+      "type": "notification_duplication",
+      "severity": "medium",
+      "description": "NotificationManager와 웹훅 알림 기능이 중복될 수 있습니다",
+      "recommendation": "알림 기능 통합 또는 역할 분리 필요"
+    },
+    {
+      "type": "performance_impact_high",
+      "severity": "low",
+      "description": "복원될 웹훅 함수가 12개로 많아 성능에 영향을 줄 수 있습니다",
+      "recommendation": "웹훅 함수 호출 빈도 최적화 고려"
+    }
+  ],
+  "recommendations": [
+    {
+      "category": "pre_restoration",
+      "priority": "high",
+      "title": "복원 전 백업 및 테스트 환경 구성",
+      "description": "웹훅 기능 복원 전 현재 시스템의 완전한 백업을 생성하고 테스트 환경에서 먼저 검증",
+      "actions": [
+        "현재 시스템 전체 백업 생성",
+        "테스트 환경 구성",
+        "복원 작업 단계별 계획 수립"
+      ]
+    },
+    {
+      "category": "v3_integration",
+      "priority": "medium",
+      "title": "v3.0 아키텍처와의 통합 최적화",
+      "description": "웹훅 기능을 v3.0 아키텍처 컴포넌트와 효율적으로 통합",
+      "actions": [
+        "NotificationManager와 웹훅 기능 통합 검토",
+        "ProcessManager에 웹훅 프로세스 등록",
+        "PerformanceMonitor에 웹훅 성능 메트릭 추가"
+      ]
+    },
+    {
+      "category": "post_restoration",
+      "priority": "high",
+      "title": "복원 후 종합 검증",
+      "description": "웹훅 기능 복원 후 전체 시스템의 정상 동작 확인",
+      "actions": [
+        "웹훅 메시지 전송 테스트",
+        "Dooray 알림 수신 확인",
+        "기존 기능 회귀 테스트",
+        "성능 영향 모니터링"
+      ]
+    },
+    {
+      "category": "monitoring",
+      "priority": "medium",
+      "title": "지속적인 호환성 모니터링",
+      "description": "복원 후 지속적인 호환성 및 성능 모니터링 체계 구축",
+      "actions": [
+        "정기적인 호환성 검사 스케줄링",
+        "웹훅 성능 메트릭 수집",
+        "알림 전송 성공률 모니터링",
+        "시스템 업데이트 시 호환성 재검증"
+      ]
+    }
+  ],
+  "overall_assessment": {
+    "risk_level": "low",
+    "restoration_feasibility": "high",
+    "critical_issues_count": 0,
+    "medium_issues_count": 2,
+    "recommendation": "복원 작업 진행 가능, 기본 검증 수행",
+    "next_steps": [
+      "1. 백업 생성",
+      "2. 복원 작업 수행",
+      "3. 기본 검증 테스트",
+      "4. 정상 동작 확인"
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "test_summary": {
+    "total_tests": 3,
+    "successful_tests": 2,
+    "failed_tests": 1,
+    "success_rate": 66.66666666666666,
+    "timestamp": "2025-08-12T09:11:36.080679"
+  },
+  "detailed_results": [
+    {
+      "test": "모니터 파일 import",
+      "success": false,
+      "error": "EOL while scanning string literal (monitor_WatchHamster_v3.0.py, line 701)",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/jy_lee/Desktop/GIT_DEV/infomax_api/direct_monitor_integration_test.py\", line 42, in test_direct_monitor_integration\n    spec.loader.exec_module(monitor_module)\n  File \"<frozen importlib._bootstrap_external>\", line 846, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 983, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 913, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 228, in _call_with_frames_removed\n  File \"/Users/jy_lee/Desktop/GIT_DEV/infomax_api/core/monitoring/monitor_WatchHamster_v3.0.py\", line 701\n    f\"⚠️ POSCO WatchHamster v3.0.0 성능 알림\n                                        ^\nSyntaxError: EOL while scanning string literal\n"
+    },
+    {
+      "test": "웹훅 함수 코드 존재 확인",
+      "success": true,
+      "found_patterns": [
+        "def send_status_notification",
+        "def send_notification",
+        "def send_enhanced_status_notification",
+        "def send_startup_notification_v2"
+      ],
+      "total_patterns": 4
+    },
+    {
+      "test": "웹훅 URL 설정 코드 확인",
+      "success": true,
+      "found_urls": [
+        "DOORAY_WEBHOOK_URL",
+        "WATCHHAMSTER_WEBHOOK_URL"
+      ]
+    }
+  ]
+}

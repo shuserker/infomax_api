@@ -1,4 +1,4 @@
-# 🔍 POSCO 워치햄스터 v2.0 전체 재검수 보고서
+# 🔍 POSCO WatchHamster v3.0 전체 재검수 보고서
 
 ## 📋 재검수 개요
 
@@ -11,11 +11,11 @@
 ### ✅ **성공적으로 달성된 목표들**
 
 #### 1. **아키텍처 재설계 목표** ✅
-- **원래 목표**: 제어센터 → 워치햄스터 → 하위 프로세스들의 올바른 계층 구조
+- **원래 목표**: 제어센터 → WatchHamster → 하위 프로세스들의 올바른 계층 구조
 - **현재 상태**: ✅ **완벽 달성**
-  - `watchhamster_control_center.sh` - 워치햄스터 중심 제어센터
-  - 워치햄스터가 최상위 관리자로 설정됨
-  - 메뉴 구조가 "🐹 워치햄스터 통합 관리"를 최상위로 배치
+  - `watchhamster_control_center.sh` - WatchHamster 중심 제어센터
+  - WatchHamster가 최상위 관리자로 설정됨
+  - 메뉴 구조가 "🐹 WatchHamster 통합 관리"를 최상위로 배치
 
 #### 2. **새로운 아키텍처 컴포넌트** ✅
 - **원래 목표**: ProcessManager, ModuleRegistry, NotificationManager 구현
@@ -41,7 +41,7 @@
 
 ### ⚠️ **부분적 달성 또는 개선 필요 사항들**
 
-#### 1. **워치햄스터 메인 파일 통합** ⚠️
+#### 1. **WatchHamster 메인 파일 통합** ⚠️
 - **원래 목표**: 기존 `monitor_WatchHamster.py`를 새 아키텍처와 완전 통합
 - **현재 상태**: ⚠️ **부분적 달성**
   - 기존 파일은 존재하지만 새로운 컴포넌트와의 통합이 불완전
@@ -49,28 +49,28 @@
   - 실제 런타임 통합 테스트 필요
 
 #### 2. **제어센터 함수 구현** ⚠️
-- **원래 목표**: 워치햄스터 시작/중지/상태 확인 함수 완전 구현
+- **원래 목표**: WatchHamster 시작/중지/상태 확인 함수 완전 구현
 - **현재 상태**: ⚠️ **부분적 달성**
   - 메뉴 구조는 완벽하게 재설계됨
   - 하지만 실제 함수 구현체가 불완전할 가능성
   - `start_watchhamster()` 함수 등의 실제 동작 검증 필요
 
 #### 3. **실제 프로세스 관리 동작** ⚠️
-- **원래 목표**: 워치햄스터가 실제로 하위 프로세스들을 관리
+- **원래 목표**: WatchHamster가 실제로 하위 프로세스들을 관리
 - **현재 상태**: ⚠️ **검증 필요**
   - ProcessManager 클래스는 구현되었으나 실제 동작 미검증
-  - 기존 워치햄스터와의 통합 상태 불분명
+  - 기존 WatchHamster와의 통합 상태 불분명
   - 3단계 복구 로직의 실제 동작 테스트 필요
 
 ## 🔍 **세부 검수 결과**
 
-### Task 1: 워치햄스터 핵심 컴포넌트 구현
+### Task 1: WatchHamster 핵심 컴포넌트 구현
 - **1.1 ProcessManager**: ✅ 구현 완료 (enhanced_process_manager.py)
 - **1.2 ModuleRegistry**: ✅ 구현 완료 (module_registry.py)  
 - **1.3 NotificationManager**: ✅ 구현 완료 (notification_manager.py)
-- **통합 상태**: ⚠️ 기존 워치햄스터와의 실제 통합 검증 필요
+- **통합 상태**: ⚠️ 기존 WatchHamster와의 실제 통합 검증 필요
 
-### Task 2: 워치햄스터 메인 클래스 리팩토링
+### Task 2: WatchHamster 메인 클래스 리팩토링
 - **2.1 초기화 로직**: ⚠️ 새 컴포넌트 초기화 코드 확인 필요
 - **2.2 프로세스 관리**: ⚠️ 실제 프로세스 관리 메서드 동작 검증 필요
 - **2.3 헬스체크**: ⚠️ 3단계 복구 로직 실제 동작 테스트 필요
@@ -81,7 +81,7 @@
 - **설정 품질**: ✅ 의존성, 우선순위 등 완벽 설정
 
 ### Task 4: 제어센터 스크립트 수정
-- **4.1 메뉴 구조**: ✅ 워치햄스터 중심으로 완벽 재설계
+- **4.1 메뉴 구조**: ✅ WatchHamster 중심으로 완벽 재설계
 - **4.2 시작 함수**: ⚠️ 함수 구현체 완성도 검증 필요
 - **4.3 상태 확인**: ⚠️ 실제 상태 확인 로직 동작 검증 필요
 
@@ -100,7 +100,7 @@
 ### 1. **실제 통합 미완성** 🚨
 ```
 문제: v2 컴포넌트들이 별도 디렉토리에 존재하지만 
-      기존 워치햄스터와 실제로 통합되지 않음
+      기존 WatchHamster와 실제로 통합되지 않음
 
 영향: 새로운 아키텍처가 실제로 동작하지 않을 가능성
 ```
@@ -123,12 +123,12 @@
 
 ## 🔧 **즉시 수정이 필요한 사항들**
 
-### 1. **워치햄스터 통합 완성** (최우선)
+### 1. **WatchHamster 통합 완성** (최우선)
 ```python
 # monitor_WatchHamster.py에 다음 통합 필요:
-from Posco_News_mini_v2.core.enhanced_process_manager import ProcessManager
-from Posco_News_mini_v2.core.module_registry import ModuleRegistry
-from Posco_News_mini_v2.core.notification_manager import NotificationManager
+# BROKEN_REF: from POSCO News_v2.core.enhanced_process_manager import ProcessManager
+from POSCO News_v2.core.module_registry import ModuleRegistry_Integration_Summary.md_Integration_Summary.md
+# BROKEN_REF: from POSCO News_v2.core.notification_manager import NotificationManager
 
 class PoscoMonitorWatchHamster:
     def __init__(self):
@@ -142,7 +142,7 @@ class PoscoMonitorWatchHamster:
 ```bash
 # watchhamster_control_center.sh에서 다음 함수들 완성 필요:
 start_watchhamster() {
-    # 실제 워치햄스터 시작 로직 구현
+    # 실제 WatchHamster 시작 로직 구현
 }
 
 check_watchhamster_status() {
@@ -153,8 +153,8 @@ check_watchhamster_status() {
 ### 3. **실제 동작 테스트** (높음)
 ```bash
 # 다음 테스트들 실행 필요:
-1. ./watchhamster_control_center.sh 실행 테스트
-2. 워치햄스터 시작/중지 테스트
+1. ./.naming_backup/scripts/.naming_backup/scripts/watchhamster_control_center.sh 실행 테스트
+2. WatchHamster 시작/중지 테스트
 3. 하위 프로세스 관리 테스트
 4. 자동 복구 시나리오 테스트
 ```
@@ -171,7 +171,7 @@ check_watchhamster_status() {
 
 ### 실제 구현: 70% ⚠️
 - 핵심 컴포넌트: 90% ✅
-- 워치햄스터 통합: 50% ⚠️
+- WatchHamster 통합: 50% ⚠️
 - 제어센터 함수: 60% ⚠️
 - 실제 동작 테스트: 0% ❌
 
@@ -195,7 +195,7 @@ check_watchhamster_status() {
 3. 모듈 레지스트리와 프로세스 관리자 연동
 
 #### 우선순위 2: 동작 테스트
-1. 워치햄스터 시작/중지 테스트
+1. WatchHamster 시작/중지 테스트
 2. 하위 프로세스 관리 테스트  
 3. 자동 복구 시나리오 테스트
 4. 제어센터 메뉴 동작 테스트

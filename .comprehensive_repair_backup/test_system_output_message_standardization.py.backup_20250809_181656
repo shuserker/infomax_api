@@ -1,0 +1,312 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Test System Output Message Standardization
+시스템 출력 메시지 표준화 테스트
+
+WatchHamster v3.0 및 POSCO News 250808 호환
+Created: 2025-08-08
+"""
+
+import unittest
+import tempfile
+import os
+from pathlib import Path
+from system_output_message_standardizer import SystemOutputMessageStandardizer
+
+
+class TestSystemOutputMessageStandardization(unittest.TestCase):
+    """시스템 출력 메시지 표준화 테스트 클래스"""
+    
+    def setUp(self):
+        """테스트 설정"""
+        self.temp_dir = tempfile.mkdtemp()
+        self.standardizer = SystemOutputMessageStandardizer(self.temp_dir)
+    
+    def tearDown(self):
+        """테스트 정리"""
+        import shutil
+        shutil.rmtree(self.temp_dir)
+    
+    def create_test_file(self, filename: str, content: str) -> Path:
+        """테스트 파일 생성"""
+        file_path = Path(self.temp_dir) / filename
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(content)
+        return file_path
+    
+    def test_watchhamster_version_standardization(self):
+        """워치햄스터 버전 표준화 테스트"""
+        # 테스트 파일 생성
+        content = '''
+print("워치햄스터 v2 시작")
+print("POSCO 워치햄스터 v3 초기화")
+print("워치햄스터 v2.0 상태 체크")
+'''
+        file_path = self.create_test_file("test_watchhamster.py", content)
+        
+        # 표준화 실행
+        result = self.standardizer.standardize_output_messages(file_path)
+        
+        # 결과 확인
+        self.assertTrue(result)
+        
+        # 파일 내용 확인
+        with open(file_path, 'r', encoding='utf-8') as f:
+            standardized_content = f.read()
+        
+        self.assertIn("WatchHamster v3.0 시작", standardized_content)
+        self.assertIn("POSCO WatchHamster v3.0 초기화", standardized_content)
+        self.assertNotIn("v2", standardized_content)
+    
+    def test_posco_news_version_standardization(self):
+        """포스코 뉴스 버전 표준화 테스트"""
+        # 테스트 파일 생성
+        content = '''
+print("포스코 뉴스 시작")
+print("Posco News mini 알림")
+print("posco news 상태 체크")
+'''
+        file_path = self.create_test_file("test_POSCO News 250808.py", content)
+        
+        # 표준화 실행
+        result = self.standardizer.standardize_output_messages(file_path)
+        
+        # 결과 확인
+        self.assertTrue(result)
+        
+        # 파일 내용 확인
+        with open(file_path, 'r', encoding='utf-8') as f:
+            standardized_content = f.read()
+        
+        self.assertIn("POSCO News 250808", standardized_content)
+        self.assertNotIn("포스코 뉴스", standardized_content)
+        self.assertNotIn("Posco News mini", standardized_content)
+    
+    def test_log_message_standardization(self):
+        """로그 메시지 표준화 테스트"""
+        # 테스트 파일 생성
+        content = '''
+def log_message(msg):
+    print(f"[LOG] 워치햄스터 v2: {msg}")
+    print(f"[INFO] 포스코 뉴스 상태: {msg}")
+    print(f"[ERROR] POSCO 워치햄스터 오류: {msg}")
+'''
+        file_path = self.create_test_file("test_log.py", content)
+        
+        # 표준화 실행
+        result = self.standardizer.standardize_output_messages(file_path)
+        
+        # 결과 확인
+        self.assertTrue(result)
+        
+        # 파일 내용 확인
+        with open(file_path, 'r', encoding='utf-8') as f:
+            standardized_content = f.read()
+        
+        self.assertIn("WatchHamster v3.0", standardized_content)
+        self.assertIn("POSCO News 250808", standardized_content)
+        self.assertIn("POSCO WatchHamster v3.0", standardized_content)
+    
+    def test_error_message_standardization(self):
+        """에러 메시지 표준화 테스트"""
+        # 테스트 파일 생성
+        content = '''
+try:
+    pass
+except Exception as e:
+    print("워치햄스터 v2 오류 발생")
+    print("포스코 뉴스 실패")
+    print("워치햄스터 연결 실패")
+'''
+        file_path = self.create_test_file("test_error.py", content)
+        
+        # 표준화 실행
+        result = self.standardizer.standardize_output_messages(file_path)
+        
+        # 결과 확인
+        self.assertTrue(result)
+        
+        # 파일 내용 확인
+        with open(file_path, 'r', encoding='utf-8') as f:
+            standardized_content = f.read()
+        
+        self.assertIn("WatchHamster v3.0 오류", standardized_content)
+        self.assertIn("POSCO News 250808 실패", standardized_content)
+        self.assertIn("WatchHamster v3.0 실패", standardized_content)
+    
+    def test_notification_message_standardization(self):
+        """알림 메시지 표준화 테스트"""
+        # 테스트 파일 생성
+        content = '''
+def send_notification():
+    payload = {
+        "botName": "POSCO 뉴스 알림",
+        "text": "워치햄스터 v2 알림"
+    }
+    print("포스코 워치햄스터 알림 전송")
+'''
+        file_path = self.create_test_file("test_notification.py", content)
+        
+        # 표준화 실행
+        result = self.standardizer.standardize_output_messages(file_path)
+        
+        # 결과 확인
+        self.assertTrue(result)
+        
+        # 파일 내용 확인
+        with open(file_path, 'r', encoding='utf-8') as f:
+            standardized_content = f.read()
+        
+        self.assertIn("POSCO News 250808 알림", standardized_content)
+        self.assertIn("WatchHamster v3.0 알림", standardized_content)
+        self.assertIn("POSCO WatchHamster v3.0 알림", standardized_content)
+    
+    def test_shell_script_standardization(self):
+        """Shell 스크립트 표준화 테스트"""
+        # 테스트 파일 생성
+        content = '''#!/bin/bash
+echo "워치햄스터 v2 시작"
+echo "포스코 뉴스 모니터링 시작"
+echo "POSCO 워치햄스터 상태 확인"
+'''
+        file_path = self.create_test_file("test_script.sh", content)
+        
+        # 표준화 실행
+        result = self.standardizer.standardize_output_messages(file_path)
+        
+        # 결과 확인
+        self.assertTrue(result)
+        
+        # 파일 내용 확인
+        with open(file_path, 'r', encoding='utf-8') as f:
+            standardized_content = f.read()
+        
+        self.assertIn("WatchHamster v3.0 시작", standardized_content)
+        self.assertIn("POSCO News 250808", standardized_content)
+        self.assertIn("POSCO WatchHamster v3.0", standardized_content)
+    
+    def test_comment_standardization(self):
+        """주석 표준화 테스트"""
+        # 테스트 파일 생성
+        content = '''
+# 워치햄스터 v2 모니터링 시스템
+# 포스코 뉴스 알림 기능
+# POSCO 워치햄스터 v3 통합
+def main():
+    pass
+'''
+        file_path = self.create_test_file("test_comment.py", content)
+        
+        # 표준화 실행
+        result = self.standardizer.standardize_output_messages(file_path)
+        
+        # 결과 확인
+        self.assertTrue(result)
+        
+        # 파일 내용 확인
+        with open(file_path, 'r', encoding='utf-8') as f:
+            standardized_content = f.read()
+        
+        self.assertIn("WatchHamster v3.0", standardized_content)
+        self.assertIn("POSCO News 250808", standardized_content)
+        self.assertNotIn("v2", standardized_content)
+    
+    def test_no_changes_needed(self):
+        """변경이 필요없는 파일 테스트"""
+        # 이미 표준화된 파일 생성
+        content = '''
+print("WatchHamster v3.0 시작")
+print("POSCO News 250808 알림")
+print("POSCO WatchHamster v3.0 상태")
+'''
+        file_path = self.create_test_file("test_no_change.py", content)
+        
+        # 표준화 실행
+        result = self.standardizer.standardize_output_messages(file_path)
+        
+        # 결과 확인 - 변경사항이 없어야 함
+        self.assertFalse(result)
+    
+    def test_full_standardization_run(self):
+        """전체 표준화 실행 테스트"""
+        # 여러 테스트 파일 생성
+        files_content = {
+            "test1.py": 'print("워치햄스터 v2 시작")',
+            "test2.py": 'print("포스코 뉴스 알림")',
+            "test3.sh": 'echo "POSCO 워치햄스터 상태"',
+            "test4.bat": 'echo "워치햄스터 모니터링"'
+        }
+        
+        for filename, content in files_content.items():
+            self.create_test_file(filename, content)
+        
+        # 전체 표준화 실행
+        result = self.standardizer.run_standardization()
+        
+        # 결과 확인
+        self.assertGreater(result['total_files'], 0)
+        self.assertGreater(result['processed_files'], 0)
+        self.assertGreater(result['modified_files'], 0)
+        self.assertGreater(result['total_changes'], 0)
+    
+    def test_report_generation(self):
+        """보고서 생성 테스트"""
+        # 테스트 파일 생성 및 표준화
+        content = 'print("WatchHamster v3.0 테스트")'
+        self.create_test_file("test_report.py", content)
+        
+        result = self.standardizer.run_standardization()
+        
+        # 보고서 생성
+        report = self.standardizer.generate_report(result)
+        
+        # 보고서 내용 확인
+        self.assertIn("시스템 출력 메시지 표준화 보고서", report)
+        self.assertIn("실행 시간", report)
+        self.assertIn("처리 결과", report)
+        self.assertIn("표준화 규칙", report)
+        self.assertIn("요구사항 충족 현황", report)
+
+
+def run_tests():
+    """테스트 실행"""
+    print("🧪 시스템 출력 메시지 표준화 테스트 시작")
+    print("=" * 60)
+    
+    # 테스트 스위트 생성
+    test_suite = unittest.TestLoader().loadTestsFromTestCase(TestSystemOutputMessageStandardization)
+    
+    # 테스트 실행
+    runner = unittest.TextTestRunner(verbosity=2)
+    result = runner.run(test_suite)
+    
+    # 결과 출력
+    print("\n" + "=" * 60)
+    print("📊 테스트 결과")
+    print("=" * 60)
+    print(f"실행된 테스트: {result.testsRun}개")
+    print(f"성공한 테스트: {result.testsRun - len(result.failures) - len(result.errors)}개")
+    print(f"실패한 테스트: {len(result.failures)}개")
+    print(f"오류 발생 테스트: {len(result.errors)}개")
+    
+    if result.failures:
+        print("\n❌ 실패한 테스트:")
+        for test, traceback in result.failures:
+            print(f"  • {test}: {traceback}")
+    
+    if result.errors:
+        print("\n❌ 오류 발생 테스트:")
+        for test, traceback in result.errors:
+            print(f"  • {test}: {traceback}")
+    
+    if result.wasSuccessful():
+        print("\n🎉 모든 테스트가 성공했습니다!")
+        return 0
+    else:
+        print("\n❌ 일부 테스트가 실패했습니다.")
+        return 1
+
+
+if __name__ == "__main__":
+    exit(run_tests())

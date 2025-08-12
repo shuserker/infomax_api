@@ -8,7 +8,7 @@
 
 - [x] 2. v2 컴포넌트 초기화 시스템 생성
   - PoscoMonitorWatchHamster 클래스에 `_initialize_v2_components()` 메서드 구현
-  - Posco_News_mini_v2/core에서 v2 컴포넌트를 위한 동적 import 로직 추가
+# BROKEN_REF:   - Posco_News_mini_v2/core에서 v2 컴포넌트를 위한 동적 import 로직 추가
   - 컴포넌트 상태 체크 및 검증 시스템 생성
   - _요구사항: 1.1, 1.2_
 

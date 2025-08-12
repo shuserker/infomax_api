@@ -1,0 +1,117 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2025-08-08T16:01:01",
+    "description": "POSCO WatchHamster Module Registry Configuration",
+    "watchhamster_version": "v3.0",
+    "posco_news_version": "250808",
+    "system_version": "WatchHamster_v3.0_PoscoNews_250808",
+    "standardization_date": "2025-08-08"
+  },
+  "modules": {
+    "posco_main_notifier": {
+      "script_path": "posco_main_notifier.py",
+      "description": "POSCO 메인 뉴스 알림 시스템 - 5가지 BOT 타입 알림 생성",
+      "auto_start": true,
+      "restart_on_failure": true,
+      "max_restart_attempts": 3,
+      "health_check_interval": 300,
+      "dependencies": [],
+      "environment_vars": {
+        "PYTHONUNBUFFERED": "1",
+        "WATCHHAMSTER_VERSION": "v3.0",
+        "WATCHHAMSTER_V3_0_ENABLED": "true",
+        "WATCHHAMSTER_V3_0_LOG_LEVEL": "INFO",
+        "WATCHHAMSTER_V3_0_CONFIG_PATH": "./config",
+        "POSCO_NEWS_VERSION": "250808",
+        "POSCO_NEWS_250808_ENABLED": "true",
+        "POSCO_NEWS_250808_LOG_LEVEL": "INFO",
+        "POSCO_NEWS_250808_DATA_PATH": "./data",
+        "POSCO_SYSTEM_VERSION": "WatchHamster_v3.0_PoscoNews_250808",
+        "POSCO_STANDARDIZATION_ENABLED": "true"
+      },
+      "working_directory": "../Posco_News_mini",
+      "timeout": 30,
+      "priority": 1
+    },
+    "realtime_news_monitor": {
+      "script_path": "realtime_news_monitor.py",
+      "description": "실시간 뉴스 모니터링 시스템",
+      "auto_start": true,
+      "restart_on_failure": true,
+      "max_restart_attempts": 3,
+      "health_check_interval": 300,
+      "dependencies": [
+        "posco_main_notifier"
+      ],
+      "environment_vars": {
+        "PYTHONUNBUFFERED": "1",
+        "WATCHHAMSTER_VERSION": "v3.0",
+        "WATCHHAMSTER_V3_0_ENABLED": "true",
+        "WATCHHAMSTER_V3_0_LOG_LEVEL": "INFO",
+        "WATCHHAMSTER_V3_0_CONFIG_PATH": "./config",
+        "POSCO_NEWS_VERSION": "250808",
+        "POSCO_NEWS_250808_ENABLED": "true",
+        "POSCO_NEWS_250808_LOG_LEVEL": "INFO",
+        "POSCO_NEWS_250808_DATA_PATH": "./data",
+        "POSCO_SYSTEM_VERSION": "WatchHamster_v3.0_PoscoNews_250808",
+        "POSCO_STANDARDIZATION_ENABLED": "true"
+      },
+      "working_directory": "../Posco_News_mini",
+      "timeout": 30,
+      "priority": 2
+    },
+    "integrated_report_scheduler": {
+      "script_path": "integrated_report_scheduler.py",
+      "description": "통합 리포트 스케줄러",
+      "auto_start": true,
+      "restart_on_failure": true,
+      "max_restart_attempts": 3,
+      "health_check_interval": 300,
+      "dependencies": [
+        "posco_main_notifier"
+      ],
+      "environment_vars": {
+        "PYTHONUNBUFFERED": "1",
+        "WATCHHAMSTER_VERSION": "v3.0",
+        "WATCHHAMSTER_V3_0_ENABLED": "true",
+        "WATCHHAMSTER_V3_0_LOG_LEVEL": "INFO",
+        "WATCHHAMSTER_V3_0_CONFIG_PATH": "./config",
+        "POSCO_NEWS_VERSION": "250808",
+        "POSCO_NEWS_250808_ENABLED": "true",
+        "POSCO_NEWS_250808_LOG_LEVEL": "INFO",
+        "POSCO_NEWS_250808_DATA_PATH": "./data",
+        "POSCO_SYSTEM_VERSION": "WatchHamster_v3.0_PoscoNews_250808",
+        "POSCO_STANDARDIZATION_ENABLED": "true"
+      },
+      "working_directory": "../Posco_News_mini",
+      "timeout": 30,
+      "priority": 3
+    },
+    "historical_data_collector": {
+      "script_path": "historical_data_collector.py",
+      "description": "히스토리 데이터 수집기",
+      "auto_start": false,
+      "restart_on_failure": true,
+      "max_restart_attempts": 2,
+      "health_check_interval": 600,
+      "dependencies": [],
+      "environment_vars": {
+        "PYTHONUNBUFFERED": "1",
+        "WATCHHAMSTER_VERSION": "v3.0",
+        "WATCHHAMSTER_V3_0_ENABLED": "true",
+        "WATCHHAMSTER_V3_0_LOG_LEVEL": "INFO",
+        "WATCHHAMSTER_V3_0_CONFIG_PATH": "./config",
+        "POSCO_NEWS_VERSION": "250808",
+        "POSCO_NEWS_250808_ENABLED": "true",
+        "POSCO_NEWS_250808_LOG_LEVEL": "INFO",
+        "POSCO_NEWS_250808_DATA_PATH": "./data",
+        "POSCO_SYSTEM_VERSION": "WatchHamster_v3.0_PoscoNews_250808",
+        "POSCO_STANDARDIZATION_ENABLED": "true"
+      },
+      "working_directory": "../Posco_News_mini",
+      "timeout": 30,
+      "priority": 4
+    }
+  }
+}

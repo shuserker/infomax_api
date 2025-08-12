@@ -1,0 +1,27 @@
+{
+  "system_mode": "integrated_reports_only",
+  "transition_date": "2025-08-03T11:36:00.630618",
+  "active_components": [
+    "integrated_report_scheduler.py",
+    "reports/integrated_report_generator.py",
+    "metadata_reset_manager.py"
+  ],
+  "disabled_components": [
+    "exchange_monitor.py",
+    "kospi_monitor.py",
+    "newyork_monitor.py",
+    "master_news_monitor.py",
+    "run_monitor.py",
+    "reports/html_report_generator.py"
+  ],
+  "description": "POSCO 리포트 시스템이 통합 리포트 전용 모드로 전환됨",
+  "last_update": "2025-08-03T11:36:00.630628",
+  "metadata": {
+    "watchhamster_version": "v3.0",
+    "posco_news_version": "250808",
+    "system_version": "WatchHamster_v3.0_PoscoNews_250808",
+    "last_updated": "2025-08-08T16:01:01",
+    "standardization_date": "2025-08-08",
+    "description": "POSCO News 250808 Configuration"
+  }
+}

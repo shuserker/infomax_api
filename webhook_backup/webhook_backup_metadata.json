@@ -1,0 +1,290 @@
+{
+  "webhook_backup_cleanup_test_2_20250812_092237": {
+    "backup_name": "cleanup_test_2",
+    "description": "정리 테스트 백업 3",
+    "created_at": "2025-08-12T09:22:37.186634",
+    "backup_path": "webhook_backup/webhook_backup_cleanup_test_2_20250812_092237",
+    "backed_up_files": [
+      "core/monitoring/monitor_WatchHamster_v3.0.py",
+      "webhook_message_restorer.py",
+      "webhook_config_restorer.py",
+      "compatibility_checker.py",
+      "webhook_restoration.log",
+      "compatibility_integration_test_results.json",
+      "webhook_config_restoration_report_20250811_112227.txt",
+      "webhook_config_restoration_report_20250811_131716.txt"
+    ],
+    "file_checksums": {
+      "core/monitoring/monitor_WatchHamster_v3.0.py": "936d6714202c828c1bb712ad5a276a596ff8f1cf611e1a29f2de906555162482",
+      "webhook_message_restorer.py": "452aefd2703ccee0cb6974e81418cc9a5c7f42b926dfac97b2f14c75357bfa0e",
+      "webhook_config_restorer.py": "6c3718de53f6730cf777929cc7400ced59e363e880e2aeb60307f13df44f3e96",
+      "compatibility_checker.py": "30cbbe6907fe9d4eabc7d89de04cc5397f41ab9c6cd195f3c38e75e9c3ad6bb1"
+    },
+    "file_count": 8,
+    "total_size": 341683,
+    "status": "completed"
+  },
+  "webhook_backup_cleanup_test_3_20250812_092237": {
+    "backup_name": "cleanup_test_3",
+    "description": "정리 테스트 백업 4",
+    "created_at": "2025-08-12T09:22:37.211858",
+    "backup_path": "webhook_backup/webhook_backup_cleanup_test_3_20250812_092237",
+    "backed_up_files": [
+      "core/monitoring/monitor_WatchHamster_v3.0.py",
+      "webhook_message_restorer.py",
+      "webhook_config_restorer.py",
+      "compatibility_checker.py",
+      "webhook_restoration.log",
+      "compatibility_integration_test_results.json",
+      "webhook_config_restoration_report_20250811_112227.txt",
+      "webhook_config_restoration_report_20250811_131716.txt"
+    ],
+    "file_checksums": {
+      "core/monitoring/monitor_WatchHamster_v3.0.py": "936d6714202c828c1bb712ad5a276a596ff8f1cf611e1a29f2de906555162482",
+      "webhook_message_restorer.py": "452aefd2703ccee0cb6974e81418cc9a5c7f42b926dfac97b2f14c75357bfa0e",
+      "webhook_config_restorer.py": "6c3718de53f6730cf777929cc7400ced59e363e880e2aeb60307f13df44f3e96",
+      "compatibility_checker.py": "30cbbe6907fe9d4eabc7d89de04cc5397f41ab9c6cd195f3c38e75e9c3ad6bb1"
+    },
+    "file_count": 8,
+    "total_size": 341683,
+    "status": "completed"
+  },
+  "webhook_backup_cleanup_test_4_20250812_092237": {
+    "backup_name": "cleanup_test_4",
+    "description": "정리 테스트 백업 5",
+    "created_at": "2025-08-12T09:22:37.222344",
+    "backup_path": "webhook_backup/webhook_backup_cleanup_test_4_20250812_092237",
+    "backed_up_files": [
+      "core/monitoring/monitor_WatchHamster_v3.0.py",
+      "webhook_message_restorer.py",
+      "webhook_config_restorer.py",
+      "compatibility_checker.py",
+      "webhook_restoration.log",
+      "compatibility_integration_test_results.json",
+      "webhook_config_restoration_report_20250811_112227.txt",
+      "webhook_config_restoration_report_20250811_131716.txt"
+    ],
+    "file_checksums": {
+      "core/monitoring/monitor_WatchHamster_v3.0.py": "936d6714202c828c1bb712ad5a276a596ff8f1cf611e1a29f2de906555162482",
+      "webhook_message_restorer.py": "452aefd2703ccee0cb6974e81418cc9a5c7f42b926dfac97b2f14c75357bfa0e",
+      "webhook_config_restorer.py": "6c3718de53f6730cf777929cc7400ced59e363e880e2aeb60307f13df44f3e96",
+      "compatibility_checker.py": "30cbbe6907fe9d4eabc7d89de04cc5397f41ab9c6cd195f3c38e75e9c3ad6bb1"
+    },
+    "file_count": 8,
+    "total_size": 341683,
+    "status": "completed"
+  },
+  "webhook_backup_rollback_scenario_test_20250812_092237": {
+    "backup_name": "rollback_scenario_test",
+    "description": "롤백 시나리오 테스트용 백업",
+    "created_at": "2025-08-12T09:22:37.231432",
+    "backup_path": "webhook_backup/webhook_backup_rollback_scenario_test_20250812_092237",
+    "backed_up_files": [
+      "core/monitoring/monitor_WatchHamster_v3.0.py",
+      "webhook_message_restorer.py",
+      "webhook_config_restorer.py",
+      "compatibility_checker.py",
+      "webhook_restoration.log",
+      "compatibility_integration_test_results.json",
+      "webhook_config_restoration_report_20250811_112227.txt",
+      "webhook_config_restoration_report_20250811_131716.txt"
+    ],
+    "file_checksums": {
+      "core/monitoring/monitor_WatchHamster_v3.0.py": "936d6714202c828c1bb712ad5a276a596ff8f1cf611e1a29f2de906555162482",
+      "webhook_message_restorer.py": "452aefd2703ccee0cb6974e81418cc9a5c7f42b926dfac97b2f14c75357bfa0e",
+      "webhook_config_restorer.py": "6c3718de53f6730cf777929cc7400ced59e363e880e2aeb60307f13df44f3e96",
+      "compatibility_checker.py": "30cbbe6907fe9d4eabc7d89de04cc5397f41ab9c6cd195f3c38e75e9c3ad6bb1"
+    },
+    "file_count": 8,
+    "total_size": 341683,
+    "status": "completed"
+  },
+  "webhook_backup_emergency_before_rollback_20250812_092237": {
+    "backup_name": "emergency_before_rollback",
+    "description": "롤백 전 비상 백업 (롤백 대상: webhook_backup_rollback_scenario_test_20250812_092237)",
+    "created_at": "2025-08-12T09:22:37.250778",
+    "backup_path": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092237",
+    "backed_up_files": [
+      "core/monitoring/monitor_WatchHamster_v3.0.py",
+      "webhook_message_restorer.py",
+      "webhook_config_restorer.py",
+      "compatibility_checker.py",
+      "webhook_restoration.log",
+      "compatibility_integration_test_results.json",
+      "webhook_config_restoration_report_20250811_112227.txt",
+      "webhook_config_restoration_report_20250811_131716.txt"
+    ],
+    "file_checksums": {
+      "core/monitoring/monitor_WatchHamster_v3.0.py": "936d6714202c828c1bb712ad5a276a596ff8f1cf611e1a29f2de906555162482",
+      "webhook_message_restorer.py": "452aefd2703ccee0cb6974e81418cc9a5c7f42b926dfac97b2f14c75357bfa0e",
+      "webhook_config_restorer.py": "6c3718de53f6730cf777929cc7400ced59e363e880e2aeb60307f13df44f3e96",
+      "compatibility_checker.py": "30cbbe6907fe9d4eabc7d89de04cc5397f41ab9c6cd195f3c38e75e9c3ad6bb1"
+    },
+    "file_count": 8,
+    "total_size": 341683,
+    "status": "completed"
+  },
+  "rollback_history": [
+    {
+      "rollback_id": "rollback_webhook_backup_rollback_scenario_test_20250812_092237_1754958157",
+      "source_backup_id": "webhook_backup_rollback_scenario_test_20250812_092237",
+      "emergency_backup_id": "webhook_backup_emergency_before_rollback_20250812_092237",
+      "rollback_time": "2025-08-12T09:22:37.247182",
+      "restored_files": [
+        "core/monitoring/monitor_WatchHamster_v3.0.py",
+        "webhook_message_restorer.py",
+        "webhook_config_restorer.py",
+        "compatibility_checker.py",
+        "webhook_restoration.log",
+        "compatibility_integration_test_results.json",
+        "webhook_config_restoration_report_20250811_112227.txt",
+        "webhook_config_restoration_report_20250811_131716.txt"
+      ],
+      "failed_files": [],
+      "success": true
+    },
+    {
+      "rollback_id": "rollback_webhook_backup_rollback_scenario_test_20250812_092237_1754958157",
+      "source_backup_id": "webhook_backup_rollback_scenario_test_20250812_092237",
+      "emergency_backup_id": "webhook_backup_emergency_before_rollback_20250812_092237",
+      "rollback_time": "2025-08-12T09:22:37.257951",
+      "restored_files": [
+        "core/monitoring/monitor_WatchHamster_v3.0.py",
+        "webhook_message_restorer.py",
+        "webhook_config_restorer.py",
+        "compatibility_checker.py",
+        "webhook_restoration.log",
+        "compatibility_integration_test_results.json",
+        "webhook_config_restoration_report_20250811_112227.txt",
+        "webhook_config_restoration_report_20250811_131716.txt"
+      ],
+      "failed_files": [],
+      "success": true
+    },
+    {
+      "rollback_id": "rollback_webhook_backup_task11_test_backup_20250812_092254_1754958203",
+      "source_backup_id": "webhook_backup_task11_test_backup_20250812_092254",
+      "emergency_backup_id": "webhook_backup_emergency_before_rollback_20250812_092323",
+      "rollback_time": "2025-08-12T09:23:23.414741",
+      "restored_files": [
+        "core/monitoring/monitor_WatchHamster_v3.0.py",
+        "webhook_message_restorer.py",
+        "webhook_config_restorer.py",
+        "compatibility_checker.py",
+        "webhook_restoration.log",
+        "compatibility_integration_test_results.json",
+        "webhook_config_restoration_report_20250811_112227.txt",
+        "webhook_config_restoration_report_20250811_131716.txt"
+      ],
+      "failed_files": [],
+      "success": true
+    },
+    {
+      "rollback_id": "rollback_webhook_backup_task11_test_backup_20250812_092254_1754958214",
+      "source_backup_id": "webhook_backup_task11_test_backup_20250812_092254",
+      "emergency_backup_id": "webhook_backup_emergency_before_rollback_20250812_092334",
+      "rollback_time": "2025-08-12T09:23:34.514528",
+      "restored_files": [
+        "core/monitoring/monitor_WatchHamster_v3.0.py",
+        "webhook_message_restorer.py",
+        "webhook_config_restorer.py",
+        "compatibility_checker.py",
+        "webhook_restoration.log",
+        "compatibility_integration_test_results.json",
+        "webhook_config_restoration_report_20250811_112227.txt",
+        "webhook_config_restoration_report_20250811_131716.txt"
+      ],
+      "failed_files": [],
+      "success": true
+    }
+  ],
+  "auto_rollback_history": [
+    {
+      "auto_rollback_time": "2025-08-12T09:22:37.258684",
+      "error_context": "통합 테스트 오류 시뮬레이션",
+      "backup_used": "webhook_backup_rollback_scenario_test_20250812_092237",
+      "success": true
+    },
+    {
+      "auto_rollback_time": "2025-08-12T09:23:34.515627",
+      "error_context": "Task 11 자동 롤백 테스트",
+      "backup_used": "webhook_backup_task11_test_backup_20250812_092254",
+      "success": true
+    }
+  ],
+  "webhook_backup_task11_test_backup_20250812_092254": {
+    "backup_name": "task11_test_backup",
+    "description": "Task 11 롤백 시스템 테스트용 백업",
+    "created_at": "2025-08-12T09:22:54.461965",
+    "backup_path": "webhook_backup/webhook_backup_task11_test_backup_20250812_092254",
+    "backed_up_files": [
+      "core/monitoring/monitor_WatchHamster_v3.0.py",
+      "webhook_message_restorer.py",
+      "webhook_config_restorer.py",
+      "compatibility_checker.py",
+      "webhook_restoration.log",
+      "compatibility_integration_test_results.json",
+      "webhook_config_restoration_report_20250811_112227.txt",
+      "webhook_config_restoration_report_20250811_131716.txt"
+    ],
+    "file_checksums": {
+      "core/monitoring/monitor_WatchHamster_v3.0.py": "936d6714202c828c1bb712ad5a276a596ff8f1cf611e1a29f2de906555162482",
+      "webhook_message_restorer.py": "452aefd2703ccee0cb6974e81418cc9a5c7f42b926dfac97b2f14c75357bfa0e",
+      "webhook_config_restorer.py": "6c3718de53f6730cf777929cc7400ced59e363e880e2aeb60307f13df44f3e96",
+      "compatibility_checker.py": "30cbbe6907fe9d4eabc7d89de04cc5397f41ab9c6cd195f3c38e75e9c3ad6bb1"
+    },
+    "file_count": 8,
+    "total_size": 341683,
+    "status": "completed"
+  },
+  "webhook_backup_emergency_before_rollback_20250812_092323": {
+    "backup_name": "emergency_before_rollback",
+    "description": "롤백 전 비상 백업 (롤백 대상: webhook_backup_task11_test_backup_20250812_092254)",
+    "created_at": "2025-08-12T09:23:23.407116",
+    "backup_path": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092323",
+    "backed_up_files": [
+      "core/monitoring/monitor_WatchHamster_v3.0.py",
+      "webhook_message_restorer.py",
+      "webhook_config_restorer.py",
+      "compatibility_checker.py",
+      "webhook_restoration.log",
+      "compatibility_integration_test_results.json",
+      "webhook_config_restoration_report_20250811_112227.txt",
+      "webhook_config_restoration_report_20250811_131716.txt"
+    ],
+    "file_checksums": {
+      "core/monitoring/monitor_WatchHamster_v3.0.py": "d1cd818d4d08f34635eec300f064c8061becb4392769c1ae8d77933cbf9b2278",
+      "webhook_message_restorer.py": "452aefd2703ccee0cb6974e81418cc9a5c7f42b926dfac97b2f14c75357bfa0e",
+      "webhook_config_restorer.py": "6c3718de53f6730cf777929cc7400ced59e363e880e2aeb60307f13df44f3e96",
+      "compatibility_checker.py": "30cbbe6907fe9d4eabc7d89de04cc5397f41ab9c6cd195f3c38e75e9c3ad6bb1"
+    },
+    "file_count": 8,
+    "total_size": 341856,
+    "status": "completed"
+  },
+  "webhook_backup_emergency_before_rollback_20250812_092334": {
+    "backup_name": "emergency_before_rollback",
+    "description": "롤백 전 비상 백업 (롤백 대상: webhook_backup_task11_test_backup_20250812_092254)",
+    "created_at": "2025-08-12T09:23:34.508600",
+    "backup_path": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092334",
+    "backed_up_files": [
+      "core/monitoring/monitor_WatchHamster_v3.0.py",
+      "webhook_message_restorer.py",
+      "webhook_config_restorer.py",
+      "compatibility_checker.py",
+      "webhook_restoration.log",
+      "compatibility_integration_test_results.json",
+      "webhook_config_restoration_report_20250811_112227.txt",
+      "webhook_config_restoration_report_20250811_131716.txt"
+    ],
+    "file_checksums": {
+      "core/monitoring/monitor_WatchHamster_v3.0.py": "936d6714202c828c1bb712ad5a276a596ff8f1cf611e1a29f2de906555162482",
+      "webhook_message_restorer.py": "452aefd2703ccee0cb6974e81418cc9a5c7f42b926dfac97b2f14c75357bfa0e",
+      "webhook_config_restorer.py": "6c3718de53f6730cf777929cc7400ced59e363e880e2aeb60307f13df44f3e96",
+      "compatibility_checker.py": "30cbbe6907fe9d4eabc7d89de04cc5397f41ab9c6cd195f3c38e75e9c3ad6bb1"
+    },
+    "file_count": 8,
+    "total_size": 341683,
+    "status": "completed"
+  }
+}

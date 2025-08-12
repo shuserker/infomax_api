@@ -1,0 +1,16 @@
+{
+  "test_summary": {
+    "test_date": "2025-08-11 13:24:55",
+    "target_file": "core/monitoring/monitor_WatchHamster_v3.0.py",
+    "source_commit": "a763ef8",
+    "test_status": "completed"
+  },
+  "pre_restoration_check": {
+    "function_conflicts": 1,
+    "variable_conflicts": 1,
+    "import_conflicts": 28,
+    "system_conflicts": 11,
+    "total_issues": 41,
+    "details": {
+      "functions": [
+        

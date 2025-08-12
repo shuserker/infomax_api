@@ -1,0 +1,664 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POSCO 네이밍 표준화 검증 보고서</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background-color: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { text-align: center; margin-bottom: 30px; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0; }
+        .stat-card { background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center; border-left: 4px solid #007bff; }
+        .stat-number { font-size: 2em; font-weight: bold; color: #007bff; }
+        .stat-label { color: #6c757d; margin-top: 5px; }
+        .pass { color: #28a745; }
+        .fail { color: #dc3545; }
+        .warning { color: #ffc107; }
+        .section { margin: 30px 0; }
+        .section h2 { color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px; }
+        .results-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .results-table th, .results-table td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        .results-table th { background-color: #f8f9fa; font-weight: bold; }
+        .status-pass { background-color: #d4edda; color: #155724; }
+        .status-fail { background-color: #f8d7da; color: #721c24; }
+        .status-warning { background-color: #fff3cd; color: #856404; }
+        .recommendations { background: #e7f3ff; padding: 20px; border-radius: 8px; border-left: 4px solid #007bff; }
+        .recommendations ul { margin: 10px 0; padding-left: 20px; }
+        .progress-bar { width: 100%; height: 20px; background-color: #e9ecef; border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #28a745, #20c997); transition: width 0.3s ease; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 POSCO 네이밍 표준화 검증 보고서</h1>
+            <p>WatchHamster v3.0 & POSCO News 250808 표준 준수 검증</p>
+            <p>생성일시: 2025-08-09T17:12:32.778841</p>
+        </div>
+        
+        <div class="section">
+            <h2>📊 전체 요약</h2>
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">597</div>
+                    <div class="stat-label">총 검증 항목</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number pass">205</div>
+                    <div class="stat-label">통과</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number fail">259</div>
+                    <div class="stat-label">실패</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number warning">133</div>
+                    <div class="stat-label">경고</div>
+                </div>
+            </div>
+            
+            <div style="margin: 20px 0;">
+                <h3>준수율: 34.3%</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 34.3%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📋 카테고리별 결과</h2>
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>카테고리</th>
+                        <th>통과</th>
+                        <th>실패</th>
+                        <th>경고</th>
+                        <th>총계</th>
+                    </tr>
+                </thead>
+                <tbody>
+        
+                    <tr>
+                        <td>filename</td>
+                        <td class="pass">25</td>
+                        <td class="fail">9</td>
+                        <td class="warning">108</td>
+                        <td>142</td>
+                    </tr>
+            
+                    <tr>
+                        <td>code_naming</td>
+                        <td class="pass">0</td>
+                        <td class="fail">32</td>
+                        <td class="warning">25</td>
+                        <td>57</td>
+                    </tr>
+            
+                    <tr>
+                        <td>document</td>
+                        <td class="pass">100</td>
+                        <td class="fail">191</td>
+                        <td class="warning">0</td>
+                        <td>291</td>
+                    </tr>
+            
+                    <tr>
+                        <td>configuration</td>
+                        <td class="pass">80</td>
+                        <td class="fail">27</td>
+                        <td class="warning">0</td>
+                        <td>107</td>
+                    </tr>
+            
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="section">
+            <h2>⚠️ 주요 문제점</h2>
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>문제 유형</th>
+                        <th>설명</th>
+                        <th>발생 횟수</th>
+                        <th>예시 파일</th>
+                    </tr>
+                </thead>
+                <tbody>
+            
+                    <tr>
+                        <td>configuration</td>
+                        <td>포스코 뉴스 버전이 250808로 설정되지 않았습니다</td>
+                        <td class="fail">20</td>
+                        <td><code>./Monitoring/POSCO_News_250808/modules.json:modules.posco_main_notifier.environment_vars.POSCO_SYSTEM_VERSION</code></td>
+                    </tr>
+                
+                    <tr>
+                        <td>document</td>
+                        <td>워치햄스터 v2 표기 발견: - log_patterns: '워치햄스터 v2' → 'WatchHamster v3.0'</td>
+                        <td class="fail">16</td>
+                        <td><code>./system_output_message_standardization_report.md:286</code></td>
+                    </tr>
+                
+                    <tr>
+                        <td>document</td>
+                        <td>WatchHamster v2 표기 발견: - 주석: WatchHamster.*v2 -> WatchHamster v3.0</td>
+                        <td class="fail">11</td>
+                        <td><code>./python_naming_standardization_report.md:49</code></td>
+                    </tr>
+                
+                    <tr>
+                        <td>document</td>
+                        <td>WatchHamster v2 표기 발견: - 주석: POSCO.*WatchHamster.*v2\.0? -> POSCO WatchHamster v3.0</td>
+                        <td class="fail">8</td>
+                        <td><code>./python_naming_standardization_report.md:59</code></td>
+                    </tr>
+                
+                    <tr>
+                        <td>filename</td>
+                        <td>구버전 표기가 발견되었습니다. 250808로 업데이트가 필요합니다</td>
+                        <td class="fail">6</td>
+                        <td><code>./Posco_News_mini</code></td>
+                    </tr>
+                
+                </tbody>
+            </table>
+        </div>
+            
+        <div class="section">
+            <h2>💡 개선 권장사항</h2>
+            <div class="recommendations">
+                <ul>
+            <li>파일명 표준화: 9개 파일의 이름을 표준 규칙에 맞게 변경하세요</li><li>코드 네이밍 표준화: 32개 코드 요소의 이름을 업데이트하세요</li><li>문서 표준화: 191개 문서의 버전 정보를 업데이트하세요</li><li>설정 파일 표준화: 27개 설정 항목을 업데이트하세요</li><li>자동화된 네이밍 표준화 도구 사용을 권장합니다</li><li>경고 항목들도 검토하여 일관성을 높이세요</li>
+                </ul>
+            </div>
+        </div>
+            
+        <div class="section">
+            <h2>🔍 상세 검증 결과 (문제 항목만)</h2>
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>파일</th>
+                        <th>유형</th>
+                        <th>상태</th>
+                        <th>기대값</th>
+                        <th>실제값</th>
+                        <th>메시지</th>
+                    </tr>
+                </thead>
+                <tbody>
+            
+                    <tr>
+                        <td><code>./워치햄스터_사용법.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>워치햄스터_사용법.md</td>
+                        <td>워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./posco_file_renamer.py</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>posco_file_renamer.py</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./🔧POSCO_워치햄스터_문제해결_가이드.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>🔧POSCO_워치햄스터_문제해결_가이드.md</td>
+                        <td>워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./posco_continuous_monitor.py</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>posco_continuous_monitor.py</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./🐹워치햄스터_총괄_관리_센터.bat</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>🐹워치햄스터_총괄_관리_센터.bat</td>
+                        <td>워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./🐹POSCO_워치햄스터_v3_제어센터.bat</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>🐹POSCO_워치햄스터_v3_제어센터.bat</td>
+                        <td>워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./🔄POSCO_워치햄스터_마이그레이션_가이드.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>🔄POSCO_워치햄스터_마이그레이션_가이드.md</td>
+                        <td>워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./🔍POSCO_워치햄스터_v2_전체_재검수_보고서.md</code></td>
+                        <td>filename</td>
+                        <td class="status-fail">FAIL</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>🔍POSCO_워치햄스터_v2_전체_재검수_보고서.md</td>
+                        <td>구버전 표기가 발견되었습니다. v3.0으로 업데이트가 필요합니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./🐹POSCO_워치햄스터_v3_제어센터.command</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>🐹POSCO_워치햄스터_v3_제어센터.command</td>
+                        <td>워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./posco_renaming_simulation_report.txt</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>posco_renaming_simulation_report.txt</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Posco_News_mini</code></td>
+                        <td>filename</td>
+                        <td class="status-fail">FAIL</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>Posco_News_mini</td>
+                        <td>구버전 표기가 발견되었습니다. 250808로 업데이트가 필요합니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Mac_워치햄스터_실행_가이드_v4.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>Mac_워치햄스터_실행_가이드_v4.md</td>
+                        <td>워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./posco_news_viewer.py</code></td>
+                        <td>filename</td>
+                        <td class="status-fail">FAIL</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>posco_news_viewer.py</td>
+                        <td>구버전 표기가 발견되었습니다. 250808로 업데이트가 필요합니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./🔔POSCO_워치햄스터_알림시스템_가이드.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>🔔POSCO_워치햄스터_알림시스템_가이드.md</td>
+                        <td>워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./🛠️POSCO_워치햄스터_개발자_가이드.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>🛠️POSCO_워치햄스터_개발자_가이드.md</td>
+                        <td>워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./🎛️POSCO_제어센터_실행.bat</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>🎛️POSCO_제어센터_실행.bat</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./posco_news_report.html</code></td>
+                        <td>filename</td>
+                        <td class="status-fail">FAIL</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>posco_news_report.html</td>
+                        <td>구버전 표기가 발견되었습니다. 250808로 업데이트가 필요합니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./워치햄스터_시스템_재구축_완료_보고서_v4.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>워치햄스터_시스템_재구축_완료_보고서_v4.md</td>
+                        <td>워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./🐹워치햄스터_총괄_관리_센터_SIMPLE.bat</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>🐹워치햄스터_총괄_관리_센터_SIMPLE.bat</td>
+                        <td>워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./POSCO_WatchHamster_v3_Final_Summary.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>POSCO_WatchHamster_v3_Final_Summary.md</td>
+                        <td>워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./📋POSCO_워치햄스터_v2_사용자_가이드.md</code></td>
+                        <td>filename</td>
+                        <td class="status-fail">FAIL</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>📋POSCO_워치햄스터_v2_사용자_가이드.md</td>
+                        <td>구버전 표기가 발견되었습니다. v3.0으로 업데이트가 필요합니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./🗂️POSCO_프로젝트_정리_가이드.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>🗂️POSCO_프로젝트_정리_가이드.md</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./posco_business_day_mapping.json</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>posco_business_day_mapping.json</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./POSCO_시작.bat</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>POSCO_시작.bat</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./📋POSCO_워치햄스터_v2_프로젝트_완료_보고서.md</code></td>
+                        <td>filename</td>
+                        <td class="status-fail">FAIL</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>📋POSCO_워치햄스터_v2_프로젝트_완료_보고서.md</td>
+                        <td>구버전 표기가 발견되었습니다. v3.0으로 업데이트가 필요합니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Posco_News_mini.py</code></td>
+                        <td>filename</td>
+                        <td class="status-fail">FAIL</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>Posco_News_mini.py</td>
+                        <td>구버전 표기가 발견되었습니다. 250808로 업데이트가 필요합니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./POSCO_WatchHamster_v3_Complete_Guide.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>POSCO_WatchHamster_v3_Complete_Guide.md</td>
+                        <td>워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./🎛️POSCO_제어센터_실행_v2.sh</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>🎛️POSCO_제어센터_실행_v2.sh</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./posco_environment_variables.env</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>posco_environment_variables.env</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./POSCO_WatchHamster_v3_CrossPlatform_Guide.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>POSCO_WatchHamster_v3_CrossPlatform_Guide.md</td>
+                        <td>워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./docs/reports/posco_integrated_analysis_20250803_112920.html</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>posco_integrated_analysis_20250803_112920.html</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./docs/reports/posco_integrated_analysis_20250803_114734.html</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>posco_integrated_analysis_20250803_114734.html</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Monitoring/POSCO_News_250808/🔧POSCO_시스템_상태확인.bat</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>🔧POSCO_시스템_상태확인.bat</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Monitoring/POSCO_News_250808/📋POSCO_시스템_유지보수_메뉴얼.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>📋POSCO_시스템_유지보수_메뉴얼.md</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Monitoring/POSCO_News_250808/📊POSCO_뉴스_알림시스템_전체구조_검수완료.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>📊POSCO_뉴스_알림시스템_전체구조_검수완료.md</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Monitoring/POSCO_News_250808/🧪POSCO_테스트_실행.bat</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>🧪POSCO_테스트_실행.bat</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Monitoring/POSCO_News_250808/🎛️POSCO_메인_시스템.bat</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>🎛️POSCO_메인_시스템.bat</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Monitoring/POSCO_News_250808/posco_main_notifier.py</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>posco_main_notifier.py</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Monitoring/POSCO_News_250808/📋POSCO_시스템_정리_및_검증_완료_20250806.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>📋POSCO_시스템_정리_및_검증_완료_20250806.md</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Monitoring/POSCO_News_250808/🔄POSCO_Git_업데이트.bat</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>🔄POSCO_Git_업데이트.bat</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Monitoring/POSCO_News_250808/posco_report_system_reset.py</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>posco_report_system_reset.py</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Monitoring/POSCO_News_250808/📋POSCO_로그_확인.bat</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>📋POSCO_로그_확인.bat</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Monitoring/POSCO_News_250808/realtime_news_monitor.py</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>realtime_news_monitor.py</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Monitoring/POSCO_News_250808/posco_logo_mini.jpg</code></td>
+                        <td>filename</td>
+                        <td class="status-fail">FAIL</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>posco_logo_mini.jpg</td>
+                        <td>구버전 표기가 발견되었습니다. 250808로 업데이트가 필요합니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Monitoring/POSCO_News_250808/docs/📋워치햄스터_기능_분석_및_개선안.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>📋워치햄스터_기능_분석_및_개선안.md</td>
+                        <td>워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Monitoring/POSCO_News_250808/docs/워치햄스터_설정_조정.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>워치햄스터_설정_조정.md</td>
+                        <td>워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Monitoring/POSCO_News_250808/docs/📋POSCO_뉴스_알림시스템_구성_및_배치_완료.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>📋POSCO_뉴스_알림시스템_구성_및_배치_완료.md</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Monitoring/POSCO_News_250808/docs/🎛️3개뉴스_통합모니터링_완성.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>POSCO News 250808 naming pattern</td>
+                        <td>🎛️3개뉴스_통합모니터링_완성.md</td>
+                        <td>포스코 뉴스 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Monitoring/POSCO_News_250808/docs/🧹워치햄스터_2.0_시스템_정리_완료.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>🧹워치햄스터_2.0_시스템_정리_완료.md</td>
+                        <td>워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td><code>./Monitoring/POSCO_News_250808/docs/🏆워치햄스터_2.0_종합평가보고서.md</code></td>
+                        <td>filename</td>
+                        <td class="status-warning">WARNING</td>
+                        <td>WatchHamster v3.0 naming pattern</td>
+                        <td>🏆워치햄스터_2.0_종합평가보고서.md</td>
+                        <td>워치햄스터 관련 파일이지만 표준 네이밍 패턴을 따르지 않습니다</td>
+                    </tr>
+                
+                    <tr>
+                        <td colspan="6" style="text-align: center; font-style: italic;">
+                            ... 및 342개 추가 항목 (JSON 파일에서 전체 결과 확인)
+                        </td>
+                    </tr>
+                
+                </tbody>
+            </table>
+        </div>
+            
+        <div class="section">
+            <h2>📝 검증 완료</h2>
+            <p>이 보고서는 POSCO 프로젝트의 네이밍 컨벤션 표준화 상태를 검증한 결과입니다.</p>
+            <p>문제가 발견된 항목들은 해당 표준화 도구를 사용하여 자동으로 수정할 수 있습니다.</p>
+        </div>
+    </div>
+</body>
+</html>
+        

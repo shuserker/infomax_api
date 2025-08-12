@@ -1,0 +1,92 @@
+{
+  "test_configuration": {
+    "syntax_verification": {
+      "enabled": true,
+      "max_workers": 4,
+      "exclude_patterns": [
+        "__pycache__",
+        ".git",
+        ".vscode",
+        "node_modules",
+        ".pytest_cache",
+        ".backup",
+        "backup",
+        ".repair_backup",
+        ".enhanced_repair_backup",
+        ".aggressive_syntax_repair_backup",
+        ".comprehensive_repair_backup",
+        ".file_reference_backup",
+        ".file_renaming_backup",
+        ".filename_standardization_backup",
+        ".final_file_reference_cleanup_backup",
+        ".final_reference_cleanup_backup",
+        ".final_syntax_repair_backup",
+        ".focused_file_reference_backup",
+        ".indentation_backup",
+        ".naming_backup",
+        ".refined_file_reference_backup",
+        ".repair_backups",
+        ".syntax_repair_backup"
+      ],
+      "timeout_seconds": 30
+    },
+    "module_import": {
+      "enabled": true,
+      "core_modules": [
+        "naming_convention_manager",
+        "file_renaming_system",
+        "python_naming_standardizer",
+        "shell_batch_script_standardizer",
+        "documentation_standardizer",
+        "config_data_standardizer",
+        "system_output_message_standardizer",
+        "folder_structure_reorganizer",
+        "naming_standardization_verification_system"
+      ],
+      "test_dependencies": true,
+      "cleanup_modules": true
+    },
+    "file_reference_integrity": {
+      "enabled": true,
+      "max_workers": 4,
+      "scan_patterns": {
+        "python_files": "*.py",
+        "config_files": "*.json",
+        "script_files": "*.sh",
+        "batch_files": "*.bat"
+      },
+      "reference_types": [
+        "import",
+        "file_path",
+        "config"
+      ]
+    },
+    "performance_monitoring": {
+      "enabled": true,
+      "monitoring_interval": 0.5,
+      "include_system_metrics": true,
+      "include_process_metrics": true,
+      "memory_threshold_mb": 1000,
+      "cpu_threshold_percent": 80
+    }
+  },
+  "reporting": {
+    "save_detailed_reports": true,
+    "report_format": "json",
+    "include_timestamps": true,
+    "compress_large_reports": false,
+    "max_report_size_mb": 50
+  },
+  "safety": {
+    "backup_before_tests": false,
+    "rollback_on_failure": false,
+    "max_execution_time_minutes": 30,
+    "memory_limit_mb": 2048
+  },
+  "output": {
+    "verbose": true,
+    "show_progress": true,
+    "colored_output": true,
+    "log_level": "INFO"
+  }
+}

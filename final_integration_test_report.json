@@ -1,0 +1,188 @@
+{
+  "test_summary": {
+    "total_tests": 16,
+    "passed": 3,
+    "failed": 13,
+    "skipped": 0,
+    "success_rate": 18.75
+  },
+  "test_results": [
+    {
+      "test_name": "File Naming - POSCO News",
+      "status": "FAIL",
+      "message": "파일 Posco_News_mini에 구버전 표기가 남아있음",
+      "timestamp": "2025-08-09T17:51:00.610052",
+      "details": null
+    },
+    {
+      "test_name": "File Naming - WatchHamster",
+      "status": "FAIL",
+      "message": "파일 POSCO_WatchHamster_v3_Final_Summary.md에 구버전 표기가 남아있음",
+      "timestamp": "2025-08-09T17:51:00.626024",
+      "details": null
+    },
+    {
+      "test_name": "File Naming - POSCO News",
+      "status": "FAIL",
+      "message": "파일 Posco_News_mini.py에 구버전 표기가 남아있음",
+      "timestamp": "2025-08-09T17:51:00.627905",
+      "details": null
+    },
+    {
+      "test_name": "File Naming - WatchHamster",
+      "status": "FAIL",
+      "message": "파일 POSCO_WatchHamster_v3_Complete_Guide.md에 구버전 표기가 남아있음",
+      "timestamp": "2025-08-09T17:51:00.628221",
+      "details": null
+    },
+    {
+      "test_name": "File Naming - WatchHamster",
+      "status": "FAIL",
+      "message": "파일 POSCO_WatchHamster_v3_CrossPlatform_Guide.md에 구버전 표기가 남아있음",
+      "timestamp": "2025-08-09T17:51:00.628491",
+      "details": null
+    },
+    {
+      "test_name": "File Naming - WatchHamster",
+      "status": "FAIL",
+      "message": "파일 .naming_backup/config_data_backup/Monitoring/Posco_News_mini/backup_archive_20250806/WatchHamster_v2.log에 구버전 표기가 남아있음",
+      "timestamp": "2025-08-09T17:51:00.635098",
+      "details": null
+    },
+    {
+      "test_name": "File Naming Standardization",
+      "status": "PASS",
+      "message": "워치햄스터 v3.0 파일 24개, 포스코 뉴스 250808 파일 24개 확인",
+      "timestamp": "2025-08-09T17:51:00.698630",
+      "details": {
+        "watchhamster_files": [
+          "test_watchhamster_v3.0_notification.py",
+          "WatchHamster_v3.0.log",
+          "demo_watchhamster_v3.0_integration.py",
+          "watchhamster_v3.0_master_control.ps1",
+          "🐹WatchHamster_v3.0_Integrated_Center.bat",
+          "watchhamster_v3.0_control_center.ps1",
+          "watchhamster_v3.0_master_control.sh",
+          "🎛️WatchHamster_v3.0_Control_Panel.bat",
+          "🎛️🎛️WatchHamster_v3.0_Control_Panel.command",
+          "watchhamster_v3.0_control_center.sh",
+          "🐹WatchHamster_v3.0_Control_Center.bat",
+          "test_watchhamster_v3.0_integration.py",
+          ".naming_backup/config_data_backup/Monitoring/Posco_News_mini/WatchHamster_v3.0_status.json",
+          ".naming_backup/config_data_backup/Monitoring/Posco_News_mini/backup_archive_20250806/WatchHamster_v3.0_status.json",
+          "Monitoring/POSCO_News_250808/WatchHamster_v3.0_status.json",
+          "Monitoring/POSCO_News_250808/WatchHamster_v3.0.log",
+          "Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0.py",
+          "Monitoring/POSCO_News_250808/backup_archive_20250806/WatchHamster_v3.0_status.json",
+          "Monitoring/POSCO_News_250808/backup_archive_20250806/WatchHamster_v3.0.log",
+          ".naming_backup/config_data_backup/.naming_backup/config_data_backup/Monitoring/Posco_News_mini/WatchHamster_v3.0_status.json",
+          "Monitoring/POSCO_News_250808/WatchHamster_v3.0.log",
+          "Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0.py",
+          ".naming_backup/config_data_backup/.naming_backup/config_data_backup/Monitoring/Posco_News_mini/backup_archive_20250806/WatchHamster_v3.0_status.json",
+          "Monitoring/POSCO_News_250808/backup_archive_20250806/WatchHamster_v3.0.log"
+        ],
+        "posco_news_files": [
+          "posco_news_250808_monitor.log",
+          "posco_news_250808_data.json",
+          "🚀🚀POSCO_News_250808_Direct_Start.bat",
+          "posco_news_250808_control_mac.sh",
+          "posco_news_250808_cache.json",
+          "🚀🚀POSCO_News_250808_Direct_Start.sh",
+          "posco_news_250808_historical.json",
+          ".naming_backup/config_data_backup/posco_news_250808_data.json",
+          ".naming_backup/config_data_backup/posco_news_250808_cache.json",
+          ".naming_backup/config_data_backup/posco_news_250808_historical.json",
+          "Monitoring/POSCO_News_250808/posco_news_250808_control_center.sh",
+          "Monitoring/POSCO_News_250808/posco_news_250808_notifier.log",
+          "Monitoring/POSCO_News_250808/🛑🛑POSCO_News_250808_Stop.bat",
+          "Monitoring/POSCO_News_250808/🚀🚀POSCO_News_250808_Start.bat",
+          "Monitoring/POSCO_News_250808/backup_archive_20250806/posco_news_250808_monitor.log",
+          "Monitoring/POSCO_News_250808/backup_archive_20250806/posco_news_250808_simple_monitor.log",
+          "Monitoring/POSCO_News_250808/backup_archive_20250806/posco_news_250808_notifier.log",
+          "Monitoring/POSCO_News_250808/posco_news_250808_control_center.sh",
+          "Monitoring/POSCO_News_250808/posco_news_250808_notifier.log",
+          "Monitoring/POSCO_News_250808/🛑🛑POSCO_News_250808_Stop.bat",
+          "Monitoring/POSCO_News_250808/🚀🚀POSCO_News_250808_Start.bat",
+          "Monitoring/POSCO_News_250808/backup_archive_20250806/posco_news_250808_monitor.log",
+          "Monitoring/POSCO_News_250808/backup_archive_20250806/posco_news_250808_simple_monitor.log",
+          "Monitoring/POSCO_News_250808/backup_archive_20250806/posco_news_250808_notifier.log"
+        ]
+      }
+    },
+    {
+      "test_name": "Folder Naming Standardization",
+      "status": "FAIL",
+      "message": "표준화되지 않은 폴더 발견: ['.naming_backup/config_data_backup/.naming_backup/config_data_backup/Monitoring/Posco_News_mini', '.naming_backup/config_data_backup/Monitoring/Posco_News_mini', '.naming_backup/config_data_backup/Monitoring/Posco_News_mini_v2', '.kiro/specs/watchhamster-ui-restoration', '.kiro/specs/posco-watchhamster-v2-integration', 'Monitoring/Posco_News_mini', 'Monitoring/Posco_News_mini_v2']",
+      "timestamp": "2025-08-09T17:51:00.733866",
+      "details": null
+    },
+    {
+      "test_name": "Comment Standardization",
+      "status": "PASS",
+      "message": "표준화된 주석을 가진 파일 121개 확인",
+      "timestamp": "2025-08-09T17:51:01.322194",
+      "details": null
+    },
+    {
+      "test_name": "Code Naming Standardization",
+      "status": "FAIL",
+      "message": "표준화되지 않은 코드 네이밍: ['test_watchhamster_v3.0_notification.py:TestWatchHamster', 'test_end_to_end_integration.py:MockWatchHamster', 'shell_batch_script_standardizer.py:WATCHHAMSTER_VERSION=v2\\\\.0?']...",
+      "timestamp": "2025-08-09T17:51:01.795300",
+      "details": null
+    },
+    {
+      "test_name": "Documentation Standardization",
+      "status": "FAIL",
+      "message": "표준화되지 않은 문서: ['.kiro/specs/posco-naming-convention-standardization/design.md']...",
+      "timestamp": "2025-08-09T17:51:01.881964",
+      "details": null
+    },
+    {
+      "test_name": "Output Message Standardization",
+      "status": "FAIL",
+      "message": "표준화되지 않은 메시지: ['test_system_output_message_standardization.py: Posco News mini 알림...']...",
+      "timestamp": "2025-08-09T17:51:01.998048",
+      "details": null
+    },
+    {
+      "test_name": "Config File Standardization",
+      "status": "PASS",
+      "message": "표준화된 설정 파일 33개 확인",
+      "timestamp": "2025-08-09T17:51:02.071043",
+      "details": null
+    },
+    {
+      "test_name": "Script Functionality",
+      "status": "FAIL",
+      "message": "실행 불가능한 스크립트: ['test_watchhamster_v3.0_notification.py: invalid syntax (test_watchhamster_v3.0_notification.py, line 21)', 'demo_watchhamster_v3.0_integration.py: invalid syntax (demo_watchhamster_v3.0_integration.py, line 17)', 'test_watchhamster_v3.0_integration.py: invalid syntax (test_watchhamster_v3.0_integration.py, line 27)']...",
+      "timestamp": "2025-08-09T17:51:02.131091",
+      "details": null
+    },
+    {
+      "test_name": "System Integration",
+      "status": "FAIL",
+# BROKEN_REF:       "message": "통합 검사 결과: 네이밍 컨벤션 매니저 import 실패: invalid syntax (naming_convention_manager.py, line 21); 깨진 참조 발견: ['test_watchhamster_v3.0_notification.py -> unittest', 'test_watchhamster_v3.0_notification.py -> Mock']...; 워치햄스터 버전 불일치: {'{self.WATCHHAMSTER_VERSION}', 'v3.0', 'v2\\\\.0?', 'v2.0'}; 포스코 뉴스 버전 불일치: {'250808', 'mini_v2'}",
+      "timestamp": "2025-08-09T17:51:02.441067",
+      "details": null
+    },
+    {
+      "test_name": "User Guide Review",
+      "status": "FAIL",
+      "message": "가이드 문제점: ['🔧POSCO_워치햄스터_문제해결_가이드.md: 포스코 뉴스 250808 버전 정보 누락', \"🔧POSCO_워치햄스터_문제해결_가이드.md: 필수 섹션 누락: ['사용법']\", '🔄POSCO_워치햄스터_마이그레이션_가이드.md: 포스코 뉴스 250808 버전 정보 누락']...",
+      "timestamp": "2025-08-09T17:51:02.527264",
+      "details": null
+    }
+  ],
+  "overall_status": "FAIL",
+  "recommendations": [
+    "파일명 표준화 작업을 완료하여 모든 파일이 v3.0/250808 규칙을 따르도록 하세요.",
+    "시스템 통합 문제를 해결하여 모든 컴포넌트가 올바르게 연동되도록 하세요.",
+    "시스템 출력 메시지의 버전 표기를 통일하세요.",
+    "스크립트 구문 오류를 수정하고 실행 권한을 확인하세요.",
+    "문서의 제목과 내용에서 버전 정보를 표준화하세요.",
+    "폴더명 표준화 작업을 완료하여 일관된 폴더 구조를 구축하세요.",
+    "클래스명과 변수명을 표준 네이밍 규칙에 맞게 수정하세요.",
+    "사용자 가이드의 내용을 보완하고 버전 정보를 업데이트하세요."
+  ],
+  "generated_at": "2025-08-09T17:51:02.527462"
+}

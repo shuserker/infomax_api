@@ -1,0 +1,50 @@
+{
+  "total_tests": 8,
+  "passed_tests": 0,
+  "failed_tests": 0,
+  "skipped_tests": 8,
+  "test_details": {
+    "TestStatusNotificationFunctions": {
+      "tests_run": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 3,
+      "success_rate": 100.0
+    },
+    "TestErrorNotificationFunctions": {
+      "tests_run": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 2,
+      "success_rate": 100.0
+    },
+    "TestRecoveryNotificationFunctions": {
+      "tests_run": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "success_rate": 100.0
+    },
+    "TestStartupNotificationFunctions": {
+      "tests_run": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "success_rate": 100.0
+    },
+    "TestGeneralNotificationFunctions": {
+      "tests_run": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "success_rate": 100.0
+    }
+  },
+  "summary": {
+    "success_rate": 0.0,
+    "total": 8,
+    "passed": 0,
+    "failed": 0,
+    "skipped": 8
+  }
+}

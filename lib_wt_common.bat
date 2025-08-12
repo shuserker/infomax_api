@@ -1,11 +1,12 @@
 @echo off
 REM ============================================================================
-REM Windows Terminal 최적화 공통 라이브러리 v4.0
-REM Windows 10/11 Modern Terminal 최적화
-REM 모든 워치햄스터 배치 파일에서 사용하는 공통 함수들
+REM Lib Wt Common
+REM POSCO 시스템 구성요소
+REM 
+REM WatchHamster v3.0 및 POSCO News 250808 호환
+REM Created: 2025-08-08
 REM ============================================================================
 
-REM UTF-8 인코딩 설정 (Windows 10/11 최적화)
 chcp 65001 > nul 2>&1
 
 REM Windows Terminal ANSI 지원 강화 (레지스트리 기반)

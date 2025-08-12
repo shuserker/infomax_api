@@ -1,7 +1,11 @@
 # 📰 POSCO 뉴스 모니터링 시스템
 
-POSCO 뉴스 API를 모니터링하여 Dooray로 실시간 알림을 전송하는 시스템입니다.
 
+## 버전 정보
+
+- **WatchHamster**: v3.0
+- **POSCO News**: 250808
+- **최종 업데이트**: 2025-08-08
 ## 🚀 주요 기능
 
 - **실시간 모니터링**: 뉴스 데이터 변경사항 자동 감지
@@ -13,7 +17,7 @@ POSCO 뉴스 API를 모니터링하여 Dooray로 실시간 알림을 전송하�
 ## 📁 프로젝트 구조
 
 ```
-📁 Monitoring/Posco_News_mini/
+📁 Monitoring/POSCO News/
 ├── posco_news_monitor.py    # 핵심 모니터링 로직
 ├── run_monitor.py           # 실행 스크립트
 ├── config.py               # 설정 파일 (통합 관리)
@@ -35,19 +39,19 @@ POSCO 뉴스 API를 모니터링하여 Dooray로 실시간 알림을 전송하�
 
 ### 1. 📊 현재 상태 체크 (기본값)
 ```bash
-python run_monitor.py 1
+python Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py 1
 # 또는 그냥
-python run_monitor.py
+python Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py
 ```
 
 ### 2. 📈 영업일 비교 체크
 ```bash
-python run_monitor.py 2
+python Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py 2
 ```
 
 ### 3. 🧠 스마트 모니터링 ⭐ 추천
 ```bash
-python run_monitor.py 3
+python Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py 3
 ```
 **뉴스 발행 패턴 기반 적응형 간격**
 - 집중시간: 06:00-08:00, 15:00-17:00 (20분 간격)
@@ -57,17 +61,17 @@ python run_monitor.py 3
 
 ### 4. 🔄 기본 모니터링 (60분 간격)
 ```bash
-python run_monitor.py 4
+python Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py 4
 ```
 
 ### 5. 📋 일일 요약 리포트
 ```bash
-python run_monitor.py 5
+python Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py 5
 ```
 
 ### 6. 🧪 테스트 알림
 ```bash
-python run_monitor.py 6
+python Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py 6
 ```
 
 ## 📊 상태 표시 시스템
@@ -114,7 +118,7 @@ python run_monitor.py 6
 
 ## 📞 문제 해결
 
-1. **웹훅 테스트**: `python run_monitor.py 4`
+1. **웹훅 테스트**: `python Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py 4`
 2. **캐시 초기화**: `posco_news_cache.json` 파일 삭제
 3. **설정 확인**: `config.py` 파일의 URL 및 인증 정보 확인
 

@@ -1,0 +1,37 @@
+{
+  "timestamp": "2025-08-10T20:50:58.270229",
+  "preserved_webhooks": [
+    "DOORAY_WEBHOOK_URL = \"https:/infomax.dooray.com/services/3262462484277387103/4121380745073081229/5FbudzTwTki4wCeBszBrAg\"",
+    "DOORAY_WEBHOOK_URL = \"https://infomax.dooray.com/services/3262462484277387103/4121380745073081229/5FbudzTwTki4wCeBszBrAg\"",
+    "https://infomax.dooray.com/services/3262462484277387103/3281274580264701322/nKUfZnjtRS2rHh-E9i9uZQ",
+    "BOT_PROFILE_IMAGE_URL = \"https:/raw.githubusercontent.com/shuserker/infomax_api/main/Monitoring/POSCO News 250808_mini/posco_logo_mini.jpg\"",
+    "https://infomax.dooray.com/services/3262462484277387103/4121380745073081229/5FbudzTwTki4wCeBszBrAg",
+    "BOT_PROFILE_IMAGE_URL = \"https://raw.githubusercontent.com/shuserker/infomax_api/main/Monitoring/POSCO_News_250808/posco_logo_mini.jpg\""
+  ],
+  "file_verification": [
+    {
+      "file": "/Users/jy_lee/Desktop/GIT_DEV/infomax_api/core/monitoring/posco_main_notifier.py",
+      "has_webhook": true,
+      "has_notification": false,
+      "status": "OK"
+    },
+    {
+      "file": "/Users/jy_lee/Desktop/GIT_DEV/infomax_api/core/monitoring/config.py",
+      "has_webhook": true,
+      "has_notification": false,
+      "status": "OK"
+    },
+    {
+      "file": "/Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/posco_main_notifier.py",
+      "has_webhook": true,
+      "has_notification": false,
+      "status": "OK"
+    }
+  ],
+  "summary": {
+    "total_files_checked": 3,
+    "files_with_webhooks": 3,
+    "files_with_notifications": 0,
+    "errors": 0
+  }
+}

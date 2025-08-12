@@ -1,0 +1,134 @@
+{
+  "test_summary": {
+    "overall_success": false,
+    "total_tests": 5,
+    "successful_tests": 2,
+    "failed_tests": 3,
+    "success_rate": 40.0,
+    "test_duration": 2.119148015975952,
+    "timestamp": "2025-08-12T09:10:54.017658"
+  },
+  "detailed_results": [
+    {
+      "test_name": "모니터 초기화 테스트",
+      "success": false,
+      "details": {
+        "error": "No module named 'monitor_WatchHamster_v3_0'",
+        "traceback": "Traceback (most recent call last):\n  File \"/Users/jy_lee/Desktop/GIT_DEV/infomax_api/comprehensive_system_integration_test.py\", line 123, in test_monitor_initialization\n    import monitor_WatchHamster_v3_0 as monitor_module\nModuleNotFoundError: No module named 'monitor_WatchHamster_v3_0'\n"
+      }
+    },
+    {
+      "test_name": "핵심 모듈 Import 테스트",
+      "success": true,
+      "details": {
+        "success_count": 4,
+        "total_count": 4,
+        "results": [
+          {
+            "module": "json",
+            "success": true,
+            "error": null
+          },
+          {
+            "module": "requests",
+            "success": true,
+            "error": null
+          },
+          {
+            "module": "psutil",
+            "success": true,
+            "error": null
+          },
+          {
+            "module": "datetime",
+            "success": true,
+            "error": null
+          }
+        ]
+      }
+    },
+    {
+      "test_name": "회귀 테스트",
+      "success": true,
+      "details": {
+        "success_count": 3,
+        "total_count": 3,
+        "tests": [
+          {
+            "test": "파일 시스템 접근",
+            "success": true,
+            "error": null
+          },
+          {
+            "test": "JSON 처리",
+            "success": true,
+            "error": null
+          },
+          {
+            "test": "네트워크 모듈",
+            "success": true,
+            "error": null
+          }
+        ]
+      }
+    },
+    {
+      "test_name": "시스템 성능 테스트",
+      "success": false,
+      "details": {
+        "memory": {
+          "rss": 24.3125,
+          "vms": 425073.515625,
+          "percent": 0.1483917236328125
+        },
+        "memory_increase_mb": 10.40625,
+        "memory_increase_percent": 74.8314606741573,
+        "cpu_percent": 24.2,
+        "disk_usage_percent": 69.52168190152904,
+        "test_duration": 1.1160321235656738
+      }
+    },
+    {
+      "test_name": "시스템 성능 테스트",
+      "success": false,
+      "details": {
+        "memory": {
+          "rss": 24.3125,
+          "vms": 425073.515625,
+          "percent": 0.1483917236328125
+        },
+        "memory_increase_mb": 10.40625,
+        "memory_increase_percent": 74.8314606741573,
+        "cpu_percent": 21.9,
+        "disk_usage_percent": 69.52170195736984,
+        "test_duration": 2.118990898132324
+      }
+    }
+  ],
+  "performance_data": [
+    {
+      "memory": {
+        "rss": 24.3125,
+        "vms": 425073.515625,
+        "percent": 0.1483917236328125
+      },
+      "memory_increase_mb": 10.40625,
+      "memory_increase_percent": 74.8314606741573,
+      "cpu_percent": 24.2,
+      "disk_usage_percent": 69.52168190152904,
+      "test_duration": 1.1160321235656738
+    },
+    {
+      "memory": {
+        "rss": 24.3125,
+        "vms": 425073.515625,
+        "percent": 0.1483917236328125
+      },
+      "memory_increase_mb": 10.40625,
+      "memory_increase_percent": 74.8314606741573,
+      "cpu_percent": 21.9,
+      "disk_usage_percent": 69.52170195736984,
+      "test_duration": 2.118990898132324
+    }
+  ]
+}

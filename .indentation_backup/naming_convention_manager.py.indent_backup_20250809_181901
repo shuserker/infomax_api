@@ -1,0 +1,525 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Naming Convention Manager
+POSCO 시스템 구성요소
+
+WatchHamster v3.0 및 POSCO News 250808 250808 호환
+Created: 2025-08-08
+"""
+
+import re
+from dataclasses import dataclass
+from typing import Dict, List, Optional, Tuple
+from enum import Enum
+from datetime import datetime
+
+
+class ComponentType(Enum):
+    """컴포넌트 타입 정의"""
+    WATCHHAMSTER = "watchhamster"
+    POSCO_NEWS_250808 = "posco_news_250808"
+    UNKNOWN = "unknown"
+
+
+@dataclass
+class NamingRule:
+    """네이밍 규칙 데이터 모델"""
+    component: ComponentType
+    version: str
+    file_pattern: str
+    folder_pattern: str
+    class_pattern: str
+    variable_pattern: str
+    comment_pattern: str
+
+
+@dataclass
+class ConversionResult:
+    """변환 결과 데이터 모델"""
+    original: str
+    converted: str
+    component: ComponentType
+    conversion_type: str  # "file", "folder", "class", "variable", "comment"
+    success: bool
+reason:_str =  ""
+
+
+class NamingConventionManager:
+    """
+    POSCO 프로젝트 네이밍 컨벤션 관리 클래스
+    
+    WatchHamster v3.0.0 및 POSCO News 250808 250808 250808 버전 체계를 관리하고
+    다양한 네이밍 요소들을 표준화된 형식으로 변환합니다.
+    """
+    
+    # 버전 정의
+    WATCHHAMSTER_VERSION = "v3.0"
+POSCO_News_250808_250808_VERSION =  "250808"
+    
+    def __init__(self):
+        """네이밍 컨벤션 매니저 초기화"""
+        self.naming_rules = self._initialize_naming_rules()
+self.conversion_history:_List[ConversionResult] =  []
+        
+    def _initialize_naming_rules(self) -> Dict[ComponentType, NamingRule]:
+        """네이밍 규칙 초기화"""
+        return {
+            ComponentType.WATCHHAMSTER: NamingRule(
+                component=ComponentType.WATCHHAMSTER,
+                version=self.WATCHHAMSTER_VERSION,
+                file_pattern="*_v3.0_*",
+                folder_pattern="WatchHamster_v3.0_*",
+                class_pattern="*WatchHamster v3.00*",
+                variable_pattern="watchhamster_v3_0_*",
+                comment_pattern="WatchHamster v3.0"
+            ),
+            ComponentType.POSCO News 250808 250808: NamingRule(
+                component=ComponentType.POSCO News 250808 250808,
+                version=self.POSCO News 250808 250808_VERSION,
+                file_pattern="*_250808_*",
+                folder_pattern="POSCO_News_250808_*",
+                class_pattern="*POSCO News 250808 250808*",
+                variable_pattern="POSCO News 250808 250808_250808_*",
+                comment_pattern="POSCO News 250808 250808"
+            )
+        }
+    
+    def detect_component_type(self, name: str) -> ComponentType:
+        """
+        이름에서 컴포넌트 타입을 감지
+        
+        Args:
+            name: 분석할 이름
+            
+        Returns:
+            ComponentType: 감지된 컴포넌트 타입
+        """
+        name_lower = name.lower()
+        
+        # 워치햄스터 관련 키워드 (우선순위 높음)
+        watchhamster_keywords = [
+            'watchhamster', 'watch_hamster', '워치햄스터',
+            'hamster', 'monitor_watchhamster', 'demo_v2',
+            'test_v2', 'control_center', 'master_control',
+            '제어센터', 'enhancedprocessmanager', 'notificationmanager',
+            'POSCO News 250808 250808'  # 이 폴더는 WatchHamster v3.0.0으로 변환됨
+        ]
+        
+        # POSCO News 250808 250808 관련 키워드
+POSCO_News_250808_250808_keywords =  [
+            'POSCO News 250808 250808', 'posco_main', 'posco_continuous',
+            'main_notifier', 'realtime_news',
+            'integrated_report', 'news_monitor', 'POSCO News 250808 250808',
+            'mainnotifier', 'realtimemonitor', 'POSCO News 250808 250808_mini',
+            'POSCO News 250808 250808_250808_version', 'POSCO News 250808 250808_250808'
+        ]
+        
+        # 정확한 매칭을 위한 특별 케이스들
+        special_watchhamster_cases = [
+            'enhancedprocessmanager', 'notificationmanager',
+            'POSCO News 250808 250808'
+        ]
+        
+special_POSCO_News_250808_250808_cases =  [
+            'POSCO News 250808 250808monitor', 'mainnotifier', 'realtimemonitor'
+        ]
+        
+        # 특별 케이스 먼저 확인 (우선순위가 높음)
+        for case in special_watchhamster_cases:
+            if case in name_lower:
+                return ComponentType.WATCHHAMSTER
+                
+        for case in special_POSCO News 250808 250808_cases:
+            if case in name_lower:
+                return ComponentType.POSCO News 250808 250808
+        
+        # 워치햄스터 키워드 먼저 확인 (우선순위가 높음)
+        for keyword in watchhamster_keywords:
+            if keyword in name_lower:
+                return ComponentType.WATCHHAMSTER
+                
+        # POSCO News 250808 250808 키워드 확인
+        for keyword in POSCO News 250808 250808_keywords:
+            if keyword in name_lower:
+                return ComponentType.POSCO News 250808 250808
+                
+        return ComponentType.UNKNOWN
+    
+    def standardize_filename(self, filename: str) -> ConversionResult:
+        """
+        파일명을 표준화
+        
+        Args:
+            filename: 원본 파일명
+            
+        Returns:
+            ConversionResult: 변환 결과
+        """
+        component = self.detect_component_type(filename)
+        
+        if component == ComponentType.UNKNOWN:
+            result = ConversionResult(
+                original=filename,
+                converted=filename,
+                component=component,
+                conversion_type="file",
+                success=False,
+                reason="Unknown component type"
+            )
+            self.conversion_history.append(result)
+            return result
+        
+        converted = self._convert_filename(filename, component)
+        result = ConversionResult(
+            original=filename,
+            converted=converted,
+            component=component,
+            conversion_type="file",
+            success=converted != filename
+        )
+        
+        self.conversion_history.append(result)
+        return result
+    
+    def _convert_filename(self, filename: str, component: ComponentType) -> str:
+        """파일명 변환 로직"""
+        if component == ComponentType.WATCHHAMSTER:
+            return self._convert_watchhamster_filename(filename)
+        elif component == ComponentType.POSCO News 250808 250808:
+            return self._convert_POSCO News 250808 250808_filename(filename)
+        return filename
+    
+    def _convert_watchhamster_filename(self, filename: str) -> str:
+        """워치햄스터 파일명 변환"""
+        # 기존 버전 표기 제거 및 v3.0으로 통일
+        patterns = [
+            (r'WatchHamster v3.0', 'WatchHamster_v3.0_Control_Center'),
+            (r'WatchHamster v3.0.0_Integrated_Center'),
+            (r'POSCO_제어센터_실행_v2', 'WatchHamster_v3.0_Control_Panel'),
+            (r'demo_v2_integration', 'demo_watchhamster_v3.0_integration'),
+            (r'test_v2_integration', 'test_watchhamster_v3.0_integration'),
+            (r'test_v2_notification', 'test_watchhamster_v3.0_notification'),
+            (r'monitor_WatchHamster(?!.*v3\.0)', 'monitor_WatchHamster_v3.0'),
+            (r'_v2\.0?_', '_v3.0_'),
+            (r'_v2_', '_v3.0_'),
+            (r'_mini_v2', '_v3.0'),
+        ]
+        
+        result = filename
+        for pattern, replacement in patterns:
+            result = re.sub(pattern, replacement, result, flags=re.IGNORECASE)
+        
+        return result
+    
+    def _convert_POSCO News 250808 250808_filename(self, filename: str) -> str:
+        """POSCO News 250808 250808 파일명 변환"""
+        patterns = [
+            (r'POSCO News 250808_mini\.py', 'POSCO_News_250808.py'),
+            (r'posco_main_notifier', 'POSCO News 250808 250808_250808_notifier'),
+            (r'posco_continuous_monitor', 'POSCO News 250808 250808_250808_monitor'),
+            (r'POSCO News 250808 250808_data\.json', 'POSCO News 250808 250808_250808_data.json'),
+            (r'POSCO News 250808 250808_cache\.json', 'POSCO News 250808 250808_250808_cache.json'),
+            (r'POSCO News 250808 250808_historical_cache\.json', 'POSCO News 250808 250808_250808_historical.json'),
+        ]
+        
+        result = filename
+        for pattern, replacement in patterns:
+            result = re.sub(pattern, replacement, result, flags=re.IGNORECASE)
+        
+        return result
+    
+    def standardize_foldername(self, foldername: str) -> ConversionResult:
+        """
+        폴더명을 표준화
+        
+        Args:
+            foldername: 원본 폴더명
+            
+        Returns:
+            ConversionResult: 변환 결과
+        """
+        component = self.detect_component_type(foldername)
+        
+        if component == ComponentType.UNKNOWN:
+            result = ConversionResult(
+                original=foldername,
+                converted=foldername,
+                component=component,
+                conversion_type="folder",
+                success=False,
+                reason="Unknown component type"
+            )
+            self.conversion_history.append(result)
+            return result
+        
+        converted = self._convert_foldername(foldername, component)
+        result = ConversionResult(
+            original=foldername,
+            converted=converted,
+            component=component,
+            conversion_type="folder",
+            success=converted != foldername
+        )
+        
+        self.conversion_history.append(result)
+        return result
+    
+    def _convert_foldername(self, foldername: str, component: ComponentType) -> str:
+        """폴더명 변환 로직"""
+        if component == ComponentType.WATCHHAMSTER:
+            patterns = [
+                (r'WatchHamster_v3.0', 'WatchHamster_v3.0'),
+                (r'watchhamster-v3.0-integration', 'watchhamster-v3.0-integration'),
+            ]
+        elif component == ComponentType.POSCO News 250808 250808:
+            patterns = [
+                (r'POSCO News 250808_mini(?!.*250808)', 'POSCO_News_250808'),
+            ]
+        else:
+            return foldername
+        
+        result = foldername
+        for pattern, replacement in patterns:
+            result = re.sub(pattern, replacement, result, flags=re.IGNORECASE)
+        
+        return result
+    
+    def standardize_classname(self, classname: str) -> ConversionResult:
+        """
+        클래스명을 표준화
+        
+        Args:
+            classname: 원본 클래스명
+            
+        Returns:
+            ConversionResult: 변환 결과
+        """
+        component = self.detect_component_type(classname)
+        
+        if component == ComponentType.UNKNOWN:
+            result = ConversionResult(
+                original=classname,
+                converted=classname,
+                component=component,
+                conversion_type="class",
+                success=False,
+                reason="Unknown component type"
+            )
+            self.conversion_history.append(result)
+            return result
+        
+        converted = self._convert_classname(classname, component)
+        result = ConversionResult(
+            original=classname,
+            converted=converted,
+            component=component,
+            conversion_type="class",
+            success=converted != classname
+        )
+        
+        self.conversion_history.append(result)
+        return result
+    
+    def _convert_classname(self, classname: str, component: ComponentType) -> str:
+        """클래스명 변환 로직"""
+        if component == ComponentType.WATCHHAMSTER:
+            patterns = [
+                (r'^PoscoMonitorWatchHamster$', 'WatchHamster v3.00Monitor'),
+                (r'^EnhancedProcessManager$', 'WatchHamster v3.00ProcessManager'),
+                (r'^WatchhamsterIntegration$', 'WatchHamster v3.00Integration'),
+                (r'^NotificationManager$', 'WatchHamster v3.00NotificationManager'),
+            ]
+        elif component == ComponentType.POSCO News 250808 250808:
+            patterns = [
+                (r'^POSCO News 250808Monitor$', 'POSCO News 250808 250808Monitor'),
+                (r'^MainNotifier$', 'POSCO News 250808 250808Notifier'),
+                (r'^RealtimeMonitor$', 'POSCO News 250808 250808RealtimeMonitor'),
+            ]
+        else:
+            return classname
+        
+        result = classname
+        for pattern, replacement in patterns:
+            result = re.sub(pattern, replacement, result)
+        
+        return result
+    
+    def standardize_variable_name(self, variable_name: str) -> ConversionResult:
+        """
+        변수명을 표준화
+        
+        Args:
+            variable_name: 원본 변수명
+            
+        Returns:
+            ConversionResult: 변환 결과
+        """
+        component = self.detect_component_type(variable_name)
+        
+        if component == ComponentType.UNKNOWN:
+            result = ConversionResult(
+                original=variable_name,
+                converted=variable_name,
+                component=component,
+                conversion_type="variable",
+                success=False,
+                reason="Unknown component type"
+            )
+            self.conversion_history.append(result)
+            return result
+        
+        converted = self._convert_variable_name(variable_name, component)
+        result = ConversionResult(
+            original=variable_name,
+            converted=converted,
+            component=component,
+            conversion_type="variable",
+            success=converted != variable_name
+        )
+        
+        self.conversion_history.append(result)
+        return result
+    
+    def _convert_variable_name(self, variable_name: str, component: ComponentType) -> str:
+        """변수명 변환 로직"""
+        if component == ComponentType.WATCHHAMSTER:
+            patterns = [
+                (r'WATCHHAMSTER_VERSION.*=.*"v2\.0?"', f'WATCHHAMSTER_VERSION = "{self.WATCHHAMSTER_VERSION}"'),
+                (r'watchhamster_v2', 'watchhamster_v3_0'),
+                (r'watchhamster_v3_0_version', 'watchhamster_v3_0_version'),
+            ]
+        elif component == ComponentType.POSCO News 250808 250808:
+            patterns = [
+(r'POSCO_News_250808_250808"',_f'POSCO_News_250808_250808_VERSION =  "{self.POSCO News 250808 250808_VERSION}"'),
+                (r'POSCO News 250808 250808_250808_data', 'POSCO News 250808 250808_250808_data'),
+                (r'POSCO News 250808 250808_250808(?!_)', 'POSCO News 250808 250808_250808'),
+                (r'^POSCO News 250808 250808_250808_version$', 'POSCO News 250808 250808_250808_version'),
+            ]
+        else:
+            return variable_name
+        
+        result = variable_name
+        for pattern, replacement in patterns:
+            result = re.sub(pattern, replacement, result)
+        
+        return result
+    
+    def get_version_info(self) -> Dict[str, str]:
+        """버전 정보 반환"""
+        return {
+            "watchwatchhamster_v3_0_version": self.WATCHHAMSTER_VERSION,
+            "posco_POSCO News 250808 250808_250808_version": self.POSCO News 250808 250808_VERSION,
+            "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+    
+    def get_conversion_statistics(self) -> Dict[str, int]:
+        """변환 통계 반환"""
+        stats = {
+            "total_conversions": len(self.conversion_history),
+            "successful_conversions": sum(1 for r in self.conversion_history if r.success),
+            "failed_conversions": sum(1 for r in self.conversion_history if not r.success),
+            "watchhamster_conversions": sum(1 for r in self.conversion_history if r.component == ComponentType.WATCHHAMSTER),
+            "POSCO News 250808 250808_conversions": sum(1 for r in self.conversion_history if r.component == ComponentType.POSCO News 250808 250808),
+        }
+        return stats
+    
+    def generate_conversion_report(self) -> str:
+        """변환 보고서 생성"""
+        stats = self.get_conversion_statistics()
+        version_info = self.get_version_info()
+        
+        report = f"""
+POSCO 네이밍 컨벤션 변환 보고서
+=====================================
+
+버전 정보:
+- WatchHamster: {version_info['watchwatchhamster_v3_0_version']}
+- POSCO News 250808: {version_info['posco_POSCO News 250808 250808_250808_version']}
+- 마지막 업데이트: {version_info['last_updated']}
+
+변환 통계:
+- 총 변환 시도: {stats['total_conversions']}
+- 성공한 변환: {stats['successful_conversions']}
+- 실패한 변환: {stats['failed_conversions']}
+- WatchHamster 관련: {stats['watchhamster_conversions']}
+- POSCO News 250808 관련: {stats['POSCO News 250808 250808_conversions']}
+
+변환 세부 내역:
+"""
+        
+        for result in self.conversion_history:
+            status = "✓" if result.success else "✗"
+report_+ =  f"{status} [{result.conversion_type}] {result.original} → {result.converted}\n"
+            if not result.success and result.reason:
+report_+ =  f"   이유: {result.reason}\n"
+        
+        return report
+
+
+def main():
+    """테스트 및 데모 함수"""
+    manager = NamingConventionManager()
+    
+    # 테스트 케이스들
+    test_files = [
+        "🐹WatchHamster v3.0.bat",
+        "demo_v2_integration.py",
+        "POSCO News 250808_mini.py",
+        "posco_main_notifier.py",
+        "monitor_WatchHamster.py"
+    ]
+    
+    test_folders = [
+        "WatchHamster_v3.0",
+        "watchhamster-v3.0-integration"
+    ]
+    
+    test_classes = [
+        "PoscoMonitorWatchHamster",
+        "EnhancedProcessManager",
+        "POSCO News 250808Monitor"
+    ]
+    
+    test_variables = [
+        'WATCHHAMSTER_VERSION = "v3.0"',
+'POSCO_News_250808_250808_VERSION =  "250808"',
+        "watchhamster_v3_0_config"
+    ]
+    
+    print("POSCO 네이밍 컨벤션 관리 시스템 테스트")
+    print("=" * 50)
+    
+    # 파일명 테스트
+    print("\n파일명 변환 테스트:")
+    for filename in test_files:
+        result = manager.standardize_filename(filename)
+        print(f"  {result.original} → {result.converted} ({'성공' if result.success else '실패'})")
+    
+    # 폴더명 테스트
+    print("\n폴더명 변환 테스트:")
+    for foldername in test_folders:
+        result = manager.standardize_foldername(foldername)
+        print(f"  {result.original} → {result.converted} ({'성공' if result.success else '실패'})")
+    
+    # 클래스명 테스트
+    print("\n클래스명 변환 테스트:")
+    for classname in test_classes:
+        result = manager.standardize_classname(classname)
+        print(f"  {result.original} → {result.converted} ({'성공' if result.success else '실패'})")
+    
+    # 변수명 테스트
+    print("\n변수명 변환 테스트:")
+    for variable in test_variables:
+        result = manager.standardize_variable_name(variable)
+        print(f"  {result.original} → {result.converted} ({'성공' if result.success else '실패'})")
+    
+    # 통계 출력
+    print(f"\n변환 통계:")
+    stats = manager.get_conversion_statistics()
+    for key, value in stats.items():
+        print(f"  {key}: {value}")
+
+
+if __name__ == "__main__":
+    main()

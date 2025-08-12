@@ -1,0 +1,50 @@
+2025-08-10 19:50:54,623 - INFO - 🔍 전체 시스템 무결성 검증 시작
+2025-08-10 19:50:54,623 - INFO - 📁 핵심 파일 존재 확인 중...
+2025-08-10 19:50:54,623 - INFO -   ✅ POSCO_News_250808.py
+2025-08-10 19:50:54,623 - INFO -   ✅ 🐹POSCO_워치햄스터_v3_제어센터.bat
+2025-08-10 19:50:54,623 - INFO -   ✅ 🐹POSCO_워치햄스터_v3_제어센터.command
+2025-08-10 19:50:54,624 - INFO -   ✅ Monitoring/POSCO_News_250808/posco_main_notifier.py
+2025-08-10 19:50:54,624 - INFO -   ✅ Monitoring/POSCO_News_250808/posco_main_notifier_minimal.py
+2025-08-10 19:50:54,624 - INFO -   ✅ Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0_minimal.py
+2025-08-10 19:50:54,624 - INFO - 🐍 Python 모듈 Import 테스트 중...
+2025-08-10 19:50:54,626 - WARNING -   ⚠️ naming_convention_manager: expected an indented block (verify_folder_reorganization.py, line 140)
+2025-08-10 19:50:54,629 - INFO -   ✅ file_renaming_system
+2025-08-10 19:50:54,630 - WARNING -   ⚠️ python_naming_standardizer: closing parenthesis ')' does not match opening parenthesis '[' on line 78 (python_naming_standardizer.py, line 79)
+2025-08-10 19:50:54,631 - WARNING -   ⚠️ system_functionality_verification: expected an indented block (system_functionality_verification.py, line 208)
+2025-08-10 19:50:54,632 - WARNING -   ⚠️ final_integration_test_system: unexpected indent (final_integration_test_system.py, line 61)
+2025-08-10 19:50:54,632 - INFO - 📜 스크립트 실행 테스트 중...
+2025-08-10 19:50:54,665 - WARNING -   ❌ system_functionality_verification.py:   File "/Users/jy_lee/Desktop/GIT_DEV/infomax_api/system_functionality_verification.py", line 208
+    with_open(json_file,_'r',_encoding = 'utf-8') as f:
+IndentationError: expected an indented block
+
+2025-08-10 19:50:55,248 - WARNING -   ❌ basic_system_test.py: /Users/jy_lee/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.
+2025-08-10 19:50:55,248 - INFO - 🌐 웹훅 연결성 테스트 중...
+2025-08-10 19:50:55,248 - INFO -   발견된 웹훅 URL: 0개
+2025-08-10 19:50:55,269 - INFO - 📊 모니터링 시스템 테스트 중...
+2025-08-10 19:50:55,270 - WARNING -   ❌ Monitoring/POSCO_News_250808/posco_main_notifier.py: 구문 오류 - expected an indented block (posco_main_notifier.py, line 131)
+2025-08-10 19:50:55,272 - INFO -   ✅ Monitoring/POSCO_News_250808/posco_main_notifier_minimal.py
+2025-08-10 19:50:55,273 - INFO -   ✅ Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0_minimal.py
+2025-08-10 19:50:55,273 - INFO - 
+============================================================
+2025-08-10 19:50:55,273 - INFO - 📋 시스템 무결성 검증 결과 요약
+2025-08-10 19:50:55,273 - INFO - ============================================================
+2025-08-10 19:50:55,273 - INFO - 전체 테스트: 5개
+2025-08-10 19:50:55,273 - INFO - 통과: 2개
+2025-08-10 19:50:55,273 - INFO - 실패: 3개
+2025-08-10 19:50:55,273 - INFO - 성공률: 40.0%
+2025-08-10 19:50:55,273 - INFO - 
+상세 결과:
+2025-08-10 19:50:55,273 - INFO - ✅ 핵심_파일_존재_확인: 핵심 파일 6/6개 존재
+2025-08-10 19:50:55,273 - INFO -    실행 시간: 0.00초
+2025-08-10 19:50:55,273 - INFO - ❌ Python_모듈_Import_테스트: 모듈 Import 1/5개 성공, 실패: 4개
+2025-08-10 19:50:55,273 - INFO -    실행 시간: 0.01초
+2025-08-10 19:50:55,273 - INFO - ❌ 스크립트_실행_테스트: 스크립트 실행 0개 성공, 실패: 2개
+2025-08-10 19:50:55,273 - INFO -    실행 시간: 0.62초
+2025-08-10 19:50:55,273 - INFO - ❌ 웹훅_연결성_테스트: 웹훅 0/0개 연결 가능
+2025-08-10 19:50:55,273 - INFO -    실행 시간: 0.02초
+2025-08-10 19:50:55,273 - INFO - ✅ 모니터링_시스템_테스트: 모니터링 시스템 2/3개 정상, 문제: 1개
+2025-08-10 19:50:55,273 - INFO -    실행 시간: 0.00초
+2025-08-10 19:50:55,273 - INFO - ============================================================
+2025-08-10 19:50:55,273 - ERROR - ❌ 시스템 무결성 검증 실패
+2025-08-10 19:50:55,273 - INFO - 📋 검증 보고서 생성: integrity_verification_report_20250810_195055.md
+2025-08-10 19:50:55,273 - ERROR - ❌ 시스템 무결성 검증 실패

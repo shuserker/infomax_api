@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POSCO 네이밍 컨벤션 표준화 최종 통합 테스트 보고서</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 30px; }
+        h2 { color: #34495e; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .summary-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 10px; text-align: center; }
+        .summary-card h3 { margin: 0 0 10px 0; font-size: 2em; }
+        .summary-card p { margin: 0; opacity: 0.9; }
+        .status-pass { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .status-fail { background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%); }
+        .test-results { margin-bottom: 30px; }
+        .test-item { background-color: #f8f9fa; margin-bottom: 15px; padding: 20px; border-radius: 8px; border-left: 5px solid #3498db; }
+        .test-item.pass { border-left-color: #27ae60; }
+        .test-item.fail { border-left-color: #e74c3c; }
+        .test-item.skip { border-left-color: #f39c12; }
+        .test-name { font-weight: bold; font-size: 1.1em; margin-bottom: 10px; }
+        .test-message { color: #666; margin-bottom: 10px; }
+        .test-timestamp { font-size: 0.9em; color: #999; }
+        .recommendations { background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 20px; }
+        .recommendations ul { margin: 10px 0; padding-left: 20px; }
+        .recommendations li { margin-bottom: 10px; }
+        .footer { text-align: center; margin-top: 30px; color: #666; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 POSCO 네이밍 컨벤션 표준화 최종 통합 테스트 보고서</h1>
+        
+        <div class="summary">
+            <div class="summary-card">
+                <h3>16</h3>
+                <p>총 테스트</p>
+            </div>
+            <div class="summary-card status-pass">
+                <h3>3</h3>
+                <p>통과</p>
+            </div>
+            <div class="summary-card status-fail">
+                <h3>13</h3>
+                <p>실패</p>
+            </div>
+            <div class="summary-card">
+                <h3>18.75%</h3>
+                <p>성공률</p>
+            </div>
+        </div>
+        
+        <h2>📋 테스트 결과</h2>
+        <div class="test-results">
+
+            <div class="test-item fail">
+                <div class="test-name">File Naming - POSCO News - FAIL</div>
+                <div class="test-message">파일 Posco_News_mini에 구버전 표기가 남아있음</div>
+                <div class="test-timestamp">실행 시간: 2025-08-09T17:51:00.610052</div>
+            </div>
+
+            <div class="test-item fail">
+                <div class="test-name">File Naming - WatchHamster - FAIL</div>
+                <div class="test-message">파일 POSCO_WatchHamster_v3_Final_Summary.md에 구버전 표기가 남아있음</div>
+                <div class="test-timestamp">실행 시간: 2025-08-09T17:51:00.626024</div>
+            </div>
+
+            <div class="test-item fail">
+                <div class="test-name">File Naming - POSCO News - FAIL</div>
+                <div class="test-message">파일 Posco_News_mini.py에 구버전 표기가 남아있음</div>
+                <div class="test-timestamp">실행 시간: 2025-08-09T17:51:00.627905</div>
+            </div>
+
+            <div class="test-item fail">
+                <div class="test-name">File Naming - WatchHamster - FAIL</div>
+                <div class="test-message">파일 POSCO_WatchHamster_v3_Complete_Guide.md에 구버전 표기가 남아있음</div>
+                <div class="test-timestamp">실행 시간: 2025-08-09T17:51:00.628221</div>
+            </div>
+
+            <div class="test-item fail">
+                <div class="test-name">File Naming - WatchHamster - FAIL</div>
+                <div class="test-message">파일 POSCO_WatchHamster_v3_CrossPlatform_Guide.md에 구버전 표기가 남아있음</div>
+                <div class="test-timestamp">실행 시간: 2025-08-09T17:51:00.628491</div>
+            </div>
+
+            <div class="test-item fail">
+                <div class="test-name">File Naming - WatchHamster - FAIL</div>
+                <div class="test-message">파일 .naming_backup/config_data_backup/Monitoring/Posco_News_mini/backup_archive_20250806/WatchHamster_v2.log에 구버전 표기가 남아있음</div>
+                <div class="test-timestamp">실행 시간: 2025-08-09T17:51:00.635098</div>
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-name">File Naming Standardization - PASS</div>
+                <div class="test-message">워치햄스터 v3.0 파일 24개, 포스코 뉴스 250808 파일 24개 확인</div>
+                <div class="test-timestamp">실행 시간: 2025-08-09T17:51:00.698630</div>
+            </div>
+
+            <div class="test-item fail">
+                <div class="test-name">Folder Naming Standardization - FAIL</div>
+                <div class="test-message">표준화되지 않은 폴더 발견: ['.naming_backup/config_data_backup/.naming_backup/config_data_backup/Monitoring/Posco_News_mini', '.naming_backup/config_data_backup/Monitoring/Posco_News_mini', '.naming_backup/config_data_backup/Monitoring/Posco_News_mini_v2', '.kiro/specs/watchhamster-ui-restoration', '.kiro/specs/posco-watchhamster-v2-integration', 'Monitoring/Posco_News_mini', 'Monitoring/Posco_News_mini_v2']</div>
+                <div class="test-timestamp">실행 시간: 2025-08-09T17:51:00.733866</div>
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-name">Comment Standardization - PASS</div>
+                <div class="test-message">표준화된 주석을 가진 파일 121개 확인</div>
+                <div class="test-timestamp">실행 시간: 2025-08-09T17:51:01.322194</div>
+            </div>
+
+            <div class="test-item fail">
+                <div class="test-name">Code Naming Standardization - FAIL</div>
+                <div class="test-message">표준화되지 않은 코드 네이밍: ['test_watchhamster_v3.0_notification.py:TestWatchHamster', 'test_end_to_end_integration.py:MockWatchHamster', 'shell_batch_script_standardizer.py:WATCHHAMSTER_VERSION=v2\\.0?']...</div>
+                <div class="test-timestamp">실행 시간: 2025-08-09T17:51:01.795300</div>
+            </div>
+
+            <div class="test-item fail">
+                <div class="test-name">Documentation Standardization - FAIL</div>
+                <div class="test-message">표준화되지 않은 문서: ['.kiro/specs/posco-naming-convention-standardization/design.md']...</div>
+                <div class="test-timestamp">실행 시간: 2025-08-09T17:51:01.881964</div>
+            </div>
+
+            <div class="test-item fail">
+                <div class="test-name">Output Message Standardization - FAIL</div>
+                <div class="test-message">표준화되지 않은 메시지: ['test_system_output_message_standardization.py: Posco News mini 알림...']...</div>
+                <div class="test-timestamp">실행 시간: 2025-08-09T17:51:01.998048</div>
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-name">Config File Standardization - PASS</div>
+                <div class="test-message">표준화된 설정 파일 33개 확인</div>
+                <div class="test-timestamp">실행 시간: 2025-08-09T17:51:02.071043</div>
+            </div>
+
+            <div class="test-item fail">
+                <div class="test-name">Script Functionality - FAIL</div>
+                <div class="test-message">실행 불가능한 스크립트: ['test_watchhamster_v3.0_notification.py: invalid syntax (test_watchhamster_v3.0_notification.py, line 21)', 'demo_watchhamster_v3.0_integration.py: invalid syntax (demo_watchhamster_v3.0_integration.py, line 17)', 'test_watchhamster_v3.0_integration.py: invalid syntax (test_watchhamster_v3.0_integration.py, line 27)']...</div>
+                <div class="test-timestamp">실행 시간: 2025-08-09T17:51:02.131091</div>
+            </div>
+
+            <div class="test-item fail">
+                <div class="test-name">System Integration - FAIL</div>
+                <div class="test-message">통합 검사 결과: 네이밍 컨벤션 매니저 import 실패: invalid syntax (naming_convention_manager.py, line 21); 깨진 참조 발견: ['test_watchhamster_v3.0_notification.py -> unittest', 'test_watchhamster_v3.0_notification.py -> Mock']...; 워치햄스터 버전 불일치: {'{self.WATCHHAMSTER_VERSION}', 'v3.0', 'v2\\.0?', 'v2.0'}; 포스코 뉴스 버전 불일치: {'250808', 'mini_v2'}</div>
+                <div class="test-timestamp">실행 시간: 2025-08-09T17:51:02.441067</div>
+            </div>
+
+            <div class="test-item fail">
+                <div class="test-name">User Guide Review - FAIL</div>
+                <div class="test-message">가이드 문제점: ['🔧POSCO_워치햄스터_문제해결_가이드.md: 포스코 뉴스 250808 버전 정보 누락', "🔧POSCO_워치햄스터_문제해결_가이드.md: 필수 섹션 누락: ['사용법']", '🔄POSCO_워치햄스터_마이그레이션_가이드.md: 포스코 뉴스 250808 버전 정보 누락']...</div>
+                <div class="test-timestamp">실행 시간: 2025-08-09T17:51:02.527264</div>
+            </div>
+
+        </div>
+        
+        <h2>💡 권장사항</h2>
+        <div class="recommendations">
+            <ul>
+<li>파일명 표준화 작업을 완료하여 모든 파일이 v3.0/250808 규칙을 따르도록 하세요.</li><li>시스템 통합 문제를 해결하여 모든 컴포넌트가 올바르게 연동되도록 하세요.</li><li>시스템 출력 메시지의 버전 표기를 통일하세요.</li><li>스크립트 구문 오류를 수정하고 실행 권한을 확인하세요.</li><li>문서의 제목과 내용에서 버전 정보를 표준화하세요.</li><li>폴더명 표준화 작업을 완료하여 일관된 폴더 구조를 구축하세요.</li><li>클래스명과 변수명을 표준 네이밍 규칙에 맞게 수정하세요.</li><li>사용자 가이드의 내용을 보완하고 버전 정보를 업데이트하세요.</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <p>보고서 생성 시간: 2025-08-09T17:51:02.527462</p>
+            <p>POSCO WatchHamster v3.0 & POSCO News 250808 네이밍 컨벤션 표준화 프로젝트</p>
+        </div>
+    </div>
+</body>
+</html>

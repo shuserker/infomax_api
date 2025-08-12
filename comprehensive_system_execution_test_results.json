@@ -1,0 +1,59 @@
+{
+  "timestamp": "2025-08-09T19:43:08.108318",
+  "test_results": {
+    "watchhamster_control": {
+      "bat_control_center": {
+        "exists": true,
+        "platform_compatible": false,
+        "message": "BAT file exists (Windows only)"
+      },
+      "command_control_center": {
+        "exists": true,
+        "executable": true,
+        "message": "Shell script started successfully"
+      }
+    },
+    "posco_news_monitoring": {
+      "main_news_file": {
+        "exists": true,
+        "executable": true,
+        "message": "Script completed successfully"
+      },
+      "watchhamster_monitor": {
+        "exists": true,
+        "executable": true,
+        "message": "Script started and running successfully"
+      },
+      "main_notifier": {
+        "exists": true,
+        "executable": true,
+        "message": "Script started and running successfully"
+      }
+    },
+    "shell_batch_scripts": {
+      "🚀🚀POSCO_News_250808_Direct_Start.sh": {
+        "exists": true,
+        "executable": true,
+        "message": "Shell script started successfully"
+      }
+    },
+    "webhook_functionality": {
+      "webhook_1": {
+        "url": "https://infomax.dooray.com/services/32624624842773...",
+        "accessible": true,
+        "message": "Webhook accessible (status: 200)"
+      },
+      "webhook_2": {
+        "url": "https://infomax.dooray.com/services/32624624842773...",
+        "accessible": true,
+        "message": "Webhook accessible (status: 200)"
+      }
+    }
+  },
+  "overall_status": "EXCELLENT",
+  "summary": {
+    "success_rate": 100.0,
+    "total_tests": 8,
+    "passed_tests": 8
+  }
+}

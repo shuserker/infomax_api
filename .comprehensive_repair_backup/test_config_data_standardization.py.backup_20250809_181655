@@ -1,0 +1,354 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+POSCO 설정 파일 및 데이터 파일 표준화 시스템 테스트
+Test suite for Configuration and Data File Standardization System
+
+이 테스트 스위트는 설정 파일 및 데이터 파일 표준화 시스템의 모든 기능을 검증합니다.
+"""
+
+import unittest
+import tempfile
+import json
+import os
+from pathlib import Path
+from datetime import datetime
+import shutil
+
+from config_data_standardizer import ConfigDataStandardizer
+
+class TestConfigDataStandardization(unittest.TestCase):
+    """설정 파일 및 데이터 파일 표준화 테스트 클래스"""
+    
+    def setUp(self):
+        """테스트 환경 설정"""
+        # 임시 디렉토리 생성
+        self.test_dir = Path(tempfile.mkdtemp())
+        self.standardizer = ConfigDataStandardizer(str(self.test_dir))
+        
+        # 테스트용 파일들 생성
+        self.create_test_files()
+    
+    def tearDown(self):
+        """테스트 환경 정리"""
+        # 임시 디렉토리 삭제
+        shutil.rmtree(self.test_dir)
+    
+    def create_test_files(self):
+        """테스트용 파일들 생성"""
+        # 1. 테스트용 JSON 설정 파일들
+        test_configs = {
+            "modules.json": {
+                "modules": {
+                    "posco_main_notifier": {
+                        "script_path": "posco_main_notifier.py",
+                        "description": "POSCO News 250808 알림 시스템 - v2 버전",
+                        "environment_vars": {
+                            "PYTHONUNBUFFERED": "1"
+                        }
+                    }
+                }
+            },
+            "config.json": {
+                "system_info": {
+                    "version": "old_version",
+                    "name": "POSCO System"
+                }
+            },
+            "POSCO News 250808_data.json": {
+                "data": {
+                    "news_items": []
+                }
+            },
+            "test_config.json": {
+                "test_settings": {
+                    "enabled": True
+                }
+            }
+        }
+        
+        for filename, content in test_configs.items():
+            file_path = self.test_dir / filename
+            with open(file_path, 'w', encoding='utf-8') as f:
+                json.dump(content, f, ensure_ascii=False, indent=2)
+        
+        # 2. 테스트용 로그 파일들
+        test_logs = [
+            "watchhamster.log",
+            "WatchHamster.log", 
+            "POSCO News 250808.log",
+            "posco_main_notifier.log",
+            "main_notifier.log",
+            "simple_monitor.log"
+        ]
+        
+        for log_name in test_logs:
+            log_path = self.test_dir / log_name
+            with open(log_path, 'w', encoding='utf-8') as f:
+                f.write(f"Test log content for {log_name}\n")
+        
+        # 3. 테스트용 데이터 파일들
+        test_data_files = [
+            "POSCO News 250808_data.json",
+            "POSCO News 250808_cache.json", 
+            "WatchHamster_status.json",
+            "system_status.json",
+            "main_notifier_state.json"
+        ]
+        
+        for data_name in test_data_files:
+            if not (self.test_dir / data_name).exists():  # 이미 생성된 파일 제외
+                data_path = self.test_dir / data_name
+                with open(data_path, 'w', encoding='utf-8') as f:
+                    json.dump({"test_data": True}, f)
+        
+        # 4. 서브디렉토리에 테스트 파일들
+        sub_dir = self.test_dir / "Monitoring" / "POSCO News 250808_mini"
+        sub_dir.mkdir(parents=True, exist_ok=True)
+        
+        sub_config = sub_dir / "modules.json"
+        with open(sub_config, 'w', encoding='utf-8') as f:
+            json.dump({
+                "metadata": {"version": "old"},
+                "modules": {"test_module": {"description": "Test module v2"}}
+            }, f)
+    
+    def test_find_json_files(self):
+        """JSON 파일 찾기 테스트"""
+        json_files = self.standardizer.find_json_files()
+        
+        # 생성한 JSON 파일들이 모두 발견되는지 확인
+        found_names = [f.name for f in json_files]
+        expected_files = ["modules.json", "config.json", "POSCO News 250808_data.json", "test_config.json"]
+        
+        for expected in expected_files:
+            self.assertIn(expected, found_names, f"{expected} 파일이 발견되지 않았습니다")
+        
+        print(f"✅ JSON 파일 찾기 테스트 통과: {len(json_files)}개 파일 발견")
+    
+    def test_json_content_standardization(self):
+        """JSON 내용 표준화 테스트"""
+        # 테스트용 JSON 내용
+        test_content = {
+            "modules": {
+                "test_module": {
+                    "description": "Test module v2 version",
+                    "environment_vars": {}
+                }
+            }
+        }
+        
+        # 표준화 실행
+        standardized, modified = self.standardizer.standardize_json_content(
+            test_content, self.test_dir / "test.json"
+        )
+        
+        # 결과 검증
+        self.assertTrue(modified, "내용이 수정되어야 합니다")
+        self.assertIn("metadata", standardized, "metadata 섹션이 추가되어야 합니다")
+        
+        metadata = standardized["metadata"]
+        self.assertEqual(metadata["watchhamster_version"], "v3.0")
+        self.assertEqual(metadata["POSCO News 250808_version"], "250808")
+        self.assertIn("last_updated", metadata)
+        
+        print("✅ JSON 내용 표준화 테스트 통과")
+    
+    def test_log_file_name_standardization(self):
+        """로그 파일명 표준화 테스트"""
+        # 표준화 실행
+        results = self.standardizer.standardize_log_file_names()
+        
+        # 결과 검증
+        renamed_files = [r for r in results if r.get("status") == "renamed"]
+        self.assertGreater(len(renamed_files), 0, "일부 로그 파일이 이름 변경되어야 합니다")
+        
+        # 특정 변경 사항 확인
+        name_changes = {r["old_name"]: r["new_name"] for r in renamed_files}
+        
+        if "watchhamster.log" in name_changes:
+            self.assertEqual(name_changes["watchhamster.log"], "WatchHamster_v3.0.log")
+        
+        if "posco_main_notifier.log" in name_changes:
+            self.assertEqual(name_changes["posco_main_notifier.log"], "POSCO News 250808_250808_main.log")
+        
+        print(f"✅ 로그 파일명 표준화 테스트 통과: {len(renamed_files)}개 파일 이름 변경")
+    
+    def test_data_file_name_standardization(self):
+        """데이터 파일명 표준화 테스트"""
+        # 표준화 실행
+        results = self.standardizer.standardize_data_file_names()
+        
+        # 결과 검증
+        renamed_files = [r for r in results if r.get("status") == "renamed"]
+        
+        # 특정 변경 사항 확인
+        name_changes = {r["old_name"]: r["new_name"] for r in renamed_files}
+        
+        expected_changes = {
+            "WatchHamster_status.json": "WatchHamster_v3.0_status.json",
+            "system_status.json": "posco_system_250808_status.json",
+            "main_notifier_state.json": "POSCO News 250808_250808_notifier_state.json"
+        }
+        
+        for old_name, expected_new_name in expected_changes.items():
+            if old_name in name_changes:
+                self.assertEqual(name_changes[old_name], expected_new_name)
+        
+        print(f"✅ 데이터 파일명 표준화 테스트 통과: {len(renamed_files)}개 파일 이름 변경")
+    
+    def test_environment_variables_file_creation(self):
+        """환경 변수 파일 생성 테스트"""
+        # 환경 변수 파일 생성
+        env_file_path = self.standardizer.create_environment_variables_file()
+        
+        # 파일 존재 확인
+        self.assertTrue(os.path.exists(env_file_path), "환경 변수 파일이 생성되어야 합니다")
+        
+        # 파일 내용 확인
+        with open(env_file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # 필수 환경 변수들이 포함되어 있는지 확인
+        required_vars = [
+            "WATCHHAMSTER_VERSION=v3.0",
+            "POSCO_NEWS_VERSION=250808",
+            "WATCHHAMSTER_V3_0_ENABLED=true",
+            "POSCO_NEWS_250808_ENABLED=true"
+        ]
+        
+        for var in required_vars:
+            self.assertIn(var, content, f"환경 변수 {var}가 파일에 포함되어야 합니다")
+        
+        print("✅ 환경 변수 파일 생성 테스트 통과")
+    
+    def test_backup_functionality(self):
+        """백업 기능 테스트"""
+        # 테스트 파일 생성
+        test_file = self.test_dir / "test_backup.json"
+        test_content = {"test": "data"}
+        
+        with open(test_file, 'w', encoding='utf-8') as f:
+            json.dump(test_content, f)
+        
+        # 백업 실행
+        backup_path = self.standardizer.backup_file(test_file)
+        
+        # 백업 파일 존재 확인
+        self.assertTrue(backup_path.exists(), "백업 파일이 생성되어야 합니다")
+        
+        # 백업 파일 내용 확인
+        with open(backup_path, 'r', encoding='utf-8') as f:
+            backup_content = json.load(f)
+        
+        self.assertEqual(backup_content, test_content, "백업 파일 내용이 원본과 일치해야 합니다")
+        
+        print("✅ 백업 기능 테스트 통과")
+    
+    def test_full_standardization_workflow(self):
+        """전체 표준화 워크플로우 테스트"""
+        # 전체 표준화 실행
+        results = self.standardizer.run_full_standardization()
+        
+        # 성공 여부 확인
+        self.assertTrue(results["success"], "전체 표준화가 성공해야 합니다")
+        
+        # 각 단계 결과 확인
+        self.assertIn("json_results", results)
+        self.assertIn("log_results", results)
+        self.assertIn("data_results", results)
+        self.assertIn("env_file", results)
+        self.assertIn("report", results)
+        
+        # 보고서 파일 생성 확인
+        report_file = self.test_dir / "config_data_standardization_report.json"
+        self.assertTrue(report_file.exists(), "표준화 보고서 파일이 생성되어야 합니다")
+        
+        # 보고서 내용 확인
+        with open(report_file, 'r', encoding='utf-8') as f:
+            report = json.load(f)
+        
+        self.assertIn("standardization_info", report)
+        self.assertIn("summary", report)
+        self.assertIn("changes_log", report)
+        
+        print("✅ 전체 표준화 워크플로우 테스트 통과")
+    
+    def test_version_consistency(self):
+        """버전 일관성 테스트"""
+        # 버전 상수 확인
+        self.assertEqual(self.standardizer.WATCHHAMSTER_VERSION, "v3.0")
+        self.assertEqual(self.standardizer.POSCO_NEWS_VERSION, "250808")
+        
+        # 표준 버전 필드 확인
+        version_fields = self.standardizer.STANDARD_VERSION_FIELDS
+        self.assertEqual(version_fields["watchhamster_version"], "v3.0")
+        self.assertEqual(version_fields["POSCO News 250808_version"], "250808")
+        
+        # 환경 변수 매핑 확인
+        env_mapping = self.standardizer.ENV_VAR_MAPPING
+        self.assertEqual(env_mapping["WATCHHAMSTER_VERSION"], "v3.0")
+        self.assertEqual(env_mapping["POSCO_NEWS_VERSION"], "250808")
+        
+        print("✅ 버전 일관성 테스트 통과")
+    
+    def test_error_handling(self):
+        """오류 처리 테스트"""
+        # 잘못된 JSON 파일 생성
+        invalid_json = self.test_dir / "invalid.json"
+        with open(invalid_json, 'w', encoding='utf-8') as f:
+            f.write("{ invalid json content")
+        
+        # 표준화 실행 (오류가 발생해도 전체 프로세스는 계속되어야 함)
+        results = self.standardizer.run_full_standardization()
+        
+        # 일부 오류가 있어도 전체적으로는 성공해야 함
+        self.assertTrue(results["success"], "일부 오류가 있어도 전체 프로세스는 성공해야 합니다")
+        
+        print("✅ 오류 처리 테스트 통과")
+
+def run_comprehensive_test():
+    """포괄적인 테스트 실행"""
+    print("🧪 POSCO 설정 파일 및 데이터 파일 표준화 시스템 테스트 시작")
+    print("=" * 70)
+    
+    # 테스트 스위트 생성
+    test_suite = unittest.TestLoader().loadTestsFromTestCase(TestConfigDataStandardization)
+    
+    # 테스트 실행
+    runner = unittest.TextTestRunner(verbosity=2)
+    result = runner.run(test_suite)
+    
+    # 결과 요약
+    print("\n" + "=" * 70)
+    print("📊 테스트 결과 요약")
+    print(f"✅ 성공한 테스트: {result.testsRun - len(result.failures) - len(result.errors)}")
+    print(f"❌ 실패한 테스트: {len(result.failures)}")
+    print(f"🚨 오류 발생 테스트: {len(result.errors)}")
+    
+    if result.failures:
+        print("\n❌ 실패한 테스트:")
+        for test, traceback in result.failures:
+            print(f"  • {test}: {traceback}")
+    
+    if result.errors:
+        print("\n🚨 오류 발생 테스트:")
+        for test, traceback in result.errors:
+            print(f"  • {test}: {traceback}")
+    
+    # 성공 여부 반환
+    return len(result.failures) == 0 and len(result.errors) == 0
+
+def main():
+    """메인 실행 함수"""
+    success = run_comprehensive_test()
+    
+    if success:
+        print("\n🎉 모든 테스트가 성공적으로 완료되었습니다!")
+        return 0
+    else:
+        print("\n💥 일부 테스트가 실패했습니다.")
+        return 1
+
+if __name__ == "__main__":
+    exit(main())

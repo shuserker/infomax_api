@@ -1,4 +1,4 @@
-# 🔄 POSCO 워치햄스터 v2.0 마이그레이션 가이드
+# 🔄 POSCO WatchHamster v3.0 마이그레이션 가이드
 
 ## 📖 목차
 1. [마이그레이션 개요](#마이그레이션-개요)
@@ -12,8 +12,8 @@
 ## 🎯 마이그레이션 개요
 
 ### 마이그레이션 범위
-- **기존 시스템**: POSCO 워치햄스터 v1.x
-- **새로운 시스템**: POSCO 워치햄스터 v2.0
+- **기존 시스템**: POSCO WatchHamster v1.x
+- **새로운 시스템**: POSCO WatchHamster v3.0
 - **호환성**: 기존 기능 100% 보존
 - **추가 기능**: 새로운 아키텍처 및 향상된 기능
 
@@ -24,7 +24,7 @@
 기존 시스템 (v1.x)                새로운 시스템 (v2.0)
 ├── monitor_WatchHamster.py    →  ├── monitor_WatchHamster.py (개선)
 ├── 개별 모듈들                →  ├── 개별 모듈들 (그대로 유지)
-└── 기본 프로세스 관리          →  ├── Posco_News_mini_v2/
+└── 기본 프로세스 관리          →  ├── POSCO News_v2/
                                   │   ├── core/
                                   │   │   ├── enhanced_process_manager.py
                                   │   │   ├── module_registry.py
@@ -42,7 +42,7 @@
 #!/bin/bash
 # backup_before_migration.sh
 
-echo "🔄 POSCO 워치햄스터 마이그레이션 백업 시작"
+echo "🔄 POSCO WatchHamster 마이그레이션 백업 시작"
 
 # 백업 디렉토리 생성
 BACKUP_DIR="backup_$(date +%Y%m%d_%H%M%S)"
@@ -57,8 +57,8 @@ cp *.json "$BACKUP_DIR/" 2>/dev/null || true
 
 # 설정 파일 백업
 echo "⚙️ 설정 파일 백업 중..."
-if [ -f "Monitoring/Posco_News_mini/config.py" ]; then
-    cp "Monitoring/Posco_News_mini/config.py" "$BACKUP_DIR/"
+if [ -f "Monitoring/POSCO_News_250808/config.py" ]; then
+    cp "Monitoring/POSCO_News_250808/config.py" "$BACKUP_DIR/"
 fi
 
 # 데이터베이스 백업 (있는 경우)
@@ -85,7 +85,7 @@ python3 --version
 # 필수 패키지 확인
 echo "📦 필수 패키지 확인:"
 python3 -c "
-import sys
+import system_functionality_verification.pytem_functionality_verification.py
 packages = ['requests', 'psutil', 'json']
 missing = []
 
@@ -123,7 +123,7 @@ echo "✅ 요구사항 확인 완료"
 
 set -e  # 오류 시 중단
 
-echo "🚀 POSCO 워치햄스터 v2.0 마이그레이션 시작"
+echo "🚀 POSCO WatchHamster v3.0 마이그레이션 시작"
 
 # 색상 정의
 RED='\033[0;31m'
@@ -151,24 +151,24 @@ print_error() {
 # 단계 1: 사전 확인
 print_step "1" "사전 확인 및 백업"
 
-# 기존 워치햄스터 중지
-if pgrep -f "monitor_WatchHamster.py" > /dev/null; then
-    print_warning "기존 워치햄스터 중지 중..."
-    pkill -f "monitor_WatchHamster.py"
+# 기존 WatchHamster 중지
+if pgrep -f ".naming_backup/config_data_backup/watchhamster.log" > /dev/null; then
+    print_warning "기존 WatchHamster 중지 중..."
+    pkill -f ".naming_backup/config_data_backup/watchhamster.log"
     sleep 5
 fi
 
 # 백업 생성
-./backup_before_migration.sh
+# BROKEN_REF: ./backup_before_migration.sh
 
 # 단계 2: v2 아키텍처 설치
 print_step "2" "v2 아키텍처 설치"
 
 # v2 디렉토리 생성
-mkdir -p Monitoring/Posco_News_mini_v2/core
+mkdir -p Monitoring/POSCO News_v2/core
 
 # 핵심 컴포넌트 파일들이 존재하는지 확인
-if [ ! -f "Monitoring/Posco_News_mini_v2/core/enhanced_process_manager.py" ]; then
+if [ ! -f "Monitoring/WatchHamster_v3.0/core/enhanced_process_manager.py" ]; then
     print_error "v2 컴포넌트 파일들이 없습니다. 먼저 v2 파일들을 배치해주세요."
     exit 1
 fi
@@ -180,9 +180,9 @@ print_step "3" "설정 파일 마이그레이션"
 
 # 기존 설정에서 새 설정으로 변환
 python3 << 'EOF'
-import json
-import os
-from datetime import datetime
+import test_config.test_config.json
+import pposco_news_250808_monitor.logco_news_250808_monitor.log
+# BROKEN_REF: from datetime import datetime
 
 # 기존 설정 로드 (있는 경우)
 config_data = {
@@ -193,7 +193,7 @@ config_data = {
     },
     "modules": {
         "posco_main_notifier": {
-            "script_path": "posco_main_notifier.py",
+            "script_path": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/posco_main_notifier.py",
             "description": "POSCO 메인 뉴스 알림 시스템",
             "auto_start": True,
             "restart_on_failure": True,
@@ -203,12 +203,12 @@ config_data = {
             "environment_vars": {
                 "PYTHONUNBUFFERED": "1"
             },
-            "working_directory": "../Posco_News_mini",
+            "working_directory": "../POSCO News",
             "timeout": 30,
             "priority": 1
         },
         "realtime_news_monitor": {
-            "script_path": "realtime_news_monitor.py",
+            "script_path": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/realtime_news_monitor.py",
             "description": "실시간 뉴스 모니터링 시스템",
             "auto_start": True,
             "restart_on_failure": True,
@@ -218,12 +218,12 @@ config_data = {
             "environment_vars": {
                 "PYTHONUNBUFFERED": "1"
             },
-            "working_directory": "../Posco_News_mini",
+            "working_directory": "../POSCO News",
             "timeout": 30,
             "priority": 2
         },
         "integrated_report_scheduler": {
-            "script_path": "integrated_report_scheduler.py",
+            "script_path": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/integrated_report_scheduler.py",
             "description": "통합 리포트 스케줄러",
             "auto_start": True,
             "restart_on_failure": True,
@@ -233,7 +233,7 @@ config_data = {
             "environment_vars": {
                 "PYTHONUNBUFFERED": "1"
             },
-            "working_directory": "../Posco_News_mini",
+            "working_directory": "../POSCO News",
             "timeout": 30,
             "priority": 3
         }
@@ -241,23 +241,23 @@ config_data = {
 }
 
 # modules.json 생성
-with open('Monitoring/Posco_News_mini_v2/modules.json', 'w', encoding='utf-8') as f:
+with open('.naming_backup/config_data_backup/Monitoring/Posco_News_mini/modules.json', 'w', encoding='utf-8') as f:
     json.dump(config_data, f, indent=2, ensure_ascii=False)
 
 print("✅ modules.json 생성 완료")
 EOF
 
-# 단계 4: 워치햄스터 업데이트 확인
-print_step "4" "워치햄스터 업데이트 확인"
+# 단계 4: WatchHamster 업데이트 확인
+print_step "4" "WatchHamster 업데이트 확인"
 
-# 새로운 아키텍처 import 테스트
+# 새로운 아키텍처 import .naming_backup/scripts/🧪POSCO_.naming_backup/scripts/🧪POSCO_테스트_실행.bat_실행.bat
 python3 -c "
-import sys
-import os
-sys.path.insert(0, 'Monitoring/Posco_News_mini')
+import system_functionality_verification.pytem_functionality_verification.py
+import pposco_news_250808_monitor.logco_news_250808_monitor.log
+sys.path.insert(0, 'Monitoring/POSCO News')
 
 try:
-    from monitor_WatchHamster import PoscoMonitorWatchHamster
+    from .comprehensive_repair_backup/.comprehensive_repair_backup/monitor_WatchHamster_v3.0.py.backup_20250809_181656_v3.0.py.backup_20250809_181656 import .naming_backup/config_data_backup/watchhamster.log
     wh = PoscoMonitorWatchHamster()
     
     # 새로운 컴포넌트 확인
@@ -276,17 +276,17 @@ try:
     else:
         print('⚠️ NotificationManager 비활성화')
         
-    print('🎉 워치햄스터 v2.0 초기화 성공')
+    print('🎉 WatchHamster v3.0 초기화 성공')
     
 except Exception as e:
-    print(f'❌ 워치햄스터 초기화 실패: {e}')
+    print(f'❌ WatchHamster 초기화 실패: {e}')
     exit(1)
 "
 
 # 단계 5: 제어센터 업데이트 확인
 print_step "5" "제어센터 업데이트 확인"
 
-if grep -q "워치햄스터 관리" posco_control_center.sh; then
+if grep -q "WatchHamster 관리" posco_control_center.sh; then
     print_success "제어센터 v2.0 메뉴 구조 확인"
 else
     print_warning "제어센터가 v2.0으로 업데이트되지 않았습니다"
@@ -296,24 +296,24 @@ fi
 print_step "6" "마이그레이션 검증"
 
 # 테스트 시작
-print_warning "워치햄스터 테스트 시작 (10초간)..."
-timeout 10s python3 Monitoring/Posco_News_mini/monitor_WatchHamster.py &
+print_warning "WatchHamster 테스트 시작 (10초간)..."
+timeout 10s python3 Monitoring/POSCO News/monitor_WatchHamster.py &
 TEST_PID=$!
 
 sleep 5
 
 if kill -0 $TEST_PID 2>/dev/null; then
-    print_success "워치햄스터 테스트 실행 성공"
+    print_success "WatchHamster 테스트 실행 성공"
     kill $TEST_PID 2>/dev/null
 else
-    print_error "워치햄스터 테스트 실행 실패"
+    print_error "WatchHamster 테스트 실행 실패"
 fi
 
 # 단계 7: 마이그레이션 완료
 print_step "7" "마이그레이션 완료"
 
 echo ""
-echo "🎉 POSCO 워치햄스터 v2.0 마이그레이션 완료!"
+echo "🎉 POSCO WatchHamster v3.0 마이그레이션 완료!"
 echo ""
 echo "📋 마이그레이션 결과:"
 echo "  ✅ 기존 기능 100% 보존"
@@ -322,13 +322,13 @@ echo "  ✅ 향상된 프로세스 관리"
 echo "  ✅ 개선된 제어센터"
 echo ""
 echo "🚀 다음 단계:"
-echo "  1. ./posco_control_center.sh 실행"
-echo "  2. 메뉴 1번으로 워치햄스터 시작"
+echo "  1. ./.naming_backup/scripts/.naming_backup/scripts/posco_control_center.sh 실행"
+echo "  2. 메뉴 1번으로 WatchHamster 시작"
 echo "  3. 메뉴 4번으로 상태 확인"
 echo ""
 echo "📞 문제 발생 시:"
-echo "  - 로그 확인: tail -f watchhamster.log"
-echo "  - 롤백: ./rollback_migration.sh"
+echo ".naming_backup/config_data_backup/watchhamster.log"
+echo "rollback_migration.sh"
 echo ""
 ```
 
@@ -342,10 +342,10 @@ echo ""
 기존 v1.x 설정을 v2.0 형식으로 변환합니다.
 """
 
-import json
-import os
-import sys
-from datetime import datetime
+import test_config.test_config.json
+import pposco_news_250808_monitor.logco_news_250808_monitor.log
+import system_functionality_verification.pytem_functionality_verification.py
+# BROKEN_REF: from datetime import datetime
 
 def convert_config():
     """기존 설정을 v2.0 형식으로 변환"""
@@ -353,7 +353,7 @@ def convert_config():
     print("🔄 설정 변환 시작")
     
     # 기존 config.py에서 설정 추출 (있는 경우)
-    config_path = "Monitoring/Posco_News_mini/config.py"
+    config_path = "Monitoring/POSCO_News_250808/config.py"
     existing_config = {}
     
     if os.path.exists(config_path):
@@ -390,7 +390,7 @@ def convert_config():
     # 기본 모듈들 설정
     default_modules = {
         "posco_main_notifier": {
-            "script_path": "posco_main_notifier.py",
+            "script_path": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/posco_main_notifier.py",
             "description": "POSCO 메인 뉴스 알림 시스템 - v1.x에서 마이그레이션",
             "auto_start": True,
             "restart_on_failure": True,
@@ -400,12 +400,12 @@ def convert_config():
             "environment_vars": {
                 "PYTHONUNBUFFERED": "1"
             },
-            "working_directory": "../Posco_News_mini",
+            "working_directory": "../POSCO News",
             "timeout": 30,
             "priority": 1
         },
         "realtime_news_monitor": {
-            "script_path": "realtime_news_monitor.py", 
+            "script_path": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/realtime_news_monitor.py", 
             "description": "실시간 뉴스 모니터링 시스템 - v1.x에서 마이그레이션",
             "auto_start": True,
             "restart_on_failure": True,
@@ -415,12 +415,12 @@ def convert_config():
             "environment_vars": {
                 "PYTHONUNBUFFERED": "1"
             },
-            "working_directory": "../Posco_News_mini",
+            "working_directory": "../POSCO News",
             "timeout": 30,
             "priority": 2
         },
         "integrated_report_scheduler": {
-            "script_path": "integrated_report_scheduler.py",
+            "script_path": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/integrated_report_scheduler.py",
             "description": "통합 리포트 스케줄러 - v1.x에서 마이그레이션", 
             "auto_start": True,
             "restart_on_failure": True,
@@ -430,7 +430,7 @@ def convert_config():
             "environment_vars": {
                 "PYTHONUNBUFFERED": "1"
             },
-            "working_directory": "../Posco_News_mini",
+            "working_directory": "../POSCO News",
             "timeout": 30,
             "priority": 3
         }
@@ -439,7 +439,7 @@ def convert_config():
     # 선택적 모듈들 확인 및 추가
     optional_modules = {
         "historical_data_collector": {
-            "script_path": "historical_data_collector.py",
+            "script_path": "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/historical_data_collector.py",
             "description": "히스토리 데이터 수집기 - v1.x에서 마이그레이션",
             "auto_start": False,  # 선택적 시작
             "restart_on_failure": True,
@@ -449,7 +449,7 @@ def convert_config():
             "environment_vars": {
                 "PYTHONUNBUFFERED": "1"
             },
-            "working_directory": "../Posco_News_mini",
+            "working_directory": "../POSCO News",
             "timeout": 30,
             "priority": 4
         }
@@ -460,7 +460,7 @@ def convert_config():
     
     # 선택적 모듈들 존재 확인 후 추가
     for module_name, module_config in optional_modules.items():
-        script_path = os.path.join("Monitoring/Posco_News_mini", module_config["script_path"])
+        script_path = os.path.join("Monitoring/POSCO News", module_config["script_path"])
         if os.path.exists(script_path):
             modules_config["modules"][module_name] = module_config
             print(f"✅ 선택적 모듈 발견: {module_name}")
@@ -468,7 +468,7 @@ def convert_config():
             print(f"⚠️ 선택적 모듈 없음: {module_name}")
     
     # modules.json 저장
-    output_path = "Monitoring/Posco_News_mini_v2/modules.json"
+    output_path = ".naming_backup/config_data_backup/Monitoring/Posco_News_mini/modules.json"
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     
     with open(output_path, 'w', encoding='utf-8') as f:

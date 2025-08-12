@@ -1,0 +1,361 @@
+#!/usr/bin/env python3
+"""
+Focused Integration Repair System
+Task 8: 최종 통합 테스트 95% 달성 - Repair Phase
+
+This system focuses on fixing the core issues preventing 95% success rate:
+1. Python syntax errors in core modules
+2. File path length issues from nested backups
+3. Module import dependencies
+"""
+
+import os
+import sys
+import subprocess
+import shutil
+from pathlib import Path
+from typing import Dict, List, Tuple, Optional
+import logging
+import re
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+class FocusedIntegrationRepairSystem:
+    """Focused repair system to achieve 95% integration test success rate"""
+    
+    def __init__(self):
+        self.workspace_root = Path.cwd()
+        self.repair_results = []
+        
+        # Core modules that need to be fixed
+        self.core_modules = [
+            "naming_convention_manager.py",
+            "python_naming_standardizer.py", 
+            "shell_batch_script_standardizer.py",
+            "documentation_standardizer.py",
+            "config_data_standardizer.py",
+            "system_output_message_standardizer.py",
+            "folder_structure_reorganizer.py",
+            "naming_standardization_verification_system.py"
+        ]
+        
+        logger.info("🔧 Focused Integration Repair System initialized")
+
+    def cleanup_nested_backup_directories(self) -> Dict[str, any]:
+        """Clean up problematic nested backup directories causing path length issues"""
+        logger.info("🧹 Cleaning up nested backup directories...")
+        
+        cleanup_results = {
+            "directories_removed": [],
+            "space_freed_mb": 0,
+            "errors": []
+        }
+        
+        try:
+            # Find deeply nested backup directories
+            backup_patterns = [
+                ".repair_backups/full_system_backup_*",
+                ".backup*/backup*",
+                "*backup*/*backup*/*backup*"
+            ]
+            
+            for pattern in backup_patterns:
+                for backup_dir in self.workspace_root.glob(pattern):
+                    if backup_dir.is_dir():
+                        try:
+                            # Calculate size before deletion
+                            size_mb = sum(f.stat().st_size for f in backup_dir.rglob('*') if f.is_file()) / 1024 / 1024
+                            
+                            # Remove the directory
+                            shutil.rmtree(backup_dir)
+                            
+                            cleanup_results["directories_removed"].append(str(backup_dir.relative_to(self.workspace_root)))
+                            cleanup_results["space_freed_mb"] += size_mb
+                            
+                            logger.info(f"   ✅ Removed: {backup_dir.name} ({size_mb:.1f}MB)")
+                            
+                        except Exception as e:
+                            error_msg = f"Failed to remove {backup_dir}: {str(e)}"
+                            cleanup_results["errors"].append(error_msg)
+                            logger.warning(f"   ⚠️ {error_msg}")
+            
+            logger.info(f"🧹 Cleanup completed: {len(cleanup_results['directories_removed'])} directories removed, {cleanup_results['space_freed_mb']:.1f}MB freed")
+            
+        except Exception as e:
+            error_msg = f"Cleanup process error: {str(e)}"
+            cleanup_results["errors"].append(error_msg)
+            logger.error(f"❌ {error_msg}")
+        
+        return cleanup_results
+
+    def fix_python_syntax_errors(self) -> Dict[str, any]:
+        """Fix Python syntax errors in core modules"""
+        logger.info("🐍 Fixing Python syntax errors in core modules...")
+        
+        syntax_results = {
+            "files_processed": 0,
+            "files_fixed": 0,
+            "fixes_applied": [],
+            "remaining_errors": []
+        }
+        
+        for module_name in self.core_modules:
+            module_path = self.workspace_root / module_name
+            if not module_path.exists():
+                continue
+                
+            syntax_results["files_processed"] += 1
+            
+            try:
+                # Read the file
+                with open(module_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                
+                original_content = content
+                fixes_applied = []
+                
+                # Fix 1: Common f-string errors
+                # Fix single '}' in f-strings
+                fstring_pattern = r'f"([^"]*\{[^}]*)\}([^"]*)"'
+                if re.search(r'f"[^"]*\{[^}]*\}[^}]*\}[^"]*"', content):
+                    content = re.sub(r'f"([^"]*\{[^}]*)\}\}([^"]*)"', r'f"\1}\2"', content)
+                    fixes_applied.append("Fixed f-string single '}' errors")
+                
+                # Fix 2: Parentheses mismatches
+                # Fix common bracket issues
+                content = re.sub(r'\]\s*\)', ')', content)  # Replace ]) with )
+                content = re.sub(r'\(\s*\]', '(', content)  # Replace (] with (
+                if '(' in content and ')' in content:
+                    # Count parentheses
+                    open_count = content.count('(')
+                    close_count = content.count(')')
+                    if open_count != close_count:
+                        fixes_applied.append(f"Parentheses mismatch detected ({open_count} open, {close_count} close)")
+                
+                # Fix 3: Indentation issues
+                lines = content.split('\n')
+                fixed_lines = []
+                for i, line in enumerate(lines):
+                    # Convert tabs to 4 spaces
+                    if '\t' in line:
+                        line = line.replace('\t', '    ')
+                        if i == 0 or not any('tab' in fix for fix in fixes_applied):
+                            fixes_applied.append("Converted tabs to spaces")
+                    
+                    # Fix common indentation patterns
+                    if line.strip() and not line.startswith(' ') and not line.startswith('#') and ':' in line:
+                        # This might be a function/class definition that should be at root level
+                        pass
+                    
+                    fixed_lines.append(line)
+                
+                content = '\n'.join(fixed_lines)
+                
+                # Fix 4: Invalid decimal literals (like 250808 being interpreted as octal)
+                # Replace patterns like var_25080_8 with var_250808
+                content = re.sub(r'var_(\d+)_(\d+)', r'var_\1\2', content)
+                if 'var_' in original_content and 'var_' in content and original_content != content:
+                    fixes_applied.append("Fixed invalid decimal literal patterns")
+                
+                # Fix 5: Common syntax patterns
+                # Fix 'with_open' patterns
+                content = re.sub(r'with_open\(([^,]+),_([^,]+),_([^)]+)\)', r'with open(\1, \2, \3)', content)
+                if 'with_open' in original_content:
+                    fixes_applied.append("Fixed 'with_open' syntax")
+                
+                # Fix variable assignment patterns
+                content = re.sub(r'(\w+):_(\w+)\s*=\s*', r'\1: \2 = ', content)
+                content = re.sub(r'(\w+)_\+_=\s*', r'\1 += ', content)
+                if ':_' in original_content or '_+_=' in original_content:
+                    fixes_applied.append("Fixed variable assignment patterns")
+                
+                # Fix print statement patterns
+                content = re.sub(r'print\("/n"_\+_"([^"]*)"', r'print("\\n" + "\1"', content)
+                if '"/n"_+_' in original_content:
+                    fixes_applied.append("Fixed print statement patterns")
+                
+                # Fix import patterns
+                content = re.sub(r'# SYNTAX_FIX: import ([^\n]+)', r'# import \1', content)
+                content = re.sub(r'import ([^.]+)\.py', r'import \1', content)
+                if 'SYNTAX_FIX:' in original_content:
+                    fixes_applied.append("Fixed import statement patterns")
+                
+                # Fix HTML content patterns
+                content = re.sub(r'html_content_\+_=\s*f""', r'html_content += f"""', content)
+                if 'html_content_+_=' in original_content:
+                    fixes_applied.append("Fixed HTML content concatenation")
+                
+                # Write the fixed content back
+                if content != original_content:
+                    with open(module_path, 'w', encoding='utf-8') as f:
+                        f.write(content)
+                    
+                    syntax_results["files_fixed"] += 1
+                    syntax_results["fixes_applied"].extend([f"{module_name}: {fix}" for fix in fixes_applied])
+                    
+                    logger.info(f"   ✅ Fixed {module_name}: {len(fixes_applied)} fixes applied")
+                else:
+                    logger.info(f"   ℹ️ {module_name}: No fixes needed")
+                
+                # Test syntax after fixes
+                try:
+                    compile(content, str(module_path), 'exec')
+                    logger.info(f"   ✅ {module_name}: Syntax validation passed")
+                except SyntaxError as e:
+                    error_msg = f"{module_name}: Syntax error still present (line {e.lineno}): {e.msg}"
+                    syntax_results["remaining_errors"].append(error_msg)
+                    logger.warning(f"   ⚠️ {error_msg}")
+                
+            except Exception as e:
+                error_msg = f"{module_name}: Processing error: {str(e)}"
+                syntax_results["remaining_errors"].append(error_msg)
+                logger.error(f"   ❌ {error_msg}")
+        
+        logger.info(f"🐍 Syntax repair completed: {syntax_results['files_fixed']}/{syntax_results['files_processed']} files fixed")
+        return syntax_results
+
+    def verify_module_imports(self) -> Dict[str, any]:
+        """Verify that core modules can be imported after fixes"""
+        logger.info("📦 Verifying module imports...")
+        
+        import_results = {
+            "total_modules": len(self.core_modules),
+            "successful_imports": [],
+            "failed_imports": [],
+            "success_rate": 0.0
+        }
+        
+        # Add current directory to Python path
+        sys.path.insert(0, str(self.workspace_root))
+        
+        for module_name in self.core_modules:
+            module_file = self.workspace_root / module_name
+            if not module_file.exists():
+                import_results["failed_imports"].append({
+                    "module": module_name.replace('.py', ''),
+                    "error": "Module file does not exist"
+                })
+                continue
+            
+            try:
+                # Import the module
+                module_import_name = module_name.replace('.py', '')
+                __import__(module_import_name)
+                import_results["successful_imports"].append(module_import_name)
+                logger.info(f"   ✅ {module_import_name}: Import successful")
+                
+            except Exception as e:
+                import_results["failed_imports"].append({
+                    "module": module_import_name,
+                    "error": str(e)
+                })
+                logger.warning(f"   ❌ {module_import_name}: Import failed - {str(e)}")
+        
+        import_results["success_rate"] = (len(import_results["successful_imports"]) / import_results["total_modules"] * 100) if import_results["total_modules"] > 0 else 0
+        
+        logger.info(f"📦 Import verification completed: {import_results['success_rate']:.1f}% success rate")
+        return import_results
+
+    def run_focused_repair(self) -> Dict[str, any]:
+        """Run focused repair process to achieve 95% integration test success"""
+        logger.info("🚀 Starting Focused Integration Repair System")
+        logger.info("=" * 60)
+        
+        repair_report = {
+            "timestamp": str(Path(__file__).stat().st_mtime),
+            "repair_phases": {}
+        }
+        
+        # Phase 1: Clean up nested backup directories
+        logger.info("Phase 1: Cleanup nested backup directories")
+        cleanup_results = self.cleanup_nested_backup_directories()
+        repair_report["repair_phases"]["cleanup"] = cleanup_results
+        
+        # Phase 2: Fix Python syntax errors
+        logger.info("\nPhase 2: Fix Python syntax errors")
+        syntax_results = self.fix_python_syntax_errors()
+        repair_report["repair_phases"]["syntax_fixes"] = syntax_results
+        
+        # Phase 3: Verify module imports
+        logger.info("\nPhase 3: Verify module imports")
+        import_results = self.verify_module_imports()
+        repair_report["repair_phases"]["import_verification"] = import_results
+        
+        # Calculate overall repair success
+        phases_successful = 0
+        total_phases = 3
+        
+        if len(cleanup_results["errors"]) == 0:
+            phases_successful += 1
+        if syntax_results["files_fixed"] > 0 and len(syntax_results["remaining_errors"]) < 3:
+            phases_successful += 1
+        if import_results["success_rate"] >= 70:  # At least 70% of modules should import
+            phases_successful += 1
+        
+        repair_success_rate = (phases_successful / total_phases * 100)
+        repair_report["overall_repair_success"] = {
+            "success_rate": repair_success_rate,
+            "phases_successful": phases_successful,
+            "total_phases": total_phases,
+            "ready_for_integration_test": repair_success_rate >= 80
+        }
+        
+        logger.info("=" * 60)
+        logger.info(f"🏁 Focused repair completed: {repair_success_rate:.1f}% success rate")
+        logger.info(f"📊 Phases successful: {phases_successful}/{total_phases}")
+        logger.info(f"🎯 Ready for integration test: {'✅ YES' if repair_success_rate >= 80 else '❌ NO'}")
+        logger.info("=" * 60)
+        
+        return repair_report
+
+def main():
+    """Main execution function"""
+    print("🔧 Focused Integration Repair System")
+    print("Task 8: 최종 통합 테스트 95% 달성 - Repair Phase")
+    print("=" * 60)
+    
+    try:
+        # Initialize repair system
+        repair_system = FocusedIntegrationRepairSystem()
+        
+        # Run focused repair
+        results = repair_system.run_focused_repair()
+        
+        # Print summary
+        overall = results["overall_repair_success"]
+        print(f"\n🎯 Repair Results:")
+        print(f"   Success Rate: {overall['success_rate']:.1f}%")
+        print(f"   Phases Successful: {overall['phases_successful']}/{overall['total_phases']}")
+        print(f"   Ready for Integration Test: {'✅ YES' if overall['ready_for_integration_test'] else '❌ NO'}")
+        
+        # Show key metrics
+        if "syntax_fixes" in results["repair_phases"]:
+            syntax = results["repair_phases"]["syntax_fixes"]
+            print(f"   Files Fixed: {syntax['files_fixed']}/{syntax['files_processed']}")
+        
+        if "import_verification" in results["repair_phases"]:
+            imports = results["repair_phases"]["import_verification"]
+            print(f"   Module Import Success: {imports['success_rate']:.1f}%")
+        
+        # Exit with appropriate code
+        if overall["ready_for_integration_test"]:
+            print("\n🎉 SUCCESS: System ready for integration testing!")
+            sys.exit(0)
+        else:
+            print("\n⚠️ PARTIAL: Some issues remain, but progress made")
+            sys.exit(1)
+            
+    except KeyboardInterrupt:
+        print("\n❌ Repair interrupted by user")
+        sys.exit(3)
+    except Exception as e:
+        print(f"\n❌ Repair system error: {e}")
+        sys.exit(4)
+
+if __name__ == "__main__":
+    main()

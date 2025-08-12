@@ -1,4 +1,4 @@
-# 🗂️ POSCO 워치햄스터 v2.0 프로젝트 정리 가이드
+# 🗂️ POSCO WatchHamster v3.0 프로젝트 정리 가이드
 
 ## 📋 정리 대상 파일 분석
 
@@ -11,10 +11,10 @@
 🎛️POSCO_제어센터_실행_v2.sh           # 중복  
 🎛️POSCO_제어센터_실행.bat             # 구버전
 🎛️POSCO_제어센터_Mac실행.command       # 구버전
-🐹워치햄스터_총괄_관리_센터_SIMPLE.bat   # 구버전
-🐹워치햄스터_총괄_관리_센터_v3.bat       # 구버전
-🐹워치햄스터_총괄_관리_센터.bat          # 구버전
-🐹워치햄스터_통합_관리_센터.bat          # 구버전
+🐹WatchHamster_총괄_관리_센터_SIMPLE.bat   # 구버전
+🐹WatchHamster_총괄_관리_센터_v3.bat       # 구버전
+🐹WatchHamster_총괄_관리_센터.bat          # 구버전
+🐹WatchHamster_통합_관리_센터.bat          # 구버전
 watchhamster_master_control.ps1        # 구버전
 watchhamster_master_control.sh         # 구버전
 posco_control_mac.sh                   # 중복
@@ -23,9 +23,9 @@ posco_control_mac.sh                   # 중복
 #### 2. 구버전 문서들
 ```bash
 # v2.0 문서로 대체되었으므로 삭제 가능
-워치햄스터_사용법.md                    # 구버전 (v2 가이드로 대체)
-워치햄스터_시스템_재구축_완료_보고서_v4.md # 구버전 (v2 완료보고서로 대체)
-Mac_워치햄스터_실행_가이드_v4.md         # 구버전 (v2 가이드로 대체)
+WatchHamster_사용법.md                    # 구버전 (v2 가이드로 대체)
+WatchHamster_시스템_재구축_완료_보고서_v4.md # 구버전 (v2 완료보고서로 대체)
+Mac_WatchHamster_실행_가이드_v4.md         # 구버전 (v2 가이드로 대체)
 🎨WINDOWS_TERMINAL_UPGRADE_v3.md       # 구버전
 🎨WINDOWS_TERMINAL_UPGRADE_v4.md       # 구버전
 ```
@@ -55,12 +55,12 @@ posco_control_center.sh               # 메인 제어센터
 Monitoring/                           # 전체 모니터링 시스템
 
 # v2.0 문서들
-📋POSCO_워치햄스터_v2_사용자_가이드.md
-🔧POSCO_워치햄스터_문제해결_가이드.md
-🔔POSCO_워치햄스터_알림시스템_가이드.md
-🛠️POSCO_워치햄스터_개발자_가이드.md
-🔄POSCO_워치햄스터_마이그레이션_가이드.md
-📋POSCO_워치햄스터_v2_프로젝트_완료_보고서.md
+📋POSCO_WatchHamster_v2_사용자_가이드.md
+🔧POSCO_WatchHamster_문제해결_가이드.md
+🔔POSCO_WatchHamster_알림시스템_가이드.md
+🛠️POSCO_WatchHamster_개발자_가이드.md
+🔄POSCO_WatchHamster_마이그레이션_가이드.md
+📋POSCO_WatchHamster_v2_프로젝트_완료_보고서.md
 
 # 마이그레이션 도구들
 migrate_to_v2.sh
@@ -98,7 +98,7 @@ posco_continuous_monitor.py           # 연속 모니터링
 #!/bin/bash
 # cleanup_old_files.sh
 
-echo "🗂️ POSCO 워치햄스터 v2.0 프로젝트 정리 시작"
+echo "🗂️ POSCO WatchHamster v3.0 프로젝트 정리 시작"
 
 # 백업 디렉토리 생성
 CLEANUP_BACKUP="cleanup_backup_$(date +%Y%m%d_%H%M%S)"
@@ -108,17 +108,17 @@ echo "📦 삭제 예정 파일들을 백업 중..."
 
 # 구버전 제어센터 스크립트들 백업 후 삭제
 OLD_SCRIPTS=(
-    "🎛️POSCO_제어센터_실행_v2.bat"
+    ".naming_backup/scripts/.naming_backup/scripts/.naming_backup/scripts/.naming_backup/scripts/🎛️POSCO_제어센터_실행_v2.bat"
     "🎛️POSCO_제어센터_실행_v2.sh"
     "🎛️POSCO_제어센터_실행.bat"
-    "🎛️POSCO_제어센터_Mac실행.command"
-    "🐹워치햄스터_총괄_관리_센터_SIMPLE.bat"
-    "🐹워치햄스터_총괄_관리_센터_v3.bat"
-    "🐹워치햄스터_총괄_관리_센터.bat"
-    "🐹워치햄스터_통합_관리_센터.bat"
+    ".naming_backup/scripts/.naming_backup/scripts/🎛️POSCO_제어센터_Mac실행.command"
+    ".naming_backup/config_data_backup/watchhamster.log"
+    ".naming_backup/config_data_backup/watchhamster.log"
+    ".naming_backup/config_data_backup/watchhamster.log"
+    ".naming_backup/config_data_backup/watchhamster.log"
     "watchhamster_master_control.ps1"
-    "watchhamster_master_control.sh"
-    "posco_control_mac.sh"
+    ".naming_backup/scripts/.naming_backup/scripts/.naming_backup/scripts/.naming_backup/scripts/watchhamster_master_control.sh"
+    ".naming_backup/scripts/.naming_backup/scripts/.naming_backup/scripts/.naming_backup/scripts/posco_control_mac.sh"
 )
 
 for file in "${OLD_SCRIPTS[@]}"; do
@@ -131,9 +131,9 @@ done
 
 # 구버전 문서들 백업 후 삭제
 OLD_DOCS=(
-    "워치햄스터_사용법.md"
-    "워치햄스터_시스템_재구축_완료_보고서_v4.md"
-    "Mac_워치햄스터_실행_가이드_v4.md"
+    ".naming_backup/config_data_backup/watchhamster.log"
+    ".naming_backup/config_data_backup/watchhamster.log"
+    ".naming_backup/config_data_backup/watchhamster.log"
     "🎨WINDOWS_TERMINAL_UPGRADE_v3.md"
     "🎨WINDOWS_TERMINAL_UPGRADE_v4.md"
 )
@@ -148,8 +148,8 @@ done
 
 # 임시 파일들 백업 후 삭제
 TEMP_FILES=(
-    "🚀POSCO_메인_알림_시작_직접.bat"
-    "🚀POSCO_메인_알림_시작_직접.sh"
+    ".naming_backup/scripts/.naming_backup/scripts/.naming_backup/scripts/.naming_backup/scripts/🚀POSCO_메인_알림_시작_직접.bat"
+    ".naming_backup/scripts/.naming_backup/scripts/.naming_backup/scripts/.naming_backup/scripts/🚀POSCO_메인_알림_시작_직접.sh"
     "POSCO_시작.bat"
     "🔄Git_덮어씌우기.bat"
 )

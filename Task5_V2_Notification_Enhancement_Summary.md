@@ -115,7 +115,7 @@ def _collect_v2_system_status(self):
 
 ### 3. 기존 알림 호출 업데이트
 
-기존 워치햄스터의 알림 호출을 v2 향상된 메서드로 업데이트:
+기존 WatchHamster의 알림 호출을 v2 향상된 메서드로 업데이트:
 
 - 시작 알림: `send_startup_notification_v2()` 사용
 - 상태 보고: `send_status_report_v2()` 사용  
@@ -220,7 +220,7 @@ Task 5 "v2 NotificationManager로 알림 시스템 향상"이 성공적으로 �
 - ✅ 안전한 폴백 메커니즘 구현
 - ✅ 87.5% 테스트 통과율 달성
 
-이 구현으로 POSCO 워치햄스터의 알림 시스템이 v2 아키텍처의 장점을 활용하면서도 기존 운영 환경과의 완벽한 호환성을 유지하게 되었습니다.
+이 구현으로 POSCO WatchHamster의 알림 시스템이 v2 아키텍처의 장점을 활용하면서도 기존 운영 환경과의 완벽한 호환성을 유지하게 되었습니다.
 
 ---
 

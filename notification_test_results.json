@@ -1,0 +1,36 @@
+{
+  "test_time": "2025-08-06 18:00:00",
+  "timestamp": "2025-08-11T09:10:33.823984",
+  "results": [
+    {
+      "test": "POSCO 뉴스 알림",
+      "success": true,
+      "result": "전송 성공",
+      "webhook": "DOORAY_WEBHOOK_URL"
+    },
+    {
+      "test": "워치햄스터 알림",
+      "success": true,
+      "result": "전송 성공",
+      "webhook": "WATCHHAMSTER_WEBHOOK_URL"
+    },
+    {
+      "test": "시스템 상태 알림",
+      "success": true,
+      "result": "전송 성공",
+      "webhook": "DOORAY_WEBHOOK_URL"
+    },
+    {
+      "test": "긴급 알림",
+      "success": true,
+      "result": "전송 성공",
+      "webhook": "DOORAY_WEBHOOK_URL"
+    },
+    {
+      "test": "유지보수 알림",
+      "success": true,
+      "result": "전송 성공",
+      "webhook": "DOORAY_WEBHOOK_URL"
+    }
+  ]
+}

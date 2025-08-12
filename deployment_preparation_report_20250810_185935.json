@@ -1,0 +1,123 @@
+{
+  "timestamp": "20250810_185935",
+  "deployment_checks": [
+    {
+      "name": "Python 파일 구문 검증",
+      "description": "Python 파일들의 구문 오류 검사",
+      "status": "failed",
+      "details": "구문 오류 파일: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_watchhamster_v3.0_notification.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/system_functionality_verification.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/verify_folder_reorganization.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/posco_file_renamer.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/final_integration_test_system.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_module_registry_integration.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/posco_continuous_monitor.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/deploy_latest_report.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/execute_test_scenario.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/run_end_to_end_tests.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_documentation_standardization.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_end_to_end_integration.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/run_comprehensive_tests.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/demo_watchhamster_v3.0_integration.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/file_renaming_system_old.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/naming_convention_manager_old.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_shell_batch_standardization.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/folder_structure_reorganizer.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/naming_standardization_verification_system.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/json_viewer.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/documentation_standardizer.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/sync_publish_branch.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/posco_news_viewer.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/shell_batch_script_standardizer.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_migration_verification_system.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_control_center_integration.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/config_data_standardizer.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_rollback_functionality.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/final_deployment_verification.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/indentation_fixer.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/system_output_message_standardizer.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/system_optimization_report_generator.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/migration_status_reporter.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/convert_config.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/final_reference_cleanup.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/post_migration_verification.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/critical_file_reference_fixer.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_process_lifecycle.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/refined_file_reference_repairer.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/run_final_integration_tests.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/task11_completion_demonstration.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_config_data_standardization.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_naming_standardization_verification.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_performance_monitoring.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_file_renaming_system.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/file_reference_repairer.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/python_naming_standardizer.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_system_output_message_standardization.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/file_reference_integrity_verification.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_naming_convention_manager.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/final_file_reference_cleanup.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/comprehensive_error_repairer.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/demo_performance_monitoring.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/final_system_integration_verification.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/test_watchhamster_v3.0_integration.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/migration_verification_system.py, /Users/jy_lee/Desktop/GIT_DEV/infomax_api/syntax_error_repairer.py",
+      "timestamp": "2025-08-10T18:59:38.177938"
+    },
+    {
+      "name": "모듈 의존성 검증",
+      "description": "핵심 모듈들의 import 가능성 검사",
+      "status": "failed",
+      "details": "실패한 모듈: naming_convention_manager: Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/Users/jy_lee/Desktop/GIT_DEV/infomax_api/naming_convention_manager.py\", line 12, in <module>\n    import verify_folder_reorganization\n  File \"/Users/jy_lee/Desktop/GIT_DEV/infomax_api/verify_folder_reorganization.py\", line 12\n    from typing import deployment_verification_checklist.md, Dict, Tuple\n                                                        ^\nSyntaxError: invalid syntax; python_naming_standardizer: Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/Users/jy_lee/Desktop/GIT_DEV/infomax_api/python_naming_standardizer.py\", line 59\n    (r'WATCHHAMSTER_VERSION/s*=/s*[\"/']v2/.0?[\"/']', f'WATCHHAMSTER_VERSION = \"{self.WATCHHAMSTER_VERSION}\"'),\n                                      ^\nSyntaxError: closing parenthesis ']' does not match opening parenthesis '('; shell_batch_script_standardizer: Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/Users/jy_lee/Desktop/GIT_DEV/infomax_api/shell_batch_script_standardizer.py\", line 57\n    )\n    ^\nSyntaxError: closing parenthesis ')' does not match opening parenthesis '[' on line 54; documentation_standardizer: Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/Users/jy_lee/Desktop/GIT_DEV/infomax_api/documentation_standardizer.py\", line 13\n    import import glob\n           ^\nSyntaxError: invalid syntax",
+      "timestamp": "2025-08-10T18:59:38.303198"
+    },
+    {
+      "name": "설정 파일 검증",
+      "description": "시스템 설정 파일들의 유효성 검사",
+      "status": "warning",
+      "details": "누락된 파일: config.py",
+      "timestamp": "2025-08-10T18:59:38.304549"
+    },
+    {
+      "name": "실행 권한 검증",
+      "description": "실행 파일들의 권한 검사",
+      "status": "warning",
+      "details": "권한 문제: 🐹POSCO_워치햄스터_v3_제어센터.bat: 실행 권한 없음; 🚀🚀POSCO_News_250808_Direct_Start.bat: 실행 권한 없음",
+      "timestamp": "2025-08-10T18:59:38.304667"
+    },
+    {
+      "name": "백업 시스템 준비",
+      "description": "배포 전 핵심 파일 백업",
+      "status": "passed",
+      "details": "백업된 파일 수: 5, 백업 위치: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/deployment_backup_20250810_185935",
+      "timestamp": "2025-08-10T18:59:38.306525"
+    },
+    {
+      "name": "배포 체크리스트 생성",
+      "description": "배포 전후 확인사항 체크리스트 생성",
+      "status": "passed",
+      "details": "체크리스트 파일: deployment_checklist_20250810_185935.md",
+      "timestamp": "2025-08-10T18:59:38.965615"
+    },
+    {
+      "name": "운영 매뉴얼 업데이트",
+      "description": "시스템 운영 매뉴얼 최신화",
+      "status": "passed",
+      "details": "매뉴얼 파일: operational_manual_v2.1_20250810_185935.md",
+      "timestamp": "2025-08-10T18:59:38.965797"
+    },
+    {
+      "name": "트러블슈팅 가이드 완성",
+      "description": "문제 해결 가이드 업데이트",
+      "status": "passed",
+      "details": "가이드 파일: troubleshooting_guide_v2.1_20250810_185935.md",
+      "timestamp": "2025-08-10T18:59:38.965933"
+    },
+    {
+      "name": "모니터링 가이드 생성",
+      "description": "시스템 모니터링 가이드 생성",
+      "status": "passed",
+      "details": "가이드 파일: monitoring_guide_20250810_185935.md",
+      "timestamp": "2025-08-10T18:59:38.966057"
+    }
+  ],
+  "security_checks": [
+    {
+      "check_type": "하드코딩된 민감 정보",
+      "file_path": "monitoring_alert_system_verification.py:174, monitoring_alert_system_verification.py:175",
+      "issue_type": "sensitive_data",
+      "severity": "medium",
+      "description": "소스 코드에 하드코딩된 민감 정보 발견",
+      "recommendation": "환경 변수나 설정 파일로 분리 필요"
+    }
+  ],
+  "performance_metrics": [
+    {
+      "metric_name": "시스템 실행 성능",
+      "value": 0.02,
+      "unit": "seconds",
+      "threshold": 60,
+      "status": "good"
+    },
+    {
+      "metric_name": "메모리 사용량",
+      "value": 17.09,
+      "unit": "MB",
+      "threshold": 100,
+      "status": "good"
+    },
+    {
+      "metric_name": "시스템 메모리 사용률",
+      "value": 79.3,
+      "unit": "%",
+      "threshold": 80,
+      "status": "good"
+    },
+    {
+      "metric_name": "파일 쓰기 성능",
+      "value": 0.2,
+      "unit": "ms",
+      "threshold": 1000,
+      "status": "good"
+    },
+    {
+      "metric_name": "파일 읽기 성능",
+      "value": 0.05,
+      "unit": "ms",
+      "threshold": 500,
+      "status": "good"
+    },
+    {
+      "metric_name": "네트워크 응답 시간",
+      "value": 488.04,
+      "unit": "ms",
+      "threshold": 2000,
+      "status": "good"
+    }
+  ],
+  "overall_status": "failed"
+}

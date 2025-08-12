@@ -1,0 +1,371 @@
+2025-08-08 15:54:03,910 - INFO - === POSCO 주석 및 문서 표준화 시작 ===
+2025-08-08 15:54:03,916 - INFO - Python 헤더 표준화 완료: test_watchhamster_v3.0_notification.py
+2025-08-08 15:54:03,917 - INFO - Python 헤더 표준화 완료: posco_file_renamer.py
+2025-08-08 15:54:03,918 - INFO - Python 헤더 표준화 완료: test_module_registry_integration.py
+2025-08-08 15:54:03,919 - INFO - Python 헤더 표준화 완료: posco_continuous_monitor.py
+2025-08-08 15:54:03,919 - INFO - Python 헤더 표준화 완료: deploy_latest_report.py
+2025-08-08 15:54:03,920 - INFO - Python 헤더 표준화 완료: execute_test_scenario.py
+2025-08-08 15:54:03,921 - INFO - Python 헤더 표준화 완료: run_end_to_end_tests.py
+2025-08-08 15:54:03,924 - INFO - Python 헤더 표준화 완료: test_end_to_end_integration.py
+2025-08-08 15:54:03,925 - INFO - Python 헤더 표준화 완료: run_comprehensive_tests.py
+2025-08-08 15:54:03,925 - INFO - Python 헤더 표준화 완료: demo_watchhamster_v3.0_integration.py
+2025-08-08 15:54:03,926 - INFO - Python 헤더 표준화 완료: test_shell_batch_standardization.py
+2025-08-08 15:54:03,928 - INFO - Python 헤더 표준화 완료: json_viewer.py
+2025-08-08 15:54:03,929 - INFO - Python 헤더 표준화 완료: documentation_standardizer.py
+2025-08-08 15:54:03,976 - INFO - Python 헤더 표준화 완료: sync_publish_branch.py
+2025-08-08 15:54:03,977 - INFO - Python 헤더 표준화 완료: posco_news_viewer.py
+2025-08-08 15:54:04,001 - INFO - Python 헤더 표준화 완료: shell_batch_script_standardizer.py
+2025-08-08 15:54:04,003 - INFO - Python 헤더 표준화 완료: naming_convention_manager.py
+2025-08-08 15:54:04,006 - INFO - Python 헤더 표준화 완료: file_renaming_system.py
+2025-08-08 15:54:04,008 - INFO - Python 헤더 표준화 완료: test_migration_verification_system.py
+2025-08-08 15:54:04,009 - INFO - Python 헤더 표준화 완료: test_control_center_integration.py
+2025-08-08 15:54:04,010 - INFO - Python 헤더 표준화 완료: test_rollback_functionality.py
+2025-08-08 15:54:04,012 - INFO - Python 헤더 표준화 완료: system_optimization_report_generator.py
+2025-08-08 15:54:04,014 - INFO - Python 헤더 표준화 완료: migration_status_reporter.py
+2025-08-08 15:54:04,017 - INFO - Python 헤더 표준화 완료: convert_config.py
+2025-08-08 15:54:04,019 - INFO - Python 헤더 표준화 완료: post_migration_verification.py
+2025-08-08 15:54:04,019 - INFO - Python 헤더 표준화 완료: test_process_lifecycle.py
+2025-08-08 15:54:04,020 - INFO - Python 헤더 표준화 완료: test_performance_monitoring.py
+2025-08-08 15:54:04,021 - INFO - Python 헤더 표준화 완료: test_file_renaming_system.py
+2025-08-08 15:54:04,022 - INFO - Python 헤더 표준화 완료: Posco_News_mini.py
+2025-08-08 15:54:04,022 - INFO - Python 헤더 표준화 완료: python_naming_standardizer.py
+2025-08-08 15:54:04,023 - INFO - Python 헤더 표준화 완료: test_naming_convention_manager.py
+2025-08-08 15:54:04,024 - INFO - Python 헤더 표준화 완료: demo_performance_monitoring.py
+2025-08-08 15:54:04,036 - INFO - Python 헤더 표준화 완료: final_system_integration_verification.py
+2025-08-08 15:54:04,042 - INFO - Python 헤더 표준화 완료: test_watchhamster_v3.0_integration.py
+2025-08-08 15:54:04,044 - INFO - Python 헤더 표준화 완료: migration_verification_system.py
+2025-08-08 15:54:04,045 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/report_cleanup_manager.py
+2025-08-08 15:54:04,047 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/integrated_report_builder.py
+2025-08-08 15:54:04,048 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/metadata_reset_manager.py
+2025-08-08 15:54:04,050 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/config.py
+2025-08-08 15:54:04,051 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/completion_notifier.py
+2025-08-08 15:54:04,057 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/posco_main_notifier.py
+2025-08-08 15:54:04,065 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/test_watchhamster_notification.py
+2025-08-08 15:54:04,067 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/historical_data_collector.py
+2025-08-08 15:54:04,068 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/posco_report_system_reset.py
+2025-08-08 15:54:04,072 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/integrated_report_scheduler.py
+2025-08-08 15:54:04,086 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/monitor_WatchHamster_v3.0.py
+2025-08-08 15:54:04,089 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/realtime_news_monitor.py
+2025-08-08 15:54:04,091 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/github_pages_deployer.py
+2025-08-08 15:54:04,092 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/core/state_manager.py
+2025-08-08 15:54:04,097 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/core/__init__.py
+2025-08-08 15:54:04,098 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/core/colorful_ui.py
+2025-08-08 15:54:04,099 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/core/process_manager.py
+2025-08-08 15:54:04,100 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/utils/business_day_helper.py
+2025-08-08 15:54:04,101 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/utils/__init__.py
+2025-08-08 15:54:04,102 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/backup_archive_20250806/temp_solutions_20250806/simple_news_monitor.py
+2025-08-08 15:54:04,102 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py
+2025-08-08 15:54:04,103 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/backup_archive_20250806/disabled_monitors_20250803/kospi_monitor.py
+2025-08-08 15:54:04,104 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/backup_archive_20250806/disabled_monitors_20250803/master_news_monitor.py
+2025-08-08 15:54:04,104 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/backup_archive_20250806/disabled_monitors_20250803/exchange_monitor.py
+2025-08-08 15:54:04,105 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/backup_archive_20250806/disabled_monitors_20250803/base_monitor.py
+2025-08-08 15:54:04,106 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/backup_archive_20250806/disabled_monitors_20250803/newyork_monitor.py
+2025-08-08 15:54:04,106 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/backup_archive_20250806/test_files/test_watchhamster.py
+2025-08-08 15:54:04,107 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/reports/metadata_manager.py
+2025-08-08 15:54:04,109 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/reports/report_manager.py
+2025-08-08 15:54:04,111 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini/reports/integrated_report_generator.py
+2025-08-08 15:54:04,115 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini_v2/core/enhanced_process_manager.py
+2025-08-08 15:54:04,118 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini_v2/core/performance_monitor.py
+2025-08-08 15:54:04,119 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini_v2/core/__init__.py
+2025-08-08 15:54:04,123 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini_v2/core/module_registry.py
+2025-08-08 15:54:04,129 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini_v2/core/watchhamster_integration.py
+2025-08-08 15:54:04,130 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini_v2/core/notification_manager.py
+2025-08-08 15:54:04,133 - INFO - Python 헤더 표준화 완료: Monitoring/Posco_News_mini_v2/core/performance_optimizer.py
+2025-08-08 15:54:04,142 - INFO - Shell 헤더 표준화 완료: test_runner.sh
+2025-08-08 15:54:04,143 - INFO - Shell 헤더 표준화 완료: cleanup_old_files.sh
+2025-08-08 15:54:04,144 - INFO - Shell 헤더 표준화 완료: check_migration_requirements.sh
+2025-08-08 15:54:04,152 - INFO - Shell 헤더 표준화 완료: posco_news_250808_control_mac.sh
+2025-08-08 15:54:04,153 - INFO - Shell 헤더 표준화 완료: test_control_center_functions.sh
+2025-08-08 15:54:04,155 - INFO - Shell 헤더 표준화 완료: rollback_migration.sh
+2025-08-08 15:54:04,156 - INFO - Shell 헤더 표준화 완료: watchhamster_v3.0_master_control.sh
+2025-08-08 15:54:04,157 - INFO - Shell 헤더 표준화 완료: run_migration_verification.sh
+2025-08-08 15:54:04,157 - INFO - Shell 헤더 표준화 완료: 🚀🚀POSCO_News_250808_Direct_Start.sh
+2025-08-08 15:54:04,158 - INFO - Shell 헤더 표준화 완료: migrate_to_v2.sh
+2025-08-08 15:54:04,160 - INFO - Shell 헤더 표준화 완료: watchhamster_v3.0_control_center.sh
+2025-08-08 15:54:04,160 - INFO - Shell 헤더 표준화 완료: verify_task6_implementation.sh
+2025-08-08 15:54:04,161 - INFO - Shell 헤더 표준화 완료: lib_wt_common.sh
+2025-08-08 15:54:04,161 - INFO - Shell 헤더 표준화 완료: 🎛️POSCO_제어센터_실행_v2.sh
+2025-08-08 15:54:04,162 - INFO - Shell 헤더 표준화 완료: Monitoring/Posco_News_mini/posco_news_250808_control_center.sh
+2025-08-08 15:54:04,163 - INFO - Shell 헤더 표준화 완료: 🐹POSCO_워치햄스터_v3_제어센터.command
+2025-08-08 15:54:04,163 - INFO - Shell 헤더 표준화 완료: 🎛️🎛️WatchHamster_v3.0_Control_Panel.command
+2025-08-08 15:54:04,165 - INFO - Batch 헤더 표준화 완료: lib_wt_common.bat
+2025-08-08 15:54:04,167 - INFO - Batch 헤더 표준화 완료: 🐹워치햄스터_총괄_관리_센터.bat
+2025-08-08 15:54:04,172 - INFO - Batch 헤더 표준화 완료: 🐹POSCO_워치햄스터_v3_제어센터.bat
+2025-08-08 15:54:04,175 - INFO - Batch 헤더 표준화 완료: 🚀🚀POSCO_News_250808_Direct_Start.bat
+2025-08-08 15:54:04,180 - INFO - Batch 헤더 표준화 완료: 🐹WatchHamster_v3.0_Integrated_Center.bat
+2025-08-08 15:54:04,180 - INFO - Batch 헤더 표준화 완료: PowerShell_진단.bat
+2025-08-08 15:54:04,181 - INFO - Batch 헤더 표준화 완료: 🎛️POSCO_제어센터_실행.bat
+2025-08-08 15:54:04,182 - INFO - Batch 헤더 표준화 완료: 🐹워치햄스터_총괄_관리_센터_SIMPLE.bat
+2025-08-08 15:54:04,182 - INFO - Batch 헤더 표준화 완료: 🎛️WatchHamster_v3.0_Control_Panel.bat
+2025-08-08 15:54:04,182 - INFO - Batch 헤더 표준화 완료: POSCO_시작.bat
+2025-08-08 15:54:04,183 - INFO - Batch 헤더 표준화 완료: 🐹WatchHamster_v3.0_Control_Center.bat
+2025-08-08 15:54:04,184 - INFO - Batch 헤더 표준화 완료: 🔄Git_덮어씌우기.bat
+2025-08-08 15:54:04,184 - INFO - Batch 헤더 표준화 완료: Monitoring/Posco_News_mini/🔧POSCO_시스템_상태확인.bat
+2025-08-08 15:54:04,185 - INFO - Batch 헤더 표준화 완료: Monitoring/Posco_News_mini/🧪POSCO_테스트_실행.bat
+2025-08-08 15:54:04,185 - INFO - Batch 헤더 표준화 완료: Monitoring/Posco_News_mini/🎛️POSCO_메인_시스템.bat
+2025-08-08 15:54:04,186 - INFO - Batch 헤더 표준화 완료: Monitoring/Posco_News_mini/🔄POSCO_Git_업데이트.bat
+2025-08-08 15:54:04,186 - INFO - Batch 헤더 표준화 완료: Monitoring/Posco_News_mini/🛑🛑POSCO_News_250808_Stop.bat
+2025-08-08 15:54:04,186 - INFO - Batch 헤더 표준화 완료: Monitoring/Posco_News_mini/📋POSCO_로그_확인.bat
+2025-08-08 15:54:04,187 - INFO - Batch 헤더 표준화 완료: Monitoring/Posco_News_mini/🚀🚀POSCO_News_250808_Start.bat
+2025-08-08 15:54:04,190 - INFO - 마크다운 문서 표준화 완료: END_TO_END_TEST_GUIDE.md
+2025-08-08 15:54:04,191 - INFO - 마크다운 문서 표준화 완료: deployment_verification_checklist.md
+2025-08-08 15:54:04,191 - INFO - 마크다운 문서 표준화 완료: 워치햄스터_사용법.md
+2025-08-08 15:54:04,193 - INFO - 마크다운 문서 표준화 완료: 🔧POSCO_워치햄스터_문제해결_가이드.md
+2025-08-08 15:54:04,194 - INFO - 마크다운 문서 표준화 완료: TEST_FRAMEWORK_README.md
+2025-08-08 15:54:04,196 - INFO - 마크다운 문서 표준화 완료: MIGRATION_README.md
+2025-08-08 15:54:04,197 - INFO - 마크다운 문서 표준화 완료: 🔄POSCO_워치햄스터_마이그레이션_가이드.md
+2025-08-08 15:54:04,199 - INFO - 마크다운 문서 표준화 완료: 🔍POSCO_워치햄스터_v2_전체_재검수_보고서.md
+2025-08-08 15:54:04,201 - INFO - 마크다운 문서 표준화 완료: Mac_워치햄스터_실행_가이드_v4.md
+2025-08-08 15:54:04,202 - INFO - 마크다운 문서 표준화 완료: final_integration_verification_report.md
+2025-08-08 15:54:04,203 - INFO - 마크다운 문서 표준화 완료: 🎨WINDOWS_TERMINAL_UPGRADE_v4.md
+2025-08-08 15:54:04,205 - INFO - 마크다운 문서 표준화 완료: shell_batch_standardization_summary.md
+2025-08-08 15:54:04,207 - INFO - 마크다운 문서 표준화 완료: FILE_RENAMING_SYSTEM_GUIDE.md
+2025-08-08 15:54:04,209 - INFO - 마크다운 문서 표준화 완료: Task9_Performance_Monitoring_Implementation_Summary.md
+2025-08-08 15:54:04,212 - INFO - 마크다운 문서 표준화 완료: 🔔POSCO_워치햄스터_알림시스템_가이드.md
+2025-08-08 15:54:04,215 - INFO - 마크다운 문서 표준화 완료: 🛠️POSCO_워치햄스터_개발자_가이드.md
+2025-08-08 15:54:04,216 - INFO - 마크다운 문서 표준화 완료: Task6_Control_Center_Implementation_Summary.md
+2025-08-08 15:54:04,217 - INFO - 마크다운 문서 표준화 완료: README.md
+2025-08-08 15:54:04,219 - INFO - 마크다운 문서 표준화 완료: 워치햄스터_시스템_재구축_완료_보고서_v4.md
+2025-08-08 15:54:04,220 - INFO - 마크다운 문서 표준화 완료: POSCO_WatchHamster_v3_Final_Summary.md
+2025-08-08 15:54:04,221 - INFO - 마크다운 문서 표준화 완료: 🎨WINDOWS_TERMINAL_UPGRADE_v3.md
+2025-08-08 15:54:04,222 - INFO - 마크다운 문서 표준화 완료: 📋POSCO_워치햄스터_v2_사용자_가이드.md
+2025-08-08 15:54:04,223 - INFO - 마크다운 문서 표준화 완료: 🗂️POSCO_프로젝트_정리_가이드.md
+2025-08-08 15:54:04,224 - INFO - 마크다운 문서 표준화 완료: system_optimization_report.md
+2025-08-08 15:54:04,225 - INFO - 마크다운 문서 표준화 완료: NAMING_CONVENTION_SYSTEM_GUIDE.md
+2025-08-08 15:54:04,226 - INFO - 마크다운 문서 표준화 완료: 📋POSCO_워치햄스터_v2_프로젝트_완료_보고서.md
+2025-08-08 15:54:04,228 - INFO - 마크다운 문서 표준화 완료: final_integration_summary.md
+2025-08-08 15:54:04,229 - INFO - 마크다운 문서 표준화 완료: python_naming_standardization_report.md
+2025-08-08 15:54:04,230 - INFO - 마크다운 문서 표준화 완료: Task5_V2_Notification_Enhancement_Summary.md
+2025-08-08 15:54:04,231 - INFO - 마크다운 문서 표준화 완료: POSCO_WatchHamster_v3_Complete_Guide.md
+2025-08-08 15:54:04,232 - INFO - 마크다운 문서 표준화 완료: script_standardization_report.md
+2025-08-08 15:54:04,234 - INFO - 마크다운 문서 표준화 완료: POSCO_WatchHamster_v3_CrossPlatform_Guide.md
+2025-08-08 15:54:04,235 - INFO - 마크다운 문서 표준화 완료: ModuleRegistry_Integration_Summary.md
+2025-08-08 15:54:04,237 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/📋POSCO_시스템_유지보수_메뉴얼.md
+2025-08-08 15:54:04,239 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/📊POSCO_뉴스_알림시스템_전체구조_검수완료.md
+2025-08-08 15:54:04,241 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/📋POSCO_시스템_정리_및_검증_완료_20250806.md
+2025-08-08 15:54:04,242 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/INTEGRATED_REPORT_SYSTEM_GUIDE.md
+2025-08-08 15:54:04,243 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/🧠스마트_상태_판단_시스템_완료.md
+2025-08-08 15:54:04,244 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/GITHUB_PAGES_MANUAL_SETUP.md
+2025-08-08 15:54:04,245 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/📋워치햄스터_기능_분석_및_개선안.md
+2025-08-08 15:54:04,245 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/워치햄스터_설정_조정.md
+2025-08-08 15:54:04,246 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/완전자동화_가이드.md
+2025-08-08 15:54:04,247 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/🎯BAT파일_역할분리_완료.md
+2025-08-08 15:54:04,247 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/CLEANUP_PLAN.md
+2025-08-08 15:54:04,249 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/🕐절대시간_기준_알림_시스템_완료.md
+2025-08-08 15:54:04,251 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/🔧API_상태체크_문제_해결.md
+2025-08-08 15:54:04,252 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/🔧조용한_모드_동기화_완료.md
+2025-08-08 15:54:04,253 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/📈증시마감_모니터링_시스템_완성.md
+2025-08-08 15:54:04,254 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/🎉최종_완료_보고서.md
+2025-08-08 15:54:04,254 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/📋POSCO_뉴스_알림시스템_구성_및_배치_완료.md
+2025-08-08 15:54:04,255 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/🎛️3개뉴스_통합모니터링_완성.md
+2025-08-08 15:54:04,256 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/🚀간단_사용법.md
+2025-08-08 15:54:04,257 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/🏦서환마감_모니터링_시스템_완성.md
+2025-08-08 15:54:04,258 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/🎯실행파일_역할분리_완료.md
+2025-08-08 15:54:04,259 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/README.md
+2025-08-08 15:54:04,260 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/🧹워치햄스터_2.0_시스템_정리_완료.md
+2025-08-08 15:54:04,261 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/🏆워치햄스터_2.0_종합평가보고서.md
+2025-08-08 15:54:04,262 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/📋최종_파일_구조.md
+2025-08-08 15:54:04,262 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/🔄기존모니터링_최신모델_대체완료.md
+2025-08-08 15:54:04,263 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/🌙조용한_시간대_최적화_완료.md
+2025-08-08 15:54:04,265 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/🌙조용한_모드_설정_완료.md
+2025-08-08 15:54:04,266 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/🚀코드_최적화_완료.md
+2025-08-08 15:54:04,268 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/🕐모든_절대시간_기준_알림_완료.md
+2025-08-08 15:54:04,269 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/📅스케줄_설정_완료.md
+2025-08-08 15:54:04,270 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini/docs/🛡️워치햄스터_연동_완료.md
+2025-08-08 15:54:04,271 - INFO - 마크다운 문서 표준화 완료: Monitoring/Posco_News_mini_v2/README.md
+2025-08-08 15:54:04,276 - INFO - README 파일 표준화 완료: README.md
+2025-08-08 15:54:04,277 - INFO - README 파일 표준화 완료: Monitoring/Posco_News_mini/README.md
+2025-08-08 15:54:04,277 - INFO - README 파일 표준화 완료: Monitoring/Posco_News_mini/docs/README.md
+2025-08-08 15:54:04,278 - INFO - README 파일 표준화 완료: Monitoring/Posco_News_mini_v2/README.md
+2025-08-08 15:54:04,278 - INFO - README 파일 표준화 완료: readme.md
+2025-08-08 15:54:04,278 - INFO - README 파일 표준화 완료: Monitoring/Posco_News_mini/readme.md
+2025-08-08 15:54:04,278 - INFO - README 파일 표준화 완료: Monitoring/Posco_News_mini/docs/readme.md
+2025-08-08 15:54:04,279 - INFO - README 파일 표준화 완료: Monitoring/Posco_News_mini_v2/readme.md
+2025-08-08 15:54:04,279 - INFO - === 표준화 완료: 총 182개 파일 ===
+2025-08-08 15:54:04,279 - INFO - python_files: 72개 파일
+2025-08-08 15:54:04,279 - INFO -   - test_watchhamster_v3.0_notification.py
+2025-08-08 15:54:04,279 - INFO -   - posco_file_renamer.py
+2025-08-08 15:54:04,279 - INFO -   - test_module_registry_integration.py
+2025-08-08 15:54:04,279 - INFO -   - posco_continuous_monitor.py
+2025-08-08 15:54:04,279 - INFO -   - deploy_latest_report.py
+2025-08-08 15:54:04,279 - INFO -   - execute_test_scenario.py
+2025-08-08 15:54:04,279 - INFO -   - run_end_to_end_tests.py
+2025-08-08 15:54:04,279 - INFO -   - test_end_to_end_integration.py
+2025-08-08 15:54:04,279 - INFO -   - run_comprehensive_tests.py
+2025-08-08 15:54:04,279 - INFO -   - demo_watchhamster_v3.0_integration.py
+2025-08-08 15:54:04,279 - INFO -   - test_shell_batch_standardization.py
+2025-08-08 15:54:04,279 - INFO -   - json_viewer.py
+2025-08-08 15:54:04,279 - INFO -   - documentation_standardizer.py
+2025-08-08 15:54:04,279 - INFO -   - sync_publish_branch.py
+2025-08-08 15:54:04,279 - INFO -   - posco_news_viewer.py
+2025-08-08 15:54:04,279 - INFO -   - shell_batch_script_standardizer.py
+2025-08-08 15:54:04,279 - INFO -   - naming_convention_manager.py
+2025-08-08 15:54:04,279 - INFO -   - file_renaming_system.py
+2025-08-08 15:54:04,279 - INFO -   - test_migration_verification_system.py
+2025-08-08 15:54:04,279 - INFO -   - test_control_center_integration.py
+2025-08-08 15:54:04,279 - INFO -   - test_rollback_functionality.py
+2025-08-08 15:54:04,279 - INFO -   - system_optimization_report_generator.py
+2025-08-08 15:54:04,279 - INFO -   - migration_status_reporter.py
+2025-08-08 15:54:04,279 - INFO -   - convert_config.py
+2025-08-08 15:54:04,279 - INFO -   - post_migration_verification.py
+2025-08-08 15:54:04,279 - INFO -   - test_process_lifecycle.py
+2025-08-08 15:54:04,279 - INFO -   - test_performance_monitoring.py
+2025-08-08 15:54:04,279 - INFO -   - test_file_renaming_system.py
+2025-08-08 15:54:04,279 - INFO -   - Posco_News_mini.py
+2025-08-08 15:54:04,279 - INFO -   - python_naming_standardizer.py
+2025-08-08 15:54:04,279 - INFO -   - test_naming_convention_manager.py
+2025-08-08 15:54:04,279 - INFO -   - demo_performance_monitoring.py
+2025-08-08 15:54:04,279 - INFO -   - final_system_integration_verification.py
+2025-08-08 15:54:04,279 - INFO -   - test_watchhamster_v3.0_integration.py
+2025-08-08 15:54:04,279 - INFO -   - migration_verification_system.py
+2025-08-08 15:54:04,279 - INFO -   - Monitoring/Posco_News_mini/report_cleanup_manager.py
+2025-08-08 15:54:04,279 - INFO -   - Monitoring/Posco_News_mini/integrated_report_builder.py
+2025-08-08 15:54:04,279 - INFO -   - Monitoring/Posco_News_mini/metadata_reset_manager.py
+2025-08-08 15:54:04,279 - INFO -   - Monitoring/Posco_News_mini/config.py
+2025-08-08 15:54:04,279 - INFO -   - Monitoring/Posco_News_mini/completion_notifier.py
+2025-08-08 15:54:04,279 - INFO -   - Monitoring/Posco_News_mini/posco_main_notifier.py
+2025-08-08 15:54:04,279 - INFO -   - Monitoring/Posco_News_mini/test_watchhamster_notification.py
+2025-08-08 15:54:04,279 - INFO -   - Monitoring/Posco_News_mini/historical_data_collector.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/posco_report_system_reset.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/integrated_report_scheduler.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/monitor_WatchHamster_v3.0.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/realtime_news_monitor.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/github_pages_deployer.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/core/state_manager.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/core/__init__.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/core/colorful_ui.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/core/process_manager.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/utils/business_day_helper.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/utils/__init__.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/backup_archive_20250806/temp_solutions_20250806/simple_news_monitor.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/backup_archive_20250806/disabled_monitors_20250803/kospi_monitor.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/backup_archive_20250806/disabled_monitors_20250803/master_news_monitor.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/backup_archive_20250806/disabled_monitors_20250803/exchange_monitor.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/backup_archive_20250806/disabled_monitors_20250803/base_monitor.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/backup_archive_20250806/disabled_monitors_20250803/newyork_monitor.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/backup_archive_20250806/test_files/test_watchhamster.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/reports/metadata_manager.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/reports/report_manager.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/reports/integrated_report_generator.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini_v2/core/enhanced_process_manager.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini_v2/core/performance_monitor.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini_v2/core/__init__.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini_v2/core/module_registry.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini_v2/core/watchhamster_integration.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini_v2/core/notification_manager.py
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini_v2/core/performance_optimizer.py
+2025-08-08 15:54:04,280 - INFO - shell_files: 17개 파일
+2025-08-08 15:54:04,280 - INFO -   - test_runner.sh
+2025-08-08 15:54:04,280 - INFO -   - cleanup_old_files.sh
+2025-08-08 15:54:04,280 - INFO -   - check_migration_requirements.sh
+2025-08-08 15:54:04,280 - INFO -   - posco_news_250808_control_mac.sh
+2025-08-08 15:54:04,280 - INFO -   - test_control_center_functions.sh
+2025-08-08 15:54:04,280 - INFO -   - rollback_migration.sh
+2025-08-08 15:54:04,280 - INFO -   - watchhamster_v3.0_master_control.sh
+2025-08-08 15:54:04,280 - INFO -   - run_migration_verification.sh
+2025-08-08 15:54:04,280 - INFO -   - 🚀🚀POSCO_News_250808_Direct_Start.sh
+2025-08-08 15:54:04,280 - INFO -   - migrate_to_v2.sh
+2025-08-08 15:54:04,280 - INFO -   - watchhamster_v3.0_control_center.sh
+2025-08-08 15:54:04,280 - INFO -   - verify_task6_implementation.sh
+2025-08-08 15:54:04,280 - INFO -   - lib_wt_common.sh
+2025-08-08 15:54:04,280 - INFO -   - 🎛️POSCO_제어센터_실행_v2.sh
+2025-08-08 15:54:04,280 - INFO -   - Monitoring/Posco_News_mini/posco_news_250808_control_center.sh
+2025-08-08 15:54:04,280 - INFO -   - 🐹POSCO_워치햄스터_v3_제어센터.command
+2025-08-08 15:54:04,280 - INFO -   - 🎛️🎛️WatchHamster_v3.0_Control_Panel.command
+2025-08-08 15:54:04,280 - INFO - batch_files: 19개 파일
+2025-08-08 15:54:04,280 - INFO -   - lib_wt_common.bat
+2025-08-08 15:54:04,280 - INFO -   - 🐹워치햄스터_총괄_관리_센터.bat
+2025-08-08 15:54:04,281 - INFO -   - 🐹POSCO_워치햄스터_v3_제어센터.bat
+2025-08-08 15:54:04,281 - INFO -   - 🚀🚀POSCO_News_250808_Direct_Start.bat
+2025-08-08 15:54:04,281 - INFO -   - 🐹WatchHamster_v3.0_Integrated_Center.bat
+2025-08-08 15:54:04,281 - INFO -   - PowerShell_진단.bat
+2025-08-08 15:54:04,281 - INFO -   - 🎛️POSCO_제어센터_실행.bat
+2025-08-08 15:54:04,281 - INFO -   - 🐹워치햄스터_총괄_관리_센터_SIMPLE.bat
+2025-08-08 15:54:04,281 - INFO -   - 🎛️WatchHamster_v3.0_Control_Panel.bat
+2025-08-08 15:54:04,281 - INFO -   - POSCO_시작.bat
+2025-08-08 15:54:04,281 - INFO -   - 🐹WatchHamster_v3.0_Control_Center.bat
+2025-08-08 15:54:04,281 - INFO -   - 🔄Git_덮어씌우기.bat
+2025-08-08 15:54:04,281 - INFO -   - Monitoring/Posco_News_mini/🔧POSCO_시스템_상태확인.bat
+2025-08-08 15:54:04,281 - INFO -   - Monitoring/Posco_News_mini/🧪POSCO_테스트_실행.bat
+2025-08-08 15:54:04,281 - INFO -   - Monitoring/Posco_News_mini/🎛️POSCO_메인_시스템.bat
+2025-08-08 15:54:04,281 - INFO -   - Monitoring/Posco_News_mini/🔄POSCO_Git_업데이트.bat
+2025-08-08 15:54:04,281 - INFO -   - Monitoring/Posco_News_mini/🛑🛑POSCO_News_250808_Stop.bat
+2025-08-08 15:54:04,281 - INFO -   - Monitoring/Posco_News_mini/📋POSCO_로그_확인.bat
+2025-08-08 15:54:04,281 - INFO -   - Monitoring/Posco_News_mini/🚀🚀POSCO_News_250808_Start.bat
+2025-08-08 15:54:04,281 - INFO - markdown_files: 66개 파일
+2025-08-08 15:54:04,281 - INFO -   - END_TO_END_TEST_GUIDE.md
+2025-08-08 15:54:04,281 - INFO -   - deployment_verification_checklist.md
+2025-08-08 15:54:04,281 - INFO -   - 워치햄스터_사용법.md
+2025-08-08 15:54:04,281 - INFO -   - 🔧POSCO_워치햄스터_문제해결_가이드.md
+2025-08-08 15:54:04,281 - INFO -   - TEST_FRAMEWORK_README.md
+2025-08-08 15:54:04,281 - INFO -   - MIGRATION_README.md
+2025-08-08 15:54:04,281 - INFO -   - 🔄POSCO_워치햄스터_마이그레이션_가이드.md
+2025-08-08 15:54:04,281 - INFO -   - 🔍POSCO_워치햄스터_v2_전체_재검수_보고서.md
+2025-08-08 15:54:04,281 - INFO -   - Mac_워치햄스터_실행_가이드_v4.md
+2025-08-08 15:54:04,281 - INFO -   - final_integration_verification_report.md
+2025-08-08 15:54:04,281 - INFO -   - 🎨WINDOWS_TERMINAL_UPGRADE_v4.md
+2025-08-08 15:54:04,281 - INFO -   - shell_batch_standardization_summary.md
+2025-08-08 15:54:04,281 - INFO -   - FILE_RENAMING_SYSTEM_GUIDE.md
+2025-08-08 15:54:04,281 - INFO -   - Task9_Performance_Monitoring_Implementation_Summary.md
+2025-08-08 15:54:04,281 - INFO -   - 🔔POSCO_워치햄스터_알림시스템_가이드.md
+2025-08-08 15:54:04,281 - INFO -   - 🛠️POSCO_워치햄스터_개발자_가이드.md
+2025-08-08 15:54:04,281 - INFO -   - Task6_Control_Center_Implementation_Summary.md
+2025-08-08 15:54:04,282 - INFO -   - README.md
+2025-08-08 15:54:04,282 - INFO -   - 워치햄스터_시스템_재구축_완료_보고서_v4.md
+2025-08-08 15:54:04,282 - INFO -   - POSCO_WatchHamster_v3_Final_Summary.md
+2025-08-08 15:54:04,282 - INFO -   - 🎨WINDOWS_TERMINAL_UPGRADE_v3.md
+2025-08-08 15:54:04,282 - INFO -   - 📋POSCO_워치햄스터_v2_사용자_가이드.md
+2025-08-08 15:54:04,282 - INFO -   - 🗂️POSCO_프로젝트_정리_가이드.md
+2025-08-08 15:54:04,282 - INFO -   - system_optimization_report.md
+2025-08-08 15:54:04,282 - INFO -   - NAMING_CONVENTION_SYSTEM_GUIDE.md
+2025-08-08 15:54:04,282 - INFO -   - 📋POSCO_워치햄스터_v2_프로젝트_완료_보고서.md
+2025-08-08 15:54:04,282 - INFO -   - final_integration_summary.md
+2025-08-08 15:54:04,282 - INFO -   - python_naming_standardization_report.md
+2025-08-08 15:54:04,282 - INFO -   - Task5_V2_Notification_Enhancement_Summary.md
+2025-08-08 15:54:04,282 - INFO -   - POSCO_WatchHamster_v3_Complete_Guide.md
+2025-08-08 15:54:04,282 - INFO -   - script_standardization_report.md
+2025-08-08 15:54:04,282 - INFO -   - POSCO_WatchHamster_v3_CrossPlatform_Guide.md
+2025-08-08 15:54:04,282 - INFO -   - ModuleRegistry_Integration_Summary.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/📋POSCO_시스템_유지보수_메뉴얼.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/📊POSCO_뉴스_알림시스템_전체구조_검수완료.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/📋POSCO_시스템_정리_및_검증_완료_20250806.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/INTEGRATED_REPORT_SYSTEM_GUIDE.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/🧠스마트_상태_판단_시스템_완료.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/GITHUB_PAGES_MANUAL_SETUP.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/📋워치햄스터_기능_분석_및_개선안.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/워치햄스터_설정_조정.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/완전자동화_가이드.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/🎯BAT파일_역할분리_완료.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/CLEANUP_PLAN.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/🕐절대시간_기준_알림_시스템_완료.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/🔧API_상태체크_문제_해결.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/🔧조용한_모드_동기화_완료.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/📈증시마감_모니터링_시스템_완성.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/🎉최종_완료_보고서.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/📋POSCO_뉴스_알림시스템_구성_및_배치_완료.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/🎛️3개뉴스_통합모니터링_완성.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/🚀간단_사용법.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/🏦서환마감_모니터링_시스템_완성.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/🎯실행파일_역할분리_완료.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/README.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/🧹워치햄스터_2.0_시스템_정리_완료.md
+2025-08-08 15:54:04,282 - INFO -   - Monitoring/Posco_News_mini/docs/🏆워치햄스터_2.0_종합평가보고서.md
+2025-08-08 15:54:04,283 - INFO -   - Monitoring/Posco_News_mini/docs/📋최종_파일_구조.md
+2025-08-08 15:54:04,283 - INFO -   - Monitoring/Posco_News_mini/docs/🔄기존모니터링_최신모델_대체완료.md
+2025-08-08 15:54:04,283 - INFO -   - Monitoring/Posco_News_mini/docs/🌙조용한_시간대_최적화_완료.md
+2025-08-08 15:54:04,283 - INFO -   - Monitoring/Posco_News_mini/docs/🌙조용한_모드_설정_완료.md
+2025-08-08 15:54:04,283 - INFO -   - Monitoring/Posco_News_mini/docs/🚀코드_최적화_완료.md
+2025-08-08 15:54:04,283 - INFO -   - Monitoring/Posco_News_mini/docs/🕐모든_절대시간_기준_알림_완료.md
+2025-08-08 15:54:04,283 - INFO -   - Monitoring/Posco_News_mini/docs/📅스케줄_설정_완료.md
+2025-08-08 15:54:04,283 - INFO -   - Monitoring/Posco_News_mini/docs/🛡️워치햄스터_연동_완료.md
+2025-08-08 15:54:04,283 - INFO -   - Monitoring/Posco_News_mini_v2/README.md
+2025-08-08 15:54:04,283 - INFO - readme_files: 8개 파일
+2025-08-08 15:54:04,283 - INFO -   - README.md
+2025-08-08 15:54:04,283 - INFO -   - Monitoring/Posco_News_mini/README.md
+2025-08-08 15:54:04,283 - INFO -   - Monitoring/Posco_News_mini/docs/README.md
+2025-08-08 15:54:04,283 - INFO -   - Monitoring/Posco_News_mini_v2/README.md
+2025-08-08 15:54:04,283 - INFO -   - readme.md
+2025-08-08 15:54:04,283 - INFO -   - Monitoring/Posco_News_mini/readme.md
+2025-08-08 15:54:04,283 - INFO -   - Monitoring/Posco_News_mini/docs/readme.md
+2025-08-08 15:54:04,283 - INFO -   - Monitoring/Posco_News_mini_v2/readme.md

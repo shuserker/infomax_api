@@ -2,7 +2,7 @@
 
 ## 🚀 Windows 10/11 Modern Edition 출시!
 
-모든 워치햄스터 배치 파일이 **Windows 11 Fluent Design**을 기반으로 한 최신 현대적 시스템으로 완전히 재설계되었습니다.
+모든 WatchHamster 배치 파일이 **Windows 11 Fluent Design**을 기반으로 한 최신 현대적 시스템으로 완전히 재설계되었습니다.
 
 ## 📋 주요 변경사항
 
@@ -33,14 +33,14 @@
 ## 📁 새로운 파일 구조
 
 ```
-🐹 워치햄스터 시스템 v4.0 - Modern Edition
+🐹 WatchHamster 시스템 v4.0 - Modern Edition
 ├── lib_wt_common.bat                           # 공통 라이브러리 v4.0
-├── 🐹워치햄스터_총괄_관리_센터_v4.bat            # 메인 총괄 센터 (Full)
-├── 🐹워치햄스터_총괄_관리_센터_MODERN.bat        # 메인 총괄 센터 (Simple)
+├── 🐹WatchHamster_총괄_관리_센터_v4.bat            # 메인 총괄 센터 (Full)
+├── 🐹WatchHamster_총괄_관리_센터_MODERN.bat        # 메인 총괄 센터 (Simple)
 ├── 🔄Git_덮어씌우기.bat                        # Git 도구 (Modern)
-└── Monitoring/Posco_News_mini/
+└── Monitoring/POSCO News/
     ├── 🎛️POSCO_통합_관리_센터_v4.bat           # POSCO 전용 관리 센터
-    ├── 🚀POSCO_워치햄스터_시작_v4.bat           # 워치햄스터 시작 (고급)
+    ├── 🚀POSCO_WatchHamster_시작_v4.bat           # WatchHamster 시작 (고급)
     └── 🛑POSCO_모니터링_중지_v4.bat             # 모니터링 중지 (고급)
 ```
 
@@ -48,7 +48,7 @@
 
 ### 1. 풀 버전 (고급 사용자)
 ```bash
-🐹워치햄스터_총괄_관리_센터_v4.bat
+🐹WatchHamster_총괄_관리_센터_v4.bat
 ```
 - 모든 기능 포함
 - 고급 설정 및 테마 변경
@@ -56,7 +56,7 @@
 
 ### 2. 모던 버전 (일반 사용자)
 ```bash
-🐹워치햄스터_총괄_관리_센터_MODERN.bat
+🐹WatchHamster_총괄_관리_센터_MODERN.bat
 ```
 - 핵심 기능만 포함
 - 간단하고 직관적인 인터페이스
@@ -96,7 +96,7 @@
 ### 📋 스마트 메뉴 시스템
 ```
 ┌─ 모니터링 시스템 ─────────────────────────────────────────────────────────┐
-│ 1 🏭 POSCO 뉴스 모니터링  포스코 뉴스 및 주가 모니터링           │
+│ 1 🏭 POSCO 뉴스 모니터링  POSCO News 및 주가 모니터링           │
 └───────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -143,7 +143,7 @@
 
 ### 🚀 빠른 시작 (30초 가이드)
 1. **Windows Terminal** 실행 (Win + X → T)
-2. `🐹워치햄스터_총괄_관리_센터_MODERN.bat` 더블클릭
+2. `🐹WatchHamster_총괄_관리_센터_MODERN.bat` 더블클릭
 3. `1` 입력 → POSCO 모니터링 시작
 4. 완료! 🎉
 
@@ -166,11 +166,11 @@ copy *_v3.bat backup_v3\
 #### 2단계: 새 버전 사용
 ```bash
 # 기존 v3.0
-🐹워치햄스터_총괄_관리_센터_v3.bat
+🐹WatchHamster_총괄_관리_센터_v3.bat
 
 # 새로운 v4.0 (권장)
-🐹워치햄스터_총괄_관리_센터_v4.bat        # 풀 버전
-🐹워치햄스터_총괄_관리_센터_MODERN.bat     # 간단 버전
+🐹WatchHamster_총괄_관리_센터_v4.bat        # 풀 버전
+🐹WatchHamster_총괄_관리_센터_MODERN.bat     # 간단 버전
 ```
 
 #### 3단계: 설정 확인
@@ -246,7 +246,7 @@ copy *_v3.bat backup_v3\
 
 ---
 
-*🐹 워치햄스터 팀 | Windows 11 Modern Edition | 2025년 8월 4일*
+*🐹 WatchHamster 팀 | Windows 11 Modern Edition | 2025년 8월 4일*
 
 ## 📈 버전 히스토리
 

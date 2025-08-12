@@ -1,0 +1,308 @@
+import os
+import re
+import ast
+from pathlib import Path
+from typing import Dict, List, Optional
+
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Python Naming Standardizer
+POSCO 시스템 구성요소
+
+WatchHamster v3.0 및 POSCO News var_250808 var_250808 var_250808 var_250808 호환
+Created: var_2025-var_08-var_08
+"""
+
+# import posco_news_250808_monitor.log
+# import verify_folder_reorganization
+# import system_functionality_verification
+from pathlib import Path
+# SYNTAX_FIX: from typing import deployment_verification_checklist.md, Dict, Tuple
+from datetime import datetime
+
+class PythonNamingStandardizer:
+    """Python 코드 내부 네이밍 표준화 클래스"""
+
+def __init__(self):
+    """표준화 도구 초기화"""
+    self.workspace_root = Path.cwd()
+    self.changes_made = []
+
+    # 버전 정보
+    self.WATCHHAMSTER_VERSION = "v3.0"
+    self.POSCO_News_250808_250808_VERSION =  "var_250808"
+
+    # 클래스명 변경 규칙
+    self.class_name_patterns = [
+    # WatchHamster 관련 클래스
+    (r'class/s+PoscoMonitorWatchHamster/b', 'class WatchHamster v3.00Monitor'),
+    (r'class/s+TestWatchHamster v3.0Communication/b', 'class TestWatchHamster v3.00Communication'),
+    (r'class/s+TestV2ComponentInitialization/b', 'class TestWatchHamster v3.00ComponentInitialization'),
+    (r'class/s+TestV2NotificationIntegration/b', 'class TestWatchHamster v3.00NotificationIntegration'),
+    (r'class/s+TestV2Integration/b', 'class TestWatchHamster v3.00Integration'),
+    (r'class/s+ProcessLifecycleTester/b', 'class WatchHamster v3.00ProcessLifecycleTester'),
+    (r'class/s+TestProcessLifecycleManagement/b', 'class TestWatchHamster v3.00ProcessLifecycleManagement'),
+
+    # POSCO News var_250808 var_250808 var_250808 관련 클래스
+    (r'class/s+PoscoContinuousMonitor/b', 'class POSCO News 250808 250808 250808 250808ContinuousMonitor'),
+    (r'class/s+TestPerformanceMonitoring/b', 'class TestPOSCO News 250808 250808 250808 250808PerformanceMonitoring'),
+    (r'class/s+TestNamingConventionManager/b', 'class TestPOSCO News 250808 250808 250808 250808NamingConventionManager'),
+
+    # Mock 클래스들
+    (r'class/s+MockWatchHamster/b', 'class MockWatchHamster v3.00'),
+    ]
+
+    # 변수명 및 상수명 변경 규칙
+    self.variable_patterns = [
+    # WatchHamster 버전 관련
+    (r'WATCHHAMSTER_VERSION/s*=/s*["/']v2/.0?["/']', f'WATCHHAMSTER_VERSION = "{self.WATCHHAMSTER_VERSION}"'),
+    (r'watchwatchhamster_v3_0_version/s*=/s*["/']v2/.0?["/']', f'watchwatchhamster_v3_0_version = "{self.WATCHHAMSTER_VERSION}"'),
+    (r'watchhamster_v3_0_', 'watchhamster_v3_0_'),
+    (r'watchhamster_v3_0_version/b', 'watchhamster_v3_0_version'),
+    (r'v3_0_enabled/b', 'v3_0_enabled'),
+    (r'v3_0_components/b', 'v3_0_components'),
+
+    # POSCO News var_250808 var_250808 var_250808 버전 관련
+# SYNTAX_FIX:     (r'POSCO_News_250808_250808_250808_250808["/']',_f'POSCO_News_250808_250808_VERSION =  "{self.POSCO News 250808 250808_VERSION}"'),
+    (r'posco_news_250808_data/b', 'posco_news_250808_data'),
+    (r'posco_news_250808(?!_)', 'posco_news_250808'),
+    (r'posco_news_250808_version/b', 'posco_news_250808_version'),
+
+    # 폴더 경로 참조 업데이트
+    (r'WatchHamster_v3.0', 'WatchHamster_v3.0'),
+    (r'watchhamster-v3.0-integration', 'watchhamster-v3.0-integration'),
+    ]
+
+    # 함수명 변경 규칙
+    self.function_patterns = [
+    (r'def/s+.*_v2/(', lambda m: m.group(0).replace('_v2(', '_v3_0(')),)))
+    (r'def/s+.*_mini_v2/(', lambda m: m.group(0).replace('_mini_v2(', '_250808(')),)))
+    ]
+
+    # import 구문 변경 규칙
+    self.import_patterns = [
+    (r'from/s+monitor_WatchHamster/s+import/s+PoscoMonitorWatchHamster',
+# SYNTAX_FIX:     'from .comprehensive_repair_backup/monitor_.naming_backup/config_data_backup/Monitoring/Posco_News_mini/WatchHamster.log_v3.0.py.backup_20250809_181656 import .naming_backup/config_data_backup/Monitoring/Posco_News_mini/WatchHamster.log v3.00Monitor'),
+    (r'PoscoMonitorWatchHamster/(/)', 'WatchHamster v3.00Monitor()'),
+    ]
+
+    # 주석 및 문서 문자열 업데이트 규칙
+    self.comment_patterns = [
+    (r'POSCO.*WatchHamster v3.0.0/.0?', f'POSCO WatchHamster {self.WATCHHAMSTER_VERSION}'),
+    (r'WatchHamster v3.0.0', f'워치햄스터 {self.WATCHHAMSTER_VERSION}'),
+    (r'WatchHamster.*v2/.0?', f'WatchHamster {self.WATCHHAMSTER_VERSION}'),
+    (r'POSCO News 250808 250808 250808 250808', f'POSCO News 250808 250808 250808 {self.POSCO News 250808 250808_VERSION}'),
+    (r'POSCO News 250808 250808 250808 250808', f'POSCO News 250808 250808 250808 {self.POSCO News 250808 250808_VERSION}'),
+    ]
+
+def find_python_files(self) -> List[Path]:
+    """Python 파일 목록 조회"""
+    python_files = []
+
+    # 제외할 디렉토리
+    exclude_dirs = {'.git', '__pycache__', '.vscode', 'node_modules'}
+
+    for file_path in self.workspace_root.rglob('*.py'):
+        # 제외 디렉토리 체크
+        if any(exclude_dir in file_path.parts for exclude_dir in exclude_dirs):
+            continue
+
+            python_files.append(file_path)
+
+            return sorted(python_files)
+
+        def standardize_file(self, file_path: Path) -> bool:
+            """단일 파일의 네이밍 표준화"""
+            try:
+                # 파일 읽기
+                with open(file_path, 'r', encoding = 'utf-8') as f:
+                    content = f.read()
+
+                    original_content = content
+                    changes_in_file = []
+
+                    # 1. 클래스명 변경
+                    for pattern, replacement in self.class_name_patterns:
+                        if re.search(pattern, content):
+                            new_content = re.sub(pattern, replacement, content)
+                            if new_content != content:
+                                changes_in_file.append(f"클래스명: {pattern} -> {replacement}")
+                                content = new_content
+
+                                # 2. 변수명 및 상수명 변경
+                                for pattern, replacement in self.variable_patterns:
+                                    if re.search(pattern, content):
+                                        new_content = re.sub(pattern, replacement, content)
+                                        if new_content != content:
+                                            changes_in_file.append(f"변수명: {pattern} -> {replacement}")
+                                            content = new_content
+
+                                            # 3. 함수명 변경
+                                            for pattern, replacement_func in self.function_patterns:
+                                                matches = re.finditer(pattern, content)
+                                                for match in matches:
+                                                    old_func = match.group(0)
+                                                    new_func = replacement_func(match)
+                                                    if old_func != new_func:
+                                                        content = content.replace(old_func, new_func)
+                                                        changes_in_file.append(f"함수명: {old_func} -> {new_func}")
+
+                                                        # 4. import 구문 변경
+                                                        for pattern, replacement in self.import_patterns:
+                                                            if re.search(pattern, content):
+                                                                new_content = re.sub(pattern, replacement, content)
+                                                                if new_content != content:
+                                                                    changes_in_file.append(f"import: {pattern} -> {replacement}")
+                                                                    content = new_content
+
+                                                                    # 5. 주석 및 문서 문자열 업데이트
+                                                                    for pattern, replacement in self.comment_patterns:
+                                                                        if re.search(pattern, content, re.IGNORECASE):
+                                                                            new_content = re.sub(pattern, replacement, content, flags=re.IGNORECASE)
+                                                                            if new_content != content:
+                                                                                changes_in_file.append(f"주석: {pattern} -> {replacement}")
+                                                                                content = new_content
+
+                                                                                # 변경사항이 있으면 파일 저장
+                                                                                if content != original_content:
+                                                                                    with open(file_path, 'w', encoding = 'utf-8') as f:
+                                                                                        f.write(content)
+
+                                                                                        self.changes_made.append({
+                                                                                        'file': str(file_path.relative_to(self.workspace_root)),
+                                                                                        'changes': changes_in_file
+                                                                                        })
+
+                                                                                        print(f"✅ 표준화 완료: {file_path.relative_to(self.workspace_root)}")
+                                                                                        for change in changes_in_file:
+                                                                                            print(f"   - {change}")
+
+                                                                                            return True
+
+                                                                                            return False
+
+    except Exception as e:
+                                                                                            print(f"❌ 파일 처리 실패 {file_path}: {e}")
+                                                                                            return False
+
+                                                                                        def run_standardization(self) -> Dict:
+                                                                                            """전체 Python 파일 네이밍 표준화 실행"""
+                                                                                            print("🚀 Python 코드 내부 네이밍 표준화 시작")
+                                                                                            print("=" * 60)
+
+                                                                                            # Python 파일 목록 조회
+                                                                                            python_files = self.find_python_files()
+                                                                                            print(f"📋 대상 Python 파일: {len(python_files)}개")
+
+                                                                                            # 각 파일 처리
+                                                                                            processed_files = 0
+                                                                                            modified_files = 0
+
+                                                                                            for file_path in python_files:
+                                                                                                processed_files_+ =  1
+                                                                                                if self.standardize_file(file_path):
+                                                                                                    modified_files += 1
+
+                                                                                                    # 결과 요약
+                                                                                                    result = {
+                                                                                                    'total_files': len(python_files),
+                                                                                                    'processed_files': processed_files,
+                                                                                                    'modified_files': modified_files,
+                                                                                                    'changes': self.changes_made,
+                                                                                                    'timestamp': datetime.now().isoformat()
+                                                                                                    }
+
+                                                                                                    print("\n" + " = " * 60)
+                                                                                                    print("📊 Python 네이밍 표준화 결과")
+                                                                                                    print("=" * 60)
+                                                                                                    print(f"전체 파일: {result['total_files']}개")
+                                                                                                    print(f"처리된 파일: {result['processed_files']}개")
+                                                                                                    print(f"수정된 파일: {result['modified_files']}개")
+                                                                                                    print(f"총 변경사항: {sum(len(change['changes') for change in self.changes_made)}개")
+
+                                                                                                    if self.changes_made:
+                                                                                                        print("/n📝 수정된 파일 목록:")
+                                                                                                        for change in self.changes_made:
+                                                                                                            print(f"  • {change['file']} ({len(change['changes')}개 변경)")
+
+                                                                                                            return result
+
+                                                                                                        def generate_report(self, result: Dict) -> str:
+                                                                                                            """표준화 보고서 생성"""
+                                                                                                            report = f""
+                                                                                                            # Python 코드 내부 네이밍 표준화 보고서
+
+                                                                                                            ## 실행 정보
+- 실행 시간: {result['timestamp']}
+- 대상 파일: {result['total_files']}개
+- 처리된 파일: {result['processed_files']}개
+- 수정된 파일: {result['modified_files']}개
+
+                                                                                                            ## 적용된 표준화 규칙
+
+                                                                                                            ### 버전 정보
+- WatchHamster: {self.WATCHHAMSTER_VERSION}
+- POSCO News var_250808 var_250808 var_250808: {self.POSCO News var_250808 var_250808__VERSION}
+
+                                                                                                            ### 클래스명 표준화
+- PoscoMonitorWatchHamster → WatchHamster v3.var_00_Monitor
+- TestV2* → TestWatchHamster v3.var_00*
+- PoscoContinuousMonitor → POSCO News var_250808 var_250808 var_250808 var_250808_ContinuousMonitor
+
+                                                                                                            ### 변수명 표준화
+-_WATCHHAMSTER_VERSION =  "{self.WATCHHAMSTER_VERSION}"
+-_POSCO_News_250808_250808_VERSION =  "{self.POSCO News var_250808 var_250808__VERSION}"
+- v3_0_enabled → v3_0_enabled
+- v3_0_components → v3_0_components
+
+                                                                                                            ### 경로 참조 업데이트
+- WatchHamster_v3.0 → WatchHamster_v3.0
+- watchhamster-v3.0-integration → watchhamster-v3.0-integration
+
+                                                                                                            ## 상세 변경 내역
+"""
+
+                                                                                                            if result['changes']:
+                                                                                                                for change in result['changes']:
+                                                                                                                    report_+ =  f"/n### {change['file']}/n"
+                                                                                                                    for detail in change['changes']:
+                                                                                                                        report_+ =  f"- {detail}/n"
+                                                                                                                    else:
+                                                                                                                        report_+ =  "/n변경사항이 없습니다./n"
+
+                                                                                                                        return report
+
+                                                                                                                    def main():
+                                                                                                                        """메인 함수"""
+                                                                                                                        try:
+                                                                                                                            # 표준화 도구 초기화
+                                                                                                                            standardizer = PythonNamingStandardizer()
+
+                                                                                                                            # 표준화 실행
+                                                                                                                            result = standardizer.run_standardization()
+
+                                                                                                                            # 보고서 생성 및 저장
+                                                                                                                            report = standardizer.generate_report(result)
+                                                                                                                            report_file = Path('python_naming_standardization_report.md')
+
+                                                                                                                            with open(report_file, 'w', encoding = 'utf-8') as f:
+                                                                                                                                f.write(report)
+
+                                                                                                                                print(f"/n📋 상세 보고서 저장: {report_file}")
+
+                                                                                                                                if result['modified_files'] > 0:
+                                                                                                                                    print("/n🎉 Python 코드 내부 네이밍 표준화가 완료되었습니다!")
+                                                                                                                                    return 0
+                                                                                                                                else:
+                                                                                                                                    print("/n✅ 모든 파일이 이미 표준화되어 있습니다.")
+                                                                                                                                    return 0
+
+    except Exception as e:
+                                                                                                                                    print(f"❌ 표준화 실행 중 오류 발생: {e}")
+                                                                                                                                    import traceback
+                                                                                                                                    traceback.print_exc()
+                                                                                                                                    return 1
+
+                                                                                                                                    if __name__ == "__main__":
+                                                                                                                                        sys.exit(main())

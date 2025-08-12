@@ -1,0 +1,58 @@
+{
+  "timestamp": "2025-08-09T19:37:14.056212",
+  "python_scripts": {},
+  "shell_scripts": {},
+  "batch_scripts": {},
+  "webhook_tests": {},
+  "module_imports": {},
+  "overall_status": "POOR",
+  "watchhamster_control": {
+    "bat_control_center": {
+      "exists": true,
+      "executable": false,
+      "message": "[Errno 2] No such file or directory: 'cmd'"
+    },
+    "command_control_center": {
+      "exists": true,
+      "executable": false,
+      "message": "Unsupported script type"
+    }
+  },
+  "posco_news_monitoring": {
+    "main_news_file": {
+      "exists": true,
+      "syntax_valid": true,
+      "message": ""
+    },
+    "watchhamster_monitor": {
+      "exists": true,
+      "syntax_valid": false,
+      "message": "  File \"/Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0.py\", line 12\n    import .comprehensive_repair_backup/realtime_news_monitor.py.backup_20250809_181657\n           ^\nSyntaxError: invalid syntax\n\n"
+    },
+    "main_notifier": {
+      "exists": true,
+      "syntax_valid": false,
+      "message": "  File \"/Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/POSCO_News_250808/posco_main_notifier.py\", line 13\n    import .comprehensive_repair_backup/realtime_news_monitor.py.backup_20250809_181657\n           ^\nSyntaxError: invalid syntax\n\n"
+    }
+  },
+  "shell_batch_scripts": {
+    "🚀🚀POSCO_News_250808_Direct_Start.sh": {
+      "exists": true,
+      "executable": true,
+      "message": "Script started successfully"
+    },
+    "🚀🚀POSCO_News_250808_Direct_Start.bat": {
+      "exists": true,
+      "executable": false,
+      "message": "[Errno 2] No such file or directory: 'cmd'"
+    }
+  },
+  "webhook_functionality": {
+    "no_webhooks": {
+      "message": "No webhook URLs found in config"
+    }
+  },
+  "success_rate": 25.0,
+  "total_tests": 8,
+  "passed_tests": 2
+}

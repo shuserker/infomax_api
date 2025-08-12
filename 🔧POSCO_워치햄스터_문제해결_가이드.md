@@ -1,4 +1,4 @@
-# 🔧 POSCO 워치햄스터 v2.0 문제 해결 가이드
+# 🔧 POSCO WatchHamster v3.0 문제 해결 가이드
 
 ## 📖 목차
 1. [빠른 진단 체크리스트](#빠른-진단-체크리스트)
@@ -14,13 +14,13 @@
 ### 🔍 1단계: 기본 상태 확인 (30초)
 ```bash
 # 제어센터 실행
-./posco_control_center.sh
+./.naming_backup/scripts/.naming_backup/scripts/posco_control_center.sh
 
-# 메뉴 4번 선택: 📊 워치햄스터 상태
+# 메뉴 4번 선택: 📊 WatchHamster 상태
 ```
 
 **확인사항:**
-- [ ] 워치햄스터 프로세스가 실행 중인가?
+- [ ] WatchHamster 프로세스가 실행 중인가?
 - [ ] 관리 중인 모듈들이 정상 작동 중인가?
 - [ ] 시스템 리소스가 정상 범위인가? (CPU < 80%, 메모리 < 85%)
 
@@ -32,9 +32,9 @@ ps aux | grep -E "(monitor_WatchHamster|posco_main_notifier|realtime_news_monito
 
 **정상 상태 예시:**
 ```
-user  12345  0.1  0.8  python3 monitor_WatchHamster.py
-user  12346  0.1  0.5  python3 posco_main_notifier.py  
-user  12347  0.1  0.4  python3 realtime_news_monitor.py
+user  12345  0.1  0.8  python3 .naming_backup/config_data_backup/watchhamster.log
+user  12346  0.1  0.5  python3 Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/posco_main_notifier.py  
+user  12347  0.1  0.4  python3 Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/realtime_news_monitor.py
 ```
 
 ### 🔍 3단계: 로그 확인 (2분)
@@ -50,11 +50,11 @@ tail -10 watchhamster.log
 
 ## 🚨 일반적인 문제 해결
 
-### 1. 워치햄스터가 시작되지 않음
+### 1. WatchHamster가 시작되지 않음
 
 #### ❌ 증상
 ```
-❌ POSCO 워치햄스터 시작에 실패했습니다.
+❌ POSCO WatchHamster 시작에 실패했습니다.
 로그를 확인하세요: tail -f watchhamster.log
 ```
 
@@ -65,16 +65,16 @@ tail -10 watchhamster.log
    python3 --version
    
    # 필요한 패키지 확인
-   python3 -c "import requests, psutil, json"
+# BROKEN_REF:    python3 -c "import requests, psutil, json"
    ```
 
 2. **파일 권한 문제**
    ```bash
    # 실행 권한 확인
-   ls -la Monitoring/Posco_News_mini/monitor_WatchHamster.py
+   ls -la Monitoring/POSCO News/monitor_WatchHamster.py
    
    # 권한 수정
-   chmod +x Monitoring/Posco_News_mini/monitor_WatchHamster.py
+   chmod +x Monitoring/POSCO News/monitor_WatchHamster.py
    ```
 
 3. **포트 충돌 문제**
@@ -86,18 +86,18 @@ tail -10 watchhamster.log
 #### ✅ 해결방법
 ```bash
 # 1. 환경 정리
-pkill -f "monitor_WatchHamster.py"
-pkill -f "posco_main_notifier.py"
+pkill -f ".naming_backup/config_data_backup/watchhamster.log"
+pkill -f "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/posco_main_notifier.py"
 
 # 2. 로그 파일 확인
 tail -50 watchhamster.log
 
 # 3. 수동 시작 테스트
-cd Monitoring/Posco_News_mini
-python3 monitor_WatchHamster.py
+cd Monitoring/POSCO News
+python3 .naming_backup/config_data_backup/watchhamster.log
 
 # 4. 제어센터에서 재시작
-./posco_control_center.sh → 메뉴 1번
+./.naming_backup/scripts/.naming_backup/scripts/posco_control_center.sh → 메뉴 1번
 ```
 
 ### 2. 모듈이 자동으로 재시작되지 않음
@@ -128,7 +128,7 @@ python3 monitor_WatchHamster.py
 **단계 1: 개별 모듈 재시작**
 ```bash
 # 제어센터에서
-./posco_control_center.sh
+./.naming_backup/scripts/.naming_backup/scripts/posco_control_center.sh
 → 메뉴 5번 (모듈 관리)
 → 해당 모듈 번호 선택
 ```
@@ -136,15 +136,15 @@ python3 monitor_WatchHamster.py
 **단계 2: 수동 테스트**
 ```bash
 # 문제 모듈 직접 실행
-cd Monitoring/Posco_News_mini
-python3 posco_main_notifier.py
+cd Monitoring/POSCO News
+python3 Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/posco_main_notifier.py
 ```
 
 **단계 3: 전체 재시작**
 ```bash
 # 제어센터에서
-./posco_control_center.sh
-→ 메뉴 3번 (워치햄스터 재시작)
+./.naming_backup/scripts/.naming_backup/scripts/posco_control_center.sh
+→ 메뉴 3번 (WatchHamster 재시작)
 ```
 
 ### 3. 알림이 오지 않음
@@ -157,7 +157,7 @@ python3 posco_main_notifier.py
 1. **웹훅 URL 문제**
    ```bash
    # config.py 확인
-   grep -n "WEBHOOK_URL" Monitoring/Posco_News_mini/config.py
+   grep -n "WEBHOOK_URL" Monitoring/POSCO News/config.py
    ```
 
 2. **네트워크 연결 문제**
@@ -173,28 +173,28 @@ python3 posco_main_notifier.py
 
 3. **알림 시스템 비활성화**
    ```bash
-   # 워치햄스터 로그에서 알림 관련 오류 확인
+   # WatchHamster 로그에서 알림 관련 오류 확인
    grep -i "notification\|알림" watchhamster.log
    ```
 
 #### ✅ 해결방법
 ```bash
 # 1. 설정 확인
-cat Monitoring/Posco_News_mini/config.py | grep WEBHOOK
+cat Monitoring/POSCO News/config.py | grep WEBHOOK
 
 # 2. 테스트 알림 전송
-cd Monitoring/Posco_News_mini
-python3 test_watchhamster_notification.py
+cd Monitoring/POSCO News
+python3 Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/test_watchhamster_notification.py
 
-# 3. 워치햄스터 재시작
-./posco_control_center.sh → 메뉴 3번
+# 3. WatchHamster 재시작
+./.naming_backup/scripts/.naming_backup/scripts/posco_control_center.sh → 메뉴 3번
 ```
 
 ### 4. 시스템 리소스 과부하
 
 #### ❌ 증상
 ```
-🚨 POSCO 워치햄스터 정기 보고 - 중요 문제 감지
+🚨 POSCO WatchHamster 정기 보고 - 중요 문제 감지
 🚨 감지된 문제:
    • ❌ 시스템 리소스 임계값 초과
 💻 CPU: 95.2% | 🧠 메모리: 92.8% | 💾 디스크: 98.1%
@@ -220,7 +220,7 @@ ps aux | grep -E "(posco|monitor)" | awk '{print $3, $4, $11}'
 **즉시 조치:**
 ```bash
 # 1. 불필요한 프로세스 종료
-pkill -f "historical_data_collector.py"  # 선택적 모듈
+pkill -f "Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/historical_data_collector.py"  # 선택적 모듈
 
 # 2. 로그 파일 정리
 find . -name "*.log" -size +100M -exec truncate -s 50M {} \;
@@ -250,8 +250,8 @@ rm -rf /tmp/posco_*
 #### 해결방법
 ```bash
 # 1. 직접 실행으로 오류 확인
-cd Monitoring/Posco_News_mini
-python3 posco_main_notifier.py
+cd Monitoring/POSCO News
+python3 Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/posco_main_notifier.py
 
 # 2. API 설정 확인
 grep -n "API_CONFIG" config.py
@@ -295,8 +295,8 @@ crontab -l | grep posco
 ls -la reports/
 
 # 3. 수동 리포트 생성 테스트
-cd Monitoring/Posco_News_mini
-python3 -c "from integrated_report_scheduler import *; generate_daily_report()"
+cd Monitoring/POSCO News
+# BROKEN_REF: python3 -c "from Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/integrated_report_scheduler.py.py import *; generate_daily_report()"
 ```
 
 ### 4. historical_data_collector.py
@@ -309,10 +309,10 @@ python3 -c "from integrated_report_scheduler import *; generate_daily_report()"
 #### 해결방법
 ```bash
 # 1. DB 연결 테스트
-python3 -c "import sqlite3; print('DB OK')"
+# BROKEN_REF: python3 -c "import sqlite3; print('DB OK')"
 
 # 2. 데이터 크기 확인
-du -sh Monitoring/Posco_News_mini/*.db
+du -sh Monitoring/POSCO News/*.db
 
 # 3. 선택적 비활성화 (리소스 절약)
 # modules.json에서 auto_start: false 설정
@@ -326,8 +326,8 @@ du -sh Monitoring/Posco_News_mini/*.db
 
 ```
 📁 로그 파일 구조:
-├── watchhamster.log              # 메인 워치햄스터 로그
-├── WatchHamster.log              # 기존 워치햄스터 로그
+├── watchhamster.log              # 메인 WatchHamster 로그
+├── WatchHamster.log              # 기존 WatchHamster 로그
 ├── posco_monitor.log             # 통합 모니터링 로그
 ├── main_notifier.log             # 메인 알림 시스템 로그
 ├── realtime_monitor.log          # 실시간 모니터 로그
@@ -352,7 +352,7 @@ du -sh Monitoring/Posco_News_mini/*.db
 [2025-08-07 14:00:00] 🔧 새로운 아키텍처 컴포넌트 초기화 완료
 [2025-08-07 14:00:01] 📋 관리 대상 프로세스 로드: 3개
 [2025-08-07 14:00:02] ✅ posco_main_notifier 시작 성공
-[2025-08-07 14:00:03] 🐹 POSCO 워치햄스터 정기 상태 보고
+[2025-08-07 14:00:03] 🐹 POSCO WatchHamster 정기 상태 보고
 ```
 
 #### 문제 발생 로그
@@ -442,7 +442,7 @@ df -h
 free -h
 
 # 4. 재시작
-./posco_control_center.sh → 메뉴 1번
+./.naming_backup/scripts/.naming_backup/scripts/posco_control_center.sh → 메뉴 1번
 ```
 
 ### 2. 반복적인 크래시 발생 시
@@ -450,19 +450,19 @@ free -h
 #### 🚨 상황: 시작 후 즉시 종료 반복
 ```bash
 # 1. 안전 모드 시작 (최소 기능만)
-cd Monitoring/Posco_News_mini
+cd Monitoring/POSCO News
 python3 -c "
-import sys
+import system_functionality_verification.pytem_functionality_verification.py
 sys.path.insert(0, '.')
-from monitor_WatchHamster import PoscoMonitorWatchHamster
+from .comprehensive_repair_backup/.comprehensive_repair_backup/monitor_WatchHamster_v3.0.py.backup_20250809_181656_v3.0.py.backup_20250809_181656 import .naming_backup/config_data_backup/watchhamster.log
 wh = PoscoMonitorWatchHamster()
 print('초기화 완료')
 "
 
 # 2. 설정 파일 검증
 python3 -c "
-import json
-with open('../Posco_News_mini_v2/modules.json') as f:
+import test_config.test_config.json
+with open('.naming_backup/config_data_backup/Monitoring/Posco_News_mini/modules.json') as f:
     config = json.load(f)
     print('설정 파일 정상')
 "
@@ -548,7 +548,7 @@ sudo iptables -L
 🔍 문제 보고 템플릿:
 
 1. 발생 시간: 2025-08-07 14:00:00
-2. 증상: 워치햄스터 시작 실패
+2. 증상: WatchHamster 시작 실패
 3. 오류 메시지: [로그에서 복사]
 4. 시스템 환경:
    - OS: macOS 13.0
@@ -556,7 +556,7 @@ sudo iptables -L
    - 메모리: 16GB
    - 디스크: 500GB (사용률 45%)
 5. 재현 단계:
-   - ./posco_control_center.sh 실행
+   - ./.naming_backup/scripts/.naming_backup/scripts/posco_control_center.sh 실행
    - 메뉴 1번 선택
    - 오류 발생
 6. 시도한 해결방법:
@@ -569,4 +569,4 @@ sudo iptables -L
 
 ---
 
-*🔧 이 문제 해결 가이드는 POSCO 워치햄스터 v2.0 (2025-08-07) 기준으로 작성되었습니다.*
+*🔧 이 문제 해결 가이드는 POSCO WatchHamster v3.0 (2025-08-07) 기준으로 작성되었습니다.*

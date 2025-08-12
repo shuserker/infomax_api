@@ -1,0 +1,139 @@
+{
+  "test_summary": {
+    "overall_success": false,
+    "total_tests": 5,
+    "successful_tests": 1,
+    "failed_tests": 4,
+    "success_rate": 20.0,
+    "test_duration": 2.1511287689208984,
+    "timestamp": "2025-08-12T09:09:51.523914"
+  },
+  "detailed_results": [
+    {
+      "test_name": "모니터 초기화 테스트",
+      "success": false,
+      "details": {
+        "error": "No module named 'core.monitoring.monitor_WatchHamster_v3_0'",
+        "traceback": "Traceback (most recent call last):\n  File \"/Users/jy_lee/Desktop/GIT_DEV/infomax_api/comprehensive_system_integration_test.py\", line 123, in test_monitor_initialization\n    from core.monitoring.monitor_WatchHamster_v3_0 import WatchHamsterMonitor\nModuleNotFoundError: No module named 'core.monitoring.monitor_WatchHamster_v3_0'\n"
+      }
+    },
+    {
+      "test_name": "핵심 모듈 Import 테스트",
+      "success": false,
+      "details": {
+        "success_count": 0,
+        "total_count": 5,
+        "results": [
+          {
+            "module": "core.monitoring.monitor_WatchHamster_v3.0",
+            "success": false,
+            "error": "No module named 'core.monitoring.monitor_WatchHamster_v3'"
+          },
+          {
+            "module": "core.process_manager",
+            "success": false,
+            "error": "No module named 'core.process_manager'"
+          },
+          {
+            "module": "core.state_manager",
+            "success": false,
+            "error": "No module named 'core.state_manager'"
+          },
+          {
+            "module": "core.notification_manager",
+            "success": false,
+            "error": "No module named 'core.notification_manager'"
+          },
+          {
+            "module": "core.performance_monitor",
+            "success": false,
+            "error": "No module named 'core.performance_monitor'"
+          }
+        ]
+      }
+    },
+    {
+      "test_name": "회귀 테스트",
+      "success": true,
+      "details": {
+        "success_count": 3,
+        "total_count": 3,
+        "tests": [
+          {
+            "test": "파일 시스템 접근",
+            "success": true,
+            "error": null
+          },
+          {
+            "test": "JSON 처리",
+            "success": true,
+            "error": null
+          },
+          {
+            "test": "네트워크 모듈",
+            "success": true,
+            "error": null
+          }
+        ]
+      }
+    },
+    {
+      "test_name": "시스템 성능 테스트",
+      "success": false,
+      "details": {
+        "memory": {
+          "rss": 24.21875,
+          "vms": 425073.21875,
+          "percent": 0.14781951904296875
+        },
+        "memory_increase_mb": 10.265625,
+        "memory_increase_percent": 73.57222844344905,
+        "cpu_percent": 31.3,
+        "disk_usage_percent": 69.52318107562951,
+        "test_duration": 1.1449048519134521
+      }
+    },
+    {
+      "test_name": "시스템 성능 테스트",
+      "success": false,
+      "details": {
+        "memory": {
+          "rss": 24.21875,
+          "vms": 425073.21875,
+          "percent": 0.14781951904296875
+        },
+        "memory_increase_mb": 10.265625,
+        "memory_increase_percent": 73.57222844344905,
+        "cpu_percent": 29.7,
+        "disk_usage_percent": 69.52378776481399,
+        "test_duration": 2.151007652282715
+      }
+    }
+  ],
+  "performance_data": [
+    {
+      "memory": {
+        "rss": 24.21875,
+        "vms": 425073.21875,
+        "percent": 0.14781951904296875
+      },
+      "memory_increase_mb": 10.265625,
+      "memory_increase_percent": 73.57222844344905,
+      "cpu_percent": 31.3,
+      "disk_usage_percent": 69.52318107562951,
+      "test_duration": 1.1449048519134521
+    },
+    {
+      "memory": {
+        "rss": 24.21875,
+        "vms": 425073.21875,
+        "percent": 0.14781951904296875
+      },
+      "memory_increase_mb": 10.265625,
+      "memory_increase_percent": 73.57222844344905,
+      "cpu_percent": 29.7,
+      "disk_usage_percent": 69.52378776481399,
+      "test_duration": 2.151007652282715
+    }
+  ]
+}

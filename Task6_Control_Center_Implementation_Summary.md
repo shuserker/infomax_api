@@ -10,34 +10,34 @@
 ## 🎯 구현된 기능
 
 ### 1. start_watchhamster() 함수 완성 ✅
-**요구사항 2.1**: WHEN "워치햄스터 시작" 선택 THEN 실제로 워치햄스터 프로세스가 시작되고 하위 프로세스들이 관리 SHALL 된다
+**요구사항 2.1**: WHEN "WatchHamster 시작" 선택 THEN 실제로 WatchHamster 프로세스가 시작되고 하위 프로세스들이 관리 SHALL 된다
 
 **구현 내용**:
 - 🔍 시스템 환경 체크 (Python3 설치 확인)
-- 📁 워치햄스터 스크립트 존재 확인
+- 📁 WatchHamster 스크립트 존재 확인
 - 🧹 기존 프로세스 정리 (안전한 중복 실행 방지)
-- 🚀 워치햄스터 프로세스 시작 (`nohup python3 monitor_WatchHamster.py`)
+- 🚀 WatchHamster 프로세스 시작 (`nohup python3 .naming_backup/config_data_backup/watchhamster.log`)
 - ⏳ 초기화 대기 (10초)
 - 📊 하위 프로세스 상태 확인 (`check_managed_processes` 호출)
 - 🔍 시작 성공/실패 검증 및 로그 표시
 
 ### 2. check_watchhamster_status() 함수 구현 ✅
-**요구사항 2.2**: WHEN "워치햄스터 상태" 선택 THEN 실시간 프로세스 상태와 v2 컴포넌트 정보가 표시 SHALL 된다
+**요구사항 2.2**: WHEN "WatchHamster 상태" 선택 THEN 실시간 프로세스 상태와 v2 컴포넌트 정보가 표시 SHALL 된다
 
 **구현 내용**:
-- 🐹 워치햄스터 메인 프로세스 상태 확인 (`pgrep -f "monitor_WatchHamster.py"`)
+- 🐹 WatchHamster 메인 프로세스 상태 확인 (`pgrep -f ".naming_backup/config_data_backup/watchhamster.log"`)
 - 📊 실시간 프로세스 정보 표시:
   - PID (프로세스 ID)
   - 실행시간 (`ps -o etime=`)
   - CPU/메모리 사용률 (`ps -o pcpu,pmem`)
 - 📋 관리 중인 모듈 상태 표시 (`check_managed_processes` 호출)
-- ⚠️ 워치햄스터 미실행 시 안내 메시지
+- ⚠️ WatchHamster 미실행 시 안내 메시지
 
 ### 3. stop_watchhamster() 함수 추가 ✅
-**요구사항 2.3**: WHEN "워치햄스터 중지" 선택 THEN 모든 하위 프로세스가 안전하게 종료 SHALL 된다
+**요구사항 2.3**: WHEN "WatchHamster 중지" 선택 THEN 모든 하위 프로세스가 안전하게 종료 SHALL 된다
 
 **구현 내용**:
-- 🛑 워치햄스터 메인 프로세스 안전 종료
+- 🛑 WatchHamster 메인 프로세스 안전 종료
 - 📊 관리되는 하위 프로세스들 순차 종료:
   - `posco_main_notifier.py`
   - `realtime_news_monitor.py`
@@ -50,7 +50,7 @@
 **요구사항 2.4**: WHEN "모듈 관리" 선택 THEN 개별 모듈의 상태 확인 및 제어가 가능 SHALL 하다
 
 **구현 내용**:
-- 🔍 워치햄스터 실행 상태 사전 확인
+- 🔍 WatchHamster 실행 상태 사전 확인
 - 📊 개별 모듈 상태 표시 (PID, 실행시간 포함)
 - 🎛️ 모듈 제어 옵션 메뉴:
   - 1-4: 개별 모듈 제어
@@ -75,13 +75,13 @@
 
 ### restart_individual_module() ✅
 - 개별 모듈 안전 재시작
-- 기존 프로세스 종료 후 워치햄스터 자동 복구 대기
+- 기존 프로세스 종료 후 WatchHamster 자동 복구 대기
 - 재시작 성공/실패 확인
 
 ### stop_individual_module() ✅
 - 개별 모듈 안전 중지
 - 강제 종료 로직 포함
-- 워치햄스터 자동 재시작 경고
+- WatchHamster 자동 재시작 경고
 
 ### show_individual_module_log() ✅
 - 모듈별 로그 파일 검색 및 표시

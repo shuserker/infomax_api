@@ -40,7 +40,7 @@
           "status": "failed"
         },
         "individual_tests": {
-          "test_v2_integration.py": {
+# BROKEN_REF:           "test_v2_integration.py": {
             "status": "failed",
             "return_code": 1,
             "stdout": "🧪 POSCO WatchHamster v2 종합 테스트 프레임워크 시작\n================================================================================\n\n📋 TestV2ComponentInitialization 실행 중...\n------------------------------------------------------------\ntest_process_lifecycle_management (__main__.TestV2ComponentInitialization)\n프로세스 생명주기 관리 테스트 ... [INFO] NewYorkMarketMonitor 비활성화됨 - 통합 리포트 시스템 사용\n[INFO] KospiCloseMonitor 비활성화됨\n[INFO] ExchangeRateMonitor 비활성화됨\n[INFO] MasterNewsMonitor 비활성화됨\n[2025-08-08 11:20:12] 🔧 v2 아키텍처 컴포넌트",
@@ -98,7 +98,7 @@
         },
         "function_tests": {
           "return_code": 0,
-          "stdout": "🧪 Testing Control Center Functions\n==================================\n1. Testing script syntax...\n✅ Script syntax is valid\n\n2. Testing function definitions in file...\n✅ start_watchhamster function is defined\n✅ stop_watchhamster function is defined\n✅ check_watchhamster_status function is defined\n✅ manage_modules function is defined\n✅ check_managed_processes function is defined\n✅ control_individual_module function is defined\n✅ restart_individual_module function is defined\n✅ stop_individual_module function is defined\n✅ show_individual_module_log function is defined\n\n3. Testing process detection logic (current system state)...\nTesting managed processes detection:\n  ❌ posco_main_notifier - NOT RUNNING\n  ❌ realtime_news_monitor - NOT RUNNING\n  ❌ integrated_report_scheduler - NOT RUNNING\n  📊 Status: 0/3 modules running\n\n4. Testing watchhamster detection...\n❌ WatchHamster is not running\n\n5. Testing required files...\n✅ lib_wt_common.sh exists\n✅ Monitoring/Posco_News_mini/monitor_WatchHamster.py exists\n\n🎉 Control Center Function Testing completed!\nAll required functions are properly implemented and ready for use.\n",
+          "stdout": "🧪 Testing Control Center Functions\n==================================\n1. Testing script syntax...\n✅ Script syntax is valid\n\n2. Testing function definitions in file...\n✅ start_watchhamster function is defined\n✅ stop_watchhamster function is defined\n✅ check_watchhamster_status function is defined\n✅ manage_modules function is defined\n✅ check_managed_processes function is defined\n✅ control_individual_module function is defined\n✅ restart_individual_module function is defined\n✅ stop_individual_module function is defined\n✅ show_individual_module_log function is defined\n\n3. Testing process detection logic (current system state)...\nTesting managed processes detection:\n  ❌ posco_main_notifier - NOT RUNNING\n  ❌ realtime_news_monitor - NOT RUNNING\n  ❌ integrated_report_scheduler - NOT RUNNING\n  📊 Status: 0/3 modules running\n\n4. Testing watchhamster detection...\n❌ WatchHamster is not running\n\n5. Testing required files...\n✅ lib_wt_common.sh exists\n✅ Monitoring/POSCO_News_250808/monitor_WatchHamster.py exists\n\n🎉 Control Center Function Testing completed!\nAll required functions are properly implemented and ready for use.\n",
           "stderr": ""
         },
         "system_status": {
@@ -171,19 +171,19 @@
       "details": {
         "file_check": {
           "essential_files": [
-            "Monitoring/Posco_News_mini/monitor_WatchHamster.py",
-            "Monitoring/Posco_News_mini/posco_main_notifier.py",
-            "Monitoring/Posco_News_mini/config.py",
-            "Monitoring/Posco_News_mini/modules.json",
-            "watchhamster_control_center.sh",
+            ".naming_backup/config_data_backup/watchhamster.log",
+            "Monitoring/POSCO_News_250808/posco_main_notifier.py",
+            "Monitoring/POSCO_News_250808/config.py",
+            "Monitoring/POSCO_News_250808/modules.json",
+            ".naming_backup/scripts/.naming_backup/scripts/watchhamster_control_center.sh",
             "requirements.txt"
           ],
           "existing_files": [
-            "Monitoring/Posco_News_mini/monitor_WatchHamster.py",
-            "Monitoring/Posco_News_mini/posco_main_notifier.py",
-            "Monitoring/Posco_News_mini/config.py",
-            "Monitoring/Posco_News_mini/modules.json",
-            "watchhamster_control_center.sh",
+            ".naming_backup/config_data_backup/watchhamster.log",
+            "Monitoring/POSCO_News_250808/posco_main_notifier.py",
+            "Monitoring/POSCO_News_250808/config.py",
+            "Monitoring/POSCO_News_250808/modules.json",
+            ".naming_backup/scripts/.naming_backup/scripts/watchhamster_control_center.sh",
             "requirements.txt"
           ],
           "missing_files": [],
@@ -192,20 +192,20 @@
         "v2_components": {
           "total_components": 4,
           "existing_components": [
-            "Monitoring/Posco_News_mini_v2/core/enhanced_process_manager.py",
-            "Monitoring/Posco_News_mini_v2/core/module_registry.py",
-            "Monitoring/Posco_News_mini_v2/core/notification_manager.py",
-            "Monitoring/Posco_News_mini_v2/core/performance_monitor.py"
+            "Monitoring/WatchHamster_v3.0/core/enhanced_process_manager.py",
+            "Monitoring/WatchHamster_v3.0/core/module_registry.py",
+            "Monitoring/WatchHamster_v3.0/core/notification_manager.py",
+            "Monitoring/WatchHamster_v3.0/core/performance_monitor.py"
           ],
           "missing_components": [],
           "completion_rate": 100.0
         },
         "config_validation": {
-          "Monitoring/Posco_News_mini/config.py": {
+          "Monitoring/POSCO_News_250808/config.py": {
             "valid": true,
             "error": null
           },
-          "Monitoring/Posco_News_mini/modules.json": {
+          "Monitoring/POSCO_News_250808/modules.json": {
             "valid": true,
             "error": null
           }
@@ -245,5 +245,13 @@
       "issues": [],
       "recommendations": []
     }
+  },
+  "metadata": {
+    "watchhamster_version": "v3.0",
+    "posco_news_version": "250808",
+    "system_version": "WatchHamster_v3.0_PoscoNews_250808",
+    "last_updated": "2025-08-08T16:01:01",
+    "standardization_date": "2025-08-08",
+    "description": "POSCO System Configuration - WatchHamster_v3.0_PoscoNews_250808"
   }
 }

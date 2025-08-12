@@ -1,0 +1,37 @@
+{
+  "test_summary": {
+    "total_tests": 5,
+    "passed_tests": 5,
+    "failed_tests": 0,
+    "error_tests": 0,
+    "success_rate": 100.0
+  },
+  "test_results": [
+    {
+      "test_name": "실제 파일 백업 테스트",
+      "status": "PASS",
+      "timestamp": "2025-08-12T09:22:37.123473"
+    },
+    {
+      "test_name": "백업 시스템 상태 테스트",
+      "status": "PASS",
+      "timestamp": "2025-08-12T09:22:37.123518"
+    },
+    {
+      "test_name": "백업 정리 기능 테스트",
+      "status": "PASS",
+      "timestamp": "2025-08-12T09:22:37.223880"
+    },
+    {
+      "test_name": "실제 롤백 시나리오 테스트",
+      "status": "PASS",
+      "timestamp": "2025-08-12T09:22:37.247885"
+    },
+    {
+      "test_name": "오류 복구 시나리오 테스트",
+      "status": "PASS",
+      "timestamp": "2025-08-12T09:22:37.259073"
+    }
+  ],
+  "generated_at": "2025-08-12T09:22:37.259164"
+}

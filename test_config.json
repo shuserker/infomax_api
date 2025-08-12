@@ -4,7 +4,12 @@
       "min_python_version": "3.7",
       "min_memory_gb": 1,
       "min_disk_gb": 1,
-      "required_modules": ["psutil", "unittest", "subprocess", "threading"]
+      "required_modules": [
+        "psutil",
+        "unittest",
+        "subprocess",
+        "threading"
+      ]
     },
     "test_categories": {
       "system_test": {
@@ -108,5 +113,13 @@
     "api_timeout": 30,
     "retry_attempts": 3,
     "retry_delay": 5
+  },
+  "metadata": {
+    "watchhamster_version": "v3.0",
+    "posco_news_version": "250808",
+    "system_version": "WatchHamster_v3.0_PoscoNews_250808",
+    "last_updated": "2025-08-08T16:01:01",
+    "standardization_date": "2025-08-08",
+    "description": "POSCO System Configuration - WatchHamster_v3.0_PoscoNews_250808"
   }
 }

@@ -2,7 +2,7 @@
 
 ## 🚀 업그레이드 완료!
 
-모든 워치햄스터 배치 파일이 **Windows Terminal**에 최적화된 현대적인 시스템으로 전면 재구축되었습니다.
+모든 WatchHamster 배치 파일이 **Windows Terminal**에 최적화된 현대적인 시스템으로 전면 재구축되었습니다.
 
 ## 📋 주요 변경사항
 
@@ -30,12 +30,12 @@
 ## 📁 새로운 파일 구조
 
 ```
-🐹 워치햄스터 시스템 v3.0
+🐹 WatchHamster 시스템 v3.0
 ├── lib_wt_common.bat                           # 공통 라이브러리
-├── 🐹워치햄스터_총괄_관리_센터_v3.bat            # 메인 총괄 센터
-└── Monitoring/Posco_News_mini/
+├── 🐹WatchHamster_총괄_관리_센터_v3.bat            # 메인 총괄 센터
+└── Monitoring/POSCO News/
     ├── 🎛️POSCO_통합_관리_센터_v3.bat           # POSCO 전용 관리 센터
-    ├── 🚀POSCO_워치햄스터_시작_v3.bat           # 워치햄스터 시작 (고급)
+    ├── 🚀POSCO_WatchHamster_시작_v3.bat           # WatchHamster 시작 (고급)
     └── 🛑POSCO_모니터링_중지_v3.bat             # 모니터링 중지 (고급)
 ```
 
@@ -43,19 +43,19 @@
 
 ### 1. 메인 총괄 관리 센터 실행
 ```bash
-🐹워치햄스터_총괄_관리_센터_v3.bat
+🐹WatchHamster_총괄_관리_센터_v3.bat
 ```
 
 ### 2. POSCO 전용 관리 센터 실행
 ```bash
-cd Monitoring/Posco_News_mini
+cd Monitoring/POSCO News
 🎛️POSCO_통합_관리_센터_v3.bat
 ```
 
-### 3. 직접 워치햄스터 시작
+### 3. 직접 WatchHamster 시작
 ```bash
-cd Monitoring/Posco_News_mini
-🚀POSCO_워치햄스터_시작_v3.bat
+cd Monitoring/POSCO News
+🚀POSCO_WatchHamster_시작_v3.bat
 ```
 
 ## 🌈 새로운 기능들
@@ -116,7 +116,7 @@ cd Monitoring/Posco_News_mini
 
 ### 🚀 빠른 시작
 1. **Windows Terminal**에서 실행 (권장)
-2. `🐹워치햄스터_총괄_관리_센터_v3.bat` 더블클릭
+2. `🐹WatchHamster_총괄_관리_센터_v3.bat` 더블클릭
 3. 원하는 시스템 선택 (1번: POSCO)
 4. 자동으로 해당 시스템 관리 센터로 이동
 
@@ -139,10 +139,10 @@ copy *.bat backup_old_system\
 2. **새 시스템 사용**
 ```bash
 # 기존 방식
-🐹워치햄스터_총괄_관리_센터.bat
+🐹WatchHamster_총괄_관리_센터.bat
 
 # 새로운 방식 (권장)
-🐹워치햄스터_총괄_관리_센터_v3.bat
+🐹WatchHamster_총괄_관리_센터_v3.bat
 ```
 
 3. **설정 마이그레이션**
@@ -197,4 +197,4 @@ reg add HKCU\Console /v VirtualTerminalLevel /t REG_DWORD /d 1 /f
 
 ---
 
-*🐹 워치햄스터 팀 | 2025년 8월 4일*
+*🐹 WatchHamster 팀 | 2025년 8월 4일*

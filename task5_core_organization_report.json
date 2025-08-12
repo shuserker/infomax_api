@@ -1,0 +1,46 @@
+{
+  "timestamp": "2025-08-10T20:50:58.271257",
+  "task": "Task 5: 핵심 시스템 파일 보존 및 정리",
+  "moved_files": [
+    "posco_news_250808_cache.json -> core/POSCO_News_250808/",
+    "posco_news_250808_data.json -> core/POSCO_News_250808/",
+    "posco_news_250808_historical.json -> core/POSCO_News_250808/",
+    "🐹WatchHamster_v3.0_Control_Center.bat -> core/watchhamster/",
+    "🐹WatchHamster_v3.0_Integrated_Center.bat -> core/watchhamster/",
+    "🐹워치햄스터_총괄_관리_센터.bat -> core/watchhamster/",
+    "🐹워치햄스터_총괄_관리_센터_SIMPLE.bat -> core/watchhamster/",
+    "posco_main_notifier.py -> core/monitoring/ (복사)",
+    "monitor_WatchHamster_v3.0.py -> core/monitoring/ (복사)",
+    "realtime_news_monitor.py -> core/monitoring/ (복사)",
+    "completion_notifier.py -> core/monitoring/ (복사)",
+    "config.py -> core/monitoring/ (복사)"
+  ],
+  "preserved_webhooks_count": 6,
+  "core_structure": {
+    "POSCO_News_250808": [
+      "posco_news_250808_data.json",
+      "posco_news_250808_cache.json",
+      "README.md",
+      "POSCO_News_250808.py",
+      "posco_news_250808_historical.json"
+    ],
+    "watchhamster": [
+      "🐹워치햄스터_총괄_관리_센터.bat",
+      "🐹POSCO_워치햄스터_v3_제어센터.bat",
+      "🐹POSCO_워치햄스터_v3_제어센터.command",
+      "🐹WatchHamster_v3.0_Integrated_Center.bat",
+      "README.md",
+      "🐹워치햄스터_총괄_관리_센터_SIMPLE.bat",
+      "🐹WatchHamster_v3.0_Control_Center.bat"
+    ],
+    "monitoring": [
+      "config.py",
+      "completion_notifier.py",
+      "posco_main_notifier.py",
+      "README.md",
+      "monitor_WatchHamster_v3.0.py",
+      "realtime_news_monitor.py"
+    ]
+  },
+  "status": "COMPLETED"
+}

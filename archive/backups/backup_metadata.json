@@ -1,0 +1,11 @@
+{
+  "full_backup_20250810_194917": {
+    "type": "full_backup",
+    "created_at": "2025-08-10T19:49:22.833787",
+    "file_count": 2593,
+    "total_size": 67443733,
+    "compressed_file": "archive/backups/full_backup_20250810_194917.tar.gz",
+    "checksum": "84fecb6de3475768b2fb29e5f76029567faab983e3fcfe9b3b65a492af064744",
+    "description": "정리 작업 시작 전 전체 시스템 백업"
+  }
+}

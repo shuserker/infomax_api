@@ -1,4 +1,4 @@
-# 🔔 POSCO 워치햄스터 v2.0 알림 시스템 가이드
+# 🔔 POSCO WatchHamster v3.0 알림 시스템 가이드
 
 ## 📖 목차
 1. [알림 시스템 개요](#알림-시스템-개요)
@@ -11,11 +11,11 @@
 
 ## 🎯 알림 시스템 개요
 
-POSCO 워치햄스터 v2.0은 **기존 알림 시스템을 완전히 보존**하면서 새로운 알림 기능을 추가했습니다.
+POSCO WatchHamster v3.0은 **기존 알림 시스템을 완전히 보존**하면서 새로운 알림 기능을 추가했습니다.
 
 ### 🔄 이중 알림 시스템
 ```
-🔔 POSCO 워치햄스터 v2.0 알림 시스템
+🔔 POSCO WatchHamster v3.0 알림 시스템
 ├── 🐹 기존 알림 시스템 (완전 보존)
 │   ├── 정기 상태 보고 (2시간 간격)
 │   ├── 매시간 상태 체크
@@ -46,7 +46,7 @@ POSCO 워치햄스터 v2.0은 **기존 알림 시스템을 완전히 보존**하
 
 #### 정상 상태 알림
 ```
-🐹 POSCO 워치햄스터 정기 상태 보고
+🐹 POSCO WatchHamster 정기 상태 보고
 
 📅 시간: 2025-08-07 14:00:00
 🔍 모니터링 프로세스: 🟢 정상 작동
@@ -57,7 +57,7 @@ POSCO 워치햄스터 v2.0은 **기존 알림 시스템을 완전히 보존**하
 
 #### 문제 발생 시 알림
 ```
-🚨 POSCO 워치햄스터 정기 보고 - 중요 문제 감지
+🚨 POSCO WatchHamster 정기 보고 - 중요 문제 감지
 
 📅 시간: 2025-08-07 14:00:00
 🚨 감지된 문제:
@@ -80,7 +80,7 @@ POSCO 워치햄스터 v2.0은 **기존 알림 시스템을 완전히 보존**하
 
 #### 일반 시간대 알림
 ```
-🕐 POSCO 워치햄스터 매시간 상태 체크
+🕐 POSCO WatchHamster 매시간 상태 체크
 
 📅 시간: 2025-08-07 14:00:00
 🔍 모니터링: 🟢 정상 작동
@@ -91,7 +91,7 @@ POSCO 워치햄스터 v2.0은 **기존 알림 시스템을 완전히 보존**하
 
 #### 조용한 시간대 알림 (간소화)
 ```
-🌙 POSCO 워치햄스터 정시 체크 (22시)
+🌙 POSCO WatchHamster 정시 체크 (22시)
 
 🔍 모니터링: 🟢 정상 작동
 📊 시스템: 정상
@@ -106,7 +106,7 @@ POSCO 워치햄스터 v2.0은 **기존 알림 시스템을 완전히 보존**하
 
 #### 스마트 알림 예시
 ```
-🧠 POSCO 워치햄스터 스마트 상태 분석
+🧠 POSCO WatchHamster 스마트 상태 분석
 
 📅 시간: 2025-08-07 14:00:00
 🎯 분석 결과: 주의 필요
@@ -133,7 +133,7 @@ POSCO 워치햄스터 v2.0은 **기존 알림 시스템을 완전히 보존**하
 
 #### 조용한 시간대 알림
 ```
-🌙 POSCO 워치햄스터 정기 보고 (조용한 시간)
+🌙 POSCO WatchHamster 정기 보고 (조용한 시간)
 
 📅 시간: 2025-08-07 22:00:00
 🔍 모니터링: 🟢 정상 작동
@@ -170,9 +170,9 @@ POSCO 워치햄스터 v2.0은 **기존 알림 시스템을 완전히 보존**하
 
 ### 1. 🚀 시스템 시작 알림
 
-#### 워치햄스터 시작 시
+#### WatchHamster 시작 시
 ```
-🐹 POSCO 워치햄스터 시스템 시작
+🐹 POSCO WatchHamster 시스템 시작
 
 📅 시작 시간: 2025-08-07 14:00:00
 🛡️ 관리 대상 프로세스: 4개
@@ -195,7 +195,7 @@ POSCO 워치햄스터 v2.0은 **기존 알림 시스템을 완전히 보존**하
 ### 2. 🛑 시스템 종료 알림
 
 ```
-🛑 POSCO 워치햄스터 시스템 종료
+🛑 POSCO WatchHamster 시스템 종료
 
 📅 종료 시간: 2025-08-07 18:00:00
 ⏱️ 총 가동 시간: 4시간 30분
@@ -217,7 +217,7 @@ POSCO 워치햄스터 v2.0은 **기존 알림 시스템을 완전히 보존**하
 
 #### 개별 프로세스 오류
 ```
-❌ POSCO 워치햄스터 프로세스 오류
+❌ POSCO WatchHamster 프로세스 오류
 
 📅 시간: 2025-08-07 14:00:00
 🔧 문제 프로세스: posco_main_notifier
@@ -230,7 +230,7 @@ POSCO 워치햄스터 v2.0은 **기존 알림 시스템을 완전히 보존**하
 
 #### 최대 재시작 횟수 초과
 ```
-🚨 POSCO 워치햄스터 긴급 알림
+🚨 POSCO WatchHamster 긴급 알림
 
 📅 시간: 2025-08-07 14:15:00
 🚨 긴급 상황: posco_main_notifier 복구 실패 - 수동 개입 필요
@@ -246,7 +246,7 @@ POSCO 워치햄스터 v2.0은 **기존 알림 시스템을 완전히 보존**하
 ### 4. ✅ 복구 성공 알림
 
 ```
-✅ POSCO 워치햄스터 프로세스 복구 완료
+✅ POSCO WatchHamster 프로세스 복구 완료
 
 📅 시간: 2025-08-07 14:05:00
 🔧 복구된 프로세스: posco_main_notifier
@@ -261,7 +261,7 @@ POSCO 워치햄스터 v2.0은 **기존 알림 시스템을 완전히 보존**하
 ### 5. 📊 정기 상태 보고 (새로운 형식)
 
 ```
-📊 POSCO 워치햄스터 정기 상태 보고
+📊 POSCO WatchHamster 정기 상태 보고
 
 📅 보고 시간: 2025-08-07 14:00:00
 ⏱️ 가동 시간: 4시간 30분
@@ -290,9 +290,9 @@ POSCO 워치햄스터 v2.0은 **기존 알림 시스템을 완전히 보존**하
 
 ```
 📁 설정 파일 구조:
-├── Monitoring/Posco_News_mini/config.py          # 기본 설정
-├── Monitoring/Posco_News_mini_v2/modules.json    # 모듈 설정
-└── Monitoring/Posco_News_mini/monitor_WatchHamster.py  # 알림 로직
+├── Monitoring/POSCO News/config.py          # 기본 설정
+├── Monitoring/POSCO News_v2/modules.json    # 모듈 설정
+└── Monitoring/POSCO News/monitor_WatchHamster.py  # 알림 로직
 ```
 
 ### 2. 알림 간격 설정
@@ -368,8 +368,8 @@ def is_quiet_hours(self):
 #### 봇 이름 및 이모지 변경
 ```python
 # 기본 봇 설정
-bot_name = "POSCO 워치햄스터 🐹🛡️"
-bot_name_error = "POSCO 워치햄스터 ❌"
+bot_name = "POSCO WatchHamster 🐹🛡️"
+bot_name_error = "POSCO WatchHamster ❌"
 
 # 커스터마이징 예시
 bot_name = "POSCO 모니터링 🏭"
@@ -379,7 +379,7 @@ bot_name_error = "POSCO 알림 🚨"
 #### 메시지 템플릿 수정
 ```python
 # 정기 보고 메시지 템플릿
-status_message = f"""🐹 POSCO 워치햄스터 정기 상태 보고
+status_message = f"""🐹 POSCO WatchHamster 정기 상태 보고
 
 📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}
 🔍 모니터링 프로세스: {monitor_status}
@@ -397,24 +397,24 @@ status_message = f"""🐹 POSCO 워치햄스터 정기 상태 보고
 #### 문제 진단
 ```bash
 # 1. 웹훅 URL 확인
-grep -n "WEBHOOK_URL" Monitoring/Posco_News_mini/config.py
+grep -n "WEBHOOK_URL" Monitoring/POSCO News/config.py
 
 # 2. 네트워크 연결 확인
 curl -I https://dooray.com
 
-# 3. 워치햄스터 로그 확인
+# 3. WatchHamster 로그 확인
 grep -i "notification\|알림" watchhamster.log | tail -10
 
 # 4. 테스트 알림 전송
-cd Monitoring/Posco_News_mini
-python3 test_watchhamster_notification.py
+cd Monitoring/POSCO News
+python3 Monitoring/POSCO_News_250808/Monitoring/POSCO_News_250808/test_watchhamster_notification.py
 ```
 
 #### 해결 방법
 1. **웹훅 URL 재설정**
 2. **방화벽 설정 확인**
 3. **Dooray 서비스 상태 확인**
-4. **워치햄스터 재시작**
+4. **WatchHamster 재시작**
 
 ### 2. 알림이 너무 많이 오는 경우
 
@@ -461,8 +461,8 @@ def is_quiet_hours(self):
 #### 한글 깨짐 현상
 ```python
 # config.py에 인코딩 설정 추가
-import sys
-import os
+import system_functionality_verification.pytem_functionality_verification.py
+import pposco_news_250808_monitor.logco_news_250808_monitor.log
 
 # UTF-8 인코딩 강제 설정
 os.environ['PYTHONIOENCODING'] = 'utf-8'
@@ -500,7 +500,7 @@ grep "알림 전송" watchhamster.log | cut -d' ' -f2 | cut -d':' -f1 | sort | u
 #### 실시간 상태 확인
 ```bash
 # 제어센터에서 확인
-./posco_control_center.sh → 메뉴 4번 (워치햄스터 상태)
+./.naming_backup/scripts/.naming_backup/scripts/posco_control_center.sh → 메뉴 4번 (WatchHamster 상태)
 ```
 
 #### 명령줄에서 확인
@@ -559,4 +559,4 @@ grep -E "(빈 메시지|empty message)" watchhamster.log
 
 ---
 
-*🔔 이 알림 시스템 가이드는 POSCO 워치햄스터 v2.0 (2025-08-07) 기준으로 작성되었습니다.*
+*🔔 이 알림 시스템 가이드는 POSCO WatchHamster v3.0 (2025-08-07) 기준으로 작성되었습니다.*

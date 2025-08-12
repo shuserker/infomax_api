@@ -1,0 +1,2099 @@
+{
+  "verification_start_time": "2025-08-10T18:48:16.637893",
+  "verification_end_time": "2025-08-10T18:48:17.251672",
+  "total_duration_seconds": 0.613779,
+  "webhook_verification": {
+    "total_webhooks": 4,
+    "accessible_webhooks": 4,
+    "failed_webhooks": 0,
+    "webhook_details": [
+      {
+        "name": "DOORAY_WEBHOOK",
+        "url": "https://infomax.dooray.com/services/32624624842773...",
+        "status_code": 200,
+        "accessible": true,
+        "response_time": null
+      },
+      {
+        "name": "WATCHHAMSTER_WEBHOOK",
+        "url": "https://infomax.dooray.com/services/32624624842773...",
+        "status_code": 200,
+        "accessible": true,
+        "response_time": null
+      },
+      {
+        "name": "GENERIC_WEBHOOK",
+        "url": "https://infomax.dooray.com/services/32624624842773...",
+        "status_code": 200,
+        "accessible": true,
+        "response_time": null
+      },
+      {
+        "name": "GENERIC_WEBHOOK_2",
+        "url": "https://infomax.dooray.com/services/32624624842773...",
+        "status_code": 200,
+        "accessible": true,
+        "response_time": null
+      }
+    ],
+    "status": "all_accessible"
+  },
+  "message_verification": {
+    "total_files_checked": 8,
+    "files_with_messages": 7,
+    "preserved_messages": 165,
+    "modified_messages": 0,
+    "message_details": [
+      {
+        "file": "posco_continuous_monitor.py",
+        "message_type": "log_message",
+        "content_preview": "🚀 POSCO 리포트 생성기 실행 중...",
+        "is_preserved": true,
+        "length": 23
+      },
+      {
+        "file": "posco_continuous_monitor.py",
+        "message_type": "log_message_2",
+        "content_preview": "✅ 리포트 생성 완료",
+        "is_preserved": true,
+        "length": 11
+      },
+      {
+        "file": "posco_continuous_monitor.py",
+        "message_type": "log_message_3",
+        "content_preview": "❌ 리포트 생성 실패",
+        "is_preserved": true,
+        "length": 11
+      },
+      {
+        "file": "posco_continuous_monitor.py",
+        "message_type": "log_message_4",
+        "content_preview": "🏭 POSCO 지속적 모니터링 시작",
+        "is_preserved": true,
+        "length": 19
+      },
+      {
+        "file": "posco_continuous_monitor.py",
+        "message_type": "log_message_5",
+        "content_preview": "🛑 종료하려면 Ctrl+C를 누르세요",
+        "is_preserved": true,
+        "length": 20
+      },
+      {
+        "file": "posco_continuous_monitor.py",
+        "message_type": "log_message_6",
+        "content_preview": "📋 POSCO 지속적 모니터링이 종료되었습니다.",
+        "is_preserved": true,
+        "length": 26
+      },
+      {
+        "file": "test_performance_monitoring.py",
+        "message_type": "status_message",
+        "content_preview": "__main__",
+        "is_preserved": true,
+        "length": 8
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "notification_message",
+        "content_preview": "__main__",
+        "is_preserved": true,
+        "length": 8
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message",
+        "content_preview": "🔍 모니터링 및 알림 시스템 검증 시작",
+        "is_preserved": true,
+        "length": 21
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_2",
+        "content_preview": "🔗 웹훅 기능 검증 시작",
+        "is_preserved": true,
+        "length": 13
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_3",
+        "content_preview": "⚠️ 웹훅 URL을 찾을 수 없습니다",
+        "is_preserved": true,
+        "length": 20
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_4",
+        "content_preview": "✅ 모든 웹훅이 정상 접근 가능합니다",
+        "is_preserved": true,
+        "length": 20
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_5",
+        "content_preview": "❌ 모든 웹훅 접근 실패",
+        "is_preserved": true,
+        "length": 13
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_6",
+        "content_preview": "⚠️ 설정 파일에서 웹훅을 찾을 수 없어 기본 웹훅을 사용합니다",
+        "is_preserved": true,
+        "length": 35
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_7",
+        "content_preview": "📝 알림 메시지 무결성 검증 시작",
+        "is_preserved": true,
+        "length": 18
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_8",
+        "content_preview": "⚠️ 알림 메시지를 찾을 수 없습니다",
+        "is_preserved": true,
+        "length": 20
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_9",
+        "content_preview": "✅ 모든 알림 메시지가 보존되었습니다",
+        "is_preserved": true,
+        "length": 20
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_10",
+        "content_preview": "🧠 비즈니스 로직 무결성 검증 시작",
+        "is_preserved": true,
+        "length": 19
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_11",
+        "content_preview": "⚠️ 비즈니스 로직 파일을 찾을 수 없습니다",
+        "is_preserved": true,
+        "length": 24
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_12",
+        "content_preview": "✅ 모든 비즈니스 로직이 검증되었습니다",
+        "is_preserved": true,
+        "length": 21
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_13",
+        "content_preview": "📊 데이터 호환성 검증 시작",
+        "is_preserved": true,
+        "length": 15
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_14",
+        "content_preview": "⚠️ 데이터 파일을 찾을 수 없습니다",
+        "is_preserved": true,
+        "length": 20
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_15",
+        "content_preview": "✅ 모든 데이터 파일이 호환됩니다",
+        "is_preserved": true,
+        "length": 18
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_16",
+        "content_preview": "🚀 종합 모니터링 및 알림 시스템 검증 시작",
+        "is_preserved": true,
+        "length": 24
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_17",
+        "content_preview": "1️⃣ 웹훅 기능 검증 실행",
+        "is_preserved": true,
+        "length": 15
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_18",
+        "content_preview": "2️⃣ 알림 메시지 무결성 검증 실행",
+        "is_preserved": true,
+        "length": 20
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_19",
+        "content_preview": "3️⃣ 비즈니스 로직 무결성 검증 실행",
+        "is_preserved": true,
+        "length": 21
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "self_log_message_20",
+        "content_preview": "4️⃣ 데이터 호환성 검증 실행",
+        "is_preserved": true,
+        "length": 17
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "status_message",
+        "content_preview": "__main__",
+        "is_preserved": true,
+        "length": 8
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "message_type": "display_message",
+        "content_preview": "__main__",
+        "is_preserved": true,
+        "length": 8
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "dooray_text",
+        "content_preview": "향상된 상태 보고",
+        "is_preserved": true,
+        "length": 9
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "dooray_attachment",
+        "content_preview": "향상된 상태 보고",
+        "is_preserved": true,
+        "length": 9
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "notification_message",
+        "content_preview": "utf-8",
+        "is_preserved": true,
+        "length": 5
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message",
+        "content_preview": "⚠️ StateManager를 사용할 수 없습니다. 기본 상태 관리를 사용합니다.",
+        "is_preserved": true,
+        "length": 45
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_2",
+        "content_preview": "🧠 스마트 상태 판단 시스템 초기화 완료",
+        "is_preserved": true,
+        "length": 22
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_3",
+        "content_preview": "🔄 개별 모니터링 비활성화 - 통합 리포트 시스템으로 전환됨",
+        "is_preserved": true,
+        "length": 33
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_4",
+        "content_preview": "📊 통합 리포트 스케줄러 초기화 완료",
+        "is_preserved": true,
+        "length": 20
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_5",
+        "content_preview": "🎛️ 마스터 모니터링 시스템 연결 완료",
+        "is_preserved": true,
+        "length": 21
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_6",
+        "content_preview": "⚠️ 마스터 모니터링 시스템 비활성화 (모듈 없음)",
+        "is_preserved": true,
+        "length": 28
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_7",
+        "content_preview": "🔧 v2 아키텍처 컴포넌트 초기화 시작...",
+        "is_preserved": true,
+        "length": 24
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_8",
+        "content_preview": "🔄 하이브리드 모드로 동작합니다 - v2 기능 우선, 실패 시 v1 폴백",
+        "is_preserved": true,
+        "length": 40
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_9",
+        "content_preview": "🔧 Enhanced ProcessManager 로드 중...",
+        "is_preserved": true,
+        "length": 33
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_10",
+        "content_preview": "✅ Enhanced ProcessManager 초기화 완료",
+        "is_preserved": true,
+        "length": 32
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_11",
+        "content_preview": "🔧 ModuleRegistry 로드 중...",
+        "is_preserved": true,
+        "length": 24
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_12",
+        "content_preview": "✅ ModuleRegistry 초기화 완료",
+        "is_preserved": true,
+        "length": 23
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_13",
+        "content_preview": "🔧 NotificationManager 로드 중...",
+        "is_preserved": true,
+        "length": 29
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_14",
+        "content_preview": "✅ NotificationManager 초기화 완료",
+        "is_preserved": true,
+        "length": 28
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_15",
+        "content_preview": "🔍 v2 컴포넌트 상태 검증 시작...",
+        "is_preserved": true,
+        "length": 21
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_16",
+        "content_preview": "✅ Enhanced ProcessManager 상태 검증 완료",
+        "is_preserved": true,
+        "length": 34
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_17",
+        "content_preview": "✅ NotificationManager 검증 완료",
+        "is_preserved": true,
+        "length": 27
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_18",
+        "content_preview": "⚠️ v2 아키텍처가 비활성화되어 성능 모니터링을 건너뜁니다",
+        "is_preserved": true,
+        "length": 33
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_19",
+        "content_preview": "📊 v2 성능 모니터링 시스템 초기화 시작...",
+        "is_preserved": true,
+        "length": 26
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_20",
+        "content_preview": "📊 v1 시스템 기준선 설정 완료",
+        "is_preserved": true,
+        "length": 18
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_21",
+        "content_preview": "✅ v2 성능 모니터링 시스템 초기화 완료",
+        "is_preserved": true,
+        "length": 23
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_22",
+        "content_preview": "📤 성능 알림 전송 완료",
+        "is_preserved": true,
+        "length": 13
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_23",
+        "content_preview": "✅ 기존 ProcessManager로 폴백 완료",
+        "is_preserved": true,
+        "length": 26
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_24",
+        "content_preview": "📋 기존 방식으로 폴백하여 정상 동작합니다",
+        "is_preserved": true,
+        "length": 23
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_25",
+        "content_preview": "📊 모듈 상태 추적 시스템 초기화 중...",
+        "is_preserved": true,
+        "length": 23
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_26",
+        "content_preview": "⚠️ ModuleRegistry가 없어 상태 추적을 초기화할 수 없습니다",
+        "is_preserved": true,
+        "length": 40
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_27",
+        "content_preview": "⚠️ v2 아키텍처 비활성화, 프로세스 생명주기 통합 건너뜀",
+        "is_preserved": true,
+        "length": 33
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_28",
+        "content_preview": "🔄 v2 ProcessManager와 기존 프로세스 생명주기 관리 통합 시작",
+        "is_preserved": true,
+        "length": 42
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_29",
+        "content_preview": "🛡️ v2 3단계 지능적 복구 시스템 활성화",
+        "is_preserved": true,
+        "length": 24
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_30",
+        "content_preview": "❌ v2 프로세스 생명주기 통합 실패 - 모든 프로세스 마이그레이션 실패",
+        "is_preserved": true,
+        "length": 40
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_31",
+        "content_preview": "⚠️ v2 NotificationManager 실패, 기존 방식으로 폴백",
+        "is_preserved": true,
+        "length": 40
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_32",
+        "content_preview": "✅ v2 시작 알림 전송 완료",
+        "is_preserved": true,
+        "length": 16
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_33",
+        "content_preview": "⚠️ v2 시작 알림 실패, 기존 방식으로 폴백",
+        "is_preserved": true,
+        "length": 26
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_34",
+        "content_preview": "✅ v2 상태 보고 전송 완료",
+        "is_preserved": true,
+        "length": 16
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_35",
+        "content_preview": "⚠️ v2 상태 보고 실패, 기존 방식으로 폴백",
+        "is_preserved": true,
+        "length": 26
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_36",
+        "content_preview": "⚠️ v2 프로세스 오류 알림 실패, 기존 방식으로 폴백",
+        "is_preserved": true,
+        "length": 31
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_37",
+        "content_preview": "⚠️ v2 복구 성공 알림 실패, 기존 방식으로 폴백",
+        "is_preserved": true,
+        "length": 29
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_38",
+        "content_preview": "✅ v2 긴급 알림 전송 완료",
+        "is_preserved": true,
+        "length": 16
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_39",
+        "content_preview": "⚠️ v2 긴급 알림 실패, 기존 방식으로 폴백",
+        "is_preserved": true,
+        "length": 26
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_40",
+        "content_preview": "📋 Git 업데이트 없음",
+        "is_preserved": true,
+        "length": 13
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_41",
+        "content_preview": "⚠️ Git 체크 타임아웃",
+        "is_preserved": true,
+        "length": 14
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_42",
+        "content_preview": "🔄 Git 업데이트 적용 중...",
+        "is_preserved": true,
+        "length": 18
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_43",
+        "content_preview": "📦 로컬 변경사항 임시 저장",
+        "is_preserved": true,
+        "length": 15
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_44",
+        "content_preview": "✅ Git 업데이트 성공",
+        "is_preserved": true,
+        "length": 13
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_45",
+        "content_preview": "❌ Git 업데이트 타임아웃",
+        "is_preserved": true,
+        "length": 15
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_46",
+        "content_preview": "🚀 모든 프로세스 시작 중...",
+        "is_preserved": true,
+        "length": 17
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_47",
+        "content_preview": "📋 기존 방식으로 프로세스 시작",
+        "is_preserved": true,
+        "length": 17
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_48",
+        "content_preview": "🚀 v2 아키텍처를 사용한 프로세스 시작 시작",
+        "is_preserved": true,
+        "length": 25
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_49",
+        "content_preview": "🛑 모든 프로세스 중지 중...",
+        "is_preserved": true,
+        "length": 17
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_50",
+        "content_preview": "📋 기존 방식으로 프로세스 중지",
+        "is_preserved": true,
+        "length": 17
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_51",
+        "content_preview": "✅ 모니터링 프로세스가 이미 실행 중입니다.",
+        "is_preserved": true,
+        "length": 24
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_52",
+        "content_preview": "🚀 모니터링 프로세스 시작 중...",
+        "is_preserved": true,
+        "length": 19
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_53",
+        "content_preview": "✅ 통합 리포트 스케줄러 시작 성공",
+        "is_preserved": true,
+        "length": 19
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_54",
+        "content_preview": "❌ 통합 리포트 스케줄러 시작 실패",
+        "is_preserved": true,
+        "length": 19
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_55",
+        "content_preview": "✅ 실시간 뉴스 모니터 시작 성공",
+        "is_preserved": true,
+        "length": 18
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_56",
+        "content_preview": "❌ 실시간 뉴스 모니터 시작 실패",
+        "is_preserved": true,
+        "length": 18
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_57",
+        "content_preview": "🎉 모든 모니터링 프로세스 시작 완료!",
+        "is_preserved": true,
+        "length": 21
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_58",
+        "content_preview": "⚠️ 일부 모니터링 프로세스만 시작됨",
+        "is_preserved": true,
+        "length": 20
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_59",
+        "content_preview": "❌ 모든 모니터링 프로세스 시작 실패",
+        "is_preserved": true,
+        "length": 20
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_60",
+        "content_preview": "✅ 모든 모니터링 프로세스 중지 완료",
+        "is_preserved": true,
+        "length": 20
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_61",
+        "content_preview": "📊 통합 리포트 생성 시작",
+        "is_preserved": true,
+        "length": 14
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_62",
+        "content_preview": "✅ 통합 리포트 생성 완료",
+        "is_preserved": true,
+        "length": 14
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_63",
+        "content_preview": "❌ 통합 리포트 생성 실패",
+        "is_preserved": true,
+        "length": 14
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_64",
+        "content_preview": "⚠️ 통합 리포트 스케줄러 비활성화됨",
+        "is_preserved": true,
+        "length": 20
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_65",
+        "content_preview": "🌙 조용한 시간대 - 통합 리포트 알림 발송 생략",
+        "is_preserved": true,
+        "length": 27
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_66",
+        "content_preview": "📨 통합 리포트 알림 발송 시작",
+        "is_preserved": true,
+        "length": 17
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_67",
+        "content_preview": "✅ 통합 리포트 알림 발송 완료",
+        "is_preserved": true,
+        "length": 17
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_68",
+        "content_preview": "❌ 통합 리포트 알림 발송 실패",
+        "is_preserved": true,
+        "length": 17
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_69",
+        "content_preview": "⚠️ 통합 리포트 스케줄러 비활성화됨",
+        "is_preserved": true,
+        "length": 20
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_70",
+        "content_preview": "⚠️ 뉴스 데이터 조회 실패",
+        "is_preserved": true,
+        "length": 15
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_71",
+        "content_preview": "📡 모니터링 프로세스 실행 중 - API 상태 정상으로 간주",
+        "is_preserved": true,
+        "length": 33
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_72",
+        "content_preview": "🚨 조용한 시간대 중요 문제 알림 전송 완료",
+        "is_preserved": true,
+        "length": 24
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_73",
+        "content_preview": "🧠 스마트 상태 알림 전송 완료",
+        "is_preserved": true,
+        "length": 17
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_74",
+        "content_preview": "📊 정기 상태 알림 전송 완료",
+        "is_preserved": true,
+        "length": 16
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_75",
+        "content_preview": "⚠️ 매시간 뉴스 데이터 조회 실패",
+        "is_preserved": true,
+        "length": 19
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_76",
+        "content_preview": "🧠 매시간 스마트 상태 알림 전송 완료",
+        "is_preserved": true,
+        "length": 21
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_77",
+        "content_preview": "🔥 집중 모니터링 모드 감지 - 워치햄스터 체크 빈도 증가",
+        "is_preserved": true,
+        "length": 32
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_78",
+        "content_preview": "📋 일반 모니터링 모드 복귀 - 워치햄스터 체크 빈도 정상화",
+        "is_preserved": true,
+        "length": 33
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_79",
+        "content_preview": "✅ 향상된 상태 알림 전송 성공",
+        "is_preserved": true,
+        "length": 17
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_80",
+        "content_preview": "✅ 상태 저장 완료",
+        "is_preserved": true,
+        "length": 10
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_81",
+        "content_preview": "⚠️ 상태 저장 실패",
+        "is_preserved": true,
+        "length": 11
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_82",
+        "content_preview": "🔄 모듈 레지스트리 상태 동기화 완료",
+        "is_preserved": true,
+        "length": 20
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_83",
+        "content_preview": "📋 이전 상태 로드 완료",
+        "is_preserved": true,
+        "length": 13
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_84",
+        "content_preview": "POSCO WatchHamster v3.0 시작",
+        "is_preserved": true,
+        "length": 26
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_85",
+        "content_preview": "🎉 v2 아키텍처 활성화 - 하이브리드 모드로 동작",
+        "is_preserved": true,
+        "length": 28
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_86",
+        "content_preview": "🔄 모니터링 시스템 초기화 중...",
+        "is_preserved": true,
+        "length": 19
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_87",
+        "content_preview": "🔄 v2 프로세스 생명주기 관리 통합 중...",
+        "is_preserved": true,
+        "length": 25
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_88",
+        "content_preview": "✅ v2 프로세스 생명주기 관리 통합 완료",
+        "is_preserved": true,
+        "length": 23
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_89",
+        "content_preview": "⚠️ v2 프로세스 생명주기 관리 통합 부분 실패",
+        "is_preserved": true,
+        "length": 27
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_90",
+        "content_preview": "✅ 모니터링 시스템 초기화 성공",
+        "is_preserved": true,
+        "length": 17
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_91",
+        "content_preview": "⚠️ 모니터링 시스템 부분 초기화 - 일부 프로세스 실패",
+        "is_preserved": true,
+        "length": 31
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_92",
+        "content_preview": "✅ 모든 프로세스 정상 복구 완료 - v2 시스템 안정화됨",
+        "is_preserved": true,
+        "length": 32
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_93",
+        "content_preview": "⚠️ 모니터링 프로세스 중단 감지, 재시작 시도",
+        "is_preserved": true,
+        "length": 26
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_94",
+        "content_preview": "✅ 모니터링 프로세스 재시작 성공",
+        "is_preserved": true,
+        "length": 18
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_95",
+        "content_preview": "❌ 모니터링 프로세스 재시작 실패",
+        "is_preserved": true,
+        "length": 18
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_96",
+        "content_preview": "🔍 Git 업데이트 체크 중...",
+        "is_preserved": true,
+        "length": 18
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "self_log_message_97",
+        "content_preview": "🛑 워치햄스터 🛡️ 중단 요청 받음",
+        "is_preserved": true,
+        "length": 19
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "message_type": "status_message",
+        "content_preview": "utf-8",
+        "is_preserved": true,
+        "length": 5
+      },
+      {
+        "file": "completion_notifier.py",
+        "message_type": "notification_message",
+        "content_preview": "__main__",
+        "is_preserved": true,
+        "length": 8
+      },
+      {
+        "file": "completion_notifier.py",
+        "message_type": "status_message",
+        "content_preview": "__main__",
+        "is_preserved": true,
+        "length": 8
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "general_message",
+        "content_preview": "📊 영업일 비교 분석/n/n",
+        "is_preserved": true,
+        "length": 15
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "general_message_2",
+        "content_preview": "📊 POSCO 뉴스 일일 통합 분석 리포트 | 📊 통합 리포트 보기/n/n",
+        "is_preserved": true,
+        "length": 41
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "notification_message",
+        "content_preview": "__main__",
+        "is_preserved": true,
+        "length": 8
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message",
+        "content_preview": "✅ API 클라이언트 초기화 성공",
+        "is_preserved": true,
+        "length": 18
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_2",
+        "content_preview": "🏭 POSCO 메인 알림 시스템 초기화 완료",
+        "is_preserved": true,
+        "length": 24
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_3",
+        "content_preview": "📋 이전 상태 로드 완료",
+        "is_preserved": true,
+        "length": 13
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_4",
+        "content_preview": "📋 새로운 상태 파일 생성",
+        "is_preserved": true,
+        "length": 14
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_5",
+        "content_preview": "📋 과거 데이터 캐시 로드 완료",
+        "is_preserved": true,
+        "length": 17
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_6",
+        "content_preview": "⚠️ 과거 데이터 캐시 없음",
+        "is_preserved": true,
+        "length": 15
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_7",
+        "content_preview": "📋 영업일 매핑 로드 완료",
+        "is_preserved": true,
+        "length": 14
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_8",
+        "content_preview": "⚠️ 영업일 매핑 없음",
+        "is_preserved": true,
+        "length": 12
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_9",
+        "content_preview": "⚠️ HTML 리포트 생성 실패",
+        "is_preserved": true,
+        "length": 17
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_10",
+        "content_preview": "⚠️ 통합 리포트 빌더 모듈 없음",
+        "is_preserved": true,
+        "length": 18
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_11",
+        "content_preview": "📊 영업일 비교 분석 알림 생성 중...",
+        "is_preserved": true,
+        "length": 22
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_12",
+        "content_preview": "✅ 영업일 비교 분석 알림 전송 성공",
+        "is_preserved": true,
+        "length": 20
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_13",
+        "content_preview": "📊 일일 통합 분석 리포트 생성 중...",
+        "is_preserved": true,
+        "length": 22
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_14",
+        "content_preview": "✅ 일일 통합 분석 리포트 알림 전송 성공",
+        "is_preserved": true,
+        "length": 23
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_15",
+        "content_preview": "🔔 데이터 갱신 상태 알림 생성 중...",
+        "is_preserved": true,
+        "length": 22
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_16",
+        "content_preview": "🔄 일일 스케줄 작업 목록 초기화",
+        "is_preserved": true,
+        "length": 18
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_17",
+        "content_preview": "✅ 시스템 종료 알림 전송 성공",
+        "is_preserved": true,
+        "length": 17
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_18",
+        "content_preview": "✅ 시스템 시작 알림 전송 성공",
+        "is_preserved": true,
+        "length": 17
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_19",
+        "content_preview": "🏭 POSCO 메인 알림 시스템 시작",
+        "is_preserved": true,
+        "length": 20
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_20",
+        "content_preview": "📊 5가지 BOT 타입 알림 제공",
+        "is_preserved": true,
+        "length": 18
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_21",
+        "content_preview": "🛑 종료하려면 Ctrl+C를 누르세요",
+        "is_preserved": true,
+        "length": 20
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_22",
+        "content_preview": "🔍 실시간 뉴스 확인 중...",
+        "is_preserved": true,
+        "length": 16
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_23",
+        "content_preview": "🛑 사용자에 의한 종료 요청",
+        "is_preserved": true,
+        "length": 15
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_24",
+        "content_preview": "🛑 POSCO 메인 알림 시스템 종료 중...",
+        "is_preserved": true,
+        "length": 25
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "log_message_25",
+        "content_preview": "✅ POSCO 메인 알림 시스템 종료 완료",
+        "is_preserved": true,
+        "length": 23
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "status_message",
+        "content_preview": "__main__",
+        "is_preserved": true,
+        "length": 8
+      },
+      {
+        "file": "posco_main_notifier.py",
+        "message_type": "display_message",
+        "content_preview": "__main__",
+        "is_preserved": true,
+        "length": 8
+      },
+      {
+        "file": "realtime_news_monitor.py",
+        "message_type": "notification_message",
+        "content_preview": "__main__",
+        "is_preserved": true,
+        "length": 8
+      },
+      {
+        "file": "realtime_news_monitor.py",
+        "message_type": "status_message",
+        "content_preview": "__main__",
+        "is_preserved": true,
+        "length": 8
+      }
+    ],
+    "status": "all_preserved"
+  },
+  "business_logic_verification": {
+    "total_logic_files": 20,
+    "verified_logic_files": 16,
+    "logic_issues": 4,
+    "logic_details": [
+      {
+        "file": "posco_main_notifier.py",
+        "monitoring_logic": true,
+        "analysis_logic": true,
+        "decision_logic": true,
+        "scheduling_logic": true,
+        "data_processing": true,
+        "issues": [],
+        "overall_status": "verified"
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0.py",
+        "monitoring_logic": true,
+        "analysis_logic": true,
+        "decision_logic": true,
+        "scheduling_logic": true,
+        "data_processing": true,
+        "issues": [],
+        "overall_status": "verified"
+      },
+      {
+        "file": "realtime_news_monitor.py",
+        "monitoring_logic": true,
+        "analysis_logic": false,
+        "decision_logic": true,
+        "scheduling_logic": true,
+        "data_processing": true,
+        "issues": [],
+        "overall_status": "verified"
+      },
+      {
+        "file": "integrated_report_scheduler.py",
+        "monitoring_logic": true,
+        "analysis_logic": false,
+        "decision_logic": true,
+        "scheduling_logic": true,
+        "data_processing": true,
+        "issues": [],
+        "overall_status": "verified"
+      },
+      {
+        "file": "POSCO_News_250808.py",
+        "monitoring_logic": false,
+        "analysis_logic": false,
+        "decision_logic": false,
+        "scheduling_logic": false,
+        "data_processing": false,
+        "issues": [],
+        "overall_status": "verified"
+      },
+      {
+        "file": "report_cleanup_manager.py",
+        "monitoring_logic": false,
+        "analysis_logic": false,
+        "decision_logic": true,
+        "scheduling_logic": true,
+        "data_processing": true,
+        "issues": [],
+        "overall_status": "verified"
+      },
+      {
+        "file": "integrated_report_builder.py",
+        "monitoring_logic": false,
+        "analysis_logic": false,
+        "decision_logic": true,
+        "scheduling_logic": true,
+        "data_processing": false,
+        "issues": [
+          "하드코딩된 날짜 발견"
+        ],
+        "overall_status": "has_issues"
+      },
+      {
+        "file": "metadata_reset_manager.py",
+        "monitoring_logic": false,
+        "analysis_logic": true,
+        "decision_logic": true,
+        "scheduling_logic": true,
+        "data_processing": true,
+        "issues": [],
+        "overall_status": "verified"
+      },
+      {
+        "file": "config.py",
+        "monitoring_logic": false,
+        "analysis_logic": false,
+        "decision_logic": false,
+        "scheduling_logic": true,
+        "data_processing": true,
+        "issues": [],
+        "overall_status": "verified"
+      },
+      {
+        "file": "completion_notifier.py",
+        "monitoring_logic": true,
+        "analysis_logic": false,
+        "decision_logic": true,
+        "scheduling_logic": true,
+        "data_processing": true,
+        "issues": [
+          "하드코딩된 날짜 발견"
+        ],
+        "overall_status": "has_issues"
+      },
+      {
+        "file": "monitor_WatchHamster_v3.0_minimal.py",
+        "monitoring_logic": true,
+        "analysis_logic": false,
+        "decision_logic": true,
+        "scheduling_logic": true,
+        "data_processing": true,
+        "issues": [],
+        "overall_status": "verified"
+      },
+      {
+        "file": "test_watchhamster_notification.py",
+        "monitoring_logic": false,
+        "analysis_logic": false,
+        "decision_logic": true,
+        "scheduling_logic": false,
+        "data_processing": true,
+        "issues": [],
+        "overall_status": "verified"
+      },
+      {
+        "file": "historical_data_collector.py",
+        "monitoring_logic": true,
+        "analysis_logic": false,
+        "decision_logic": true,
+        "scheduling_logic": true,
+        "data_processing": true,
+        "issues": [],
+        "overall_status": "verified"
+      },
+      {
+        "file": "posco_report_system_reset.py",
+        "monitoring_logic": false,
+        "analysis_logic": false,
+        "decision_logic": true,
+        "scheduling_logic": true,
+        "data_processing": true,
+        "issues": [
+          "하드코딩된 날짜 발견"
+        ],
+        "overall_status": "has_issues"
+      },
+      {
+        "file": "posco_main_notifier_minimal.py",
+        "monitoring_logic": true,
+        "analysis_logic": false,
+        "decision_logic": true,
+        "scheduling_logic": true,
+        "data_processing": true,
+        "issues": [],
+        "overall_status": "verified"
+      },
+      {
+        "file": "github_pages_deployer.py",
+        "monitoring_logic": false,
+        "analysis_logic": false,
+        "decision_logic": true,
+        "scheduling_logic": true,
+        "data_processing": true,
+        "issues": [],
+        "overall_status": "verified"
+      },
+      {
+        "file": "posco_continuous_monitor.py",
+        "monitoring_logic": true,
+        "analysis_logic": false,
+        "decision_logic": true,
+        "scheduling_logic": true,
+        "data_processing": false,
+        "issues": [],
+        "overall_status": "verified"
+      },
+      {
+        "file": "monitoring_alert_system_verification.py",
+        "monitoring_logic": true,
+        "analysis_logic": true,
+        "decision_logic": true,
+        "scheduling_logic": true,
+        "data_processing": true,
+        "issues": [
+          "미완성 코드 주석 발견"
+        ],
+        "overall_status": "has_issues"
+      },
+      {
+        "file": "test_performance_monitoring.py",
+        "monitoring_logic": true,
+        "analysis_logic": false,
+        "decision_logic": true,
+        "scheduling_logic": true,
+        "data_processing": true,
+        "issues": [],
+        "overall_status": "verified"
+      },
+      {
+        "file": "demo_performance_monitoring.py",
+        "monitoring_logic": true,
+        "analysis_logic": false,
+        "decision_logic": true,
+        "scheduling_logic": true,
+        "data_processing": true,
+        "issues": [],
+        "overall_status": "verified"
+      }
+    ],
+    "status": "partially_verified",
+    "verification_rate": 80.0
+  },
+  "data_compatibility_verification": {
+    "total_data_files": 72,
+    "compatible_files": 65,
+    "incompatible_files": 7,
+    "data_details": [
+      {
+        "file": "posco_integrated_analysis_20250805_111543.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_integrated_analysis_20250803_112920.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_integrated_analysis_20250805_090329.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "documentation_standardization.log",
+        "file_type": ".log",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_integrated_analysis_20250805_094802.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "migration_verification.log",
+        "file_type": ".log",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_news_250808_cache.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_news_250808_historical.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_news_250808_monitor.log",
+        "file_type": ".log",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "folder_reorganization_log.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_integrated_analysis_20250805_093753.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "system_optimization_data.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "file_reference_validation_report.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "config_data_standardization_report.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_integrated_analysis_20250806_090315.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "folder_reorganization.log",
+        "file_type": ".log",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "focused_file_reference_repair_report.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_integrated_analysis_20250805_101014.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "folder_reorganization_verification.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_integrated_analysis_20250803_180039.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "WatchHamster_v3.0.log",
+        "file_type": ".log",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "repair_config.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": false,
+        "encoding_correct": true,
+        "issues": [
+          "설정 파일 구조가 예상과 다름"
+        ],
+        "overall_compatible": false
+      },
+      {
+        "file": "syntax_repair.log",
+        "file_type": ".log",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "script_standardization.log",
+        "file_type": ".log",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "task4_file_reference_integrity_verification.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "final_file_reference_cleanup_report.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "final_integration_verification_results.json",
+        "file_type": ".json",
+        "is_valid": false,
+        "structure_preserved": false,
+        "encoding_correct": true,
+        "issues": [
+          "JSON 파싱 오류: Expecting property name enclosed in double quotes: line 43 column 1 (char 5666)"
+        ],
+        "overall_compatible": false
+      },
+      {
+        "file": "posco_integrated_analysis_20250805_094256.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "comprehensive_repair.log",
+        "file_type": ".log",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_integrated_analysis_20250805_105449.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "test_results.json",
+        "file_type": ".json",
+        "is_valid": false,
+        "structure_preserved": false,
+        "encoding_correct": true,
+        "issues": [
+          "JSON 파싱 오류: Expecting property name enclosed in double quotes: line 8 column 1 (char 194)"
+        ],
+        "overall_compatible": false
+      },
+      {
+        "file": "test_config.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "refined_file_reference_repair_report.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "file_renaming.log",
+        "file_type": ".log",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_integrated_analysis_20250803_114734.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_integrated_analysis_20250805_104146.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "monitoring_alert_verification.log",
+        "file_type": ".log",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "system_execution_verification_results.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "config_data_standardization.log",
+        "file_type": ".log",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "modules.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "comprehensive_system_execution_test_results.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "performance_alerts.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "simplified_integration_test_results.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "naming_verification.log",
+        "file_type": ".log",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "main_notifier_state.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_integrated_analysis_20250805_110936.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "system_functionality_verification_report.json",
+        "file_type": ".json",
+        "is_valid": false,
+        "structure_preserved": false,
+        "encoding_correct": true,
+        "issues": [
+          "JSON 파싱 오류: Expecting property name enclosed in double quotes: line 379 column 1 (char 14662)"
+        ],
+        "overall_compatible": false
+      },
+      {
+        "file": "posco_integrated_analysis_20250806_090231.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "optimization_history.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "enhanced_repair_results_20250810_175726.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "performance_data_20250808_105531.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_integrated_analysis_20250805_104713.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "final_integration_test_report.json",
+        "file_type": ".json",
+        "is_valid": false,
+        "structure_preserved": false,
+        "encoding_correct": true,
+        "issues": [
+          "JSON 파싱 오류: Expecting property name enclosed in double quotes: line 164 column 1 (char 7821)"
+        ],
+        "overall_compatible": false
+      },
+      {
+        "file": "posco_integrated_analysis_20250806_090323.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "file_reference_repair_report.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "enhanced_final_integration_test_results.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_integrated_analysis_20250805_093246.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_business_day_mapping.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_news_250808_data.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "naming_verification_report_20250809_171232.json",
+        "file_type": ".json",
+        "is_valid": false,
+        "structure_preserved": false,
+        "encoding_correct": true,
+        "issues": [
+          "JSON 파싱 오류: Expecting property name enclosed in double quotes: line 3768 column 1 (char 157884)"
+        ],
+        "overall_compatible": false
+      },
+      {
+        "file": "enhanced_final_integration_test.log",
+        "file_type": ".log",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "reports_index.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_integrated_analysis_20250805_112247.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_integrated_analysis_20250806_130916.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "WatchHamster_v3.0_status.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": false,
+        "encoding_correct": true,
+        "issues": [
+          "상태 파일 구조가 예상과 다름"
+        ],
+        "overall_compatible": false
+      },
+      {
+        "file": "final_integration_test.log",
+        "file_type": ".log",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_integrated_analysis_20250805_092322.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_integrated_analysis_20250805_092439.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "comprehensive_test_config.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "performance_data_20250808_112257.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "posco_integrated_analysis_20250805_105046.html",
+        "file_type": ".html",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      },
+      {
+        "file": "performance_alerts.json",
+        "file_type": ".json",
+        "is_valid": true,
+        "structure_preserved": true,
+        "encoding_correct": true,
+        "issues": [],
+        "overall_compatible": true
+      }
+    ],
+    "status": "partially_compatible",
+    "compatibility_rate": 90.27777777777779
+  },
+  "overall_status": "acceptable",
+  "overall_score": 75,
+  "recommendations": [
+    "비즈니스 로직 상당 부분 수정 필요",
+    "다수 데이터 파일 호환성 문제 - 데이터 구조 점검 필요"
+  ]
+}
