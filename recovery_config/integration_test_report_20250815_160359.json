@@ -1,0 +1,28 @@
+{
+  "test_timestamp": "20250815_160359",
+  "overall_status": "SUCCESS",
+  "success_rate": 87.5,
+  "total_duration": 0.8878130912780762,
+  "test_results": {
+    "환경 설정": true,
+    "모듈 Import": true,
+    "테스트 데이터 생성": true,
+    "데이터 처리": true,
+    "메시지 생성": true,
+    "웹훅 시스템": false,
+    "모니터링 시스템": true,
+    "AI 분석 시스템": true
+  },
+  "core_functions_ok": true,
+  "imported_modules": [
+    "environment_setup",
+    "integrated_news_parser",
+    "news_message_generator",
+    "git_monitor",
+    "watchhamster_monitor",
+    "ai_analysis_engine",
+    "webhook_sender",
+    "business_day_comparison_engine"
+  ],
+  "generated_message_length": 430
+}

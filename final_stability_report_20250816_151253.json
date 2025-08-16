@@ -1,0 +1,133 @@
+{
+  "timestamp": "20250816_151253",
+  "stability_tests": {
+    "module_imports": {
+      "watchhamster_core": [
+        {
+          "module": "Monitoring.WatchHamster_Project.core.watchhamster_monitor",
+          "status": "SUCCESS"
+        },
+        {
+          "module": "Monitoring.WatchHamster_Project.core.git_monitor",
+          "status": "SUCCESS"
+        },
+        {
+          "module": "Monitoring.WatchHamster_Project.core.system_monitor",
+          "status": "SUCCESS"
+        }
+      ],
+      "posco_core": [
+        {
+          "module": "Monitoring.WatchHamster_Project.Posco_News_Mini_Final.core.environment_setup",
+          "status": "SUCCESS"
+        },
+        {
+          "module": "Monitoring.WatchHamster_Project.Posco_News_Mini_Final.core.integrated_api_module",
+          "status": "SUCCESS"
+        },
+        {
+          "module": "Monitoring.WatchHamster_Project.Posco_News_Mini_Final.core.news_message_generator",
+          "status": "SUCCESS"
+        },
+        {
+          "module": "Monitoring.WatchHamster_Project.Posco_News_Mini_Final.core.webhook_sender",
+          "status": "SUCCESS"
+        }
+      ],
+      "cross_imports": []
+    },
+    "file_system": {
+      "read_permissions": [
+        {
+          "file": "Monitoring/WatchHamster_Project/core/watchhamster_monitor.py",
+          "status": "SUCCESS",
+          "size": 24462
+        },
+        {
+          "file": "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core/environment_setup.py",
+          "status": "SUCCESS",
+          "size": 6771
+        },
+        {
+          "file": "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/config/environment_settings.json",
+          "status": "SUCCESS",
+          "size": 1138
+        }
+      ],
+      "write_permissions": [
+        {
+          "directory": "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/logs",
+          "status": "SUCCESS"
+        }
+      ],
+      "path_resolution": []
+    },
+    "script_execution": {
+      "python_scripts": [
+        {
+          "script": "Monitoring/WatchHamster_Project/scripts/start_monitoring.py",
+          "status": "SYNTAX_OK"
+        },
+        {
+          "script": "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/scripts/system_test.py",
+          "status": "SYNTAX_OK"
+        }
+      ],
+      "shell_scripts": [
+        {
+          "script": "Monitoring/WatchHamster_Project/scripts/daily_check.sh",
+          "status": "EXISTS"
+        },
+        {
+          "script": "Monitoring/WatchHamster_Project/scripts/daily_check.bat",
+          "status": "EXISTS"
+        }
+      ]
+    },
+    "configuration": {
+      "json_files": [
+        {
+          "file": "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/config/environment_settings.json",
+          "status": "VALID_JSON",
+          "keys_count": 4
+        }
+      ],
+      "required_keys": []
+    }
+  },
+  "performance_metrics": {
+    "import_time": {
+      "Monitoring.WatchHamster_Project.core.watchhamster_monitor": {
+        "time_seconds": 0.0,
+        "status": "SUCCESS"
+      },
+      "Monitoring.WatchHamster_Project.Posco_News_Mini_Final.core.environment_setup": {
+        "time_seconds": 0.0,
+        "status": "SUCCESS"
+      }
+    },
+    "file_access_time": {
+      "Monitoring/WatchHamster_Project/core/watchhamster_monitor.py": {
+        "time_seconds": 0.0001,
+        "file_size": 24462,
+        "status": "SUCCESS"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/config/environment_settings.json": {
+        "time_seconds": 0.0,
+        "file_size": 1138,
+        "status": "SUCCESS"
+      }
+    },
+    "memory_usage": {}
+  },
+  "error_handling": {},
+  "final_score": 100.0,
+  "status": "EXCELLENT",
+  "score_breakdown": {
+    "module_imports": 30.0,
+    "file_system": 25.0,
+    "script_execution": 20.0,
+    "configuration": 15.0,
+    "performance": 10.0
+  }
+}

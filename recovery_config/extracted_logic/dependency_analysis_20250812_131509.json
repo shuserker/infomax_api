@@ -1,0 +1,255 @@
+{
+  "dependency_graph": {
+    "temp_config": {
+      "file_path": "Monitoring/Posco_News_mini/config.py",
+      "internal_deps": [],
+      "external_deps": []
+    },
+    "temp_state_manager": {
+      "file_path": "Monitoring/Posco_News_mini/core/state_manager.py",
+      "internal_deps": [],
+      "external_deps": [
+        "os",
+        "datetime",
+        "typing",
+        "json",
+        "logging"
+      ]
+    },
+    "temp_integrated_report_builder": {
+      "file_path": "Monitoring/Posco_News_mini/integrated_report_builder.py",
+      "internal_deps": [],
+      "external_deps": [
+        "reports",
+        "os",
+        "pathlib",
+        "datetime",
+        "typing",
+        "logging",
+        "sys"
+      ]
+    },
+    "temp_integrated_report_scheduler": {
+      "file_path": "Monitoring/Posco_News_mini/integrated_report_scheduler.py",
+      "internal_deps": [],
+      "external_deps": [
+        "threading",
+        "reports",
+        "exchange_monitor",
+        "os",
+        "requests",
+        "kospi_monitor",
+        "datetime",
+        "core",
+        "sys",
+        "newyork_monitor",
+        "config",
+        "time",
+        "schedule"
+      ]
+    },
+    "temp_metadata_reset_manager": {
+      "file_path": "Monitoring/Posco_News_mini/metadata_reset_manager.py",
+      "internal_deps": [],
+      "external_deps": [
+        "os",
+        "pathlib",
+        "datetime",
+        "typing",
+        "json",
+        "logging",
+        "re",
+        "hashlib"
+      ]
+    },
+    "temp_posco_report_system_reset": {
+      "file_path": "Monitoring/Posco_News_mini/posco_report_system_reset.py",
+      "internal_deps": [],
+      "external_deps": [
+        "completion_notifier",
+        "legacy_system_disabler",
+        "os",
+        "pathlib",
+        "metadata_reset_manager",
+        "datetime",
+        "typing",
+        "logging",
+        "report_cleanup_manager",
+        "sys",
+        "time",
+        "integrated_report_builder",
+        "traceback"
+      ]
+    },
+    "temp_report_cleanup_manager": {
+      "file_path": "Monitoring/Posco_News_mini/report_cleanup_manager.py",
+      "internal_deps": [],
+      "external_deps": [
+        "os",
+        "pathlib",
+        "datetime",
+        "shutil",
+        "typing",
+        "json",
+        "logging"
+      ]
+    },
+    "temp_report_manager": {
+      "file_path": "Monitoring/Posco_News_mini/reports/report_manager.py",
+      "internal_deps": [],
+      "external_deps": [
+        "os",
+        "json",
+        "pathlib",
+        "datetime"
+      ]
+    },
+    "temp___init__": {
+      "file_path": "Monitoring/Posco_News_mini_v2/core/__init__.py",
+      "internal_deps": [],
+      "external_deps": [
+        "module_registry",
+        "enhanced_process_manager",
+        "notification_manager"
+      ]
+    },
+    "temp_business_day_helper": {
+      "file_path": "Monitoring/Posco_News_mini/utils/business_day_helper.py",
+      "internal_deps": [],
+      "external_deps": [
+        "os",
+        "datetime",
+        "core",
+        "json",
+        "sys",
+        "config"
+      ]
+    },
+    "temp_enhanced_process_manager": {
+      "file_path": "Monitoring/Posco_News_mini_v2/core/enhanced_process_manager.py",
+      "internal_deps": [],
+      "external_deps": [
+        "enum",
+        "os",
+        "psutil",
+        "dataclasses",
+        "datetime",
+        "typing",
+        "json",
+        "logging",
+        "sys",
+        "subprocess",
+        "time"
+      ]
+    },
+    "temp_performance_optimizer": {
+      "file_path": "Monitoring/Posco_News_mini_v2/core/performance_optimizer.py",
+      "internal_deps": [],
+      "external_deps": [
+        "enum",
+        "psutil",
+        "os",
+        "dataclasses",
+        "datetime",
+        "typing",
+        "json",
+        "logging",
+        "statistics"
+      ]
+    },
+    "temp_demo_performance_monitoring": {
+      "file_path": "demo_performance_monitoring.py",
+      "internal_deps": [],
+      "external_deps": [
+        "os",
+        "datetime",
+        "json",
+        "core",
+        "sys",
+        "time",
+        "traceback"
+      ]
+    },
+    "temp_posco_continuous_monitor": {
+      "file_path": "posco_continuous_monitor.py",
+      "internal_deps": [],
+      "external_deps": [
+        "os",
+        "datetime",
+        "sys",
+        "subprocess",
+        "time",
+        "signal"
+      ]
+    },
+    "temp_posco_news_viewer": {
+      "file_path": "posco_news_viewer.py",
+      "internal_deps": [],
+      "external_deps": [
+        "requests",
+        "json",
+        "datetime"
+      ]
+    }
+  },
+  "external_dependencies": [
+    "legacy_system_disabler",
+    "exchange_monitor",
+    "os",
+    "pathlib",
+    "dataclasses",
+    "datetime",
+    "logging",
+    "statistics",
+    "schedule",
+    "threading",
+    "requests",
+    "typing",
+    "core",
+    "report_cleanup_manager",
+    "time",
+    "newyork_monitor",
+    "hashlib",
+    "integrated_report_builder",
+    "traceback",
+    "module_registry",
+    "enum",
+    "notification_manager",
+    "kospi_monitor",
+    "shutil",
+    "sys",
+    "config",
+    "re",
+    "subprocess",
+    "signal",
+    "reports",
+    "enhanced_process_manager",
+    "psutil",
+    "metadata_reset_manager",
+    "json",
+    "completion_notifier"
+  ],
+  "internal_dependencies": {
+    "temp_config": [],
+    "temp_state_manager": [],
+    "temp_integrated_report_builder": [],
+    "temp_integrated_report_scheduler": [],
+    "temp_metadata_reset_manager": [],
+    "temp_posco_report_system_reset": [],
+    "temp_report_cleanup_manager": [],
+    "temp_report_manager": [],
+    "temp___init__": [],
+    "temp_business_day_helper": [],
+    "temp_enhanced_process_manager": [],
+    "temp_performance_optimizer": [],
+    "temp_demo_performance_monitoring": [],
+    "temp_posco_continuous_monitor": [],
+    "temp_posco_news_viewer": []
+  },
+  "circular_dependencies": [],
+  "dependency_count": {
+    "total_modules": 16,
+    "external_deps": 35,
+    "internal_connections": 0
+  }
+}

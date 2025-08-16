@@ -1,0 +1,417 @@
+{
+  "test_start_time": "2025-08-15T13:00:01.535306",
+  "scenario_results": {
+    "영업일_비교_분석": {
+      "success": false,
+      "verification_score": 0.7333333333333334,
+      "webhook_success": true,
+      "description": "영업일 비교 분석 메시지 테스트"
+    },
+    "지연_발행_알림": {
+      "success": true,
+      "verification_score": 0.8833333333333333,
+      "webhook_success": true,
+      "description": "지연 발행 알림 메시지 테스트"
+    },
+    "일일_통합_리포트": {
+      "success": true,
+      "verification_score": 0.8333333333333334,
+      "webhook_success": true,
+      "description": "일일 통합 분석 리포트 테스트"
+    },
+    "정시_발행_알림": {
+      "success": false,
+      "verification_score": 0.7083333333333333,
+      "webhook_success": true,
+      "description": "정시 발행 알림 메시지 테스트"
+    },
+    "데이터_갱신_없음": {
+      "success": false,
+      "verification_score": 0.7833333333333333,
+      "webhook_success": true,
+      "description": "데이터 갱신 없음 알림 테스트"
+    }
+  },
+  "verification_results": {
+    "영업일_비교_분석": {
+      "success": false,
+      "match_score": 0.7333333333333334,
+      "verification_details": {
+        "bot_verification": {
+          "bot_name_match": true,
+          "bot_type_match": true,
+          "color_match": true,
+          "test_mode_handled": true,
+          "score": 1.0
+        },
+        "format_verification": {
+          "line_structure_match": true,
+          "title_format_match": false,
+          "section_structure_match": true,
+          "score": 0.6666666666666666
+        },
+        "content_verification": {
+          "key_data_points_match": false,
+          "time_format_match": true,
+          "data_accuracy_match": true,
+          "score": 0.6666666666666666
+        },
+        "emoji_verification": {
+          "required_emojis_present": true,
+          "emoji_count_appropriate": false,
+          "emoji_context_correct": false,
+          "score": 0.3333333333333333
+        },
+        "pattern_verification": {
+          "patterns_matched": 3,
+          "total_patterns": 3,
+          "pattern_match_rate": 1.0,
+          "score": 1.0
+        },
+        "overall_match_score": 0.7333333333333334
+      },
+      "errors": [],
+      "warnings": [
+        "매치 점수가 기준치(80%) 미만입니다"
+      ]
+    },
+    "지연_발행_알림": {
+      "success": true,
+      "match_score": 0.8833333333333333,
+      "verification_details": {
+        "bot_verification": {
+          "bot_name_match": true,
+          "bot_type_match": true,
+          "color_match": true,
+          "test_mode_handled": true,
+          "score": 1.0
+        },
+        "format_verification": {
+          "line_structure_match": true,
+          "title_format_match": false,
+          "section_structure_match": true,
+          "score": 0.6666666666666666
+        },
+        "content_verification": {
+          "key_data_points_match": true,
+          "time_format_match": true,
+          "data_accuracy_match": true,
+          "score": 1.0
+        },
+        "emoji_verification": {
+          "required_emojis_present": true,
+          "emoji_count_appropriate": true,
+          "emoji_context_correct": false,
+          "score": 0.6666666666666666
+        },
+        "pattern_verification": {
+          "patterns_matched": 3,
+          "total_patterns": 3,
+          "pattern_match_rate": 1.0,
+          "score": 1.0
+        },
+        "overall_match_score": 0.8833333333333333,
+        "delay_verification": {
+          "delay_minutes_correct": true,
+          "news_type_correct": false,
+          "delay_status_correct": true,
+          "score": 0.6666666666666666
+        }
+      },
+      "errors": [],
+      "warnings": []
+    },
+    "일일_통합_리포트": {
+      "success": true,
+      "match_score": 0.8333333333333334,
+      "verification_details": {
+        "bot_verification": {
+          "bot_name_match": true,
+          "bot_type_match": true,
+          "color_match": true,
+          "test_mode_handled": true,
+          "score": 1.0
+        },
+        "format_verification": {
+          "line_structure_match": true,
+          "title_format_match": false,
+          "section_structure_match": true,
+          "score": 0.6666666666666666
+        },
+        "content_verification": {
+          "key_data_points_match": false,
+          "time_format_match": true,
+          "data_accuracy_match": true,
+          "score": 0.6666666666666666
+        },
+        "emoji_verification": {
+          "required_emojis_present": true,
+          "emoji_count_appropriate": true,
+          "emoji_context_correct": true,
+          "score": 1.0
+        },
+        "pattern_verification": {
+          "patterns_matched": 3,
+          "total_patterns": 3,
+          "pattern_match_rate": 1.0,
+          "score": 1.0
+        },
+        "overall_match_score": 0.8333333333333334,
+        "report_verification": {
+          "completion_rate_present": true,
+          "news_status_detailed": true,
+          "recommendations_present": true,
+          "score": 1.0
+        }
+      },
+      "errors": [],
+      "warnings": []
+    },
+    "정시_발행_알림": {
+      "success": false,
+      "match_score": 0.7083333333333333,
+      "verification_details": {
+        "bot_verification": {
+          "bot_name_match": true,
+          "bot_type_match": true,
+          "color_match": true,
+          "test_mode_handled": true,
+          "score": 1.0
+        },
+        "format_verification": {
+          "line_structure_match": true,
+          "title_format_match": false,
+          "section_structure_match": true,
+          "score": 0.6666666666666666
+        },
+        "content_verification": {
+          "key_data_points_match": false,
+          "time_format_match": true,
+          "data_accuracy_match": true,
+          "score": 0.6666666666666666
+        },
+        "emoji_verification": {
+          "required_emojis_present": true,
+          "emoji_count_appropriate": true,
+          "emoji_context_correct": false,
+          "score": 0.6666666666666666
+        },
+        "pattern_verification": {
+          "patterns_matched": 1,
+          "total_patterns": 2,
+          "pattern_match_rate": 0.5,
+          "score": 0.5
+        },
+        "overall_match_score": 0.7083333333333333,
+        "status_verification": {
+          "current_status_present": true,
+          "overall_status_summary": true,
+          "confirmation_message": true,
+          "score": 1.0
+        }
+      },
+      "errors": [],
+      "warnings": [
+        "매치 점수가 기준치(80%) 미만입니다"
+      ]
+    },
+    "데이터_갱신_없음": {
+      "success": false,
+      "match_score": 0.7833333333333333,
+      "verification_details": {
+        "bot_verification": {
+          "bot_name_match": true,
+          "bot_type_match": true,
+          "color_match": true,
+          "test_mode_handled": true,
+          "score": 1.0
+        },
+        "format_verification": {
+          "line_structure_match": true,
+          "title_format_match": false,
+          "section_structure_match": true,
+          "score": 0.6666666666666666
+        },
+        "content_verification": {
+          "key_data_points_match": false,
+          "time_format_match": true,
+          "data_accuracy_match": true,
+          "score": 0.6666666666666666
+        },
+        "emoji_verification": {
+          "required_emojis_present": true,
+          "emoji_count_appropriate": true,
+          "emoji_context_correct": false,
+          "score": 0.6666666666666666
+        },
+        "pattern_verification": {
+          "patterns_matched": 2,
+          "total_patterns": 2,
+          "pattern_match_rate": 1.0,
+          "score": 1.0
+        },
+        "overall_match_score": 0.7833333333333333
+      },
+      "errors": [],
+      "warnings": [
+        "매치 점수가 기준치(80%) 미만입니다"
+      ]
+    }
+  },
+  "webhook_results": {
+    "영업일_비교_분석": {
+      "success": true,
+      "message_id": "20250815_130001_ef41622d",
+      "queue_status": {
+        "timestamp": "2025-08-15T13:00:02.054263",
+        "queue_size": 0,
+        "failed_messages_count": 0,
+        "cache_size": 1,
+        "is_running": true,
+        "statistics": {
+          "total_sent": 1,
+          "successful_sends": 1,
+          "failed_sends": 0,
+          "retry_attempts": 0,
+          "last_send_time": "2025-08-15T13:00:01.649871",
+          "average_response_time": 0.05976605415344238
+        }
+      },
+      "send_statistics": {
+        "total_sent": 1,
+        "successful_sends": 1,
+        "failed_sends": 0,
+        "retry_attempts": 0,
+        "last_send_time": "2025-08-15T13:00:01.649871",
+        "average_response_time": 0.05976605415344238,
+        "success_rate": 1.0,
+        "failure_rate": 0.0
+      }
+    },
+    "지연_발행_알림": {
+      "success": true,
+      "message_id": "20250815_130002_e4986268",
+      "queue_status": {
+        "timestamp": "2025-08-15T13:00:02.559526",
+        "queue_size": 0,
+        "failed_messages_count": 0,
+        "cache_size": 2,
+        "is_running": true,
+        "statistics": {
+          "total_sent": 2,
+          "successful_sends": 2,
+          "failed_sends": 0,
+          "retry_attempts": 0,
+          "last_send_time": "2025-08-15T13:00:02.128817",
+          "average_response_time": 0.05905406475067139
+        }
+      },
+      "send_statistics": {
+        "total_sent": 2,
+        "successful_sends": 2,
+        "failed_sends": 0,
+        "retry_attempts": 0,
+        "last_send_time": "2025-08-15T13:00:02.128817",
+        "average_response_time": 0.05905406475067139,
+        "success_rate": 1.0,
+        "failure_rate": 0.0
+      }
+    },
+    "일일_통합_리포트": {
+      "success": true,
+      "message_id": "20250815_130002_f120fd14",
+      "queue_status": {
+        "timestamp": "2025-08-15T13:00:03.062510",
+        "queue_size": 0,
+        "failed_messages_count": 0,
+        "cache_size": 3,
+        "is_running": true,
+        "statistics": {
+          "total_sent": 3,
+          "successful_sends": 3,
+          "failed_sends": 0,
+          "retry_attempts": 0,
+          "last_send_time": "2025-08-15T13:00:02.649111",
+          "average_response_time": 0.05829234838485718
+        }
+      },
+      "send_statistics": {
+        "total_sent": 3,
+        "successful_sends": 3,
+        "failed_sends": 0,
+        "retry_attempts": 0,
+        "last_send_time": "2025-08-15T13:00:02.649111",
+        "average_response_time": 0.05829234838485718,
+        "success_rate": 1.0,
+        "failure_rate": 0.0
+      }
+    },
+    "정시_발행_알림": {
+      "success": true,
+      "message_id": "20250815_130003_231d79d2",
+      "queue_status": {
+        "timestamp": "2025-08-15T13:00:03.563588",
+        "queue_size": 0,
+        "failed_messages_count": 0,
+        "cache_size": 4,
+        "is_running": true,
+        "statistics": {
+          "total_sent": 4,
+          "successful_sends": 4,
+          "failed_sends": 0,
+          "retry_attempts": 0,
+          "last_send_time": "2025-08-15T13:00:03.119023",
+          "average_response_time": 0.056688105344772345
+        }
+      },
+      "send_statistics": {
+        "total_sent": 4,
+        "successful_sends": 4,
+        "failed_sends": 0,
+        "retry_attempts": 0,
+        "last_send_time": "2025-08-15T13:00:03.119023",
+        "average_response_time": 0.056688105344772345,
+        "success_rate": 1.0,
+        "failure_rate": 0.0
+      }
+    },
+    "데이터_갱신_없음": {
+      "success": true,
+      "message_id": "20250815_130003_e23a7d52",
+      "queue_status": {
+        "timestamp": "2025-08-15T13:00:04.069442",
+        "queue_size": 0,
+        "failed_messages_count": 0,
+        "cache_size": 5,
+        "is_running": true,
+        "statistics": {
+          "total_sent": 5,
+          "successful_sends": 5,
+          "failed_sends": 0,
+          "retry_attempts": 0,
+          "last_send_time": "2025-08-15T13:00:03.638636",
+          "average_response_time": 0.05529471213817597
+        }
+      },
+      "send_statistics": {
+        "total_sent": 5,
+        "successful_sends": 5,
+        "failed_sends": 0,
+        "retry_attempts": 0,
+        "last_send_time": "2025-08-15T13:00:03.638636",
+        "average_response_time": 0.05529471213817597,
+        "success_rate": 1.0,
+        "failure_rate": 0.0
+      }
+    }
+  },
+  "summary": {
+    "total_scenarios": 5,
+    "successful_scenarios": 2,
+    "success_rate": 0.4,
+    "average_verification_score": 0.7883333333333333,
+    "webhook_success_rate": 1.0,
+    "overall_success": false
+  },
+  "test_end_time": "2025-08-15T13:00:04.069509"
+}

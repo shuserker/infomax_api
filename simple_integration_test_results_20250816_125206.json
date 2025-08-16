@@ -1,0 +1,39 @@
+{
+  "timestamp": "2025-08-16T12:52:06.457547",
+  "overall_success_rate": 94.11764705882352,
+  "passed_tests": 16,
+  "total_tests": 17,
+  "elapsed_time": 0.17396807670593262,
+  "detailed_results": {
+    "module_imports": {
+      "environment_setup": "✅ 성공",
+      "integrated_api_module": "✅ 성공",
+      "news_message_generator": "✅ 성공",
+      "webhook_sender": "✅ 성공",
+      "git_monitor": "✅ 성공",
+      "watchhamster_monitor": "✅ 성공"
+    },
+    "file_structure": {
+      "Monitoring/WatchHamster_Project/core/watchhamster_monitor.py": "✅ 존재",
+      "Monitoring/WatchHamster_Project/core/git_monitor.py": "✅ 존재",
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core/environment_setup.py": "✅ 존재",
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core/integrated_api_module.py": "✅ 존재",
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core/news_message_generator.py": "✅ 존재",
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core/webhook_sender.py": "✅ 존재",
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/config/environment_settings.json": "✅ 존재"
+    },
+    "config_loading": {
+      "config_loading": "✅ 성공",
+      "config_keys": [
+        "api_config",
+        "webhook_urls",
+        "monitoring_config",
+        "news_types"
+      ]
+    },
+    "basic_functionality": {
+      "environment_setup_init": "✅ 초기화 성공",
+      "webhook_sender_init": "✅ 초기화 성공"
+    }
+  }
+}

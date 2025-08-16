@@ -1,0 +1,71 @@
+{
+  "timestamp": "2025-08-16T12:47:36.963980",
+  "success": null,
+  "results": {
+    "environment_setup": {
+      "success": true,
+      "errors": [],
+      "details": {
+        "class_created": true,
+        "methods_available": [
+          "load_settings",
+          "create_directory_structure",
+          "restore_config_files",
+          "set_file_permissions"
+        ]
+      }
+    },
+    "integrated_api_module": {
+      "success": true,
+      "errors": [],
+      "details": {
+        "class_created": true,
+        "available_methods": [
+          "get_latest_news_data",
+          "get_historical_data",
+          "get_news_by_date",
+          "get_status_summary",
+          "test_connection",
+          "start_monitoring",
+          "stop_monitoring"
+        ],
+        "status_summary_callable": true
+      }
+    },
+    "news_message_generator": {
+      "success": true,
+      "errors": [],
+      "details": {
+        "class_created": true,
+        "available_methods": [
+          "generate_business_day_comparison_message",
+          "generate_delay_notification_message",
+          "generate_daily_integrated_report_message",
+          "generate_status_notification_message",
+          "generate_no_data_notification_message"
+        ],
+        "static_methods_working": true,
+        "message_generation_tested": true
+      }
+    },
+    "webhook_sender": {
+      "success": true,
+      "errors": [],
+      "details": {
+        "class_created": true,
+        "available_methods": [
+          "send_business_day_comparison",
+          "send_delay_notification",
+          "send_daily_integrated_report",
+          "send_status_notification",
+          "send_no_data_notification",
+          "send_watchhamster_error",
+          "send_watchhamster_status",
+          "send_test_message"
+        ],
+        "queue_system_working": true,
+        "test_message_sent": true
+      }
+    }
+  }
+}

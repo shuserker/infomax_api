@@ -1,0 +1,596 @@
+{
+  "file_path": "system_optimization_data.json",
+  "config_type": "json",
+  "content": {
+    "system_metrics": {
+      "collection_time": "2025-08-08T11:23:50.588480",
+      "system_info": {
+        "cpu_count": 8,
+        "cpu_count_logical": 8,
+        "memory_total_gb": 16.0,
+        "disk_total_gb": 228.24456787109375,
+        "boot_time": "2025-08-06T12:18:24"
+      },
+      "process_info": {
+        "watchhamster_processes": [
+          {
+            "pid": 881,
+            "name": "Activity Monitor",
+            "cmdline": "/System/Applications/Utilities/Activity Monitor.app/Contents/MacOS/Activity Monitor",
+            "cpu_percent": 0.0,
+            "memory_percent": 0.18396377563476562,
+            "uptime_seconds": 169417.47810792923
+          },
+          {
+            "pid": 985,
+            "name": "chrome_crashpad_handler",
+            "cmdline": "/Applications/Kiro.app/Contents/Frameworks/Electron Framework.framework/Helpers/chrome_crashpad_handler --no-rate-limit --monitor-self-annotation=ptype=crashpad-handler --database=/Users/jy_lee/Library/Application Support/Kiro/Crashpad --annotation=_companyName=Microsoft --annotation=_productName=Kiro --annotation=_version=0.1.42 --annotation=plat=OS X --annotation=prod=Electron --annotation=ver=30.5.1 --handshake-fd=24",
+            "cpu_percent": 0.0,
+            "memory_percent": 0.008392333984375,
+            "uptime_seconds": 169408.51909899712
+          },
+          {
+            "pid": 1069,
+            "name": "chrome_crashpad_handler",
+            "cmdline": "/Applications/Vivaldi.app/Contents/Frameworks/Vivaldi Framework.framework/Versions/7.5.3735.54/Helpers/chrome_crashpad_handler --monitor-self-annotation=ptype=crashpad-handler --database=/Users/jy_lee/Library/Application Support/Vivaldi/Crashpad --url=https://crash.vivaldi.com/submit --annotation=plat=OS X --annotation=prod=Vivaldi_Mac --annotation=ver=7.5.3735.54 --handshake-fd=5",
+            "cpu_percent": 0.0,
+            "memory_percent": 0.00858306884765625,
+            "uptime_seconds": 169399.01638507843
+          },
+          {
+            "pid": 1470,
+            "name": "crashpad_handler",
+            "cmdline": "/Applications/Google Drive.app/Contents/MacOS/crashpad_handler --database=/Users/jy_lee/Library/Application Support/Google/DriveFS/Crashpad --url=https://clients2.google.com/cr/report --annotation=add_shortcut_menu=on --annotation=aggregation_interval_ms=0 --annotation=allow_multiple_smb_connections=off --annotation=allow_search=on --annotation=allow_url_parameter_when_opening_gdoc=off --annotation=always_send_feedback_unauthenticated=on --annotation=anonymous_feedback_submit_api_key=AIzaSyCejQEszExWuVHsgk8YElDTlbbrhzeRISc --annotation=anonymous_feedback_submit_url=https://feedback-pa.googleapis.com/v1/feedback/products/1633926/web:anonymous_submit --annotation=ask_to_copy_files_for_pending_uploads=on --annotation=automatic_error_reporting_trigger_assert_ids= --annotation=bandwidth_throttling=on --annotation=browser_auth_wait_for_client_timeout_ms=300000 --annotation=browser_auth_with_signup_wait_for_client_timeout_ms=1200000 --annotation=cancel_com_calls=on --annotation=casita_add_more_folders_to_sync_url=https://support.google.com/drive/?p=errorlist --annotation=casita_faq_url=https://support.google.com/drive?p=d4d_redesign_beta --annotation=casita_force_enable=off --annotation=casita_hide_disconnect_for_loading_account=off --annotation=casita_milestone=2 --annotation=casita_rename_sign_out_button_to_disconnect_account=off --annotation=casita_startup_prompt_for_opt_in=0 --annotation=collect_ms_office_meet_integration_metrics=off --annotation=com_api_thread_stuck_threshold_sec=0 --annotation=compress_regular_log_files=off --annotation=confirm_quit_during_system_logout=off --annotation=context_menu_create_editor_files=on --annotation=context_menu_force_refresh_folder=on --annotation=context_menu_show_create_new_shared_drive_dialog=on --annotation=crash_oom_threshold_mb=1048576 --annotation=crash_throttle_percentage=0 --annotation=create_encrypted_editor_file=on --annotation=create_gsuite_file=on --annotation=cse_guest_access_enabled=on --annotation=current_drive_fs_version=112.0.3.0 --annotation=current_os_version=macOS/Version 26.0.0 (Build 25A5316i) (arm64) --annotation=dedupe_interval_ms=2000 --annotation=deprecation_date=2026-07-28 --annotation=deprecation_warning_threshold=30 --annotation=directory_log_max_byte_size=524288000 --annotation=disable_non_static_file_provider_event_metrics=off --annotation=disable_unified_buffer_cache=off --annotation=dokan_set_internal_file_index=on --annotation=drive_dot=on --annotation=enable_additional_log_dump_for_diagnostic=on --annotation=enable_automatic_error_reporting=on --annotation=enable_casita_shared_drives_ui=off --annotation=enable_casita_sign_out_flow=off --annotation=enable_external_file_provider_volume=off --annotation=enable_file_provider_migration=on --annotation=enable_internal_cello_metrics=on --annotation=enable_mac_os_context_menu=on --annotation=enable_mac_os_menu_bar=on --annotation=enable_metrics=on --annotation=enable_mirror_roots_context=on --annotation=enable_mount_in_sidebar_setting=on --annotation=enable_search_hot_key=on --annotation=enable_windows_tray_icon_context_menu=on --annotation=encrypt_and_upload=off --annotation=encrypt_and_upload_folder=on --annotation=exception_enabled_apps=.* --annotation=file_provider_add_items_to_ws_on_listing=on --annotation=file_provider_create_existing_dir_id_succeeds=off --annotation=file_provider_create_existing_file_id_succeeds=off --annotation=file_provider_detect_remaining_domain_with_api_timeout_ms=10000 --annotation=file_provider_disable_movein_user_interaction=off --annotation=file_provider_disable_moveout_user_interaction=off --annotation=file_provider_disabled_notification_interval_mins=1440 --annotation=file_provider_enable_deny_copy_activation_rule=on --annotation=file_provider_enable_deny_shared_drive_root_manipulation=on --annotation=file_provider_enable_ipc_root_symlink=on --annotation=file_provider_enable_read_ahead=on --annotation=file_provider_exclude_from_sync_direct_create_trash=on --annotation=file_provider_failover_for_home_dir_fs_type=on --annotation=file_provider_failover_for_invalid_euid=on --annotation=file_provider_handle_exact_existing_create_as_reimport=on --annotation=file_provider_keep_opt_out_users=on --annotation=file_provider_max_retry_backoff_per_api_call_ms=30000 --annotation=file_provider_min_partial_read_size=4194304 --annotation=file_provider_mirror_switch_unpinned_item_batch_size=2000 --annotation=file_provider_notify_mount_point_changed=on --annotation=file_provider_notify_mount_point_changed_with_mirror=off --annotation=file_provider_opt_out_allowed=off --annotation=file_provider_opt_out_learn_more_url=https://support.google.com/drive/answer/12178485?hl=en#zippy=%2Chow-does-this-functionality-differ-from-what-i-had-before --annotation=file_provider_opt_out_survey_trigger_id=iKGieoktf0u8t9BHMpj0TarLafs8 --annotation=file_provider_pause_syncing_option=on --annotation=file_provider_posix_symlink_path_max_size=1024 --annotation=file_provider_quick_access_polling_interval_sec=43200 --annotation=file_provider_quit_grace_period_ms=0 --annotation=file_provider_recover_preserved_domains=on --annotation=file_provider_remove_domain_flush_timeout_ms=300000 --annotation=file_provider_resume_network_interrupted_push=on --annotation=file_provider_retry_network_interrupted_fetch=on --annotation=file_provider_show_migration_notification_based_on_volume=on --annotation=file_revisions_file_provider=on --annotation=file_revisions_virtual_folder=off --annotation=fileprovider_signal_debounce_ms=250 --annotation=finish_syncing_files_option=on --annotation=force_file_provider_materialization=on --annotation=force_refresh_folder_normal_menu=off --annotation=gui_autostart_option=on --annotation=gui_reset_preferences_menu_option=on --annotation=hide_inaccessible_inheritance_break_folders=off --annotation=include_user_email_in_feedback=on --annotation=inform_users_of_pending_uploads=on --annotation=instrument_http_client=on --annotation=local_file_reading_buffer_size=8388608 --annotation=logging_on_cello_thread_startup=off --annotation=mac_smb_dialect_mode=0 --annotation=mac_smb_mount_by_ip=on --annotation=mac_smb_nobrowse=on --annotation=mac_smb_nodatacache=on --annotation=mac_smb_port=-1 --annotation=manage_file_revisions_in_web=on --annotation=max_connection_idle_time_msec=600000 --annotation=max_core_restarts_after_db_corruption=10 --annotation=max_feedback_payload_size=209715200 --annotation=max_file_provider_ipc_connections=100 --annotation=max_item_events_buffer_size_casita=50 --annotation=max_metrics_per_event_code_per_batch=200 --annotation=max_status_source_locations_count_per_metric_event=3 --annotation=max_syncing_status_change_events_casita=50 --annotation=max_thumbnail_dimension=768 --annotation=meet_live_stream_info_uri= --annotation=meet_outlook_addin=off --annotation=meet_uri=https://meetings.clients6.google.com/v1/spaces --annotation=metrics_store_reset_counter=0 --annotation=min_duration_hours_between_any_surveys=24 --annotation=min_duration_hours_between_automatic_error_reports=720 --annotation=min_duration_hours_between_same_surveys=720 --annotation=min_duration_seconds_wait_after_close_for_survey=30 --annotation=min_duration_seconds_wait_after_cores_startup_for_survey=30 --annotation=min_supported_os_version=10.15.7 --annotation=mojave_overlays_fix=off --annotation=multi_account_max_accounts=4 --annotation=nondownloadable_files_as_gdrive_files=on --annotation=nondownloadable_files_as_gdrive_files_migration=on --annotation=num_metrics_batches_per_request=70 --annotation=osxfuse_lock_abort_test=on --annotation=osxfuse_process_blacklist=esets_daemon;scep_daemon --annotation=osxfuse_sched_flags_offset_override=1072 --annotation=osxfuse_sched_flags_offset_override_arm=480 --annotation=outlook_addin=off --annotation=pause_syncing_option=on --annotation=persistent_smb_port_auto_selection=on --annotation=photos_check_apl_icloud_import=on --annotation=photos_deprecation_date=2099-12-31 --annotation=photos_deprecation_soft_date=2099-10-01 --annotation=photos_feature_unsupported=off --annotation=photos_feature_unsupported_soon=off --annotation=prod=DriveFS --annotation=purge_roots_for_disabled_accounts=on --annotation=read_only_corrupted_accounts=on --annotation=read_only_mode=off --annotation=read_only_ransomware=off --annotation=reconnected_nas_polling_interval_seconds=60 --annotation=reset_content_cache_location=off --annotation=restart_on_browser_request=on --annotation=same_content_dedupe_interval_ms=600000 --annotation=seconds_per_metrics_batch=20 --annotation=share_dialog=on --annotation=show_casita_opt_in_banner=0 --annotation=show_casita_opt_out_banner=0 --annotation=show_live_stream_frame_in_outlook_onboarding=off --annotation=show_offline_files_menu_option=on --annotation=show_quick_access_in_search_dialog=on --annotation=show_sign_out_all=on --annotation=slurp_poll_path_frequency_min=240 --annotation=smb_allowed=on --annotation=soon_to_be_min_supported_os_version=11.0.0 --annotation=soon_to_be_unsupported_os_learn_more=https://support.google.com/drive/answer/2375082 --annotation=special_folder_change_notification=on --annotation=spotlight_timestamp_fsctl_support=on --annotation=status_window_click_show_file_in_file_manager=on --annotation=structured_log_max_file_count=30 --annotation=structured_log_max_file_size_kbytes=5120 --annotation=structured_log_zip_logs=on --annotation=structured_logging=on --annotation=support_status_notification=on --annotation=survey_api_key=AIzaSyAWGrfCCr7albM3lmCc937gx4uIphbpeKQ --annotation=survey_configurations=dTT62HmRe0u8t9BHMpj0WB4j3ynP,64 --annotation=survey_listnr_product_id=1633926 --annotation=survey_url=https://www.gstatic.com/drive-fs/survey.html --annotation=switchblade_dss=off --annotation=switchblade_on_websockets=on --annotation=thread_stuck_threshold_sec=0 --annotation=throttling_algorithm=1 --annotation=trim_parents_during_cloud_merge=on --annotation=trim_parents_during_commit=on --annotation=unlocked_mac_buf_unmap=on --annotation=unlocked_mac_getxattr_v2=off --annotation=upload_folder=off --annotation=use_apple_web_kit=off --annotation=use_canceled_uploads_account_dir=on --annotation=use_clear_local_data_option=on --annotation=use_cros_http_client=off --annotation=use_mac_fileprovider=on --annotation=use_microsoft_web_view_2=off --annotation=use_moonshine=on --annotation=use_new_onboarding=on --annotation=ver=112.0.3.0 --annotation=win_dpi_aware_per_monitor=off --annotation=windows_32_bit_unsupported_now=on --annotation=windows_32_bit_unsupported_soon=on --handshake-fd=5",
+            "cpu_percent": 0.0,
+            "memory_percent": 0.008296966552734375,
+            "uptime_seconds": 169354.61587405205
+          },
+          {
+            "pid": 1531,
+            "name": "crashpad_handler",
+            "cmdline": "/Applications/Google Drive.app/Contents/MacOS/crashpad_handler --database=/Users/jy_lee/Library/Application Support/Google/DriveFS/Crashpad --url=https://clients2.google.com/cr/report --annotation=add_shortcut_menu=on --annotation=aggregation_interval_ms=0 --annotation=allow_multiple_smb_connections=off --annotation=allow_search=on --annotation=allow_url_parameter_when_opening_gdoc=off --annotation=always_send_feedback_unauthenticated=on --annotation=anonymous_feedback_submit_api_key=AIzaSyCejQEszExWuVHsgk8YElDTlbbrhzeRISc --annotation=anonymous_feedback_submit_url=https://feedback-pa.googleapis.com/v1/feedback/products/1633926/web:anonymous_submit --annotation=ask_to_copy_files_for_pending_uploads=on --annotation=automatic_error_reporting_trigger_assert_ids= --annotation=bandwidth_throttling=on --annotation=browser_auth_wait_for_client_timeout_ms=300000 --annotation=browser_auth_with_signup_wait_for_client_timeout_ms=1200000 --annotation=cancel_com_calls=on --annotation=casita_add_more_folders_to_sync_url=https://support.google.com/drive/?p=errorlist --annotation=casita_faq_url=https://support.google.com/drive?p=d4d_redesign_beta --annotation=casita_force_enable=off --annotation=casita_hide_disconnect_for_loading_account=off --annotation=casita_milestone=2 --annotation=casita_rename_sign_out_button_to_disconnect_account=off --annotation=casita_startup_prompt_for_opt_in=0 --annotation=collect_ms_office_meet_integration_metrics=off --annotation=com_api_thread_stuck_threshold_sec=0 --annotation=compress_regular_log_files=off --annotation=confirm_quit_during_system_logout=off --annotation=context_menu_create_editor_files=on --annotation=context_menu_force_refresh_folder=on --annotation=context_menu_show_create_new_shared_drive_dialog=on --annotation=crash_oom_threshold_mb=1048576 --annotation=crash_throttle_percentage=0 --annotation=create_encrypted_editor_file=on --annotation=create_gsuite_file=on --annotation=cse_guest_access_enabled=on --annotation=current_drive_fs_version=112.0.3.0 --annotation=current_os_version=macOS/Version 26.0.0 (Build 25A5327h) (arm64) --annotation=dedupe_interval_ms=2000 --annotation=deprecation_date=2026-07-28 --annotation=deprecation_warning_threshold=30 --annotation=directory_log_max_byte_size=524288000 --annotation=disable_non_static_file_provider_event_metrics=off --annotation=disable_unified_buffer_cache=off --annotation=dokan_set_internal_file_index=on --annotation=drive_dot=on --annotation=enable_additional_log_dump_for_diagnostic=on --annotation=enable_automatic_error_reporting=on --annotation=enable_casita_shared_drives_ui=off --annotation=enable_casita_sign_out_flow=off --annotation=enable_external_file_provider_volume=off --annotation=enable_file_provider_migration=on --annotation=enable_internal_cello_metrics=on --annotation=enable_mac_os_context_menu=on --annotation=enable_mac_os_menu_bar=on --annotation=enable_metrics=on --annotation=enable_mirror_roots_context=on --annotation=enable_mount_in_sidebar_setting=on --annotation=enable_search_hot_key=on --annotation=enable_windows_tray_icon_context_menu=on --annotation=encrypt_and_upload=off --annotation=encrypt_and_upload_folder=on --annotation=exception_enabled_apps=.* --annotation=file_provider_add_items_to_ws_on_listing=on --annotation=file_provider_create_existing_dir_id_succeeds=off --annotation=file_provider_create_existing_file_id_succeeds=off --annotation=file_provider_detect_remaining_domain_with_api_timeout_ms=10000 --annotation=file_provider_disable_movein_user_interaction=off --annotation=file_provider_disable_moveout_user_interaction=off --annotation=file_provider_disabled_notification_interval_mins=1440 --annotation=file_provider_enable_deny_copy_activation_rule=on --annotation=file_provider_enable_deny_shared_drive_root_manipulation=on --annotation=file_provider_enable_ipc_root_symlink=on --annotation=file_provider_enable_read_ahead=on --annotation=file_provider_exclude_from_sync_direct_create_trash=on --annotation=file_provider_failover_for_home_dir_fs_type=on --annotation=file_provider_failover_for_invalid_euid=on --annotation=file_provider_handle_exact_existing_create_as_reimport=on --annotation=file_provider_keep_opt_out_users=on --annotation=file_provider_max_retry_backoff_per_api_call_ms=30000 --annotation=file_provider_min_partial_read_size=4194304 --annotation=file_provider_mirror_switch_unpinned_item_batch_size=2000 --annotation=file_provider_notify_mount_point_changed=on --annotation=file_provider_notify_mount_point_changed_with_mirror=off --annotation=file_provider_opt_out_allowed=off --annotation=file_provider_opt_out_learn_more_url=https://support.google.com/drive/answer/12178485?hl=en#zippy=%2Chow-does-this-functionality-differ-from-what-i-had-before --annotation=file_provider_opt_out_survey_trigger_id=iKGieoktf0u8t9BHMpj0TarLafs8 --annotation=file_provider_pause_syncing_option=on --annotation=file_provider_posix_symlink_path_max_size=1024 --annotation=file_provider_quick_access_polling_interval_sec=43200 --annotation=file_provider_quit_grace_period_ms=0 --annotation=file_provider_recover_preserved_domains=on --annotation=file_provider_remove_domain_flush_timeout_ms=300000 --annotation=file_provider_resume_network_interrupted_push=on --annotation=file_provider_retry_network_interrupted_fetch=on --annotation=file_provider_show_migration_notification_based_on_volume=on --annotation=file_revisions_file_provider=on --annotation=file_revisions_virtual_folder=off --annotation=fileprovider_signal_debounce_ms=250 --annotation=finish_syncing_files_option=on --annotation=force_file_provider_materialization=on --annotation=force_refresh_folder_normal_menu=off --annotation=gui_autostart_option=on --annotation=gui_reset_preferences_menu_option=on --annotation=hide_inaccessible_inheritance_break_folders=off --annotation=include_user_email_in_feedback=on --annotation=inform_users_of_pending_uploads=on --annotation=instrument_http_client=on --annotation=local_file_reading_buffer_size=8388608 --annotation=logging_on_cello_thread_startup=off --annotation=mac_smb_dialect_mode=0 --annotation=mac_smb_mount_by_ip=on --annotation=mac_smb_nobrowse=on --annotation=mac_smb_nodatacache=on --annotation=mac_smb_port=-1 --annotation=manage_file_revisions_in_web=on --annotation=max_connection_idle_time_msec=600000 --annotation=max_core_restarts_after_db_corruption=10 --annotation=max_feedback_payload_size=209715200 --annotation=max_file_provider_ipc_connections=100 --annotation=max_item_events_buffer_size_casita=50 --annotation=max_metrics_per_event_code_per_batch=200 --annotation=max_status_source_locations_count_per_metric_event=3 --annotation=max_syncing_status_change_events_casita=50 --annotation=max_thumbnail_dimension=768 --annotation=meet_live_stream_info_uri= --annotation=meet_outlook_addin=off --annotation=meet_uri=https://meetings.clients6.google.com/v1/spaces --annotation=metrics_store_reset_counter=0 --annotation=min_duration_hours_between_any_surveys=24 --annotation=min_duration_hours_between_automatic_error_reports=720 --annotation=min_duration_hours_between_same_surveys=720 --annotation=min_duration_seconds_wait_after_close_for_survey=30 --annotation=min_duration_seconds_wait_after_cores_startup_for_survey=30 --annotation=min_supported_os_version=10.15.7 --annotation=mojave_overlays_fix=off --annotation=multi_account_max_accounts=4 --annotation=nondownloadable_files_as_gdrive_files=on --annotation=nondownloadable_files_as_gdrive_files_migration=on --annotation=num_metrics_batches_per_request=70 --annotation=osxfuse_lock_abort_test=on --annotation=osxfuse_process_blacklist=esets_daemon;scep_daemon --annotation=osxfuse_sched_flags_offset_override=1072 --annotation=osxfuse_sched_flags_offset_override_arm=480 --annotation=outlook_addin=off --annotation=pause_syncing_option=on --annotation=persistent_smb_port_auto_selection=on --annotation=photos_check_apl_icloud_import=on --annotation=photos_deprecation_date=2099-12-31 --annotation=photos_deprecation_soft_date=2099-10-01 --annotation=photos_feature_unsupported=off --annotation=photos_feature_unsupported_soon=off --annotation=prod=DriveFS --annotation=purge_roots_for_disabled_accounts=on --annotation=read_only_corrupted_accounts=on --annotation=read_only_mode=off --annotation=read_only_ransomware=off --annotation=reconnected_nas_polling_interval_seconds=60 --annotation=reset_content_cache_location=off --annotation=restart_on_browser_request=on --annotation=same_content_dedupe_interval_ms=600000 --annotation=seconds_per_metrics_batch=20 --annotation=share_dialog=on --annotation=show_casita_opt_in_banner=0 --annotation=show_casita_opt_out_banner=0 --annotation=show_live_stream_frame_in_outlook_onboarding=off --annotation=show_offline_files_menu_option=on --annotation=show_quick_access_in_search_dialog=on --annotation=show_sign_out_all=on --annotation=slurp_poll_path_frequency_min=240 --annotation=smb_allowed=on --annotation=soon_to_be_min_supported_os_version=11.0.0 --annotation=soon_to_be_unsupported_os_learn_more=https://support.google.com/drive/answer/2375082 --annotation=special_folder_change_notification=on --annotation=spotlight_timestamp_fsctl_support=on --annotation=status_window_click_show_file_in_file_manager=on --annotation=structured_log_max_file_count=30 --annotation=structured_log_max_file_size_kbytes=5120 --annotation=structured_log_zip_logs=on --annotation=structured_logging=on --annotation=support_status_notification=on --annotation=survey_api_key=AIzaSyAWGrfCCr7albM3lmCc937gx4uIphbpeKQ --annotation=survey_configurations= --annotation=survey_listnr_product_id=1633926 --annotation=survey_url=https://www.gstatic.com/drive-fs/survey.html --annotation=switchblade_dss=off --annotation=switchblade_on_websockets=on --annotation=thread_stuck_threshold_sec=0 --annotation=throttling_algorithm=1 --annotation=trim_parents_during_cloud_merge=on --annotation=trim_parents_during_commit=on --annotation=unlocked_mac_buf_unmap=on --annotation=unlocked_mac_getxattr_v2=off --annotation=upload_folder=off --annotation=use_apple_web_kit=off --annotation=use_canceled_uploads_account_dir=on --annotation=use_clear_local_data_option=on --annotation=use_cros_http_client=off --annotation=use_mac_fileprovider=on --annotation=use_microsoft_web_view_2=off --annotation=use_moonshine=on --annotation=use_new_onboarding=on --annotation=ver=112.0.3.0 --annotation=win_dpi_aware_per_monitor=off --annotation=windows_32_bit_unsupported_now=on --annotation=windows_32_bit_unsupported_soon=on --handshake-fd=5",
+            "cpu_percent": 0.0,
+            "memory_percent": 0.008296966552734375,
+            "uptime_seconds": 169347.37356305122
+          },
+          {
+            "pid": 11571,
+            "name": "chrome_crashpad_handler",
+            "cmdline": "/Applications/Figma.app/Contents/Frameworks/Electron Framework.framework/Helpers/chrome_crashpad_handler --monitor-self-annotation=ptype=crashpad-handler --database=/Users/jy_lee/Library/Application Support/Figma/DesktopProfile/v36/Crashpad --url=https://o22594.ingest.sentry.io/api/5265832/minidump/?sentry_key=303d5e72c2104327893b10231fce024a --annotation=_productName=Figma --annotation=_version=125.6.5 --annotation=plat=OS X --annotation=prod=Electron --annotation=sentry[contexts][browser][name]=Electron --annotation=sentry[contexts][browser][version]=36.4.0 --annotation=sentry[environment]=stable --annotation=sentry[release]=125.6.5 --annotation=sentry[tags][initial_figma_id]=980786829410309038 --annotation=sentry[user][id]=4547e70162ab4d21b84c2a808cb09274 --annotation=sentry[user][initial_figma_id]=980786829410309038 --annotation=ver=36.4.0 --handshake-fd=22",
+            "cpu_percent": 0.0,
+            "memory_percent": 0.0095367431640625,
+            "uptime_seconds": 91705.59310102463
+          },
+          {
+            "pid": 13052,
+            "name": "crashpad_handler",
+            "cmdline": "/Applications/Google Drive.app/Contents/MacOS/crashpad_handler --database=/Users/jy_lee/Library/Application Support/Google/DriveFS/Crashpad --url=https://clients2.google.com/cr/report --annotation=add_shortcut_menu=on --annotation=aggregation_interval_ms=0 --annotation=allow_multiple_smb_connections=off --annotation=allow_search=on --annotation=allow_url_parameter_when_opening_gdoc=off --annotation=always_send_feedback_unauthenticated=on --annotation=anonymous_feedback_submit_api_key=AIzaSyCejQEszExWuVHsgk8YElDTlbbrhzeRISc --annotation=anonymous_feedback_submit_url=https://feedback-pa.googleapis.com/v1/feedback/products/1633926/web:anonymous_submit --annotation=ask_to_copy_files_for_pending_uploads=on --annotation=automatic_error_reporting_trigger_assert_ids= --annotation=bandwidth_throttling=on --annotation=browser_auth_wait_for_client_timeout_ms=300000 --annotation=browser_auth_with_signup_wait_for_client_timeout_ms=1200000 --annotation=cancel_com_calls=on --annotation=casita_add_more_folders_to_sync_url=https://support.google.com/drive/?p=errorlist --annotation=casita_faq_url=https://support.google.com/drive?p=d4d_redesign_beta --annotation=casita_force_enable=off --annotation=casita_hide_disconnect_for_loading_account=off --annotation=casita_milestone=2 --annotation=casita_rename_sign_out_button_to_disconnect_account=off --annotation=casita_startup_prompt_for_opt_in=0 --annotation=collect_ms_office_meet_integration_metrics=off --annotation=com_api_thread_stuck_threshold_sec=0 --annotation=compress_regular_log_files=off --annotation=confirm_quit_during_system_logout=off --annotation=context_menu_create_editor_files=on --annotation=context_menu_force_refresh_folder=on --annotation=context_menu_show_create_new_shared_drive_dialog=on --annotation=crash_oom_threshold_mb=1048576 --annotation=crash_throttle_percentage=0 --annotation=create_encrypted_editor_file=on --annotation=create_gsuite_file=on --annotation=cse_guest_access_enabled=on --annotation=current_drive_fs_version=112.0.3.0 --annotation=current_os_version=macOS/Version 26.0.0 (Build 25A5327h) (arm64) --annotation=dedupe_interval_ms=2000 --annotation=deprecation_date=2026-07-28 --annotation=deprecation_warning_threshold=30 --annotation=directory_log_max_byte_size=524288000 --annotation=disable_non_static_file_provider_event_metrics=off --annotation=disable_unified_buffer_cache=off --annotation=dokan_set_internal_file_index=on --annotation=drive_dot=on --annotation=enable_additional_log_dump_for_diagnostic=on --annotation=enable_automatic_error_reporting=on --annotation=enable_casita_shared_drives_ui=off --annotation=enable_casita_sign_out_flow=off --annotation=enable_external_file_provider_volume=off --annotation=enable_file_provider_migration=on --annotation=enable_internal_cello_metrics=on --annotation=enable_mac_os_context_menu=on --annotation=enable_mac_os_menu_bar=on --annotation=enable_metrics=on --annotation=enable_mirror_roots_context=on --annotation=enable_mount_in_sidebar_setting=on --annotation=enable_search_hot_key=on --annotation=enable_windows_tray_icon_context_menu=on --annotation=encrypt_and_upload=off --annotation=encrypt_and_upload_folder=on --annotation=exception_enabled_apps=.* --annotation=file_provider_add_items_to_ws_on_listing=on --annotation=file_provider_create_existing_dir_id_succeeds=off --annotation=file_provider_create_existing_file_id_succeeds=off --annotation=file_provider_detect_remaining_domain_with_api_timeout_ms=10000 --annotation=file_provider_disable_movein_user_interaction=off --annotation=file_provider_disable_moveout_user_interaction=off --annotation=file_provider_disabled_notification_interval_mins=1440 --annotation=file_provider_enable_deny_copy_activation_rule=on --annotation=file_provider_enable_deny_shared_drive_root_manipulation=on --annotation=file_provider_enable_ipc_root_symlink=on --annotation=file_provider_enable_read_ahead=on --annotation=file_provider_exclude_from_sync_direct_create_trash=on --annotation=file_provider_failover_for_home_dir_fs_type=on --annotation=file_provider_failover_for_invalid_euid=on --annotation=file_provider_handle_exact_existing_create_as_reimport=on --annotation=file_provider_keep_opt_out_users=on --annotation=file_provider_max_retry_backoff_per_api_call_ms=30000 --annotation=file_provider_min_partial_read_size=4194304 --annotation=file_provider_mirror_switch_unpinned_item_batch_size=2000 --annotation=file_provider_notify_mount_point_changed=on --annotation=file_provider_notify_mount_point_changed_with_mirror=off --annotation=file_provider_opt_out_allowed=off --annotation=file_provider_opt_out_learn_more_url=https://support.google.com/drive/answer/12178485?hl=en#zippy=%2Chow-does-this-functionality-differ-from-what-i-had-before --annotation=file_provider_opt_out_survey_trigger_id=iKGieoktf0u8t9BHMpj0TarLafs8 --annotation=file_provider_pause_syncing_option=on --annotation=file_provider_posix_symlink_path_max_size=1024 --annotation=file_provider_quick_access_polling_interval_sec=43200 --annotation=file_provider_quit_grace_period_ms=0 --annotation=file_provider_recover_preserved_domains=on --annotation=file_provider_remove_domain_flush_timeout_ms=300000 --annotation=file_provider_resume_network_interrupted_push=on --annotation=file_provider_retry_network_interrupted_fetch=on --annotation=file_provider_show_migration_notification_based_on_volume=on --annotation=file_revisions_file_provider=on --annotation=file_revisions_virtual_folder=off --annotation=fileprovider_signal_debounce_ms=250 --annotation=finish_syncing_files_option=on --annotation=force_file_provider_materialization=on --annotation=force_refresh_folder_normal_menu=off --annotation=gui_autostart_option=on --annotation=gui_reset_preferences_menu_option=on --annotation=hide_inaccessible_inheritance_break_folders=off --annotation=include_user_email_in_feedback=on --annotation=inform_users_of_pending_uploads=on --annotation=instrument_http_client=on --annotation=local_file_reading_buffer_size=8388608 --annotation=logging_on_cello_thread_startup=off --annotation=mac_smb_dialect_mode=0 --annotation=mac_smb_mount_by_ip=on --annotation=mac_smb_nobrowse=on --annotation=mac_smb_nodatacache=on --annotation=mac_smb_port=-1 --annotation=manage_file_revisions_in_web=on --annotation=max_connection_idle_time_msec=600000 --annotation=max_core_restarts_after_db_corruption=10 --annotation=max_feedback_payload_size=209715200 --annotation=max_file_provider_ipc_connections=100 --annotation=max_item_events_buffer_size_casita=50 --annotation=max_metrics_per_event_code_per_batch=200 --annotation=max_status_source_locations_count_per_metric_event=3 --annotation=max_syncing_status_change_events_casita=50 --annotation=max_thumbnail_dimension=768 --annotation=meet_live_stream_info_uri= --annotation=meet_outlook_addin=off --annotation=meet_uri=https://meetings.clients6.google.com/v1/spaces --annotation=metrics_store_reset_counter=0 --annotation=min_duration_hours_between_any_surveys=24 --annotation=min_duration_hours_between_automatic_error_reports=720 --annotation=min_duration_hours_between_same_surveys=720 --annotation=min_duration_seconds_wait_after_close_for_survey=30 --annotation=min_duration_seconds_wait_after_cores_startup_for_survey=30 --annotation=min_supported_os_version=10.15.7 --annotation=mojave_overlays_fix=off --annotation=multi_account_max_accounts=4 --annotation=nondownloadable_files_as_gdrive_files=on --annotation=nondownloadable_files_as_gdrive_files_migration=on --annotation=num_metrics_batches_per_request=70 --annotation=osxfuse_lock_abort_test=on --annotation=osxfuse_process_blacklist=esets_daemon;scep_daemon --annotation=osxfuse_sched_flags_offset_override=1072 --annotation=osxfuse_sched_flags_offset_override_arm=480 --annotation=outlook_addin=off --annotation=pause_syncing_option=on --annotation=persistent_smb_port_auto_selection=on --annotation=photos_check_apl_icloud_import=on --annotation=photos_deprecation_date=2099-12-31 --annotation=photos_deprecation_soft_date=2099-10-01 --annotation=photos_feature_unsupported=off --annotation=photos_feature_unsupported_soon=off --annotation=prod=DriveFS --annotation=purge_roots_for_disabled_accounts=on --annotation=read_only_corrupted_accounts=on --annotation=read_only_mode=off --annotation=read_only_ransomware=off --annotation=reconnected_nas_polling_interval_seconds=60 --annotation=reset_content_cache_location=off --annotation=restart_on_browser_request=on --annotation=same_content_dedupe_interval_ms=600000 --annotation=seconds_per_metrics_batch=20 --annotation=share_dialog=on --annotation=show_casita_opt_in_banner=0 --annotation=show_casita_opt_out_banner=0 --annotation=show_live_stream_frame_in_outlook_onboarding=off --annotation=show_offline_files_menu_option=on --annotation=show_quick_access_in_search_dialog=on --annotation=show_sign_out_all=on --annotation=slurp_poll_path_frequency_min=240 --annotation=smb_allowed=on --annotation=soon_to_be_min_supported_os_version=11.0.0 --annotation=soon_to_be_unsupported_os_learn_more=https://support.google.com/drive/answer/2375082 --annotation=special_folder_change_notification=on --annotation=spotlight_timestamp_fsctl_support=on --annotation=status_window_click_show_file_in_file_manager=on --annotation=structured_log_max_file_count=30 --annotation=structured_log_max_file_size_kbytes=5120 --annotation=structured_log_zip_logs=on --annotation=structured_logging=on --annotation=support_status_notification=on --annotation=survey_api_key=AIzaSyAWGrfCCr7albM3lmCc937gx4uIphbpeKQ --annotation=survey_configurations= --annotation=survey_listnr_product_id=1633926 --annotation=survey_url=https://www.gstatic.com/drive-fs/survey.html --annotation=switchblade_dss=off --annotation=switchblade_on_websockets=on --annotation=thread_stuck_threshold_sec=0 --annotation=throttling_algorithm=1 --annotation=trim_parents_during_cloud_merge=on --annotation=trim_parents_during_commit=on --annotation=unlocked_mac_buf_unmap=on --annotation=unlocked_mac_getxattr_v2=off --annotation=upload_folder=off --annotation=use_apple_web_kit=off --annotation=use_canceled_uploads_account_dir=on --annotation=use_clear_local_data_option=on --annotation=use_cros_http_client=off --annotation=use_mac_fileprovider=on --annotation=use_microsoft_web_view_2=off --annotation=use_moonshine=on --annotation=use_new_onboarding=on --annotation=ver=112.0.3.0 --annotation=win_dpi_aware_per_monitor=off --annotation=windows_32_bit_unsupported_now=on --annotation=windows_32_bit_unsupported_soon=on --handshake-fd=5",
+            "cpu_percent": 0.0,
+            "memory_percent": 0.01697540283203125,
+            "uptime_seconds": 78650.07480621338
+          },
+          {
+            "pid": 14508,
+            "name": "bash",
+            "cmdline": "bash -c \necho '=== 제어센터 구문 검사 ==='\nbash -n posco_control_center.sh\nif [ $? -eq 0 ]; then\n    echo '✅ 제어센터 스크립트 구문 검사 통과'\nelse\n    echo '❌ 제어센터 스크립트 구문 오류'\nfi\n\necho ''\necho '=== 제어센터 함수 확인 ==='\nsource posco_control_center.sh 2>/dev/null\n\n# 주요 함수들이 정의되어 있는지 확인\nfunctions_to_check=('start_watchhamster' 'check_watchhamster_status' 'manage_modules' 'restart_individual_module')\n\nfor func in \"${functions_to_check[@]}\"; do\n    if declare -f \"$func\" > /dev/null; then\n        echo \"✅ $func 함수 정의됨\"\n    else\n        echo \"❌ $func 함수 정의되지 않음\"\n    fi\ndone\n",
+            "cpu_percent": 0.0,
+            "memory_percent": 0.00247955322265625,
+            "uptime_seconds": 74769.55965900421
+          }
+        ],
+        "total_processes": 526,
+        "active_watchhamster_processes": 8
+      },
+      "performance_data": {},
+      "resource_usage": {
+        "cpu_percent": 23.8,
+        "memory_percent": 78.1,
+        "memory_available_gb": 3.50677490234375,
+        "memory_used_gb": 6.2716522216796875,
+        "disk_percent": 4.8219556102738315,
+        "disk_free_gb": 37.05153274536133
+      }
+    },
+    "performance_analysis": {
+      "analysis_time": "2025-08-08T11:23:51.649124",
+      "performance_files": [
+        {
+          "filename": "performance_data_20250808_112257.json",
+          "size_kb": 4.474609375,
+          "modified": "2025-08-08T11:22:57.746420",
+          "data_summary": {
+            "data_type": "performance_monitoring",
+            "key_metrics": {
+              "measurement_count": 5,
+              "avg_cpu_percent": 21.880000000000003,
+              "max_cpu_percent": 27.0,
+              "avg_memory_percent": 77.34,
+              "max_memory_percent": 77.9
+            },
+            "insights": []
+          }
+        },
+        {
+          "filename": "performance_data_20250808_105531.json",
+          "size_kb": 4.4853515625,
+          "modified": "2025-08-08T10:55:31.138924",
+          "data_summary": {
+            "data_type": "performance_monitoring",
+            "key_metrics": {
+              "measurement_count": 5,
+              "avg_cpu_percent": 18.52,
+              "max_cpu_percent": 23.4,
+              "avg_memory_percent": 76.98,
+              "max_memory_percent": 77.1
+            },
+            "insights": []
+          }
+        },
+        {
+          "filename": "performance_comparison_20250808_112257.txt",
+          "size_kb": 0.9716796875,
+          "modified": "2025-08-08T11:22:57.744158"
+        },
+        {
+          "filename": "performance_comparison_20250808_105531.txt",
+          "size_kb": 0.9716796875,
+          "modified": "2025-08-08T10:55:31.136493"
+        },
+        {
+          "filename": "test_results.json",
+          "size_kb": 103.87109375,
+          "modified": "2025-08-08T11:20:11.956194",
+          "data_summary": {
+            "data_type": "test_results",
+            "key_metrics": {
+              "total_tests": 4,
+              "passed_tests": 0,
+              "success_rate": 0.0,
+              "session_duration": 169.255538
+            },
+            "insights": []
+          }
+        },
+        {
+          "filename": "final_integration_verification_results.json",
+          "size_kb": 22.5224609375,
+          "modified": "2025-08-08T11:23:13.309671",
+          "data_summary": {
+            "data_type": "test_results",
+            "key_metrics": {
+              "total_tests": 4,
+              "passed_tests": 2,
+              "success_rate": 50.0,
+              "session_duration": 350.665978
+            },
+            "insights": []
+          }
+        }
+      ],
+      "historical_trends": {},
+      "performance_issues": [
+        {
+          "category": "Memory",
+          "severity": "high",
+          "description": "메모리 사용률이 78.1%로 높음",
+          "recommendation": "메모리 사용량 최적화 및 가비지 컬렉션 개선 필요"
+        }
+      ],
+      "optimization_opportunities": [
+        {
+          "category": "Process Management",
+          "description": "8개의 워치햄스터 관련 프로세스 실행 중",
+          "recommendation": "프로세스 통합 및 중복 제거를 통한 리소스 절약 가능"
+        }
+      ]
+    },
+    "optimization_recommendations": [
+      {
+        "category": "메모리 최적화",
+        "priority": "high",
+        "title": "메모리 사용량 최적화",
+        "description": "현재 메모리 사용률이 78.1%입니다.",
+        "recommendations": [
+          "메모리 누수 점검 및 수정",
+          "캐시 크기 최적화",
+          "가비지 컬렉션 튜닝",
+          "대용량 데이터 처리 방식 개선"
+        ],
+        "expected_improvement": "15-25% 메모리 사용량 감소",
+        "implementation_effort": "medium",
+        "risk_level": "low"
+      },
+      {
+        "category": "프로세스 관리",
+        "priority": "medium",
+        "title": "프로세스 통합 및 최적화",
+        "description": "현재 8개의 워치햄스터 관련 프로세스가 실행 중입니다.",
+        "recommendations": [
+          "중복 프로세스 통합",
+          "프로세스 재시작 로직 최적화",
+          "프로세스 간 통신 효율화",
+          "리소스 공유 메커니즘 도입"
+        ],
+        "expected_improvement": "프로세스 수 20-30% 감소",
+        "implementation_effort": "high",
+        "risk_level": "medium"
+      },
+      {
+        "category": "모니터링 개선",
+        "priority": "low",
+        "title": "실시간 모니터링 강화",
+        "description": "시스템 상태를 더 정확하게 파악하기 위한 모니터링 개선",
+        "recommendations": [
+          "모니터링 간격 최적화",
+          "알림 임계값 조정",
+          "성능 메트릭 확장",
+          "대시보드 개선"
+        ],
+        "expected_improvement": "문제 조기 발견 및 대응",
+        "implementation_effort": "low",
+        "risk_level": "low"
+      },
+      {
+        "category": "자동화 개선",
+        "priority": "medium",
+        "title": "자동 복구 메커니즘 강화",
+        "description": "시스템 장애 시 자동 복구 능력 향상",
+        "recommendations": [
+          "복구 시나리오 확장",
+          "복구 성공률 향상",
+          "복구 시간 단축",
+          "복구 로그 개선"
+        ],
+        "expected_improvement": "시스템 가용성 95% 이상 달성",
+        "implementation_effort": "medium",
+        "risk_level": "low"
+      }
+    ],
+    "performance_comparison": {
+      "comparison_time": "2025-08-08T11:23:51.652326",
+      "v1_baseline": {
+        "cpu_percent": 45.0,
+        "memory_percent": 60.0,
+        "process_count": 8,
+        "startup_time_seconds": 45,
+        "response_time_seconds": 8.0,
+        "recovery_success_rate": 70.0
+      },
+      "v2_current": {
+        "cpu_percent": 23.8,
+        "memory_percent": 78.1,
+        "process_count": 8,
+        "startup_time_seconds": 30,
+        "response_time_seconds": 3.0,
+        "recovery_success_rate": 90.0
+      },
+      "improvements": [
+        {
+          "metric": "CPU 사용률",
+          "v1_value": "45.0%",
+          "v2_value": "23.8%",
+          "improvement": "47.1% 감소",
+          "significance": "high"
+        },
+        {
+          "metric": "응답 시간",
+          "v1_value": "8.0초",
+          "v2_value": "3.0초",
+          "improvement": "62.5% 단축",
+          "significance": "high"
+        },
+        {
+          "metric": "자동 복구 성공률",
+          "v1_value": "70.0%",
+          "v2_value": "90.0%",
+          "improvement": "20.0%p 향상",
+          "significance": "high"
+        }
+      ],
+      "regressions": [
+        {
+          "metric": "메모리 사용률",
+          "v1_value": "60.0%",
+          "v2_value": "78.1%",
+          "regression": "30.2% 증가",
+          "severity": "high"
+        }
+      ],
+      "overall_assessment": "significant_improvement"
+    },
+    "metadata": {
+      "watchhamster_version": "v3.0",
+      "posco_news_version": "250808",
+      "system_version": "WatchHamster_v3.0_PoscoNews_250808",
+      "last_updated": "2025-08-08T16:01:01",
+      "standardization_date": "2025-08-08",
+      "description": "POSCO System Configuration - WatchHamster_v3.0_PoscoNews_250808"
+    }
+  },
+  "variables": {
+    "system_metrics.collection_time": "2025-08-08T11:23:50.588480",
+    "system_metrics.system_info.cpu_count": 8,
+    "system_metrics.system_info.cpu_count_logical": 8,
+    "system_metrics.system_info.memory_total_gb": 16.0,
+    "system_metrics.system_info.disk_total_gb": 228.24456787109375,
+    "system_metrics.system_info.boot_time": "2025-08-06T12:18:24",
+    "system_metrics.process_info.watchhamster_processes": [
+      {
+        "pid": 881,
+        "name": "Activity Monitor",
+        "cmdline": "/System/Applications/Utilities/Activity Monitor.app/Contents/MacOS/Activity Monitor",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.18396377563476562,
+        "uptime_seconds": 169417.47810792923
+      },
+      {
+        "pid": 985,
+        "name": "chrome_crashpad_handler",
+        "cmdline": "/Applications/Kiro.app/Contents/Frameworks/Electron Framework.framework/Helpers/chrome_crashpad_handler --no-rate-limit --monitor-self-annotation=ptype=crashpad-handler --database=/Users/jy_lee/Library/Application Support/Kiro/Crashpad --annotation=_companyName=Microsoft --annotation=_productName=Kiro --annotation=_version=0.1.42 --annotation=plat=OS X --annotation=prod=Electron --annotation=ver=30.5.1 --handshake-fd=24",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.008392333984375,
+        "uptime_seconds": 169408.51909899712
+      },
+      {
+        "pid": 1069,
+        "name": "chrome_crashpad_handler",
+        "cmdline": "/Applications/Vivaldi.app/Contents/Frameworks/Vivaldi Framework.framework/Versions/7.5.3735.54/Helpers/chrome_crashpad_handler --monitor-self-annotation=ptype=crashpad-handler --database=/Users/jy_lee/Library/Application Support/Vivaldi/Crashpad --url=https://crash.vivaldi.com/submit --annotation=plat=OS X --annotation=prod=Vivaldi_Mac --annotation=ver=7.5.3735.54 --handshake-fd=5",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.00858306884765625,
+        "uptime_seconds": 169399.01638507843
+      },
+      {
+        "pid": 1470,
+        "name": "crashpad_handler",
+        "cmdline": "/Applications/Google Drive.app/Contents/MacOS/crashpad_handler --database=/Users/jy_lee/Library/Application Support/Google/DriveFS/Crashpad --url=https://clients2.google.com/cr/report --annotation=add_shortcut_menu=on --annotation=aggregation_interval_ms=0 --annotation=allow_multiple_smb_connections=off --annotation=allow_search=on --annotation=allow_url_parameter_when_opening_gdoc=off --annotation=always_send_feedback_unauthenticated=on --annotation=anonymous_feedback_submit_api_key=AIzaSyCejQEszExWuVHsgk8YElDTlbbrhzeRISc --annotation=anonymous_feedback_submit_url=https://feedback-pa.googleapis.com/v1/feedback/products/1633926/web:anonymous_submit --annotation=ask_to_copy_files_for_pending_uploads=on --annotation=automatic_error_reporting_trigger_assert_ids= --annotation=bandwidth_throttling=on --annotation=browser_auth_wait_for_client_timeout_ms=300000 --annotation=browser_auth_with_signup_wait_for_client_timeout_ms=1200000 --annotation=cancel_com_calls=on --annotation=casita_add_more_folders_to_sync_url=https://support.google.com/drive/?p=errorlist --annotation=casita_faq_url=https://support.google.com/drive?p=d4d_redesign_beta --annotation=casita_force_enable=off --annotation=casita_hide_disconnect_for_loading_account=off --annotation=casita_milestone=2 --annotation=casita_rename_sign_out_button_to_disconnect_account=off --annotation=casita_startup_prompt_for_opt_in=0 --annotation=collect_ms_office_meet_integration_metrics=off --annotation=com_api_thread_stuck_threshold_sec=0 --annotation=compress_regular_log_files=off --annotation=confirm_quit_during_system_logout=off --annotation=context_menu_create_editor_files=on --annotation=context_menu_force_refresh_folder=on --annotation=context_menu_show_create_new_shared_drive_dialog=on --annotation=crash_oom_threshold_mb=1048576 --annotation=crash_throttle_percentage=0 --annotation=create_encrypted_editor_file=on --annotation=create_gsuite_file=on --annotation=cse_guest_access_enabled=on --annotation=current_drive_fs_version=112.0.3.0 --annotation=current_os_version=macOS/Version 26.0.0 (Build 25A5316i) (arm64) --annotation=dedupe_interval_ms=2000 --annotation=deprecation_date=2026-07-28 --annotation=deprecation_warning_threshold=30 --annotation=directory_log_max_byte_size=524288000 --annotation=disable_non_static_file_provider_event_metrics=off --annotation=disable_unified_buffer_cache=off --annotation=dokan_set_internal_file_index=on --annotation=drive_dot=on --annotation=enable_additional_log_dump_for_diagnostic=on --annotation=enable_automatic_error_reporting=on --annotation=enable_casita_shared_drives_ui=off --annotation=enable_casita_sign_out_flow=off --annotation=enable_external_file_provider_volume=off --annotation=enable_file_provider_migration=on --annotation=enable_internal_cello_metrics=on --annotation=enable_mac_os_context_menu=on --annotation=enable_mac_os_menu_bar=on --annotation=enable_metrics=on --annotation=enable_mirror_roots_context=on --annotation=enable_mount_in_sidebar_setting=on --annotation=enable_search_hot_key=on --annotation=enable_windows_tray_icon_context_menu=on --annotation=encrypt_and_upload=off --annotation=encrypt_and_upload_folder=on --annotation=exception_enabled_apps=.* --annotation=file_provider_add_items_to_ws_on_listing=on --annotation=file_provider_create_existing_dir_id_succeeds=off --annotation=file_provider_create_existing_file_id_succeeds=off --annotation=file_provider_detect_remaining_domain_with_api_timeout_ms=10000 --annotation=file_provider_disable_movein_user_interaction=off --annotation=file_provider_disable_moveout_user_interaction=off --annotation=file_provider_disabled_notification_interval_mins=1440 --annotation=file_provider_enable_deny_copy_activation_rule=on --annotation=file_provider_enable_deny_shared_drive_root_manipulation=on --annotation=file_provider_enable_ipc_root_symlink=on --annotation=file_provider_enable_read_ahead=on --annotation=file_provider_exclude_from_sync_direct_create_trash=on --annotation=file_provider_failover_for_home_dir_fs_type=on --annotation=file_provider_failover_for_invalid_euid=on --annotation=file_provider_handle_exact_existing_create_as_reimport=on --annotation=file_provider_keep_opt_out_users=on --annotation=file_provider_max_retry_backoff_per_api_call_ms=30000 --annotation=file_provider_min_partial_read_size=4194304 --annotation=file_provider_mirror_switch_unpinned_item_batch_size=2000 --annotation=file_provider_notify_mount_point_changed=on --annotation=file_provider_notify_mount_point_changed_with_mirror=off --annotation=file_provider_opt_out_allowed=off --annotation=file_provider_opt_out_learn_more_url=https://support.google.com/drive/answer/12178485?hl=en#zippy=%2Chow-does-this-functionality-differ-from-what-i-had-before --annotation=file_provider_opt_out_survey_trigger_id=iKGieoktf0u8t9BHMpj0TarLafs8 --annotation=file_provider_pause_syncing_option=on --annotation=file_provider_posix_symlink_path_max_size=1024 --annotation=file_provider_quick_access_polling_interval_sec=43200 --annotation=file_provider_quit_grace_period_ms=0 --annotation=file_provider_recover_preserved_domains=on --annotation=file_provider_remove_domain_flush_timeout_ms=300000 --annotation=file_provider_resume_network_interrupted_push=on --annotation=file_provider_retry_network_interrupted_fetch=on --annotation=file_provider_show_migration_notification_based_on_volume=on --annotation=file_revisions_file_provider=on --annotation=file_revisions_virtual_folder=off --annotation=fileprovider_signal_debounce_ms=250 --annotation=finish_syncing_files_option=on --annotation=force_file_provider_materialization=on --annotation=force_refresh_folder_normal_menu=off --annotation=gui_autostart_option=on --annotation=gui_reset_preferences_menu_option=on --annotation=hide_inaccessible_inheritance_break_folders=off --annotation=include_user_email_in_feedback=on --annotation=inform_users_of_pending_uploads=on --annotation=instrument_http_client=on --annotation=local_file_reading_buffer_size=8388608 --annotation=logging_on_cello_thread_startup=off --annotation=mac_smb_dialect_mode=0 --annotation=mac_smb_mount_by_ip=on --annotation=mac_smb_nobrowse=on --annotation=mac_smb_nodatacache=on --annotation=mac_smb_port=-1 --annotation=manage_file_revisions_in_web=on --annotation=max_connection_idle_time_msec=600000 --annotation=max_core_restarts_after_db_corruption=10 --annotation=max_feedback_payload_size=209715200 --annotation=max_file_provider_ipc_connections=100 --annotation=max_item_events_buffer_size_casita=50 --annotation=max_metrics_per_event_code_per_batch=200 --annotation=max_status_source_locations_count_per_metric_event=3 --annotation=max_syncing_status_change_events_casita=50 --annotation=max_thumbnail_dimension=768 --annotation=meet_live_stream_info_uri= --annotation=meet_outlook_addin=off --annotation=meet_uri=https://meetings.clients6.google.com/v1/spaces --annotation=metrics_store_reset_counter=0 --annotation=min_duration_hours_between_any_surveys=24 --annotation=min_duration_hours_between_automatic_error_reports=720 --annotation=min_duration_hours_between_same_surveys=720 --annotation=min_duration_seconds_wait_after_close_for_survey=30 --annotation=min_duration_seconds_wait_after_cores_startup_for_survey=30 --annotation=min_supported_os_version=10.15.7 --annotation=mojave_overlays_fix=off --annotation=multi_account_max_accounts=4 --annotation=nondownloadable_files_as_gdrive_files=on --annotation=nondownloadable_files_as_gdrive_files_migration=on --annotation=num_metrics_batches_per_request=70 --annotation=osxfuse_lock_abort_test=on --annotation=osxfuse_process_blacklist=esets_daemon;scep_daemon --annotation=osxfuse_sched_flags_offset_override=1072 --annotation=osxfuse_sched_flags_offset_override_arm=480 --annotation=outlook_addin=off --annotation=pause_syncing_option=on --annotation=persistent_smb_port_auto_selection=on --annotation=photos_check_apl_icloud_import=on --annotation=photos_deprecation_date=2099-12-31 --annotation=photos_deprecation_soft_date=2099-10-01 --annotation=photos_feature_unsupported=off --annotation=photos_feature_unsupported_soon=off --annotation=prod=DriveFS --annotation=purge_roots_for_disabled_accounts=on --annotation=read_only_corrupted_accounts=on --annotation=read_only_mode=off --annotation=read_only_ransomware=off --annotation=reconnected_nas_polling_interval_seconds=60 --annotation=reset_content_cache_location=off --annotation=restart_on_browser_request=on --annotation=same_content_dedupe_interval_ms=600000 --annotation=seconds_per_metrics_batch=20 --annotation=share_dialog=on --annotation=show_casita_opt_in_banner=0 --annotation=show_casita_opt_out_banner=0 --annotation=show_live_stream_frame_in_outlook_onboarding=off --annotation=show_offline_files_menu_option=on --annotation=show_quick_access_in_search_dialog=on --annotation=show_sign_out_all=on --annotation=slurp_poll_path_frequency_min=240 --annotation=smb_allowed=on --annotation=soon_to_be_min_supported_os_version=11.0.0 --annotation=soon_to_be_unsupported_os_learn_more=https://support.google.com/drive/answer/2375082 --annotation=special_folder_change_notification=on --annotation=spotlight_timestamp_fsctl_support=on --annotation=status_window_click_show_file_in_file_manager=on --annotation=structured_log_max_file_count=30 --annotation=structured_log_max_file_size_kbytes=5120 --annotation=structured_log_zip_logs=on --annotation=structured_logging=on --annotation=support_status_notification=on --annotation=survey_api_key=AIzaSyAWGrfCCr7albM3lmCc937gx4uIphbpeKQ --annotation=survey_configurations=dTT62HmRe0u8t9BHMpj0WB4j3ynP,64 --annotation=survey_listnr_product_id=1633926 --annotation=survey_url=https://www.gstatic.com/drive-fs/survey.html --annotation=switchblade_dss=off --annotation=switchblade_on_websockets=on --annotation=thread_stuck_threshold_sec=0 --annotation=throttling_algorithm=1 --annotation=trim_parents_during_cloud_merge=on --annotation=trim_parents_during_commit=on --annotation=unlocked_mac_buf_unmap=on --annotation=unlocked_mac_getxattr_v2=off --annotation=upload_folder=off --annotation=use_apple_web_kit=off --annotation=use_canceled_uploads_account_dir=on --annotation=use_clear_local_data_option=on --annotation=use_cros_http_client=off --annotation=use_mac_fileprovider=on --annotation=use_microsoft_web_view_2=off --annotation=use_moonshine=on --annotation=use_new_onboarding=on --annotation=ver=112.0.3.0 --annotation=win_dpi_aware_per_monitor=off --annotation=windows_32_bit_unsupported_now=on --annotation=windows_32_bit_unsupported_soon=on --handshake-fd=5",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.008296966552734375,
+        "uptime_seconds": 169354.61587405205
+      },
+      {
+        "pid": 1531,
+        "name": "crashpad_handler",
+        "cmdline": "/Applications/Google Drive.app/Contents/MacOS/crashpad_handler --database=/Users/jy_lee/Library/Application Support/Google/DriveFS/Crashpad --url=https://clients2.google.com/cr/report --annotation=add_shortcut_menu=on --annotation=aggregation_interval_ms=0 --annotation=allow_multiple_smb_connections=off --annotation=allow_search=on --annotation=allow_url_parameter_when_opening_gdoc=off --annotation=always_send_feedback_unauthenticated=on --annotation=anonymous_feedback_submit_api_key=AIzaSyCejQEszExWuVHsgk8YElDTlbbrhzeRISc --annotation=anonymous_feedback_submit_url=https://feedback-pa.googleapis.com/v1/feedback/products/1633926/web:anonymous_submit --annotation=ask_to_copy_files_for_pending_uploads=on --annotation=automatic_error_reporting_trigger_assert_ids= --annotation=bandwidth_throttling=on --annotation=browser_auth_wait_for_client_timeout_ms=300000 --annotation=browser_auth_with_signup_wait_for_client_timeout_ms=1200000 --annotation=cancel_com_calls=on --annotation=casita_add_more_folders_to_sync_url=https://support.google.com/drive/?p=errorlist --annotation=casita_faq_url=https://support.google.com/drive?p=d4d_redesign_beta --annotation=casita_force_enable=off --annotation=casita_hide_disconnect_for_loading_account=off --annotation=casita_milestone=2 --annotation=casita_rename_sign_out_button_to_disconnect_account=off --annotation=casita_startup_prompt_for_opt_in=0 --annotation=collect_ms_office_meet_integration_metrics=off --annotation=com_api_thread_stuck_threshold_sec=0 --annotation=compress_regular_log_files=off --annotation=confirm_quit_during_system_logout=off --annotation=context_menu_create_editor_files=on --annotation=context_menu_force_refresh_folder=on --annotation=context_menu_show_create_new_shared_drive_dialog=on --annotation=crash_oom_threshold_mb=1048576 --annotation=crash_throttle_percentage=0 --annotation=create_encrypted_editor_file=on --annotation=create_gsuite_file=on --annotation=cse_guest_access_enabled=on --annotation=current_drive_fs_version=112.0.3.0 --annotation=current_os_version=macOS/Version 26.0.0 (Build 25A5327h) (arm64) --annotation=dedupe_interval_ms=2000 --annotation=deprecation_date=2026-07-28 --annotation=deprecation_warning_threshold=30 --annotation=directory_log_max_byte_size=524288000 --annotation=disable_non_static_file_provider_event_metrics=off --annotation=disable_unified_buffer_cache=off --annotation=dokan_set_internal_file_index=on --annotation=drive_dot=on --annotation=enable_additional_log_dump_for_diagnostic=on --annotation=enable_automatic_error_reporting=on --annotation=enable_casita_shared_drives_ui=off --annotation=enable_casita_sign_out_flow=off --annotation=enable_external_file_provider_volume=off --annotation=enable_file_provider_migration=on --annotation=enable_internal_cello_metrics=on --annotation=enable_mac_os_context_menu=on --annotation=enable_mac_os_menu_bar=on --annotation=enable_metrics=on --annotation=enable_mirror_roots_context=on --annotation=enable_mount_in_sidebar_setting=on --annotation=enable_search_hot_key=on --annotation=enable_windows_tray_icon_context_menu=on --annotation=encrypt_and_upload=off --annotation=encrypt_and_upload_folder=on --annotation=exception_enabled_apps=.* --annotation=file_provider_add_items_to_ws_on_listing=on --annotation=file_provider_create_existing_dir_id_succeeds=off --annotation=file_provider_create_existing_file_id_succeeds=off --annotation=file_provider_detect_remaining_domain_with_api_timeout_ms=10000 --annotation=file_provider_disable_movein_user_interaction=off --annotation=file_provider_disable_moveout_user_interaction=off --annotation=file_provider_disabled_notification_interval_mins=1440 --annotation=file_provider_enable_deny_copy_activation_rule=on --annotation=file_provider_enable_deny_shared_drive_root_manipulation=on --annotation=file_provider_enable_ipc_root_symlink=on --annotation=file_provider_enable_read_ahead=on --annotation=file_provider_exclude_from_sync_direct_create_trash=on --annotation=file_provider_failover_for_home_dir_fs_type=on --annotation=file_provider_failover_for_invalid_euid=on --annotation=file_provider_handle_exact_existing_create_as_reimport=on --annotation=file_provider_keep_opt_out_users=on --annotation=file_provider_max_retry_backoff_per_api_call_ms=30000 --annotation=file_provider_min_partial_read_size=4194304 --annotation=file_provider_mirror_switch_unpinned_item_batch_size=2000 --annotation=file_provider_notify_mount_point_changed=on --annotation=file_provider_notify_mount_point_changed_with_mirror=off --annotation=file_provider_opt_out_allowed=off --annotation=file_provider_opt_out_learn_more_url=https://support.google.com/drive/answer/12178485?hl=en#zippy=%2Chow-does-this-functionality-differ-from-what-i-had-before --annotation=file_provider_opt_out_survey_trigger_id=iKGieoktf0u8t9BHMpj0TarLafs8 --annotation=file_provider_pause_syncing_option=on --annotation=file_provider_posix_symlink_path_max_size=1024 --annotation=file_provider_quick_access_polling_interval_sec=43200 --annotation=file_provider_quit_grace_period_ms=0 --annotation=file_provider_recover_preserved_domains=on --annotation=file_provider_remove_domain_flush_timeout_ms=300000 --annotation=file_provider_resume_network_interrupted_push=on --annotation=file_provider_retry_network_interrupted_fetch=on --annotation=file_provider_show_migration_notification_based_on_volume=on --annotation=file_revisions_file_provider=on --annotation=file_revisions_virtual_folder=off --annotation=fileprovider_signal_debounce_ms=250 --annotation=finish_syncing_files_option=on --annotation=force_file_provider_materialization=on --annotation=force_refresh_folder_normal_menu=off --annotation=gui_autostart_option=on --annotation=gui_reset_preferences_menu_option=on --annotation=hide_inaccessible_inheritance_break_folders=off --annotation=include_user_email_in_feedback=on --annotation=inform_users_of_pending_uploads=on --annotation=instrument_http_client=on --annotation=local_file_reading_buffer_size=8388608 --annotation=logging_on_cello_thread_startup=off --annotation=mac_smb_dialect_mode=0 --annotation=mac_smb_mount_by_ip=on --annotation=mac_smb_nobrowse=on --annotation=mac_smb_nodatacache=on --annotation=mac_smb_port=-1 --annotation=manage_file_revisions_in_web=on --annotation=max_connection_idle_time_msec=600000 --annotation=max_core_restarts_after_db_corruption=10 --annotation=max_feedback_payload_size=209715200 --annotation=max_file_provider_ipc_connections=100 --annotation=max_item_events_buffer_size_casita=50 --annotation=max_metrics_per_event_code_per_batch=200 --annotation=max_status_source_locations_count_per_metric_event=3 --annotation=max_syncing_status_change_events_casita=50 --annotation=max_thumbnail_dimension=768 --annotation=meet_live_stream_info_uri= --annotation=meet_outlook_addin=off --annotation=meet_uri=https://meetings.clients6.google.com/v1/spaces --annotation=metrics_store_reset_counter=0 --annotation=min_duration_hours_between_any_surveys=24 --annotation=min_duration_hours_between_automatic_error_reports=720 --annotation=min_duration_hours_between_same_surveys=720 --annotation=min_duration_seconds_wait_after_close_for_survey=30 --annotation=min_duration_seconds_wait_after_cores_startup_for_survey=30 --annotation=min_supported_os_version=10.15.7 --annotation=mojave_overlays_fix=off --annotation=multi_account_max_accounts=4 --annotation=nondownloadable_files_as_gdrive_files=on --annotation=nondownloadable_files_as_gdrive_files_migration=on --annotation=num_metrics_batches_per_request=70 --annotation=osxfuse_lock_abort_test=on --annotation=osxfuse_process_blacklist=esets_daemon;scep_daemon --annotation=osxfuse_sched_flags_offset_override=1072 --annotation=osxfuse_sched_flags_offset_override_arm=480 --annotation=outlook_addin=off --annotation=pause_syncing_option=on --annotation=persistent_smb_port_auto_selection=on --annotation=photos_check_apl_icloud_import=on --annotation=photos_deprecation_date=2099-12-31 --annotation=photos_deprecation_soft_date=2099-10-01 --annotation=photos_feature_unsupported=off --annotation=photos_feature_unsupported_soon=off --annotation=prod=DriveFS --annotation=purge_roots_for_disabled_accounts=on --annotation=read_only_corrupted_accounts=on --annotation=read_only_mode=off --annotation=read_only_ransomware=off --annotation=reconnected_nas_polling_interval_seconds=60 --annotation=reset_content_cache_location=off --annotation=restart_on_browser_request=on --annotation=same_content_dedupe_interval_ms=600000 --annotation=seconds_per_metrics_batch=20 --annotation=share_dialog=on --annotation=show_casita_opt_in_banner=0 --annotation=show_casita_opt_out_banner=0 --annotation=show_live_stream_frame_in_outlook_onboarding=off --annotation=show_offline_files_menu_option=on --annotation=show_quick_access_in_search_dialog=on --annotation=show_sign_out_all=on --annotation=slurp_poll_path_frequency_min=240 --annotation=smb_allowed=on --annotation=soon_to_be_min_supported_os_version=11.0.0 --annotation=soon_to_be_unsupported_os_learn_more=https://support.google.com/drive/answer/2375082 --annotation=special_folder_change_notification=on --annotation=spotlight_timestamp_fsctl_support=on --annotation=status_window_click_show_file_in_file_manager=on --annotation=structured_log_max_file_count=30 --annotation=structured_log_max_file_size_kbytes=5120 --annotation=structured_log_zip_logs=on --annotation=structured_logging=on --annotation=support_status_notification=on --annotation=survey_api_key=AIzaSyAWGrfCCr7albM3lmCc937gx4uIphbpeKQ --annotation=survey_configurations= --annotation=survey_listnr_product_id=1633926 --annotation=survey_url=https://www.gstatic.com/drive-fs/survey.html --annotation=switchblade_dss=off --annotation=switchblade_on_websockets=on --annotation=thread_stuck_threshold_sec=0 --annotation=throttling_algorithm=1 --annotation=trim_parents_during_cloud_merge=on --annotation=trim_parents_during_commit=on --annotation=unlocked_mac_buf_unmap=on --annotation=unlocked_mac_getxattr_v2=off --annotation=upload_folder=off --annotation=use_apple_web_kit=off --annotation=use_canceled_uploads_account_dir=on --annotation=use_clear_local_data_option=on --annotation=use_cros_http_client=off --annotation=use_mac_fileprovider=on --annotation=use_microsoft_web_view_2=off --annotation=use_moonshine=on --annotation=use_new_onboarding=on --annotation=ver=112.0.3.0 --annotation=win_dpi_aware_per_monitor=off --annotation=windows_32_bit_unsupported_now=on --annotation=windows_32_bit_unsupported_soon=on --handshake-fd=5",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.008296966552734375,
+        "uptime_seconds": 169347.37356305122
+      },
+      {
+        "pid": 11571,
+        "name": "chrome_crashpad_handler",
+        "cmdline": "/Applications/Figma.app/Contents/Frameworks/Electron Framework.framework/Helpers/chrome_crashpad_handler --monitor-self-annotation=ptype=crashpad-handler --database=/Users/jy_lee/Library/Application Support/Figma/DesktopProfile/v36/Crashpad --url=https://o22594.ingest.sentry.io/api/5265832/minidump/?sentry_key=303d5e72c2104327893b10231fce024a --annotation=_productName=Figma --annotation=_version=125.6.5 --annotation=plat=OS X --annotation=prod=Electron --annotation=sentry[contexts][browser][name]=Electron --annotation=sentry[contexts][browser][version]=36.4.0 --annotation=sentry[environment]=stable --annotation=sentry[release]=125.6.5 --annotation=sentry[tags][initial_figma_id]=980786829410309038 --annotation=sentry[user][id]=4547e70162ab4d21b84c2a808cb09274 --annotation=sentry[user][initial_figma_id]=980786829410309038 --annotation=ver=36.4.0 --handshake-fd=22",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.0095367431640625,
+        "uptime_seconds": 91705.59310102463
+      },
+      {
+        "pid": 13052,
+        "name": "crashpad_handler",
+        "cmdline": "/Applications/Google Drive.app/Contents/MacOS/crashpad_handler --database=/Users/jy_lee/Library/Application Support/Google/DriveFS/Crashpad --url=https://clients2.google.com/cr/report --annotation=add_shortcut_menu=on --annotation=aggregation_interval_ms=0 --annotation=allow_multiple_smb_connections=off --annotation=allow_search=on --annotation=allow_url_parameter_when_opening_gdoc=off --annotation=always_send_feedback_unauthenticated=on --annotation=anonymous_feedback_submit_api_key=AIzaSyCejQEszExWuVHsgk8YElDTlbbrhzeRISc --annotation=anonymous_feedback_submit_url=https://feedback-pa.googleapis.com/v1/feedback/products/1633926/web:anonymous_submit --annotation=ask_to_copy_files_for_pending_uploads=on --annotation=automatic_error_reporting_trigger_assert_ids= --annotation=bandwidth_throttling=on --annotation=browser_auth_wait_for_client_timeout_ms=300000 --annotation=browser_auth_with_signup_wait_for_client_timeout_ms=1200000 --annotation=cancel_com_calls=on --annotation=casita_add_more_folders_to_sync_url=https://support.google.com/drive/?p=errorlist --annotation=casita_faq_url=https://support.google.com/drive?p=d4d_redesign_beta --annotation=casita_force_enable=off --annotation=casita_hide_disconnect_for_loading_account=off --annotation=casita_milestone=2 --annotation=casita_rename_sign_out_button_to_disconnect_account=off --annotation=casita_startup_prompt_for_opt_in=0 --annotation=collect_ms_office_meet_integration_metrics=off --annotation=com_api_thread_stuck_threshold_sec=0 --annotation=compress_regular_log_files=off --annotation=confirm_quit_during_system_logout=off --annotation=context_menu_create_editor_files=on --annotation=context_menu_force_refresh_folder=on --annotation=context_menu_show_create_new_shared_drive_dialog=on --annotation=crash_oom_threshold_mb=1048576 --annotation=crash_throttle_percentage=0 --annotation=create_encrypted_editor_file=on --annotation=create_gsuite_file=on --annotation=cse_guest_access_enabled=on --annotation=current_drive_fs_version=112.0.3.0 --annotation=current_os_version=macOS/Version 26.0.0 (Build 25A5327h) (arm64) --annotation=dedupe_interval_ms=2000 --annotation=deprecation_date=2026-07-28 --annotation=deprecation_warning_threshold=30 --annotation=directory_log_max_byte_size=524288000 --annotation=disable_non_static_file_provider_event_metrics=off --annotation=disable_unified_buffer_cache=off --annotation=dokan_set_internal_file_index=on --annotation=drive_dot=on --annotation=enable_additional_log_dump_for_diagnostic=on --annotation=enable_automatic_error_reporting=on --annotation=enable_casita_shared_drives_ui=off --annotation=enable_casita_sign_out_flow=off --annotation=enable_external_file_provider_volume=off --annotation=enable_file_provider_migration=on --annotation=enable_internal_cello_metrics=on --annotation=enable_mac_os_context_menu=on --annotation=enable_mac_os_menu_bar=on --annotation=enable_metrics=on --annotation=enable_mirror_roots_context=on --annotation=enable_mount_in_sidebar_setting=on --annotation=enable_search_hot_key=on --annotation=enable_windows_tray_icon_context_menu=on --annotation=encrypt_and_upload=off --annotation=encrypt_and_upload_folder=on --annotation=exception_enabled_apps=.* --annotation=file_provider_add_items_to_ws_on_listing=on --annotation=file_provider_create_existing_dir_id_succeeds=off --annotation=file_provider_create_existing_file_id_succeeds=off --annotation=file_provider_detect_remaining_domain_with_api_timeout_ms=10000 --annotation=file_provider_disable_movein_user_interaction=off --annotation=file_provider_disable_moveout_user_interaction=off --annotation=file_provider_disabled_notification_interval_mins=1440 --annotation=file_provider_enable_deny_copy_activation_rule=on --annotation=file_provider_enable_deny_shared_drive_root_manipulation=on --annotation=file_provider_enable_ipc_root_symlink=on --annotation=file_provider_enable_read_ahead=on --annotation=file_provider_exclude_from_sync_direct_create_trash=on --annotation=file_provider_failover_for_home_dir_fs_type=on --annotation=file_provider_failover_for_invalid_euid=on --annotation=file_provider_handle_exact_existing_create_as_reimport=on --annotation=file_provider_keep_opt_out_users=on --annotation=file_provider_max_retry_backoff_per_api_call_ms=30000 --annotation=file_provider_min_partial_read_size=4194304 --annotation=file_provider_mirror_switch_unpinned_item_batch_size=2000 --annotation=file_provider_notify_mount_point_changed=on --annotation=file_provider_notify_mount_point_changed_with_mirror=off --annotation=file_provider_opt_out_allowed=off --annotation=file_provider_opt_out_learn_more_url=https://support.google.com/drive/answer/12178485?hl=en#zippy=%2Chow-does-this-functionality-differ-from-what-i-had-before --annotation=file_provider_opt_out_survey_trigger_id=iKGieoktf0u8t9BHMpj0TarLafs8 --annotation=file_provider_pause_syncing_option=on --annotation=file_provider_posix_symlink_path_max_size=1024 --annotation=file_provider_quick_access_polling_interval_sec=43200 --annotation=file_provider_quit_grace_period_ms=0 --annotation=file_provider_recover_preserved_domains=on --annotation=file_provider_remove_domain_flush_timeout_ms=300000 --annotation=file_provider_resume_network_interrupted_push=on --annotation=file_provider_retry_network_interrupted_fetch=on --annotation=file_provider_show_migration_notification_based_on_volume=on --annotation=file_revisions_file_provider=on --annotation=file_revisions_virtual_folder=off --annotation=fileprovider_signal_debounce_ms=250 --annotation=finish_syncing_files_option=on --annotation=force_file_provider_materialization=on --annotation=force_refresh_folder_normal_menu=off --annotation=gui_autostart_option=on --annotation=gui_reset_preferences_menu_option=on --annotation=hide_inaccessible_inheritance_break_folders=off --annotation=include_user_email_in_feedback=on --annotation=inform_users_of_pending_uploads=on --annotation=instrument_http_client=on --annotation=local_file_reading_buffer_size=8388608 --annotation=logging_on_cello_thread_startup=off --annotation=mac_smb_dialect_mode=0 --annotation=mac_smb_mount_by_ip=on --annotation=mac_smb_nobrowse=on --annotation=mac_smb_nodatacache=on --annotation=mac_smb_port=-1 --annotation=manage_file_revisions_in_web=on --annotation=max_connection_idle_time_msec=600000 --annotation=max_core_restarts_after_db_corruption=10 --annotation=max_feedback_payload_size=209715200 --annotation=max_file_provider_ipc_connections=100 --annotation=max_item_events_buffer_size_casita=50 --annotation=max_metrics_per_event_code_per_batch=200 --annotation=max_status_source_locations_count_per_metric_event=3 --annotation=max_syncing_status_change_events_casita=50 --annotation=max_thumbnail_dimension=768 --annotation=meet_live_stream_info_uri= --annotation=meet_outlook_addin=off --annotation=meet_uri=https://meetings.clients6.google.com/v1/spaces --annotation=metrics_store_reset_counter=0 --annotation=min_duration_hours_between_any_surveys=24 --annotation=min_duration_hours_between_automatic_error_reports=720 --annotation=min_duration_hours_between_same_surveys=720 --annotation=min_duration_seconds_wait_after_close_for_survey=30 --annotation=min_duration_seconds_wait_after_cores_startup_for_survey=30 --annotation=min_supported_os_version=10.15.7 --annotation=mojave_overlays_fix=off --annotation=multi_account_max_accounts=4 --annotation=nondownloadable_files_as_gdrive_files=on --annotation=nondownloadable_files_as_gdrive_files_migration=on --annotation=num_metrics_batches_per_request=70 --annotation=osxfuse_lock_abort_test=on --annotation=osxfuse_process_blacklist=esets_daemon;scep_daemon --annotation=osxfuse_sched_flags_offset_override=1072 --annotation=osxfuse_sched_flags_offset_override_arm=480 --annotation=outlook_addin=off --annotation=pause_syncing_option=on --annotation=persistent_smb_port_auto_selection=on --annotation=photos_check_apl_icloud_import=on --annotation=photos_deprecation_date=2099-12-31 --annotation=photos_deprecation_soft_date=2099-10-01 --annotation=photos_feature_unsupported=off --annotation=photos_feature_unsupported_soon=off --annotation=prod=DriveFS --annotation=purge_roots_for_disabled_accounts=on --annotation=read_only_corrupted_accounts=on --annotation=read_only_mode=off --annotation=read_only_ransomware=off --annotation=reconnected_nas_polling_interval_seconds=60 --annotation=reset_content_cache_location=off --annotation=restart_on_browser_request=on --annotation=same_content_dedupe_interval_ms=600000 --annotation=seconds_per_metrics_batch=20 --annotation=share_dialog=on --annotation=show_casita_opt_in_banner=0 --annotation=show_casita_opt_out_banner=0 --annotation=show_live_stream_frame_in_outlook_onboarding=off --annotation=show_offline_files_menu_option=on --annotation=show_quick_access_in_search_dialog=on --annotation=show_sign_out_all=on --annotation=slurp_poll_path_frequency_min=240 --annotation=smb_allowed=on --annotation=soon_to_be_min_supported_os_version=11.0.0 --annotation=soon_to_be_unsupported_os_learn_more=https://support.google.com/drive/answer/2375082 --annotation=special_folder_change_notification=on --annotation=spotlight_timestamp_fsctl_support=on --annotation=status_window_click_show_file_in_file_manager=on --annotation=structured_log_max_file_count=30 --annotation=structured_log_max_file_size_kbytes=5120 --annotation=structured_log_zip_logs=on --annotation=structured_logging=on --annotation=support_status_notification=on --annotation=survey_api_key=AIzaSyAWGrfCCr7albM3lmCc937gx4uIphbpeKQ --annotation=survey_configurations= --annotation=survey_listnr_product_id=1633926 --annotation=survey_url=https://www.gstatic.com/drive-fs/survey.html --annotation=switchblade_dss=off --annotation=switchblade_on_websockets=on --annotation=thread_stuck_threshold_sec=0 --annotation=throttling_algorithm=1 --annotation=trim_parents_during_cloud_merge=on --annotation=trim_parents_during_commit=on --annotation=unlocked_mac_buf_unmap=on --annotation=unlocked_mac_getxattr_v2=off --annotation=upload_folder=off --annotation=use_apple_web_kit=off --annotation=use_canceled_uploads_account_dir=on --annotation=use_clear_local_data_option=on --annotation=use_cros_http_client=off --annotation=use_mac_fileprovider=on --annotation=use_microsoft_web_view_2=off --annotation=use_moonshine=on --annotation=use_new_onboarding=on --annotation=ver=112.0.3.0 --annotation=win_dpi_aware_per_monitor=off --annotation=windows_32_bit_unsupported_now=on --annotation=windows_32_bit_unsupported_soon=on --handshake-fd=5",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.01697540283203125,
+        "uptime_seconds": 78650.07480621338
+      },
+      {
+        "pid": 14508,
+        "name": "bash",
+        "cmdline": "bash -c \necho '=== 제어센터 구문 검사 ==='\nbash -n posco_control_center.sh\nif [ $? -eq 0 ]; then\n    echo '✅ 제어센터 스크립트 구문 검사 통과'\nelse\n    echo '❌ 제어센터 스크립트 구문 오류'\nfi\n\necho ''\necho '=== 제어센터 함수 확인 ==='\nsource posco_control_center.sh 2>/dev/null\n\n# 주요 함수들이 정의되어 있는지 확인\nfunctions_to_check=('start_watchhamster' 'check_watchhamster_status' 'manage_modules' 'restart_individual_module')\n\nfor func in \"${functions_to_check[@]}\"; do\n    if declare -f \"$func\" > /dev/null; then\n        echo \"✅ $func 함수 정의됨\"\n    else\n        echo \"❌ $func 함수 정의되지 않음\"\n    fi\ndone\n",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.00247955322265625,
+        "uptime_seconds": 74769.55965900421
+      }
+    ],
+    "system_metrics.process_info.total_processes": 526,
+    "system_metrics.process_info.active_watchhamster_processes": 8,
+    "system_metrics.resource_usage.cpu_percent": 23.8,
+    "system_metrics.resource_usage.memory_percent": 78.1,
+    "system_metrics.resource_usage.memory_available_gb": 3.50677490234375,
+    "system_metrics.resource_usage.memory_used_gb": 6.2716522216796875,
+    "system_metrics.resource_usage.disk_percent": 4.8219556102738315,
+    "system_metrics.resource_usage.disk_free_gb": 37.05153274536133,
+    "performance_analysis.analysis_time": "2025-08-08T11:23:51.649124",
+    "performance_analysis.performance_files": [
+      {
+        "filename": "performance_data_20250808_112257.json",
+        "size_kb": 4.474609375,
+        "modified": "2025-08-08T11:22:57.746420",
+        "data_summary": {
+          "data_type": "performance_monitoring",
+          "key_metrics": {
+            "measurement_count": 5,
+            "avg_cpu_percent": 21.880000000000003,
+            "max_cpu_percent": 27.0,
+            "avg_memory_percent": 77.34,
+            "max_memory_percent": 77.9
+          },
+          "insights": []
+        }
+      },
+      {
+        "filename": "performance_data_20250808_105531.json",
+        "size_kb": 4.4853515625,
+        "modified": "2025-08-08T10:55:31.138924",
+        "data_summary": {
+          "data_type": "performance_monitoring",
+          "key_metrics": {
+            "measurement_count": 5,
+            "avg_cpu_percent": 18.52,
+            "max_cpu_percent": 23.4,
+            "avg_memory_percent": 76.98,
+            "max_memory_percent": 77.1
+          },
+          "insights": []
+        }
+      },
+      {
+        "filename": "performance_comparison_20250808_112257.txt",
+        "size_kb": 0.9716796875,
+        "modified": "2025-08-08T11:22:57.744158"
+      },
+      {
+        "filename": "performance_comparison_20250808_105531.txt",
+        "size_kb": 0.9716796875,
+        "modified": "2025-08-08T10:55:31.136493"
+      },
+      {
+        "filename": "test_results.json",
+        "size_kb": 103.87109375,
+        "modified": "2025-08-08T11:20:11.956194",
+        "data_summary": {
+          "data_type": "test_results",
+          "key_metrics": {
+            "total_tests": 4,
+            "passed_tests": 0,
+            "success_rate": 0.0,
+            "session_duration": 169.255538
+          },
+          "insights": []
+        }
+      },
+      {
+        "filename": "final_integration_verification_results.json",
+        "size_kb": 22.5224609375,
+        "modified": "2025-08-08T11:23:13.309671",
+        "data_summary": {
+          "data_type": "test_results",
+          "key_metrics": {
+            "total_tests": 4,
+            "passed_tests": 2,
+            "success_rate": 50.0,
+            "session_duration": 350.665978
+          },
+          "insights": []
+        }
+      }
+    ],
+    "performance_analysis.performance_issues": [
+      {
+        "category": "Memory",
+        "severity": "high",
+        "description": "메모리 사용률이 78.1%로 높음",
+        "recommendation": "메모리 사용량 최적화 및 가비지 컬렉션 개선 필요"
+      }
+    ],
+    "performance_analysis.optimization_opportunities": [
+      {
+        "category": "Process Management",
+        "description": "8개의 워치햄스터 관련 프로세스 실행 중",
+        "recommendation": "프로세스 통합 및 중복 제거를 통한 리소스 절약 가능"
+      }
+    ],
+    "optimization_recommendations": [
+      {
+        "category": "메모리 최적화",
+        "priority": "high",
+        "title": "메모리 사용량 최적화",
+        "description": "현재 메모리 사용률이 78.1%입니다.",
+        "recommendations": [
+          "메모리 누수 점검 및 수정",
+          "캐시 크기 최적화",
+          "가비지 컬렉션 튜닝",
+          "대용량 데이터 처리 방식 개선"
+        ],
+        "expected_improvement": "15-25% 메모리 사용량 감소",
+        "implementation_effort": "medium",
+        "risk_level": "low"
+      },
+      {
+        "category": "프로세스 관리",
+        "priority": "medium",
+        "title": "프로세스 통합 및 최적화",
+        "description": "현재 8개의 워치햄스터 관련 프로세스가 실행 중입니다.",
+        "recommendations": [
+          "중복 프로세스 통합",
+          "프로세스 재시작 로직 최적화",
+          "프로세스 간 통신 효율화",
+          "리소스 공유 메커니즘 도입"
+        ],
+        "expected_improvement": "프로세스 수 20-30% 감소",
+        "implementation_effort": "high",
+        "risk_level": "medium"
+      },
+      {
+        "category": "모니터링 개선",
+        "priority": "low",
+        "title": "실시간 모니터링 강화",
+        "description": "시스템 상태를 더 정확하게 파악하기 위한 모니터링 개선",
+        "recommendations": [
+          "모니터링 간격 최적화",
+          "알림 임계값 조정",
+          "성능 메트릭 확장",
+          "대시보드 개선"
+        ],
+        "expected_improvement": "문제 조기 발견 및 대응",
+        "implementation_effort": "low",
+        "risk_level": "low"
+      },
+      {
+        "category": "자동화 개선",
+        "priority": "medium",
+        "title": "자동 복구 메커니즘 강화",
+        "description": "시스템 장애 시 자동 복구 능력 향상",
+        "recommendations": [
+          "복구 시나리오 확장",
+          "복구 성공률 향상",
+          "복구 시간 단축",
+          "복구 로그 개선"
+        ],
+        "expected_improvement": "시스템 가용성 95% 이상 달성",
+        "implementation_effort": "medium",
+        "risk_level": "low"
+      }
+    ],
+    "performance_comparison.comparison_time": "2025-08-08T11:23:51.652326",
+    "performance_comparison.v1_baseline.cpu_percent": 45.0,
+    "performance_comparison.v1_baseline.memory_percent": 60.0,
+    "performance_comparison.v1_baseline.process_count": 8,
+    "performance_comparison.v1_baseline.startup_time_seconds": 45,
+    "performance_comparison.v1_baseline.response_time_seconds": 8.0,
+    "performance_comparison.v1_baseline.recovery_success_rate": 70.0,
+    "performance_comparison.v2_current.cpu_percent": 23.8,
+    "performance_comparison.v2_current.memory_percent": 78.1,
+    "performance_comparison.v2_current.process_count": 8,
+    "performance_comparison.v2_current.startup_time_seconds": 30,
+    "performance_comparison.v2_current.response_time_seconds": 3.0,
+    "performance_comparison.v2_current.recovery_success_rate": 90.0,
+    "performance_comparison.improvements": [
+      {
+        "metric": "CPU 사용률",
+        "v1_value": "45.0%",
+        "v2_value": "23.8%",
+        "improvement": "47.1% 감소",
+        "significance": "high"
+      },
+      {
+        "metric": "응답 시간",
+        "v1_value": "8.0초",
+        "v2_value": "3.0초",
+        "improvement": "62.5% 단축",
+        "significance": "high"
+      },
+      {
+        "metric": "자동 복구 성공률",
+        "v1_value": "70.0%",
+        "v2_value": "90.0%",
+        "improvement": "20.0%p 향상",
+        "significance": "high"
+      }
+    ],
+    "performance_comparison.regressions": [
+      {
+        "metric": "메모리 사용률",
+        "v1_value": "60.0%",
+        "v2_value": "78.1%",
+        "regression": "30.2% 증가",
+        "severity": "high"
+      }
+    ],
+    "performance_comparison.overall_assessment": "significant_improvement",
+    "metadata.watchhamster_version": "v3.0",
+    "metadata.posco_news_version": "250808",
+    "metadata.system_version": "WatchHamster_v3.0_PoscoNews_250808",
+    "metadata.last_updated": "2025-08-08T16:01:01",
+    "metadata.standardization_date": "2025-08-08",
+    "metadata.description": "POSCO System Configuration - WatchHamster_v3.0_PoscoNews_250808"
+  }
+}

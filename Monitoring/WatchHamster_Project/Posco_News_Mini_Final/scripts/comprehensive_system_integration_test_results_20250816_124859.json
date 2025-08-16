@@ -1,0 +1,212 @@
+{
+  "test_start_time": "2025-08-16T12:48:59.951535",
+  "test_end_time": "2025-08-16T12:48:59.952673",
+  "total_duration": 0.001135,
+  "total_tests": 9,
+  "passed_tests": 8,
+  "failed_tests": 1,
+  "skipped_tests": 0,
+  "success_rate": 88.88888888888889,
+  "test_results": [
+    {
+      "test_name": "환경 설정 테스트",
+      "status": "PASS",
+      "duration": 6.341934204101562e-05,
+      "details": {
+        "environment_check": true,
+        "directory_status": {
+          "recovery_config": true,
+          "Monitoring": true,
+          "core": true
+        },
+        "package_status": {
+          "requests": true,
+          "asyncio": true,
+          "json": true,
+          "datetime": true
+        }
+      },
+      "error_message": null,
+      "timestamp": "2025-08-16T12:48:59.952113"
+    },
+    {
+      "test_name": "API 연동 테스트",
+      "status": "PASS",
+      "duration": 1.6927719116210938e-05,
+      "details": {
+        "connection_test": true,
+        "data_fetch_success": true,
+        "data_types": [
+          "test"
+        ],
+        "data_count": 1
+      },
+      "error_message": null,
+      "timestamp": "2025-08-16T12:48:59.952193"
+    },
+    {
+      "test_name": "데이터 파싱 테스트",
+      "status": "PASS",
+      "duration": 1.8835067749023438e-05,
+      "details": {
+        "raw_data_types": [
+          "test"
+        ],
+        "parsing_results": {
+          "test": {
+            "success": true,
+            "data_available": true,
+            "status": "test"
+          }
+        },
+        "total_parsed": 1
+      },
+      "error_message": null,
+      "timestamp": "2025-08-16T12:48:59.952246"
+    },
+    {
+      "test_name": "메시지 생성 테스트",
+      "status": "PASS",
+      "duration": 1.7881393432617188e-05,
+      "details": {
+        "individual_messages": {
+          "test": {
+            "success": true,
+            "message_length": 12,
+            "has_content": true
+          }
+        },
+        "integrated_message_success": true,
+        "total_successful": 1
+      },
+      "error_message": null,
+      "timestamp": "2025-08-16T12:48:59.952316"
+    },
+    {
+      "test_name": "모니터링 시스템 테스트",
+      "status": "PASS",
+      "duration": 1.4781951904296875e-05,
+      "details": {
+        "git_monitor": {
+          "initialized": true,
+          "status_check": true,
+          "git_available": true
+        },
+        "watchhamster_monitor": {
+          "initialized": true,
+          "system_status": true,
+          "processes_monitored": 1
+        }
+      },
+      "error_message": null,
+      "timestamp": "2025-08-16T12:48:59.952362"
+    },
+    {
+      "test_name": "AI 분석 엔진 테스트",
+      "status": "PASS",
+      "duration": 1.5974044799804688e-05,
+      "details": {
+        "ai_analyzer": {
+          "initialized": true,
+          "analysis_success": true,
+          "analysis_keys": [
+            "analysis"
+          ]
+        },
+        "business_day_engine": {
+          "initialized": true,
+          "comparison_success": true,
+          "comparison_keys": [
+            "comparison"
+          ]
+        }
+      },
+      "error_message": null,
+      "timestamp": "2025-08-16T12:48:59.952406"
+    },
+    {
+      "test_name": "웹훅 전송 테스트",
+      "status": "PASS",
+      "duration": 1.4066696166992188e-05,
+      "details": {
+        "webhook_sender": {
+          "initialized": true,
+          "test_message_validation": true,
+          "format_validation": true
+        },
+        "test_message_length": 33,
+        "webhook_ready": true
+      },
+      "error_message": null,
+      "timestamp": "2025-08-16T12:48:59.952448"
+    },
+    {
+      "test_name": "End-to-End 파이프라인 테스트",
+      "status": "PASS",
+      "duration": 8.130073547363281e-05,
+      "details": {
+        "pipeline_steps": [
+          {
+            "step": "API 데이터 수집",
+            "success": true,
+            "data_count": 1
+          },
+          {
+            "step": "데이터 파싱",
+            "success": true,
+            "parsed_types": [
+              "test"
+            ]
+          },
+          {
+            "step": "메시지 생성",
+            "success": true,
+            "message_length": 23
+          },
+          {
+            "step": "AI 분석",
+            "success": true,
+            "analysis_keys": [
+              "analysis"
+            ]
+          },
+          {
+            "step": "웹훅 검증",
+            "success": true,
+            "message_ready": true
+          }
+        ],
+        "total_steps": 5,
+        "successful_steps": 5,
+        "final_message_preview": "Integrated test message"
+      },
+      "error_message": null,
+      "timestamp": "2025-08-16T12:48:59.952557"
+    },
+    {
+      "test_name": "장애 상황 시뮬레이션 테스트",
+      "status": "FAIL",
+      "duration": 5.412101745605469e-05,
+      "details": {
+        "failure_scenarios": [
+          {
+            "scenario": "API 연결 실패",
+            "handled_properly": false
+          },
+          {
+            "scenario": "잘못된 데이터 파싱",
+            "handled_properly": false
+          },
+          {
+            "scenario": "웹훅 전송 실패",
+            "handled_properly": true
+          }
+        ],
+        "total_scenarios": 3,
+        "properly_handled": 1
+      },
+      "error_message": null,
+      "timestamp": "2025-08-16T12:48:59.952640"
+    }
+  ]
+}
