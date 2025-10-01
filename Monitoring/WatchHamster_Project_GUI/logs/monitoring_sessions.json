@@ -1,0 +1,106 @@
+[
+  {
+    "session_id": "monitor_20250923_134220",
+    "start_time": "2025-09-23T13:42:20.505176",
+    "end_time": "2025-09-23T13:42:30.509828",
+    "mode": "continuous",
+    "target_url": "https://httpbin.org/status/200",
+    "total_checks": 2,
+    "successful_checks": 2,
+    "failed_checks": 0,
+    "average_response_time": 1.5947734117507935,
+    "checks": [
+      {
+        "timestamp": "2025-09-23T13:42:20.505385",
+        "url": "https://httpbin.org/status/200",
+        "status_code": 200,
+        "response_time": 1.0525288581848145,
+        "accessible": true,
+        "error_message": null,
+        "content_length": 0,
+        "headers": {
+          "Date": "Tue, 23 Sep 2025 04:42:21 GMT",
+          "Content-Type": "text/html; charset=utf-8",
+          "Content-Length": "0",
+          "Connection": "keep-alive",
+          "Server": "gunicorn/19.9.0",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": "true"
+        },
+        "page_title": null
+      },
+      {
+        "timestamp": "2025-09-23T13:42:26.563672",
+        "url": "https://httpbin.org/status/200",
+        "status_code": 200,
+        "response_time": 2.1370179653167725,
+        "accessible": true,
+        "error_message": null,
+        "content_length": 0,
+        "headers": {
+          "Date": "Tue, 23 Sep 2025 04:42:28 GMT",
+          "Content-Type": "text/html; charset=utf-8",
+          "Content-Length": "0",
+          "Connection": "keep-alive",
+          "Server": "gunicorn/19.9.0",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": "true"
+        },
+        "page_title": null
+      }
+    ],
+    "is_active": false
+  },
+  {
+    "session_id": "monitor_20250923_134555",
+    "start_time": "2025-09-23T13:45:55.939598",
+    "end_time": "2025-09-23T13:46:05.945372",
+    "mode": "continuous",
+    "target_url": "https://httpbin.org/status/200",
+    "total_checks": 2,
+    "successful_checks": 2,
+    "failed_checks": 0,
+    "average_response_time": 1.0320500135421753,
+    "checks": [
+      {
+        "timestamp": "2025-09-23T13:45:55.939704",
+        "url": "https://httpbin.org/status/200",
+        "status_code": 200,
+        "response_time": 0.2099137306213379,
+        "accessible": true,
+        "error_message": null,
+        "content_length": 0,
+        "headers": {
+          "Date": "Tue, 23 Sep 2025 04:45:56 GMT",
+          "Content-Type": "text/html; charset=utf-8",
+          "Content-Length": "0",
+          "Connection": "keep-alive",
+          "Server": "gunicorn/19.9.0",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": "true"
+        },
+        "page_title": null
+      },
+      {
+        "timestamp": "2025-09-23T13:46:01.155512",
+        "url": "https://httpbin.org/status/200",
+        "status_code": 200,
+        "response_time": 1.8541862964630127,
+        "accessible": true,
+        "error_message": null,
+        "content_length": 0,
+        "headers": {
+          "Date": "Tue, 23 Sep 2025 04:46:02 GMT",
+          "Content-Type": "text/html; charset=utf-8",
+          "Content-Length": "0",
+          "Connection": "keep-alive",
+          "Server": "gunicorn/19.9.0",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": "true"
+        },
+        "page_title": null
+      }
+    ],
+    "is_active": false
+  }
+]

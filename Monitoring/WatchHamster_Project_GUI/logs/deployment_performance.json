@@ -1,0 +1,123 @@
+{
+  "summary": {
+    "recent_sessions_count": 8,
+    "average_duration": 5.413904964923859,
+    "success_rate": 100.0,
+    "last_updated": "2025-09-23T13:32:46.065873"
+  },
+  "phase_averages": {
+    "pre_check": 0.5661540985107422,
+    "html_generation": 1.16224102973938,
+    "branch_switch": 1.0666381518046062,
+    "backup": 1.543169617652893,
+    "merge_changes": 2.0455875396728516,
+    "commit_changes": 1.04666006565094,
+    "push_remote": 4.05082893371582,
+    "verify_pages": 5.048230767250061,
+    "send_notification": 1.0445020198822021
+  },
+  "trends": [
+    {
+      "session_id": "test_session_20250923_131034",
+      "timestamp": "2025-09-23T13:10:34.595533",
+      "total_duration": 0.4290790557861328,
+      "success": true,
+      "error_count": 0,
+      "warning_count": 0,
+      "phase_durations": {
+        "pre_check": 0.11268401145935059,
+        "html_generation": 0.1053929328918457,
+        "branch_switch": 0.1053612232208252
+      }
+    },
+    {
+      "session_id": "callback_test_131035",
+      "timestamp": "2025-09-23T13:10:35.276569",
+      "total_duration": 0.10549521446228027,
+      "success": true,
+      "error_count": 0,
+      "warning_count": 0,
+      "phase_durations": {}
+    },
+    {
+      "session_id": "error_test_1",
+      "timestamp": "2025-09-23T13:10:36.170162",
+      "total_duration": 0.000308990478515625,
+      "success": true,
+      "error_count": 0,
+      "warning_count": 0,
+      "phase_durations": {}
+    },
+    {
+      "session_id": "integrated_deploy_20250923_131207",
+      "timestamp": "2025-09-23T13:12:47.700889",
+      "total_duration": 40.385859966278076,
+      "success": true,
+      "error_count": 0,
+      "warning_count": 0,
+      "phase_durations": {
+        "pre_check": 2.040874719619751,
+        "backup": 3.0337231159210205,
+        "html_generation": 5.0435991287231445,
+        "branch_switch": 3.03924822807312,
+        "merge_changes": 4.0358641147613525,
+        "commit_changes": 2.037562847137451,
+        "push_remote": 8.045645952224731,
+        "verify_pages": 10.040841817855835,
+        "send_notification": 2.0350141525268555
+      }
+    },
+    {
+      "session_id": "quick_deploy_131248",
+      "timestamp": "2025-09-23T13:12:49.990967",
+      "total_duration": 1.5161809921264648,
+      "success": true,
+      "error_count": 0,
+      "warning_count": 0,
+      "phase_durations": {
+        "pre_check": 0.505378007888794,
+        "html_generation": 0.5056281089782715
+      }
+    },
+    {
+      "session_id": "content_test_session",
+      "timestamp": "2025-09-23T13:27:43.963094",
+      "total_duration": 0.0002257823944091797,
+      "success": true,
+      "error_count": 0,
+      "warning_count": 0,
+      "phase_durations": {}
+    },
+    {
+      "session_id": "extreme_verification_test",
+      "timestamp": "2025-09-23T13:31:25.536298",
+      "total_duration": 0.3161778450012207,
+      "success": true,
+      "error_count": 0,
+      "warning_count": 0,
+      "phase_durations": {
+        "pre_check": 0.10509181022644043,
+        "html_generation": 0.10530996322631836
+      }
+    },
+    {
+      "session_id": "final_integration_test",
+      "timestamp": "2025-09-23T13:32:46.065795",
+      "total_duration": 0.5579118728637695,
+      "success": true,
+      "error_count": 0,
+      "warning_count": 0,
+      "phase_durations": {
+        "pre_check": 0.066741943359375,
+        "backup": 0.052616119384765625,
+        "html_generation": 0.051275014877319336,
+        "branch_switch": 0.05530500411987305,
+        "merge_changes": 0.055310964584350586,
+        "commit_changes": 0.05575728416442871,
+        "push_remote": 0.05601191520690918,
+        "verify_pages": 0.05561971664428711,
+        "send_notification": 0.05398988723754883
+      }
+    }
+  ]
+}

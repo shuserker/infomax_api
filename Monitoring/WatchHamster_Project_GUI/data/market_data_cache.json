@@ -1,0 +1,62 @@
+{
+  "market_data": {
+    "kospi": {
+      "value": 2520.5,
+      "timestamp": "2025-09-23T13:05:06.292994",
+      "source": "kospi_api",
+      "quality_score": 0.8399999998333332,
+      "confidence": 0.9333333333333332,
+      "metadata": {
+        "change": 15.3,
+        "change_percent": 0.61,
+        "volume": 450000000
+      }
+    },
+    "exchange_rate": {
+      "value": 1347.5,
+      "timestamp": "2025-09-23T13:05:06.293026",
+      "source": "exchange_api",
+      "quality_score": 0.8299999998750001,
+      "confidence": 0.8333333333333334,
+      "metadata": {
+        "change": -2.5,
+        "change_percent": -0.18,
+        "base_currency": "USD",
+        "target_currency": "KRW"
+      }
+    },
+    "posco_stock": {
+      "value": 285000,
+      "timestamp": "2025-09-23T13:05:06.293041",
+      "source": "posco_stock_api",
+      "quality_score": 0.8199999988333333,
+      "confidence": 0.9333333333333332,
+      "metadata": {
+        "change": 3500,
+        "change_percent": 1.24,
+        "volume": 125000,
+        "market_cap": 24500000000000
+      }
+    },
+    "news_sentiment": {
+      "value": 0.65,
+      "timestamp": "2025-09-23T13:05:06.293146",
+      "source": "news_api",
+      "quality_score": 0.7999999998333334,
+      "confidence": 0.82,
+      "metadata": {
+        "sentiment_label": "positive",
+        "news_count": 15,
+        "key_topics": [
+          "실적",
+          "투자",
+          "성장"
+        ]
+      }
+    },
+    "last_updated": "2025-09-23T13:05:06.293179",
+    "overall_quality": 0.8224999995937499
+  },
+  "cached_at": "2025-09-23T13:05:06.293183",
+  "cache_version": "1.0"
+}

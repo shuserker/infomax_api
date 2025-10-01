@@ -1,0 +1,47 @@
+{
+  "webhook_url": "",
+  "webhook_settings": {
+    "timeout": 15,
+    "retry_attempts": 3,
+    "retry_delay": 5,
+    "user_agent": "POSCO-Analysis-System/1.0"
+  },
+  "message_settings": {
+    "enable_templates": true,
+    "customer_friendly_mode": true,
+    "include_technical_details": false,
+    "max_message_length": 4000
+  },
+  "notification_types": {
+    "deployment_success": {
+      "enabled": true,
+      "priority": "normal"
+    },
+    "deployment_failure": {
+      "enabled": true,
+      "priority": "high"
+    },
+    "deployment_start": {
+      "enabled": false,
+      "priority": "low"
+    },
+    "system_status": {
+      "enabled": true,
+      "priority": "low"
+    },
+    "data_update": {
+      "enabled": true,
+      "priority": "normal"
+    },
+    "error_alert": {
+      "enabled": true,
+      "priority": "critical"
+    }
+  },
+  "gui_integration": {
+    "show_send_status": true,
+    "enable_preview": true,
+    "auto_send_on_deployment": true,
+    "status_update_interval": 1000
+  }
+}

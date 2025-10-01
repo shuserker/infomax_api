@@ -1,0 +1,86 @@
+[
+  {
+    "url": "https://httpbin.org/status/200",
+    "start_time": "2025-09-23T13:41:20.293400",
+    "end_time": "2025-09-23T13:41:50.496750",
+    "total_wait_time": 30.00563097000122,
+    "checks_performed": 1,
+    "final_accessible": true,
+    "deployment_successful": true,
+    "checks": [
+      {
+        "timestamp": "2025-09-23T13:41:50.299672",
+        "url": "https://httpbin.org/status/200",
+        "status_code": 200,
+        "response_time": 0.19629216194152832,
+        "accessible": true,
+        "error_message": null,
+        "content_length": 0,
+        "headers": {
+          "Date": "Tue, 23 Sep 2025 04:41:50 GMT",
+          "Content-Type": "text/html; charset=utf-8",
+          "Content-Length": "0",
+          "Connection": "keep-alive",
+          "Server": "gunicorn/19.9.0",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": "true"
+        },
+        "page_title": null
+      }
+    ],
+    "error_message": null
+  },
+  {
+    "url": "https://httpbin.org/status/404",
+    "start_time": "2025-09-23T13:41:50.497692",
+    "end_time": "2025-09-23T13:42:20.503312",
+    "total_wait_time": 0,
+    "checks_performed": 0,
+    "final_accessible": false,
+    "deployment_successful": false,
+    "checks": [],
+    "error_message": "최대 대기 시간 초과 (30초)"
+  },
+  {
+    "url": "https://httpbin.org/status/200",
+    "start_time": "2025-09-23T13:44:55.685165",
+    "end_time": "2025-09-23T13:45:25.905899",
+    "total_wait_time": 30.006104946136475,
+    "checks_performed": 1,
+    "final_accessible": true,
+    "deployment_successful": true,
+    "checks": [
+      {
+        "timestamp": "2025-09-23T13:45:25.692580",
+        "url": "https://httpbin.org/status/200",
+        "status_code": 200,
+        "response_time": 0.21157097816467285,
+        "accessible": true,
+        "error_message": null,
+        "content_length": 0,
+        "headers": {
+          "Date": "Tue, 23 Sep 2025 04:45:25 GMT",
+          "Content-Type": "text/html; charset=utf-8",
+          "Content-Length": "0",
+          "Connection": "keep-alive",
+          "Server": "gunicorn/19.9.0",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": "true"
+        },
+        "page_title": null
+      }
+    ],
+    "error_message": null
+  },
+  {
+    "url": "https://httpbin.org/status/404",
+    "start_time": "2025-09-23T13:45:25.908320",
+    "end_time": "2025-09-23T13:45:55.925661",
+    "total_wait_time": 0,
+    "checks_performed": 0,
+    "final_accessible": false,
+    "deployment_successful": false,
+    "checks": [],
+    "error_message": "최대 대기 시간 초과 (30초)"
+  }
+]

@@ -1,0 +1,48 @@
+[2025-09-23 13:41:18] [INFO] 🔧 GitHub Pages 모니터링 시스템 초기화 완료 (스탠드얼론)
+[2025-09-23 13:41:18] [INFO] 🌐 페이지 접근성 확인 시작: https://httpbin.org/status/200
+[2025-09-23 13:41:20] [INFO] ✅ 페이지 접근 성공: https://httpbin.org/status/200 (응답시간: 1.46초)
+[2025-09-23 13:41:20] [INFO] 🌐 페이지 접근성 확인 시작: https://httpbin.org/status/404
+[2025-09-23 13:41:20] [INFO] ❌ 페이지 접근 실패: https://httpbin.org/status/404 - HTTP 404: NOT FOUND
+[2025-09-23 13:41:20] [INFO] 🌐 페이지 접근성 확인 시작: https://invalid-domain-12345.com
+[2025-09-23 13:41:20] [INFO] 🔌 페이지 연결 오류: https://invalid-domain-12345.com - HTTPSConnectionPool(host='invalid-domain-12345.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x10806c610>: Failed to resolve 'invalid-domain-12345.com' ([Errno 8] nodename nor servname provided, or not known)"))
+[2025-09-23 13:41:20] [INFO] 🚀 GitHub Pages 배포 검증 시작: https://httpbin.org/status/200
+[2025-09-23 13:41:20] [INFO] ⏳ GitHub Pages 빌드 대기 중... (30초)
+[2025-09-23 13:41:50] [INFO] 🔍 접근성 확인 시도 #1 (대기시간: 30.0초)
+[2025-09-23 13:41:50] [INFO] 🌐 페이지 접근성 확인 시작: https://httpbin.org/status/200
+[2025-09-23 13:41:50] [INFO] ✅ 페이지 접근 성공: https://httpbin.org/status/200 (응답시간: 0.20초)
+[2025-09-23 13:41:50] [INFO] ✅ GitHub Pages 배포 검증 성공: https://httpbin.org/status/200
+[2025-09-23 13:41:50] [INFO] 🚀 GitHub Pages 배포 검증 시작: https://httpbin.org/status/404
+[2025-09-23 13:41:50] [INFO] ⏳ GitHub Pages 빌드 대기 중... (30초)
+[2025-09-23 13:42:20] [INFO] ⏰ GitHub Pages 배포 검증 타임아웃: https://httpbin.org/status/404
+[2025-09-23 13:42:20] [INFO] 🌐 페이지 접근성 확인 시작: https://httpbin.org/status/200
+[2025-09-23 13:42:20] [INFO] 📊 지속적인 모니터링 시작: https://httpbin.org/status/200 (간격: 5초)
+[2025-09-23 13:42:21] [INFO] ✅ 페이지 접근 성공: https://httpbin.org/status/200 (응답시간: 1.05초)
+[2025-09-23 13:42:26] [INFO] 🌐 페이지 접근성 확인 시작: https://httpbin.org/status/200
+[2025-09-23 13:42:28] [INFO] ✅ 페이지 접근 성공: https://httpbin.org/status/200 (응답시간: 2.14초)
+[2025-09-23 13:42:30] [INFO] 📊 지속적인 모니터링 중지: monitor_20250923_134220
+[2025-09-23 13:42:33] [INFO] 🔄 자동 재배포 요청: 테스트용 재배포 요청
+[2025-09-23 13:42:33] [INFO] ✅ 자동 재배포 요청 성공
+[2025-09-23 13:44:52] [INFO] 🔧 GitHub Pages 모니터링 시스템 초기화 완료 (스탠드얼론)
+[2025-09-23 13:44:52] [INFO] 🌐 페이지 접근성 확인 시작: https://httpbin.org/status/200
+[2025-09-23 13:44:55] [INFO] ✅ 페이지 접근 성공: https://httpbin.org/status/200 (응답시간: 2.45초)
+[2025-09-23 13:44:55] [INFO] 🌐 페이지 접근성 확인 시작: https://httpbin.org/status/404
+[2025-09-23 13:44:55] [INFO] ❌ 페이지 접근 실패: https://httpbin.org/status/404 - HTTP 404: NOT FOUND
+[2025-09-23 13:44:55] [INFO] 🌐 페이지 접근성 확인 시작: https://invalid-domain-12345.com
+[2025-09-23 13:44:55] [INFO] 🔌 페이지 연결 오류: https://invalid-domain-12345.com - HTTPSConnectionPool(host='invalid-domain-12345.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x105dd76a0>: Failed to resolve 'invalid-domain-12345.com' ([Errno 8] nodename nor servname provided, or not known)"))
+[2025-09-23 13:44:55] [INFO] 🚀 GitHub Pages 배포 검증 시작: https://httpbin.org/status/200
+[2025-09-23 13:44:55] [INFO] ⏳ GitHub Pages 빌드 대기 중... (30초)
+[2025-09-23 13:45:25] [INFO] 🔍 접근성 확인 시도 #1 (대기시간: 30.0초)
+[2025-09-23 13:45:25] [INFO] 🌐 페이지 접근성 확인 시작: https://httpbin.org/status/200
+[2025-09-23 13:45:25] [INFO] ✅ 페이지 접근 성공: https://httpbin.org/status/200 (응답시간: 0.21초)
+[2025-09-23 13:45:25] [INFO] ✅ GitHub Pages 배포 검증 성공: https://httpbin.org/status/200
+[2025-09-23 13:45:25] [INFO] 🚀 GitHub Pages 배포 검증 시작: https://httpbin.org/status/404
+[2025-09-23 13:45:25] [INFO] ⏳ GitHub Pages 빌드 대기 중... (30초)
+[2025-09-23 13:45:55] [INFO] ⏰ GitHub Pages 배포 검증 타임아웃: https://httpbin.org/status/404
+[2025-09-23 13:45:55] [INFO] 📊 지속적인 모니터링 시작: https://httpbin.org/status/200 (간격: 5초)
+[2025-09-23 13:45:55] [INFO] 🌐 페이지 접근성 확인 시작: https://httpbin.org/status/200
+[2025-09-23 13:45:56] [INFO] ✅ 페이지 접근 성공: https://httpbin.org/status/200 (응답시간: 0.21초)
+[2025-09-23 13:46:01] [INFO] 🌐 페이지 접근성 확인 시작: https://httpbin.org/status/200
+[2025-09-23 13:46:03] [INFO] ✅ 페이지 접근 성공: https://httpbin.org/status/200 (응답시간: 1.85초)
+[2025-09-23 13:46:05] [INFO] 📊 지속적인 모니터링 중지: monitor_20250923_134555
+[2025-09-23 13:46:08] [INFO] 🔄 자동 재배포 요청: 테스트용 재배포 요청
+[2025-09-23 13:46:08] [INFO] ✅ 자동 재배포 요청 성공

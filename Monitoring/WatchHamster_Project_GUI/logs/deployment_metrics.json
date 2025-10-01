@@ -1,0 +1,538 @@
+[
+  {
+    "session_id": "test_session_20250923_131034",
+    "timestamp": "2025-09-23T13:10:34.594310",
+    "start_time": 1758600634.165218,
+    "end_time": 1758600634.5942972,
+    "total_duration": 0.4290790557861328,
+    "overall_success": true,
+    "progress_percentage": 100.0,
+    "completed_phases": 4,
+    "total_phases": 10,
+    "error_count": 0,
+    "warning_count": 0,
+    "phases": {
+      "pre_check": {
+        "phase": "pre_check",
+        "start_time": 1758600634.1653829,
+        "end_time": 1758600634.2780669,
+        "duration": 0.11268401145935059,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "test_step": 1
+        }
+      },
+      "html_generation": {
+        "phase": "html_generation",
+        "start_time": 1758600634.278074,
+        "end_time": 1758600634.383467,
+        "duration": 0.1053929328918457,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "test_step": 2
+        }
+      },
+      "branch_switch": {
+        "phase": "branch_switch",
+        "start_time": 1758600634.383473,
+        "end_time": 1758600634.4888341,
+        "duration": 0.1053612232208252,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "test_step": 3
+        }
+      },
+      "push_remote": {
+        "phase": "push_remote",
+        "start_time": 1758600634.488844,
+        "end_time": null,
+        "duration": null,
+        "success": false,
+        "error_message": null,
+        "details": {
+          "test_step": 4
+        }
+      }
+    }
+  },
+  {
+    "session_id": "callback_test_131035",
+    "timestamp": "2025-09-23T13:10:35.274112",
+    "start_time": 1758600635.168598,
+    "end_time": 1758600635.2740932,
+    "total_duration": 0.10549521446228027,
+    "overall_success": true,
+    "progress_percentage": 100.0,
+    "completed_phases": 1,
+    "total_phases": 10,
+    "error_count": 0,
+    "warning_count": 0,
+    "phases": {
+      "pre_check": {
+        "phase": "pre_check",
+        "start_time": 1758600635.168865,
+        "end_time": null,
+        "duration": null,
+        "success": false,
+        "error_message": null,
+        "details": {}
+      }
+    }
+  },
+  {
+    "session_id": "error_test_1",
+    "timestamp": "2025-09-23T13:10:36.169860",
+    "start_time": 1758600636.169548,
+    "end_time": 1758600636.169857,
+    "total_duration": 0.000308990478515625,
+    "overall_success": true,
+    "progress_percentage": 100.0,
+    "completed_phases": 0,
+    "total_phases": 10,
+    "error_count": 0,
+    "warning_count": 0,
+    "phases": {}
+  },
+  {
+    "session_id": "integrated_deploy_20250923_131207",
+    "timestamp": "2025-09-23T13:12:47.696843",
+    "start_time": 1758600727.310957,
+    "end_time": 1758600767.696817,
+    "total_duration": 40.385859966278076,
+    "overall_success": true,
+    "progress_percentage": 100.0,
+    "completed_phases": 10,
+    "total_phases": 10,
+    "error_count": 0,
+    "warning_count": 0,
+    "phases": {
+      "pre_check": {
+        "phase": "pre_check",
+        "start_time": 1758600727.3111522,
+        "end_time": 1758600729.352027,
+        "duration": 2.040874719619751,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "description": "배포 전 상태 확인",
+          "estimated_duration": 2.0,
+          "test_data": {
+            "test_mode": true,
+            "demo_version": "1.0.0"
+          }
+        }
+      },
+      "backup": {
+        "phase": "backup",
+        "start_time": 1758600729.352038,
+        "end_time": 1758600732.385761,
+        "duration": 3.0337231159210205,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "description": "백업 생성",
+          "estimated_duration": 3.0,
+          "test_data": {
+            "test_mode": true,
+            "demo_version": "1.0.0"
+          }
+        }
+      },
+      "html_generation": {
+        "phase": "html_generation",
+        "start_time": 1758600732.385779,
+        "end_time": 1758600737.429378,
+        "duration": 5.0435991287231445,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "description": "HTML 리포트 생성",
+          "estimated_duration": 5.0,
+          "test_data": {
+            "test_mode": true,
+            "demo_version": "1.0.0"
+          }
+        }
+      },
+      "branch_switch": {
+        "phase": "branch_switch",
+        "start_time": 1758600737.4293928,
+        "end_time": 1758600740.468641,
+        "duration": 3.03924822807312,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "description": "브랜치 전환",
+          "estimated_duration": 3.0,
+          "test_data": {
+            "test_mode": true,
+            "demo_version": "1.0.0"
+          }
+        }
+      },
+      "merge_changes": {
+        "phase": "merge_changes",
+        "start_time": 1758600740.468658,
+        "end_time": 1758600744.504522,
+        "duration": 4.0358641147613525,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "description": "변경사항 병합",
+          "estimated_duration": 4.0,
+          "test_data": {
+            "test_mode": true,
+            "demo_version": "1.0.0"
+          }
+        }
+      },
+      "commit_changes": {
+        "phase": "commit_changes",
+        "start_time": 1758600744.504544,
+        "end_time": 1758600746.5421069,
+        "duration": 2.037562847137451,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "description": "변경사항 커밋",
+          "estimated_duration": 2.0,
+          "test_data": {
+            "test_mode": true,
+            "demo_version": "1.0.0"
+          }
+        }
+      },
+      "push_remote": {
+        "phase": "push_remote",
+        "start_time": 1758600746.54213,
+        "end_time": 1758600754.587776,
+        "duration": 8.045645952224731,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "description": "원격 저장소 푸시",
+          "estimated_duration": 8.0,
+          "test_data": {
+            "test_mode": true,
+            "demo_version": "1.0.0"
+          }
+        }
+      },
+      "verify_pages": {
+        "phase": "verify_pages",
+        "start_time": 1758600754.5877812,
+        "end_time": 1758600764.628623,
+        "duration": 10.040841817855835,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "description": "GitHub Pages 확인",
+          "estimated_duration": 10.0,
+          "test_data": {
+            "test_mode": true,
+            "demo_version": "1.0.0"
+          }
+        }
+      },
+      "send_notification": {
+        "phase": "send_notification",
+        "start_time": 1758600764.628636,
+        "end_time": 1758600766.66365,
+        "duration": 2.0350141525268555,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "description": "알림 전송",
+          "estimated_duration": 2.0,
+          "test_data": {
+            "test_mode": true,
+            "demo_version": "1.0.0"
+          }
+        }
+      },
+      "cleanup": {
+        "phase": "cleanup",
+        "start_time": 1758600766.663659,
+        "end_time": null,
+        "duration": null,
+        "success": false,
+        "error_message": null,
+        "details": {
+          "description": "정리 작업",
+          "estimated_duration": 1.0,
+          "test_data": {
+            "test_mode": true,
+            "demo_version": "1.0.0"
+          }
+        }
+      }
+    }
+  },
+  {
+    "session_id": "quick_deploy_131248",
+    "timestamp": "2025-09-23T13:12:49.987894",
+    "start_time": 1758600768.471702,
+    "end_time": 1758600769.987883,
+    "total_duration": 1.5161809921264648,
+    "overall_success": true,
+    "progress_percentage": 100.0,
+    "completed_phases": 3,
+    "total_phases": 10,
+    "error_count": 0,
+    "warning_count": 0,
+    "phases": {
+      "pre_check": {
+        "phase": "pre_check",
+        "start_time": 1758600768.47239,
+        "end_time": 1758600768.977768,
+        "duration": 0.505378007888794,
+        "success": true,
+        "error_message": null,
+        "details": {}
+      },
+      "html_generation": {
+        "phase": "html_generation",
+        "start_time": 1758600768.977777,
+        "end_time": 1758600769.483405,
+        "duration": 0.5056281089782715,
+        "success": true,
+        "error_message": null,
+        "details": {}
+      },
+      "push_remote": {
+        "phase": "push_remote",
+        "start_time": 1758600769.483424,
+        "end_time": null,
+        "duration": null,
+        "success": false,
+        "error_message": null,
+        "details": {}
+      }
+    }
+  },
+  {
+    "session_id": "content_test_session",
+    "timestamp": "2025-09-23T13:27:43.961789",
+    "start_time": 1758601663.9615622,
+    "end_time": 1758601663.961788,
+    "total_duration": 0.0002257823944091797,
+    "overall_success": true,
+    "progress_percentage": 100.0,
+    "completed_phases": 1,
+    "total_phases": 10,
+    "error_count": 0,
+    "warning_count": 0,
+    "phases": {
+      "pre_check": {
+        "phase": "pre_check",
+        "start_time": 1758601663.961731,
+        "end_time": null,
+        "duration": null,
+        "success": false,
+        "error_message": null,
+        "details": {
+          "test": "content_check"
+        }
+      }
+    }
+  },
+  {
+    "session_id": "extreme_verification_test",
+    "timestamp": "2025-09-23T13:31:25.528929",
+    "start_time": 1758601885.2127302,
+    "end_time": 1758601885.528908,
+    "total_duration": 0.3161778450012207,
+    "overall_success": true,
+    "progress_percentage": 100.0,
+    "completed_phases": 3,
+    "total_phases": 10,
+    "error_count": 0,
+    "warning_count": 0,
+    "phases": {
+      "pre_check": {
+        "phase": "pre_check",
+        "start_time": 1758601885.2128682,
+        "end_time": 1758601885.31796,
+        "duration": 0.10509181022644043,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "step": 1,
+          "verification": true
+        }
+      },
+      "html_generation": {
+        "phase": "html_generation",
+        "start_time": 1758601885.317966,
+        "end_time": 1758601885.423276,
+        "duration": 0.10530996322631836,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "step": 2,
+          "verification": true
+        }
+      },
+      "push_remote": {
+        "phase": "push_remote",
+        "start_time": 1758601885.423285,
+        "end_time": null,
+        "duration": null,
+        "success": false,
+        "error_message": null,
+        "details": {
+          "step": 3,
+          "verification": true
+        }
+      }
+    }
+  },
+  {
+    "session_id": "final_integration_test",
+    "timestamp": "2025-09-23T13:32:46.057384",
+    "start_time": 1758601965.499449,
+    "end_time": 1758601966.057361,
+    "total_duration": 0.5579118728637695,
+    "overall_success": true,
+    "progress_percentage": 100.0,
+    "completed_phases": 10,
+    "total_phases": 10,
+    "error_count": 0,
+    "warning_count": 0,
+    "phases": {
+      "pre_check": {
+        "phase": "pre_check",
+        "start_time": 1758601965.499629,
+        "end_time": 1758601965.566371,
+        "duration": 0.066741943359375,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "description": "배포 전 상태 확인",
+          "step": 1,
+          "total_steps": 10
+        }
+      },
+      "backup": {
+        "phase": "backup",
+        "start_time": 1758601965.566381,
+        "end_time": 1758601965.618997,
+        "duration": 0.052616119384765625,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "description": "백업 생성",
+          "step": 2,
+          "total_steps": 10
+        }
+      },
+      "html_generation": {
+        "phase": "html_generation",
+        "start_time": 1758601965.61904,
+        "end_time": 1758601965.670315,
+        "duration": 0.051275014877319336,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "description": "HTML 리포트 생성",
+          "step": 3,
+          "total_steps": 10
+        }
+      },
+      "branch_switch": {
+        "phase": "branch_switch",
+        "start_time": 1758601965.670325,
+        "end_time": 1758601965.72563,
+        "duration": 0.05530500411987305,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "description": "브랜치 전환",
+          "step": 4,
+          "total_steps": 10
+        }
+      },
+      "merge_changes": {
+        "phase": "merge_changes",
+        "start_time": 1758601965.725636,
+        "end_time": 1758601965.780947,
+        "duration": 0.055310964584350586,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "description": "변경사항 병합",
+          "step": 5,
+          "total_steps": 10
+        }
+      },
+      "commit_changes": {
+        "phase": "commit_changes",
+        "start_time": 1758601965.7809558,
+        "end_time": 1758601965.836713,
+        "duration": 0.05575728416442871,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "description": "변경사항 커밋",
+          "step": 6,
+          "total_steps": 10
+        }
+      },
+      "push_remote": {
+        "phase": "push_remote",
+        "start_time": 1758601965.8367271,
+        "end_time": 1758601965.892739,
+        "duration": 0.05601191520690918,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "description": "원격 저장소 푸시",
+          "step": 7,
+          "total_steps": 10
+        }
+      },
+      "verify_pages": {
+        "phase": "verify_pages",
+        "start_time": 1758601965.892748,
+        "end_time": 1758601965.9483678,
+        "duration": 0.05561971664428711,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "description": "GitHub Pages 확인",
+          "step": 8,
+          "total_steps": 10
+        }
+      },
+      "send_notification": {
+        "phase": "send_notification",
+        "start_time": 1758601965.948385,
+        "end_time": 1758601966.002375,
+        "duration": 0.05398988723754883,
+        "success": true,
+        "error_message": null,
+        "details": {
+          "description": "알림 전송",
+          "step": 9,
+          "total_steps": 10
+        }
+      },
+      "cleanup": {
+        "phase": "cleanup",
+        "start_time": 1758601966.002454,
+        "end_time": null,
+        "duration": null,
+        "success": false,
+        "error_message": null,
+        "details": {
+          "description": "정리 작업",
+          "step": 10,
+          "total_steps": 10
+        }
+      }
+    }
+  }
+]

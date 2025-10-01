@@ -1,0 +1,346 @@
+{
+  "deploy_20250902_102625": {
+    "session_id": "deploy_20250902_102625",
+    "start_time": "2025-09-02T10:26:25.548331",
+    "end_time": null,
+    "status": "pending",
+    "steps": [
+      {
+        "step_id": "pre_check",
+        "name": "배포 전 상태 확인",
+        "status": "success",
+        "start_time": "2025-09-02T10:26:25.548358",
+        "end_time": "2025-09-02T10:26:25.549096",
+        "error_message": null,
+        "progress": 100,
+        "details": {
+          "test": "단계 업데이트 테스트"
+        }
+      },
+      {
+        "step_id": "backup",
+        "name": "백업 생성",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "html_generation",
+        "name": "HTML 리포트 생성",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "branch_switch",
+        "name": "브랜치 전환",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "merge_changes",
+        "name": "변경사항 병합",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "commit_changes",
+        "name": "변경사항 커밋",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "push_remote",
+        "name": "원격 저장소 푸시",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "verify_pages",
+        "name": "GitHub Pages 확인",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "send_notification",
+        "name": "알림 전송",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "cleanup",
+        "name": "정리 작업",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      }
+    ],
+    "total_progress": 10,
+    "success_count": 1,
+    "failure_count": 0,
+    "rollback_available": false,
+    "rollback_data": null,
+    "error_message": null
+  },
+  "deploy_20250902_102630": {
+    "session_id": "deploy_20250902_102630",
+    "start_time": "2025-09-02T10:26:30.237752",
+    "end_time": "2025-09-02T10:26:30.821195",
+    "status": "failed",
+    "steps": [
+      {
+        "step_id": "pre_check",
+        "name": "배포 전 상태 확인",
+        "status": "failed",
+        "start_time": "2025-09-02T10:26:30.238666",
+        "end_time": "2025-09-02T10:26:30.820016",
+        "error_message": "해결되지 않은 Git 충돌이 있습니다",
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "backup",
+        "name": "백업 생성",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "html_generation",
+        "name": "HTML 리포트 생성",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "branch_switch",
+        "name": "브랜치 전환",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "merge_changes",
+        "name": "변경사항 병합",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "commit_changes",
+        "name": "변경사항 커밋",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "push_remote",
+        "name": "원격 저장소 푸시",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "verify_pages",
+        "name": "GitHub Pages 확인",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "send_notification",
+        "name": "알림 전송",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "cleanup",
+        "name": "정리 작업",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      }
+    ],
+    "total_progress": 0,
+    "success_count": 0,
+    "failure_count": 1,
+    "rollback_available": false,
+    "rollback_data": null,
+    "error_message": "통합 배포 중 오류: 해결되지 않은 Git 충돌이 있습니다"
+  },
+  "deploy_20250902_145757": {
+    "session_id": "deploy_20250902_145757",
+    "start_time": "2025-09-02T14:57:57.234220",
+    "end_time": null,
+    "status": "pending",
+    "steps": [
+      {
+        "step_id": "pre_check",
+        "name": "배포 전 상태 확인",
+        "status": "running",
+        "start_time": "2025-09-02T14:57:57.234306",
+        "end_time": null,
+        "error_message": null,
+        "progress": 50,
+        "details": {}
+      },
+      {
+        "step_id": "backup",
+        "name": "백업 생성",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "html_generation",
+        "name": "HTML 리포트 생성",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "branch_switch",
+        "name": "브랜치 전환",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "merge_changes",
+        "name": "변경사항 병합",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "commit_changes",
+        "name": "변경사항 커밋",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "push_remote",
+        "name": "원격 저장소 푸시",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "verify_pages",
+        "name": "GitHub Pages 확인",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "send_notification",
+        "name": "알림 전송",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      },
+      {
+        "step_id": "cleanup",
+        "name": "정리 작업",
+        "status": "pending",
+        "start_time": null,
+        "end_time": null,
+        "error_message": null,
+        "progress": 0,
+        "details": {}
+      }
+    ],
+    "total_progress": 0,
+    "success_count": 0,
+    "failure_count": 0,
+    "rollback_available": false,
+    "rollback_data": null,
+    "error_message": null
+  }
+}
