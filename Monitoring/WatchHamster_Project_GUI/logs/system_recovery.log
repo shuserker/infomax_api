@@ -1,0 +1,92 @@
+[2025-10-01 14:07:58] [INFO] 🔧 시스템 복구 핸들러 초기화 완료
+[2025-10-01 14:07:58] [INFO] 🔧 복구 액션 시작: github_pages_monitor - verify_pages
+[2025-10-01 14:07:58] [INFO] 🌐 GitHub Pages 검증 시작
+[2025-10-01 14:07:59] [WARNING] ⚠️ GitHub Pages 접근 실패: https://username.github.io/repository - HTTP 404
+[2025-10-01 14:07:59] [ERROR] ❌ 복구 액션 실패: github_pages_monitor - verify_pages
+[2025-10-01 14:07:59] [INFO] 🔧 복구 액션 시작: git_deployment - reset_branch
+[2025-10-01 14:07:59] [INFO] 🔄 Git 브랜치 리셋 시작
+[2025-10-01 14:07:59] [INFO] 📍 현재 브랜치: main
+[2025-10-01 14:07:59] [INFO] ✅ Git 브랜치 리셋 성공
+[2025-10-01 14:07:59] [INFO] ✅ 복구 액션 성공: git_deployment - reset_branch
+[2025-10-01 14:07:59] [INFO] 🔧 복구 액션 시작: message_system - reset_templates
+[2025-10-01 14:07:59] [INFO] 🔄 메시지 템플릿 리셋 시작
+[2025-10-01 14:07:59] [INFO] 💾 기존 템플릿 백업: D:\DEV\GIT_DEV\infomax_api\Monitoring\WatchHamster_Project_GUI\config\message_templates.json.backup_20251001_140759
+[2025-10-01 14:07:59] [INFO] ✅ 메시지 템플릿 리셋 완료
+[2025-10-01 14:07:59] [INFO] ✅ 복구 액션 성공: message_system - reset_templates
+[2025-10-01 14:07:59] [INFO] 🔧 복구 액션 시작: webhook_integration - test_connection
+[2025-10-01 14:07:59] [INFO] 🔗 웹훅 연결 테스트 시작
+[2025-10-01 14:07:59] [WARNING] ⚠️ 설정된 웹훅이 없습니다
+[2025-10-01 14:07:59] [ERROR] ❌ 복구 액션 실패: webhook_integration - test_connection
+[2025-10-01 14:08:38] [INFO] 🔧 시스템 복구 핸들러 초기화 완료
+[2025-10-01 14:08:38] [INFO] 🔧 복구 액션 시작: github_pages_monitor - verify_pages
+[2025-10-01 14:08:38] [INFO] 🌐 GitHub Pages 검증 시작
+[2025-10-01 14:08:38] [WARNING] ⚠️ GitHub Pages 접근 실패: https://username.github.io/repository - HTTP 404
+[2025-10-01 14:08:38] [ERROR] ❌ 복구 액션 실패: github_pages_monitor - verify_pages
+[2025-10-01 14:08:38] [INFO] 🔧 복구 액션 시작: git_deployment - reset_branch
+[2025-10-01 14:08:38] [INFO] 🔄 Git 브랜치 리셋 시작
+[2025-10-01 14:08:39] [INFO] 📍 현재 브랜치: main
+[2025-10-01 14:08:39] [INFO] ✅ Git 브랜치 리셋 성공
+[2025-10-01 14:08:39] [INFO] ✅ 복구 액션 성공: git_deployment - reset_branch
+[2025-10-01 14:08:39] [INFO] 🔧 복구 액션 시작: webhook_integration - test_connection
+[2025-10-01 14:08:39] [INFO] 🔗 웹훅 연결 테스트 시작
+[2025-10-01 14:08:39] [WARNING] ⚠️ 설정된 웹훅이 없습니다
+[2025-10-01 14:08:39] [ERROR] ❌ 복구 액션 실패: webhook_integration - test_connection
+[2025-10-01 14:14:05] [INFO] 🔧 시스템 복구 핸들러 초기화 완료
+[2025-10-01 14:14:05] [INFO] 🔧 복구 액션 시작: github_pages_monitor - verify_pages
+[2025-10-01 14:14:05] [INFO] 🌐 GitHub Pages 검증 시작
+[2025-10-01 14:14:05] [WARNING] ⚠️ GitHub Pages 접근 실패: https://username.github.io/repository - HTTP 404
+[2025-10-01 14:14:05] [ERROR] ❌ 복구 액션 실패: github_pages_monitor - verify_pages
+[2025-10-01 14:14:05] [INFO] 🔧 복구 액션 시작: git_deployment - reset_branch
+[2025-10-01 14:14:05] [INFO] 🔄 Git 브랜치 리셋 시작
+[2025-10-01 14:14:05] [INFO] 📍 현재 브랜치: main
+[2025-10-01 14:14:06] [INFO] ✅ Git 브랜치 리셋 성공
+[2025-10-01 14:14:06] [INFO] ✅ 복구 액션 성공: git_deployment - reset_branch
+[2025-10-01 14:14:06] [INFO] 🔧 복구 액션 시작: webhook_integration - test_connection
+[2025-10-01 14:14:06] [INFO] 🔗 웹훅 연결 테스트 시작
+[2025-10-01 14:14:06] [WARNING] ⚠️ 설정된 웹훅이 없습니다
+[2025-10-01 14:14:06] [ERROR] ❌ 복구 액션 실패: webhook_integration - test_connection
+[2025-10-01 14:14:38] [INFO] 🔧 시스템 복구 핸들러 초기화 완료
+[2025-10-01 14:14:38] [INFO] 🔧 복구 액션 시작: github_pages_monitor - verify_pages
+[2025-10-01 14:14:38] [INFO] 🌐 GitHub Pages 검증 시작
+[2025-10-01 14:14:39] [WARNING] ⚠️ GitHub Pages 접근 실패: https://username.github.io/repository - HTTP 404
+[2025-10-01 14:14:39] [ERROR] ❌ 복구 액션 실패: github_pages_monitor - verify_pages
+[2025-10-01 14:14:39] [INFO] 🔧 복구 액션 시작: git_deployment - reset_branch
+[2025-10-01 14:14:39] [INFO] 🔄 Git 브랜치 리셋 시작
+[2025-10-01 14:14:39] [INFO] 📍 현재 브랜치: main
+[2025-10-01 14:14:39] [INFO] ✅ Git 브랜치 리셋 성공
+[2025-10-01 14:14:39] [INFO] ✅ 복구 액션 성공: git_deployment - reset_branch
+[2025-10-01 14:14:39] [INFO] 🔧 복구 액션 시작: webhook_integration - test_connection
+[2025-10-01 14:14:39] [INFO] 🔗 웹훅 연결 테스트 시작
+[2025-10-01 14:14:39] [WARNING] ⚠️ 설정된 웹훅이 없습니다
+[2025-10-01 14:14:39] [ERROR] ❌ 복구 액션 실패: webhook_integration - test_connection
+[2025-10-01 14:15:03] [INFO] 🔧 시스템 복구 핸들러 초기화 완료
+[2025-10-01 14:15:03] [INFO] 🔧 복구 액션 시작: github_pages_monitor - verify_pages
+[2025-10-01 14:15:03] [INFO] 🌐 GitHub Pages 검증 시작
+[2025-10-01 14:15:03] [WARNING] ⚠️ GitHub Pages 접근 실패: https://username.github.io/repository - HTTP 404
+[2025-10-01 14:15:03] [ERROR] ❌ 복구 액션 실패: github_pages_monitor - verify_pages
+[2025-10-01 14:15:04] [INFO] 🔧 복구 액션 시작: git_deployment - reset_branch
+[2025-10-01 14:15:04] [INFO] 🔄 Git 브랜치 리셋 시작
+[2025-10-01 14:15:04] [INFO] 📍 현재 브랜치: main
+[2025-10-01 14:15:04] [INFO] ✅ Git 브랜치 리셋 성공
+[2025-10-01 14:15:04] [INFO] ✅ 복구 액션 성공: git_deployment - reset_branch
+[2025-10-01 14:15:04] [INFO] 🔧 복구 액션 시작: webhook_integration - test_connection
+[2025-10-01 14:15:04] [INFO] 🔗 웹훅 연결 테스트 시작
+[2025-10-01 14:15:04] [WARNING] ⚠️ 설정된 웹훅이 없습니다
+[2025-10-01 14:15:04] [ERROR] ❌ 복구 액션 실패: webhook_integration - test_connection
+[2025-10-01 14:16:19] [INFO] 🔧 시스템 복구 핸들러 초기화 완료
+[2025-10-01 14:16:20] [INFO] 🔧 복구 액션 시작: github_pages_monitor - verify_pages
+[2025-10-01 14:16:20] [INFO] 🌐 GitHub Pages 검증 시작
+[2025-10-01 14:16:20] [WARNING] ⚠️ GitHub Pages 접근 실패: https://username.github.io/repository - HTTP 404
+[2025-10-01 14:16:20] [ERROR] ❌ 복구 액션 실패: github_pages_monitor - verify_pages
+[2025-10-01 14:16:20] [INFO] 🔧 복구 액션 시작: git_deployment - reset_branch
+[2025-10-01 14:16:20] [INFO] 🔄 Git 브랜치 리셋 시작
+[2025-10-01 14:16:20] [INFO] 📍 현재 브랜치: main
+[2025-10-01 14:16:20] [INFO] ✅ Git 브랜치 리셋 성공
+[2025-10-01 14:16:20] [INFO] ✅ 복구 액션 성공: git_deployment - reset_branch
+[2025-10-01 14:16:20] [INFO] 🔧 복구 액션 시작: webhook_integration - test_connection
+[2025-10-01 14:16:20] [INFO] 🔗 웹훅 연결 테스트 시작
+[2025-10-01 14:16:20] [WARNING] ⚠️ 설정된 웹훅이 없습니다
+[2025-10-01 14:16:20] [ERROR] ❌ 복구 액션 실패: webhook_integration - test_connection
+[2025-10-01 14:19:40] [INFO] 🔧 시스템 복구 핸들러 초기화 완료
+[2025-10-01 14:27:04] [INFO] 🔧 시스템 복구 핸들러 초기화 완료
+[2025-10-01 14:34:49] [INFO] 🔧 시스템 복구 핸들러 초기화 완료

@@ -1,0 +1,90 @@
+[2025-10-01 14:07:58] [INFO] 🔧 통합 상태 보고 시스템 초기화 완료 (스탠드얼론)
+[2025-10-01 14:07:58] [INFO] [INFO] deployment_monitor: 배포 모니터링 상태가 unknown에서 healthy로 변경되었습니다
+[2025-10-01 14:07:58] [INFO] [WARNING] github_pages_monitor: GitHub Pages 모니터링 상태가 unknown에서 warning로 변경되었습니다: 접근성 성공률 주의: 50.0%
+[2025-10-01 14:07:58] [INFO] 🔄 자동 복구 시도: github_pages_monitor - verify_pages
+[2025-10-01 14:07:59] [INFO] ✅ 자동 복구 성공: github_pages_monitor
+[2025-10-01 14:07:59] [INFO] [INFO] cache_monitor: 캐시 데이터 모니터링 상태가 unknown에서 healthy로 변경되었습니다
+[2025-10-01 14:07:59] [INFO] [WARNING] git_deployment: Git 배포 시스템 상태가 unknown에서 warning로 변경되었습니다: 현재 브랜치: main (publish 아님)
+[2025-10-01 14:07:59] [INFO] 🔄 자동 복구 시도: git_deployment - reset_branch
+[2025-10-01 14:07:59] [INFO] ✅ 자동 복구 성공: git_deployment
+[2025-10-01 14:07:59] [INFO] [ERROR] message_system: 메시지 시스템 상태가 unknown에서 error로 변경되었습니다: 메시지 템플릿이 없습니다
+[2025-10-01 14:07:59] [INFO] 🔄 자동 복구 시도: message_system - reset_templates
+[2025-10-01 14:07:59] [INFO] ✅ 자동 복구 성공: message_system
+[2025-10-01 14:07:59] [INFO] [WARNING] webhook_integration: 웹훅 통합 상태가 unknown에서 warning로 변경되었습니다: 설정된 웹훅이 없습니다
+[2025-10-01 14:07:59] [INFO] 🔄 자동 복구 시도: webhook_integration - test_connection
+[2025-10-01 14:07:59] [INFO] ✅ 자동 복구 성공: webhook_integration
+[2025-10-01 14:08:02] [INFO] 📊 통합 상태 모니터링 시작
+[2025-10-01 14:08:02] [INFO] [INFO] message_system: 메시지 시스템 상태가 error에서 healthy로 변경되었습니다
+[2025-10-01 14:08:38] [INFO] 🔧 통합 상태 보고 시스템 초기화 완료 (스탠드얼론)
+[2025-10-01 14:08:38] [INFO] [INFO] deployment_monitor: 배포 모니터링 상태가 unknown에서 healthy로 변경되었습니다
+[2025-10-01 14:08:38] [INFO] [WARNING] github_pages_monitor: GitHub Pages 모니터링 상태가 unknown에서 warning로 변경되었습니다: 접근성 성공률 주의: 50.0%
+[2025-10-01 14:08:38] [INFO] 🔄 자동 복구 시도: github_pages_monitor - verify_pages
+[2025-10-01 14:08:38] [INFO] ✅ 자동 복구 성공: github_pages_monitor
+[2025-10-01 14:08:38] [INFO] [INFO] cache_monitor: 캐시 데이터 모니터링 상태가 unknown에서 healthy로 변경되었습니다
+[2025-10-01 14:08:38] [INFO] [WARNING] git_deployment: Git 배포 시스템 상태가 unknown에서 warning로 변경되었습니다: 현재 브랜치: main (publish 아님)
+[2025-10-01 14:08:38] [INFO] 🔄 자동 복구 시도: git_deployment - reset_branch
+[2025-10-01 14:08:39] [INFO] ✅ 자동 복구 성공: git_deployment
+[2025-10-01 14:08:39] [INFO] [INFO] message_system: 메시지 시스템 상태가 unknown에서 healthy로 변경되었습니다
+[2025-10-01 14:08:39] [INFO] [WARNING] webhook_integration: 웹훅 통합 상태가 unknown에서 warning로 변경되었습니다: 설정된 웹훅이 없습니다
+[2025-10-01 14:08:39] [INFO] 🔄 자동 복구 시도: webhook_integration - test_connection
+[2025-10-01 14:08:39] [INFO] ✅ 자동 복구 성공: webhook_integration
+[2025-10-01 14:08:41] [INFO] 📊 통합 상태 모니터링 시작
+[2025-10-01 14:14:05] [INFO] 🔧 통합 상태 보고 시스템 초기화 완료 (스탠드얼론)
+[2025-10-01 14:14:05] [INFO] [INFO] deployment_monitor: 배포 모니터링 상태가 unknown에서 healthy로 변경되었습니다
+[2025-10-01 14:14:05] [INFO] [WARNING] github_pages_monitor: GitHub Pages 모니터링 상태가 unknown에서 warning로 변경되었습니다: 접근성 성공률 주의: 50.0%
+[2025-10-01 14:14:05] [INFO] 🔄 자동 복구 시도: github_pages_monitor - verify_pages
+[2025-10-01 14:14:05] [INFO] ✅ 자동 복구 성공: github_pages_monitor
+[2025-10-01 14:14:05] [INFO] [INFO] cache_monitor: 캐시 데이터 모니터링 상태가 unknown에서 healthy로 변경되었습니다
+[2025-10-01 14:14:05] [INFO] [WARNING] git_deployment: Git 배포 시스템 상태가 unknown에서 warning로 변경되었습니다: 현재 브랜치: main (publish 아님)
+[2025-10-01 14:14:05] [INFO] 🔄 자동 복구 시도: git_deployment - reset_branch
+[2025-10-01 14:14:06] [INFO] ✅ 자동 복구 성공: git_deployment
+[2025-10-01 14:14:06] [INFO] [INFO] message_system: 메시지 시스템 상태가 unknown에서 healthy로 변경되었습니다
+[2025-10-01 14:14:06] [INFO] [WARNING] webhook_integration: 웹훅 통합 상태가 unknown에서 warning로 변경되었습니다: 설정된 웹훅이 없습니다
+[2025-10-01 14:14:06] [INFO] 🔄 자동 복구 시도: webhook_integration - test_connection
+[2025-10-01 14:14:06] [INFO] ✅ 자동 복구 성공: webhook_integration
+[2025-10-01 14:14:11] [INFO] 📊 통합 상태 모니터링 시작
+[2025-10-01 14:14:38] [INFO] 🔧 통합 상태 보고 시스템 초기화 완료 (스탠드얼론)
+[2025-10-01 14:14:38] [INFO] [INFO] deployment_monitor: 배포 모니터링 상태가 unknown에서 healthy로 변경되었습니다
+[2025-10-01 14:14:38] [INFO] [WARNING] github_pages_monitor: GitHub Pages 모니터링 상태가 unknown에서 warning로 변경되었습니다: 접근성 성공률 주의: 50.0%
+[2025-10-01 14:14:38] [INFO] 🔄 자동 복구 시도: github_pages_monitor - verify_pages
+[2025-10-01 14:14:39] [INFO] ✅ 자동 복구 성공: github_pages_monitor
+[2025-10-01 14:14:39] [INFO] [INFO] cache_monitor: 캐시 데이터 모니터링 상태가 unknown에서 healthy로 변경되었습니다
+[2025-10-01 14:14:39] [INFO] [WARNING] git_deployment: Git 배포 시스템 상태가 unknown에서 warning로 변경되었습니다: 현재 브랜치: main (publish 아님)
+[2025-10-01 14:14:39] [INFO] 🔄 자동 복구 시도: git_deployment - reset_branch
+[2025-10-01 14:14:39] [INFO] ✅ 자동 복구 성공: git_deployment
+[2025-10-01 14:14:39] [INFO] [INFO] message_system: 메시지 시스템 상태가 unknown에서 healthy로 변경되었습니다
+[2025-10-01 14:14:39] [INFO] [WARNING] webhook_integration: 웹훅 통합 상태가 unknown에서 warning로 변경되었습니다: 설정된 웹훅이 없습니다
+[2025-10-01 14:14:39] [INFO] 🔄 자동 복구 시도: webhook_integration - test_connection
+[2025-10-01 14:14:39] [INFO] ✅ 자동 복구 성공: webhook_integration
+[2025-10-01 14:14:44] [INFO] 📊 통합 상태 모니터링 시작
+[2025-10-01 14:15:03] [INFO] 🔧 통합 상태 보고 시스템 초기화 완료 (스탠드얼론)
+[2025-10-01 14:15:03] [INFO] [INFO] deployment_monitor: 배포 모니터링 상태가 unknown에서 healthy로 변경되었습니다
+[2025-10-01 14:15:03] [INFO] [WARNING] github_pages_monitor: GitHub Pages 모니터링 상태가 unknown에서 warning로 변경되었습니다: 접근성 성공률 주의: 50.0%
+[2025-10-01 14:15:03] [INFO] 🔄 자동 복구 시도: github_pages_monitor - verify_pages
+[2025-10-01 14:15:03] [INFO] ✅ 자동 복구 성공: github_pages_monitor
+[2025-10-01 14:15:03] [INFO] [INFO] cache_monitor: 캐시 데이터 모니터링 상태가 unknown에서 healthy로 변경되었습니다
+[2025-10-01 14:15:03] [INFO] [WARNING] git_deployment: Git 배포 시스템 상태가 unknown에서 warning로 변경되었습니다: 현재 브랜치: main (publish 아님)
+[2025-10-01 14:15:04] [INFO] 🔄 자동 복구 시도: git_deployment - reset_branch
+[2025-10-01 14:15:04] [INFO] ✅ 자동 복구 성공: git_deployment
+[2025-10-01 14:15:04] [INFO] [INFO] message_system: 메시지 시스템 상태가 unknown에서 healthy로 변경되었습니다
+[2025-10-01 14:15:04] [INFO] [WARNING] webhook_integration: 웹훅 통합 상태가 unknown에서 warning로 변경되었습니다: 설정된 웹훅이 없습니다
+[2025-10-01 14:15:04] [INFO] 🔄 자동 복구 시도: webhook_integration - test_connection
+[2025-10-01 14:15:04] [INFO] ✅ 자동 복구 성공: webhook_integration
+[2025-10-01 14:15:09] [INFO] 📊 통합 상태 모니터링 시작
+[2025-10-01 14:16:19] [INFO] 🔧 통합 상태 보고 시스템 초기화 완료 (스탠드얼론)
+[2025-10-01 14:16:20] [INFO] [INFO] deployment_monitor: 배포 모니터링 상태가 unknown에서 healthy로 변경되었습니다
+[2025-10-01 14:16:20] [INFO] [WARNING] github_pages_monitor: GitHub Pages 모니터링 상태가 unknown에서 warning로 변경되었습니다: 접근성 성공률 주의: 50.0%
+[2025-10-01 14:16:20] [INFO] 🔄 자동 복구 시도: github_pages_monitor - verify_pages
+[2025-10-01 14:16:20] [INFO] ✅ 자동 복구 성공: github_pages_monitor
+[2025-10-01 14:16:20] [INFO] [INFO] cache_monitor: 캐시 데이터 모니터링 상태가 unknown에서 healthy로 변경되었습니다
+[2025-10-01 14:16:20] [INFO] [WARNING] git_deployment: Git 배포 시스템 상태가 unknown에서 warning로 변경되었습니다: 현재 브랜치: main (publish 아님)
+[2025-10-01 14:16:20] [INFO] 🔄 자동 복구 시도: git_deployment - reset_branch
+[2025-10-01 14:16:20] [INFO] ✅ 자동 복구 성공: git_deployment
+[2025-10-01 14:16:20] [INFO] [INFO] message_system: 메시지 시스템 상태가 unknown에서 healthy로 변경되었습니다
+[2025-10-01 14:16:20] [INFO] [WARNING] webhook_integration: 웹훅 통합 상태가 unknown에서 warning로 변경되었습니다: 설정된 웹훅이 없습니다
+[2025-10-01 14:16:20] [INFO] 🔄 자동 복구 시도: webhook_integration - test_connection
+[2025-10-01 14:16:20] [INFO] ✅ 자동 복구 성공: webhook_integration
+[2025-10-01 14:16:26] [INFO] 📊 통합 상태 모니터링 시작
+[2025-10-01 14:19:40] [INFO] 🔧 통합 상태 보고 시스템 초기화 완료 (스탠드얼론)
+[2025-10-01 14:27:04] [INFO] 🔧 통합 상태 보고 시스템 초기화 완료 (스탠드얼론)
+[2025-10-01 14:34:49] [INFO] 🔧 통합 상태 보고 시스템 초기화 완료 (스탠드얼론)

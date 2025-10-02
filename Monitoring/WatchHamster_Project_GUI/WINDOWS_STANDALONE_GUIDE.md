@@ -34,7 +34,7 @@ python.exe main_gui.py
 ```
 
 ### CMD 실행
-```cmd
+```cmd`
 REM CMD에서 실행
 cd Monitoring\WatchHamster_Project_GUI
 python.exe main_gui.py
@@ -157,6 +157,17 @@ exec(open('main_gui.py').read())
 
 ## 🛠️ 윈도우 문제 해결
 
+### 중복 실행 방지 (NEW!)
+```cmd
+REM 이미 실행 중인 경우 자동으로 기존 창 표시
+python main_gui.py
+
+REM 강제로 새 인스턴스 시작 (권장하지 않음)
+REM 기존 프로세스를 먼저 종료하세요
+```
+
+**⚠️ 중요**: WatchHamster는 중복 실행을 방지합니다. 이미 실행 중인 경우 기존 창이 표시됩니다.
+
 ### tkinter 문제 해결
 ```cmd
 REM Python 재설치 (Microsoft Store 버전 권장)
@@ -175,6 +186,15 @@ powershell -Command "Start-Process python -ArgumentList 'main_gui.py' -Verb RunA
 ```cmd
 REM 절대 경로로 실행
 python "C:\full\path\to\WatchHamster_Project_GUI\main_gui.py"
+```
+
+### 창이 2개 열리는 문제 해결
+```cmd
+REM 1. 모든 WatchHamster 프로세스 종료
+taskkill /f /im python.exe /fi "WINDOWTITLE eq *WatchHamster*"
+
+REM 2. 단일 인스턴스로 재시작
+python main_gui.py
 ```
 
 ---
@@ -252,8 +272,11 @@ python core\performance_optimizer.py
 - ✅ 모든 기능 완전 독립
 - ✅ 윈도우 네이티브 지원
 - ✅ GUI + 백엔드 모두 지원
+- ✅ **중복 실행 방지 시스템** (NEW!)
 
 **지금 바로 실행해보세요!**
 ```cmd
 python main_gui.py
 ```
+
+**🚫 중복 실행 방지**: 이미 실행 중인 경우 기존 창이 자동으로 표시됩니다!

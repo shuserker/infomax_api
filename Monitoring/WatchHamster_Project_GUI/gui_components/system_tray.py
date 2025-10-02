@@ -290,29 +290,25 @@ class SystemTray:
         messagebox.showinfo("시스템 상태", status_text)
         
     def show_main_gui(self):
-        """메인 GUI 표시"""
-        if self.main_app and hasattr(self.main_app, 'show'):
-            self.main_app.show()
-        else:
-            # 메인 GUI 모듈 동적 임포트
+        """메인 GUI 표시 - 중복 실행 방지"""
+        if self.main_app and hasattr(self.main_app, 'root'):
             try:
-                import sys
-                import os
-                
-                # 현재 디렉토리를 sys.path에 추가
-                current_dir = os.path.dirname(os.path.dirname(__file__))
-                if current_dir not in sys.path:
-                    sys.path.insert(0, current_dir)
-                    
-                from main_gui import WatchHamsterGUI
-                
-                # 새 GUI 인스턴스 생성
-                root = tk.Tk()
-                app = WatchHamsterGUI(root)
-                root.mainloop()
-                
-            except Exception as e:
-                messagebox.showerror("오류", f"메인 GUI 실행 실패: {str(e)}")
+                # 기존 GUI가 있으면 표시
+                if self.main_app.root.winfo_exists():
+                    self.main_app.root.deiconify()
+                    self.main_app.root.lift()
+                    self.main_app.root.focus_force()
+                    return
+            except tk.TclError:
+                pass
+        
+        # 기존 GUI가 없거나 응답하지 않으면 경고 메시지만 표시
+        messagebox.showwarning(
+            "GUI 표시", 
+            "메인 GUI가 이미 실행 중이거나 응답하지 않습니다.\n\n"
+            "새 인스턴스를 시작하려면 기존 프로세스를 종료한 후\n"
+            "main_gui.py를 직접 실행해주세요."
+        )
                 
     def show_log_viewer(self):
         """로그 뷰어 표시"""
@@ -596,22 +592,11 @@ class SystemTray:
             return False
     
     def restart_main_gui(self) -> bool:
-        """메인 GUI 재시작"""
+        """메인 GUI 재시작 - 중복 실행 방지"""
         try:
-            # 새 스레드에서 GUI 시작
-            def start_new_gui():
-                try:
-                    from main_gui import MainGUI
-                    new_app = MainGUI()
-                    self.main_app = new_app
-                    new_app.run()
-                except Exception as e:
-                    print(f"❌ 새 GUI 시작 실패: {e}")
-            
-            gui_thread = threading.Thread(target=start_new_gui, daemon=True)
-            gui_thread.start()
-            
-            return True
+            print("⚠️ GUI 자동 재시작은 중복 실행 방지를 위해 비활성화되었습니다.")
+            print("수동으로 main_gui.py를 실행해주세요.")
+            return False
             
         except Exception as e:
             print(f"❌ 메인 GUI 재시작 실패: {e}")

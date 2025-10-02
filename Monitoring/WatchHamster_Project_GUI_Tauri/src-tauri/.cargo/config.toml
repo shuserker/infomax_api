@@ -1,0 +1,80 @@
+[build]
+# 빌드 최적화 설정
+rustflags = ["-C", "target-cpu=native"]
+
+[target.x86_64-apple-darwin]
+# macOS 특정 설정
+rustflags = ["-C", "link-arg=-Wl,-rpath,@loader_path"]
+
+[target.x86_64-unknown-linux-gnu]
+# Linux 특정 설정
+rustflags = ["-C", "link-arg=-Wl,-rpath,$ORIGIN"]
+
+[env]
+# 테스트 환경 변수
+RUST_LOG = "debug"
+RUST_BACKTRACE = "1"
+
+# Tauri 개발 환경 변수
+TAURI_DEV = "true"
+
+[alias]
+# 유용한 Cargo 별칭들
+test-all = "test --all-targets --all-features"
+test-unit = "test --lib"
+test-integration = "test --test integration_tests"
+test-doc = "test --doc"
+bench-all = "bench --all-targets"
+check-format = "fmt --check"
+check-clippy = "clippy --all-targets --all-features -- -D warnings"
+build-release = "build --release"
+clean-all = "clean"
+
+# 테스트 관련 별칭
+quick-test = ["check", "test --lib"]
+full-test = ["fmt --check", "clippy --all-targets --all-features -- -D warnings", "test --all-targets"]
+
+[profile.test]
+# 테스트 프로파일 최적화
+opt-level = 1
+debug = true
+debug-assertions = true
+overflow-checks = true
+lto = false
+panic = 'unwind'
+incremental = true
+codegen-units = 256
+
+[profile.bench]
+# 벤치마크 프로파일 최적화
+opt-level = 3
+debug = false
+debug-assertions = false
+overflow-checks = false
+lto = true
+panic = 'abort'
+incremental = false
+codegen-units = 1
+
+[profile.dev]
+# 개발 프로파일
+opt-level = 0
+debug = true
+debug-assertions = true
+overflow-checks = true
+lto = false
+panic = 'unwind'
+incremental = true
+codegen-units = 256
+
+[profile.release]
+# 릴리스 프로파일
+opt-level = 3
+debug = false
+debug-assertions = false
+overflow-checks = false
+lto = true
+panic = 'abort'
+incremental = false
+codegen-units = 1
+strip = true

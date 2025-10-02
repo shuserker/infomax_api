@@ -1,20 +1,20 @@
 {
-  "deployment_success": {
-    "title": "🏭 POSCO 통합 분석 시스템 - 리포트 업데이트 완료",
-    "body": "\n✅ **배포 성공 알림**\n\n**POSCO 통합 분석 시스템**에서 최신 분석 리포트가 성공적으로 업데이트되었습니다.\n\n📊 **업데이트 정보**\n• 배포 ID: `{deployment_id}`\n• 완료 시간: {completion_time}\n• 처리 단계: {steps_completed}단계 완료\n• 소요 시간: {duration}\n\n🌐 **접속 정보**\n• 리포트 URL: {report_url}\n• 상태: {status_message}\n\nℹ️ **주요 내용**\n{content_summary}\n\n---\n*본 메시지는 POSCO 통합 분석 시스템에서 자동 생성되었습니다.*\n",
-    "priority": "normal",
-    "color": "#28a745"
+  "templates": {
+    "deployment_success": {
+      "title": "POSCO 뉴스 배포 완료",
+      "message": "POSCO 뉴스 시스템이 성공적으로 배포되었습니다.",
+      "color": "good"
+    },
+    "deployment_failure": {
+      "title": "POSCO 뉴스 배포 실패",
+      "message": "POSCO 뉴스 시스템 배포 중 오류가 발생했습니다.",
+      "color": "danger"
+    },
+    "system_alert": {
+      "title": "시스템 알림",
+      "message": "POSCO 뉴스 시스템에서 알림이 발생했습니다.",
+      "color": "warning"
+    }
   },
-  "deployment_failure": {
-    "title": "🏭 POSCO 통합 분석 시스템 - 배포 실패 알림",
-    "body": "\n❌ **배포 실패 알림**\n\n**POSCO 통합 분석 시스템**에서 리포트 배포 중 문제가 발생했습니다.\n\n📊 **실패 정보**\n• 배포 ID: `{deployment_id}`\n• 실패 시간: {failure_time}\n• 오류 단계: {failed_step}\n• 롤백 상태: {rollback_status}\n\n⚠️ **오류 내용**\n```\n{error_message}\n```\n\nℹ️ **조치 사항**\n• 시스템 관리자가 자동으로 알림을 받았습니다\n• 문제 해결 후 자동으로 재배포됩니다\n• 긴급한 경우 시스템 관리자에게 연락하세요\n\n---\n*본 메시지는 POSCO 통합 분석 시스템에서 자동 생성되었습니다.*\n",
-    "priority": "high",
-    "color": "#dc3545"
-  },
-  "data_update": {
-    "title": "🏭 POSCO 시장 데이터 업데이트 알림 ({data_freshness})",
-    "body": "\n📊 **실시간 시장 데이터 업데이트**\n\n**POSCO 통합 분석 시스템**에서 최신 시장 데이터가 업데이트되었습니다.\n\nℹ️ **주요 지표 현황**\n• **KOSPI 지수**: {kospi} ({kospi_change_percent}) - {kospi_trend}\n• **환율 (USD/KRW)**: {exchange_rate} ({exchange_change_percent}) - {exchange_trend}\n• **POSCO 주가**: {posco_stock} ({posco_change_percent}) - {posco_trend}\n• **시장 감정**: {news_sentiment} (뉴스 {news_count}건 분석)\n\n📊 **시장 분석 요약**\n{market_summary}\n\n⏰ **데이터 품질 정보**\n• 전체 신뢰도: {data_reliability} ({overall_quality:.1%})\n• 데이터 신선도: {data_freshness}\n• 신뢰도 지표: {reliability_indicator}\n\n{quality_warning}\n\n🌐 **상세 분석**\n전체 분석 리포트는 {report_url}에서 확인하실 수 있습니다.\n\n---\n*본 메시지는 POSCO 통합 분석 시스템에서 실시간 데이터를 기반으로 자동 생성되었습니다.*\n",
-    "priority": "normal",
-    "color": "#007bff"
-  }
+  "last_updated": "2025-10-01T14:07:59.880260"
 }

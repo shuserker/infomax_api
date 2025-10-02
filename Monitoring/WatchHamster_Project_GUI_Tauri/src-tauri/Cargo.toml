@@ -1,0 +1,84 @@
+[package]
+name = "watchhamster-tauri"
+version = "1.0.0"
+description = "WatchHamster GUI 시스템의 현대적인 Tauri 버전"
+authors = ["POSCO WatchHamster Team"]
+license = "MIT"
+repository = ""
+default-run = "watchhamster-tauri"
+edition = "2021"
+rust-version = "1.70"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[build-dependencies]
+tauri-build = { version = "1.5.0", features = [] }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+tauri = { version = "1.5.4", features = [
+  "test",
+  "shell-sidecar",
+  "fs-copy-file", 
+  "fs-create-dir",
+  "fs-exists", 
+  "fs-read-dir", 
+  "fs-read-file", 
+  "fs-remove-dir", 
+  "fs-remove-file", 
+  "fs-rename-file", 
+  "fs-write-file", 
+  "global-shortcut-all", 
+  "notification-all", 
+  "os-all", 
+  "path-all", 
+  "process-exit", 
+  "process-relaunch", 
+  "protocol-asset", 
+  "shell-open", 
+  "system-tray",
+  "window-close", 
+  "window-hide", 
+  "window-maximize", 
+  "window-minimize", 
+  "window-set-always-on-top", 
+  "window-set-decorations", 
+  "window-set-focus", 
+  "window-set-fullscreen", 
+  "window-set-max-size", 
+  "window-set-min-size", 
+  "window-set-position", 
+  "window-set-resizable", 
+  "window-set-size", 
+  "window-set-skip-taskbar", 
+  "window-set-title", 
+  "window-show", 
+  "window-start-dragging", 
+  "window-unmaximize", 
+  "window-unminimize"
+] }
+tokio = { version = "1.0", features = ["full"] }
+anyhow = "1.0"
+log = "0.4"
+env_logger = "0.10"
+reqwest = { version = "0.11", features = ["json"] }
+gethostname = "0.4"
+dirs = "5.0"
+
+[dev-dependencies]
+tokio-test = "0.4"
+tempfile = "3.8"
+mockall = "0.12"
+criterion = { version = "0.5", features = ["html_reports", "async_tokio"] }
+futures = "0.3"
+
+[[bench]]
+name = "performance_benchmarks"
+harness = false
+
+[features]
+# this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.
+# If you use cargo directly instead of tauri's cli you can use this feature flag to switch between tauri's `dev` and `build` modes.
+# DO NOT REMOVE!!
+custom-protocol = [ "tauri/custom-protocol" ]

@@ -17,6 +17,14 @@ import time
 current_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, current_dir)
 
+# 중복 실행 방지 시스템
+try:
+    from singleton_manager import prevent_duplicate_execution, cleanup_singleton
+    SINGLETON_AVAILABLE = True
+except ImportError:
+    SINGLETON_AVAILABLE = False
+    print("[WARNING] 중복 실행 방지 시스템을 사용할 수 없습니다")
+
 try:
     from Posco_News_Mini_Final_GUI.posco_gui_manager import PoscoGUIManager
     from core.integrated_status_reporter import create_integrated_status_reporter
@@ -821,14 +829,35 @@ Requirements: 6.1, 6.2, 5.1, 5.2, 1.2, 1.3, 3.1, 3.2, 5.4 구현"""
 
 
 def main():
-    """메인 함수"""
+    """메인 함수 - 중복 실행 방지 적용"""
     try:
+        # 중복 실행 방지 체크
+        if SINGLETON_AVAILABLE:
+            if not prevent_duplicate_execution("WatchHamster"):
+                print("[INFO] WatchHamster가 이미 실행 중입니다. 기존 창을 사용하세요.")
+                sys.exit(0)
+        
+        print("[START] WatchHamster GUI 시작 중...")
+        
         # GUI 애플리케이션 생성 및 실행
         app = MainGUI()
-        app.run()
         
+        try:
+            app.run()
+        finally:
+            # 종료 시 싱글톤 정리
+            if SINGLETON_AVAILABLE:
+                cleanup_singleton()
+        
+    except KeyboardInterrupt:
+        print("\n[INFO] 사용자에 의해 중단되었습니다.")
+        if SINGLETON_AVAILABLE:
+            cleanup_singleton()
+        sys.exit(0)
     except Exception as e:
-        print(f"❌ 애플리케이션 시작 실패: {e}")
+        print(f"[ERROR] 애플리케이션 시작 실패: {e}")
+        if SINGLETON_AVAILABLE:
+            cleanup_singleton()
         messagebox.showerror("시작 오류", f"애플리케이션을 시작할 수 없습니다:\n{e}")
         sys.exit(1)
 

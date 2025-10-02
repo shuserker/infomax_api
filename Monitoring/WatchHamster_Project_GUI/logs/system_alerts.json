@@ -1,0 +1,657 @@
+[
+  {
+    "component": "deployment_monitor",
+    "level": "info",
+    "message": "배포 모니터링 상태가 unknown에서 healthy로 변경되었습니다",
+    "timestamp": "2025-10-01T14:07:58.711250",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "healthy",
+      "component_details": {
+        "active_sessions": 0,
+        "recent_deployments": 0,
+        "total_deployments": 8
+      }
+    },
+    "auto_recovery": false,
+    "recovery_action": null
+  },
+  {
+    "component": "github_pages_monitor",
+    "level": "warning",
+    "message": "GitHub Pages 모니터링 상태가 unknown에서 warning로 변경되었습니다: 접근성 성공률 주의: 50.0%",
+    "timestamp": "2025-10-01T14:07:58.713248",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "warning",
+      "component_details": {
+        "accessibility_checks": 4,
+        "success_rate": 50.0
+      }
+    },
+    "auto_recovery": [
+      "verify_pages",
+      "restart_monitoring"
+    ],
+    "recovery_action": "verify_pages"
+  },
+  {
+    "component": "cache_monitor",
+    "level": "info",
+    "message": "캐시 데이터 모니터링 상태가 unknown에서 healthy로 변경되었습니다",
+    "timestamp": "2025-10-01T14:07:59.575348",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "healthy",
+      "component_details": {
+        "cache_age_minutes": 1.3846001307169595,
+        "data_quality": 0.8224999995937499
+      }
+    },
+    "auto_recovery": false,
+    "recovery_action": null
+  },
+  {
+    "component": "git_deployment",
+    "level": "warning",
+    "message": "Git 배포 시스템 상태가 unknown에서 warning로 변경되었습니다: 현재 브랜치: main (publish 아님)",
+    "timestamp": "2025-10-01T14:07:59.652354",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "warning",
+      "component_details": {
+        "last_deployment": "2025-10-01T14:06:36.469336",
+        "branch_status": "main"
+      }
+    },
+    "auto_recovery": [
+      "reset_branch",
+      "force_push"
+    ],
+    "recovery_action": "reset_branch"
+  },
+  {
+    "component": "message_system",
+    "level": "error",
+    "message": "메시지 시스템 상태가 unknown에서 error로 변경되었습니다: 메시지 템플릿이 없습니다",
+    "timestamp": "2025-10-01T14:07:59.876260",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "error",
+      "component_details": {
+        "templates_count": 0,
+        "last_updated": "2025-10-01T14:06:36.492335"
+      }
+    },
+    "auto_recovery": [
+      "reset_templates",
+      "test_webhook"
+    ],
+    "recovery_action": "reset_templates"
+  },
+  {
+    "component": "webhook_integration",
+    "level": "warning",
+    "message": "웹훅 통합 상태가 unknown에서 warning로 변경되었습니다: 설정된 웹훅이 없습니다",
+    "timestamp": "2025-10-01T14:07:59.883260",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "warning",
+      "component_details": {
+        "webhooks_count": 0,
+        "last_test": null
+      }
+    },
+    "auto_recovery": [
+      "test_connection",
+      "reset_config"
+    ],
+    "recovery_action": "test_connection"
+  },
+  {
+    "component": "message_system",
+    "level": "info",
+    "message": "메시지 시스템 상태가 error에서 healthy로 변경되었습니다",
+    "timestamp": "2025-10-01T14:08:02.348411",
+    "details": {
+      "old_status": "error",
+      "new_status": "healthy",
+      "component_details": {
+        "templates_count": 3,
+        "last_updated": "2025-10-01T14:07:59.882260"
+      }
+    },
+    "auto_recovery": false,
+    "recovery_action": null
+  },
+  {
+    "component": "deployment_monitor",
+    "level": "info",
+    "message": "배포 모니터링 상태가 unknown에서 healthy로 변경되었습니다",
+    "timestamp": "2025-10-01T14:08:38.464972",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "healthy",
+      "component_details": {
+        "active_sessions": 0,
+        "recent_deployments": 0,
+        "total_deployments": 8
+      }
+    },
+    "auto_recovery": false,
+    "recovery_action": null
+  },
+  {
+    "component": "github_pages_monitor",
+    "level": "warning",
+    "message": "GitHub Pages 모니터링 상태가 unknown에서 warning로 변경되었습니다: 접근성 성공률 주의: 50.0%",
+    "timestamp": "2025-10-01T14:08:38.468975",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "warning",
+      "component_details": {
+        "accessibility_checks": 4,
+        "success_rate": 50.0
+      }
+    },
+    "auto_recovery": [
+      "verify_pages",
+      "restart_monitoring"
+    ],
+    "recovery_action": "verify_pages"
+  },
+  {
+    "component": "cache_monitor",
+    "level": "info",
+    "message": "캐시 데이터 모니터링 상태가 unknown에서 healthy로 변경되었습니다",
+    "timestamp": "2025-10-01T14:08:38.918027",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "healthy",
+      "component_details": {
+        "cache_age_minutes": 2.0402614514033,
+        "data_quality": 0.8224999995937499
+      }
+    },
+    "auto_recovery": false,
+    "recovery_action": null
+  },
+  {
+    "component": "git_deployment",
+    "level": "warning",
+    "message": "Git 배포 시스템 상태가 unknown에서 warning로 변경되었습니다: 현재 브랜치: main (publish 아님)",
+    "timestamp": "2025-10-01T14:08:38.982543",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "warning",
+      "component_details": {
+        "last_deployment": "2025-10-01T14:08:04.846356",
+        "branch_status": "main"
+      }
+    },
+    "auto_recovery": [
+      "reset_branch",
+      "force_push"
+    ],
+    "recovery_action": "reset_branch"
+  },
+  {
+    "component": "message_system",
+    "level": "info",
+    "message": "메시지 시스템 상태가 unknown에서 healthy로 변경되었습니다",
+    "timestamp": "2025-10-01T14:08:39.109760",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "healthy",
+      "component_details": {
+        "templates_count": 3,
+        "last_updated": "2025-10-01T14:07:59.882260"
+      }
+    },
+    "auto_recovery": false,
+    "recovery_action": null
+  },
+  {
+    "component": "webhook_integration",
+    "level": "warning",
+    "message": "웹훅 통합 상태가 unknown에서 warning로 변경되었습니다: 설정된 웹훅이 없습니다",
+    "timestamp": "2025-10-01T14:08:39.112761",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "warning",
+      "component_details": {
+        "webhooks_count": 0,
+        "last_test": null
+      }
+    },
+    "auto_recovery": [
+      "test_connection",
+      "reset_config"
+    ],
+    "recovery_action": "test_connection"
+  },
+  {
+    "component": "deployment_monitor",
+    "level": "info",
+    "message": "배포 모니터링 상태가 unknown에서 healthy로 변경되었습니다",
+    "timestamp": "2025-10-01T14:14:05.471129",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "healthy",
+      "component_details": {
+        "active_sessions": 0,
+        "recent_deployments": 0,
+        "total_deployments": 8
+      }
+    },
+    "auto_recovery": false,
+    "recovery_action": null
+  },
+  {
+    "component": "github_pages_monitor",
+    "level": "warning",
+    "message": "GitHub Pages 모니터링 상태가 unknown에서 warning로 변경되었습니다: 접근성 성공률 주의: 50.0%",
+    "timestamp": "2025-10-01T14:14:05.474024",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "warning",
+      "component_details": {
+        "accessibility_checks": 4,
+        "success_rate": 50.0
+      }
+    },
+    "auto_recovery": [
+      "verify_pages",
+      "restart_monitoring"
+    ],
+    "recovery_action": "verify_pages"
+  },
+  {
+    "component": "cache_monitor",
+    "level": "info",
+    "message": "캐시 데이터 모니터링 상태가 unknown에서 healthy로 변경되었습니다",
+    "timestamp": "2025-10-01T14:14:05.877719",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "healthy",
+      "component_details": {
+        "cache_age_minutes": 7.4896396478017175,
+        "data_quality": 0.8224999995937499
+      }
+    },
+    "auto_recovery": false,
+    "recovery_action": null
+  },
+  {
+    "component": "git_deployment",
+    "level": "warning",
+    "message": "Git 배포 시스템 상태가 unknown에서 warning로 변경되었습니다: 현재 브랜치: main (publish 아님)",
+    "timestamp": "2025-10-01T14:14:05.931205",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "warning",
+      "component_details": {
+        "last_deployment": "2025-10-01T14:08:43.509480",
+        "branch_status": "main"
+      }
+    },
+    "auto_recovery": [
+      "reset_branch",
+      "force_push"
+    ],
+    "recovery_action": "reset_branch"
+  },
+  {
+    "component": "message_system",
+    "level": "info",
+    "message": "메시지 시스템 상태가 unknown에서 healthy로 변경되었습니다",
+    "timestamp": "2025-10-01T14:14:06.051717",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "healthy",
+      "component_details": {
+        "templates_count": 3,
+        "last_updated": "2025-10-01T14:07:59.882260"
+      }
+    },
+    "auto_recovery": false,
+    "recovery_action": null
+  },
+  {
+    "component": "webhook_integration",
+    "level": "warning",
+    "message": "웹훅 통합 상태가 unknown에서 warning로 변경되었습니다: 설정된 웹훅이 없습니다",
+    "timestamp": "2025-10-01T14:14:06.054717",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "warning",
+      "component_details": {
+        "webhooks_count": 0,
+        "last_test": null
+      }
+    },
+    "auto_recovery": [
+      "test_connection",
+      "reset_config"
+    ],
+    "recovery_action": "test_connection"
+  },
+  {
+    "component": "deployment_monitor",
+    "level": "info",
+    "message": "배포 모니터링 상태가 unknown에서 healthy로 변경되었습니다",
+    "timestamp": "2025-10-01T14:14:38.946301",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "healthy",
+      "component_details": {
+        "active_sessions": 0,
+        "recent_deployments": 0,
+        "total_deployments": 8
+      }
+    },
+    "auto_recovery": false,
+    "recovery_action": null
+  },
+  {
+    "component": "github_pages_monitor",
+    "level": "warning",
+    "message": "GitHub Pages 모니터링 상태가 unknown에서 warning로 변경되었습니다: 접근성 성공률 주의: 50.0%",
+    "timestamp": "2025-10-01T14:14:38.948301",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "warning",
+      "component_details": {
+        "accessibility_checks": 4,
+        "success_rate": 50.0
+      }
+    },
+    "auto_recovery": [
+      "verify_pages",
+      "restart_monitoring"
+    ],
+    "recovery_action": "verify_pages"
+  },
+  {
+    "component": "cache_monitor",
+    "level": "info",
+    "message": "캐시 데이터 모니터링 상태가 unknown에서 healthy로 변경되었습니다",
+    "timestamp": "2025-10-01T14:14:39.369808",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "healthy",
+      "component_details": {
+        "cache_age_minutes": 8.04784113963445,
+        "data_quality": 0.8224999995937499
+      }
+    },
+    "auto_recovery": false,
+    "recovery_action": null
+  },
+  {
+    "component": "git_deployment",
+    "level": "warning",
+    "message": "Git 배포 시스템 상태가 unknown에서 warning로 변경되었습니다: 현재 브랜치: main (publish 아님)",
+    "timestamp": "2025-10-01T14:14:39.421808",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "warning",
+      "component_details": {
+        "last_deployment": "2025-10-01T14:14:13.689527",
+        "branch_status": "main"
+      }
+    },
+    "auto_recovery": [
+      "reset_branch",
+      "force_push"
+    ],
+    "recovery_action": "reset_branch"
+  },
+  {
+    "component": "message_system",
+    "level": "info",
+    "message": "메시지 시스템 상태가 unknown에서 healthy로 변경되었습니다",
+    "timestamp": "2025-10-01T14:14:39.545195",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "healthy",
+      "component_details": {
+        "templates_count": 3,
+        "last_updated": "2025-10-01T14:07:59.882260"
+      }
+    },
+    "auto_recovery": false,
+    "recovery_action": null
+  },
+  {
+    "component": "webhook_integration",
+    "level": "warning",
+    "message": "웹훅 통합 상태가 unknown에서 warning로 변경되었습니다: 설정된 웹훅이 없습니다",
+    "timestamp": "2025-10-01T14:14:39.548193",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "warning",
+      "component_details": {
+        "webhooks_count": 0,
+        "last_test": null
+      }
+    },
+    "auto_recovery": [
+      "test_connection",
+      "reset_config"
+    ],
+    "recovery_action": "test_connection"
+  },
+  {
+    "component": "deployment_monitor",
+    "level": "info",
+    "message": "배포 모니터링 상태가 unknown에서 healthy로 변경되었습니다",
+    "timestamp": "2025-10-01T14:15:03.500628",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "healthy",
+      "component_details": {
+        "active_sessions": 0,
+        "recent_deployments": 0,
+        "total_deployments": 8
+      }
+    },
+    "auto_recovery": false,
+    "recovery_action": null
+  },
+  {
+    "component": "github_pages_monitor",
+    "level": "warning",
+    "message": "GitHub Pages 모니터링 상태가 unknown에서 warning로 변경되었습니다: 접근성 성공률 주의: 50.0%",
+    "timestamp": "2025-10-01T14:15:03.503628",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "warning",
+      "component_details": {
+        "accessibility_checks": 4,
+        "success_rate": 50.0
+      }
+    },
+    "auto_recovery": [
+      "verify_pages",
+      "restart_monitoring"
+    ],
+    "recovery_action": "verify_pages"
+  },
+  {
+    "component": "cache_monitor",
+    "level": "info",
+    "message": "캐시 데이터 모니터링 상태가 unknown에서 healthy로 변경되었습니다",
+    "timestamp": "2025-10-01T14:15:03.943692",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "healthy",
+      "component_details": {
+        "cache_age_minutes": 8.457405877113342,
+        "data_quality": 0.8224999995937499
+      }
+    },
+    "auto_recovery": false,
+    "recovery_action": null
+  },
+  {
+    "component": "git_deployment",
+    "level": "warning",
+    "message": "Git 배포 시스템 상태가 unknown에서 warning로 변경되었습니다: 현재 브랜치: main (publish 아님)",
+    "timestamp": "2025-10-01T14:15:03.996203",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "warning",
+      "component_details": {
+        "last_deployment": "2025-10-01T14:14:47.529418",
+        "branch_status": "main"
+      }
+    },
+    "auto_recovery": [
+      "reset_branch",
+      "force_push"
+    ],
+    "recovery_action": "reset_branch"
+  },
+  {
+    "component": "message_system",
+    "level": "info",
+    "message": "메시지 시스템 상태가 unknown에서 healthy로 변경되었습니다",
+    "timestamp": "2025-10-01T14:15:04.116727",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "healthy",
+      "component_details": {
+        "templates_count": 3,
+        "last_updated": "2025-10-01T14:07:59.882260"
+      }
+    },
+    "auto_recovery": false,
+    "recovery_action": null
+  },
+  {
+    "component": "webhook_integration",
+    "level": "warning",
+    "message": "웹훅 통합 상태가 unknown에서 warning로 변경되었습니다: 설정된 웹훅이 없습니다",
+    "timestamp": "2025-10-01T14:15:04.120726",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "warning",
+      "component_details": {
+        "webhooks_count": 0,
+        "last_test": null
+      }
+    },
+    "auto_recovery": [
+      "test_connection",
+      "reset_config"
+    ],
+    "recovery_action": "test_connection"
+  },
+  {
+    "component": "deployment_monitor",
+    "level": "info",
+    "message": "배포 모니터링 상태가 unknown에서 healthy로 변경되었습니다",
+    "timestamp": "2025-10-01T14:16:20.020819",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "healthy",
+      "component_details": {
+        "active_sessions": 0,
+        "recent_deployments": 0,
+        "total_deployments": 8
+      }
+    },
+    "auto_recovery": false,
+    "recovery_action": null
+  },
+  {
+    "component": "github_pages_monitor",
+    "level": "warning",
+    "message": "GitHub Pages 모니터링 상태가 unknown에서 warning로 변경되었습니다: 접근성 성공률 주의: 50.0%",
+    "timestamp": "2025-10-01T14:16:20.023819",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "warning",
+      "component_details": {
+        "accessibility_checks": 4,
+        "success_rate": 50.0
+      }
+    },
+    "auto_recovery": [
+      "verify_pages",
+      "restart_monitoring"
+    ],
+    "recovery_action": "verify_pages"
+  },
+  {
+    "component": "cache_monitor",
+    "level": "info",
+    "message": "캐시 데이터 모니터링 상태가 unknown에서 healthy로 변경되었습니다",
+    "timestamp": "2025-10-01T14:16:20.446779",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "healthy",
+      "component_details": {
+        "cache_age_minutes": 9.732440662384032,
+        "data_quality": 0.8224999995937499
+      }
+    },
+    "auto_recovery": false,
+    "recovery_action": null
+  },
+  {
+    "component": "git_deployment",
+    "level": "warning",
+    "message": "Git 배포 시스템 상태가 unknown에서 warning로 변경되었습니다: 현재 브랜치: main (publish 아님)",
+    "timestamp": "2025-10-01T14:16:20.504294",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "warning",
+      "component_details": {
+        "last_deployment": "2025-10-01T14:15:12.214895",
+        "branch_status": "main"
+      }
+    },
+    "auto_recovery": [
+      "reset_branch",
+      "force_push"
+    ],
+    "recovery_action": "reset_branch"
+  },
+  {
+    "component": "message_system",
+    "level": "info",
+    "message": "메시지 시스템 상태가 unknown에서 healthy로 변경되었습니다",
+    "timestamp": "2025-10-01T14:16:20.628810",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "healthy",
+      "component_details": {
+        "templates_count": 3,
+        "last_updated": "2025-10-01T14:07:59.882260"
+      }
+    },
+    "auto_recovery": false,
+    "recovery_action": null
+  },
+  {
+    "component": "webhook_integration",
+    "level": "warning",
+    "message": "웹훅 통합 상태가 unknown에서 warning로 변경되었습니다: 설정된 웹훅이 없습니다",
+    "timestamp": "2025-10-01T14:16:20.633809",
+    "details": {
+      "old_status": "unknown",
+      "new_status": "warning",
+      "component_details": {
+        "webhooks_count": 0,
+        "last_test": null
+      }
+    },
+    "auto_recovery": [
+      "test_connection",
+      "reset_config"
+    ],
+    "recovery_action": "test_connection"
+  }
+]
