@@ -10,7 +10,7 @@ pydantic-settings==2.1.0
 # HTTP 클라이언트
 httpx==0.25.2
 requests==2.31.0
-aiohttp==3.9.1
+aiohttp==3.9.5
 
 # 비동기 처리
 asyncio-mqtt==0.16.1
@@ -21,18 +21,18 @@ psutil==5.9.6
 py-cpuinfo==9.0.0
 
 # Git 관련 라이브러리
-GitPython==3.1.40
+GitPython==3.1.43
 dulwich==0.21.7
 
 # 로깅 및 설정
-python-multipart==0.0.6
+python-multipart==0.0.9
 python-dotenv==1.0.0
 
 # 날짜 및 시간 처리
 python-dateutil==2.8.2
 
 # JSON 처리
-orjson==3.9.10
+orjson==3.10.7
 
 # 기존 WatchHamster 의존성 (필요시)
 # 기존 프로젝트에서 사용하던 라이브러리들을 여기에 추가
