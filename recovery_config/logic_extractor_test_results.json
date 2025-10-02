@@ -1,0 +1,29 @@
+{
+  "test_timestamp": "2025-08-12T13:14:23.586968",
+  "total_tests": 4,
+  "passed_tests": 4,
+  "failed_tests": 0,
+  "success_rate": 100.0,
+  "detailed_results": [
+    {
+      "test_name": "Python AST 분석",
+      "success": true,
+      "message": "성공"
+    },
+    {
+      "test_name": "설정 추출",
+      "success": true,
+      "message": "3개 파일 처리"
+    },
+    {
+      "test_name": "의존성 분석",
+      "success": true,
+      "message": "분석 완료"
+    },
+    {
+      "test_name": "통합 로직 추출기",
+      "success": true,
+      "message": "초기화 성공"
+    }
+  ]
+}

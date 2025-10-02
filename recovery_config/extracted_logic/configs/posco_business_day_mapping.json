@@ -1,0 +1,309 @@
+{
+  "file_path": "posco_business_day_mapping.json",
+  "config_type": "json",
+  "content": {
+    "20250725": {},
+    "20250726": {
+      "newyork": {
+        "previous_date": "20250725",
+        "previous_title": "[뉴욕마켓워치] 제조업·서비스업의 불편한 괴리…달러↑주식·채권 혼조",
+        "previous_time": "2025-07-25 62603"
+      },
+      "kospi": {
+        "previous_date": "20250725",
+        "previous_title": "[증시-마감] 코스피 강보합…방미 협상단 성과에 주목",
+        "previous_time": "2025-07-25 154400"
+      },
+      "exchange": {
+        "previous_date": "20250725",
+        "previous_title": "[서환-마감] 한미 관세협상 경계감 고조…10.70원↑",
+        "previous_time": "2025-07-25 170345"
+      }
+    },
+    "20250727": {
+      "newyork": {
+        "previous_date": "20250726",
+        "previous_title": "[뉴욕마켓워치] 트럼프와 폰데어라이엔의 무역 담판…주식·채권·달러↑",
+        "previous_time": "2025-07-26 61711"
+      },
+      "kospi": {
+        "previous_date": "20250725",
+        "previous_title": "[증시-마감] 코스피 강보합…방미 협상단 성과에 주목",
+        "previous_time": "2025-07-25 154400"
+      },
+      "exchange": {
+        "previous_date": "20250725",
+        "previous_title": "[서환-마감] 한미 관세협상 경계감 고조…10.70원↑",
+        "previous_time": "2025-07-25 170345"
+      }
+    },
+    "20250728": {
+      "newyork": {
+        "previous_date": "20250726",
+        "previous_title": "[뉴욕마켓워치] 트럼프와 폰데어라이엔의 무역 담판…주식·채권·달러↑",
+        "previous_time": "2025-07-26 61711"
+      },
+      "kospi": {
+        "previous_date": "20250725",
+        "previous_title": "[증시-마감] 코스피 강보합…방미 협상단 성과에 주목",
+        "previous_time": "2025-07-25 154400"
+      },
+      "exchange": {
+        "previous_date": "20250725",
+        "previous_title": "[서환-마감] 한미 관세협상 경계감 고조…10.70원↑",
+        "previous_time": "2025-07-25 170345"
+      }
+    },
+    "20250729": {
+      "newyork": {
+        "previous_date": "20250728",
+        "previous_title": "[뉴욕마켓워치] 트럼프와 폰데어라이엔의 무역 담판…주식·채권·달러↑",
+        "previous_time": "2025-07-28 61002"
+      },
+      "kospi": {
+        "previous_date": "20250728",
+        "previous_title": "[증시-마감] '7만전자'가 끌어올린 코스피…빅이벤트 대기 속 0.4%대↑",
+        "previous_time": "2025-07-28 154319"
+      },
+      "exchange": {
+        "previous_date": "20250728",
+        "previous_title": "[서환-마감] 한미 관세협상 경계감 속 상승…4.10원↑",
+        "previous_time": "2025-07-28 164803"
+      }
+    },
+    "20250730": {
+      "newyork": {
+        "previous_date": "20250729",
+        "previous_title": "[뉴욕마켓워치] '트럼프의 승리' 달러 급등…S&P·나스닥 신기록·채권↓",
+        "previous_time": "2025-07-29 61013"
+      },
+      "kospi": {
+        "previous_date": "20250729",
+        "previous_title": "[증시-마감] 코스피 3,200 공방 끝에 3,230선 연고점…관세협상 기대",
+        "previous_time": "2025-07-29 153807"
+      },
+      "exchange": {
+        "previous_date": "20250729",
+        "previous_title": "[서환-마감] 美 유리한 무역협상 결과에 상승…9.00원↑",
+        "previous_time": "2025-07-29 163315"
+      }
+    },
+    "20250731": {
+      "newyork": {
+        "previous_date": "20250730",
+        "previous_title": "[뉴욕마켓워치] 러·우 협상 최후 통첩과 새로운 불씨…채권·달러↑주식↓",
+        "previous_time": "2025-07-30 61831"
+      },
+      "kospi": {
+        "previous_date": "20250730",
+        "previous_title": "[증시-마감] 삼성전자 훈풍에 코스피 연고점 행진…3,250선 돌파",
+        "previous_time": "2025-07-30 155137"
+      },
+      "exchange": {
+        "previous_date": "20250730",
+        "previous_title": "[서환-마감] 무역협상 앞두고 엔화 강세 연동…7.90원↓",
+        "previous_time": "2025-07-30 164445"
+      }
+    },
+    "20250801": {
+      "newyork": {
+        "previous_date": "20250731",
+        "previous_title": "[뉴욕마켓워치] 트럼프 체면 안 살려준 파월…달러↑채권↓주식 혼조",
+        "previous_time": "2025-07-31 62329"
+      },
+      "kospi": {
+        "previous_date": "20250731",
+        "previous_title": "[증시-마감] 관세 영향에 코스피 숨고르기…낭보 가득 한화그룹 '급등'",
+        "previous_time": "2025-07-31 155433"
+      },
+      "exchange": {
+        "previous_date": "20250731",
+        "previous_title": "[서환-마감] 한미 협상 타결보다 매파 FOMC…3.90원↑",
+        "previous_time": "2025-07-31 163932"
+      }
+    },
+    "20250802": {
+      "newyork": {
+        "previous_date": "20250801",
+        "previous_title": "[뉴욕마켓워치] '끈적한' PCE에 9월 인하론 꺾였다…달러↑주식↓채권 혼조",
+        "previous_time": "2025-08-01 62250"
+      },
+      "kospi": {
+        "previous_date": "20250801",
+        "previous_title": "[증시-마감] '세제개편안 쇼크'에 코스피 4% 가까이 폭락",
+        "previous_time": "2025-08-01 161456"
+      },
+      "exchange": {
+        "previous_date": "20250801",
+        "previous_title": "[서환-마감] 14.40원 급등 1,400원 위로…美금리인하 기대↓",
+        "previous_time": "2025-08-01 163303"
+      }
+    },
+    "20250803": {
+      "newyork": {
+        "previous_date": "20250802",
+        "previous_title": "[뉴욕마켓워치] 국장 해임까지 이어진 고용 쇼크…채권↑주식·달러↓",
+        "previous_time": "2025-08-02 62424"
+      },
+      "kospi": {
+        "previous_date": "20250801",
+        "previous_title": "[증시-마감] '세제개편안 쇼크'에 코스피 4% 가까이 폭락",
+        "previous_time": "2025-08-01 161456"
+      },
+      "exchange": {
+        "previous_date": "20250801",
+        "previous_title": "[서환-마감] 14.40원 급등 1,400원 위로…美금리인하 기대↓",
+        "previous_time": "2025-08-01 163303"
+      }
+    },
+    "20250804": {
+      "newyork": {
+        "previous_date": "20250802",
+        "previous_title": "[뉴욕마켓워치] 국장 해임까지 이어진 고용 쇼크…채권↑주식·달러↓",
+        "previous_time": "2025-08-02 62424"
+      },
+      "kospi": {
+        "previous_date": "20250801",
+        "previous_title": "[증시-마감] '세제개편안 쇼크'에 코스피 4% 가까이 폭락",
+        "previous_time": "2025-08-01 161456"
+      },
+      "exchange": {
+        "previous_date": "20250801",
+        "previous_title": "[서환-마감] 14.40원 급등 1,400원 위로…美금리인하 기대↓",
+        "previous_time": "2025-08-01 163303"
+      }
+    },
+    "20250805": {
+      "newyork": {
+        "previous_date": "20250804",
+        "previous_title": "[뉴욕마켓워치] 국장 해임까지 이어진 고용 쇼크…채권↑주식·달러↓",
+        "previous_time": "2025-08-04 61000"
+      },
+      "kospi": {
+        "previous_date": "20250804",
+        "previous_title": "[증시-마감] 저가매수 코스피 0.9% 상승…산업 정책 주목도↑",
+        "previous_time": "2025-08-04 154344"
+      },
+      "exchange": {
+        "previous_date": "20250804",
+        "previous_title": "[서환-마감] 美 고용 충격에 급락…16.20원↓",
+        "previous_time": "2025-08-04 162831"
+      }
+    },
+    "metadata": {
+      "watchhamster_version": "v3.0",
+      "posco_news_version": "250808",
+      "system_version": "WatchHamster_v3.0_PoscoNews_250808",
+      "last_updated": "2025-08-08T16:01:01",
+      "standardization_date": "2025-08-08",
+      "description": "POSCO System Configuration - WatchHamster_v3.0_PoscoNews_250808"
+    }
+  },
+  "variables": {
+    "20250726.newyork.previous_date": "20250725",
+    "20250726.newyork.previous_title": "[뉴욕마켓워치] 제조업·서비스업의 불편한 괴리…달러↑주식·채권 혼조",
+    "20250726.newyork.previous_time": "2025-07-25 62603",
+    "20250726.kospi.previous_date": "20250725",
+    "20250726.kospi.previous_title": "[증시-마감] 코스피 강보합…방미 협상단 성과에 주목",
+    "20250726.kospi.previous_time": "2025-07-25 154400",
+    "20250726.exchange.previous_date": "20250725",
+    "20250726.exchange.previous_title": "[서환-마감] 한미 관세협상 경계감 고조…10.70원↑",
+    "20250726.exchange.previous_time": "2025-07-25 170345",
+    "20250727.newyork.previous_date": "20250726",
+    "20250727.newyork.previous_title": "[뉴욕마켓워치] 트럼프와 폰데어라이엔의 무역 담판…주식·채권·달러↑",
+    "20250727.newyork.previous_time": "2025-07-26 61711",
+    "20250727.kospi.previous_date": "20250725",
+    "20250727.kospi.previous_title": "[증시-마감] 코스피 강보합…방미 협상단 성과에 주목",
+    "20250727.kospi.previous_time": "2025-07-25 154400",
+    "20250727.exchange.previous_date": "20250725",
+    "20250727.exchange.previous_title": "[서환-마감] 한미 관세협상 경계감 고조…10.70원↑",
+    "20250727.exchange.previous_time": "2025-07-25 170345",
+    "20250728.newyork.previous_date": "20250726",
+    "20250728.newyork.previous_title": "[뉴욕마켓워치] 트럼프와 폰데어라이엔의 무역 담판…주식·채권·달러↑",
+    "20250728.newyork.previous_time": "2025-07-26 61711",
+    "20250728.kospi.previous_date": "20250725",
+    "20250728.kospi.previous_title": "[증시-마감] 코스피 강보합…방미 협상단 성과에 주목",
+    "20250728.kospi.previous_time": "2025-07-25 154400",
+    "20250728.exchange.previous_date": "20250725",
+    "20250728.exchange.previous_title": "[서환-마감] 한미 관세협상 경계감 고조…10.70원↑",
+    "20250728.exchange.previous_time": "2025-07-25 170345",
+    "20250729.newyork.previous_date": "20250728",
+    "20250729.newyork.previous_title": "[뉴욕마켓워치] 트럼프와 폰데어라이엔의 무역 담판…주식·채권·달러↑",
+    "20250729.newyork.previous_time": "2025-07-28 61002",
+    "20250729.kospi.previous_date": "20250728",
+    "20250729.kospi.previous_title": "[증시-마감] '7만전자'가 끌어올린 코스피…빅이벤트 대기 속 0.4%대↑",
+    "20250729.kospi.previous_time": "2025-07-28 154319",
+    "20250729.exchange.previous_date": "20250728",
+    "20250729.exchange.previous_title": "[서환-마감] 한미 관세협상 경계감 속 상승…4.10원↑",
+    "20250729.exchange.previous_time": "2025-07-28 164803",
+    "20250730.newyork.previous_date": "20250729",
+    "20250730.newyork.previous_title": "[뉴욕마켓워치] '트럼프의 승리' 달러 급등…S&P·나스닥 신기록·채권↓",
+    "20250730.newyork.previous_time": "2025-07-29 61013",
+    "20250730.kospi.previous_date": "20250729",
+    "20250730.kospi.previous_title": "[증시-마감] 코스피 3,200 공방 끝에 3,230선 연고점…관세협상 기대",
+    "20250730.kospi.previous_time": "2025-07-29 153807",
+    "20250730.exchange.previous_date": "20250729",
+    "20250730.exchange.previous_title": "[서환-마감] 美 유리한 무역협상 결과에 상승…9.00원↑",
+    "20250730.exchange.previous_time": "2025-07-29 163315",
+    "20250731.newyork.previous_date": "20250730",
+    "20250731.newyork.previous_title": "[뉴욕마켓워치] 러·우 협상 최후 통첩과 새로운 불씨…채권·달러↑주식↓",
+    "20250731.newyork.previous_time": "2025-07-30 61831",
+    "20250731.kospi.previous_date": "20250730",
+    "20250731.kospi.previous_title": "[증시-마감] 삼성전자 훈풍에 코스피 연고점 행진…3,250선 돌파",
+    "20250731.kospi.previous_time": "2025-07-30 155137",
+    "20250731.exchange.previous_date": "20250730",
+    "20250731.exchange.previous_title": "[서환-마감] 무역협상 앞두고 엔화 강세 연동…7.90원↓",
+    "20250731.exchange.previous_time": "2025-07-30 164445",
+    "20250801.newyork.previous_date": "20250731",
+    "20250801.newyork.previous_title": "[뉴욕마켓워치] 트럼프 체면 안 살려준 파월…달러↑채권↓주식 혼조",
+    "20250801.newyork.previous_time": "2025-07-31 62329",
+    "20250801.kospi.previous_date": "20250731",
+    "20250801.kospi.previous_title": "[증시-마감] 관세 영향에 코스피 숨고르기…낭보 가득 한화그룹 '급등'",
+    "20250801.kospi.previous_time": "2025-07-31 155433",
+    "20250801.exchange.previous_date": "20250731",
+    "20250801.exchange.previous_title": "[서환-마감] 한미 협상 타결보다 매파 FOMC…3.90원↑",
+    "20250801.exchange.previous_time": "2025-07-31 163932",
+    "20250802.newyork.previous_date": "20250801",
+    "20250802.newyork.previous_title": "[뉴욕마켓워치] '끈적한' PCE에 9월 인하론 꺾였다…달러↑주식↓채권 혼조",
+    "20250802.newyork.previous_time": "2025-08-01 62250",
+    "20250802.kospi.previous_date": "20250801",
+    "20250802.kospi.previous_title": "[증시-마감] '세제개편안 쇼크'에 코스피 4% 가까이 폭락",
+    "20250802.kospi.previous_time": "2025-08-01 161456",
+    "20250802.exchange.previous_date": "20250801",
+    "20250802.exchange.previous_title": "[서환-마감] 14.40원 급등 1,400원 위로…美금리인하 기대↓",
+    "20250802.exchange.previous_time": "2025-08-01 163303",
+    "20250803.newyork.previous_date": "20250802",
+    "20250803.newyork.previous_title": "[뉴욕마켓워치] 국장 해임까지 이어진 고용 쇼크…채권↑주식·달러↓",
+    "20250803.newyork.previous_time": "2025-08-02 62424",
+    "20250803.kospi.previous_date": "20250801",
+    "20250803.kospi.previous_title": "[증시-마감] '세제개편안 쇼크'에 코스피 4% 가까이 폭락",
+    "20250803.kospi.previous_time": "2025-08-01 161456",
+    "20250803.exchange.previous_date": "20250801",
+    "20250803.exchange.previous_title": "[서환-마감] 14.40원 급등 1,400원 위로…美금리인하 기대↓",
+    "20250803.exchange.previous_time": "2025-08-01 163303",
+    "20250804.newyork.previous_date": "20250802",
+    "20250804.newyork.previous_title": "[뉴욕마켓워치] 국장 해임까지 이어진 고용 쇼크…채권↑주식·달러↓",
+    "20250804.newyork.previous_time": "2025-08-02 62424",
+    "20250804.kospi.previous_date": "20250801",
+    "20250804.kospi.previous_title": "[증시-마감] '세제개편안 쇼크'에 코스피 4% 가까이 폭락",
+    "20250804.kospi.previous_time": "2025-08-01 161456",
+    "20250804.exchange.previous_date": "20250801",
+    "20250804.exchange.previous_title": "[서환-마감] 14.40원 급등 1,400원 위로…美금리인하 기대↓",
+    "20250804.exchange.previous_time": "2025-08-01 163303",
+    "20250805.newyork.previous_date": "20250804",
+    "20250805.newyork.previous_title": "[뉴욕마켓워치] 국장 해임까지 이어진 고용 쇼크…채권↑주식·달러↓",
+    "20250805.newyork.previous_time": "2025-08-04 61000",
+    "20250805.kospi.previous_date": "20250804",
+    "20250805.kospi.previous_title": "[증시-마감] 저가매수 코스피 0.9% 상승…산업 정책 주목도↑",
+    "20250805.kospi.previous_time": "2025-08-04 154344",
+    "20250805.exchange.previous_date": "20250804",
+    "20250805.exchange.previous_title": "[서환-마감] 美 고용 충격에 급락…16.20원↓",
+    "20250805.exchange.previous_time": "2025-08-04 162831",
+    "metadata.watchhamster_version": "v3.0",
+    "metadata.posco_news_version": "250808",
+    "metadata.system_version": "WatchHamster_v3.0_PoscoNews_250808",
+    "metadata.last_updated": "2025-08-08T16:01:01",
+    "metadata.standardization_date": "2025-08-08",
+    "metadata.description": "POSCO System Configuration - WatchHamster_v3.0_PoscoNews_250808"
+  }
+}

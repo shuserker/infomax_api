@@ -1,6 +1,0 @@
-2025-08-08 10:42:26,038 - INFO - [MigrationReporter] - 마이그레이션 상태 보고 시스템 초기화 완료 (세션: migration_20250808_104226_31c0c748)
-2025-08-08 10:42:26,062 - INFO - [MigrationReporter] - [test] 테스트 단계 시작
-2025-08-08 10:42:27,086 - INFO - [MigrationReporter] - [test] 테스트 진행 중
-2025-08-08 10:42:28,091 - WARNING - [MigrationReporter] - [test] 테스트 경고
-2025-08-08 10:42:29,098 - INFO - [MigrationReporter] - [test] 테스트 단계 완료
-2025-08-08 10:42:29,125 - INFO - [MigrationReporter] - [session] 마이그레이션 세션 종료: test_completed

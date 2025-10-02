@@ -1,0 +1,59 @@
+{
+  "timestamp": "2025-08-16T12:53:58.529799",
+  "overall_success_rate": 100.0,
+  "category_success_rate": 100.0,
+  "passed_tests": 31,
+  "total_tests": 31,
+  "passed_categories": 8,
+  "total_categories": 8,
+  "elapsed_time": 0.24994826316833496,
+  "detailed_results": {
+    "file_structure": {
+      "watchhamster_core": true,
+      "posco_core": true,
+      "posco_scripts": true,
+      "posco_docs": true,
+      "posco_config": true,
+      "watchhamster_scripts": true,
+      "watchhamster_docs": true
+    },
+    "module_loading": {
+      "environment_setup": true,
+      "integrated_api_module": true,
+      "news_message_generator": true,
+      "webhook_sender": true,
+      "git_monitor": true,
+      "watchhamster_monitor": true
+    },
+    "configuration": {
+      "posco_config": true,
+      "legacy_preservation": true
+    },
+    "initialization": {
+      "environment_setup": true,
+      "webhook_sender": true,
+      "git_monitor": true
+    },
+    "compatibility": {
+      "simultaneous_loading": true,
+      "config_sharing": true
+    },
+    "hierarchy": {
+      "watchhamster_level": true,
+      "posco_sublevel": true,
+      "extensible_structure": true
+    },
+    "legacy_preservation": {
+      "recovery_config_preserved": true,
+      "legacy_files_preserved": true
+    },
+    "operational_readiness": {
+      "watchhamster_start_script": true,
+      "posco_test_script": true,
+      "daily_check_mac": true,
+      "daily_check_windows": true,
+      "watchhamster_docs": true,
+      "posco_docs": true
+    }
+  }
+}

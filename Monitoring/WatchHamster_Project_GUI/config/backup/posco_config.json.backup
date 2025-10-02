@@ -1,0 +1,79 @@
+{
+  "posco_system": {
+    "system_name": "POSCO 뉴스 분석 시스템",
+    "version": "1.0.0",
+    "company": "POSCO Holdings",
+    "department": "정보기술본부"
+  },
+  "data_sources": {
+    "kospi_api": {
+      "enabled": true,
+      "cache_duration": 300,
+      "retry_attempts": 3,
+      "timeout": 10
+    },
+    "exchange_api": {
+      "enabled": true,
+      "cache_duration": 300,
+      "retry_attempts": 3,
+      "timeout": 10
+    },
+    "news_api": {
+      "enabled": true,
+      "cache_duration": 600,
+      "retry_attempts": 2,
+      "timeout": 15
+    }
+  },
+  "analysis_settings": {
+    "enable_sentiment_analysis": true,
+    "enable_trend_analysis": true,
+    "enable_correlation_analysis": true,
+    "analysis_depth": "detailed",
+    "confidence_threshold": 0.7
+  },
+  "report_generation": {
+    "auto_generate": true,
+    "format": "html",
+    "include_charts": true,
+    "include_raw_data": false,
+    "template_style": "posco_corporate"
+  },
+  "business_rules": {
+    "market_hours": {
+      "start": "09:00",
+      "end": "15:30",
+      "timezone": "Asia/Seoul"
+    },
+    "alert_thresholds": {
+      "kospi_change": 2.0,
+      "exchange_rate_change": 1.5,
+      "volume_spike": 3.0
+    },
+    "data_quality": {
+      "min_data_points": 10,
+      "max_age_hours": 24,
+      "required_fields": ["price", "volume", "timestamp"]
+    }
+  },
+  "integration": {
+    "github_pages": {
+      "repository": "shuserker/infomax_api",
+      "branch": "publish",
+      "auto_deploy": true,
+      "deploy_on_change": true
+    },
+    "webhook_notifications": {
+      "enabled": true,
+      "send_on_deploy": true,
+      "send_on_error": true,
+      "send_on_data_update": false
+    }
+  },
+  "requirements_mapping": {
+    "2.1": "포스코 뉴스 형태 메시지 템플릿",
+    "2.2": "고객 친화적 메시지 변환",
+    "2.3": "실제 포스코 뉴스 형식 적용",
+    "2.4": "실시간 데이터 기반 메시지 생성"
+  }
+}

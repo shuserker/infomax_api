@@ -1,0 +1,3247 @@
+{
+  "start_time": "2025-08-15T12:32:42.508186",
+  "initial_file_count": 4763,
+  "final_file_count": 2691,
+  "removed_folders": [
+    ".aggressive_syntax_repair_backup (0.5MB)",
+    ".comprehensive_repair_backup (2.38MB)",
+    ".enhanced_repair_backups (1.63MB)",
+    ".file_reference_backup (3.45MB)",
+    ".file_renaming_backup (0.0MB)",
+    ".filename_standardization_backup (0.02MB)",
+    ".final_file_reference_cleanup_backup (0.2MB)",
+    ".final_reference_cleanup_backup (2.05MB)",
+    ".final_syntax_repair_backup (0.51MB)",
+    ".focused_file_reference_backup (0.47MB)",
+    ".indentation_backup (0.19MB)",
+    ".naming_backup (1.35MB)",
+    ".refined_file_reference_backup (2.04MB)",
+    ".repair_backups (28.72MB)",
+    ".syntax_repair_backup (0.0MB)"
+  ],
+  "removed_files": [
+    "posco_news_cache.json.backup"
+  ],
+  "renamed_files": [
+    {
+      "original": "워치햄스터_사용법.md",
+      "new": "watchhamster_사용법.md",
+      "path": "."
+    },
+    {
+      "original": "🔧POSCO_워치햄스터_문제해결_가이드.md",
+      "new": "POSCO_watchhamster_문제해결_가이드.md",
+      "path": "."
+    },
+    {
+      "original": "🐹POSCO_워치햄스터_v3_제어센터.bat",
+      "new": "POSCO_watchhamster_v3_control_center.bat",
+      "path": "."
+    },
+    {
+      "original": "🔄POSCO_워치햄스터_마이그레이션_가이드.md",
+      "new": "POSCO_watchhamster_마이그레이션_가이드.md",
+      "path": "."
+    },
+    {
+      "original": "🔍POSCO_워치햄스터_v2_전체_재검수_보고서.md",
+      "new": "POSCO_watchhamster_v2_전체_재검수_report.md",
+      "path": "."
+    },
+    {
+      "original": "🐹POSCO_워치햄스터_v3_제어센터.command",
+      "new": "POSCO_watchhamster_v3_control_center.command",
+      "path": "."
+    },
+    {
+      "original": "🚀🚀POSCO_News_250808_Direct_Start.bat",
+      "new": "POSCO_News_250808_Direct_Start.bat",
+      "path": "."
+    },
+    {
+      "original": "Mac_워치햄스터_실행_가이드_v4.md",
+      "new": "Mac_watchhamster_실행_가이드_v4.md",
+      "path": "."
+    },
+    {
+      "original": "🎨WINDOWS_TERMINAL_UPGRADE_v4.md",
+      "new": "WINDOWS_TERMINAL_UPGRADE_v4.md",
+      "path": "."
+    },
+    {
+      "original": "🔔POSCO_워치햄스터_알림시스템_가이드.md",
+      "new": "POSCO_watchhamster_notificationsystem_가이드.md",
+      "path": "."
+    },
+    {
+      "original": "POSCO_워치햄스터_웹훅_복원_작업_종합_보고서.md",
+      "new": "POSCO_watchhamster_웹훅_복원_작업_종합_report.md",
+      "path": "."
+    },
+    {
+      "original": "🛠️POSCO_워치햄스터_개발자_가이드.md",
+      "new": "POSCO_watchhamster_개발자_가이드.md",
+      "path": "."
+    },
+    {
+      "original": "🎛️POSCO_제어센터_실행.bat",
+      "new": "POSCO_control_center_실행.bat",
+      "path": "."
+    },
+    {
+      "original": "워치햄스터_시스템_재구축_완료_보고서_v4.md",
+      "new": "watchhamster_system_재구축_완료_report_v4.md",
+      "path": "."
+    },
+    {
+      "original": "POSCO_시스템_종합_트러블슈팅_가이드_v2.0.md",
+      "new": "POSCO_system_종합_트러블슈팅_가이드_v2.0.md",
+      "path": "."
+    },
+    {
+      "original": "🎛️WatchHamster_v3.0_Control_Panel.bat",
+      "new": "WatchHamster_v3.0_Control_Panel.bat",
+      "path": "."
+    },
+    {
+      "original": "🎨WINDOWS_TERMINAL_UPGRADE_v3.md",
+      "new": "WINDOWS_TERMINAL_UPGRADE_v3.md",
+      "path": "."
+    },
+    {
+      "original": "🚀🚀POSCO_News_250808_Direct_Start.sh",
+      "new": "POSCO_News_250808_Direct_Start.sh",
+      "path": "."
+    },
+    {
+      "original": "🎛️🎛️WatchHamster_v3.0_Control_Panel.command",
+      "new": "WatchHamster_v3.0_Control_Panel.command",
+      "path": "."
+    },
+    {
+      "original": "📋POSCO_워치햄스터_v2_사용자_가이드.md",
+      "new": "POSCO_watchhamster_v2_사용자_가이드.md",
+      "path": "."
+    },
+    {
+      "original": "🗂️POSCO_프로젝트_정리_가이드.md",
+      "new": "POSCO_프로젝트_정리_가이드.md",
+      "path": "."
+    },
+    {
+      "original": "POSCO_워치햄스터_알림메시지_비교분석_보고서.md",
+      "new": "POSCO_watchhamster_notification메시지_비교분석_report.md",
+      "path": "."
+    },
+    {
+      "original": "📋POSCO_워치햄스터_v2_프로젝트_완료_보고서.md",
+      "new": "POSCO_watchhamster_v2_프로젝트_완료_report.md",
+      "path": "."
+    },
+    {
+      "original": "POSCO_시스템_문서화_인덱스.md",
+      "new": "POSCO_system_문서화_인덱스.md",
+      "path": "."
+    },
+    {
+      "original": "POSCO_시스템_사용자_매뉴얼_v2.0.md",
+      "new": "POSCO_system_사용자_매뉴얼_v2.0.md",
+      "path": "."
+    },
+    {
+      "original": "🎛️POSCO_제어센터_실행_v2.sh",
+      "new": "POSCO_제어센터_실행_v2.sh",
+      "path": "."
+    },
+    {
+      "original": "POSCO_시스템_수리_완료_보고서.md",
+      "new": "POSCO_system_수리_완료_report.md",
+      "path": "."
+    },
+    {
+      "original": "🔄Git_덮어씌우기.bat",
+      "new": "Git_덮어씌우기.bat",
+      "path": "."
+    },
+    {
+      "original": "__init__.py",
+      "new": "init_.py",
+      "path": "core/monitoring/posco_core"
+    },
+    {
+      "original": "🐹워치햄스터_총괄_관리_센터.bat",
+      "new": "watchhamster_총괄_관리_센터.bat",
+      "path": "core/watchhamster"
+    },
+    {
+      "original": "🐹WatchHamster_v3.0_Integrated_Center.bat",
+      "new": "WatchHamster_v3.0_Integrated_Center.bat",
+      "path": "core/watchhamster"
+    },
+    {
+      "original": "🐹워치햄스터_총괄_관리_센터_SIMPLE.bat",
+      "new": "watchhamster_총괄_관리_센터_SIMPLE.bat",
+      "path": "core/watchhamster"
+    },
+    {
+      "original": "🐹WatchHamster_v3.0_Control_Center.bat",
+      "new": "WatchHamster_v3.0_Control_Center.bat",
+      "path": "core/watchhamster"
+    },
+    {
+      "original": "🐹POSCO_워치햄스터_v3_제어센터.bat",
+      "new": "POSCO_watchhamster_v3_control_center.bat",
+      "path": "archive/backups/core_organization_20250810_205058"
+    },
+    {
+      "original": "🐹POSCO_워치햄스터_v3_제어센터.command",
+      "new": "POSCO_watchhamster_v3_control_center.command",
+      "path": "archive/backups/core_organization_20250810_205058"
+    },
+    {
+      "original": "🔧POSCO_시스템_상태확인.bat",
+      "new": "POSCO_system_상태확인.bat",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "📋POSCO_시스템_유지보수_메뉴얼.md",
+      "new": "POSCO_system_유지보수_메뉴얼.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "📊POSCO_뉴스_알림시스템_전체구조_검수완료.md",
+      "new": "POSCO_뉴스_notificationsystem_전체구조_검수완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "🧪POSCO_테스트_실행.bat",
+      "new": "POSCO_test_실행.bat",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "🎛️POSCO_메인_시스템.bat",
+      "new": "POSCO_메인_system.bat",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "📋POSCO_시스템_정리_및_검증_완료_20250806.md",
+      "new": "POSCO_system_정리_및_검증_완료_20250806.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "🔄POSCO_Git_업데이트.bat",
+      "new": "POSCO_Git_업데이트.bat",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "🛑🛑POSCO_News_250808_Stop.bat",
+      "new": "POSCO_News_250808_Stop.bat",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "📋POSCO_로그_확인.bat",
+      "new": "POSCO_로그_확인.bat",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "🚀🚀POSCO_News_250808_Start.bat",
+      "new": "POSCO_News_250808_Start.bat",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "__init__.py",
+      "new": "init_.py",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/core"
+    },
+    {
+      "original": "__init__.py",
+      "new": "init_.py",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/utils"
+    },
+    {
+      "original": "🧠스마트_상태_판단_시스템_완료.md",
+      "new": "스마트_상태_판단_system_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "📋워치햄스터_기능_분석_및_개선안.md",
+      "new": "watchhamster_기능_분석_및_개선안.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "워치햄스터_설정_조정.md",
+      "new": "watchhamster_config_조정.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🎯BAT파일_역할분리_완료.md",
+      "new": "BAT파일_역할분리_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🕐절대시간_기준_알림_시스템_완료.md",
+      "new": "절대시간_기준_notification_system_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🔧API_상태체크_문제_해결.md",
+      "new": "API_상태체크_문제_해결.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "📊성능_최적화_보고서.md",
+      "new": "성능_최적화_report.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🔧조용한_모드_동기화_완료.md",
+      "new": "조용한_모드_동기화_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "📈증시마감_모니터링_시스템_완성.md",
+      "new": "증시마감_monitoring_system_완성.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🎉최종_완료_보고서.md",
+      "new": "최종_완료_report.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "📋POSCO_뉴스_알림시스템_구성_및_배치_완료.md",
+      "new": "POSCO_뉴스_notificationsystem_구성_및_배치_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🎛️3개뉴스_통합모니터링_완성.md",
+      "new": "3개뉴스_통합monitoring_완성.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🚀간단_사용법.md",
+      "new": "간단_사용법.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🏦서환마감_모니터링_시스템_완성.md",
+      "new": "서환마감_monitoring_system_완성.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🎯실행파일_역할분리_완료.md",
+      "new": "실행파일_역할분리_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🧹워치햄스터_2.0_시스템_정리_완료.md",
+      "new": "watchhamster_2.0_system_정리_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🏆워치햄스터_2.0_종합평가보고서.md",
+      "new": "watchhamster_2.0_종합평가report.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "📋최종_파일_구조.md",
+      "new": "최종_파일_구조.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🔄기존모니터링_최신모델_대체완료.md",
+      "new": "기존monitoring_최신모델_대체완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🌙조용한_시간대_최적화_완료.md",
+      "new": "조용한_시간대_최적화_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🌙조용한_모드_설정_완료.md",
+      "new": "조용한_모드_config_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🚀코드_최적화_완료.md",
+      "new": "코드_최적화_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🕐모든_절대시간_기준_알림_완료.md",
+      "new": "모든_절대시간_기준_notification_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "📅스케줄_설정_완료.md",
+      "new": "스케줄_config_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🛡️워치햄스터_연동_완료.md",
+      "new": "watchhamster_연동_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🔧POSCO_시스템_상태확인.bat",
+      "new": "POSCO_system_상태확인.bat",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "📋POSCO_시스템_유지보수_메뉴얼.md",
+      "new": "POSCO_system_유지보수_메뉴얼.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "📊POSCO_뉴스_알림시스템_전체구조_검수완료.md",
+      "new": "POSCO_뉴스_notificationsystem_전체구조_검수완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "🧪POSCO_테스트_실행.bat",
+      "new": "POSCO_test_실행.bat",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "🎛️POSCO_메인_시스템.bat",
+      "new": "POSCO_메인_system.bat",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "📋POSCO_시스템_정리_및_검증_완료_20250806.md",
+      "new": "POSCO_system_정리_및_검증_완료_20250806.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "🔄POSCO_Git_업데이트.bat",
+      "new": "POSCO_Git_업데이트.bat",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "🛑🛑POSCO_News_250808_Stop.bat",
+      "new": "POSCO_News_250808_Stop.bat",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "📋POSCO_로그_확인.bat",
+      "new": "POSCO_로그_확인.bat",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "🚀🚀POSCO_News_250808_Start.bat",
+      "new": "POSCO_News_250808_Start.bat",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "__init__.py",
+      "new": "init_.py",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/core"
+    },
+    {
+      "original": "__init__.py",
+      "new": "init_.py",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/utils"
+    },
+    {
+      "original": "🧠스마트_상태_판단_시스템_완료.md",
+      "new": "스마트_상태_판단_system_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "📋워치햄스터_기능_분석_및_개선안.md",
+      "new": "watchhamster_기능_분석_및_개선안.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "워치햄스터_설정_조정.md",
+      "new": "watchhamster_config_조정.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🎯BAT파일_역할분리_완료.md",
+      "new": "BAT파일_역할분리_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🕐절대시간_기준_알림_시스템_완료.md",
+      "new": "절대시간_기준_notification_system_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🔧API_상태체크_문제_해결.md",
+      "new": "API_상태체크_문제_해결.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "📊성능_최적화_보고서.md",
+      "new": "성능_최적화_report.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🔧조용한_모드_동기화_완료.md",
+      "new": "조용한_모드_동기화_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "📈증시마감_모니터링_시스템_완성.md",
+      "new": "증시마감_monitoring_system_완성.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🎉최종_완료_보고서.md",
+      "new": "최종_완료_report.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "📋POSCO_뉴스_알림시스템_구성_및_배치_완료.md",
+      "new": "POSCO_뉴스_notificationsystem_구성_및_배치_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🎛️3개뉴스_통합모니터링_완성.md",
+      "new": "3개뉴스_통합monitoring_완성.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🚀간단_사용법.md",
+      "new": "간단_사용법.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🏦서환마감_모니터링_시스템_완성.md",
+      "new": "서환마감_monitoring_system_완성.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🎯실행파일_역할분리_완료.md",
+      "new": "실행파일_역할분리_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🧹워치햄스터_2.0_시스템_정리_완료.md",
+      "new": "watchhamster_2.0_system_정리_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🏆워치햄스터_2.0_종합평가보고서.md",
+      "new": "watchhamster_2.0_종합평가report.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "📋최종_파일_구조.md",
+      "new": "최종_파일_구조.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🔄기존모니터링_최신모델_대체완료.md",
+      "new": "기존monitoring_최신모델_대체완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🌙조용한_시간대_최적화_완료.md",
+      "new": "조용한_시간대_최적화_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🌙조용한_모드_설정_완료.md",
+      "new": "조용한_모드_config_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🚀코드_최적화_완료.md",
+      "new": "코드_최적화_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🕐모든_절대시간_기준_알림_완료.md",
+      "new": "모든_절대시간_기준_notification_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "📅스케줄_설정_완료.md",
+      "new": "스케줄_config_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🛡️워치햄스터_연동_완료.md",
+      "new": "watchhamster_연동_완료.md",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "__init__.py",
+      "new": "init_.py",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core"
+    },
+    {
+      "original": "__init__.py",
+      "new": "init_.py",
+      "path": "archive/backups/core_organization_20250810_205058/Monitoring/Posco_News_mini_v2/core"
+    },
+    {
+      "original": "temp___init__.json",
+      "new": "temp_init_.json",
+      "path": "recovery_config/extracted_logic/modules"
+    },
+    {
+      "original": "🔧POSCO_시스템_상태확인.bat",
+      "new": "POSCO_system_상태확인.bat",
+      "path": "Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "📋POSCO_시스템_유지보수_메뉴얼.md",
+      "new": "POSCO_system_유지보수_메뉴얼.md",
+      "path": "Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "📊POSCO_뉴스_알림시스템_전체구조_검수완료.md",
+      "new": "POSCO_뉴스_notificationsystem_전체구조_검수완료.md",
+      "path": "Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "🧪POSCO_테스트_실행.bat",
+      "new": "POSCO_test_실행.bat",
+      "path": "Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "🎛️POSCO_메인_시스템.bat",
+      "new": "POSCO_메인_system.bat",
+      "path": "Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "📋POSCO_시스템_정리_및_검증_완료_20250806.md",
+      "new": "POSCO_system_정리_및_검증_완료_20250806.md",
+      "path": "Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "🔄POSCO_Git_업데이트.bat",
+      "new": "POSCO_Git_업데이트.bat",
+      "path": "Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "🛑🛑POSCO_News_250808_Stop.bat",
+      "new": "POSCO_News_250808_Stop.bat",
+      "path": "Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "📋POSCO_로그_확인.bat",
+      "new": "POSCO_로그_확인.bat",
+      "path": "Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "🚀🚀POSCO_News_250808_Start.bat",
+      "new": "POSCO_News_250808_Start.bat",
+      "path": "Monitoring/POSCO_News_250808"
+    },
+    {
+      "original": "__init__.py",
+      "new": "init_.py",
+      "path": "Monitoring/POSCO_News_250808/core"
+    },
+    {
+      "original": "__init__.py",
+      "new": "init_.py",
+      "path": "Monitoring/POSCO_News_250808/utils"
+    },
+    {
+      "original": "🧠스마트_상태_판단_시스템_완료.md",
+      "new": "스마트_상태_판단_system_완료.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "📋워치햄스터_기능_분석_및_개선안.md",
+      "new": "watchhamster_기능_분석_및_개선안.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "워치햄스터_설정_조정.md",
+      "new": "watchhamster_config_조정.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🎯BAT파일_역할분리_완료.md",
+      "new": "BAT파일_역할분리_완료.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🕐절대시간_기준_알림_시스템_완료.md",
+      "new": "절대시간_기준_notification_system_완료.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🔧API_상태체크_문제_해결.md",
+      "new": "API_상태체크_문제_해결.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "📊성능_최적화_보고서.md",
+      "new": "성능_최적화_report.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🔧조용한_모드_동기화_완료.md",
+      "new": "조용한_모드_동기화_완료.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "📈증시마감_모니터링_시스템_완성.md",
+      "new": "증시마감_monitoring_system_완성.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🎉최종_완료_보고서.md",
+      "new": "최종_완료_report.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "📋POSCO_뉴스_알림시스템_구성_및_배치_완료.md",
+      "new": "POSCO_뉴스_notificationsystem_구성_및_배치_완료.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🎛️3개뉴스_통합모니터링_완성.md",
+      "new": "3개뉴스_통합monitoring_완성.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🚀간단_사용법.md",
+      "new": "간단_사용법.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🏦서환마감_모니터링_시스템_완성.md",
+      "new": "서환마감_monitoring_system_완성.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🎯실행파일_역할분리_완료.md",
+      "new": "실행파일_역할분리_완료.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🧹워치햄스터_2.0_시스템_정리_완료.md",
+      "new": "watchhamster_2.0_system_정리_완료.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🏆워치햄스터_2.0_종합평가보고서.md",
+      "new": "watchhamster_2.0_종합평가report.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "📋최종_파일_구조.md",
+      "new": "최종_파일_구조.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🔄기존모니터링_최신모델_대체완료.md",
+      "new": "기존monitoring_최신모델_대체완료.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🌙조용한_시간대_최적화_완료.md",
+      "new": "조용한_시간대_최적화_완료.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🌙조용한_모드_설정_완료.md",
+      "new": "조용한_모드_config_완료.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🚀코드_최적화_완료.md",
+      "new": "코드_최적화_완료.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🕐모든_절대시간_기준_알림_완료.md",
+      "new": "모든_절대시간_기준_notification_완료.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "📅스케줄_설정_완료.md",
+      "new": "스케줄_config_완료.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🛡️워치햄스터_연동_완료.md",
+      "new": "watchhamster_연동_완료.md",
+      "path": "Monitoring/POSCO_News_250808/docs"
+    },
+    {
+      "original": "🔧POSCO_시스템_상태확인.bat",
+      "new": "POSCO_system_상태확인.bat",
+      "path": "Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "📋POSCO_시스템_유지보수_메뉴얼.md",
+      "new": "POSCO_system_유지보수_메뉴얼.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "📊POSCO_뉴스_알림시스템_전체구조_검수완료.md",
+      "new": "POSCO_뉴스_notificationsystem_전체구조_검수완료.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "🧪POSCO_테스트_실행.bat",
+      "new": "POSCO_test_실행.bat",
+      "path": "Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "🎛️POSCO_메인_시스템.bat",
+      "new": "POSCO_메인_system.bat",
+      "path": "Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "📋POSCO_시스템_정리_및_검증_완료_20250806.md",
+      "new": "POSCO_system_정리_및_검증_완료_20250806.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "🔄POSCO_Git_업데이트.bat",
+      "new": "POSCO_Git_업데이트.bat",
+      "path": "Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "🛑🛑POSCO_News_250808_Stop.bat",
+      "new": "POSCO_News_250808_Stop.bat",
+      "path": "Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "📋POSCO_로그_확인.bat",
+      "new": "POSCO_로그_확인.bat",
+      "path": "Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "🚀🚀POSCO_News_250808_Start.bat",
+      "new": "POSCO_News_250808_Start.bat",
+      "path": "Monitoring/POSCO_News_250808_Legacy"
+    },
+    {
+      "original": "__init__.py",
+      "new": "init_.py",
+      "path": "Monitoring/POSCO_News_250808_Legacy/core"
+    },
+    {
+      "original": "__init__.py",
+      "new": "init_.py",
+      "path": "Monitoring/POSCO_News_250808_Legacy/utils"
+    },
+    {
+      "original": "🧠스마트_상태_판단_시스템_완료.md",
+      "new": "스마트_상태_판단_system_완료.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "📋워치햄스터_기능_분석_및_개선안.md",
+      "new": "watchhamster_기능_분석_및_개선안.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "워치햄스터_설정_조정.md",
+      "new": "watchhamster_config_조정.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🎯BAT파일_역할분리_완료.md",
+      "new": "BAT파일_역할분리_완료.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🕐절대시간_기준_알림_시스템_완료.md",
+      "new": "절대시간_기준_notification_system_완료.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🔧API_상태체크_문제_해결.md",
+      "new": "API_상태체크_문제_해결.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "📊성능_최적화_보고서.md",
+      "new": "성능_최적화_report.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🔧조용한_모드_동기화_완료.md",
+      "new": "조용한_모드_동기화_완료.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "📈증시마감_모니터링_시스템_완성.md",
+      "new": "증시마감_monitoring_system_완성.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🎉최종_완료_보고서.md",
+      "new": "최종_완료_report.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "📋POSCO_뉴스_알림시스템_구성_및_배치_완료.md",
+      "new": "POSCO_뉴스_notificationsystem_구성_및_배치_완료.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🎛️3개뉴스_통합모니터링_완성.md",
+      "new": "3개뉴스_통합monitoring_완성.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🚀간단_사용법.md",
+      "new": "간단_사용법.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🏦서환마감_모니터링_시스템_완성.md",
+      "new": "서환마감_monitoring_system_완성.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🎯실행파일_역할분리_완료.md",
+      "new": "실행파일_역할분리_완료.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🧹워치햄스터_2.0_시스템_정리_완료.md",
+      "new": "watchhamster_2.0_system_정리_완료.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🏆워치햄스터_2.0_종합평가보고서.md",
+      "new": "watchhamster_2.0_종합평가report.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "📋최종_파일_구조.md",
+      "new": "최종_파일_구조.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🔄기존모니터링_최신모델_대체완료.md",
+      "new": "기존monitoring_최신모델_대체완료.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🌙조용한_시간대_최적화_완료.md",
+      "new": "조용한_시간대_최적화_완료.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🌙조용한_모드_설정_완료.md",
+      "new": "조용한_모드_config_완료.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🚀코드_최적화_완료.md",
+      "new": "코드_최적화_완료.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🕐모든_절대시간_기준_알림_완료.md",
+      "new": "모든_절대시간_기준_notification_완료.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "📅스케줄_설정_완료.md",
+      "new": "스케줄_config_완료.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "🛡️워치햄스터_연동_완료.md",
+      "new": "watchhamster_연동_완료.md",
+      "path": "Monitoring/POSCO_News_250808_Legacy/docs"
+    },
+    {
+      "original": "__init__.py",
+      "new": "init_.py",
+      "path": "Monitoring/WatchHamster_v3.0/core"
+    },
+    {
+      "original": "__init__.py",
+      "new": "init_.py",
+      "path": "Monitoring/Posco_News_mini_v2/core"
+    }
+  ],
+  "duplicate_files": [
+    {
+      "original": "posco_news_historical_cache.json.backup",
+      "duplicate": "posco_news_cache.json.backup",
+      "hash": "99914b932bd37a50b983c5e7c90ae93b"
+    },
+    {
+      "original": "file_renaming_simulation_report.txt",
+      "duplicate": "posco_renaming_simulation_report.txt",
+      "hash": "f0509d5d14abd37f9db998f0614d23ad"
+    },
+    {
+      "original": "webhook_message_test_results_20250811_133829.json",
+      "duplicate": "webhook_message_test_results_20250811_133800.json",
+      "hash": "210289fb340c5986f78c589480c2efa6"
+    },
+    {
+      "original": "webhook_unit_test_results_20250811_133800.json",
+      "duplicate": "webhook_unit_test_results_20250811_133829.json",
+      "hash": "eb76626e6c16d900a75c1659c5bcf45a"
+    },
+    {
+      "original": "POSCO_Naming_Migration_Documentation_Index.md",
+      "duplicate": "notification_system_recovery_report.md",
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "original": "POSCO_Naming_Migration_Documentation_Index.md",
+      "duplicate": "quality_management.log",
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "original": "webhook_unit_test_results_20250811_133800.json",
+      "duplicate": "webhook_unit_test_results_20250811_134149.json",
+      "hash": "eb76626e6c16d900a75c1659c5bcf45a"
+    },
+    {
+      "original": "webhook_unit_test_results_20250811_133800.json",
+      "duplicate": "webhook_unit_test_results_20250811_133550.json",
+      "hash": "eb76626e6c16d900a75c1659c5bcf45a"
+    },
+    {
+      "original": "POSCO_News_250808.py",
+      "duplicate": "core/POSCO_News_250808/POSCO_News_250808.py",
+      "hash": "4720ed1225232237b30e998d0a3907a8"
+    },
+    {
+      "original": "🐹POSCO_워치햄스터_v3_제어센터.bat",
+      "duplicate": "core/watchhamster/🐹POSCO_워치햄스터_v3_제어센터.bat",
+      "hash": "cd985b6a3267b89427d260a6a4b711e3"
+    },
+    {
+      "original": "🐹POSCO_워치햄스터_v3_제어센터.command",
+      "duplicate": "core/watchhamster/🐹POSCO_워치햄스터_v3_제어센터.command",
+      "hash": "1e39168677f9dacc578c8846fce4cee1"
+    },
+    {
+      "original": "🐹POSCO_워치햄스터_v3_제어센터.bat",
+      "duplicate": "archive/backups/core_organization_20250810_205058/🐹POSCO_워치햄스터_v3_제어센터.bat",
+      "hash": "cd985b6a3267b89427d260a6a4b711e3"
+    },
+    {
+      "original": "🐹POSCO_워치햄스터_v3_제어센터.command",
+      "duplicate": "archive/backups/core_organization_20250810_205058/🐹POSCO_워치햄스터_v3_제어센터.command",
+      "hash": "1e39168677f9dacc578c8846fce4cee1"
+    },
+    {
+      "original": "POSCO_News_250808.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/POSCO_News_250808.py",
+      "hash": "4720ed1225232237b30e998d0a3907a8"
+    },
+    {
+      "original": "core/monitoring/completion_notifier.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/completion_notifier.py",
+      "hash": "78c2c21d69bf6f61ad72ed31d4688079"
+    },
+    {
+      "original": "core/monitoring/posco_main_notifier.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/posco_main_notifier_minimal.py",
+      "hash": "b6964c9d91c907ad6cf738cf501a6ac1"
+    },
+    {
+      "original": "core/monitoring/realtime_news_monitor.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/realtime_news_monitor.py",
+      "hash": "2dece277239ed221e8f74fcf3e403bf0"
+    },
+    {
+      "original": "core/monitoring/posco_core/state_manager.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/core/state_manager.py",
+      "hash": "37c0bc4408bb65ca28e1f923f04021b8"
+    },
+    {
+      "original": "core/monitoring/posco_core/__init__.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/core/__init__.py",
+      "hash": "f4b9b3225755ddfb60ba46aedb024d94"
+    },
+    {
+      "original": "core/monitoring/posco_core/colorful_ui.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/core/colorful_ui.py",
+      "hash": "a0158807b328c5237c0697f15389e817"
+    },
+    {
+      "original": "core/monitoring/posco_core/process_manager.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/core/process_manager.py",
+      "hash": "b51f593dd0e65504f7625822069f23a5"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/🔧POSCO_시스템_상태확인.bat",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/🔧POSCO_시스템_상태확인.bat",
+      "hash": "6060b4f4ebe2f5c0c8ace9255c8e6aae"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/WatchHamster_v3.0_status.json",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/WatchHamster_v3.0_status.json",
+      "hash": "7fe163fd2364395db6f6f8d64a1c364b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/📋POSCO_시스템_유지보수_메뉴얼.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/📋POSCO_시스템_유지보수_메뉴얼.md",
+      "hash": "4372ccd0aff434e83f4c21df3b2fa2c6"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/WatchHamster_v3.0.log",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/WatchHamster_v3.0.log",
+      "hash": "00c928be3bab668c76a108b349ec65c8"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/report_cleanup_manager.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/report_cleanup_manager.py",
+      "hash": "abaab19197cf3077613dad4d3d00bc2f"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/integrated_report_builder.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/integrated_report_builder.py",
+      "hash": "f454b0a2fc370a28022a2d248581022b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/metadata_reset_manager.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/metadata_reset_manager.py",
+      "hash": "de698047ee1af76e1bba0ea06a372b42"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/posco_news_250808_control_center.sh",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/posco_news_250808_control_center.sh",
+      "hash": "66e24b3a6ed9fe5078539d7f2d4d74fa"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/📊POSCO_뉴스_알림시스템_전체구조_검수완료.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/📊POSCO_뉴스_알림시스템_전체구조_검수완료.md",
+      "hash": "2e668648e959eb0ff0240f6577212aab"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/🧪POSCO_테스트_실행.bat",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/🧪POSCO_테스트_실행.bat",
+      "hash": "764ca2513ad7e3a8aa791e2a4916d1da"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/requirements.txt",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/requirements.txt",
+      "hash": "37c482f10cfdf0551a2c304664e502e6"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/🎛️POSCO_메인_시스템.bat",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/🎛️POSCO_메인_시스템.bat",
+      "hash": "c8ed6f3b457bb437f87b2add5b369043"
+    },
+    {
+      "original": "core/monitoring/completion_notifier.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/completion_notifier.py",
+      "hash": "78c2c21d69bf6f61ad72ed31d4688079"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/REPORT_ACCESS_GUIDE.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/REPORT_ACCESS_GUIDE.md",
+      "hash": "d0cf73d122ee4e4ba6c31e7c38f4acd4"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/posco_news_250808_notifier.log",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/posco_news_250808_notifier.log",
+      "hash": "d568397826e99e1669745c34e40923cd"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/performance_alerts.json",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/performance_alerts.json",
+      "hash": "ab316d4c1c2cfbeb0cd5bcd227288312"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/test_watchhamster_notification.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/test_watchhamster_notification.py",
+      "hash": "5969a5f2ce9696fe3ceb9fee74d7ca85"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/historical_data_collector.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/historical_data_collector.py",
+      "hash": "e81afa13f5ebb617c0b81e03cecbe01d"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/📋POSCO_시스템_정리_및_검증_완료_20250806.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/📋POSCO_시스템_정리_및_검증_완료_20250806.md",
+      "hash": "944141ba582c2a45801542e0a3f0c40b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/README.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/README.md",
+      "hash": "39167d2ee637375b77d60b43c511801d"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/🔄POSCO_Git_업데이트.bat",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/🔄POSCO_Git_업데이트.bat",
+      "hash": "dc922c25f42243a210e82d1a307f201d"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/INTEGRATED_REPORT_SYSTEM_GUIDE.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/INTEGRATED_REPORT_SYSTEM_GUIDE.md",
+      "hash": "09297e620d0f24aedee3922a8168989b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/posco_report_system_reset.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/posco_report_system_reset.py",
+      "hash": "db5cd281515c53b866c133f9fb154159"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/🛑🛑POSCO_News_250808_Stop.bat",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/🛑🛑POSCO_News_250808_Stop.bat",
+      "hash": "60b5188b57d18cfb3a5a2c7f7c9a89f2"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/integrated_report_scheduler.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/integrated_report_scheduler.py",
+      "hash": "a24e292bc69115373f938bda78a3f149"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/modules.json",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/modules.json",
+      "hash": "fbde586927e87cf5bfb54b00aed14cd9"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/📋POSCO_로그_확인.bat",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/📋POSCO_로그_확인.bat",
+      "hash": "1dc762300922f3f5540554c78d6a850b"
+    },
+    {
+      "original": "core/monitoring/realtime_news_monitor.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/realtime_news_monitor.py",
+      "hash": "2dece277239ed221e8f74fcf3e403bf0"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/🚀🚀POSCO_News_250808_Start.bat",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/🚀🚀POSCO_News_250808_Start.bat",
+      "hash": "f04fe8d7019869828b0f509f9661979b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/posco_logo_mini.jpg",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/posco_logo_mini.jpg",
+      "hash": "415cb6d237dbb2cb2a759aae16b20014"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/github_pages_deployer.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/github_pages_deployer.py",
+      "hash": "c707a12502e00bc972223d54e2309161"
+    },
+    {
+      "original": "core/monitoring/posco_core/state_manager.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/core/state_manager.py",
+      "hash": "37c0bc4408bb65ca28e1f923f04021b8"
+    },
+    {
+      "original": "core/monitoring/posco_core/__init__.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/core/__init__.py",
+      "hash": "f4b9b3225755ddfb60ba46aedb024d94"
+    },
+    {
+      "original": "core/monitoring/posco_core/colorful_ui.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/core/colorful_ui.py",
+      "hash": "a0158807b328c5237c0697f15389e817"
+    },
+    {
+      "original": "core/monitoring/posco_core/process_manager.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/core/process_manager.py",
+      "hash": "b51f593dd0e65504f7625822069f23a5"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/utils/business_day_helper.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/utils/business_day_helper.py",
+      "hash": "80676b07f19d3e70b615a23e63283603"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/utils/__init__.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/utils/__init__.py",
+      "hash": "b612b16a3cfe1662942458a5a8b3ed5c"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🧠스마트_상태_판단_시스템_완료.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/🧠스마트_상태_판단_시스템_완료.md",
+      "hash": "6c35556faaa8c5c0e9cb5ea06fed7614"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/GITHUB_PAGES_MANUAL_SETUP.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/GITHUB_PAGES_MANUAL_SETUP.md",
+      "hash": "4d2448dc106ed5ebbb9d2dc0e8e96711"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/📋워치햄스터_기능_분석_및_개선안.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/📋워치햄스터_기능_분석_및_개선안.md",
+      "hash": "8dba40d0835b17edf133f448903355e5"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/워치햄스터_설정_조정.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/워치햄스터_설정_조정.md",
+      "hash": "198d02e08de5c1500622bf6a6a02234f"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/완전자동화_가이드.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/완전자동화_가이드.md",
+      "hash": "699bc02c491c643c9caf578afdd42ccd"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🎯BAT파일_역할분리_완료.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/🎯BAT파일_역할분리_완료.md",
+      "hash": "536fdaa2471a8e190fc4129728eeaf30"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/CLEANUP_PLAN.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/CLEANUP_PLAN.md",
+      "hash": "8667e80db1cb27667c9a11d67f9310b0"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/CLI_GUIDE.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/CLI_GUIDE.md",
+      "hash": "92b88fe842ad5e54c6eb39d1f61dcb1a"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🕐절대시간_기준_알림_시스템_완료.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/🕐절대시간_기준_알림_시스템_완료.md",
+      "hash": "73d7c8a26ae132767909ac41411f283d"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🔧API_상태체크_문제_해결.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/🔧API_상태체크_문제_해결.md",
+      "hash": "a3beef2d1a2167b05916482b59cc99ab"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/📊성능_최적화_보고서.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/📊성능_최적화_보고서.md",
+      "hash": "37bb2ca9ae7906efbf288090192a794c"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🔧조용한_모드_동기화_완료.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/🔧조용한_모드_동기화_완료.md",
+      "hash": "3e843e0de73f5558e68f78d1f8f5c206"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/📈증시마감_모니터링_시스템_완성.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/📈증시마감_모니터링_시스템_완성.md",
+      "hash": "b77800652aee27eb8abb44846886939c"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🎉최종_완료_보고서.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/🎉최종_완료_보고서.md",
+      "hash": "e2c9ab054f8d855d042dedd4e10efa41"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/📋POSCO_뉴스_알림시스템_구성_및_배치_완료.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/📋POSCO_뉴스_알림시스템_구성_및_배치_완료.md",
+      "hash": "a6344b6280cdd67bcd779fc7d70a2e72"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🎛️3개뉴스_통합모니터링_완성.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/🎛️3개뉴스_통합모니터링_완성.md",
+      "hash": "0b00fc7df178182a7dc7fbbd9942bfb8"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🚀간단_사용법.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/🚀간단_사용법.md",
+      "hash": "da34efe70446a5abc381eb8b22e64939"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🏦서환마감_모니터링_시스템_완성.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/🏦서환마감_모니터링_시스템_완성.md",
+      "hash": "488bc50ff8c61ca0d9a506ecc79f88eb"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🎯실행파일_역할분리_완료.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/🎯실행파일_역할분리_완료.md",
+      "hash": "99f603d6237864471581a3433fa981b7"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/README.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/README.md",
+      "hash": "091bba32d0ccc4c5ab688e6a224ddba0"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🧹워치햄스터_2.0_시스템_정리_완료.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/🧹워치햄스터_2.0_시스템_정리_완료.md",
+      "hash": "93cca782db0803acae46e8bc20d0d3bb"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🏆워치햄스터_2.0_종합평가보고서.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/🏆워치햄스터_2.0_종합평가보고서.md",
+      "hash": "c76bdcfecb97b5f3f7d2ec8dfb3e3f3e"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/📋최종_파일_구조.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/📋최종_파일_구조.md",
+      "hash": "5c75b1532d611d4d440f7929cdcd0460"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🔄기존모니터링_최신모델_대체완료.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/🔄기존모니터링_최신모델_대체완료.md",
+      "hash": "7fee6915bcc20ab30b07ebd0954606e1"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/reports_index.json",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/reports_index.json",
+      "hash": "3cbcd00d38a36b5ae6e52d9a5faaba04"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🌙조용한_시간대_최적화_완료.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/🌙조용한_시간대_최적화_완료.md",
+      "hash": "651e4867be3853d3a6b6d905b68923d9"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🌙조용한_모드_설정_완료.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/🌙조용한_모드_설정_완료.md",
+      "hash": "f979e0b24b9c808f39946ba7727dfc19"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🚀코드_최적화_완료.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/🚀코드_최적화_완료.md",
+      "hash": "dc0a8abbb8f52ad0dc3f348124ef8ecd"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🕐모든_절대시간_기준_알림_완료.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/🕐모든_절대시간_기준_알림_완료.md",
+      "hash": "3f52a0b8ef853bb73b355ed7a193d3ac"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/📅스케줄_설정_완료.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/📅스케줄_설정_완료.md",
+      "hash": "7ffa55c006002e4160ff93b66e62d69b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🛡️워치햄스터_연동_완료.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/docs/🛡️워치햄스터_연동_완료.md",
+      "hash": "1207795b4a386c779debcc07dc6dc3b8"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/WatchHamster_v3.0_status.json",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/WatchHamster_v3.0_status.json",
+      "hash": "0c64a000032fe40e762e53ae75f59292"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/posco_news_250808_monitor.log",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/posco_news_250808_monitor.log",
+      "hash": "04b463760359fa0d3f3a448d380ea9e5"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/WatchHamster_v3.0.log",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/WatchHamster_v3.0.log",
+      "hash": "fc3cd2de6a4490de599d7eb1e414757f"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/posco_news_250808_simple_monitor.log",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/posco_news_250808_simple_monitor.log",
+      "hash": "d729480795d7ee94bdaebad5e31db1be"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/posco_news_250808_notifier.log",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/posco_news_250808_notifier.log",
+      "hash": "74b03a066b0620942a38a77a9b9cf11a"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/posco_system_250808_status.json",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/posco_system_250808_status.json",
+      "hash": "b0a8f76493a97551cef23832405a1556"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/temp_solutions_20250806/simple_news_monitor.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/temp_solutions_20250806/simple_news_monitor.py",
+      "hash": "ba748ad0a0d3fe35cfbf11e392b89c6d"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py",
+      "hash": "c4600bf06c3fe435250e25cd8b0a47f8"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/kospi_monitor.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/disabled_monitors_20250803/kospi_monitor.py",
+      "hash": "e9bf97e8deb043a73a53de286780cf15"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/master_news_monitor.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/disabled_monitors_20250803/master_news_monitor.py",
+      "hash": "6c1dae0cb53afa94b770eb807043d107"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/exchange_monitor.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/disabled_monitors_20250803/exchange_monitor.py",
+      "hash": "235130bba784e503069faceab4a70b8e"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/base_monitor.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/disabled_monitors_20250803/base_monitor.py",
+      "hash": "8b08936dfbb5ef40cebf6b6a2729d52a"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/newyork_monitor.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/disabled_monitors_20250803/newyork_monitor.py",
+      "hash": "1c72f013eb776a8ca7eca4bc4dc21028"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/test_files/test_watchhamster.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/test_files/test_watchhamster.py",
+      "hash": "7b48fb811c8cafe52054d8264442e78e"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250806_090323.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250806_090323.html",
+      "hash": "b8e829e6cdcf755b1864b6d310c002d1"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250806_090231.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250806_090231.html",
+      "hash": "da3e9a53bbf4ee0f43c4fe6cdd3de855"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250803_112920.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250803_112920.html",
+      "hash": "df24170e37bfa0c272675530f6be39e9"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250806_090315.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250806_090315.html",
+      "hash": "e7f98253ed1e773e86fdc57cf5dccd50"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_101014.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_101014.html",
+      "hash": "14d7d75e11f99306138790a6931fd0a2"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_092322.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_092322.html",
+      "hash": "e900eb7e4a04664c4ae31464dd9e5619"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_090329.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_090329.html",
+      "hash": "666861e1092e4e18081d1e223c3cf7d7"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/metadata_manager.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/metadata_manager.py",
+      "hash": "058a119ebbeb4b7bd915e2903e3216f9"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_110936.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_110936.html",
+      "hash": "81104716fed11bd893f9bfc1974f8f54"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_093246.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_093246.html",
+      "hash": "ee92e2a69e111c55cf53d7d3679febc9"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_093753.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_093753.html",
+      "hash": "3114e506d9e74f33dedfa2180369dcba"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_105046.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_105046.html",
+      "hash": "25ab2f670605637014439e96ed51af6b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250803_114734.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250803_114734.html",
+      "hash": "7421e1775f9f10fafeb882d7a196617b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_094802.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_094802.html",
+      "hash": "d389097151de52cd781e8887a2b71288"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/report_manager.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/report_manager.py",
+      "hash": "9e689b93fcf5ebb69538452615e9ec09"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_104713.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_104713.html",
+      "hash": "40bbff105d5943560575fe554df950e7"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/integrated_report_generator.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/integrated_report_generator.py",
+      "hash": "ca1e6280050d0cecbbd27cade3b49f92"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_092439.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_092439.html",
+      "hash": "5307194d7047ef2fc5f6045c8ed3b485"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250803_180039.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250803_180039.html",
+      "hash": "83de186047dd3a1e31d11612d21c91e7"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_105449.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_105449.html",
+      "hash": "1f7a26780352d219006dee88e2c54140"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_112247.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_112247.html",
+      "hash": "01dfc580a7a1a6d236db55e5ff53c2bd"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_111543.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_111543.html",
+      "hash": "a2ba2b478f8a793b70c19f3498829158"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250806_130916.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250806_130916.html",
+      "hash": "f7836903e0ccda71bfe5ffe0eb165542"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_104146.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_104146.html",
+      "hash": "aaca0eed013df6929faa91215e15f83f"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_094256.html",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_094256.html",
+      "hash": "13485b566b343e19c8d9620e1ab34ac7"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/README.md",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/Posco_News_mini_v2/README.md",
+      "hash": "8968826498e699cbfffc35a5e02b6373"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/modules.json",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/Posco_News_mini_v2/modules.json",
+      "hash": "b3fb9269c5a5aee86c53a7bb966826f6"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/enhanced_process_manager.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/Posco_News_mini_v2/core/enhanced_process_manager.py",
+      "hash": "fd164474271faf1322a92862140255d8"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/performance_monitor.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/Posco_News_mini_v2/core/performance_monitor.py",
+      "hash": "34199df562dd9c7cdc529f462c583ada"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/__init__.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/Posco_News_mini_v2/core/__init__.py",
+      "hash": "4afb7210c66c100d886a25aff43385eb"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/module_registry.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/Posco_News_mini_v2/core/module_registry.py",
+      "hash": "0476bbeeb673ebd6958556cb376135c4"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/watchhamster_integration.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/Posco_News_mini_v2/core/watchhamster_integration.py",
+      "hash": "fba5b16af2f308996631e7112b536099"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/notification_manager.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/Posco_News_mini_v2/core/notification_manager.py",
+      "hash": "a7b9987ce8564a1a68c46a117377c950"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/performance_optimizer.py",
+      "duplicate": "archive/backups/core_organization_20250810_205058/Monitoring/Posco_News_mini_v2/core/performance_optimizer.py",
+      "hash": "11766b06033994cb2baa8e01fb524489"
+    },
+    {
+      "original": "tools/quality/system_functionality_verification.py",
+      "duplicate": "deployment_backup_20250810_185935/system_functionality_verification.py",
+      "hash": "d651f2bdaf857848cd78457344378aa2"
+    },
+    {
+      "original": "final_integration_test_system.py.backup_emergency",
+      "duplicate": "deployment_backup_20250810_185935/final_integration_test_system.py",
+      "hash": "f58022ea37af09cf52bd2b4a52a03f6c"
+    },
+    {
+      "original": "naming_convention_manager.py",
+      "duplicate": "deployment_backup_20250810_185935/naming_convention_manager.py",
+      "hash": "54dcfaa715df3d7da5a00b4506c6826e"
+    },
+    {
+      "original": "file_renaming_system.py.backup_emergency",
+      "duplicate": "deployment_backup_20250810_185935/file_renaming_system.py",
+      "hash": "4b92e4ca0b122b34a0870d231b91b8d9"
+    },
+    {
+      "original": "POSCO_News_250808.py",
+      "duplicate": "deployment_backup_20250810_185935/POSCO_News_250808.py",
+      "hash": "4720ed1225232237b30e998d0a3907a8"
+    },
+    {
+      "original": "backup_system.py",
+      "duplicate": "scripts/backup/backup_system.py",
+      "hash": "3a6f593d1af400ab6040c4ee3a3b8802"
+    },
+    {
+      "original": "POSCO_Naming_Migration_Documentation_Index.md",
+      "duplicate": ".kiro/specs/bat-modernization/design.md",
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "original": "requirements.txt",
+      "duplicate": "recovery_config/original_requirements.txt",
+      "hash": "b49cd7e52421d5c1b6c3b88ac4003647"
+    },
+    {
+      "original": ".git/ORIG_HEAD",
+      "duplicate": ".git/refs/heads/main",
+      "hash": "8caeaf691790389ebef0aa05205e9127"
+    },
+    {
+      "original": ".git/ORIG_HEAD",
+      "duplicate": ".git/refs/remotes/origin/main",
+      "hash": "8caeaf691790389ebef0aa05205e9127"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/FOLDER_STRUCTURE_GUIDE.md",
+      "duplicate": "Monitoring/FOLDER_STRUCTURE_GUIDE.md",
+      "hash": "6ea47d9313fd99697e01bc4d01cc9f5d"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/🔧POSCO_시스템_상태확인.bat",
+      "duplicate": "Monitoring/POSCO_News_250808/🔧POSCO_시스템_상태확인.bat",
+      "hash": "6060b4f4ebe2f5c0c8ace9255c8e6aae"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/WatchHamster_v3.0_status.json",
+      "duplicate": "Monitoring/POSCO_News_250808/WatchHamster_v3.0_status.json",
+      "hash": "7fe163fd2364395db6f6f8d64a1c364b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/📋POSCO_시스템_유지보수_메뉴얼.md",
+      "duplicate": "Monitoring/POSCO_News_250808/📋POSCO_시스템_유지보수_메뉴얼.md",
+      "hash": "4372ccd0aff434e83f4c21df3b2fa2c6"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/WatchHamster_v3.0.log",
+      "duplicate": "Monitoring/POSCO_News_250808/WatchHamster_v3.0.log",
+      "hash": "00c928be3bab668c76a108b349ec65c8"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/report_cleanup_manager.py",
+      "duplicate": "Monitoring/POSCO_News_250808/report_cleanup_manager.py",
+      "hash": "abaab19197cf3077613dad4d3d00bc2f"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/integrated_report_builder.py",
+      "duplicate": "Monitoring/POSCO_News_250808/integrated_report_builder.py",
+      "hash": "f454b0a2fc370a28022a2d248581022b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/metadata_reset_manager.py",
+      "duplicate": "Monitoring/POSCO_News_250808/metadata_reset_manager.py",
+      "hash": "de698047ee1af76e1bba0ea06a372b42"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/posco_news_250808_control_center.sh",
+      "duplicate": "Monitoring/POSCO_News_250808/posco_news_250808_control_center.sh",
+      "hash": "66e24b3a6ed9fe5078539d7f2d4d74fa"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/📊POSCO_뉴스_알림시스템_전체구조_검수완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808/📊POSCO_뉴스_알림시스템_전체구조_검수완료.md",
+      "hash": "2e668648e959eb0ff0240f6577212aab"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/🧪POSCO_테스트_실행.bat",
+      "duplicate": "Monitoring/POSCO_News_250808/🧪POSCO_테스트_실행.bat",
+      "hash": "764ca2513ad7e3a8aa791e2a4916d1da"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/requirements.txt",
+      "duplicate": "Monitoring/POSCO_News_250808/requirements.txt",
+      "hash": "37c482f10cfdf0551a2c304664e502e6"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/🎛️POSCO_메인_시스템.bat",
+      "duplicate": "Monitoring/POSCO_News_250808/🎛️POSCO_메인_시스템.bat",
+      "hash": "c8ed6f3b457bb437f87b2add5b369043"
+    },
+    {
+      "original": "core/monitoring/completion_notifier.py",
+      "duplicate": "Monitoring/POSCO_News_250808/completion_notifier.py",
+      "hash": "78c2c21d69bf6f61ad72ed31d4688079"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/posco_main_notifier.py",
+      "duplicate": "Monitoring/POSCO_News_250808/posco_main_notifier.py",
+      "hash": "8ab2d48ae663ecbac3e2a19f58a6398a"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/REPORT_ACCESS_GUIDE.md",
+      "duplicate": "Monitoring/POSCO_News_250808/REPORT_ACCESS_GUIDE.md",
+      "hash": "d0cf73d122ee4e4ba6c31e7c38f4acd4"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/posco_news_250808_notifier.log",
+      "duplicate": "Monitoring/POSCO_News_250808/posco_news_250808_notifier.log",
+      "hash": "d568397826e99e1669745c34e40923cd"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0_minimal.py",
+      "duplicate": "Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0_minimal.py",
+      "hash": "b0d6a60949374579d568b8bd1150ee22"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/main_notifier_state.json",
+      "duplicate": "Monitoring/POSCO_News_250808/main_notifier_state.json",
+      "hash": "e2fb3b399a3dbea2608efc48095c3fde"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/performance_alerts.json",
+      "duplicate": "Monitoring/POSCO_News_250808/performance_alerts.json",
+      "hash": "ab316d4c1c2cfbeb0cd5bcd227288312"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/main_notifier.log",
+      "duplicate": "Monitoring/POSCO_News_250808/main_notifier.log",
+      "hash": "67f9e1ebea9bb7454266c3d07a81909e"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/historical_data_collector.py",
+      "duplicate": "Monitoring/POSCO_News_250808/historical_data_collector.py",
+      "hash": "e81afa13f5ebb617c0b81e03cecbe01d"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/📋POSCO_시스템_정리_및_검증_완료_20250806.md",
+      "duplicate": "Monitoring/POSCO_News_250808/📋POSCO_시스템_정리_및_검증_완료_20250806.md",
+      "hash": "944141ba582c2a45801542e0a3f0c40b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/README.md",
+      "duplicate": "Monitoring/POSCO_News_250808/README.md",
+      "hash": "39167d2ee637375b77d60b43c511801d"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/🔄POSCO_Git_업데이트.bat",
+      "duplicate": "Monitoring/POSCO_News_250808/🔄POSCO_Git_업데이트.bat",
+      "hash": "dc922c25f42243a210e82d1a307f201d"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/INTEGRATED_REPORT_SYSTEM_GUIDE.md",
+      "duplicate": "Monitoring/POSCO_News_250808/INTEGRATED_REPORT_SYSTEM_GUIDE.md",
+      "hash": "09297e620d0f24aedee3922a8168989b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/posco_report_system_reset.py",
+      "duplicate": "Monitoring/POSCO_News_250808/posco_report_system_reset.py",
+      "hash": "db5cd281515c53b866c133f9fb154159"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/🛑🛑POSCO_News_250808_Stop.bat",
+      "duplicate": "Monitoring/POSCO_News_250808/🛑🛑POSCO_News_250808_Stop.bat",
+      "hash": "60b5188b57d18cfb3a5a2c7f7c9a89f2"
+    },
+    {
+      "original": "core/monitoring/posco_main_notifier.py",
+      "duplicate": "Monitoring/POSCO_News_250808/posco_main_notifier_minimal.py",
+      "hash": "b6964c9d91c907ad6cf738cf501a6ac1"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/integrated_report_scheduler.py",
+      "duplicate": "Monitoring/POSCO_News_250808/integrated_report_scheduler.py",
+      "hash": "a24e292bc69115373f938bda78a3f149"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/modules.json",
+      "duplicate": "Monitoring/POSCO_News_250808/modules.json",
+      "hash": "fbde586927e87cf5bfb54b00aed14cd9"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/📋POSCO_로그_확인.bat",
+      "duplicate": "Monitoring/POSCO_News_250808/📋POSCO_로그_확인.bat",
+      "hash": "1dc762300922f3f5540554c78d6a850b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0.py",
+      "duplicate": "Monitoring/POSCO_News_250808/monitor_WatchHamster_v3.0.py",
+      "hash": "40d9420ab1e3f7da4972a76a9832892b"
+    },
+    {
+      "original": "core/monitoring/realtime_news_monitor.py",
+      "duplicate": "Monitoring/POSCO_News_250808/realtime_news_monitor.py",
+      "hash": "2dece277239ed221e8f74fcf3e403bf0"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/🚀🚀POSCO_News_250808_Start.bat",
+      "duplicate": "Monitoring/POSCO_News_250808/🚀🚀POSCO_News_250808_Start.bat",
+      "hash": "f04fe8d7019869828b0f509f9661979b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/posco_logo_mini.jpg",
+      "duplicate": "Monitoring/POSCO_News_250808/posco_logo_mini.jpg",
+      "hash": "415cb6d237dbb2cb2a759aae16b20014"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/github_pages_deployer.py",
+      "duplicate": "Monitoring/POSCO_News_250808/github_pages_deployer.py",
+      "hash": "c707a12502e00bc972223d54e2309161"
+    },
+    {
+      "original": "core/monitoring/posco_core/state_manager.py",
+      "duplicate": "Monitoring/POSCO_News_250808/core/state_manager.py",
+      "hash": "37c0bc4408bb65ca28e1f923f04021b8"
+    },
+    {
+      "original": "core/monitoring/posco_core/__init__.py",
+      "duplicate": "Monitoring/POSCO_News_250808/core/__init__.py",
+      "hash": "f4b9b3225755ddfb60ba46aedb024d94"
+    },
+    {
+      "original": "core/monitoring/posco_core/colorful_ui.py",
+      "duplicate": "Monitoring/POSCO_News_250808/core/colorful_ui.py",
+      "hash": "a0158807b328c5237c0697f15389e817"
+    },
+    {
+      "original": "core/monitoring/posco_core/process_manager.py",
+      "duplicate": "Monitoring/POSCO_News_250808/core/process_manager.py",
+      "hash": "b51f593dd0e65504f7625822069f23a5"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/utils/business_day_helper.py",
+      "duplicate": "Monitoring/POSCO_News_250808/utils/business_day_helper.py",
+      "hash": "80676b07f19d3e70b615a23e63283603"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/utils/__init__.py",
+      "duplicate": "Monitoring/POSCO_News_250808/utils/__init__.py",
+      "hash": "b612b16a3cfe1662942458a5a8b3ed5c"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🧠스마트_상태_판단_시스템_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/🧠스마트_상태_판단_시스템_완료.md",
+      "hash": "6c35556faaa8c5c0e9cb5ea06fed7614"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/GITHUB_PAGES_MANUAL_SETUP.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/GITHUB_PAGES_MANUAL_SETUP.md",
+      "hash": "4d2448dc106ed5ebbb9d2dc0e8e96711"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/📋워치햄스터_기능_분석_및_개선안.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/📋워치햄스터_기능_분석_및_개선안.md",
+      "hash": "8dba40d0835b17edf133f448903355e5"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/워치햄스터_설정_조정.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/워치햄스터_설정_조정.md",
+      "hash": "198d02e08de5c1500622bf6a6a02234f"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/완전자동화_가이드.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/완전자동화_가이드.md",
+      "hash": "699bc02c491c643c9caf578afdd42ccd"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🎯BAT파일_역할분리_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/🎯BAT파일_역할분리_완료.md",
+      "hash": "536fdaa2471a8e190fc4129728eeaf30"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/CLEANUP_PLAN.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/CLEANUP_PLAN.md",
+      "hash": "8667e80db1cb27667c9a11d67f9310b0"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/CLI_GUIDE.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/CLI_GUIDE.md",
+      "hash": "92b88fe842ad5e54c6eb39d1f61dcb1a"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🕐절대시간_기준_알림_시스템_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/🕐절대시간_기준_알림_시스템_완료.md",
+      "hash": "73d7c8a26ae132767909ac41411f283d"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🔧API_상태체크_문제_해결.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/🔧API_상태체크_문제_해결.md",
+      "hash": "a3beef2d1a2167b05916482b59cc99ab"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/📊성능_최적화_보고서.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/📊성능_최적화_보고서.md",
+      "hash": "37bb2ca9ae7906efbf288090192a794c"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🔧조용한_모드_동기화_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/🔧조용한_모드_동기화_완료.md",
+      "hash": "3e843e0de73f5558e68f78d1f8f5c206"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/📈증시마감_모니터링_시스템_완성.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/📈증시마감_모니터링_시스템_완성.md",
+      "hash": "b77800652aee27eb8abb44846886939c"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🎉최종_완료_보고서.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/🎉최종_완료_보고서.md",
+      "hash": "e2c9ab054f8d855d042dedd4e10efa41"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/📋POSCO_뉴스_알림시스템_구성_및_배치_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/📋POSCO_뉴스_알림시스템_구성_및_배치_완료.md",
+      "hash": "a6344b6280cdd67bcd779fc7d70a2e72"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🎛️3개뉴스_통합모니터링_완성.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/🎛️3개뉴스_통합모니터링_완성.md",
+      "hash": "0b00fc7df178182a7dc7fbbd9942bfb8"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🚀간단_사용법.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/🚀간단_사용법.md",
+      "hash": "da34efe70446a5abc381eb8b22e64939"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🏦서환마감_모니터링_시스템_완성.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/🏦서환마감_모니터링_시스템_완성.md",
+      "hash": "488bc50ff8c61ca0d9a506ecc79f88eb"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🎯실행파일_역할분리_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/🎯실행파일_역할분리_완료.md",
+      "hash": "99f603d6237864471581a3433fa981b7"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/README.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/README.md",
+      "hash": "091bba32d0ccc4c5ab688e6a224ddba0"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🧹워치햄스터_2.0_시스템_정리_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/🧹워치햄스터_2.0_시스템_정리_완료.md",
+      "hash": "93cca782db0803acae46e8bc20d0d3bb"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🏆워치햄스터_2.0_종합평가보고서.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/🏆워치햄스터_2.0_종합평가보고서.md",
+      "hash": "c76bdcfecb97b5f3f7d2ec8dfb3e3f3e"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/📋최종_파일_구조.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/📋최종_파일_구조.md",
+      "hash": "5c75b1532d611d4d440f7929cdcd0460"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🔄기존모니터링_최신모델_대체완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/🔄기존모니터링_최신모델_대체완료.md",
+      "hash": "7fee6915bcc20ab30b07ebd0954606e1"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/reports_index.json",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/reports_index.json",
+      "hash": "3cbcd00d38a36b5ae6e52d9a5faaba04"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🌙조용한_시간대_최적화_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/🌙조용한_시간대_최적화_완료.md",
+      "hash": "651e4867be3853d3a6b6d905b68923d9"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🌙조용한_모드_설정_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/🌙조용한_모드_설정_완료.md",
+      "hash": "f979e0b24b9c808f39946ba7727dfc19"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🚀코드_최적화_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/🚀코드_최적화_완료.md",
+      "hash": "dc0a8abbb8f52ad0dc3f348124ef8ecd"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🕐모든_절대시간_기준_알림_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/🕐모든_절대시간_기준_알림_완료.md",
+      "hash": "3f52a0b8ef853bb73b355ed7a193d3ac"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/📅스케줄_설정_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/📅스케줄_설정_완료.md",
+      "hash": "7ffa55c006002e4160ff93b66e62d69b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🛡️워치햄스터_연동_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808/docs/🛡️워치햄스터_연동_완료.md",
+      "hash": "1207795b4a386c779debcc07dc6dc3b8"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/WatchHamster_v3.0_status.json",
+      "duplicate": "Monitoring/POSCO_News_250808/backup_archive_20250806/WatchHamster_v3.0_status.json",
+      "hash": "0c64a000032fe40e762e53ae75f59292"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/posco_news_250808_monitor.log",
+      "duplicate": "Monitoring/POSCO_News_250808/backup_archive_20250806/posco_news_250808_monitor.log",
+      "hash": "04b463760359fa0d3f3a448d380ea9e5"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/WatchHamster_v3.0.log",
+      "duplicate": "Monitoring/POSCO_News_250808/backup_archive_20250806/WatchHamster_v3.0.log",
+      "hash": "fc3cd2de6a4490de599d7eb1e414757f"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/posco_news_250808_simple_monitor.log",
+      "duplicate": "Monitoring/POSCO_News_250808/backup_archive_20250806/posco_news_250808_simple_monitor.log",
+      "hash": "d729480795d7ee94bdaebad5e31db1be"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/posco_news_250808_notifier.log",
+      "duplicate": "Monitoring/POSCO_News_250808/backup_archive_20250806/posco_news_250808_notifier.log",
+      "hash": "74b03a066b0620942a38a77a9b9cf11a"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/posco_system_250808_status.json",
+      "duplicate": "Monitoring/POSCO_News_250808/backup_archive_20250806/posco_system_250808_status.json",
+      "hash": "b0a8f76493a97551cef23832405a1556"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/temp_solutions_20250806/simple_news_monitor.py",
+      "duplicate": "Monitoring/POSCO_News_250808/backup_archive_20250806/temp_solutions_20250806/simple_news_monitor.py",
+      "hash": "ba748ad0a0d3fe35cfbf11e392b89c6d"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py",
+      "duplicate": "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py",
+      "hash": "c4600bf06c3fe435250e25cd8b0a47f8"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/kospi_monitor.py",
+      "duplicate": "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/kospi_monitor.py",
+      "hash": "e9bf97e8deb043a73a53de286780cf15"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/master_news_monitor.py",
+      "duplicate": "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/master_news_monitor.py",
+      "hash": "6c1dae0cb53afa94b770eb807043d107"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/exchange_monitor.py",
+      "duplicate": "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/exchange_monitor.py",
+      "hash": "235130bba784e503069faceab4a70b8e"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/base_monitor.py",
+      "duplicate": "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/base_monitor.py",
+      "hash": "8b08936dfbb5ef40cebf6b6a2729d52a"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/newyork_monitor.py",
+      "duplicate": "Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/newyork_monitor.py",
+      "hash": "1c72f013eb776a8ca7eca4bc4dc21028"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/test_files/test_watchhamster.py",
+      "duplicate": "Monitoring/POSCO_News_250808/backup_archive_20250806/test_files/test_watchhamster.py",
+      "hash": "7b48fb811c8cafe52054d8264442e78e"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250806_090323.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250806_090323.html",
+      "hash": "b8e829e6cdcf755b1864b6d310c002d1"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250806_090231.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250806_090231.html",
+      "hash": "da3e9a53bbf4ee0f43c4fe6cdd3de855"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250803_112920.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250803_112920.html",
+      "hash": "df24170e37bfa0c272675530f6be39e9"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250806_090315.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250806_090315.html",
+      "hash": "e7f98253ed1e773e86fdc57cf5dccd50"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_101014.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_101014.html",
+      "hash": "14d7d75e11f99306138790a6931fd0a2"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_092322.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_092322.html",
+      "hash": "e900eb7e4a04664c4ae31464dd9e5619"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_090329.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_090329.html",
+      "hash": "666861e1092e4e18081d1e223c3cf7d7"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/metadata_manager.py",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/metadata_manager.py",
+      "hash": "058a119ebbeb4b7bd915e2903e3216f9"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_110936.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_110936.html",
+      "hash": "81104716fed11bd893f9bfc1974f8f54"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_093246.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_093246.html",
+      "hash": "ee92e2a69e111c55cf53d7d3679febc9"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_093753.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_093753.html",
+      "hash": "3114e506d9e74f33dedfa2180369dcba"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_105046.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_105046.html",
+      "hash": "25ab2f670605637014439e96ed51af6b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250803_114734.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250803_114734.html",
+      "hash": "7421e1775f9f10fafeb882d7a196617b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_094802.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_094802.html",
+      "hash": "d389097151de52cd781e8887a2b71288"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/report_manager.py",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/report_manager.py",
+      "hash": "9e689b93fcf5ebb69538452615e9ec09"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_104713.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_104713.html",
+      "hash": "40bbff105d5943560575fe554df950e7"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/integrated_report_generator.py",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/integrated_report_generator.py",
+      "hash": "ca1e6280050d0cecbbd27cade3b49f92"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_092439.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_092439.html",
+      "hash": "5307194d7047ef2fc5f6045c8ed3b485"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250803_180039.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250803_180039.html",
+      "hash": "83de186047dd3a1e31d11612d21c91e7"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_105449.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_105449.html",
+      "hash": "1f7a26780352d219006dee88e2c54140"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_112247.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_112247.html",
+      "hash": "01dfc580a7a1a6d236db55e5ff53c2bd"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_111543.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_111543.html",
+      "hash": "a2ba2b478f8a793b70c19f3498829158"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250806_130916.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250806_130916.html",
+      "hash": "f7836903e0ccda71bfe5ffe0eb165542"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_104146.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_104146.html",
+      "hash": "aaca0eed013df6929faa91215e15f83f"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_094256.html",
+      "duplicate": "Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_094256.html",
+      "hash": "13485b566b343e19c8d9620e1ab34ac7"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/docs/reports_index.json",
+      "duplicate": "Monitoring/docs/reports_index.json",
+      "hash": "7dc2210966412bccfee8f113051ccf79"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/docs/status.json",
+      "duplicate": "Monitoring/docs/status.json",
+      "hash": "c8a04327781d551d446ba4db0e0cb57e"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/🔧POSCO_시스템_상태확인.bat",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/🔧POSCO_시스템_상태확인.bat",
+      "hash": "6060b4f4ebe2f5c0c8ace9255c8e6aae"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/WatchHamster_v3.0_status.json",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/WatchHamster_v3.0_status.json",
+      "hash": "7fe163fd2364395db6f6f8d64a1c364b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/📋POSCO_시스템_유지보수_메뉴얼.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/📋POSCO_시스템_유지보수_메뉴얼.md",
+      "hash": "4372ccd0aff434e83f4c21df3b2fa2c6"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/WatchHamster_v3.0.log",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/WatchHamster_v3.0.log",
+      "hash": "00c928be3bab668c76a108b349ec65c8"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/report_cleanup_manager.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/report_cleanup_manager.py",
+      "hash": "abaab19197cf3077613dad4d3d00bc2f"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/integrated_report_builder.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/integrated_report_builder.py",
+      "hash": "f454b0a2fc370a28022a2d248581022b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/metadata_reset_manager.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/metadata_reset_manager.py",
+      "hash": "de698047ee1af76e1bba0ea06a372b42"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/posco_news_250808_control_center.sh",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/posco_news_250808_control_center.sh",
+      "hash": "66e24b3a6ed9fe5078539d7f2d4d74fa"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/📊POSCO_뉴스_알림시스템_전체구조_검수완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/📊POSCO_뉴스_알림시스템_전체구조_검수완료.md",
+      "hash": "2e668648e959eb0ff0240f6577212aab"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/🧪POSCO_테스트_실행.bat",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/🧪POSCO_테스트_실행.bat",
+      "hash": "764ca2513ad7e3a8aa791e2a4916d1da"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/config.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/config.py",
+      "hash": "0e7335d11714f0c454439b4ef555252b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/requirements.txt",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/requirements.txt",
+      "hash": "37c482f10cfdf0551a2c304664e502e6"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/🎛️POSCO_메인_시스템.bat",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/🎛️POSCO_메인_시스템.bat",
+      "hash": "c8ed6f3b457bb437f87b2add5b369043"
+    },
+    {
+      "original": "core/monitoring/completion_notifier.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/completion_notifier.py",
+      "hash": "78c2c21d69bf6f61ad72ed31d4688079"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/posco_main_notifier.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/posco_main_notifier.py",
+      "hash": "43736c4ae591ef84a1346a7d4b0063ea"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/REPORT_ACCESS_GUIDE.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/REPORT_ACCESS_GUIDE.md",
+      "hash": "d0cf73d122ee4e4ba6c31e7c38f4acd4"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/posco_news_250808_notifier.log",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/posco_news_250808_notifier.log",
+      "hash": "d568397826e99e1669745c34e40923cd"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/main_notifier_state.json",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/main_notifier_state.json",
+      "hash": "a85db15325127bc6fac29148244915ca"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/performance_alerts.json",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/performance_alerts.json",
+      "hash": "ab316d4c1c2cfbeb0cd5bcd227288312"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/test_watchhamster_notification.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/test_watchhamster_notification.py",
+      "hash": "5969a5f2ce9696fe3ceb9fee74d7ca85"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/historical_data_collector.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/historical_data_collector.py",
+      "hash": "e81afa13f5ebb617c0b81e03cecbe01d"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/📋POSCO_시스템_정리_및_검증_완료_20250806.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/📋POSCO_시스템_정리_및_검증_완료_20250806.md",
+      "hash": "944141ba582c2a45801542e0a3f0c40b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/README.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/README.md",
+      "hash": "39167d2ee637375b77d60b43c511801d"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/🔄POSCO_Git_업데이트.bat",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/🔄POSCO_Git_업데이트.bat",
+      "hash": "dc922c25f42243a210e82d1a307f201d"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/INTEGRATED_REPORT_SYSTEM_GUIDE.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/INTEGRATED_REPORT_SYSTEM_GUIDE.md",
+      "hash": "09297e620d0f24aedee3922a8168989b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/posco_report_system_reset.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/posco_report_system_reset.py",
+      "hash": "db5cd281515c53b866c133f9fb154159"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/🛑🛑POSCO_News_250808_Stop.bat",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/🛑🛑POSCO_News_250808_Stop.bat",
+      "hash": "60b5188b57d18cfb3a5a2c7f7c9a89f2"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/integrated_report_scheduler.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/integrated_report_scheduler.py",
+      "hash": "a24e292bc69115373f938bda78a3f149"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/modules.json",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/modules.json",
+      "hash": "fbde586927e87cf5bfb54b00aed14cd9"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/📋POSCO_로그_확인.bat",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/📋POSCO_로그_확인.bat",
+      "hash": "1dc762300922f3f5540554c78d6a850b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808_Legacy/monitor_WatchHamster_v3.0.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/monitor_WatchHamster_v3.0.py",
+      "hash": "cecb39b8379b410534853a56d33b9454"
+    },
+    {
+      "original": "core/monitoring/realtime_news_monitor.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/realtime_news_monitor.py",
+      "hash": "2dece277239ed221e8f74fcf3e403bf0"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/🚀🚀POSCO_News_250808_Start.bat",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/🚀🚀POSCO_News_250808_Start.bat",
+      "hash": "f04fe8d7019869828b0f509f9661979b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/posco_logo_mini.jpg",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/posco_logo_mini.jpg",
+      "hash": "415cb6d237dbb2cb2a759aae16b20014"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/github_pages_deployer.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/github_pages_deployer.py",
+      "hash": "c707a12502e00bc972223d54e2309161"
+    },
+    {
+      "original": "core/monitoring/posco_core/state_manager.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/core/state_manager.py",
+      "hash": "37c0bc4408bb65ca28e1f923f04021b8"
+    },
+    {
+      "original": "core/monitoring/posco_core/__init__.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/core/__init__.py",
+      "hash": "f4b9b3225755ddfb60ba46aedb024d94"
+    },
+    {
+      "original": "core/monitoring/posco_core/colorful_ui.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/core/colorful_ui.py",
+      "hash": "a0158807b328c5237c0697f15389e817"
+    },
+    {
+      "original": "core/monitoring/posco_core/process_manager.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/core/process_manager.py",
+      "hash": "b51f593dd0e65504f7625822069f23a5"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/utils/business_day_helper.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/utils/business_day_helper.py",
+      "hash": "80676b07f19d3e70b615a23e63283603"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/utils/__init__.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/utils/__init__.py",
+      "hash": "b612b16a3cfe1662942458a5a8b3ed5c"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🧠스마트_상태_판단_시스템_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/🧠스마트_상태_판단_시스템_완료.md",
+      "hash": "6c35556faaa8c5c0e9cb5ea06fed7614"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/GITHUB_PAGES_MANUAL_SETUP.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/GITHUB_PAGES_MANUAL_SETUP.md",
+      "hash": "4d2448dc106ed5ebbb9d2dc0e8e96711"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/📋워치햄스터_기능_분석_및_개선안.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/📋워치햄스터_기능_분석_및_개선안.md",
+      "hash": "8dba40d0835b17edf133f448903355e5"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/워치햄스터_설정_조정.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/워치햄스터_설정_조정.md",
+      "hash": "198d02e08de5c1500622bf6a6a02234f"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/완전자동화_가이드.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/완전자동화_가이드.md",
+      "hash": "699bc02c491c643c9caf578afdd42ccd"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🎯BAT파일_역할분리_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/🎯BAT파일_역할분리_완료.md",
+      "hash": "536fdaa2471a8e190fc4129728eeaf30"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/CLEANUP_PLAN.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/CLEANUP_PLAN.md",
+      "hash": "8667e80db1cb27667c9a11d67f9310b0"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/CLI_GUIDE.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/CLI_GUIDE.md",
+      "hash": "92b88fe842ad5e54c6eb39d1f61dcb1a"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🕐절대시간_기준_알림_시스템_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/🕐절대시간_기준_알림_시스템_완료.md",
+      "hash": "73d7c8a26ae132767909ac41411f283d"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🔧API_상태체크_문제_해결.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/🔧API_상태체크_문제_해결.md",
+      "hash": "a3beef2d1a2167b05916482b59cc99ab"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/📊성능_최적화_보고서.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/📊성능_최적화_보고서.md",
+      "hash": "37bb2ca9ae7906efbf288090192a794c"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🔧조용한_모드_동기화_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/🔧조용한_모드_동기화_완료.md",
+      "hash": "3e843e0de73f5558e68f78d1f8f5c206"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/📈증시마감_모니터링_시스템_완성.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/📈증시마감_모니터링_시스템_완성.md",
+      "hash": "b77800652aee27eb8abb44846886939c"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🎉최종_완료_보고서.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/🎉최종_완료_보고서.md",
+      "hash": "e2c9ab054f8d855d042dedd4e10efa41"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/📋POSCO_뉴스_알림시스템_구성_및_배치_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/📋POSCO_뉴스_알림시스템_구성_및_배치_완료.md",
+      "hash": "a6344b6280cdd67bcd779fc7d70a2e72"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🎛️3개뉴스_통합모니터링_완성.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/🎛️3개뉴스_통합모니터링_완성.md",
+      "hash": "0b00fc7df178182a7dc7fbbd9942bfb8"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🚀간단_사용법.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/🚀간단_사용법.md",
+      "hash": "da34efe70446a5abc381eb8b22e64939"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🏦서환마감_모니터링_시스템_완성.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/🏦서환마감_모니터링_시스템_완성.md",
+      "hash": "488bc50ff8c61ca0d9a506ecc79f88eb"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🎯실행파일_역할분리_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/🎯실행파일_역할분리_완료.md",
+      "hash": "99f603d6237864471581a3433fa981b7"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/README.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/README.md",
+      "hash": "091bba32d0ccc4c5ab688e6a224ddba0"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🧹워치햄스터_2.0_시스템_정리_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/🧹워치햄스터_2.0_시스템_정리_완료.md",
+      "hash": "93cca782db0803acae46e8bc20d0d3bb"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🏆워치햄스터_2.0_종합평가보고서.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/🏆워치햄스터_2.0_종합평가보고서.md",
+      "hash": "c76bdcfecb97b5f3f7d2ec8dfb3e3f3e"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/📋최종_파일_구조.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/📋최종_파일_구조.md",
+      "hash": "5c75b1532d611d4d440f7929cdcd0460"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🔄기존모니터링_최신모델_대체완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/🔄기존모니터링_최신모델_대체완료.md",
+      "hash": "7fee6915bcc20ab30b07ebd0954606e1"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/reports_index.json",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/reports_index.json",
+      "hash": "3cbcd00d38a36b5ae6e52d9a5faaba04"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🌙조용한_시간대_최적화_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/🌙조용한_시간대_최적화_완료.md",
+      "hash": "651e4867be3853d3a6b6d905b68923d9"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🌙조용한_모드_설정_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/🌙조용한_모드_설정_완료.md",
+      "hash": "f979e0b24b9c808f39946ba7727dfc19"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🚀코드_최적화_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/🚀코드_최적화_완료.md",
+      "hash": "dc0a8abbb8f52ad0dc3f348124ef8ecd"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🕐모든_절대시간_기준_알림_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/🕐모든_절대시간_기준_알림_완료.md",
+      "hash": "3f52a0b8ef853bb73b355ed7a193d3ac"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/📅스케줄_설정_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/📅스케줄_설정_완료.md",
+      "hash": "7ffa55c006002e4160ff93b66e62d69b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/docs/🛡️워치햄스터_연동_완료.md",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/docs/🛡️워치햄스터_연동_완료.md",
+      "hash": "1207795b4a386c779debcc07dc6dc3b8"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/WatchHamster_v3.0_status.json",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/WatchHamster_v3.0_status.json",
+      "hash": "0c64a000032fe40e762e53ae75f59292"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/posco_news_250808_monitor.log",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/posco_news_250808_monitor.log",
+      "hash": "04b463760359fa0d3f3a448d380ea9e5"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/WatchHamster_v3.0.log",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/WatchHamster_v3.0.log",
+      "hash": "fc3cd2de6a4490de599d7eb1e414757f"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/posco_news_250808_simple_monitor.log",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/posco_news_250808_simple_monitor.log",
+      "hash": "d729480795d7ee94bdaebad5e31db1be"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/posco_news_250808_notifier.log",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/posco_news_250808_notifier.log",
+      "hash": "74b03a066b0620942a38a77a9b9cf11a"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/posco_system_250808_status.json",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/posco_system_250808_status.json",
+      "hash": "b0a8f76493a97551cef23832405a1556"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/temp_solutions_20250806/simple_news_monitor.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/temp_solutions_20250806/simple_news_monitor.py",
+      "hash": "ba748ad0a0d3fe35cfbf11e392b89c6d"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/disabled_monitors_20250803/run_monitor.py",
+      "hash": "c4600bf06c3fe435250e25cd8b0a47f8"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/kospi_monitor.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/disabled_monitors_20250803/kospi_monitor.py",
+      "hash": "e9bf97e8deb043a73a53de286780cf15"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/master_news_monitor.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/disabled_monitors_20250803/master_news_monitor.py",
+      "hash": "6c1dae0cb53afa94b770eb807043d107"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/exchange_monitor.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/disabled_monitors_20250803/exchange_monitor.py",
+      "hash": "235130bba784e503069faceab4a70b8e"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/base_monitor.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/disabled_monitors_20250803/base_monitor.py",
+      "hash": "8b08936dfbb5ef40cebf6b6a2729d52a"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/disabled_monitors_20250803/newyork_monitor.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/disabled_monitors_20250803/newyork_monitor.py",
+      "hash": "1c72f013eb776a8ca7eca4bc4dc21028"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/backup_archive_20250806/test_files/test_watchhamster.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/backup_archive_20250806/test_files/test_watchhamster.py",
+      "hash": "7b48fb811c8cafe52054d8264442e78e"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250806_090323.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250806_090323.html",
+      "hash": "b8e829e6cdcf755b1864b6d310c002d1"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250806_090231.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250806_090231.html",
+      "hash": "da3e9a53bbf4ee0f43c4fe6cdd3de855"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250803_112920.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250803_112920.html",
+      "hash": "df24170e37bfa0c272675530f6be39e9"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250806_090315.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250806_090315.html",
+      "hash": "e7f98253ed1e773e86fdc57cf5dccd50"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_101014.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_101014.html",
+      "hash": "14d7d75e11f99306138790a6931fd0a2"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_092322.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_092322.html",
+      "hash": "e900eb7e4a04664c4ae31464dd9e5619"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_090329.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_090329.html",
+      "hash": "666861e1092e4e18081d1e223c3cf7d7"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/metadata_manager.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/metadata_manager.py",
+      "hash": "058a119ebbeb4b7bd915e2903e3216f9"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_110936.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_110936.html",
+      "hash": "81104716fed11bd893f9bfc1974f8f54"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_093246.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_093246.html",
+      "hash": "ee92e2a69e111c55cf53d7d3679febc9"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_093753.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_093753.html",
+      "hash": "3114e506d9e74f33dedfa2180369dcba"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_105046.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_105046.html",
+      "hash": "25ab2f670605637014439e96ed51af6b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250803_114734.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250803_114734.html",
+      "hash": "7421e1775f9f10fafeb882d7a196617b"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_094802.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_094802.html",
+      "hash": "d389097151de52cd781e8887a2b71288"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/report_manager.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/report_manager.py",
+      "hash": "9e689b93fcf5ebb69538452615e9ec09"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_104713.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_104713.html",
+      "hash": "40bbff105d5943560575fe554df950e7"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/integrated_report_generator.py",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/integrated_report_generator.py",
+      "hash": "ca1e6280050d0cecbbd27cade3b49f92"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_092439.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_092439.html",
+      "hash": "5307194d7047ef2fc5f6045c8ed3b485"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250803_180039.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250803_180039.html",
+      "hash": "83de186047dd3a1e31d11612d21c91e7"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_105449.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_105449.html",
+      "hash": "1f7a26780352d219006dee88e2c54140"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_112247.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_112247.html",
+      "hash": "01dfc580a7a1a6d236db55e5ff53c2bd"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_111543.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_111543.html",
+      "hash": "a2ba2b478f8a793b70c19f3498829158"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250806_130916.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250806_130916.html",
+      "hash": "f7836903e0ccda71bfe5ffe0eb165542"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_104146.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_104146.html",
+      "hash": "aaca0eed013df6929faa91215e15f83f"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/POSCO_News_250808/reports/posco_integrated_analysis_20250805_094256.html",
+      "duplicate": "Monitoring/POSCO_News_250808_Legacy/reports/posco_integrated_analysis_20250805_094256.html",
+      "hash": "13485b566b343e19c8d9620e1ab34ac7"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/README.md",
+      "duplicate": "Monitoring/WatchHamster_v3.0/README.md",
+      "hash": "8968826498e699cbfffc35a5e02b6373"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/modules.json",
+      "duplicate": "Monitoring/WatchHamster_v3.0/modules.json",
+      "hash": "b3fb9269c5a5aee86c53a7bb966826f6"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/enhanced_process_manager.py",
+      "duplicate": "Monitoring/WatchHamster_v3.0/core/enhanced_process_manager.py",
+      "hash": "fd164474271faf1322a92862140255d8"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/performance_monitor.py",
+      "duplicate": "Monitoring/WatchHamster_v3.0/core/performance_monitor.py",
+      "hash": "34199df562dd9c7cdc529f462c583ada"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/__init__.py",
+      "duplicate": "Monitoring/WatchHamster_v3.0/core/__init__.py",
+      "hash": "4afb7210c66c100d886a25aff43385eb"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/module_registry.py",
+      "duplicate": "Monitoring/WatchHamster_v3.0/core/module_registry.py",
+      "hash": "0476bbeeb673ebd6958556cb376135c4"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/watchhamster_integration.py",
+      "duplicate": "Monitoring/WatchHamster_v3.0/core/watchhamster_integration.py",
+      "hash": "fba5b16af2f308996631e7112b536099"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/notification_manager.py",
+      "duplicate": "Monitoring/WatchHamster_v3.0/core/notification_manager.py",
+      "hash": "a7b9987ce8564a1a68c46a117377c950"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/performance_optimizer.py",
+      "duplicate": "Monitoring/WatchHamster_v3.0/core/performance_optimizer.py",
+      "hash": "11766b06033994cb2baa8e01fb524489"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/README.md",
+      "duplicate": "Monitoring/Posco_News_mini_v2/README.md",
+      "hash": "8968826498e699cbfffc35a5e02b6373"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/modules.json",
+      "duplicate": "Monitoring/Posco_News_mini_v2/modules.json",
+      "hash": "b3fb9269c5a5aee86c53a7bb966826f6"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/enhanced_process_manager.py",
+      "duplicate": "Monitoring/Posco_News_mini_v2/core/enhanced_process_manager.py",
+      "hash": "fd164474271faf1322a92862140255d8"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/performance_monitor.py",
+      "duplicate": "Monitoring/Posco_News_mini_v2/core/performance_monitor.py",
+      "hash": "34199df562dd9c7cdc529f462c583ada"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/__init__.py",
+      "duplicate": "Monitoring/Posco_News_mini_v2/core/__init__.py",
+      "hash": "4afb7210c66c100d886a25aff43385eb"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/module_registry.py",
+      "duplicate": "Monitoring/Posco_News_mini_v2/core/module_registry.py",
+      "hash": "0476bbeeb673ebd6958556cb376135c4"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/watchhamster_integration.py",
+      "duplicate": "Monitoring/Posco_News_mini_v2/core/watchhamster_integration.py",
+      "hash": "fba5b16af2f308996631e7112b536099"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/notification_manager.py",
+      "duplicate": "Monitoring/Posco_News_mini_v2/core/notification_manager.py",
+      "hash": "a7b9987ce8564a1a68c46a117377c950"
+    },
+    {
+      "original": "archive/backups/core_organization_20250810_205058/Monitoring/WatchHamster_v3.0/core/performance_optimizer.py",
+      "duplicate": "Monitoring/Posco_News_mini_v2/core/performance_optimizer.py",
+      "hash": "11766b06033994cb2baa8e01fb524489"
+    },
+    {
+      "original": "webhook_config_restorer.py",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092334/webhook_config_restorer.py",
+      "hash": "efb6ddd128556a0639fd40c972e74436"
+    },
+    {
+      "original": "compatibility_checker.py",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092334/compatibility_checker.py",
+      "hash": "bbf3b1dff4084a23f0d7a4b49a7675a4"
+    },
+    {
+      "original": "compatibility_integration_test_results.json",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092334/compatibility_integration_test_results.json",
+      "hash": "9011b999ff1c8cdca086776678663bef"
+    },
+    {
+      "original": "webhook_config_restoration_report_20250811_112227.txt",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092334/webhook_config_restoration_report_20250811_112227.txt",
+      "hash": "abb0ba42a49a528028a5f9acdf491957"
+    },
+    {
+      "original": "webhook_restoration.log",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092334/webhook_restoration.log",
+      "hash": "3c14ff750142375184032072fb167427"
+    },
+    {
+      "original": "webhook_message_restorer.py",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092334/webhook_message_restorer.py",
+      "hash": "19531a94194a8997df6abaa40e6f8a3d"
+    },
+    {
+      "original": "webhook_config_restoration_report_20250811_131716.txt",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092334/webhook_config_restoration_report_20250811_131716.txt",
+      "hash": "ea02df2b23e67ee6e4387204e8ee18cb"
+    },
+    {
+      "original": "core/monitoring/monitor_WatchHamster_v3.0.py",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092334/core/monitoring/monitor_WatchHamster_v3.0.py",
+      "hash": "3e79b87623e539bc5e61c4e5dafd3ff7"
+    },
+    {
+      "original": "webhook_config_restorer.py",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092237/webhook_config_restorer.py",
+      "hash": "efb6ddd128556a0639fd40c972e74436"
+    },
+    {
+      "original": "compatibility_checker.py",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092237/compatibility_checker.py",
+      "hash": "bbf3b1dff4084a23f0d7a4b49a7675a4"
+    },
+    {
+      "original": "compatibility_integration_test_results.json",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092237/compatibility_integration_test_results.json",
+      "hash": "9011b999ff1c8cdca086776678663bef"
+    },
+    {
+      "original": "webhook_config_restoration_report_20250811_112227.txt",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092237/webhook_config_restoration_report_20250811_112227.txt",
+      "hash": "abb0ba42a49a528028a5f9acdf491957"
+    },
+    {
+      "original": "webhook_restoration.log",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092237/webhook_restoration.log",
+      "hash": "3c14ff750142375184032072fb167427"
+    },
+    {
+      "original": "webhook_message_restorer.py",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092237/webhook_message_restorer.py",
+      "hash": "19531a94194a8997df6abaa40e6f8a3d"
+    },
+    {
+      "original": "webhook_config_restoration_report_20250811_131716.txt",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092237/webhook_config_restoration_report_20250811_131716.txt",
+      "hash": "ea02df2b23e67ee6e4387204e8ee18cb"
+    },
+    {
+      "original": "core/monitoring/monitor_WatchHamster_v3.0.py",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092237/core/monitoring/monitor_WatchHamster_v3.0.py",
+      "hash": "3e79b87623e539bc5e61c4e5dafd3ff7"
+    },
+    {
+      "original": "webhook_config_restorer.py",
+      "duplicate": "webhook_backup/webhook_backup_task11_test_backup_20250812_092254/webhook_config_restorer.py",
+      "hash": "efb6ddd128556a0639fd40c972e74436"
+    },
+    {
+      "original": "compatibility_checker.py",
+      "duplicate": "webhook_backup/webhook_backup_task11_test_backup_20250812_092254/compatibility_checker.py",
+      "hash": "bbf3b1dff4084a23f0d7a4b49a7675a4"
+    },
+    {
+      "original": "compatibility_integration_test_results.json",
+      "duplicate": "webhook_backup/webhook_backup_task11_test_backup_20250812_092254/compatibility_integration_test_results.json",
+      "hash": "9011b999ff1c8cdca086776678663bef"
+    },
+    {
+      "original": "webhook_config_restoration_report_20250811_112227.txt",
+      "duplicate": "webhook_backup/webhook_backup_task11_test_backup_20250812_092254/webhook_config_restoration_report_20250811_112227.txt",
+      "hash": "abb0ba42a49a528028a5f9acdf491957"
+    },
+    {
+      "original": "webhook_restoration.log",
+      "duplicate": "webhook_backup/webhook_backup_task11_test_backup_20250812_092254/webhook_restoration.log",
+      "hash": "3c14ff750142375184032072fb167427"
+    },
+    {
+      "original": "webhook_message_restorer.py",
+      "duplicate": "webhook_backup/webhook_backup_task11_test_backup_20250812_092254/webhook_message_restorer.py",
+      "hash": "19531a94194a8997df6abaa40e6f8a3d"
+    },
+    {
+      "original": "webhook_config_restoration_report_20250811_131716.txt",
+      "duplicate": "webhook_backup/webhook_backup_task11_test_backup_20250812_092254/webhook_config_restoration_report_20250811_131716.txt",
+      "hash": "ea02df2b23e67ee6e4387204e8ee18cb"
+    },
+    {
+      "original": "core/monitoring/monitor_WatchHamster_v3.0.py",
+      "duplicate": "webhook_backup/webhook_backup_task11_test_backup_20250812_092254/core/monitoring/monitor_WatchHamster_v3.0.py",
+      "hash": "3e79b87623e539bc5e61c4e5dafd3ff7"
+    },
+    {
+      "original": "webhook_config_restorer.py",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_4_20250812_092237/webhook_config_restorer.py",
+      "hash": "efb6ddd128556a0639fd40c972e74436"
+    },
+    {
+      "original": "compatibility_checker.py",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_4_20250812_092237/compatibility_checker.py",
+      "hash": "bbf3b1dff4084a23f0d7a4b49a7675a4"
+    },
+    {
+      "original": "compatibility_integration_test_results.json",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_4_20250812_092237/compatibility_integration_test_results.json",
+      "hash": "9011b999ff1c8cdca086776678663bef"
+    },
+    {
+      "original": "webhook_config_restoration_report_20250811_112227.txt",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_4_20250812_092237/webhook_config_restoration_report_20250811_112227.txt",
+      "hash": "abb0ba42a49a528028a5f9acdf491957"
+    },
+    {
+      "original": "webhook_restoration.log",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_4_20250812_092237/webhook_restoration.log",
+      "hash": "3c14ff750142375184032072fb167427"
+    },
+    {
+      "original": "webhook_message_restorer.py",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_4_20250812_092237/webhook_message_restorer.py",
+      "hash": "19531a94194a8997df6abaa40e6f8a3d"
+    },
+    {
+      "original": "webhook_config_restoration_report_20250811_131716.txt",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_4_20250812_092237/webhook_config_restoration_report_20250811_131716.txt",
+      "hash": "ea02df2b23e67ee6e4387204e8ee18cb"
+    },
+    {
+      "original": "core/monitoring/monitor_WatchHamster_v3.0.py",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_4_20250812_092237/core/monitoring/monitor_WatchHamster_v3.0.py",
+      "hash": "3e79b87623e539bc5e61c4e5dafd3ff7"
+    },
+    {
+      "original": "webhook_config_restorer.py",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_3_20250812_092237/webhook_config_restorer.py",
+      "hash": "efb6ddd128556a0639fd40c972e74436"
+    },
+    {
+      "original": "compatibility_checker.py",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_3_20250812_092237/compatibility_checker.py",
+      "hash": "bbf3b1dff4084a23f0d7a4b49a7675a4"
+    },
+    {
+      "original": "compatibility_integration_test_results.json",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_3_20250812_092237/compatibility_integration_test_results.json",
+      "hash": "9011b999ff1c8cdca086776678663bef"
+    },
+    {
+      "original": "webhook_config_restoration_report_20250811_112227.txt",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_3_20250812_092237/webhook_config_restoration_report_20250811_112227.txt",
+      "hash": "abb0ba42a49a528028a5f9acdf491957"
+    },
+    {
+      "original": "webhook_restoration.log",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_3_20250812_092237/webhook_restoration.log",
+      "hash": "3c14ff750142375184032072fb167427"
+    },
+    {
+      "original": "webhook_message_restorer.py",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_3_20250812_092237/webhook_message_restorer.py",
+      "hash": "19531a94194a8997df6abaa40e6f8a3d"
+    },
+    {
+      "original": "webhook_config_restoration_report_20250811_131716.txt",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_3_20250812_092237/webhook_config_restoration_report_20250811_131716.txt",
+      "hash": "ea02df2b23e67ee6e4387204e8ee18cb"
+    },
+    {
+      "original": "core/monitoring/monitor_WatchHamster_v3.0.py",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_3_20250812_092237/core/monitoring/monitor_WatchHamster_v3.0.py",
+      "hash": "3e79b87623e539bc5e61c4e5dafd3ff7"
+    },
+    {
+      "original": "webhook_config_restorer.py",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_2_20250812_092237/webhook_config_restorer.py",
+      "hash": "efb6ddd128556a0639fd40c972e74436"
+    },
+    {
+      "original": "compatibility_checker.py",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_2_20250812_092237/compatibility_checker.py",
+      "hash": "bbf3b1dff4084a23f0d7a4b49a7675a4"
+    },
+    {
+      "original": "compatibility_integration_test_results.json",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_2_20250812_092237/compatibility_integration_test_results.json",
+      "hash": "9011b999ff1c8cdca086776678663bef"
+    },
+    {
+      "original": "webhook_config_restoration_report_20250811_112227.txt",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_2_20250812_092237/webhook_config_restoration_report_20250811_112227.txt",
+      "hash": "abb0ba42a49a528028a5f9acdf491957"
+    },
+    {
+      "original": "webhook_restoration.log",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_2_20250812_092237/webhook_restoration.log",
+      "hash": "3c14ff750142375184032072fb167427"
+    },
+    {
+      "original": "webhook_message_restorer.py",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_2_20250812_092237/webhook_message_restorer.py",
+      "hash": "19531a94194a8997df6abaa40e6f8a3d"
+    },
+    {
+      "original": "webhook_config_restoration_report_20250811_131716.txt",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_2_20250812_092237/webhook_config_restoration_report_20250811_131716.txt",
+      "hash": "ea02df2b23e67ee6e4387204e8ee18cb"
+    },
+    {
+      "original": "core/monitoring/monitor_WatchHamster_v3.0.py",
+      "duplicate": "webhook_backup/webhook_backup_cleanup_test_2_20250812_092237/core/monitoring/monitor_WatchHamster_v3.0.py",
+      "hash": "3e79b87623e539bc5e61c4e5dafd3ff7"
+    },
+    {
+      "original": "webhook_config_restorer.py",
+      "duplicate": "webhook_backup/webhook_backup_rollback_scenario_test_20250812_092237/webhook_config_restorer.py",
+      "hash": "efb6ddd128556a0639fd40c972e74436"
+    },
+    {
+      "original": "compatibility_checker.py",
+      "duplicate": "webhook_backup/webhook_backup_rollback_scenario_test_20250812_092237/compatibility_checker.py",
+      "hash": "bbf3b1dff4084a23f0d7a4b49a7675a4"
+    },
+    {
+      "original": "compatibility_integration_test_results.json",
+      "duplicate": "webhook_backup/webhook_backup_rollback_scenario_test_20250812_092237/compatibility_integration_test_results.json",
+      "hash": "9011b999ff1c8cdca086776678663bef"
+    },
+    {
+      "original": "webhook_config_restoration_report_20250811_112227.txt",
+      "duplicate": "webhook_backup/webhook_backup_rollback_scenario_test_20250812_092237/webhook_config_restoration_report_20250811_112227.txt",
+      "hash": "abb0ba42a49a528028a5f9acdf491957"
+    },
+    {
+      "original": "webhook_restoration.log",
+      "duplicate": "webhook_backup/webhook_backup_rollback_scenario_test_20250812_092237/webhook_restoration.log",
+      "hash": "3c14ff750142375184032072fb167427"
+    },
+    {
+      "original": "webhook_message_restorer.py",
+      "duplicate": "webhook_backup/webhook_backup_rollback_scenario_test_20250812_092237/webhook_message_restorer.py",
+      "hash": "19531a94194a8997df6abaa40e6f8a3d"
+    },
+    {
+      "original": "webhook_config_restoration_report_20250811_131716.txt",
+      "duplicate": "webhook_backup/webhook_backup_rollback_scenario_test_20250812_092237/webhook_config_restoration_report_20250811_131716.txt",
+      "hash": "ea02df2b23e67ee6e4387204e8ee18cb"
+    },
+    {
+      "original": "core/monitoring/monitor_WatchHamster_v3.0.py",
+      "duplicate": "webhook_backup/webhook_backup_rollback_scenario_test_20250812_092237/core/monitoring/monitor_WatchHamster_v3.0.py",
+      "hash": "3e79b87623e539bc5e61c4e5dafd3ff7"
+    },
+    {
+      "original": "webhook_config_restorer.py",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092323/webhook_config_restorer.py",
+      "hash": "efb6ddd128556a0639fd40c972e74436"
+    },
+    {
+      "original": "compatibility_checker.py",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092323/compatibility_checker.py",
+      "hash": "bbf3b1dff4084a23f0d7a4b49a7675a4"
+    },
+    {
+      "original": "compatibility_integration_test_results.json",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092323/compatibility_integration_test_results.json",
+      "hash": "9011b999ff1c8cdca086776678663bef"
+    },
+    {
+      "original": "webhook_config_restoration_report_20250811_112227.txt",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092323/webhook_config_restoration_report_20250811_112227.txt",
+      "hash": "abb0ba42a49a528028a5f9acdf491957"
+    },
+    {
+      "original": "webhook_restoration.log",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092323/webhook_restoration.log",
+      "hash": "3c14ff750142375184032072fb167427"
+    },
+    {
+      "original": "webhook_message_restorer.py",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092323/webhook_message_restorer.py",
+      "hash": "19531a94194a8997df6abaa40e6f8a3d"
+    },
+    {
+      "original": "webhook_config_restoration_report_20250811_131716.txt",
+      "duplicate": "webhook_backup/webhook_backup_emergency_before_rollback_20250812_092323/webhook_config_restoration_report_20250811_131716.txt",
+      "hash": "ea02df2b23e67ee6e4387204e8ee18cb"
+    }
+  ],
+  "optimization_summary": {
+    "files_removed": 1,
+    "files_renamed": 188,
+    "folders_removed": 15,
+    "size_reduction": 2072,
+    "optimization_percentage": 43.5
+  },
+  "end_time": "2025-08-15T12:32:43.862950"
+}

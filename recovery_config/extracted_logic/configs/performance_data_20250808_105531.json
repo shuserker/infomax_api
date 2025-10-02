@@ -1,0 +1,372 @@
+{
+  "file_path": "performance_data_20250808_105531.json",
+  "config_type": "json",
+  "content": {
+    "export_timestamp": "2025-08-08T10:55:31.137004",
+    "monitoring_period": {
+      "start": "2025-08-08T10:55:15.031606",
+      "end": "2025-08-08T10:55:31.137012",
+      "duration_seconds": 16.105409
+    },
+    "summary": {
+      "timestamp": "2025-08-08T10:55:31.137355",
+      "uptime_seconds": 16.105746,
+      "uptime_formatted": "0:00:16",
+      "monitoring_status": "active",
+      "total_measurements": 5,
+      "alert_count": 10,
+      "current": {
+        "cpu_percent": 23.4,
+        "memory_percent": 76.8,
+        "memory_available_mb": 3800.140625,
+        "disk_usage_percent": 22.9,
+        "process_count": 569,
+        "active_processes": [
+          "bash"
+        ]
+      },
+      "averages": {
+        "cpu_percent": 18.52,
+        "memory_percent": 76.98,
+        "process_count": 568.8
+      },
+      "response_times": {
+        "fast_operation": {
+          "avg": 0.5096011161804199,
+          "min": 0.5096011161804199,
+          "max": 0.5096011161804199,
+          "count": 1
+        },
+        "normal_operation": {
+          "avg": 1.501373291015625,
+          "min": 1.501373291015625,
+          "max": 1.501373291015625,
+          "count": 1
+        },
+        "slow_operation": {
+          "avg": 3.0048601627349854,
+          "min": 3.0048601627349854,
+          "max": 3.0048601627349854,
+          "count": 1
+        }
+      },
+      "performance_level": "warning",
+      "system_load": [
+        3.03759765625,
+        4.09912109375,
+        5.11376953125
+      ],
+      "network_io": {
+        "bytes_sent": 2539188364,
+        "bytes_recv": 5133366881,
+        "packets_sent": 4013637,
+        "packets_recv": 6277058
+      }
+    },
+    "metrics_history": [
+      {
+        "timestamp": "2025-08-08T10:55:16.071750",
+        "cpu_percent": 15.3,
+        "memory_percent": 77.0,
+        "memory_available_mb": 3767.671875,
+        "disk_usage_percent": 22.9,
+        "process_count": 568,
+        "active_processes": [
+          "bash"
+        ],
+        "system_load_avg": [
+          3.21875,
+          4.1708984375,
+          5.15087890625
+        ],
+        "network_io": {
+          "bytes_sent": 2538997550,
+          "bytes_recv": 5133293870,
+          "packets_sent": 4013390,
+          "packets_recv": 6276835
+        }
+      },
+      {
+        "timestamp": "2025-08-08T10:55:19.133515",
+        "cpu_percent": 17.4,
+        "memory_percent": 77.1,
+        "memory_available_mb": 3758.53125,
+        "disk_usage_percent": 22.9,
+        "process_count": 569,
+        "active_processes": [
+          "bash"
+        ],
+        "system_load_avg": [
+          3.041015625,
+          4.1181640625,
+          5.12646484375
+        ],
+        "network_io": {
+          "bytes_sent": 2539144041,
+          "bytes_recv": 5133352202,
+          "packets_sent": 4013559,
+          "packets_recv": 6276983
+        }
+      },
+      {
+        "timestamp": "2025-08-08T10:55:22.201285",
+        "cpu_percent": 19.9,
+        "memory_percent": 77.0,
+        "memory_available_mb": 3770.171875,
+        "disk_usage_percent": 22.9,
+        "process_count": 569,
+        "active_processes": [
+          "bash"
+        ],
+        "system_load_avg": [
+          3.041015625,
+          4.1181640625,
+          5.12646484375
+        ],
+        "network_io": {
+          "bytes_sent": 2539180950,
+          "bytes_recv": 5133356209,
+          "packets_sent": 4013603,
+          "packets_recv": 6277021
+        }
+      },
+      {
+        "timestamp": "2025-08-08T10:55:25.268629",
+        "cpu_percent": 16.6,
+        "memory_percent": 77.0,
+        "memory_available_mb": 3772.15625,
+        "disk_usage_percent": 22.9,
+        "process_count": 569,
+        "active_processes": [
+          "bash"
+        ],
+        "system_load_avg": [
+          3.03759765625,
+          4.09912109375,
+          5.11376953125
+        ],
+        "network_io": {
+          "bytes_sent": 2539185578,
+          "bytes_recv": 5133364712,
+          "packets_sent": 4013625,
+          "packets_recv": 6277045
+        }
+      },
+      {
+        "timestamp": "2025-08-08T10:55:28.345926",
+        "cpu_percent": 23.4,
+        "memory_percent": 76.8,
+        "memory_available_mb": 3800.140625,
+        "disk_usage_percent": 22.9,
+        "process_count": 569,
+        "active_processes": [
+          "bash"
+        ],
+        "system_load_avg": [
+          3.03759765625,
+          4.09912109375,
+          5.11376953125
+        ],
+        "network_io": {
+          "bytes_sent": 2539188364,
+          "bytes_recv": 5133366881,
+          "packets_sent": 4013637,
+          "packets_recv": 6277058
+        }
+      }
+    ],
+    "alert_count": 10,
+    "total_measurements": 5,
+    "thresholds": {
+      "cpu_warning": 70.0,
+      "cpu_critical": 85.0,
+      "memory_warning": 75.0,
+      "memory_critical": 90.0,
+      "response_time_warning": 5.0,
+      "response_time_critical": 10.0,
+      "process_count_warning": 20,
+      "process_count_critical": 30
+    },
+    "metadata": {
+      "watchhamster_version": "v3.0",
+      "posco_news_version": "250808",
+      "system_version": "WatchHamster_v3.0_PoscoNews_250808",
+      "last_updated": "2025-08-08T16:01:01",
+      "standardization_date": "2025-08-08",
+      "description": "POSCO News 250808 Configuration"
+    }
+  },
+  "variables": {
+    "export_timestamp": "2025-08-08T10:55:31.137004",
+    "monitoring_period.start": "2025-08-08T10:55:15.031606",
+    "monitoring_period.end": "2025-08-08T10:55:31.137012",
+    "monitoring_period.duration_seconds": 16.105409,
+    "summary.timestamp": "2025-08-08T10:55:31.137355",
+    "summary.uptime_seconds": 16.105746,
+    "summary.uptime_formatted": "0:00:16",
+    "summary.monitoring_status": "active",
+    "summary.total_measurements": 5,
+    "summary.alert_count": 10,
+    "summary.current.cpu_percent": 23.4,
+    "summary.current.memory_percent": 76.8,
+    "summary.current.memory_available_mb": 3800.140625,
+    "summary.current.disk_usage_percent": 22.9,
+    "summary.current.process_count": 569,
+    "summary.current.active_processes": [
+      "bash"
+    ],
+    "summary.averages.cpu_percent": 18.52,
+    "summary.averages.memory_percent": 76.98,
+    "summary.averages.process_count": 568.8,
+    "summary.response_times.fast_operation.avg": 0.5096011161804199,
+    "summary.response_times.fast_operation.min": 0.5096011161804199,
+    "summary.response_times.fast_operation.max": 0.5096011161804199,
+    "summary.response_times.fast_operation.count": 1,
+    "summary.response_times.normal_operation.avg": 1.501373291015625,
+    "summary.response_times.normal_operation.min": 1.501373291015625,
+    "summary.response_times.normal_operation.max": 1.501373291015625,
+    "summary.response_times.normal_operation.count": 1,
+    "summary.response_times.slow_operation.avg": 3.0048601627349854,
+    "summary.response_times.slow_operation.min": 3.0048601627349854,
+    "summary.response_times.slow_operation.max": 3.0048601627349854,
+    "summary.response_times.slow_operation.count": 1,
+    "summary.performance_level": "warning",
+    "summary.system_load": [
+      3.03759765625,
+      4.09912109375,
+      5.11376953125
+    ],
+    "summary.network_io.bytes_sent": 2539188364,
+    "summary.network_io.bytes_recv": 5133366881,
+    "summary.network_io.packets_sent": 4013637,
+    "summary.network_io.packets_recv": 6277058,
+    "metrics_history": [
+      {
+        "timestamp": "2025-08-08T10:55:16.071750",
+        "cpu_percent": 15.3,
+        "memory_percent": 77.0,
+        "memory_available_mb": 3767.671875,
+        "disk_usage_percent": 22.9,
+        "process_count": 568,
+        "active_processes": [
+          "bash"
+        ],
+        "system_load_avg": [
+          3.21875,
+          4.1708984375,
+          5.15087890625
+        ],
+        "network_io": {
+          "bytes_sent": 2538997550,
+          "bytes_recv": 5133293870,
+          "packets_sent": 4013390,
+          "packets_recv": 6276835
+        }
+      },
+      {
+        "timestamp": "2025-08-08T10:55:19.133515",
+        "cpu_percent": 17.4,
+        "memory_percent": 77.1,
+        "memory_available_mb": 3758.53125,
+        "disk_usage_percent": 22.9,
+        "process_count": 569,
+        "active_processes": [
+          "bash"
+        ],
+        "system_load_avg": [
+          3.041015625,
+          4.1181640625,
+          5.12646484375
+        ],
+        "network_io": {
+          "bytes_sent": 2539144041,
+          "bytes_recv": 5133352202,
+          "packets_sent": 4013559,
+          "packets_recv": 6276983
+        }
+      },
+      {
+        "timestamp": "2025-08-08T10:55:22.201285",
+        "cpu_percent": 19.9,
+        "memory_percent": 77.0,
+        "memory_available_mb": 3770.171875,
+        "disk_usage_percent": 22.9,
+        "process_count": 569,
+        "active_processes": [
+          "bash"
+        ],
+        "system_load_avg": [
+          3.041015625,
+          4.1181640625,
+          5.12646484375
+        ],
+        "network_io": {
+          "bytes_sent": 2539180950,
+          "bytes_recv": 5133356209,
+          "packets_sent": 4013603,
+          "packets_recv": 6277021
+        }
+      },
+      {
+        "timestamp": "2025-08-08T10:55:25.268629",
+        "cpu_percent": 16.6,
+        "memory_percent": 77.0,
+        "memory_available_mb": 3772.15625,
+        "disk_usage_percent": 22.9,
+        "process_count": 569,
+        "active_processes": [
+          "bash"
+        ],
+        "system_load_avg": [
+          3.03759765625,
+          4.09912109375,
+          5.11376953125
+        ],
+        "network_io": {
+          "bytes_sent": 2539185578,
+          "bytes_recv": 5133364712,
+          "packets_sent": 4013625,
+          "packets_recv": 6277045
+        }
+      },
+      {
+        "timestamp": "2025-08-08T10:55:28.345926",
+        "cpu_percent": 23.4,
+        "memory_percent": 76.8,
+        "memory_available_mb": 3800.140625,
+        "disk_usage_percent": 22.9,
+        "process_count": 569,
+        "active_processes": [
+          "bash"
+        ],
+        "system_load_avg": [
+          3.03759765625,
+          4.09912109375,
+          5.11376953125
+        ],
+        "network_io": {
+          "bytes_sent": 2539188364,
+          "bytes_recv": 5133366881,
+          "packets_sent": 4013637,
+          "packets_recv": 6277058
+        }
+      }
+    ],
+    "alert_count": 10,
+    "total_measurements": 5,
+    "thresholds.cpu_warning": 70.0,
+    "thresholds.cpu_critical": 85.0,
+    "thresholds.memory_warning": 75.0,
+    "thresholds.memory_critical": 90.0,
+    "thresholds.response_time_warning": 5.0,
+    "thresholds.response_time_critical": 10.0,
+    "thresholds.process_count_warning": 20,
+    "thresholds.process_count_critical": 30,
+    "metadata.watchhamster_version": "v3.0",
+    "metadata.posco_news_version": "250808",
+    "metadata.system_version": "WatchHamster_v3.0_PoscoNews_250808",
+    "metadata.last_updated": "2025-08-08T16:01:01",
+    "metadata.standardization_date": "2025-08-08",
+    "metadata.description": "POSCO News 250808 Configuration"
+  }
+}

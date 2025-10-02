@@ -1,0 +1,782 @@
+[
+  {
+    "timestamp": "2025-09-23T11:22:55.226093",
+    "overall_quality": 0.8224999997083333,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999996666667,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999994583334,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999998333334,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.799999999875,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:22:55.226665",
+    "overall_quality": 0.8224999998125,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.839999999625,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999998750001,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.819999999875,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.799999999875,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:22:55.227080",
+    "overall_quality": 0.8224999999062499,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999998749998,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999999166667,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999999166667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:22:55.227614",
+    "overall_quality": 0.8224999998958333,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999998333332,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999999166667,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999999166667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:22:55.228531",
+    "overall_quality": 0.8224999998958333,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999998333332,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999999166667,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999999166667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:22:55.229229",
+    "overall_quality": 0.8224999999062499,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999998749998,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999999166667,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999999166667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:22:55.229927",
+    "overall_quality": 0.822499999875,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999998333332,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999999166667,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999998333334,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:22:55.231220",
+    "overall_quality": 0.822499999875,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999998749998,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999999166667,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999997916667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:22:55.232290",
+    "overall_quality": 0.8224999998854166,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999998333332,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999998750001,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999999166667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:22:55.234576",
+    "overall_quality": 0.8224999998854166,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999998333332,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999998750001,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999999166667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:22:55.235832",
+    "overall_quality": 0.8224999995104167,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999988333333,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999996666667,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.81999999975,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999997916667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:23:33.982588",
+    "overall_quality": 0.8224999998229168,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999997083334,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999998333334,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.819999999875,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.799999999875,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:23:33.985282",
+    "overall_quality": 0.8224999998645834,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999997916667,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999998750001,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.819999999875,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:23:33.986392",
+    "overall_quality": 0.8224999997395832,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999998749998,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.82999999925,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999999166667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:23:33.987668",
+    "overall_quality": 0.8224999996666666,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999992916667,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999998750001,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999999166667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999995833333,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:23:33.989009",
+    "overall_quality": 0.8224999998958333,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999998333332,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999999166667,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999999166667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:23:33.990656",
+    "overall_quality": 0.8224999998958333,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999998333332,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999999166667,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999999166667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:28:29.322343",
+    "overall_quality": 0.8224999995937501,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999997083334,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.829999998875,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999999166667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.799999999875,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:28:29.328670",
+    "overall_quality": 0.8224999998229168,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999997916667,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999998333334,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.819999999875,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999997916667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:32:07.379985",
+    "overall_quality": 0.8224999998541667,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999997500001,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999998750001,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.819999999875,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:32:07.381135",
+    "overall_quality": 0.8224999998958333,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999998333332,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999999166667,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999999166667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:32:07.382056",
+    "overall_quality": 0.8224999999062499,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999998749998,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999999166667,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999999166667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:32:07.383114",
+    "overall_quality": 0.8224999999062499,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999998749998,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999999166667,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999999166667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:32:07.384527",
+    "overall_quality": 0.8224999999062499,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999998749998,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999999166667,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999999166667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:32:07.385930",
+    "overall_quality": 0.8224999998854166,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999998333332,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999998750001,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999999166667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T11:33:03.434073",
+    "overall_quality": 0.8224999998437501,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999997083334,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999998750001,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999999166667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.799999999875,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T13:02:41.053855",
+    "overall_quality": 0.8224999998541667,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999997500001,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999998750001,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.819999999875,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999999166667,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T13:04:50.744434",
+    "overall_quality": 0.8224999997291667,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999994583334,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.82999999975,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999998333334,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.799999999875,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T13:05:06.288656",
+    "overall_quality": 0.8224999994062501,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999997083334,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999998333334,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999999166667,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999981666668,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-23T13:05:06.293461",
+    "overall_quality": 0.8224999995937499,
+    "data_sources": {
+      "kospi": {
+        "quality": 0.8399999998333332,
+        "confidence": 0.9333333333333332,
+        "source": "kospi_api"
+      },
+      "exchange_rate": {
+        "quality": 0.8299999998750001,
+        "confidence": 0.8333333333333334,
+        "source": "exchange_api"
+      },
+      "posco_stock": {
+        "quality": 0.8199999988333333,
+        "confidence": 0.9333333333333332,
+        "source": "posco_stock_api"
+      },
+      "news_sentiment": {
+        "quality": 0.7999999998333334,
+        "confidence": 0.82,
+        "source": "news_api"
+      }
+    }
+  }
+]

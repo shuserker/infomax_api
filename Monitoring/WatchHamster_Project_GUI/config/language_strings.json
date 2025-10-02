@@ -1,0 +1,162 @@
+{
+  "ko": {
+    "app_title": "POSCO 뉴스 시스템 관리자",
+    "menu": {
+      "file": "파일",
+      "edit": "편집",
+      "view": "보기",
+      "tools": "도구",
+      "help": "도움말"
+    },
+    "buttons": {
+      "start": "시작",
+      "stop": "중지",
+      "restart": "재시작",
+      "deploy": "배포",
+      "refresh": "새로고침",
+      "save": "저장",
+      "cancel": "취소",
+      "ok": "확인",
+      "close": "닫기",
+      "settings": "설정",
+      "preview": "미리보기",
+      "send": "전송",
+      "clear": "지우기",
+      "export": "내보내기",
+      "import": "가져오기"
+    },
+    "status": {
+      "running": "실행 중",
+      "stopped": "중지됨",
+      "error": "오류",
+      "success": "성공",
+      "warning": "경고",
+      "connecting": "연결 중",
+      "connected": "연결됨",
+      "disconnected": "연결 끊김",
+      "deploying": "배포 중",
+      "deployed": "배포 완료",
+      "failed": "실패"
+    },
+    "tabs": {
+      "dashboard": "대시보드",
+      "deployment": "배포 관리",
+      "monitoring": "모니터링",
+      "messages": "메시지",
+      "logs": "로그",
+      "settings": "설정",
+      "about": "정보"
+    },
+    "messages": {
+      "deployment_started": "배포가 시작되었습니다.",
+      "deployment_completed": "배포가 완료되었습니다.",
+      "deployment_failed": "배포에 실패했습니다.",
+      "webhook_sent": "웹훅 메시지가 전송되었습니다.",
+      "webhook_failed": "웹훅 전송에 실패했습니다.",
+      "data_updated": "데이터가 업데이트되었습니다.",
+      "system_started": "시스템이 시작되었습니다.",
+      "system_stopped": "시스템이 중지되었습니다.",
+      "config_saved": "설정이 저장되었습니다.",
+      "config_loaded": "설정이 로드되었습니다."
+    },
+    "errors": {
+      "connection_failed": "연결에 실패했습니다.",
+      "file_not_found": "파일을 찾을 수 없습니다.",
+      "permission_denied": "권한이 거부되었습니다.",
+      "invalid_config": "잘못된 설정입니다.",
+      "network_error": "네트워크 오류가 발생했습니다.",
+      "timeout_error": "시간 초과 오류가 발생했습니다.",
+      "unknown_error": "알 수 없는 오류가 발생했습니다."
+    },
+    "tooltips": {
+      "start_monitoring": "모니터링을 시작합니다",
+      "stop_monitoring": "모니터링을 중지합니다",
+      "deploy_now": "즉시 배포를 실행합니다",
+      "refresh_data": "데이터를 새로고침합니다",
+      "open_settings": "설정 창을 엽니다",
+      "view_logs": "로그를 확인합니다",
+      "send_webhook": "웹훅 메시지를 전송합니다",
+      "preview_message": "메시지를 미리 봅니다"
+    }
+  },
+  "en": {
+    "app_title": "POSCO News System Manager",
+    "menu": {
+      "file": "File",
+      "edit": "Edit",
+      "view": "View",
+      "tools": "Tools",
+      "help": "Help"
+    },
+    "buttons": {
+      "start": "Start",
+      "stop": "Stop",
+      "restart": "Restart",
+      "deploy": "Deploy",
+      "refresh": "Refresh",
+      "save": "Save",
+      "cancel": "Cancel",
+      "ok": "OK",
+      "close": "Close",
+      "settings": "Settings",
+      "preview": "Preview",
+      "send": "Send",
+      "clear": "Clear",
+      "export": "Export",
+      "import": "Import"
+    },
+    "status": {
+      "running": "Running",
+      "stopped": "Stopped",
+      "error": "Error",
+      "success": "Success",
+      "warning": "Warning",
+      "connecting": "Connecting",
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "deploying": "Deploying",
+      "deployed": "Deployed",
+      "failed": "Failed"
+    },
+    "tabs": {
+      "dashboard": "Dashboard",
+      "deployment": "Deployment",
+      "monitoring": "Monitoring",
+      "messages": "Messages",
+      "logs": "Logs",
+      "settings": "Settings",
+      "about": "About"
+    },
+    "messages": {
+      "deployment_started": "Deployment has started.",
+      "deployment_completed": "Deployment completed successfully.",
+      "deployment_failed": "Deployment failed.",
+      "webhook_sent": "Webhook message sent successfully.",
+      "webhook_failed": "Failed to send webhook message.",
+      "data_updated": "Data has been updated.",
+      "system_started": "System has started.",
+      "system_stopped": "System has stopped.",
+      "config_saved": "Configuration saved successfully.",
+      "config_loaded": "Configuration loaded successfully."
+    },
+    "errors": {
+      "connection_failed": "Connection failed.",
+      "file_not_found": "File not found.",
+      "permission_denied": "Permission denied.",
+      "invalid_config": "Invalid configuration.",
+      "network_error": "Network error occurred.",
+      "timeout_error": "Timeout error occurred.",
+      "unknown_error": "Unknown error occurred."
+    },
+    "tooltips": {
+      "start_monitoring": "Start monitoring",
+      "stop_monitoring": "Stop monitoring",
+      "deploy_now": "Deploy immediately",
+      "refresh_data": "Refresh data",
+      "open_settings": "Open settings",
+      "view_logs": "View logs",
+      "send_webhook": "Send webhook message",
+      "preview_message": "Preview message"
+    }
+  }
+}

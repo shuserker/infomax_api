@@ -1,0 +1,326 @@
+{
+  "overall_score": 92.875,
+  "task_results": [
+    {
+      "task_id": "task01",
+      "task_name": "기본 GUI 프레임워크",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 7.295608520507812e-05
+    },
+    {
+      "task_id": "task02",
+      "task_name": "설정 관리 시스템",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 3.314018249511719e-05
+    },
+    {
+      "task_id": "task03",
+      "task_name": "로그 시스템",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 3.0994415283203125e-05
+    },
+    {
+      "task_id": "task04",
+      "task_name": "알림 시스템",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 2.3126602172851562e-05
+    },
+    {
+      "task_id": "task05",
+      "task_name": "상태 모니터링",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 3.0040740966796875e-05
+    },
+    {
+      "task_id": "task06",
+      "task_name": "데이터 수집 시스템",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 2.8848648071289062e-05
+    },
+    {
+      "task_id": "task07",
+      "task_name": "웹훅 통합",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 9.322166442871094e-05
+    },
+    {
+      "task_id": "task08",
+      "task_name": "메시지 템플릿 엔진",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 0.000125885009765625
+    },
+    {
+      "task_id": "task09",
+      "task_name": "충돌 해결 시스템",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 2.2649765014648438e-05
+    },
+    {
+      "task_id": "task10",
+      "task_name": "통합 배포 시스템",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 2.6941299438476562e-05
+    },
+    {
+      "task_id": "task11",
+      "task_name": "동적 데이터 시스템",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 5.2928924560546875e-05
+    },
+    {
+      "task_id": "task12",
+      "task_name": "GitHub Pages 모니터",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 8.702278137207031e-05
+    },
+    {
+      "task_id": "task13",
+      "task_name": "캐시 모니터",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 4.00543212890625e-05
+    },
+    {
+      "task_id": "task14",
+      "task_name": "통합 상태 시스템",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 5.507469177246094e-05
+    },
+    {
+      "task_id": "task15",
+      "task_name": "메인 GUI 통합",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 3.719329833984375e-05
+    },
+    {
+      "task_id": "task16",
+      "task_name": "POSCO GUI 관리자",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 1.4066696166992188e-05
+    },
+    {
+      "task_id": "task17",
+      "task_name": "고급 GUI 컴포넌트",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 0.00013494491577148438
+    },
+    {
+      "task_id": "task18",
+      "task_name": "리소스 관리 시스템",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 6.890296936035156e-05
+    },
+    {
+      "task_id": "task19",
+      "task_name": "배포 파이프라인",
+      "completion_score": 92.5,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": false,
+      "verification_time": 2.8848648071289062e-05
+    },
+    {
+      "task_id": "task20",
+      "task_name": "성능 최적화 및 안정성",
+      "completion_score": 100.0,
+      "files_verified": [
+        "main_gui.py",
+        "config/gui_config.json",
+        "config/posco_config.json"
+      ],
+      "functions_tested": [],
+      "errors_found": [],
+      "performance_metrics": {},
+      "is_ready_for_production": true,
+      "verification_time": 7.06380295753479
+    }
+  ],
+  "integration_test_results": {
+    "gui_startup": true,
+    "config_loading": true,
+    "component_integration": true,
+    "error_handling": true
+  },
+  "error_summary": {
+    "critical": 0,
+    "major": 0,
+    "minor": 0,
+    "total": 0
+  },
+  "performance_summary": {
+    "total_verification_time": 7.067580938339233,
+    "average_task_verification_time": 0.3532404899597168,
+    "tasks_verified": 20,
+    "verification_speed": 2.8298225622725837
+  },
+  "deployment_readiness": false,
+  "total_verification_time": 7.067608118057251,
+  "timestamp": "2025-10-01T11:26:48.831024"
+}

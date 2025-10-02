@@ -1,0 +1,161 @@
+{
+  "test_start_time": "2025-08-16T15:40:52.292550",
+  "test_end_time": "2025-08-16T15:40:52.293988",
+  "total_duration": 0.001434,
+  "total_tests": 9,
+  "passed_tests": 3,
+  "failed_tests": 6,
+  "skipped_tests": 0,
+  "success_rate": 33.33333333333333,
+  "test_results": [
+    {
+      "test_name": "환경 설정 테스트",
+      "status": "PASS",
+      "duration": 3.600120544433594e-05,
+      "details": {
+        "environment_check": true,
+        "directory_status": {
+          "recovery_config": true,
+          "Monitoring": true,
+          "core": true
+        },
+        "package_status": {
+          "requests": true,
+          "asyncio": true,
+          "json": true,
+          "datetime": true
+        }
+      },
+      "error_message": null,
+      "timestamp": "2025-08-16T15:40:52.292882"
+    },
+    {
+      "test_name": "API 연동 테스트",
+      "status": "FAIL",
+      "duration": 4.57763671875e-05,
+      "details": {},
+      "error_message": "API 연동 테스트 실패: 'url'",
+      "timestamp": "2025-08-16T15:40:52.292978"
+    },
+    {
+      "test_name": "데이터 파싱 테스트",
+      "status": "FAIL",
+      "duration": 7.295608520507812e-05,
+      "details": {},
+      "error_message": "데이터 파싱 테스트 실패: __init__() missing 1 required positional argument: 'api_config'",
+      "timestamp": "2025-08-16T15:40:52.293112"
+    },
+    {
+      "test_name": "메시지 생성 테스트",
+      "status": "FAIL",
+      "duration": 0.00011587142944335938,
+      "details": {},
+      "error_message": "메시지 생성 테스트 실패: __init__() missing 1 required positional argument: 'api_config'",
+      "timestamp": "2025-08-16T15:40:52.293287"
+    },
+    {
+      "test_name": "모니터링 시스템 테스트",
+      "status": "FAIL",
+      "duration": 6.103515625e-05,
+      "details": {},
+      "error_message": "모니터링 시스템 테스트 실패: __init__() missing 1 required positional argument: 'config'",
+      "timestamp": "2025-08-16T15:40:52.293391"
+    },
+    {
+      "test_name": "AI 분석 엔진 테스트",
+      "status": "FAIL",
+      "duration": 4.792213439941406e-05,
+      "details": {},
+      "error_message": "AI 분석 엔진 테스트 실패: __init__() missing 2 required positional arguments: 'api_module' and 'news_parser'",
+      "timestamp": "2025-08-16T15:40:52.293499"
+    },
+    {
+      "test_name": "웹훅 전송 테스트",
+      "status": "PASS",
+      "duration": 0.0001518726348876953,
+      "details": {
+        "webhook_sender": {
+          "initialized": true,
+          "test_message_validation": true,
+          "format_validation": true
+        },
+        "test_message_length": 33,
+        "webhook_ready": true
+      },
+      "error_message": null,
+      "timestamp": "2025-08-16T15:40:52.293704"
+    },
+    {
+      "test_name": "End-to-End 파이프라인 테스트",
+      "status": "PASS",
+      "duration": 0.00010013580322265625,
+      "details": {
+        "pipeline_steps": [
+          {
+            "step": "API 데이터 수집",
+            "success": true,
+            "data_count": 3
+          },
+          {
+            "step": "데이터 파싱",
+            "success": true,
+            "parsed_types": [
+              "kospi",
+              "exchange_rate",
+              "news"
+            ]
+          },
+          {
+            "step": "메시지 생성",
+            "success": true,
+            "message_length": 37
+          },
+          {
+            "step": "AI 분석",
+            "success": true,
+            "analysis_keys": [
+              "analysis",
+              "status"
+            ]
+          },
+          {
+            "step": "웹훅 검증",
+            "success": true,
+            "message_ready": true
+          }
+        ],
+        "total_steps": 5,
+        "successful_steps": 5,
+        "final_message_preview": "Test integrated message from pipeline"
+      },
+      "error_message": null,
+      "timestamp": "2025-08-16T15:40:52.293848"
+    },
+    {
+      "test_name": "장애 상황 시뮬레이션 테스트",
+      "status": "FAIL",
+      "duration": 6.4849853515625e-05,
+      "details": {
+        "failure_scenarios": [
+          {
+            "scenario": "API 연결 실패",
+            "handled_properly": false,
+            "error": "__init__() missing 1 required positional argument: 'api_config'"
+          },
+          {
+            "scenario": "잘못된 데이터 파싱",
+            "handled_properly": true
+          },
+          {
+            "scenario": "웹훅 전송 실패",
+            "handled_properly": true
+          }
+        ],
+        "total_scenarios": 3,
+        "properly_handled": 2
+      },
+      "error_message": null,
+      "timestamp": "2025-08-16T15:40:52.293948"
+    }
+  ]
+}

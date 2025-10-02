@@ -1,0 +1,113 @@
+{
+  "timestamp": "2025-08-16T12:34:32.387252",
+  "total_tests": 9,
+  "passed_tests": 9,
+  "failed_tests": 0,
+  "test_details": [
+    {
+      "test_name": "워치햄스터 모니터 모듈 import",
+      "status": "✅ PASS",
+      "success": true,
+      "message": "워치햄스터 모니터 모듈이 성공적으로 로드되었습니다",
+      "timestamp": "2025-08-16T12:34:32.558008"
+    },
+    {
+      "test_name": "Git 모니터 모듈 import",
+      "status": "✅ PASS",
+      "success": true,
+      "message": "Git 모니터 모듈이 성공적으로 로드되었습니다",
+      "timestamp": "2025-08-16T12:34:32.565716"
+    },
+    {
+      "test_name": "워치햄스터 모니터 초기화",
+      "status": "✅ PASS",
+      "success": true,
+      "message": "워치햄스터 모니터가 성공적으로 초기화되었습니다 (관리 프로세스: 2개)",
+      "timestamp": "2025-08-16T12:34:32.566227",
+      "details": {
+        "managed_processes": [
+          "python",
+          "test_process"
+        ],
+        "process_check_interval": 60,
+        "git_check_interval": 300
+      }
+    },
+    {
+      "test_name": "프로세스 모니터링 기능",
+      "status": "✅ PASS",
+      "success": true,
+      "message": "프로세스 모니터링이 성공적으로 실행되었습니다 (총 2개 프로세스, 0개 정상)",
+      "timestamp": "2025-08-16T12:34:32.654706",
+      "details": {
+        "total_processes": 2,
+        "healthy_processes": 0,
+        "system_health": "critical",
+        "process_names": [
+          "python",
+          "kernel_task"
+        ]
+      }
+    },
+    {
+      "test_name": "Git 저장소 확인",
+      "status": "✅ PASS",
+      "success": true,
+      "message": "Git 저장소가 정상적으로 감지되었습니다",
+      "timestamp": "2025-08-16T12:34:32.683247"
+    },
+    {
+      "test_name": "Git 상태 확인",
+      "status": "✅ PASS",
+      "success": true,
+      "message": "Git 상태가 성공적으로 확인되었습니다 (브랜치: main, 상태: 변경사항 있음)",
+      "timestamp": "2025-08-16T12:34:33.337845",
+      "details": {
+        "branch": "main",
+        "status": "변경사항 있음",
+        "last_commit": "11bc6b0d70e8caf44b8e2de1997c2a6892e5feaf",
+        "uncommitted_changes": true
+      }
+    },
+    {
+      "test_name": "Git 저장소 건강 상태",
+      "status": "✅ PASS",
+      "success": true,
+      "message": "Git 저장소 건강 상태 검사 완료 (문제점: 0개)",
+      "timestamp": "2025-08-16T12:34:33.988954",
+      "details": {
+        "issues_count": 0,
+        "recommendations_count": 1,
+        "conflicts_count": 0
+      }
+    },
+    {
+      "test_name": "시스템 리소스 모니터링",
+      "status": "✅ PASS",
+      "success": true,
+      "message": "시스템 리소스 모니터링이 성공적으로 실행되었습니다 (전체 레벨: warning)",
+      "timestamp": "2025-08-16T12:34:34.997965",
+      "details": {
+        "cpu_percent": 29.6,
+        "memory_percent": 79.3,
+        "disk_percent": 4.86611857173533,
+        "overall_level": "warning",
+        "warnings_count": 1,
+        "critical_issues_count": 0
+      }
+    },
+    {
+      "test_name": "알림 메시지 생성",
+      "status": "✅ PASS",
+      "success": true,
+      "message": "알림 메시지가 성공적으로 생성되었습니다 (길이: 186자)",
+      "timestamp": "2025-08-16T12:34:34.998916",
+      "details": {
+        "message_length": 186,
+        "contains_required_elements": true,
+        "message_preview": "🐹 POSCO 워치햄스터 상태 보고\n📅 시간: 2025-08-16 12:34:34\n⏱️ 가동 시간: 0시간 0분\n\n🔴 프로세스 상태: 2/3 정상\n❌ 문제 프로세스:\n  • tes..."
+      }
+    }
+  ],
+  "overall_status": "excellent"
+}

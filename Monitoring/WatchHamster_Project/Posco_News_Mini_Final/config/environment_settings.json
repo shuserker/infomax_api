@@ -1,0 +1,35 @@
+{
+  "api_config": {
+    "url": "https://dev-global-api.einfomax.co.kr/apis/posco/news",
+    "user": "infomax",
+    "password": "infomax!",
+    "timeout": 10
+  },
+  "webhook_urls": {
+    "dooray_webhook_url": "https://infomax.dooray.com/services/3262462484277387103/4121380745073081229/5FbudzTwTki4wCeBszBrAg",
+    "watchhamster_webhook_url": "https://infomax.dooray.com/services/3262462484277387103/3281274580264701322/nKUfZnjtRS2rHh-E9i9uZQ",
+    "bot_profile_image_url": "https://raw.githubusercontent.com/shuserker/infomax_api/main/Monitoring/Posco_News_mini/posco_logo_mini.jpg"
+  },
+  "monitoring_config": {
+    "default_interval_minutes": 60,
+    "max_retry_days": 10,
+    "cache_file": "posco_news_cache.json"
+  },
+  "news_types": {
+    "newyork-market-watch": {
+      "display_name": "NEWYORK MARKET WATCH",
+      "emoji": "🌆",
+      "publish_days": [0, 1, 2, 3, 4, 5]
+    },
+    "kospi-close": {
+      "display_name": "KOSPI CLOSE",
+      "emoji": "📈",
+      "publish_days": [0, 1, 2, 3, 4]
+    },
+    "exchange-rate": {
+      "display_name": "EXCHANGE RATE",
+      "emoji": "💱",
+      "publish_days": [0, 1, 2, 3, 4]
+    }
+  }
+}

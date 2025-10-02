@@ -1,0 +1,109 @@
+{
+  "gui_settings": {
+    "window_title": "POSCO 뉴스 시스템 관리자",
+    "window_size": {
+      "width": 1200,
+      "height": 800
+    },
+    "theme": "default",
+    "auto_refresh_interval": 30,
+    "log_max_lines": 1000,
+    "language": "ko",
+    "font_family": "맑은 고딕",
+    "font_size": 10,
+    "enable_animations": true,
+    "show_tooltips": true
+  },
+  "theme_settings": {
+    "available_themes": ["default", "dark", "light", "posco_corporate"],
+    "default": {
+      "bg_color": "#f0f0f0",
+      "fg_color": "#000000",
+      "accent_color": "#0066cc",
+      "button_color": "#e0e0e0",
+      "text_color": "#333333",
+      "error_color": "#cc0000",
+      "success_color": "#00cc00",
+      "warning_color": "#ff9900"
+    },
+    "dark": {
+      "bg_color": "#2b2b2b",
+      "fg_color": "#ffffff",
+      "accent_color": "#4da6ff",
+      "button_color": "#404040",
+      "text_color": "#e0e0e0",
+      "error_color": "#ff6666",
+      "success_color": "#66ff66",
+      "warning_color": "#ffcc66"
+    },
+    "light": {
+      "bg_color": "#ffffff",
+      "fg_color": "#000000",
+      "accent_color": "#0080ff",
+      "button_color": "#f5f5f5",
+      "text_color": "#222222",
+      "error_color": "#e60000",
+      "success_color": "#00b300",
+      "warning_color": "#ff8000"
+    },
+    "posco_corporate": {
+      "bg_color": "#f8f9fa",
+      "fg_color": "#212529",
+      "accent_color": "#003d82",
+      "button_color": "#e9ecef",
+      "text_color": "#495057",
+      "error_color": "#dc3545",
+      "success_color": "#28a745",
+      "warning_color": "#ffc107"
+    }
+  },
+  "layout_settings": {
+    "main_panel_ratio": 0.7,
+    "sidebar_width": 250,
+    "status_bar_height": 30,
+    "toolbar_height": 40,
+    "padding": 10,
+    "spacing": 5,
+    "border_width": 1,
+    "corner_radius": 5
+  },
+  "internationalization": {
+    "default_language": "ko",
+    "available_languages": ["ko", "en"],
+    "auto_detect_language": false,
+    "fallback_language": "en",
+    "date_format": {
+      "ko": "%Y년 %m월 %d일 %H:%M:%S",
+      "en": "%Y-%m-%d %H:%M:%S"
+    },
+    "number_format": {
+      "ko": "comma_separated",
+      "en": "comma_separated"
+    }
+  },
+  "git_settings": {
+    "main_branch": "main",
+    "publish_branch": "publish",
+    "auto_stash": true,
+    "conflict_resolution": "auto",
+    "max_retries": 3,
+    "retry_delay": 5
+  },
+  "deployment_settings": {
+    "github_pages_url": "https://shuserker.github.io/infomax_api",
+    "reports_directory": "reports",
+    "auto_deploy": false,
+    "deploy_timeout": 300
+  },
+  "monitoring_settings": {
+    "enable_monitoring": true,
+    "check_interval": 30,
+    "alert_on_failure": true,
+    "log_level": "INFO"
+  },
+  "requirements_mapping": {
+    "1.3": "안전한 브랜치 전환 시스템",
+    "3.1": "Git 상태 확인 및 충돌 감지",
+    "3.2": "자동 충돌 해결 및 롤백 메커니즘"
+  }
+}

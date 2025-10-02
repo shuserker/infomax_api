@@ -1,0 +1,57 @@
+[2025-08-16 23:43:13] ❌ 시작 알림 전송 오류: 'WebhookSender' object has no attribute 'send_news_status_notification'
+[2025-08-16 23:44:47] ⚠️ 시작 알림 전송 실패
+[2025-08-16 23:44:47] ❌ NEWYORK MARKET WATCH 체크 오류: 'IntegratedAPIModule' object has no attribute 'get_news_data'
+[2025-08-16 23:44:47] ❌ KOSPI CLOSE 체크 오류: 'IntegratedAPIModule' object has no attribute 'get_news_data'
+[2025-08-16 23:44:47] ❌ EXCHANGE RATE 체크 오류: 'IntegratedAPIModule' object has no attribute 'get_news_data'
+[2025-08-16 23:48:38] ⚠️ 시작 알림 전송 실패
+[2025-08-16 23:48:38] 🔄 POSCO 메인 알림 시스템 실행 시작
+[2025-08-16 23:48:38] ❌ NEWYORK MARKET WATCH 체크 오류: 'IntegratedAPIModule' object has no attribute 'get_news_data'
+[2025-08-16 23:48:38] ❌ KOSPI CLOSE 체크 오류: 'IntegratedAPIModule' object has no attribute 'get_news_data'
+[2025-08-16 23:48:38] ❌ EXCHANGE RATE 체크 오류: 'IntegratedAPIModule' object has no attribute 'get_news_data'
+[2025-08-16 23:49:26] ⚠️ 시작 알림 전송 실패
+[2025-08-16 23:49:26] 🔄 POSCO 메인 알림 시스템 실행 시작
+[2025-08-16 23:49:26] ❌ NEWYORK MARKET WATCH 체크 오류: 'IntegratedAPIModule' object has no attribute 'get_news_data'
+[2025-08-16 23:49:26] ❌ KOSPI CLOSE 체크 오류: 'IntegratedAPIModule' object has no attribute 'get_news_data'
+[2025-08-16 23:49:26] ❌ EXCHANGE RATE 체크 오류: 'IntegratedAPIModule' object has no attribute 'get_news_data'
+[2025-08-16 23:49:38] ❌ NEWYORK MARKET WATCH 체크 오류: 'IntegratedAPIModule' object has no attribute 'get_news_data'
+[2025-08-16 23:49:38] ❌ KOSPI CLOSE 체크 오류: 'IntegratedAPIModule' object has no attribute 'get_news_data'
+[2025-08-16 23:49:38] ❌ EXCHANGE RATE 체크 오류: 'IntegratedAPIModule' object has no attribute 'get_news_data'
+[2025-08-16 23:50:25] 🛑 종료 신호 수신됨
+[2025-08-16 23:50:26] ✅ POSCO 메인 알림 시스템 종료
+[2025-08-16 23:50:28] 🛑 종료 신호 수신됨
+[2025-08-16 23:50:38] ✅ POSCO 메인 알림 시스템 종료
+[2025-08-16 23:52:17] ✅ 시작 알림 전송 완료: 20250816_235217_ceac729d
+[2025-08-16 23:52:17] ⚠️ NEWYORK MARKET WATCH 데이터 없음
+[2025-08-16 23:52:17] ⚠️ KOSPI CLOSE 데이터 없음
+[2025-08-16 23:52:17] ⚠️ EXCHANGE RATE 데이터 없음
+[2025-08-16 23:54:04] ✅ 시작 알림 전송 완료: 20250816_235404_d0604dcd
+[2025-08-16 23:54:04] ❌ 뉴스 발행 알림 전송 오류: 'NewsMessageGenerator' object has no attribute 'generate_publication_message'
+[2025-08-16 23:54:04] ❌ 뉴스 발행 알림 전송 오류: 'NewsMessageGenerator' object has no attribute 'generate_publication_message'
+[2025-08-16 23:54:04] ❌ 뉴스 발행 알림 전송 오류: 'NewsMessageGenerator' object has no attribute 'generate_publication_message'
+[2025-08-16 23:54:04] ❌ 영업일 비교 분석 오류: 'NewsMessageGenerator' object has no attribute 'generate_business_day_comparison'
+[2025-08-16 23:54:04] ❌ 일일 리포트 오류: 'NewsMessageGenerator' object has no attribute 'generate_daily_report'
+[2025-08-16 23:54:04] 🔔 데이터 갱신 없음 알림 전송: 20250816_235404_e32c3135
+[2025-08-17 00:04:01] 📊 영업일 비교 분석 알림 생성 중...
+[2025-08-17 00:04:01] ✅ 영업일 비교 분석 알림 전송 성공
+[2025-08-17 00:04:09] 📊 일일 통합 리포트 생성 중...
+[2025-08-17 00:04:09] ✅ 일일 통합 리포트 전송 성공
+[2025-08-17 00:04:15] ⏰ KOSPI CLOSE 지연 알림 생성 중...
+[2025-08-17 00:04:15] ✅ KOSPI CLOSE 지연 알림 전송 성공
+[2025-08-17 00:04:21] 🔔 데이터 갱신 없음 알림 생성 중...
+[2025-08-17 00:04:21] ✅ 데이터 갱신 없음 알림 전송 성공
+[2025-08-17 00:07:21] 📊 Git Pages 통합 리포트 생성 중...
+[2025-08-17 00:07:21] ✅ Git Pages 리포트 알림 전송 성공
+[2025-08-17 00:12:16] 📊 POSCO 통합 AI 분석 리포트 생성 중...
+[2025-08-17 00:12:17] ✅ POSCO 통합 AI 분석 리포트 전송 성공
+[2025-08-17 00:12:23] 📊 POSCO 통합 AI 분석 리포트 (Git Pages) 생성 중...
+[2025-08-17 00:12:23] ✅ POSCO 통합 AI 분석 리포트 (Git Pages) 전송 성공
+[2025-08-17 00:14:36] 📊 POSCO 통합 AI 분석 리포트 생성 중...
+[2025-08-17 00:14:36] ⚠️ API 데이터 없음 - 기본값 사용
+[2025-08-17 00:14:36] ✅ POSCO 통합 AI 분석 리포트 전송 성공
+[2025-08-17 00:14:44] 📊 POSCO 통합 분석 리포트 (웹 버전) 생성 중...
+[2025-08-17 00:14:44] ⚠️ API 데이터 없음 - 기본값 사용
+[2025-08-17 00:14:44] ✅ POSCO 통합 분석 리포트 (웹 버전) 전송 성공
+[2025-08-17 00:18:39] 📊 POSCO 통합 분석 리포트 (웹 버전) 생성 중...
+[2025-08-17 00:18:39] ✅ HTML 리포트 생성 완료: posco_integrated_analysis_20250817_001839.html
+[2025-08-17 00:18:39] ⚠️ API 데이터 없음 - 기본값 사용
+[2025-08-17 00:18:39] ✅ POSCO 통합 분석 리포트 (웹 버전) 전송 성공

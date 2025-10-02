@@ -1,0 +1,410 @@
+{
+  "file_path": "reports_index.json",
+  "config_type": "json",
+  "content": {
+    "exchange-rate": [
+      {
+        "filename": "posco_analysis_exchange-rate_20250802_122827.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-02T12:28:28.845389",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250802_122827.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-02 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250802_122753.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-02T12:27:53.234791",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250802_122753.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-02 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250802_122222.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-02T12:22:22.795800",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250802_122222.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-02 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250802_122018.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-02T12:20:18.965378",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250802_122018.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-02 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250802_121748.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-02T12:17:48.462919",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250802_121748.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-02 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250802_115854.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-02T11:58:56.780527",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250802_115854.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-02 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250802_115530.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-02T11:55:30.848754",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250802_115530.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250801_223556.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-01T22:35:58.427209",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_223556.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250801_223504.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-01T22:35:04.584657",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_223504.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250801_223204.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-01T22:32:06.594116",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_223204.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250801_223124.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-01T22:31:24.613293",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_223124.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250801_222948.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-01T22:29:48.242014",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_222948.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250801_222824.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-01T22:28:25.965151",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_222824.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250801_222655.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-01T22:26:56.014388",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_222655.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250801_222424.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-01T22:24:25.994863",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_222424.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250801_222332.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-01T22:23:32.984250",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_222332.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      }
+    ],
+    "metadata": {
+      "watchhamster_version": "v3.0",
+      "posco_news_version": "250808",
+      "system_version": "WatchHamster_v3.0_PoscoNews_250808",
+      "last_updated": "2025-08-08T16:01:01",
+      "standardization_date": "2025-08-08",
+      "description": "POSCO System Configuration - WatchHamster_v3.0_PoscoNews_250808"
+    }
+  },
+  "variables": {
+    "exchange-rate": [
+      {
+        "filename": "posco_analysis_exchange-rate_20250802_122827.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-02T12:28:28.845389",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250802_122827.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-02 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250802_122753.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-02T12:27:53.234791",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250802_122753.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-02 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250802_122222.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-02T12:22:22.795800",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250802_122222.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-02 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250802_122018.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-02T12:20:18.965378",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250802_122018.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-02 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250802_121748.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-02T12:17:48.462919",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250802_121748.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-02 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250802_115854.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-02T11:58:56.780527",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250802_115854.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-02 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250802_115530.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-02T11:55:30.848754",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250802_115530.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250801_223556.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-01T22:35:58.427209",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_223556.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250801_223504.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-01T22:35:04.584657",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_223504.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250801_223204.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-01T22:32:06.594116",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_223204.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250801_223124.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-01T22:31:24.613293",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_223124.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250801_222948.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-01T22:29:48.242014",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_222948.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250801_222824.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-01T22:28:25.965151",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_222824.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250801_222655.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-01T22:26:56.014388",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_222655.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250801_222424.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-01T22:24:25.994863",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_222424.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      },
+      {
+        "filename": "posco_analysis_exchange-rate_20250801_222332.html",
+        "news_type": "exchange-rate",
+        "display_name": "서환마감",
+        "created_at": "2025-08-01T22:23:32.984250",
+        "web_url": "https://shuserker.github.io/infomax_api/reports/posco_analysis_exchange-rate_20250801_222332.html",
+        "summary": {
+          "status": "on_time",
+          "analysis": "정시 발행 (16:33)",
+          "publish_time": "2025-08-01 16:33:03"
+        }
+      }
+    ],
+    "metadata.watchhamster_version": "v3.0",
+    "metadata.posco_news_version": "250808",
+    "metadata.system_version": "WatchHamster_v3.0_PoscoNews_250808",
+    "metadata.last_updated": "2025-08-08T16:01:01",
+    "metadata.standardization_date": "2025-08-08",
+    "metadata.description": "POSCO System Configuration - WatchHamster_v3.0_PoscoNews_250808"
+  }
+}

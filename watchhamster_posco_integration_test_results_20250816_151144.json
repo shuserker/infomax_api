@@ -1,0 +1,22 @@
+{
+  "timestamp": "2025-08-16T15:11:44.056613",
+  "overall_success_rate": 85.71428571428571,
+  "passed_tests": 6,
+  "total_tests": 7,
+  "elapsed_time": 0.20481610298156738,
+  "detailed_results": {
+    "integration": {
+      "integration_error": "❌ 연동 오류: __init__() missing 1 required positional argument: 'config'"
+    },
+    "functionality": {
+      "git_monitoring": "✅ Git 모니터링 기능 사용 가능",
+      "environment_setup": "✅ 환경 설정 기능 사용 가능",
+      "cross_reference": "✅ 모듈 간 상호 참조 성공"
+    },
+    "structure": {
+      "watchhamster_level": "✅ 워치햄스터 상위 레벨 구조 확인",
+      "posco_level": "✅ 포스코 하위 레벨 구조 확인",
+      "extensibility": "✅ 새 프로젝트 추가 가능한 구조"
+    }
+  }
+}

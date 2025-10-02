@@ -1,0 +1,104 @@
+{
+  "file_path": "docs/status.json",
+  "config_type": "json",
+  "content": {
+    "lastUpdate": "2025-08-02T23:30:00Z",
+    "newsStatus": {
+      "exchange-rate": {
+        "published": true,
+        "publishTime": "16:30:00",
+        "status": "latest",
+        "title": "달러-원 환율 1,350원대 마감",
+        "lastReportId": "posco_analysis_exchange-rate_20250802_122827"
+      },
+      "kospi-close": {
+        "published": true,
+        "publishTime": "15:40:00",
+        "status": "latest",
+        "title": "KOSPI 2,500선 회복",
+        "lastReportId": "posco_analysis_kospi-close_20250801_154000"
+      },
+      "newyork-market-watch": {
+        "published": true,
+        "publishTime": "06:24:00",
+        "status": "latest",
+        "title": "뉴욕 증시 상승 마감",
+        "lastReportId": "posco_analysis_newyork-market-watch_20250801_062400"
+      }
+    },
+    "systemStatus": {
+      "monitoring": "active",
+      "uptime": "99.8%",
+      "lastReportGenerated": "2025-08-02T18:00:00Z",
+      "totalReportsToday": 12,
+      "errors": [],
+      "services": {
+        "watchHamster": {
+          "status": "running",
+          "lastCheck": "2025-08-02T23:29:00Z"
+        },
+        "reportGenerator": {
+          "status": "running",
+          "lastRun": "2025-08-02T18:00:00Z"
+        },
+        "githubPages": {
+          "status": "active",
+          "lastDeploy": "2025-08-02T18:05:00Z"
+        }
+      }
+    },
+    "statistics": {
+      "totalReports": 156,
+      "reportsToday": 12,
+      "reportsThisWeek": 84,
+      "reportsThisMonth": 342,
+      "averagePerDay": 12.3,
+      "successRate": 98.5,
+      "typeDistribution": {
+        "integrated": 45,
+        "exchange-rate": 52,
+        "kospi-close": 31,
+        "newyork-market-watch": 28
+      }
+    }
+  },
+  "variables": {
+    "lastUpdate": "2025-08-02T23:30:00Z",
+    "newsStatus.exchange-rate.published": true,
+    "newsStatus.exchange-rate.publishTime": "16:30:00",
+    "newsStatus.exchange-rate.status": "latest",
+    "newsStatus.exchange-rate.title": "달러-원 환율 1,350원대 마감",
+    "newsStatus.exchange-rate.lastReportId": "posco_analysis_exchange-rate_20250802_122827",
+    "newsStatus.kospi-close.published": true,
+    "newsStatus.kospi-close.publishTime": "15:40:00",
+    "newsStatus.kospi-close.status": "latest",
+    "newsStatus.kospi-close.title": "KOSPI 2,500선 회복",
+    "newsStatus.kospi-close.lastReportId": "posco_analysis_kospi-close_20250801_154000",
+    "newsStatus.newyork-market-watch.published": true,
+    "newsStatus.newyork-market-watch.publishTime": "06:24:00",
+    "newsStatus.newyork-market-watch.status": "latest",
+    "newsStatus.newyork-market-watch.title": "뉴욕 증시 상승 마감",
+    "newsStatus.newyork-market-watch.lastReportId": "posco_analysis_newyork-market-watch_20250801_062400",
+    "systemStatus.monitoring": "active",
+    "systemStatus.uptime": "99.8%",
+    "systemStatus.lastReportGenerated": "2025-08-02T18:00:00Z",
+    "systemStatus.totalReportsToday": 12,
+    "systemStatus.errors": [],
+    "systemStatus.services.watchHamster.status": "running",
+    "systemStatus.services.watchHamster.lastCheck": "2025-08-02T23:29:00Z",
+    "systemStatus.services.reportGenerator.status": "running",
+    "systemStatus.services.reportGenerator.lastRun": "2025-08-02T18:00:00Z",
+    "systemStatus.services.githubPages.status": "active",
+    "systemStatus.services.githubPages.lastDeploy": "2025-08-02T18:05:00Z",
+    "statistics.totalReports": 156,
+    "statistics.reportsToday": 12,
+    "statistics.reportsThisWeek": 84,
+    "statistics.reportsThisMonth": 342,
+    "statistics.averagePerDay": 12.3,
+    "statistics.successRate": 98.5,
+    "statistics.typeDistribution.integrated": 45,
+    "statistics.typeDistribution.exchange-rate": 52,
+    "statistics.typeDistribution.kospi-close": 31,
+    "statistics.typeDistribution.newyork-market-watch": 28
+  }
+}

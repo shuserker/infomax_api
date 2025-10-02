@@ -1,0 +1,381 @@
+{
+  "timestamp": "20250816_151125",
+  "file_structure_check": {
+    "required_folders": {
+      "Monitoring/WatchHamster_Project": {
+        "exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/core": {
+        "exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/scripts": {
+        "exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/docs": {
+        "exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final": {
+        "exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core": {
+        "exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/scripts": {
+        "exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/docs": {
+        "exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/config": {
+        "exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/logs": {
+        "exists": true,
+        "status": "OK"
+      }
+    },
+    "core_files": {
+      "Monitoring/WatchHamster_Project/core/watchhamster_monitor.py": {
+        "original_exists": true,
+        "copied_exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/core/git_monitor.py": {
+        "original_exists": true,
+        "copied_exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/scripts/start_monitoring.py": {
+        "original_exists": true,
+        "copied_exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/scripts/daily_check.bat": {
+        "original_exists": true,
+        "copied_exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/scripts/daily_check.sh": {
+        "original_exists": true,
+        "copied_exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core/environment_setup.py": {
+        "original_exists": true,
+        "copied_exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core/integrated_api_module.py": {
+        "original_exists": true,
+        "copied_exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core/news_message_generator.py": {
+        "original_exists": true,
+        "copied_exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core/webhook_sender.py": {
+        "original_exists": true,
+        "copied_exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/scripts/system_test.py": {
+        "original_exists": true,
+        "copied_exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/docs/MONITORING_GUIDE.md": {
+        "original_exists": true,
+        "copied_exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/docs/QUICK_CHEAT_SHEET.md": {
+        "original_exists": true,
+        "copied_exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/config/environment_settings.json": {
+        "original_exists": true,
+        "copied_exists": true,
+        "status": "OK"
+      }
+    },
+    "init_files": {
+      "Monitoring/WatchHamster_Project/__init__.py": {
+        "exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/core/__init__.py": {
+        "exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/scripts/__init__.py": {
+        "exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/docs/__init__.py": {
+        "exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/__init__.py": {
+        "exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core/__init__.py": {
+        "exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/scripts/__init__.py": {
+        "exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/docs/__init__.py": {
+        "exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/config/__init__.py": {
+        "exists": true,
+        "status": "OK"
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/logs/__init__.py": {
+        "exists": true,
+        "status": "OK"
+      }
+    }
+  },
+  "legacy_preservation_check": {
+    "recovery_config_exists": true,
+    "original_files": {
+      "recovery_config/watchhamster_monitor.py": {
+        "exists": true,
+        "status": "OK"
+      },
+      "recovery_config/git_monitor.py": {
+        "exists": true,
+        "status": "OK"
+      },
+      "recovery_config/start_watchhamster_monitor.py": {
+        "exists": true,
+        "status": "OK"
+      },
+      "recovery_config/daily_check.bat": {
+        "exists": true,
+        "status": "OK"
+      },
+      "recovery_config/daily_check.sh": {
+        "exists": true,
+        "status": "OK"
+      },
+      "recovery_config/environment_setup.py": {
+        "exists": true,
+        "status": "OK"
+      },
+      "recovery_config/integrated_api_module.py": {
+        "exists": true,
+        "status": "OK"
+      },
+      "recovery_config/news_message_generator.py": {
+        "exists": true,
+        "status": "OK"
+      },
+      "recovery_config/webhook_sender.py": {
+        "exists": true,
+        "status": "OK"
+      },
+      "recovery_config/comprehensive_system_integration_test.py": {
+        "exists": true,
+        "status": "OK"
+      },
+      "recovery_config/MONITORING_GUIDE_FOR_OPERATORS.md": {
+        "exists": true,
+        "status": "OK"
+      },
+      "recovery_config/QUICK_MONITORING_CHEAT_SHEET.md": {
+        "exists": true,
+        "status": "OK"
+      },
+      "recovery_config/environment_settings.json": {
+        "exists": true,
+        "status": "OK"
+      }
+    },
+    "file_count": 139
+  },
+  "file_content_comparison": {
+    "identical_files": [
+      "Monitoring/WatchHamster_Project/core/watchhamster_monitor.py",
+      "Monitoring/WatchHamster_Project/core/git_monitor.py",
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/config/environment_settings.json"
+    ],
+    "different_files": [
+      {
+        "file": "Monitoring/WatchHamster_Project/scripts/start_monitoring.py",
+        "reason": "Content differs unexpectedly",
+        "status": "WARNING"
+      },
+      {
+        "file": "Monitoring/WatchHamster_Project/scripts/daily_check.bat",
+        "reason": "Content differs unexpectedly",
+        "status": "WARNING"
+      },
+      {
+        "file": "Monitoring/WatchHamster_Project/scripts/daily_check.sh",
+        "reason": "Content differs unexpectedly",
+        "status": "WARNING"
+      },
+      {
+        "file": "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core/environment_setup.py",
+        "reason": "Content differs unexpectedly",
+        "status": "WARNING"
+      },
+      {
+        "file": "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core/integrated_api_module.py",
+        "reason": "Content differs unexpectedly",
+        "status": "WARNING"
+      },
+      {
+        "file": "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core/news_message_generator.py",
+        "reason": "Content differs unexpectedly",
+        "status": "WARNING"
+      },
+      {
+        "file": "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core/webhook_sender.py",
+        "reason": "Content differs unexpectedly",
+        "status": "WARNING"
+      },
+      {
+        "file": "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/scripts/system_test.py",
+        "reason": "Content differs unexpectedly",
+        "status": "WARNING"
+      },
+      {
+        "file": "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/docs/MONITORING_GUIDE.md",
+        "reason": "Content differs unexpectedly",
+        "status": "WARNING"
+      },
+      {
+        "file": "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/docs/QUICK_CHEAT_SHEET.md",
+        "reason": "Content differs unexpectedly",
+        "status": "WARNING"
+      }
+    ],
+    "missing_files": [],
+    "hash_comparison": {
+      "Monitoring/WatchHamster_Project/core/watchhamster_monitor.py": {
+        "original_hash": "23dfbf37d748b5cb7c662cff8d86ccbe",
+        "copied_hash": "23dfbf37d748b5cb7c662cff8d86ccbe",
+        "identical": true
+      },
+      "Monitoring/WatchHamster_Project/core/git_monitor.py": {
+        "original_hash": "13b85a59a2fb6dca04c4e487211ccc6c",
+        "copied_hash": "13b85a59a2fb6dca04c4e487211ccc6c",
+        "identical": true
+      },
+      "Monitoring/WatchHamster_Project/scripts/start_monitoring.py": {
+        "original_hash": "fd6483ba03f023ad2f8daca114fa4697",
+        "copied_hash": "373b8233008488b161fb7ad415ae27a1",
+        "identical": false
+      },
+      "Monitoring/WatchHamster_Project/scripts/daily_check.bat": {
+        "original_hash": "b679875fd995612e9434df47818c1fa1",
+        "copied_hash": "0690dc1f902478a3d01860346fec728d",
+        "identical": false
+      },
+      "Monitoring/WatchHamster_Project/scripts/daily_check.sh": {
+        "original_hash": "0afbc64c14d8be8363cae81bbf0b9548",
+        "copied_hash": "5dbde9afe77d35a129dd538700d7caf8",
+        "identical": false
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core/environment_setup.py": {
+        "original_hash": "3f30d6e1b989d2e533553d3a325c8f8c",
+        "copied_hash": "a6d81b1e21578f34b89d889a7303c7ad",
+        "identical": false
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core/integrated_api_module.py": {
+        "original_hash": "8e63cd0aeb15c5a317cbb19fab5995d5",
+        "copied_hash": "b2575b4bfc16a3515c3b312cbc51d1e8",
+        "identical": false
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core/news_message_generator.py": {
+        "original_hash": "d61cc0a1028090990e7db5afcf649522",
+        "copied_hash": "97c88d5452ab4ada6e5e4e9b44f0618f",
+        "identical": false
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/core/webhook_sender.py": {
+        "original_hash": "bc3b4d3f7f0fa3218bc85a4049b859a9",
+        "copied_hash": "4e1030546ae594520deb2e06b9c57adf",
+        "identical": false
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/scripts/system_test.py": {
+        "original_hash": "86ee587ca27e313eb2bc5facbe034296",
+        "copied_hash": "197faefa5669ac5293d35d2f70d8a8f1",
+        "identical": false
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/docs/MONITORING_GUIDE.md": {
+        "original_hash": "1d0041033701cb630d09192ca617f12d",
+        "copied_hash": "08d26a813d7e946f6368ee69a2d7c837",
+        "identical": false
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/docs/QUICK_CHEAT_SHEET.md": {
+        "original_hash": "7ecd9f376b4d2f1c80c102b4e77568fd",
+        "copied_hash": "06f1d9089027f991784c329211469a86",
+        "identical": false
+      },
+      "Monitoring/WatchHamster_Project/Posco_News_Mini_Final/config/environment_settings.json": {
+        "original_hash": "3ec5255e87dbc001d5300d761f32101f",
+        "copied_hash": "3ec5255e87dbc001d5300d761f32101f",
+        "identical": true
+      }
+    }
+  },
+  "integration_test_results": {
+    "system_test_available": true,
+    "test_execution": {
+      "return_code": 0,
+      "stdout": "🚀 POSCO 시스템 전체 통합 테스트 시작\n============================================================\n✅ 환경 설정 파일 로드 완료\n🧠 POSCO AI 분석 엔진 초기화 완료\n🧠 POSCO AI 분석 엔진 초기화 완료\n\n============================================================\n🎯 전체 통합 테스트 완료\n============================================================\n⚠️ 일부 테스트가 실패했습니다. 시스템 점검이 필요합니다.\n📄 상세 보고서: /Users/jy_lee/Desktop/GIT_DEV/infomax_api/Monitoring/WatchHamster_Project/Posco_News_Mini_Final/scripts/comprehensive_system_integration_test_results_20250816_151125.json\n",
+      "stderr": "/Users/jy_lee/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n2025-08-16 15:11:25,967 - SystemIntegrationTest - INFO - 🚀 전체 시스템 통합 테스트 시스템 초기화 완료\n2025-08-16 15:11:25,967 - SystemIntegrationTest - INFO - 🚀 POSCO 시스템 전체 통합 테스트 시작\n2025-08-16 15:11:25,967 - SystemIntegrationTest - INFO - ============================================================\n2025-08-16 15:11:25,967 - SystemIntegrationTest - INFO - \n🔍 환경 설정 테스트 실행 중...\n2025-08-16 15:11:25,967 - SystemIntegrationTest - INFO - 🔧 환경 설정 테스트 시작...\n2025-08-16 15:11:25,967 - SystemIntegrationTest - INFO - ✅ 환경 설정 테스트: PASS (0.00s)\n2025-08-16 15:11:25,967 - SystemIntegrationTest - INFO - \n🔍 API 연동 테스트 실행 중...\n2025-08-16 15:11:25,967 - SystemIntegrationTest - INFO - 🌐 API 연동 테스트 시작...\n2025-08-16 15:11:25,967 - SystemIntegrationTest - ERROR - API 연동 테스트 실패: 'url'\n2025-08-16 15:11:25,967 - SystemIntegrationTest - INFO - ❌ API 연동 테스트: FAIL (0.00s)\n2025-08-16 15:11:25,967 - SystemIntegrationTest - WARNING - ⚠️ API 연동 테스트 실패 - 계속 진행\n2025-08-16 15:11:25,967 - SystemIntegrationTest - INFO - \n🔍 데이터 파싱 테스트 실행 중...\n2025-08-16 15:11:25,967 - SystemIntegrationTest - INFO - 📊 데이터 파싱 테스트 시작...\n2025-08-16 15:11:25,967 - SystemIntegrationTest - ERROR - 데이터 파싱 테스트 실패: __init__() missing 1 required positional argument: 'api_config'\n2025-08-16 15:11:25,967 - SystemIntegrationTest - INFO - ❌ 데이터 파싱 테스트: FAIL (0.00s)\n2025-08-16 15:11:25,967 - SystemIntegrationTest - WARNING - ⚠️ 데이터 파싱 테스트 실패 - 계속 진행\n2025-08-16 15:11:25,967 - SystemIntegrationTest - INFO - \n🔍 메시지 생성 테스트 실행 중...\n2025-08-16 15:11:25,967 - SystemIntegrationTest - INFO - 💬 메시지 생성 테스트 시작...\n2025-08-16 15:11:25,967 - SystemIntegrationTest - ERROR - 메시지 생성 테스트 실패: __init__() missing 1 required positional argument: 'api_config'\n2025-08-16 15:11:25,967 - SystemIntegrationTest - INFO - ❌ 메시지 생성 테스트: FAIL (0.00s)\n2025-08-16 15:11:25,967 - SystemIntegrationTest - WARNING - ⚠️ 메시지 생성 테스트 실패 - 계속 진행\n2025-08-16 15:11:25,967 - SystemIntegrationTest - INFO - \n🔍 모니터링 시스템 테스트 실행 중...\n2025-08-16 15:11:25,967 - SystemIntegrationTest - INFO - 🔍 모니터링 시스템 테스트 시작...\n2025-08-16 15:11:25,968 - SystemIntegrationTest - ERROR - 모니터링 시스템 테스트 실패: __init__() missing 1 required positional argument: 'config'\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - ❌ 모니터링 시스템 테스트: FAIL (0.00s)\n2025-08-16 15:11:25,968 - SystemIntegrationTest - WARNING - ⚠️ 모니터링 시스템 테스트 실패 - 계속 진행\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - \n🔍 AI 분석 테스트 실행 중...\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - 🤖 AI 분석 엔진 테스트 시작...\n2025-08-16 15:11:25,968 - SystemIntegrationTest - ERROR - AI 분석 엔진 테스트 실패: __init__() missing 2 required positional arguments: 'api_module' and 'news_parser'\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - ❌ AI 분석 엔진 테스트: FAIL (0.00s)\n2025-08-16 15:11:25,968 - SystemIntegrationTest - WARNING - ⚠️ AI 분석 테스트 실패 - 계속 진행\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - \n🔍 웹훅 전송 테스트 실행 중...\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - 📡 웹훅 전송 테스트 시작...\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - ✅ 웹훅 전송 테스트: PASS (0.00s)\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - \n🔍 End-to-End 파이프라인 테스트 실행 중...\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - 🚀 End-to-End 파이프라인 테스트 시작...\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - 1단계: API 데이터 수집...\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - 2단계: 데이터 파싱...\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - 3단계: 메시지 생성...\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - 4단계: AI 분석...\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - 5단계: 웹훅 검증...\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - ✅ End-to-End 파이프라인 테스트: PASS (0.00s)\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - \n🔍 장애 상황 시뮬레이션 테스트 실행 중...\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - ⚠️ 장애 상황 시뮬레이션 테스트 시작...\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - 시나리오 1: API 연결 실패 시뮬레이션...\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - 시나리오 2: 잘못된 데이터 파싱 시뮬레이션...\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - 시나리오 3: 웹훅 전송 실패 시뮬레이션...\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - ❌ 장애 상황 시뮬레이션 테스트: FAIL (0.00s)\n2025-08-16 15:11:25,968 - SystemIntegrationTest - WARNING - ⚠️ 장애 상황 시뮬레이션 테스트 실패 - 계속 진행\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - \n============================================================\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - 📊 전체 통합 테스트 결과 요약\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - ============================================================\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - 총 테스트 수: 9\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - 성공: 3 ✅\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - 실패: 6 ❌\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - 건너뜀: 0 ⏭️\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - 성공률: 33.3%\n2025-08-16 15:11:25,968 - SystemIntegrationTest - INFO - 총 소요 시간: 0.00초\n2025-08-16 15:11:25,968 - SystemIntegrationTest - WARNING - ⚠️ 일부 테스트 실패 - 시스템 점검 필요\n2025-08-16 15:11:25,969 - SystemIntegrationTest - INFO - 📄 테스트 보고서 저장: comprehensive_system_integration_test_results_20250816_151125.json\n",
+      "success": true
+    },
+    "success_rate": 0
+  },
+  "expandability_check": {
+    "structure_ready": true,
+    "watchhamster_common_modules": [
+      "system_monitor.py",
+      "watchhamster_monitor.py",
+      "api_data_parser.py",
+      "exchange_rate_parser.py",
+      "business_day_comparison_engine.py",
+      "news_data_parser.py",
+      "git_monitor.py",
+      "ai_analysis_engine.py",
+      "newyork_market_parser.py",
+      "kospi_close_parser.py",
+      "infomax_api_client.py",
+      "integrated_news_parser.py",
+      "api_connection_manager.py"
+    ],
+    "project_template_ready": true,
+    "expansion_guide": {
+      "new_project_steps": [
+        "1. Monitoring/WatchHamster_Project/[New_Project_Name] 폴더 생성",
+        "2. core, scripts, docs, config, logs 하위 폴더 생성",
+        "3. 각 폴더에 __init__.py 파일 생성",
+        "4. 워치햄스터 공통 모듈을 import하여 사용",
+        "5. 프로젝트별 전용 모듈을 core 폴더에 구현"
+      ],
+      "common_modules_usage": "상위 패키지에서 워치햄스터 공통 모듈 import 가능"
+    }
+  },
+  "overall_status": "SUCCESS"
+}
