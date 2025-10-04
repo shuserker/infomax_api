@@ -516,7 +516,7 @@ def get_service_metrics(service_id: str) -> dict:
                 """)
                 metrics["today_sent"] = cursor.fetchone()[0]
                 
-                # 성공률
+                # 성공률 (오늘)
                 cursor.execute("""
                     SELECT 
                         COUNT(*) as total,
@@ -529,12 +529,45 @@ def get_service_metrics(service_id: str) -> dict:
                     metrics["success_rate"] = round((result[1] / result[0]) * 100, 1)
                 else:
                     metrics["success_rate"] = 0
+                
+                # 주간 통계
+                cursor.execute("""
+                    SELECT COUNT(*) FROM webhook_logs 
+                    WHERE timestamp >= datetime('now', '-7 days')
+                """)
+                metrics["weekly_sent"] = cursor.fetchone()[0]
+                
+                # 평균 응답 시간 (최근 100건)
+                cursor.execute("""
+                    SELECT AVG(CAST(json_extract(metadata, '$.response_time_ms') as REAL))
+                    FROM webhook_logs 
+                    WHERE json_extract(metadata, '$.response_time_ms') IS NOT NULL
+                    ORDER BY timestamp DESC 
+                    LIMIT 100
+                """)
+                avg_response = cursor.fetchone()[0]
+                metrics["avg_response_time_ms"] = round(avg_response, 0) if avg_response else 0
+                
+                # 가장 많이 사용된 메시지 타입
+                cursor.execute("""
+                    SELECT message_type, COUNT(*) as count
+                    FROM webhook_logs 
+                    WHERE DATE(timestamp) = DATE('now')
+                    GROUP BY message_type 
+                    ORDER BY count DESC 
+                    LIMIT 1
+                """)
+                top_message = cursor.fetchone()
+                metrics["top_message_type"] = top_message[0] if top_message else "N/A"
                     
                 conn.close()
             except Exception as e:
                 logger.warning(f"웹훅 메트릭 조회 실패: {e}")
                 metrics["today_sent"] = 0
                 metrics["success_rate"] = 0
+                metrics["weekly_sent"] = 0
+                metrics["avg_response_time_ms"] = 0
+                metrics["top_message_type"] = "N/A"
                 
         elif service_id == "infomax_client":
             instance = get_service_instance(service_id)

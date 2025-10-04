@@ -14,14 +14,10 @@ import {
   Divider,
   Box,
   Flex,
-  Spacer,
   Progress,
-  CircularProgress,
-  CircularProgressLabel,
   Stat,
   StatLabel,
   StatNumber,
-  StatHelpText,
   Grid,
   GridItem,
   useToast,
@@ -48,7 +44,6 @@ interface ModernServiceCardProps {
   service: any
   onServiceAction: (serviceId: string, action: 'start' | 'stop' | 'restart') => Promise<void>
   onViewLogs?: (serviceId: string) => void
-  isLoading?: boolean
 }
 
 const getStatusColor = (status: string) => {
@@ -92,8 +87,7 @@ const formatUptime = (seconds: number): string => {
 const ModernServiceCard: React.FC<ModernServiceCardProps> = ({ 
   service, 
   onServiceAction, 
-  onViewLogs,
-  isLoading = false 
+  onViewLogs
 }) => {
   const [actionLoading, setActionLoading] = useState<string | null>(null)
   const toast = useToast()
@@ -203,7 +197,10 @@ const ModernServiceCard: React.FC<ModernServiceCardProps> = ({
       <CardBody pt={0}>
         <VStack spacing={4} align="stretch">
           {/* 메트릭 그리드 */}
-          <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+          <Grid 
+            templateColumns={service.id === 'webhook_sender' ? "repeat(2, 1fr)" : "repeat(2, 1fr)"} 
+            gap={4}
+          >
             <GridItem>
               <Stat size="sm">
                 <StatLabel fontSize="xs" color="gray.500">
@@ -289,6 +286,40 @@ const ModernServiceCard: React.FC<ModernServiceCardProps> = ({
                         <Skeleton height="20px" width="40px" />
                       ) : (
                         `${metricsData.success_rate || 0}%`
+                      )}
+                    </StatNumber>
+                  </Stat>
+                </GridItem>
+                <GridItem>
+                  <Stat size="sm">
+                    <StatLabel fontSize="xs" color="gray.500">
+                      <HStack spacing={1}>
+                        <FiActivity size={12} />
+                        <Text>주간 발송</Text>
+                      </HStack>
+                    </StatLabel>
+                    <StatNumber fontSize="lg">
+                      {metricsLoading ? (
+                        <Skeleton height="20px" width="40px" />
+                      ) : (
+                        `${metricsData.weekly_sent || 0}건`
+                      )}
+                    </StatNumber>
+                  </Stat>
+                </GridItem>
+                <GridItem>
+                  <Stat size="sm">
+                    <StatLabel fontSize="xs" color="gray.500">
+                      <HStack spacing={1}>
+                        <FiClock size={12} />
+                        <Text>평균 응답</Text>
+                      </HStack>
+                    </StatLabel>
+                    <StatNumber fontSize="lg">
+                      {metricsLoading ? (
+                        <Skeleton height="20px" width="50px" />
+                      ) : (
+                        `${metricsData.avg_response_time_ms || 0}ms`
                       )}
                     </StatNumber>
                   </Stat>
@@ -420,15 +451,51 @@ const ModernServiceCard: React.FC<ModernServiceCardProps> = ({
             )}
           </Grid>
 
-          {/* 업타임 정보 */}
-          {service.uptime && (
-            <Box>
-              <Text fontSize="xs" color="gray.500" mb={1}>
-                <FiClock size={10} style={{ display: 'inline', marginRight: '4px' }} />
-                업타임: {formatUptime(service.uptime)}
-              </Text>
-            </Box>
-          )}
+          {/* 추가 정보 */}
+          <VStack spacing={2} align="stretch">
+            {/* 업타임 정보 */}
+            {service.uptime && (
+              <Box>
+                <Text fontSize="xs" color="gray.500" mb={1}>
+                  <FiClock size={10} style={{ display: 'inline', marginRight: '4px' }} />
+                  업타임: {formatUptime(service.uptime)}
+                </Text>
+              </Box>
+            )}
+            
+            {/* 웹훅 발송자 전용 정보 */}
+            {service.id === 'webhook_sender' && metricsData.top_message_type && (
+              <Box>
+                <Text fontSize="xs" color="gray.500">
+                  <FiZap size={10} style={{ display: 'inline', marginRight: '4px' }} />
+                  인기 메시지: 
+                  <Badge ml={2} size="sm" colorScheme="purple" variant="subtle">
+                    {metricsData.top_message_type}
+                  </Badge>
+                </Text>
+              </Box>
+            )}
+            
+            {/* WatchHamster 모니터 전용 정보 */}
+            {service.id === 'watchhamster_monitor' && metricsData.monitoring_active && (
+              <Box>
+                <Text fontSize="xs" color="green.600">
+                  <FiActivity size={10} style={{ display: 'inline', marginRight: '4px' }} />
+                  실시간 모니터링 중...
+                </Text>
+              </Box>
+            )}
+            
+            {/* INFOMAX API 클라이언트 정보 */}
+            {service.id === 'infomax_client' && metricsData.base_url && (
+              <Box>
+                <Text fontSize="xs" color="blue.600">
+                  <FiSettings size={10} style={{ display: 'inline', marginRight: '4px' }} />
+                  POSCO API 연결됨
+                </Text>
+              </Box>
+            )}
+          </VStack>
 
           <Divider />
 

@@ -20,6 +20,7 @@ import { FiRefreshCw } from 'react-icons/fi'
 import { useQuery } from '@tanstack/react-query'
 import ModernServiceCard from '../components/Services/ModernServiceCard'
 import ServiceLogViewer from '../components/Services/ServiceLogViewer'
+import ServiceDependencyGraph from '../components/Services/ServiceDependencyGraph'
 import { apiService } from '../services/api'
 
 const Services: React.FC = () => {
@@ -178,6 +179,11 @@ const Services: React.FC = () => {
           </Alert>
         )}
 
+        {/* 서비스 의존성 그래프 */}
+        {services.length > 0 && (
+          <ServiceDependencyGraph services={services} />
+        )}
+
         {/* 서비스 카드 그리드 */}
         {services.length > 0 && (
           <Grid templateColumns="repeat(auto-fit, minmax(400px, 1fr))" gap={6}>
@@ -187,7 +193,6 @@ const Services: React.FC = () => {
                   service={service}
                   onServiceAction={handleServiceAction}
                   onViewLogs={handleViewLogs}
-                  isLoading={isLoading}
                 />
               </GridItem>
             ))}
