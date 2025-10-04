@@ -573,49 +573,191 @@ finally:
                                         </HStack>
                                         
                                         {isAutoManaged && (
-                                          <VStack spacing={2} align="stretch">
-                                            <Select
-                                              size="xs"
-                                              fontSize="xs"
-                                              value={autoRule?.updateLogic || 'current_date_minus_1'}
-                                              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                                                const currentDefaults = parameterDefaultManager.getAllDefaults()?.[pkg.urlPath]?.[input.name];
-                                                if (currentDefaults) {
-                                                  parameterDefaultManager.setParameterDefault(
-                                                    pkg.urlPath,
-                                                    input.name,
-                                                    inputValues[input.name] || '',
-                                                    true,
-                                                    {
-                                                      ...currentDefaults.autoUpdateRule!,
-                                                      updateLogic: e.target.value as any
+                                          <VStack spacing={3} align="stretch" p={3} bg="blue.50" borderRadius="md" border="1px" borderColor="blue.200">
+                                            {/* 1️⃣ 주기 선택 */}
+                                            <VStack spacing={2} align="stretch">
+                                              <Text fontSize="xs" fontWeight="bold" color="blue.700">1️⃣ 갱신 주기</Text>
+                                              <Select
+                                                size="xs"
+                                                value={(() => {
+                                                  const logic = autoRule?.updateLogic;
+                                                  if (!logic || logic.includes('current_date')) return 'daily';
+                                                  if (logic.includes('week')) return 'weekly';
+                                                  if (logic.includes('month')) return 'monthly';
+                                                  if (logic.includes('quarter')) return 'quarterly';
+                                                  if (logic.includes('year')) return 'yearly';
+                                                  return 'daily';
+                                                })()}
+                                                onChange={(e) => {
+                                                  const currentDefaults = parameterDefaultManager.getAllDefaults()?.[pkg.urlPath]?.[input.name];
+                                                  if (currentDefaults) {
+                                                    let newLogic = 'current_date_minus_1';
+                                                    let newSchedule = { daysOfWeek: [1, 2, 3, 4, 5], timeHour: 1, timeMinute: 0 };
+                                                    
+                                                    switch (e.target.value) {
+                                                      case 'daily':
+                                                        newLogic = 'current_date_minus_1';
+                                                        newSchedule.daysOfWeek = [0, 1, 2, 3, 4, 5, 6];
+                                                        break;
+                                                      case 'weekly':
+                                                        newLogic = 'last_week_start';
+                                                        newSchedule.daysOfWeek = [1];
+                                                        break;
+                                                      case 'monthly':
+                                                        newLogic = 'last_month_start';
+                                                        newSchedule.daysOfWeek = [1];
+                                                        break;
+                                                      case 'quarterly':
+                                                        newLogic = 'last_quarter_start';
+                                                        newSchedule.daysOfWeek = [1];
+                                                        break;
+                                                      case 'yearly':
+                                                        newLogic = 'last_year_start';
+                                                        newSchedule.daysOfWeek = [1];
+                                                        break;
                                                     }
+                                                    
+                                                    parameterDefaultManager.setParameterDefault(
+                                                      pkg.urlPath,
+                                                      input.name,
+                                                      inputValues[input.name] || '',
+                                                      true,
+                                                      {
+                                                        enabled: true,
+                                                        schedule: newSchedule,
+                                                        updateLogic: newLogic as any
+                                                      }
+                                                    );
+                                                    setRefreshTrigger(prev => prev + 1);
+                                                  }
+                                                }}
+                                              >
+                                                <option value="daily">📅 일 (매일)</option>
+                                                <option value="weekly">📅 주 (매주)</option>
+                                                <option value="monthly">📅 월 (매월)</option>
+                                                <option value="quarterly">📅 분기 (분기별)</option>
+                                                <option value="yearly">📅 연간 (매년)</option>
+                                              </Select>
+                                            </VStack>
+
+                                            {/* 2️⃣ 세부 설정 - 요일 선택 */}
+                                            <VStack spacing={2} align="stretch">
+                                              <Text fontSize="xs" fontWeight="bold" color="green.700">2️⃣ 세부 설정</Text>
+                                              <HStack wrap="wrap" spacing={1}>
+                                                {[1, 2, 3, 4, 5, 6, 0].map((dayNum) => {
+                                                  const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+                                                  const isSelected = autoRule?.schedule.daysOfWeek.includes(dayNum) || false;
+                                                  const isDaily = !autoRule?.updateLogic || autoRule.updateLogic.includes('current_date');
+                                                  
+                                                  return (
+                                                    <Button
+                                                      key={dayNum}
+                                                      size="xs"
+                                                      variant={isSelected ? 'solid' : 'outline'}
+                                                      colorScheme={isSelected ? 'blue' : 'gray'}
+                                                      isDisabled={isDaily}
+                                                      onClick={() => {
+                                                        if (isDaily) return;
+                                                        
+                                                        const currentDefaults = parameterDefaultManager.getAllDefaults()?.[pkg.urlPath]?.[input.name];
+                                                        if (currentDefaults?.autoUpdateRule) {
+                                                          const currentDays = currentDefaults.autoUpdateRule.schedule.daysOfWeek;
+                                                          const newDays = currentDays.includes(dayNum)
+                                                            ? currentDays.filter(d => d !== dayNum)
+                                                            : [...currentDays, dayNum];
+                                                          
+                                                          parameterDefaultManager.setParameterDefault(
+                                                            pkg.urlPath,
+                                                            input.name,
+                                                            inputValues[input.name] || '',
+                                                            true,
+                                                            {
+                                                              ...currentDefaults.autoUpdateRule,
+                                                              schedule: {
+                                                                ...currentDefaults.autoUpdateRule.schedule,
+                                                                daysOfWeek: newDays
+                                                              }
+                                                            }
+                                                          );
+                                                          setRefreshTrigger(prev => prev + 1);
+                                                        }
+                                                      }}
+                                                    >
+                                                      {dayNames[dayNum]}
+                                                    </Button>
                                                   );
-                                                  setRefreshTrigger(prev => prev + 1);
-                                                }
-                                              }}
-                                            >
-                                              <option value="current_date_minus_1">어제</option>
-                                              <option value="current_date">오늘</option>
-                                              <option value="last_week_start">지난주 월요일</option>
-                                              <option value="last_month_start">지난달 1일</option>
-                                              <option value="auto_smart_date">스마트 자동</option>
-                                              <option value="rotate_keywords">키워드 로테이션</option>
-                                            </Select>
-                                            
-                                            <HStack spacing={1}>
-                                              <Select size="xs" fontSize="xs" value={autoRule?.schedule.daysOfWeek.includes(1) ? 'weekdays' : 'daily'}>
-                                                <option value="daily">매일</option>
-                                                <option value="weekdays">평일</option>
-                                                <option value="weekly">매주</option>
-                                              </Select>
-                                              <Select size="xs" fontSize="xs" value={autoRule?.schedule.timeHour || 1}>
-                                                <option value={0}>00시</option>
-                                                <option value={1}>01시</option>
-                                                <option value={6}>06시</option>
-                                                <option value={9}>09시</option>
-                                              </Select>
-                                            </HStack>
+                                                })}
+                                              </HStack>
+                                              {((() => {
+                                                const logic = autoRule?.updateLogic;
+                                                return !logic || logic.includes('current_date');
+                                              })()) && (
+                                                <Text fontSize="xs" color="orange.600">📌 일 단위는 매일 실행되므로 요일 조정이 불가합니다</Text>
+                                              )}
+                                            </VStack>
+
+                                            {/* 3️⃣ 시간 설정 */}
+                                            <VStack spacing={2} align="stretch">
+                                              <Text fontSize="xs" fontWeight="bold" color="purple.700">3️⃣ 실행 시간</Text>
+                                              <HStack>
+                                                <Select
+                                                  size="xs"
+                                                  flex={1}
+                                                  value={autoRule?.schedule.timeHour || 1}
+                                                  onChange={(e) => {
+                                                    const currentDefaults = parameterDefaultManager.getAllDefaults()?.[pkg.urlPath]?.[input.name];
+                                                    if (currentDefaults?.autoUpdateRule) {
+                                                      parameterDefaultManager.setParameterDefault(
+                                                        pkg.urlPath,
+                                                        input.name,
+                                                        inputValues[input.name] || '',
+                                                        true,
+                                                        {
+                                                          ...currentDefaults.autoUpdateRule,
+                                                          schedule: {
+                                                            ...currentDefaults.autoUpdateRule.schedule,
+                                                            timeHour: parseInt(e.target.value)
+                                                          }
+                                                        }
+                                                      );
+                                                      setRefreshTrigger(prev => prev + 1);
+                                                    }
+                                                  }}
+                                                >
+                                                  {Array.from({length: 24}, (_, i) => (
+                                                    <option key={i} value={i}>{String(i).padStart(2, '0')}시</option>
+                                                  ))}
+                                                </Select>
+                                                <Select
+                                                  size="xs"
+                                                  flex={1}
+                                                  value={autoRule?.schedule.timeMinute || 0}
+                                                  onChange={(e) => {
+                                                    const currentDefaults = parameterDefaultManager.getAllDefaults()?.[pkg.urlPath]?.[input.name];
+                                                    if (currentDefaults?.autoUpdateRule) {
+                                                      parameterDefaultManager.setParameterDefault(
+                                                        pkg.urlPath,
+                                                        input.name,
+                                                        inputValues[input.name] || '',
+                                                        true,
+                                                        {
+                                                          ...currentDefaults.autoUpdateRule,
+                                                          schedule: {
+                                                            ...currentDefaults.autoUpdateRule.schedule,
+                                                            timeMinute: parseInt(e.target.value)
+                                                          }
+                                                        }
+                                                      );
+                                                      setRefreshTrigger(prev => prev + 1);
+                                                    }
+                                                  }}
+                                                >
+                                                  {[0, 15, 30, 45].map(minute => (
+                                                    <option key={minute} value={minute}>{String(minute).padStart(2, '0')}분</option>
+                                                  ))}
+                                                </Select>
+                                              </HStack>
+                                            </VStack>
                                             
                                             <Text fontSize="xs" color="gray.500">
                                               {autoRule?.updateLogic === 'auto_smart_date' && '🤖 시간과 요일에 따라 자동 선택'}
