@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react'
 import { FiRefreshCw } from 'react-icons/fi'
 import { useQuery } from '@tanstack/react-query'
-import EnhancedServiceCard from '../components/Services/EnhancedServiceCard'
+import ModernServiceCard from '../components/Services/ModernServiceCard'
 import ServiceLogViewer from '../components/Services/ServiceLogViewer'
 import { apiService } from '../services/api'
 
@@ -183,7 +183,7 @@ const Services: React.FC = () => {
           <Grid templateColumns="repeat(auto-fit, minmax(400px, 1fr))" gap={6}>
             {services.map(service => (
               <GridItem key={service.id}>
-                <EnhancedServiceCard
+                <ModernServiceCard
                   service={service}
                   onServiceAction={handleServiceAction}
                   onViewLogs={handleViewLogs}

@@ -13,121 +13,69 @@ import {
   Tooltip,
   Divider,
   Box,
-  Collapse,
-  useDisclosure,
-  Switch,
-  FormControl,
-  FormLabel,
-  Spinner,
-  Alert,
-  AlertIcon,
+  Flex,
+  Spacer,
   Progress,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  ModalCloseButton,
+  CircularProgress,
+  CircularProgressLabel,
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  Grid,
+  GridItem,
   useToast,
 } from '@chakra-ui/react'
 import { 
-  MdPlayArrow, 
-  MdStop, 
-  MdRefresh, 
-  MdSettings, 
-  MdExpandMore, 
-  MdExpandLess,
-  MdVisibility,
-  MdBugReport,
-  MdTimer,
-  MdError
-} from 'react-icons/md'
-import { ServiceInfo } from '../../types'
+  FiPlay, 
+  FiSquare, 
+  FiRefreshCw, 
+  FiSettings, 
+  FiEye,
+  FiCpu,
+  FiHardDrive,
+  FiActivity,
+  FiClock,
+  FiAlertTriangle,
+  FiCheckCircle,
+  FiXCircle
+} from 'react-icons/fi'
+import { useQuery } from '@tanstack/react-query'
+import { apiService } from '../../services/api'
 
 interface EnhancedServiceCardProps {
-  service: ServiceInfo
   onServiceAction: (serviceId: string, action: 'start' | 'stop' | 'restart') => Promise<void>
   onViewLogs?: (serviceId: string) => void
   isLoading?: boolean
 }
 
-interface ServiceStats {
-  pid?: number
-  uptime: number
-  restartCount: number
-  memoryUsage?: number
-  cpuUsage?: number
-  lastRestart?: string
-}
-
-const formatUptime = (seconds: number): string => {
-  if (seconds < 60) return `${seconds}초`
-  if (seconds < 3600) return `${Math.floor(seconds / 60)}분`
-  if (seconds < 86400) return `${Math.floor(seconds / 3600)}시간 ${Math.floor((seconds % 3600) / 60)}분`
-  return `${Math.floor(seconds / 86400)}일 ${Math.floor((seconds % 86400) / 3600)}시간`
-}
-
-const formatMemory = (bytes: number): string => {
-  if (bytes < 1024) return `${bytes}B`
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)}KB`
-  if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)}MB`
-  return `${(bytes / (1024 * 1024 * 1024)).toFixed(1)}GB`
-}
-
-const getStatusColor = (status: string) => {
-  switch (status) {
-    case 'running':
-      return 'green'
-    case 'stopped':
-      return 'gray'
-    case 'error':
-      return 'red'
-    case 'starting':
-      return 'blue'
-    case 'stopping':
-      return 'orange'
-    default:
-      return 'gray'
-  }
-}
-
-const getStatusText = (status: string) => {
-  switch (status) {
-    case 'running':
-      return '실행 중'
-    case 'stopped':
-      return '중지됨'
-    case 'error':
-      return '오류'
-    case 'starting':
-      return '시작 중'
-    case 'stopping':
-      return '중지 중'
-    default:
-      return '알 수 없음'
-  }
-}
-
-const EnhancedServiceCard: React.FC<EnhancedServiceCardProps> = ({
-  service,
-  onServiceAction,
+const EnhancedServiceCard: React.FC<EnhancedServiceCardProps> = ({ 
+  service, 
+  onServiceAction, 
   onViewLogs,
-  isLoading = false
+  isLoading = false 
 }) => {
-  const { isOpen: isExpanded, onToggle: toggleExpanded } = useDisclosure()
-  const { isOpen: isSettingsOpen, onOpen: openSettings, onClose: closeSettings } = useDisclosure()
   const [actionLoading, setActionLoading] = useState<string | null>(null)
-  const [autoRestart, setAutoRestart] = useState(true)
   const toast = useToast()
 
-  // 서비스 통계 (실제로는 API에서 가져와야 함)
-  const stats: ServiceStats = {
-    pid: service.status === 'running' ? 12345 : undefined,
-    uptime: service.uptime || 0,
-    restartCount: 3,
-    memoryUsage: service.status === 'running' ? 128 * 1024 * 1024 : undefined, // 128MB
-    cpuUsage: service.status === 'running' ? 15.5 : undefined,
+  // 실제 서비스 메트릭 조회
+  const { data: metrics, isLoading: metricsLoading, refetch: refetchMetrics } = useQuery({
+    queryKey: ['service-metrics', service.id],
+    queryFn: async () => {
+      try {
+        const response = await fetch(`/api/services/${service.id}/metrics`)
+        if (response.ok) {
+          return await response.json()
+        }
+        return null
+      } catch (error) {
+        console.warn(`메트릭 조회 실패 (${service.id}):`, error)
+        return null
+      }
+    },
+    refetchInterval: 10000, // 10초마다 새로고침
+    retry: 1
+  })
     lastRestart: '2024-01-15 14:30:25'
   }
 

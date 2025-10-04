@@ -46,13 +46,26 @@ from core.watchhamster_monitor import WatchHamsterMonitor
 from core.infomax_client import InfomaxAPIClient
 from core.news_parser import NewsDataParser
 
-# 전역 서비스 인스턴스들
+# 전역 서비스 인스턴스들과 상태
 _service_instances = {
     "watchhamster_monitor": None,
     "infomax_client": None,
     "news_parser": None,
-    "webhook_sender": None
+    "webhook_sender": None,
+    "api_server": "running"  # API 서버는 항상 실행 중
 }
+
+# 서비스 상태 추적
+_service_status = {
+    "watchhamster_monitor": "stopped",
+    "infomax_client": "stopped", 
+    "news_parser": "stopped",
+    "webhook_sender": "stopped",
+    "api_server": "running"
+}
+
+# 서비스 오류 정보
+_service_errors = {}
 
 def get_service_instance(service_id: str):
     """서비스 인스턴스 반환"""
@@ -62,26 +75,42 @@ def set_service_instance(service_id: str, instance):
     """서비스 인스턴스 설정"""
     _service_instances[service_id] = instance
 
+def get_service_status(service_id: str) -> str:
+    """서비스 상태 반환"""
+    return _service_status.get(service_id, "unknown")
+
+def set_service_status(service_id: str, status: str, error: str = None):
+    """서비스 상태 설정"""
+    _service_status[service_id] = status
+    if error:
+        _service_errors[service_id] = error
+    elif service_id in _service_errors:
+        del _service_errors[service_id]
+
+def get_service_error(service_id: str) -> str:
+    """서비스 오류 메시지 반환"""
+    return _service_errors.get(service_id)
+
 # 실제 서비스 상태를 반영한 서비스 데이터
 def get_services_data():
     """실제 서비스 상태를 조회하여 반환"""
     services_data = {}
     
     # WatchHamster 모니터
-    monitor_instance = get_service_instance("watchhamster_monitor")
     services_data["watchhamster_monitor"] = {
-        "name": "WatchHamster 모니터",
+        "name": "WatchHamster 모니터", 
         "description": "핵심 모니터링 시스템",
-        "status": "running" if monitor_instance and monitor_instance.is_running else "stopped",
+        "status": get_service_status("watchhamster_monitor"),
+        "last_error": get_service_error("watchhamster_monitor"),
         "config": {"monitoring_interval": 60, "alert_enabled": True}
     }
     
     # INFOMAX API 클라이언트
-    api_client = get_service_instance("infomax_client")
     services_data["infomax_client"] = {
         "name": "INFOMAX API 클라이언트",
-        "description": "POSCO 뉴스 API 연결 클라이언트",
-        "status": "running" if api_client else "stopped",
+        "description": "POSCO 뉴스 API 연결 클라이언트", 
+        "status": get_service_status("infomax_client"),
+        "last_error": get_service_error("infomax_client"),
         "config": {
             "base_url": "https://global-api.einfomax.co.kr/apis/posco/news",
             "timeout": 30,
@@ -90,28 +119,29 @@ def get_services_data():
     }
     
     # 뉴스 파서
-    news_parser = get_service_instance("news_parser")
     services_data["news_parser"] = {
         "name": "뉴스 데이터 파서",
         "description": "뉴스 데이터 분석 및 파싱 시스템",
-        "status": "running" if news_parser else "stopped",
+        "status": get_service_status("news_parser"),
+        "last_error": get_service_error("news_parser"),
         "config": {"supported_types": ["exchange-rate", "newyork-market-watch", "kospi-close"]}
     }
     
-    # 웹훅 발송자
-    webhook_sender = get_service_instance("webhook_sender")
+    # 웹훅 발송자  
     services_data["webhook_sender"] = {
         "name": "웹훅 발송자",
         "description": "Dooray 웹훅 메시지 전송 시스템",
-        "status": "running" if webhook_sender else "stopped",
+        "status": get_service_status("webhook_sender"),
+        "last_error": get_service_error("webhook_sender"),
         "config": {"webhook_count": 2, "retry_count": 3}
     }
     
     # API 서버 (항상 실행 중)
     services_data["api_server"] = {
         "name": "FastAPI 서버",
-        "description": "메인 REST API 서버",
+        "description": "메인 REST API 서버", 
         "status": "running",
+        "last_error": None,
         "config": {"port": 8000, "workers": 1, "version": "2.0.0"}
     }
     
@@ -204,7 +234,8 @@ async def start_service(service_id: str, background_tasks: BackgroundTasks):
     logger.info(f"서비스 시작 요청: {service_id}")
     
     try:
-        service_data = SERVICES_DATA.get(service_id)
+        services_data = get_current_services_data()
+        service_data = services_data.get(service_id)
         
         if not service_data:
             raise HTTPException(status_code=404, detail=f"서비스를 찾을 수 없습니다: {service_id}")
@@ -214,8 +245,7 @@ async def start_service(service_id: str, background_tasks: BackgroundTasks):
             return {"message": f"서비스 '{service_id}'이 이미 실행 중입니다", "service": service_data}
         
         # 상태를 starting으로 업데이트
-        SERVICES_DATA[service_id]["status"] = "starting"
-        SERVICES_DATA[service_id].pop("last_error", None)
+        set_service_status(service_id, "starting")
         
         # 백그라운드에서 서비스 시작 작업 수행
         background_tasks.add_task(_start_service_task, service_id)
@@ -234,7 +264,8 @@ async def stop_service(service_id: str, background_tasks: BackgroundTasks):
     logger.info(f"서비스 중지 요청: {service_id}")
     
     try:
-        service_data = SERVICES_DATA.get(service_id)
+        services_data = get_current_services_data()
+        service_data = services_data.get(service_id)
         
         if not service_data:
             raise HTTPException(status_code=404, detail=f"서비스를 찾을 수 없습니다: {service_id}")
@@ -244,7 +275,7 @@ async def stop_service(service_id: str, background_tasks: BackgroundTasks):
             return {"message": f"서비스 '{service_id}'이 이미 중지되어 있습니다", "service": service_data}
         
         # 상태를 stopping으로 업데이트
-        SERVICES_DATA[service_id]["status"] = "stopping"
+        set_service_status(service_id, "stopping")
         
         # 백그라운드에서 서비스 중지 작업 수행
         background_tasks.add_task(_stop_service_task, service_id)
@@ -263,14 +294,14 @@ async def restart_service(service_id: str, background_tasks: BackgroundTasks):
     logger.info(f"서비스 재시작 요청: {service_id}")
     
     try:
-        service_data = SERVICES_DATA.get(service_id)
+        services_data = get_current_services_data()
+        service_data = services_data.get(service_id)
         
         if not service_data:
             raise HTTPException(status_code=404, detail=f"서비스를 찾을 수 없습니다: {service_id}")
         
-        # 상태를 restarting으로 업데이트
-        SERVICES_DATA[service_id]["status"] = "starting"  # restarting 대신 starting 사용
-        SERVICES_DATA[service_id].pop("last_error", None)
+        # 상태를 starting으로 업데이트 (restarting 대신)
+        set_service_status(service_id, "starting")
         
         # 백그라운드에서 서비스 재시작 작업 수행
         background_tasks.add_task(_restart_service_task, service_id)
@@ -293,54 +324,75 @@ async def _start_service_task(service_id: str):
     try:
         # 실제 서비스 시작 로직
         if service_id == "watchhamster_monitor":
-            # WatchHamster 모니터 시작
-            from core.watchhamster_monitor import WatchHamsterMonitor
-            monitor = WatchHamsterMonitor()
-            await monitor.start_monitoring()
-            set_service_instance(service_id, monitor)
-            SERVICE_START_TIMES[service_id] = time.time()
-            logger.info(f"WatchHamster 모니터 시작 완료: {service_id}")
+            # WatchHamster 모니터 시작 
+            try:
+                from core.watchhamster_monitor import WatchHamsterMonitor
+                monitor = WatchHamsterMonitor()
+                await monitor.start_monitoring()
+                set_service_instance(service_id, monitor)
+                SERVICE_START_TIMES[service_id] = time.time()
+                set_service_status(service_id, "running")
+                logger.info(f"WatchHamster 모니터 시작 완료: {service_id}")
+            except Exception as e:
+                set_service_status(service_id, "error", str(e))
+                raise e
             
         elif service_id == "infomax_client":
             # INFOMAX API 클라이언트 시작
-            from core.infomax_client import InfomaxAPIClient
-            client = InfomaxAPIClient(base_url="https://global-api.einfomax.co.kr/apis/posco/news")
-            health_ok = await client.health_check()
-            if health_ok:
-                set_service_instance(service_id, client)
-                SERVICE_START_TIMES[service_id] = time.time()
-                logger.info(f"INFOMAX API 클라이언트 시작 완료: {service_id}")
-            else:
-                raise Exception("API 연결 실패")
+            try:
+                from core.infomax_client import InfomaxAPIClient
+                client = InfomaxAPIClient(base_url="https://global-api.einfomax.co.kr/apis/posco/news")
+                health_ok = await client.health_check()
+                if health_ok:
+                    set_service_instance(service_id, client)
+                    SERVICE_START_TIMES[service_id] = time.time()
+                    set_service_status(service_id, "running")
+                    logger.info(f"INFOMAX API 클라이언트 시작 완료: {service_id}")
+                else:
+                    raise Exception("API 연결 실패")
+            except Exception as e:
+                set_service_status(service_id, "error", str(e))
+                raise e
                 
         elif service_id == "news_parser":
             # 뉴스 파서 시작
-            from core.news_parser import NewsDataParser
-            parser = NewsDataParser()
-            set_service_instance(service_id, parser)
-            SERVICE_START_TIMES[service_id] = time.time()
-            logger.info(f"뉴스 파서 시작 완료: {service_id}")
+            try:
+                from core.news_parser import NewsDataParser
+                parser = NewsDataParser()
+                set_service_instance(service_id, parser)
+                SERVICE_START_TIMES[service_id] = time.time()
+                set_service_status(service_id, "running")
+                logger.info(f"뉴스 파서 시작 완료: {service_id}")
+            except Exception as e:
+                set_service_status(service_id, "error", str(e))
+                raise e
             
         elif service_id == "webhook_sender":
             # 웹훅 발송자 시작
-            from core.webhook_sender import DoorayWebhookSender
-            sender = DoorayWebhookSender()
-            set_service_instance(service_id, sender)
-            SERVICE_START_TIMES[service_id] = time.time()
-            logger.info(f"웹훅 발송자 시작 완료: {service_id}")
+            try:
+                from core.webhook_sender import DoorayWebhookSender
+                sender = DoorayWebhookSender()
+                set_service_instance(service_id, sender)
+                SERVICE_START_TIMES[service_id] = time.time()
+                set_service_status(service_id, "running")
+                logger.info(f"웹훅 발송자 시작 완료: {service_id}")
+            except Exception as e:
+                set_service_status(service_id, "error", str(e))
+                raise e
             
-        else:
+        elif service_id == "api_server":
             # API 서버는 이미 실행 중
-            if service_id == "api_server":
-                logger.info(f"서비스 '{service_id}'는 이미 실행 중입니다")
-                return
-            else:
-                raise Exception(f"알 수 없는 서비스: {service_id}")
+            logger.info(f"서비스 '{service_id}'는 이미 실행 중입니다")
+            return
+        else:
+            set_service_status(service_id, "error", f"알 수 없는 서비스: {service_id}")
+            raise Exception(f"알 수 없는 서비스: {service_id}")
         
     except Exception as e:
         logger.error(f"서비스 시작 실패: {service_id} - {e}")
         # 실패한 인스턴스 정리
         set_service_instance(service_id, None)
+        set_service_status(service_id, "error", str(e))
 
 async def _stop_service_task(service_id: str):
     """서비스 중지 백그라운드 작업"""
@@ -363,6 +415,7 @@ async def _stop_service_task(service_id: str):
             set_service_instance(service_id, None)
             if service_id in SERVICE_START_TIMES:
                 del SERVICE_START_TIMES[service_id]
+            set_service_status(service_id, "stopped")
             logger.info(f"WatchHamster 모니터 중지 완료: {service_id}")
             
         elif service_id == "infomax_client" and instance:
@@ -371,6 +424,7 @@ async def _stop_service_task(service_id: str):
             set_service_instance(service_id, None)
             if service_id in SERVICE_START_TIMES:
                 del SERVICE_START_TIMES[service_id]
+            set_service_status(service_id, "stopped")
             logger.info(f"INFOMAX API 클라이언트 중지 완료: {service_id}")
             
         elif service_id in ["news_parser", "webhook_sender"]:
@@ -378,15 +432,18 @@ async def _stop_service_task(service_id: str):
             set_service_instance(service_id, None)
             if service_id in SERVICE_START_TIMES:
                 del SERVICE_START_TIMES[service_id]
+            set_service_status(service_id, "stopped")
             logger.info(f"서비스 중지 완료: {service_id}")
             
         else:
             logger.warning(f"알 수 없는 서비스 또는 이미 중지된 서비스: {service_id}")
+            set_service_status(service_id, "stopped")
         
     except Exception as e:
         logger.error(f"서비스 중지 실패: {service_id} - {e}")
         # 오류 발생 시에도 인스턴스는 정리
         set_service_instance(service_id, None)
+        set_service_status(service_id, "error", str(e))
 
 async def _restart_service_task(service_id: str):
     """서비스 재시작 백그라운드 작업"""
@@ -395,13 +452,12 @@ async def _restart_service_task(service_id: str):
     logger.info(f"서비스 재시작 작업 실행: {service_id}")
     
     try:
-        # 재시작 시간 시뮬레이션
-        await asyncio.sleep(3)
+        # 먼저 중지
+        await _stop_service_task(service_id)
+        await asyncio.sleep(1)
         
-        # 서비스 상태를 running으로 업데이트
-        SERVICES_DATA[service_id]["status"] = "running"
-        SERVICE_START_TIMES[service_id] = time.time()  # 재시작 시간 기록
-        SERVICES_DATA[service_id].pop("last_error", None)
+        # 그 다음 시작 
+        await _start_service_task(service_id)
         
         logger.info(f"서비스 재시작 완료: {service_id}")
         
@@ -409,5 +465,122 @@ async def _restart_service_task(service_id: str):
         logger.error(f"서비스 재시작 실패: {service_id} - {e}")
         
         # 오류 상태로 업데이트
-        SERVICES_DATA[service_id]["status"] = "error"
-        SERVICES_DATA[service_id]["last_error"] = str(e)
+        set_service_status(service_id, "error", str(e))
+
+# 실제 시스템 메트릭을 조회하는 함수들
+def get_service_metrics(service_id: str) -> dict:
+    """서비스별 실제 메트릭 반환"""
+    import psutil
+    import os
+    
+    metrics = {}
+    
+    try:
+        # 기본 시스템 메트릭
+        metrics["cpu_percent"] = psutil.cpu_percent(interval=0.1)
+        metrics["memory_info"] = psutil.virtual_memory()
+        metrics["memory_used_mb"] = round(metrics["memory_info"].used / 1024 / 1024, 1)
+        metrics["memory_percent"] = metrics["memory_info"].percent
+        
+        # 프로세스별 메트릭 (현재 프로세스)
+        process = psutil.Process(os.getpid())
+        process_info = process.memory_info()
+        
+        metrics["process_memory_mb"] = round(process_info.rss / 1024 / 1024, 1)
+        metrics["process_cpu_percent"] = process.cpu_percent(interval=0.1)
+        
+        # 서비스별 특화 메트릭
+        if service_id == "api_server":
+            metrics["port"] = 8000
+            metrics["connections"] = len(psutil.net_connections(kind='tcp'))
+            
+        elif service_id == "watchhamster_monitor":
+            instance = get_service_instance(service_id)
+            if instance:
+                metrics["monitoring_active"] = True
+                metrics["last_check"] = "방금 전"
+            else:
+                metrics["monitoring_active"] = False
+                
+        elif service_id == "webhook_sender":
+            # 웹훅 발송 관련 메트릭 (데이터베이스에서 조회)
+            try:
+                from database import get_database_connection
+                conn = get_database_connection()
+                cursor = conn.cursor()
+                
+                # 오늘 발송 건수
+                cursor.execute("""
+                    SELECT COUNT(*) FROM webhook_logs 
+                    WHERE DATE(timestamp) = DATE('now')
+                """)
+                metrics["today_sent"] = cursor.fetchone()[0]
+                
+                # 성공률
+                cursor.execute("""
+                    SELECT 
+                        COUNT(*) as total,
+                        SUM(CASE WHEN status = 'success' THEN 1 ELSE 0 END) as success
+                    FROM webhook_logs 
+                    WHERE DATE(timestamp) = DATE('now')
+                """)
+                result = cursor.fetchone()
+                if result[0] > 0:
+                    metrics["success_rate"] = round((result[1] / result[0]) * 100, 1)
+                else:
+                    metrics["success_rate"] = 0
+                    
+                conn.close()
+            except Exception as e:
+                logger.warning(f"웹훅 메트릭 조회 실패: {e}")
+                metrics["today_sent"] = 0
+                metrics["success_rate"] = 0
+                
+        elif service_id == "infomax_client":
+            instance = get_service_instance(service_id)
+            if instance:
+                metrics["api_connected"] = True
+                metrics["base_url"] = "https://global-api.einfomax.co.kr"
+            else:
+                metrics["api_connected"] = False
+                
+    except Exception as e:
+        logger.error(f"메트릭 조회 실패 ({service_id}): {e}")
+        # 기본값 반환
+        metrics = {
+            "cpu_percent": 0,
+            "memory_used_mb": 0,
+            "memory_percent": 0,
+            "process_memory_mb": 0,
+            "process_cpu_percent": 0,
+            "error": str(e)
+        }
+    
+    return metrics
+
+@router.get("/{service_id}/metrics")
+async def get_service_metrics_endpoint(service_id: str):
+    """서비스 메트릭 조회"""
+    logger.info(f"서비스 메트릭 조회: {service_id}")
+    
+    try:
+        services_data = get_current_services_data()
+        if service_id not in services_data:
+            raise HTTPException(status_code=404, detail=f"서비스를 찾을 수 없습니다: {service_id}")
+        
+        metrics = get_service_metrics(service_id)
+        service_info = services_data[service_id]
+        
+        return {
+            "service_id": service_id,
+            "service_name": service_info["name"],
+            "status": service_info["status"],
+            "metrics": metrics,
+            "timestamp": datetime.now().isoformat()
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"서비스 메트릭 조회 실패: {e}")
+        raise HTTPException(status_code=500, detail="메트릭 조회 중 오류가 발생했습니다")

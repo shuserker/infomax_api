@@ -198,7 +198,8 @@ registered_routers = []
 # 각 라우터를 개별적으로 등록
 router_configs = [
     ("api.companies", "/api/companies", "companies"),  # 회사 관리 (NEW)
-    ("api.services_simple", "/api/services", "services"),  # 간단 버전
+    ("api.services", "/api/services", "services"),  # 실제 서비스 관리 (업그레이드)
+    ("api.health_monitor", "/api/health", "health-monitor"),  # 헬스체크 모니터링 (NEW)
     ("api.system", "/api/system", "system"),
     ("api.news", "/api/news", "news"),
     ("api.settings", "/api/settings", "settings"),
