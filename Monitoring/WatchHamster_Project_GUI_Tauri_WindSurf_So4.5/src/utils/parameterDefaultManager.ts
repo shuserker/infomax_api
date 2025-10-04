@@ -18,6 +18,8 @@ export interface AutoUpdateRule {
     daysOfWeek: number[]; // 0=일요일, 1=월요일, 2=화요일, etc.
     timeHour: number;     // 0-23
     timeMinute: number;   // 0-59
+    monthDay?: number | 'last';  // 월간: 1-31 또는 'last'
+    quarterType?: 'start' | 'end'; // 분기/연간: 시작일/말일
   };
   updateLogic: 
     // 기본 날짜

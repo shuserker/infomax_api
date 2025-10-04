@@ -714,9 +714,32 @@ finally:
                                                   return (
                                                     <Select
                                                       size="xs"
-                                                      value="1"
+                                                      value={(() => {
+                                                        const rule = autoRule?.schedule;
+                                                        if (rule?.monthDay) {
+                                                          return rule.monthDay === 'last' ? 'last' : rule.monthDay.toString();
+                                                        }
+                                                        return "1";
+                                                      })()}
                                                       onChange={(e) => {
-                                                        // 월간 설정 로직 추가 필요
+                                                        const currentDefaults = parameterDefaultManager.getAllDefaults()?.[pkg.urlPath]?.[input.name];
+                                                        if (currentDefaults?.autoUpdateRule) {
+                                                          const monthDay = e.target.value === 'last' ? 'last' : parseInt(e.target.value);
+                                                          parameterDefaultManager.setParameterDefault(
+                                                            pkg.urlPath,
+                                                            input.name,
+                                                            inputValues[input.name] || '',
+                                                            true,
+                                                            {
+                                                              ...currentDefaults.autoUpdateRule,
+                                                              schedule: {
+                                                                ...currentDefaults.autoUpdateRule.schedule,
+                                                                monthDay: monthDay
+                                                              }
+                                                            }
+                                                          );
+                                                          setRefreshTrigger(prev => prev + 1);
+                                                        }
                                                       }}
                                                     >
                                                       {Array.from({length: 31}, (_, i) => (
@@ -730,9 +753,26 @@ finally:
                                                   return (
                                                     <Select
                                                       size="xs"
-                                                      value="start"
+                                                      value={autoRule?.schedule?.quarterType || "start"}
                                                       onChange={(e) => {
-                                                        // 분기/연간 설정 로직 추가 필요
+                                                        const currentDefaults = parameterDefaultManager.getAllDefaults()?.[pkg.urlPath]?.[input.name];
+                                                        if (currentDefaults?.autoUpdateRule) {
+                                                          const quarterType = e.target.value as 'start' | 'end';
+                                                          parameterDefaultManager.setParameterDefault(
+                                                            pkg.urlPath,
+                                                            input.name,
+                                                            inputValues[input.name] || '',
+                                                            true,
+                                                            {
+                                                              ...currentDefaults.autoUpdateRule,
+                                                              schedule: {
+                                                                ...currentDefaults.autoUpdateRule.schedule,
+                                                                quarterType: quarterType
+                                                              }
+                                                            }
+                                                          );
+                                                          setRefreshTrigger(prev => prev + 1);
+                                                        }
                                                       }}
                                                     >
                                                       <option value="start">시작일</option>
