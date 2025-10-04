@@ -501,7 +501,7 @@ finally:
                               
                               return (
                                 <Box key={index} p={4} border="1px" borderColor="gray.200" borderRadius="md">
-                                  <Grid templateColumns="1fr" gap={4} alignItems="start">
+                                  <Grid templateColumns="repeat(2, 1fr)" gap={4} alignItems="start">
                                     {/* 기본 파라미터 입력 */}
                                     <GridItem>
                                       <FormControl isRequired={input.required}>
@@ -526,7 +526,7 @@ finally:
                                           size="sm"
                                           value={inputValues[input.name] || ''}
                                           onChange={(e) => handleInputChange(input.name, e.target.value)}
-                                          placeholder={input.description || `${input.name} 입력`}
+                                          placeholder={`${input.name} 입력`}
                                         />
                                         {input.description && (
                                           <Text fontSize="xs" color="gray.500" mt={1}>
@@ -540,9 +540,10 @@ finally:
                                     <GridItem>
                                       <VStack spacing={2} align="stretch">
                                         <HStack justify="space-between">
-                                          <Text fontSize="xs" color="gray.600">자동갱신</Text>
+                                          <Text fontSize="xs" color="gray.600">기본값 자동 변경</Text>
                                           <Switch 
-                                            size="sm"
+                                            size="md"
+                                            colorScheme="blue"
                                             isChecked={isAutoManaged}
                                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                               const newAutoManaged = e.target.checked;
@@ -623,9 +624,6 @@ finally:
                                                   }}
                                                   w="80px"
                                                 />
-                                                <Text fontSize="xs" color="gray.500">
-                                                  예: D-1 (어제), D+0 (오늘), D+7 (일주일 후)
-                                                </Text>
                                               </HStack>
                                             </VStack>
 
@@ -1161,7 +1159,7 @@ finally:
                             복사
                           </Button>
                           <Button
-                            size="xs"
+                            size="md"
                             leftIcon={<FiDownload />}
                             onClick={downloadResult}
                           >
@@ -1169,7 +1167,7 @@ finally:
                           </Button>
                         </HStack>
                       </HStack>
-
+                      
                       <Box
                         bg={codeColor}
                         p={4}
