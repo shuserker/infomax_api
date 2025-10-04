@@ -24,10 +24,10 @@ from typing import Dict, Any, Optional, List, Union, Tuple
 from dataclasses import dataclass, asdict
 import logging
 
-# 워치햄스터 공통 모듈에서 import (상위 패키지)
+# 워치햄스터 공통 모듈에서 import (watchhamster_original 디렉토리)
 try:
-    from ...core.integrated_news_parser import IntegratedNewsParser, IntegratedNewsData
-    from ...core.news_data_parser import NewsItem, NewsStatus
+    from ..watchhamster_original.integrated_news_parser import IntegratedNewsParser, IntegratedNewsData
+    from ..watchhamster_original.news_data_parser import NewsItem, NewsStatus
 except ImportError:
     # 레거시 경로 fallback
     try:

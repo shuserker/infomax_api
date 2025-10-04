@@ -33,8 +33,8 @@ import hashlib
 try:
     # 포스코 프로젝트 내부 모듈
     from .news_message_generator import NewsMessageGenerator, MessageGenerationResult
-    # 워치햄스터 공통 모듈 (상위 패키지)
-    from ...core.ai_analysis_engine import AIAnalysisEngine
+    # 워치햄스터 공통 모듈 (watchhamster_original 디렉토리)
+    from ..watchhamster_original.ai_analysis_engine import AIAnalysisEngine
 except ImportError:
     # 레거시 경로 fallback
     try:
@@ -240,7 +240,7 @@ class WebhookSender:
     
     def send_business_day_comparison(self, raw_data: Dict[str, Any], 
                                    historical_data: Optional[Dict[str, Any]] = None,
-                                   priority: MessagePriority = MessagePriority.NORMAL) -> str:
+                                   priority: MessagePriority = MessagePriority.NORMAL) -> Dict[str, Any]:
         """
         영업일 비교 분석 메시지 전송
         
@@ -250,7 +250,7 @@ class WebhookSender:
             priority (MessagePriority): 메시지 우선순위
         
         Returns:
-            str: 메시지 ID
+            dict: {'message_id': str, 'full_message': str, 'success': bool}
         """
         try:
             self.logger.info("영업일 비교 분석 메시지 전송 시작")
@@ -262,7 +262,7 @@ class WebhookSender:
             
             if not generation_result.success:
                 self.logger.error(f"메시지 생성 실패: {generation_result.errors}")
-                return None
+                return {'message_id': None, 'full_message': None, 'success': False}
             
             # 웹훅 메시지 객체 생성
             message = self._create_webhook_message(
@@ -276,11 +276,16 @@ class WebhookSender:
             )
             
             # 큐에 추가
-            return self._enqueue_message(message)
+            message_id = self._enqueue_message(message)
+            return {
+                'message_id': message_id, 
+                'full_message': generation_result.message, 
+                'success': message_id is not None
+            }
             
         except Exception as e:
             self.logger.error(f"영업일 비교 분석 메시지 전송 오류: {e}")
-            return None
+            return {'message_id': None, 'full_message': None, 'success': False}
     
     def send_delay_notification(self, news_type: str, current_data: Dict[str, Any], 
                               delay_minutes: int, 

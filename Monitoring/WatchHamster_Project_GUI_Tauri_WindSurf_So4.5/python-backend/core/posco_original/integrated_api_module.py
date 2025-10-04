@@ -25,11 +25,11 @@ from typing import Dict, Any, Optional, List, Callable
 import logging
 from pathlib import Path
 
-# 워치햄스터 공통 모듈에서 import (상위 패키지)
+# 워치햄스터 공통 모듈에서 import (watchhamster_original 디렉토리)
 try:
-    from ...core.infomax_api_client import InfomaxAPIClient
-    from ...core.api_data_parser import APIDataParser
-    from ...core.api_connection_manager import APIConnectionManager, ConnectionStatus
+    from ..watchhamster_original.infomax_api_client import InfomaxAPIClient
+    from ..watchhamster_original.api_data_parser import APIDataParser
+    from ..watchhamster_original.api_connection_manager import APIConnectionManager, ConnectionStatus
 except ImportError:
     # 레거시 경로 fallback
     try:

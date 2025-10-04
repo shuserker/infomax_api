@@ -33,7 +33,10 @@ import {
   TabPanel,
   Textarea,
   HStack,
-  Icon
+  Icon,
+  Spinner,
+  Alert,
+  AlertIcon
 } from '@chakra-ui/react';
 import { FiSend, FiRefreshCw, FiCode, FiFileText, FiArrowRight } from 'react-icons/fi';
 import { CompanySelector } from '@/components/CompanySelector';
@@ -61,6 +64,8 @@ export const WebhookManager: React.FC = () => {
   const [selectedCompany, setSelectedCompany] = useState<string>('posco');
   const [loading, setLoading] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState<MessageType | null>(null);
+  const [messageDetail, setMessageDetail] = useState<any>(null);
+  const [detailLoading, setDetailLoading] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
@@ -265,9 +270,28 @@ export const WebhookManager: React.FC = () => {
             <Card
               _hover={{ shadow: 'lg', borderColor: 'blue.300' }}
               cursor="pointer"
-              onClick={() => {
+              onClick={async () => {
                 setSelectedMessage(type);
+                setDetailLoading(true);
                 onOpen();
+                
+                // 상세 정보 로드
+                try {
+                  const res = await fetch(
+                    `http://localhost:8000/api/webhook-manager/message-types/${type.id}/detail?company_id=${selectedCompany}`
+                  );
+                  const data = await res.json();
+                  setMessageDetail(data);
+                } catch (err: any) {
+                  toast({
+                    title: '상세 정보 로드 실패',
+                    description: err.message,
+                    status: 'error',
+                    duration: 3000
+                  });
+                } finally {
+                  setDetailLoading(false);
+                }
               }}
             >
               <CardHeader>
@@ -316,7 +340,12 @@ export const WebhookManager: React.FC = () => {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6} overflowY="auto">
-            {selectedMessage && (
+            {detailLoading ? (
+              <Box textAlign="center" py={8}>
+                <Spinner size="lg" />
+                <Text mt={4}>상세 정보를 불러오는 중...</Text>
+              </Box>
+            ) : selectedMessage && messageDetail ? (
               <Tabs colorScheme="blue">
                 <TabList>
                   <Tab>📝 설명</Tab>
@@ -393,29 +422,7 @@ export const WebhookManager: React.FC = () => {
                           maxH="400px"
                           overflowY="auto"
                         >
-{`# ${selectedMessage.name}
-
-**봇 타입**: ${selectedMessage.bot_type}
-**채널**: ${selectedMessage.endpoint}
-**우선순위**: ${selectedMessage.priority}
-
-## 메시지 구조
-\`\`\`json
-{
-  "botName": "${selectedMessage.bot_type}",
-  "botIconImage": "https://...",
-  "text": "메시지 내용",
-  "attachments": [
-    {
-      "title": "${selectedMessage.name}",
-      "text": "${selectedMessage.description}"
-    }
-  ]
-}
-\`\`\`
-
-## 설명
-${selectedMessage.description}`}
+                          {messageDetail?.template || '템플릿을 불러오는 중...'}
                         </Code>
                       </Box>
                     </VStack>
@@ -429,44 +436,34 @@ ${selectedMessage.description}`}
                           <Icon as={FiSend} />
                           <Text fontWeight="bold">최근 발송된 메시지 (풀버전)</Text>
                         </HStack>
-                        <Code
-                          display="block"
-                          whiteSpace="pre-wrap"
-                          p={4}
-                          borderRadius="md"
-                          bg="gray.50"
-                          fontSize="sm"
-                          maxH="400px"
-                          overflowY="auto"
-                        >
-{`📤 발송 로그
+                        {messageDetail?.recent_log ? (
+                          <Code
+                            display="block"
+                            whiteSpace="pre-wrap"
+                            p={4}
+                            borderRadius="md"
+                            bg="gray.50"
+                            fontSize="sm"
+                            maxH="400px"
+                            overflowY="auto"
+                          >
+                            {`📤 발송 로그
 
-시간: ${new Date().toLocaleString('ko-KR')}
-상태: ✅ 성공
-응답 시간: 0.23초
+시간: ${new Date(messageDetail.recent_log.timestamp).toLocaleString('ko-KR')}
+상태: ${messageDetail.recent_log.status === 'success' ? '✅ 성공' : '❌ 실패'}
+메시지 ID: ${messageDetail.recent_log.message_id}
 
-메시지 내용:
-{
-  "botName": "${selectedMessage.bot_type}",
-  "botIconImage": "https://static.dooray.com/...",
-  "text": "${selectedMessage.name} 테스트 메시지",
-  "attachments": [
-    {
-      "title": "${selectedMessage.name}",
-      "titleLink": "https://...",
-      "text": "${selectedMessage.description}",
-      "color": "#0066CC"
-    }
-  ]
-}
+${messageDetail.recent_log.full_message || '메시지 내용 없음'}
 
-응답:
-{
-  "success": true,
-  "message_id": "msg_${Date.now()}",
-  "timestamp": "${new Date().toISOString()}"
-}`}
-                        </Code>
+메타데이터:
+${JSON.stringify(messageDetail.recent_log.metadata || {}, null, 2)}`}
+                          </Code>
+                        ) : (
+                          <Alert status="info">
+                            <AlertIcon />
+                            <Text>최근 발송 기록이 없습니다.</Text>
+                          </Alert>
+                        )}
                       </Box>
                     </VStack>
                   </TabPanel>
@@ -480,15 +477,7 @@ ${selectedMessage.description}`}
                           <Text fontWeight="bold">Input (요청 데이터)</Text>
                         </HStack>
                         <Textarea
-                          value={JSON.stringify({
-                            bot_type: selectedMessage.bot_type,
-                            endpoint: selectedMessage.endpoint,
-                            priority: selectedMessage.priority,
-                            message: {
-                              title: selectedMessage.name,
-                              description: selectedMessage.description
-                            }
-                          }, null, 2)}
+                          value={JSON.stringify(messageDetail?.input_example || {}, null, 2)}
                           readOnly
                           fontFamily="mono"
                           fontSize="sm"
@@ -503,13 +492,7 @@ ${selectedMessage.description}`}
                           <Text fontWeight="bold">Output (응답 데이터)</Text>
                         </HStack>
                         <Textarea
-                          value={JSON.stringify({
-                            success: true,
-                            message_id: `msg_${selectedMessage.id}_${Date.now()}`,
-                            timestamp: new Date().toISOString(),
-                            webhook_url: `https://hook.dooray.com/services/${selectedMessage.endpoint}`,
-                            status_code: 200
-                          }, null, 2)}
+                          value={JSON.stringify(messageDetail?.output_example || {}, null, 2)}
                           readOnly
                           fontFamily="mono"
                           fontSize="sm"
@@ -532,6 +515,10 @@ ${selectedMessage.description}`}
                   </TabPanel>
                 </TabPanels>
               </Tabs>
+            ) : (
+              <Box textAlign="center" py={8}>
+                <Text color="gray.500">메시지 정보를 선택하세요</Text>
+              </Box>
             )}
           </ModalBody>
         </ModalContent>
