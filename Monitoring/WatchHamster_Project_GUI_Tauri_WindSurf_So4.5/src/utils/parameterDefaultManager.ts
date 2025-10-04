@@ -328,16 +328,25 @@ class ParameterDefaultManager {
    * 새로운 값 계산 (대폭 확장된 로직)
    */
   private calculateNewValue(logic: string): string {
+    // === 동적 D+n, D-n 처리 ===
+    if (logic === 'current_date') {
+      return this.getToday();
+    }
+    
+    // current_date_minus_숫자 또는 current_date_plus_숫자 형태 파싱
+    const minusMatch = logic.match(/^current_date_minus_(\d+)$/);
+    if (minusMatch) {
+      const days = parseInt(minusMatch[1]);
+      return this.getDaysAgo(days);
+    }
+    
+    const plusMatch = logic.match(/^current_date_plus_(\d+)$/);
+    if (plusMatch) {
+      const days = parseInt(plusMatch[1]);
+      return this.getDaysLater(days);
+    }
+
     switch (logic) {
-      // === 기본 날짜 ===
-      case 'current_date_minus_1':
-        return this.getYesterday();
-      case 'current_date':
-        return this.getToday();
-      case 'current_date_minus_2':
-        return this.getDaysAgo(2);
-      case 'current_date_minus_3':
-        return this.getDaysAgo(3);
       
       // === 주간 단위 ===
       case 'last_week_start':
@@ -445,6 +454,15 @@ class ParameterDefaultManager {
   private getDaysAgo(days: number): string {
     const date = new Date();
     date.setDate(date.getDate() - days);
+    return this.formatDate(date);
+  }
+
+  /**
+   * N일 후 날짜
+   */
+  private getDaysLater(days: number): string {
+    const date = new Date();
+    date.setDate(date.getDate() + days);
     return this.formatDate(date);
   }
 

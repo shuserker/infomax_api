@@ -576,53 +576,57 @@ finally:
                                           <VStack spacing={3} align="stretch" p={3} bg="blue.50" borderRadius="md" border="1px" borderColor="blue.200">
                                             {/* 0️⃣ 교체할 값 선택 */}
                                             <VStack spacing={2} align="stretch">
-                                              <Text fontSize="xs" fontWeight="bold" color="red.700">📝 교체할 값</Text>
-                                              <Select
-                                                size="xs"
-                                                value={autoRule?.updateLogic || 'current_date_minus_1'}
-                                                onChange={(e) => {
-                                                  const currentDefaults = parameterDefaultManager.getAllDefaults()?.[pkg.urlPath]?.[input.name];
-                                                  if (currentDefaults?.autoUpdateRule) {
-                                                    parameterDefaultManager.setParameterDefault(
-                                                      pkg.urlPath,
-                                                      input.name,
-                                                      inputValues[input.name] || '',
-                                                      true,
-                                                      {
-                                                        ...currentDefaults.autoUpdateRule,
-                                                        updateLogic: e.target.value as any
+                                              <Text fontSize="xs" fontWeight="bold" color="red.700">📝 교체할 값 (YYYYMMDD)</Text>
+                                              <HStack spacing={2}>
+                                                <Input
+                                                  size="xs"
+                                                  placeholder="D-1"
+                                                  value={(() => {
+                                                    const logic = autoRule?.updateLogic || 'current_date_minus_1';
+                                                    if (logic === 'current_date') return 'D+0';
+                                                    if (logic.startsWith('current_date_minus_')) return `D-${logic.split('_')[3]}`;
+                                                    if (logic.startsWith('current_date_plus_')) return `D+${logic.split('_')[3]}`;
+                                                    return 'D-1';
+                                                  })()}
+                                                  onChange={(e) => {
+                                                    const value = e.target.value.trim();
+                                                    let updateLogic = 'current_date_minus_1';
+                                                    
+                                                    // D+n 또는 D-n 형태 파싱
+                                                    const match = value.match(/^D([+-])(\d+)$/i);
+                                                    if (match) {
+                                                      const sign = match[1];
+                                                      const days = match[2];
+                                                      if (sign === '+' && days === '0') {
+                                                        updateLogic = 'current_date';
+                                                      } else if (sign === '+') {
+                                                        updateLogic = `current_date_plus_${days}`;
+                                                      } else if (sign === '-') {
+                                                        updateLogic = `current_date_minus_${days}`;
                                                       }
-                                                    );
-                                                    setRefreshTrigger(prev => prev + 1);
-                                                  }
-                                                }}
-                                              >
-                                                <optgroup label="📅 기본 날짜">
-                                                  <option value="current_date">오늘 (today)</option>
-                                                  <option value="current_date_minus_1">어제 (yesterday)</option>
-                                                  <option value="current_date_minus_2">그제 (d-2)</option>
-                                                  <option value="current_date_minus_3">3일 전 (d-3)</option>
-                                                </optgroup>
-                                                <optgroup label="📅 주간 날짜">
-                                                  <option value="last_week_start">지난주 월요일</option>
-                                                  <option value="last_week_end">지난주 금요일</option>
-                                                  <option value="current_week_start">이번주 월요일</option>
-                                                  <option value="current_week_end">이번주 금요일</option>
-                                                  <option value="last_business_day">최근 영업일</option>
-                                                </optgroup>
-                                                <optgroup label="📅 월간 날짜">
-                                                  <option value="last_month_start">지난달 1일</option>
-                                                  <option value="last_month_end">지난달 말일</option>
-                                                  <option value="current_month_start">이번달 1일</option>
-                                                  <option value="current_month_end">이번달 말일</option>
-                                                </optgroup>
-                                                <optgroup label="📅 분기/연간 날짜">
-                                                  <option value="last_quarter_start">지난 분기 시작일</option>
-                                                  <option value="last_quarter_end">지난 분기 종료일</option>
-                                                  <option value="current_year_start">올해 1월 1일</option>
-                                                  <option value="last_year_end">작년 12월 31일</option>
-                                                </optgroup>
-                                              </Select>
+                                                    }
+                                                    
+                                                    const currentDefaults = parameterDefaultManager.getAllDefaults()?.[pkg.urlPath]?.[input.name];
+                                                    if (currentDefaults?.autoUpdateRule) {
+                                                      parameterDefaultManager.setParameterDefault(
+                                                        pkg.urlPath,
+                                                        input.name,
+                                                        inputValues[input.name] || '',
+                                                        true,
+                                                        {
+                                                          ...currentDefaults.autoUpdateRule,
+                                                          updateLogic: updateLogic as any
+                                                        }
+                                                      );
+                                                      setRefreshTrigger(prev => prev + 1);
+                                                    }
+                                                  }}
+                                                  w="80px"
+                                                />
+                                                <Text fontSize="xs" color="gray.500">
+                                                  예: D-1 (어제), D+0 (오늘), D+7 (일주일 후)
+                                                </Text>
+                                              </HStack>
                                             </VStack>
 
                                             {/* 1️⃣ 주기 선택 */}
