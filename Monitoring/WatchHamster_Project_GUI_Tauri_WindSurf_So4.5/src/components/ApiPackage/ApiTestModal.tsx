@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Modal,
   ModalOverlay,
@@ -20,13 +20,11 @@ import {
   AlertIcon,
   AlertDescription,
   Box,
-  Divider,
   Tabs,
   TabList,
   TabPanels,
   Tab,
   TabPanel,
-  Textarea,
   Spinner,
   useToast,
   Grid,
@@ -36,12 +34,12 @@ import {
   Flex,
   Spacer,
   useColorModeValue,
-  IconButton
+  Switch,
+  Select
 } from '@chakra-ui/react'
-import { FiCopy, FiDownload, FiPlay, FiRefreshCw, FiSettings } from 'react-icons/fi'
+import { FiCopy, FiDownload, FiPlay } from 'react-icons/fi'
 import { parameterDefaultManager } from '../../utils/parameterDefaultManager'
-import { getCrawledApiInfo, getCrawledPythonCode } from '../../utils/apiCrawlingMapper'
-import ParameterDefaultsModal from './ParameterDefaultsModal'
+import { getCrawledPythonCode } from '../../utils/apiCrawlingMapper'
 
 interface ApiPackage {
   id: string
@@ -86,10 +84,8 @@ const ApiTestModal: React.FC<ApiTestModalProps> = ({
   const [isLoading, setIsLoading] = useState(false)
   const [testResult, setTestResult] = useState<any>(null)
   const [error, setError] = useState('')
-  const [isDefaultsModalOpen, setIsDefaultsModalOpen] = useState(false)
   const toast = useToast()
   const codeColor = useColorModeValue('gray.50', 'gray.700')
-  const bgColor = useColorModeValue('white', 'gray.800')
 
   // 모달이 열릴 때 기본값 설정 (기본값 관리자 사용)
   useEffect(() => {
@@ -460,14 +456,6 @@ finally:
                 <Badge colorScheme="blue" variant="subtle">{pkg.category}</Badge>
                 <Text fontSize="lg" fontWeight="bold">{pkg.fullName}</Text>
               </HStack>
-              <IconButton
-                icon={<FiSettings />}
-                size="sm"
-                variant="outline"
-                aria-label="기본값 관리"
-                onClick={() => setIsDefaultsModalOpen(true)}
-                title="파라미터 기본값 관리"
-              />
             </HStack>
             <Text fontSize="sm" color="gray.600">
               {pkg.description || 'API 테스트 및 결과 확인'}
@@ -504,39 +492,141 @@ finally:
                             이 API는 입력 파라미터가 필요하지 않습니다.
                           </Alert>
                         ) : (
-                          <Grid templateColumns="repeat(auto-fit, minmax(300px, 1fr))" gap={4}>
-                            {pkg.inputs.map((input, index) => (
-                              <GridItem key={index}>
-                                <FormControl isRequired={input.required}>
-                                  <FormLabel fontSize="sm">
-                                    <HStack>
-                                      <Text>{input.name}</Text>
-                                      <Badge 
-                                        size="xs" 
-                                        colorScheme={input.required ? 'red' : 'gray'}
-                                      >
-                                        {input.type}
-                                      </Badge>
-                                      {input.required && (
-                                        <Badge size="xs" colorScheme="red">필수</Badge>
-                                      )}
-                                    </HStack>
-                                  </FormLabel>
-                                  <Input
-                                    size="sm"
-                                    value={inputValues[input.name] || ''}
-                                    onChange={(e) => handleInputChange(input.name, e.target.value)}
-                                    placeholder={input.description || `${input.name} 입력`}
-                                  />
-                                  {input.description && (
-                                    <Text fontSize="xs" color="gray.500" mt={1}>
-                                      {input.description}
-                                    </Text>
-                                  )}
-                                </FormControl>
-                              </GridItem>
-                            ))}
-                          </Grid>
+                          <VStack spacing={4} align="stretch">
+                            {pkg.inputs.map((input, index) => {
+                              const paramDefault = parameterDefaultManager.getParameterDefault(pkg.urlPath, input.name);
+                              const autoRule = parameterDefaultManager.getAllDefaults()?.[pkg.urlPath]?.[input.name]?.autoUpdateRule;
+                              const isAutoManaged = parameterDefaultManager.getAllDefaults()?.[pkg.urlPath]?.[input.name]?.isAutoManaged || false;
+                              
+                              return (
+                                <Box key={index} p={4} border="1px" borderColor="gray.200" borderRadius="md">
+                                  <Grid templateColumns="1fr 200px" gap={4} alignItems="start">
+                                    {/* 기본 파라미터 입력 */}
+                                    <GridItem>
+                                      <FormControl isRequired={input.required}>
+                                        <FormLabel fontSize="sm">
+                                          <HStack>
+                                            <Text>{input.name}</Text>
+                                            <Badge 
+                                              size="xs" 
+                                              colorScheme={input.required ? 'red' : 'gray'}
+                                            >
+                                              {input.type}
+                                            </Badge>
+                                            {input.required && (
+                                              <Badge size="xs" colorScheme="red">필수</Badge>
+                                            )}
+                                            {isAutoManaged && (
+                                              <Badge size="xs" colorScheme="green" variant="subtle">자동관리</Badge>
+                                            )}
+                                          </HStack>
+                                        </FormLabel>
+                                        <Input
+                                          size="sm"
+                                          value={inputValues[input.name] || ''}
+                                          onChange={(e) => handleInputChange(input.name, e.target.value)}
+                                          placeholder={input.description || `${input.name} 입력`}
+                                        />
+                                        {input.description && (
+                                          <Text fontSize="xs" color="gray.500" mt={1}>
+                                            {input.description}
+                                          </Text>
+                                        )}
+                                      </FormControl>
+                                    </GridItem>
+                                    
+                                    {/* 자동갱신 설정 */}
+                                    <GridItem>
+                                      <VStack spacing={2} align="stretch">
+                                        <HStack justify="space-between">
+                                          <Text fontSize="xs" color="gray.600">자동갱신</Text>
+                                          <Switch 
+                                            size="sm"
+                                            isChecked={isAutoManaged}
+                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                              const newAutoManaged = e.target.checked;
+                                              if (newAutoManaged) {
+                                                parameterDefaultManager.setParameterDefault(
+                                                  pkg.urlPath,
+                                                  input.name,
+                                                  inputValues[input.name] || '',
+                                                  true,
+                                                  {
+                                                    enabled: true,
+                                                    schedule: { daysOfWeek: [1, 2, 3, 4, 5], timeHour: 1, timeMinute: 0 },
+                                                    updateLogic: 'current_date_minus_1'
+                                                  }
+                                                );
+                                              } else {
+                                                parameterDefaultManager.setParameterDefault(
+                                                  pkg.urlPath,
+                                                  input.name,
+                                                  inputValues[input.name] || '',
+                                                  false
+                                                );
+                                              }
+                                            }}
+                                          />
+                                        </HStack>
+                                        
+                                        {isAutoManaged && (
+                                          <VStack spacing={2} align="stretch">
+                                            <Select
+                                              size="xs"
+                                              fontSize="xs"
+                                              value={autoRule?.updateLogic || 'current_date_minus_1'}
+                                              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                                                const currentDefaults = parameterDefaultManager.getAllDefaults()?.[pkg.urlPath]?.[input.name];
+                                                if (currentDefaults) {
+                                                  parameterDefaultManager.setParameterDefault(
+                                                    pkg.urlPath,
+                                                    input.name,
+                                                    inputValues[input.name] || '',
+                                                    true,
+                                                    {
+                                                      ...currentDefaults.autoUpdateRule!,
+                                                      updateLogic: e.target.value as any
+                                                    }
+                                                  );
+                                                }
+                                              }}
+                                            >
+                                              <option value="current_date_minus_1">어제</option>
+                                              <option value="current_date">오늘</option>
+                                              <option value="last_week_start">지난주 월요일</option>
+                                              <option value="last_month_start">지난달 1일</option>
+                                              <option value="auto_smart_date">스마트 자동</option>
+                                              <option value="rotate_keywords">키워드 로테이션</option>
+                                            </Select>
+                                            
+                                            <HStack spacing={1}>
+                                              <Select size="xs" fontSize="xs" value={autoRule?.schedule.daysOfWeek.includes(1) ? 'weekdays' : 'daily'}>
+                                                <option value="daily">매일</option>
+                                                <option value="weekdays">평일</option>
+                                                <option value="weekly">매주</option>
+                                              </Select>
+                                              <Select size="xs" fontSize="xs" value={autoRule?.schedule.timeHour || 1}>
+                                                <option value={0}>00시</option>
+                                                <option value={1}>01시</option>
+                                                <option value={6}>06시</option>
+                                                <option value={9}>09시</option>
+                                              </Select>
+                                            </HStack>
+                                            
+                                            <Text fontSize="xs" color="gray.500">
+                                              {autoRule?.updateLogic === 'auto_smart_date' && '🤖 시간과 요일에 따라 자동 선택'}
+                                              {autoRule?.updateLogic === 'rotate_keywords' && '🔁 키워드를 매일 순환'}
+                                              {autoRule?.updateLogic === 'last_week_start' && '📅 매주 월요일에 갱신'}
+                                            </Text>
+                                          </VStack>
+                                        )}
+                                      </VStack>
+                                    </GridItem>
+                                  </Grid>
+                                </Box>
+                              );
+                            })}
+                          </VStack>
                         )}
                       </VStack>
                     </CardBody>
@@ -890,12 +980,6 @@ finally:
         </ModalFooter>
       </ModalContent>
     </Modal>
-
-    {/* 파라미터 기본값 관리 모달 */}
-    <ParameterDefaultsModal
-      isOpen={isDefaultsModalOpen}
-      onClose={() => setIsDefaultsModalOpen(false)}
-    />
   </>
   )
 }
