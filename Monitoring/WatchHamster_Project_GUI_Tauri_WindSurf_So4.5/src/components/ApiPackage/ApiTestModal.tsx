@@ -574,6 +574,50 @@ finally:
                                         
                                         {isAutoManaged && (
                                           <VStack spacing={3} align="stretch" p={3} bg="blue.50" borderRadius="md" border="1px" borderColor="blue.200">
+                                            {/* 0️⃣ 교체할 값 선택 */}
+                                            <VStack spacing={2} align="stretch">
+                                              <Text fontSize="xs" fontWeight="bold" color="red.700">📝 교체할 값</Text>
+                                              <Select
+                                                size="xs"
+                                                value={autoRule?.updateLogic || 'current_date_minus_1'}
+                                                onChange={(e) => {
+                                                  const currentDefaults = parameterDefaultManager.getAllDefaults()?.[pkg.urlPath]?.[input.name];
+                                                  if (currentDefaults?.autoUpdateRule) {
+                                                    parameterDefaultManager.setParameterDefault(
+                                                      pkg.urlPath,
+                                                      input.name,
+                                                      inputValues[input.name] || '',
+                                                      true,
+                                                      {
+                                                        ...currentDefaults.autoUpdateRule,
+                                                        updateLogic: e.target.value as any
+                                                      }
+                                                    );
+                                                    setRefreshTrigger(prev => prev + 1);
+                                                  }
+                                                }}
+                                              >
+                                                <optgroup label="📅 날짜 값">
+                                                  <option value="current_date">오늘 (today)</option>
+                                                  <option value="current_date_minus_1">어제 (yesterday)</option>
+                                                  <option value="current_date_minus_2">그제</option>
+                                                  <option value="last_week_start">지난주 월요일</option>
+                                                  <option value="last_week_end">지난주 금요일</option>
+                                                  <option value="last_month_start">지난달 1일</option>
+                                                  <option value="last_month_end">지난달 말일</option>
+                                                </optgroup>
+                                                <optgroup label="💼 고정 값">
+                                                  <option value="fixed_value_kr103502ge97">KR103502GE97 (고정)</option>
+                                                  <option value="fixed_value_market_outside">장외 (고정)</option>
+                                                  <option value="fixed_value_market_inside">장내 (고정)</option>
+                                                </optgroup>
+                                                <optgroup label="🤖 스마트">
+                                                  <option value="auto_smart_date">스마트 자동 날짜</option>
+                                                  <option value="rotate_keywords">키워드 순환</option>
+                                                </optgroup>
+                                              </Select>
+                                            </VStack>
+
                                             {/* 1️⃣ 주기 선택 */}
                                             <VStack spacing={2} align="stretch">
                                               <Text fontSize="xs" fontWeight="bold" color="blue.700">1️⃣ 갱신 주기</Text>
