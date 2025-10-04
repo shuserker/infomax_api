@@ -501,7 +501,7 @@ finally:
                               
                               return (
                                 <Box key={index} p={4} border="1px" borderColor="gray.200" borderRadius="md">
-                                  <Grid templateColumns="1.5fr 1.5fr" gap={4} alignItems="start">
+                                  <Grid templateColumns="1fr" gap={4} alignItems="start">
                                     {/* 기본 파라미터 입력 */}
                                     <GridItem>
                                       <FormControl isRequired={input.required}>
