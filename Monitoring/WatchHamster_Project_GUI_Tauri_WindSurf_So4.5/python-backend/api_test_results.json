@@ -1,0 +1,160 @@
+{
+  "timestamp": "2025-10-04T15:25:05.999062",
+  "total": 19,
+  "passed": 19,
+  "failed": 0,
+  "results": [
+    {
+      "method": "GET",
+      "endpoint": "/api/companies",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.00565
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/companies/posco",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.003233
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/companies/posco/stats",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.001245
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/companies/posco/webhooks",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.001399
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/companies/posco/api-configs",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.001305
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/webhook-manager/stats?company_id=posco",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.001484
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/webhook-manager/logs?company_id=posco&limit=10",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.00152
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/webhook-manager/message-types",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.001242
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/webhook-manager/queue-status",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.001183
+    },
+    {
+      "method": "GET",
+      "endpoint": "/health",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.001167
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/system/status",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.105873
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/system/health",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.001672
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/logs/",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.00252
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/monitor-logs/recent?limit=10",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.001798
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/config/monitors",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.004084
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/settings/all",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.001468
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/diagnostics/health-check",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.001216
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/diagnostics/config-info",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.001272
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/metrics/summary",
+      "status_code": 200,
+      "expected": 200,
+      "success": true,
+      "response_time": 0.105652
+    }
+  ]
+}

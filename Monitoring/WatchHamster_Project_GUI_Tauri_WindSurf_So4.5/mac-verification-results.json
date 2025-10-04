@@ -1,0 +1,8 @@
+{
+  "timestamp": "2025-10-02T00:57:19Z",
+  "environment": "macOS 26.1 (arm64)",
+  "overall_status": "PASS",
+  "results": [
+    {"test": "nodejs", "status": "PASS", "details": "v24.5.0"},    {"test": "python", "status": "PASS", "details": "Python 3.13.7"},    {"test": "git", "status": "PASS", "details": "git version 2.50.1 (Apple Git-155)"},    {"test": "port_1420", "status": "PASS", "details": "Available"},    {"test": "port_8000", "status": "PASS", "details": "Available"},    {"test": "file_package.json", "status": "PASS", "details": "Exists"},    {"test": "file_vite.config.ts", "status": "PASS", "details": "Exists"},    {"test": "file_main.py", "status": "PASS", "details": "Exists"},    {"test": "file_requirements.txt", "status": "PASS", "details": "Exists"},    {"test": "executable_setup.sh", "status": "PASS", "details": "Executable"},    {"test": "executable_run-dev.sh", "status": "PASS", "details": "Executable"},    {"test": "executable_stop.sh", "status": "PASS", "details": "Executable"},    {"test": "node_dependencies", "status": "WARNING", "details": "Not installed"},    {"test": "python_venv", "status": "WARNING", "details": "Not created"}
+  ]
+}

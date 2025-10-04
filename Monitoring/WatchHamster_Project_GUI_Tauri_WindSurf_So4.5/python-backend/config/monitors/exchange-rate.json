@@ -1,0 +1,71 @@
+{
+  "name": "exchange-rate",
+  "display_name": "환율 모니터",
+  "enabled": true,
+  "description": "주요 환율 변동 모니터링",
+  
+  "api": {
+    "endpoint": "https://global-api.einfomax.co.kr/apis/posco/news",
+    "method": "GET",
+    "auth": {
+      "type": "bearer",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJwb3NjbyIsImNvdXBvblR5cGUiOiJhcGkiLCJzdmMiOiJwb3NjbyIsImlhdCI6MTc1MzA2MTE4OCwiZXhwIjoyNjk5MTQxMTg4fQ.mBlDxWm4zZb9fRJoTFM3PEn1EYctKHPZ0Qn8ZoKduyM"
+    },
+    "headers": {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "params": {
+      "type": "exchange-rate",
+      "date": "{today}"
+    },
+    "timeout": 30
+  },
+  
+  "schedule": {
+    "interval": 15,
+    "timeRange": {
+      "start": "09:00",
+      "end": "18:00"
+    },
+    "daysOfWeek": [1, 2, 3, 4, 5],
+    "excludeHolidays": true
+  },
+  
+  "retry": {
+    "maxAttempts": 3,
+    "delayMs": 1000,
+    "backoff": "linear"
+  },
+  
+  "parsing": {
+    "type": "json",
+    "rules": [
+      {
+        "field": "title",
+        "path": "$.data.title",
+        "required": true
+      },
+      {
+        "field": "usd_krw",
+        "path": "$.data.usd_krw",
+        "required": true
+      }
+    ],
+    "validation": []
+  },
+  
+  "webhook": {
+    "enabled": true,
+    "url": "https://infomax.dooray.com/services/3262462484277387103/4121380745073081229/5FbudzTwTki4wCeBszBrAg",
+    "templateId": "default",
+    "condition": "always",
+    "timeout": 10
+  },
+  
+  "metadata": {
+    "created_at": "2025-10-04T13:00:00+09:00",
+    "updated_at": "2025-10-04T13:00:00+09:00",
+    "version": "1.0.0"
+  }
+}

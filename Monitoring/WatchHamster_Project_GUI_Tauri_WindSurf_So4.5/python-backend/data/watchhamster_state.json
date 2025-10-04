@@ -1,0 +1,19 @@
+{
+  "watchhamster_running": false,
+  "mode": "",
+  "start_time": "2025-10-04T03:44:04.387828",
+  "error_count": 0,
+  "last_error": "",
+  "individual_monitors": {
+    "newyork-market-watch": {
+      "status": "stopped",
+      "health": "unknown",
+      "restart_count": 0,
+      "error_count": 0
+    }
+  },
+  "metadata": {
+    "last_save": "2025-10-04T03:44:09.950948"
+  },
+  "last_saved_at": "2025-10-04T03:44:09.951034"
+}

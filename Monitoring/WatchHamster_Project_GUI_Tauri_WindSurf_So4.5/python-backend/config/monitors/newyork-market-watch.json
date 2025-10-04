@@ -1,0 +1,71 @@
+{
+  "name": "newyork-market-watch",
+  "display_name": "뉴욕증시 모니터",
+  "enabled": true,
+  "description": "뉴욕 증시 실시간 모니터링",
+  
+  "api": {
+    "endpoint": "https://global-api.einfomax.co.kr/apis/posco/news",
+    "method": "GET",
+    "auth": {
+      "type": "bearer",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJwb3NjbyIsImNvdXBvblR5cGUiOiJhcGkiLCJzdmMiOiJwb3NjbyIsImlhdCI6MTc1MzA2MTE4OCwiZXhwIjoyNjk5MTQxMTg4fQ.mBlDxWm4zZb9fRJoTFM3PEn1EYctKHPZ0Qn8ZoKduyM"
+    },
+    "headers": {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "params": {
+      "type": "newyork-market-watch",
+      "date": "{today}"
+    },
+    "timeout": 30
+  },
+  
+  "schedule": {
+    "interval": 10,
+    "timeRange": {
+      "start": "22:00",
+      "end": "05:00"
+    },
+    "daysOfWeek": [1, 2, 3, 4, 5],
+    "excludeHolidays": false
+  },
+  
+  "retry": {
+    "maxAttempts": 3,
+    "delayMs": 1000,
+    "backoff": "exponential"
+  },
+  
+  "parsing": {
+    "type": "json",
+    "rules": [
+      {
+        "field": "title",
+        "path": "$.data.title",
+        "required": true
+      },
+      {
+        "field": "indices",
+        "path": "$.data.indices[*]",
+        "transform": "array"
+      }
+    ],
+    "validation": []
+  },
+  
+  "webhook": {
+    "enabled": true,
+    "url": "https://infomax.dooray.com/services/3262462484277387103/4121380745073081229/5FbudzTwTki4wCeBszBrAg",
+    "templateId": "default",
+    "condition": "on_change",
+    "timeout": 10
+  },
+  
+  "metadata": {
+    "created_at": "2025-10-04T13:00:00+09:00",
+    "updated_at": "2025-10-04T13:00:00+09:00",
+    "version": "1.0.0"
+  }
+}

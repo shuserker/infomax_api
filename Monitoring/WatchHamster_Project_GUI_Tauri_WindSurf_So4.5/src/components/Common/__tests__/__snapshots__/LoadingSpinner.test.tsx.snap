@@ -1,0 +1,26 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`LoadingSpinner 컴포넌트 > 스냅샷 테스트 1`] = `
+<div
+  class="css-1d9x4z3"
+>
+  <div
+    class="chakra-stack css-o51fhk"
+  >
+    <div
+      class="chakra-spinner css-1h0edm3"
+    >
+      <span
+        class="css-8b45rq"
+      >
+        Loading...
+      </span>
+    </div>
+    <p
+      class="chakra-text css-1pahln7"
+    >
+      테스트 로딩
+    </p>
+  </div>
+</div>
+`;
