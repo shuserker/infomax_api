@@ -27,17 +27,20 @@ import {
   Tab,
   TabPanel,
   Textarea,
-  useToast,
   Spinner,
-  useColorModeValue,
+  useToast,
   Grid,
   GridItem,
   Card,
   CardBody,
   Flex,
-  Spacer
+  Spacer,
+  useColorModeValue,
+  IconButton
 } from '@chakra-ui/react'
-import { FiPlay, FiCopy, FiDownload, FiRefreshCw } from 'react-icons/fi'
+import { FiCopy, FiDownload, FiPlay, FiRefreshCw, FiSettings } from 'react-icons/fi'
+import { parameterDefaultManager } from '../../utils/parameterDefaultManager'
+import ParameterDefaultsModal from './ParameterDefaultsModal'
 
 interface ApiPackage {
   id: string
@@ -78,46 +81,27 @@ const ApiTestModal: React.FC<ApiTestModalProps> = ({
   const [isLoading, setIsLoading] = useState(false)
   const [testResult, setTestResult] = useState<any>(null)
   const [error, setError] = useState('')
+  const [isDefaultsModalOpen, setIsDefaultsModalOpen] = useState(false)
   const toast = useToast()
   const codeColor = useColorModeValue('gray.50', 'gray.700')
   const bgColor = useColorModeValue('white', 'gray.800')
 
-  // 모달이 열릴 때 기본값 설정
+  // 모달이 열릴 때 기본값 설정 (기본값 관리자 사용)
   useEffect(() => {
     if (pkg && isOpen) {
       const defaultValues: {[key: string]: string} = {}
       
-      // pkg.inputs를 기반으로 기본값 설정
+      // 기본값 관리자에서 저장된 기본값 로드
+      const apiDefaults = parameterDefaultManager.getApiDefaults(pkg.urlPath)
+      
       pkg.inputs.forEach(input => {
-        if (pkg.urlPath === 'bond/market/mn_hist') {
-          // 채권 체결정보 API 특별 기본값 (실제 문서와 동일)
-          switch (input.name) {
-            case 'stdcd': defaultValues[input.name] = 'KR103502GE97'; break;
-            case 'market': defaultValues[input.name] = '장외'; break;
-            case 'startDate': defaultValues[input.name] = '20250401'; break;
-            case 'endDate': defaultValues[input.name] = '20250401'; break;
-            case 'aclassnm': defaultValues[input.name] = ''; break;
-            case 'volume': defaultValues[input.name] = ''; break;
-            case 'allcrdtrate': defaultValues[input.name] = ''; break;
-            case 'yld': defaultValues[input.name] = ''; break;
-            case 'estyld': defaultValues[input.name] = ''; break;
-            default: defaultValues[input.name] = input.defaultValue || ''; break;
-          }
+        // 저장된 기본값이 있으면 사용, 없으면 기본값 사용
+        const savedDefault = apiDefaults[input.name]
+        if (savedDefault !== undefined) {
+          defaultValues[input.name] = savedDefault
         } else {
-          // 다른 API들의 기본값 (실제 문서 기반)
-          switch (input.name) {
-            case 'stdcd': defaultValues[input.name] = 'KR101501DA32'; break;
-            case 'code': defaultValues[input.name] = '005930'; break;
-            case 'search': defaultValues[input.name] = ''; break;
-            case 'name': defaultValues[input.name] = ''; break;
-            case 'isin': defaultValues[input.name] = ''; break;
-            case 'market': defaultValues[input.name] = ''; break;
-            case 'type': defaultValues[input.name] = 'EF'; break;
-            case 'startDate': defaultValues[input.name] = ''; break;
-            case 'endDate': defaultValues[input.name] = ''; break;
-            case 'bonddate': defaultValues[input.name] = '20250401'; break;
-            default: defaultValues[input.name] = input.defaultValue || ''; break;
-          }
+          // 기존 하드코딩된 기본값을 fallback으로 사용
+          defaultValues[input.name] = input.defaultValue || getDefaultValue(pkg.urlPath, input.name)
         }
       })
       
@@ -126,6 +110,27 @@ const ApiTestModal: React.FC<ApiTestModalProps> = ({
       setError('')
     }
   }, [pkg, isOpen])
+
+  // 기존 하드코딩된 기본값 (fallback용)
+  const getDefaultValue = (apiPath: string, paramName: string): string => {
+    if (apiPath === 'bond/market/mn_hist') {
+      switch (paramName) {
+        case 'stdcd': return 'KR103502GE97';
+        case 'market': return '장외';
+        case 'startDate': return '20250401';
+        case 'endDate': return '20250401';
+        default: return '';
+      }
+    } else {
+      switch (paramName) {
+        case 'stdcd': return 'KR101501DA32';
+        case 'code': return '005930';
+        case 'type': return 'EF';
+        case 'bonddate': return '20250401';
+        default: return '';
+      }
+    }
+  }
 
   const handleInputChange = (paramName: string, value: string) => {
     setInputValues(prev => ({
@@ -415,14 +420,25 @@ finally:
   if (!pkg) return null
 
   return (
+    <>
     <Modal isOpen={isOpen} onClose={onClose} size="6xl">
       <ModalOverlay />
       <ModalContent maxH="90vh">
         <ModalHeader>
           <VStack spacing={2} align="start">
-            <HStack>
-              <Badge colorScheme="blue" variant="subtle">{pkg.category}</Badge>
-              <Text fontSize="lg" fontWeight="bold">{pkg.fullName}</Text>
+            <HStack justify="space-between" w="full">
+              <HStack>
+                <Badge colorScheme="blue" variant="subtle">{pkg.category}</Badge>
+                <Text fontSize="lg" fontWeight="bold">{pkg.fullName}</Text>
+              </HStack>
+              <IconButton
+                icon={<FiSettings />}
+                size="sm"
+                variant="outline"
+                aria-label="기본값 관리"
+                onClick={() => setIsDefaultsModalOpen(true)}
+                title="파라미터 기본값 관리"
+              />
             </HStack>
             <Text fontSize="sm" color="gray.600">
               {pkg.description || 'API 테스트 및 결과 확인'}
@@ -845,6 +861,13 @@ finally:
         </ModalFooter>
       </ModalContent>
     </Modal>
+
+    {/* 파라미터 기본값 관리 모달 */}
+    <ParameterDefaultsModal
+      isOpen={isDefaultsModalOpen}
+      onClose={() => setIsDefaultsModalOpen(false)}
+    />
+  </>
   )
 }
 
