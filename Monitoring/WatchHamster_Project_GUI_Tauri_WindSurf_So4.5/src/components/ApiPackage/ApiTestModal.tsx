@@ -468,7 +468,7 @@ finally:
         </ModalHeader>
         <ModalCloseButton />
         
-        <ModalBody>
+        <ModalBody maxHeight="70vh" overflowY="auto">
           <Tabs variant="enclosed" colorScheme="blue">
             <TabList>
               <Tab>⚙️ 파라미터 설정</Tab>
