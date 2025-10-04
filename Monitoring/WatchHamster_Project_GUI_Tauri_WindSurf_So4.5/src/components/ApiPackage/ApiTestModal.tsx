@@ -597,23 +597,30 @@ finally:
                                                   }
                                                 }}
                                               >
-                                                <optgroup label="📅 날짜 값">
+                                                <optgroup label="📅 기본 날짜">
                                                   <option value="current_date">오늘 (today)</option>
                                                   <option value="current_date_minus_1">어제 (yesterday)</option>
-                                                  <option value="current_date_minus_2">그제</option>
+                                                  <option value="current_date_minus_2">그제 (d-2)</option>
+                                                  <option value="current_date_minus_3">3일 전 (d-3)</option>
+                                                </optgroup>
+                                                <optgroup label="📅 주간 날짜">
                                                   <option value="last_week_start">지난주 월요일</option>
                                                   <option value="last_week_end">지난주 금요일</option>
+                                                  <option value="current_week_start">이번주 월요일</option>
+                                                  <option value="current_week_end">이번주 금요일</option>
+                                                  <option value="last_business_day">최근 영업일</option>
+                                                </optgroup>
+                                                <optgroup label="📅 월간 날짜">
                                                   <option value="last_month_start">지난달 1일</option>
                                                   <option value="last_month_end">지난달 말일</option>
+                                                  <option value="current_month_start">이번달 1일</option>
+                                                  <option value="current_month_end">이번달 말일</option>
                                                 </optgroup>
-                                                <optgroup label="💼 고정 값">
-                                                  <option value="fixed_value_kr103502ge97">KR103502GE97 (고정)</option>
-                                                  <option value="fixed_value_market_outside">장외 (고정)</option>
-                                                  <option value="fixed_value_market_inside">장내 (고정)</option>
-                                                </optgroup>
-                                                <optgroup label="🤖 스마트">
-                                                  <option value="auto_smart_date">스마트 자동 날짜</option>
-                                                  <option value="rotate_keywords">키워드 순환</option>
+                                                <optgroup label="📅 분기/연간 날짜">
+                                                  <option value="last_quarter_start">지난 분기 시작일</option>
+                                                  <option value="last_quarter_end">지난 분기 종료일</option>
+                                                  <option value="current_year_start">올해 1월 1일</option>
+                                                  <option value="last_year_end">작년 12월 31일</option>
                                                 </optgroup>
                                               </Select>
                                             </VStack>
