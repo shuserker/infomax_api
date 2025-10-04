@@ -695,60 +695,101 @@ finally:
                                               </Select>
                                             </VStack>
 
-                                            {/* 2️⃣ 세부 설정 - 요일 선택 */}
+                                            {/* 2️⃣ 세부 설정 - 동적 표시 */}
                                             <VStack spacing={2} align="stretch">
                                               <Text fontSize="xs" fontWeight="bold" color="green.700">2️⃣ 세부 설정</Text>
-                                              <HStack wrap="wrap" spacing={1}>
-                                                {[1, 2, 3, 4, 5, 6, 0].map((dayNum) => {
-                                                  const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
-                                                  const isSelected = autoRule?.schedule.daysOfWeek.includes(dayNum) || false;
-                                                  const isDaily = !autoRule?.updateLogic || autoRule.updateLogic.includes('current_date');
-                                                  
+                                              {(() => {
+                                                const logic = autoRule?.updateLogic;
+                                                const currentPeriod = (() => {
+                                                  if (!logic || logic.includes('current_date')) return 'daily';
+                                                  if (logic.includes('week')) return 'weekly';
+                                                  if (logic.includes('month')) return 'monthly';
+                                                  if (logic.includes('quarter')) return 'quarterly';
+                                                  if (logic.includes('year')) return 'yearly';
+                                                  return 'daily';
+                                                })();
+
+                                                if (currentPeriod === 'monthly') {
+                                                  // 월: 1일~말일 선택
                                                   return (
-                                                    <Button
-                                                      key={dayNum}
+                                                    <Select
                                                       size="xs"
-                                                      variant={isSelected ? 'solid' : 'outline'}
-                                                      colorScheme={isSelected ? 'blue' : 'gray'}
-                                                      isDisabled={isDaily}
-                                                      onClick={() => {
-                                                        if (isDaily) return;
-                                                        
-                                                        const currentDefaults = parameterDefaultManager.getAllDefaults()?.[pkg.urlPath]?.[input.name];
-                                                        if (currentDefaults?.autoUpdateRule) {
-                                                          const currentDays = currentDefaults.autoUpdateRule.schedule.daysOfWeek;
-                                                          const newDays = currentDays.includes(dayNum)
-                                                            ? currentDays.filter(d => d !== dayNum)
-                                                            : [...currentDays, dayNum];
-                                                          
-                                                          parameterDefaultManager.setParameterDefault(
-                                                            pkg.urlPath,
-                                                            input.name,
-                                                            inputValues[input.name] || '',
-                                                            true,
-                                                            {
-                                                              ...currentDefaults.autoUpdateRule,
-                                                              schedule: {
-                                                                ...currentDefaults.autoUpdateRule.schedule,
-                                                                daysOfWeek: newDays
-                                                              }
-                                                            }
-                                                          );
-                                                          setRefreshTrigger(prev => prev + 1);
-                                                        }
+                                                      value="1"
+                                                      onChange={(e) => {
+                                                        // 월간 설정 로직 추가 필요
                                                       }}
                                                     >
-                                                      {dayNames[dayNum]}
-                                                    </Button>
+                                                      {Array.from({length: 31}, (_, i) => (
+                                                        <option key={i+1} value={i+1}>{i+1}일</option>
+                                                      ))}
+                                                      <option value="last">말일</option>
+                                                    </Select>
                                                   );
-                                                })}
-                                              </HStack>
-                                              {((() => {
-                                                const logic = autoRule?.updateLogic;
-                                                return !logic || logic.includes('current_date');
-                                              })()) && (
-                                                <Text fontSize="xs" color="orange.600">📌 일 단위는 매일 실행되므로 요일 조정이 불가합니다</Text>
-                                              )}
+                                                } else if (currentPeriod === 'quarterly' || currentPeriod === 'yearly') {
+                                                  // 분기/연간: 시작일/말일 선택
+                                                  return (
+                                                    <Select
+                                                      size="xs"
+                                                      value="start"
+                                                      onChange={(e) => {
+                                                        // 분기/연간 설정 로직 추가 필요
+                                                      }}
+                                                    >
+                                                      <option value="start">시작일</option>
+                                                      <option value="end">말일</option>
+                                                    </Select>
+                                                  );
+                                                } else {
+                                                  // 일/주: 요일 버튼들
+                                                  return (
+                                                    <HStack wrap="wrap" spacing={1}>
+                                                      {[1, 2, 3, 4, 5, 6, 0].map((dayNum) => {
+                                                        const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+                                                        const isSelected = autoRule?.schedule.daysOfWeek.includes(dayNum) || false;
+                                                        const isDaily = currentPeriod === 'daily';
+                                                        
+                                                        return (
+                                                          <Button
+                                                            key={dayNum}
+                                                            size="xs"
+                                                            variant={isSelected ? 'solid' : 'outline'}
+                                                            colorScheme={isSelected ? 'blue' : 'gray'}
+                                                            isDisabled={isDaily}
+                                                            onClick={() => {
+                                                              if (isDaily) return;
+                                                              
+                                                              const currentDefaults = parameterDefaultManager.getAllDefaults()?.[pkg.urlPath]?.[input.name];
+                                                              if (currentDefaults?.autoUpdateRule) {
+                                                                const currentDays = currentDefaults.autoUpdateRule.schedule.daysOfWeek;
+                                                                const newDays = currentDays.includes(dayNum)
+                                                                  ? currentDays.filter(d => d !== dayNum)
+                                                                  : [...currentDays, dayNum];
+                                                                
+                                                                parameterDefaultManager.setParameterDefault(
+                                                                  pkg.urlPath,
+                                                                  input.name,
+                                                                  inputValues[input.name] || '',
+                                                                  true,
+                                                                  {
+                                                                    ...currentDefaults.autoUpdateRule,
+                                                                    schedule: {
+                                                                      ...currentDefaults.autoUpdateRule.schedule,
+                                                                      daysOfWeek: newDays
+                                                                    }
+                                                                  }
+                                                                );
+                                                                setRefreshTrigger(prev => prev + 1);
+                                                              }
+                                                            }}
+                                                          >
+                                                            {dayNames[dayNum]}
+                                                          </Button>
+                                                        );
+                                                      })}
+                                                    </HStack>
+                                                  );
+                                                }
+                                              })()}
                                             </VStack>
 
                                             {/* 3️⃣ 시간 설정 */}
@@ -813,12 +854,6 @@ finally:
                                                 </Select>
                                               </HStack>
                                             </VStack>
-                                            
-                                            <Text fontSize="xs" color="gray.500">
-                                              {autoRule?.updateLogic === 'auto_smart_date' && '🤖 시간과 요일에 따라 자동 선택'}
-                                              {autoRule?.updateLogic === 'rotate_keywords' && '🔁 키워드를 매일 순환'}
-                                              {autoRule?.updateLogic === 'last_week_start' && '📅 매주 월요일에 갱신'}
-                                            </Text>
                                           </HStack>
                                         )}
                                       </VStack>
