@@ -573,7 +573,7 @@ finally:
                                         </HStack>
                                         
                                         {isAutoManaged && (
-                                          <VStack spacing={3} align="stretch" p={3} bg="blue.50" borderRadius="md" border="1px" borderColor="blue.200">
+                                          <HStack spacing={3} align="start" p={3} bg="blue.50" borderRadius="md" border="1px" borderColor="blue.200" wrap="wrap">
                                             {/* 0️⃣ 교체할 값 선택 */}
                                             <VStack spacing={2} align="stretch">
                                               <Text fontSize="xs" fontWeight="bold" color="red.700">📝 교체할 값 (YYYYMMDD)</Text>
@@ -819,7 +819,7 @@ finally:
                                               {autoRule?.updateLogic === 'rotate_keywords' && '🔁 키워드를 매일 순환'}
                                               {autoRule?.updateLogic === 'last_week_start' && '📅 매주 월요일에 갱신'}
                                             </Text>
-                                          </VStack>
+                                          </HStack>
                                         )}
                                       </VStack>
                                     </GridItem>
