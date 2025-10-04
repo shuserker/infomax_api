@@ -285,7 +285,7 @@ class ParameterDefaultManager {
       Object.values(apiDefaults).forEach(paramDefault => {
         if (paramDefault.isAutoManaged && paramDefault.autoUpdateRule?.enabled) {
           if (this.shouldUpdateNow(now, paramDefault.autoUpdateRule)) {
-            const newValue = this.calculateNewValue(paramDefault.autoUpdateRule.updateLogic);
+            const newValue = this.calculateNewValue(paramDefault.autoUpdateRule.updateLogic, paramDefault.autoUpdateRule.schedule);
             if (newValue !== paramDefault.value) {
               paramDefault.value = newValue;
               paramDefault.lastUpdated = now.toISOString();
@@ -329,7 +329,17 @@ class ParameterDefaultManager {
   /**
    * 새로운 값 계산 (대폭 확장된 로직)
    */
-  private calculateNewValue(logic: string): string {
+  private calculateNewValue(logic: string, schedule?: any): string {
+    // === 월간 말일 처리 ===
+    if (schedule?.monthDay === 'last') {
+      return this.getCurrentMonthEnd();
+    }
+    
+    // === 월간 특정일 처리 ===
+    if (schedule?.monthDay && typeof schedule.monthDay === 'number') {
+      return this.getMonthSpecificDay(schedule.monthDay);
+    }
+    
     // === 동적 D+n, D-n 처리 ===
     if (logic === 'current_date') {
       return this.getToday();
@@ -769,6 +779,21 @@ class ParameterDefaultManager {
       clearInterval(this.checkInterval);
       this.checkInterval = null;
     }
+  }
+
+  /**
+   * 이번달 특정일 (1일부터 31일까지)
+   */
+  private getMonthSpecificDay(day: number): string {
+    const date = new Date();
+    date.setDate(day);
+    
+    // 날짜가 유효하지 않으면 (예: 2월 30일) 월말일로 설정
+    if (date.getDate() !== day) {
+      date.setDate(0); // 이전 달 말일로 이동 (즉, 현재 달의 말일)
+    }
+    
+    return this.formatDate(date);
   }
 }
 
