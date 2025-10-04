@@ -19,7 +19,46 @@ export interface AutoUpdateRule {
     timeHour: number;     // 0-23
     timeMinute: number;   // 0-59
   };
-  updateLogic: 'current_date_minus_1' | 'current_date' | 'custom';
+  updateLogic: 
+    // 기본 날짜
+    | 'current_date_minus_1'      // 어제 날짜 (당일-1)
+    | 'current_date'              // 오늘 날짜
+    | 'current_date_minus_2'      // 그제 날짜 (당일-2)
+    | 'current_date_minus_3'      // 3일 전
+    // 주간 단위
+    | 'last_week_start'           // 지난주 월요일
+    | 'last_week_end'             // 지난주 금요일
+    | 'current_week_start'        // 이번주 월요일
+    | 'current_week_end'          // 이번주 금요일
+    | 'last_business_day'         // 최근 영업일
+    // 월간 단위
+    | 'current_month_start'       // 이번달 1일
+    | 'current_month_end'         // 이번달 말일
+    | 'last_month_start'          // 지난달 1일
+    | 'last_month_end'            // 지난달 말일
+    | 'next_month_start'          // 다음달 1일
+    // 분기 단위
+    | 'current_quarter_start'     // 이번 분기 시작일
+    | 'current_quarter_end'       // 이번 분기 종료일
+    | 'last_quarter_start'        // 지난 분기 시작일
+    | 'last_quarter_end'          // 지난 분기 종료일
+    // 년간 단위
+    | 'current_year_start'        // 올해 1월 1일
+    | 'current_year_end'          // 올해 12월 31일
+    | 'last_year_start'           // 작년 1월 1일
+    | 'last_year_end'             // 작년 12월 31일
+    // 상대적 날짜
+    | 'days_ago_7'                // 1주일 전
+    | 'days_ago_30'               // 1개월 전
+    | 'days_ago_90'               // 3개월 전
+    | 'days_ago_180'              // 6개월 전
+    | 'days_ago_365'              // 1년 전
+    // 특수 로직
+    | 'trading_market_priority'   // 거래시장 우선순위
+    | 'rotate_keywords'           // 키워드 로테이션
+    | 'next_future_month'         // 다음 선물 만료월
+    | 'auto_smart_date'           // 스마트 자동 날짜
+    | 'custom';                   // 사용자 정의
   customLogic?: string;
 }
 
@@ -80,11 +119,9 @@ class ParameterDefaultManager {
     });
     this.setParameterDefault('bond/market/mn_hist', 'endDate', yesterday, true, {
       enabled: true,
-      schedule: { daysOfWeek: [1, 2, 3, 4, 5], timeHour: 1, timeMinute: 0 }, // 평일 01:00
+      schedule: { daysOfWeek: [1, 2, 3, 4, 5], timeHour: 1, timeMinute: 0 },
       updateLogic: 'current_date_minus_1'
     });
-    
-    // 채권 시가평가 API - 매일 자정 갱신
     this.setParameterDefault('bond/marketvaluation', 'stdcd', 'KR101501DA32', false);
     this.setParameterDefault('bond/marketvaluation', 'bonddate', yesterday, true, {
       enabled: true,
@@ -288,15 +325,88 @@ class ParameterDefaultManager {
   }
 
   /**
-   * 새로운 값 계산
+   * 새로운 값 계산 (대폭 확장된 로직)
    */
   private calculateNewValue(logic: string): string {
     switch (logic) {
+      // === 기본 날짜 ===
       case 'current_date_minus_1':
         return this.getYesterday();
       case 'current_date':
         return this.getToday();
+      case 'current_date_minus_2':
+        return this.getDaysAgo(2);
+      case 'current_date_minus_3':
+        return this.getDaysAgo(3);
+      
+      // === 주간 단위 ===
+      case 'last_week_start':
+        return this.getLastWeekStart();
+      case 'last_week_end':
+        return this.getLastWeekEnd();
+      case 'current_week_start':
+        return this.getCurrentWeekStart();
+      case 'current_week_end':
+        return this.getCurrentWeekEnd();
+      case 'last_business_day':
+        return this.getLastBusinessDay();
+      
+      // === 월간 단위 ===
+      case 'current_month_start':
+        return this.getCurrentMonthStart();
+      case 'current_month_end':
+        return this.getCurrentMonthEnd();
+      case 'last_month_start':
+        return this.getLastMonthStart();
+      case 'last_month_end':
+        return this.getLastMonthEnd();
+      case 'next_month_start':
+        return this.getNextMonthStart();
+      
+      // === 분기 단위 ===
+      case 'current_quarter_start':
+        return this.getCurrentQuarterStart();
+      case 'current_quarter_end':
+        return this.getCurrentQuarterEnd();
+      case 'last_quarter_start':
+        return this.getLastQuarterStart();
+      case 'last_quarter_end':
+        return this.getLastQuarterEnd();
+      
+      // === 년간 단위 ===
+      case 'current_year_start':
+        return this.getCurrentYearStart();
+      case 'current_year_end':
+        return this.getCurrentYearEnd();
+      case 'last_year_start':
+        return this.getLastYearStart();
+      case 'last_year_end':
+        return this.getLastYearEnd();
+      
+      // === 상대적 날짜 ===
+      case 'days_ago_7':
+        return this.getDaysAgo(7);
+      case 'days_ago_30':
+        return this.getDaysAgo(30);
+      case 'days_ago_90':
+        return this.getDaysAgo(90);
+      case 'days_ago_180':
+        return this.getDaysAgo(180);
+      case 'days_ago_365':
+        return this.getDaysAgo(365);
+      
+      // === 특수 로직 ===
+      case 'trading_market_priority':
+        return this.getTradingMarketPriority();
+      case 'rotate_keywords':
+        return this.getRotateKeywords();
+      case 'next_future_month':
+        return this.getNextFutureMonth();
+      case 'auto_smart_date':
+        return this.getAutoSmartDate();
+      
       default:
+        console.warn(`⚠️ 알 수 없는 갱신 로직: ${logic}, 기본값(어제 날짜) 사용`);
         return this.getYesterday();
     }
   }
@@ -325,6 +435,285 @@ class ParameterDefaultManager {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}${month}${day}`;
+  }
+
+  // ========== 확장된 날짜 계산 함수들 ==========
+  
+  /**
+   * N일 전 날짜
+   */
+  private getDaysAgo(days: number): string {
+    const date = new Date();
+    date.setDate(date.getDate() - days);
+    return this.formatDate(date);
+  }
+
+  /**
+   * 지난주 월요일
+   */
+  private getLastWeekStart(): string {
+    const date = new Date();
+    const dayOfWeek = date.getDay();
+    const daysToLastMonday = dayOfWeek === 0 ? 13 : dayOfWeek + 6;
+    date.setDate(date.getDate() - daysToLastMonday);
+    return this.formatDate(date);
+  }
+
+  /**
+   * 지난주 금요일
+   */
+  private getLastWeekEnd(): string {
+    const date = new Date();
+    const dayOfWeek = date.getDay();
+    const daysToLastFriday = dayOfWeek === 0 ? 9 : dayOfWeek + 2;
+    date.setDate(date.getDate() - daysToLastFriday);
+    return this.formatDate(date);
+  }
+
+  /**
+   * 이번주 월요일
+   */
+  private getCurrentWeekStart(): string {
+    const date = new Date();
+    const dayOfWeek = date.getDay();
+    const daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+    date.setDate(date.getDate() - daysToMonday);
+    return this.formatDate(date);
+  }
+
+  /**
+   * 이번주 금요일
+   */
+  private getCurrentWeekEnd(): string {
+    const date = new Date();
+    const dayOfWeek = date.getDay();
+    const daysToFriday = dayOfWeek === 0 ? 2 : 5 - dayOfWeek;
+    date.setDate(date.getDate() + daysToFriday);
+    return this.formatDate(date);
+  }
+
+  /**
+   * 최근 영업일 (토,일 제외)
+   */
+  private getLastBusinessDay(): string {
+    const date = new Date();
+    date.setDate(date.getDate() - 1); // 어제부터 시작
+    
+    while (date.getDay() === 0 || date.getDay() === 6) {
+      date.setDate(date.getDate() - 1);
+    }
+    return this.formatDate(date);
+  }
+
+  /**
+   * 이번달 1일
+   */
+  private getCurrentMonthStart(): string {
+    const date = new Date();
+    date.setDate(1);
+    return this.formatDate(date);
+  }
+
+  /**
+   * 이번달 말일
+   */
+  private getCurrentMonthEnd(): string {
+    const date = new Date();
+    date.setMonth(date.getMonth() + 1, 0); // 다음달 0일 = 이번달 마지막날
+    return this.formatDate(date);
+  }
+
+  /**
+   * 지난달 1일
+   */
+  private getLastMonthStart(): string {
+    const date = new Date();
+    date.setMonth(date.getMonth() - 1, 1);
+    return this.formatDate(date);
+  }
+
+  /**
+   * 지난달 말일
+   */
+  private getLastMonthEnd(): string {
+    const date = new Date();
+    date.setDate(0); // 이번달 0일 = 지난달 마지막날
+    return this.formatDate(date);
+  }
+
+  /**
+   * 다음달 1일
+   */
+  private getNextMonthStart(): string {
+    const date = new Date();
+    date.setMonth(date.getMonth() + 1, 1);
+    return this.formatDate(date);
+  }
+
+  /**
+   * 이번 분기 시작일
+   */
+  private getCurrentQuarterStart(): string {
+    const date = new Date();
+    const quarter = Math.floor(date.getMonth() / 3);
+    date.setMonth(quarter * 3, 1);
+    return this.formatDate(date);
+  }
+
+  /**
+   * 이번 분기 종료일
+   */
+  private getCurrentQuarterEnd(): string {
+    const date = new Date();
+    const quarter = Math.floor(date.getMonth() / 3);
+    date.setMonth((quarter + 1) * 3, 0);
+    return this.formatDate(date);
+  }
+
+  /**
+   * 지난 분기 시작일
+   */
+  private getLastQuarterStart(): string {
+    const date = new Date();
+    const quarter = Math.floor(date.getMonth() / 3);
+    const lastQuarter = quarter === 0 ? 3 : quarter - 1;
+    const year = quarter === 0 ? date.getFullYear() - 1 : date.getFullYear();
+    date.setFullYear(year);
+    date.setMonth(lastQuarter * 3, 1);
+    return this.formatDate(date);
+  }
+
+  /**
+   * 지난 분기 종료일
+   */
+  private getLastQuarterEnd(): string {
+    const date = new Date();
+    const quarter = Math.floor(date.getMonth() / 3);
+    const lastQuarter = quarter === 0 ? 3 : quarter - 1;
+    const year = quarter === 0 ? date.getFullYear() - 1 : date.getFullYear();
+    date.setFullYear(year);
+    date.setMonth((lastQuarter + 1) * 3, 0);
+    return this.formatDate(date);
+  }
+
+  /**
+   * 올해 1월 1일
+   */
+  private getCurrentYearStart(): string {
+    const date = new Date();
+    date.setMonth(0, 1);
+    return this.formatDate(date);
+  }
+
+  /**
+   * 올해 12월 31일
+   */
+  private getCurrentYearEnd(): string {
+    const date = new Date();
+    date.setMonth(11, 31);
+    return this.formatDate(date);
+  }
+
+  /**
+   * 작년 1월 1일
+   */
+  private getLastYearStart(): string {
+    const date = new Date();
+    date.setFullYear(date.getFullYear() - 1);
+    date.setMonth(0, 1);
+    return this.formatDate(date);
+  }
+
+  /**
+   * 작년 12월 31일
+   */
+  private getLastYearEnd(): string {
+    const date = new Date();
+    date.setFullYear(date.getFullYear() - 1);
+    date.setMonth(11, 31);
+    return this.formatDate(date);
+  }
+
+  /**
+   * 거래시장 우선순위 로직
+   */
+  private getTradingMarketPriority(): string {
+    const now = new Date();
+    const hour = now.getHours();
+    
+    // 장중(09:00-15:30): 코스피 우선
+    if (hour >= 9 && hour < 16) {
+      return '1'; // 코스피
+    }
+    // 장후: 코스닥 우선
+    return '2'; // 코스닥
+  }
+
+  /**
+   * 키워드 로테이션 로직
+   */
+  private getRotateKeywords(): string {
+    const keywords = ['코스피', '코스닥', '삼성전자', '반도체', 'SK하이닉스', 'LG에너지', '현대차', 'NAVER', '카카오', '배당'];
+    const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
+    return keywords[dayOfYear % keywords.length];
+  }
+
+  /**
+   * 다음 선물 만료월
+   */
+  private getNextFutureMonth(): string {
+    const date = new Date();
+    const currentMonth = date.getMonth() + 1;
+    
+    // 선물은 3,6,9,12월이 메인 만료월
+    const expiryMonths = [3, 6, 9, 12];
+    const nextExpiry = expiryMonths.find(month => month > currentMonth) || (expiryMonths[0] + 12);
+    
+    if (nextExpiry > 12) {
+      date.setFullYear(date.getFullYear() + 1);
+      return (nextExpiry - 12).toString().padStart(2, '0');
+    }
+    
+    return nextExpiry.toString().padStart(2, '0');
+  }
+
+  /**
+   * 스마트 자동 날짜 (컨텍스트에 따라 적절한 날짜 선택)
+   */
+  private getAutoSmartDate(): string {
+    const now = new Date();
+    const hour = now.getHours();
+    const dayOfWeek = now.getDay();
+    
+    // 주말이면 지난주 금요일
+    if (dayOfWeek === 0 || dayOfWeek === 6) {
+      return this.getLastWeekEnd();
+    }
+    
+    // 장시작 전(09:00 이전)이면 전일
+    if (hour < 9) {
+      return this.getLastBusinessDay();
+    }
+    
+    // 그외는 당일
+    return this.getToday();
+  }
+
+  /**
+   * 현재 선물 만료월 (YYMM 형식)
+   */
+  private getCurrentFutureMonth(): string {
+    const date = new Date();
+    const year = date.getFullYear().toString().slice(2);
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    return year + month;
+  }
+
+  /**
+   * 지난달 시작 (호환성)
+   */
+  private getLastMonth(): string {
+    return this.getLastMonthStart();
   }
 
   /**
