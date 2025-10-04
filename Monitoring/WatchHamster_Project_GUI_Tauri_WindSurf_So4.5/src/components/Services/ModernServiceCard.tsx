@@ -39,6 +39,7 @@ import {
   FiZap
 } from 'react-icons/fi'
 import { useQuery } from '@tanstack/react-query'
+import ServiceConfigManager from './ServiceConfigManager'
 
 interface ModernServiceCardProps {
   service: any
@@ -90,6 +91,7 @@ const ModernServiceCard: React.FC<ModernServiceCardProps> = ({
   onViewLogs
 }) => {
   const [actionLoading, setActionLoading] = useState<string | null>(null)
+  const [showConfigModal, setShowConfigModal] = useState(false)
   const toast = useToast()
 
   // 실제 서비스 메트릭 조회
@@ -150,14 +152,15 @@ const ModernServiceCard: React.FC<ModernServiceCardProps> = ({
   const metricsData = metrics?.metrics || {}
 
   return (
-    <Card 
-      variant="outline" 
-      bg="white" 
-      _dark={{ bg: "gray.800" }}
-      shadow="sm"
-      _hover={{ shadow: "md" }}
-      transition="shadow 0.2s"
-    >
+    <>
+      <Card 
+        variant="outline" 
+        bg="white" 
+        _dark={{ bg: "gray.800" }}
+        shadow="sm"
+        _hover={{ shadow: "md" }}
+        transition="shadow 0.2s"
+      >
       <CardHeader pb={3}>
         <Flex align="center" justify="space-between">
           <HStack spacing={3}>
@@ -524,6 +527,16 @@ const ModernServiceCard: React.FC<ModernServiceCardProps> = ({
               />
             </Tooltip>
 
+            <Tooltip label="서비스 설정">
+              <IconButton
+                aria-label="서비스 설정"
+                icon={<FiSettings />}
+                size="sm"
+                variant="ghost"
+                onClick={() => setShowConfigModal(true)}
+              />
+            </Tooltip>
+
             {service.status === 'running' ? (
               <>
                 <Button
@@ -585,6 +598,15 @@ const ModernServiceCard: React.FC<ModernServiceCardProps> = ({
         </VStack>
       </CardBody>
     </Card>
+
+    {/* 서비스 설정 관리 모달 */}
+    <ServiceConfigManager
+      isOpen={showConfigModal}
+      onClose={() => setShowConfigModal(false)}
+      serviceId={service.id}
+      serviceName={service.name || service.display_name}
+    />
+  </>
   )
 }
 

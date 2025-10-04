@@ -19,8 +19,9 @@ import {
 import { FiRefreshCw } from 'react-icons/fi'
 import { useQuery } from '@tanstack/react-query'
 import ModernServiceCard from '../components/Services/ModernServiceCard'
-import ServiceLogViewer from '../components/Services/ServiceLogViewer'
+import EnhancedServiceLogViewer from '../components/Services/EnhancedServiceLogViewer'
 import ServiceDependencyGraph from '../components/Services/ServiceDependencyGraph'
+import PerformanceDashboard from '../components/Services/PerformanceDashboard'
 import { apiService } from '../services/api'
 
 const Services: React.FC = () => {
@@ -184,6 +185,11 @@ const Services: React.FC = () => {
           <ServiceDependencyGraph services={services} />
         )}
 
+        {/* 성능 대시보드 */}
+        {services.length > 0 && (
+          <PerformanceDashboard services={services} />
+        )}
+
         {/* 서비스 카드 그리드 */}
         {services.length > 0 && (
           <Grid templateColumns="repeat(auto-fit, minmax(400px, 1fr))" gap={6}>
@@ -229,15 +235,15 @@ const Services: React.FC = () => {
         </Alert>
       </VStack>
 
-      {/* 서비스 로그 뷰어 */}
-      {selectedServiceForLogs && (
-        <ServiceLogViewer
-          isOpen={!!selectedServiceForLogs}
-          onClose={() => setSelectedServiceForLogs(null)}
-          serviceId={selectedServiceForLogs.id}
-          serviceName={selectedServiceForLogs.name}
-        />
-      )}
+        {/* 서비스 로그 뷰어 */}
+        {selectedServiceForLogs && (
+          <EnhancedServiceLogViewer
+            isOpen={!!selectedServiceForLogs}
+            onClose={() => setSelectedServiceForLogs(null)}
+            serviceId={selectedServiceForLogs.id}
+            serviceName={selectedServiceForLogs.name}
+          />
+        )}
     </Box>
   )
 }

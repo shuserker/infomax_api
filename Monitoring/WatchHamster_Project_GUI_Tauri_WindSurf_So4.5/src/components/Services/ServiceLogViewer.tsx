@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import {
   Modal,
   ModalOverlay,
@@ -24,17 +24,22 @@ import {
   FormLabel,
   IconButton,
   Tooltip,
+  Flex,
+  Spacer,
+  Code,
+  useColorModeValue,
 } from '@chakra-ui/react'
 import { 
-  MdRefresh, 
-  MdDownload, 
-  MdClear, 
-  MdPause, 
-  MdPlayArrow,
-  MdVerticalAlignBottom
-} from 'react-icons/md'
-import { LogEntry } from '../../types'
-import { apiService } from '../../services/api'
+  FiRefreshCw, 
+  FiDownload, 
+  FiTrash2, 
+  FiPause, 
+  FiPlay,
+  FiArrowDown,
+  FiSearch,
+  FiFilter,
+  FiClock
+} from 'react-icons/fi'
 
 interface ServiceLogViewerProps {
   isOpen: boolean
