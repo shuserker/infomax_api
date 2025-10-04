@@ -40,6 +40,7 @@ import {
 } from '@chakra-ui/react'
 import { FiCopy, FiDownload, FiPlay, FiRefreshCw, FiSettings } from 'react-icons/fi'
 import { parameterDefaultManager } from '../../utils/parameterDefaultManager'
+import { getCrawledApiInfo, getCrawledPythonCode } from '../../utils/apiCrawlingMapper'
 import ParameterDefaultsModal from './ParameterDefaultsModal'
 
 interface ApiPackage {
@@ -53,7 +54,11 @@ interface ApiPackage {
   inputs: ApiParameter[]
   outputs: string[]
   description?: string
+  tags?: string[]
   status: 'active' | 'inactive' | 'deprecated'
+  isFavorite?: boolean
+  lastUsed?: string
+  usageCount?: number
 }
 
 interface ApiParameter {
@@ -279,11 +284,35 @@ const ApiTestModal: React.FC<ApiTestModalProps> = ({
     })
   }
 
-  // 파이썬 코드 생성 함수
+  // 파이썬 코드 생성 함수 (크롤링 정보 활용)
   const generatePythonCode = () => {
     if (!pkg) return ''
     
-    // 파라미터 객체 생성
+    // 크롤링된 Python 코드 확인
+    const crawledCode = getCrawledPythonCode(pkg.urlPath)
+    
+    if (crawledCode) {
+      // 크롤링된 코드가 있는 경우, 파라미터 값만 실제 입력값으로 교체
+      let updatedCode = crawledCode
+      
+      // 토큰 교체
+      if (apiToken) {
+        updatedCode = updatedCode.replace('bearer TOKEN', `bearer ${apiToken}`)
+        updatedCode = updatedCode.replace('TOKEN', apiToken)
+      }
+      
+      // 파라미터 값들 교체
+      Object.entries(inputValues).forEach(([key, value]) => {
+        if (value?.trim()) {
+          const pattern = new RegExp(`"${key}"\\s*:\\s*"[^"]*"`, 'g')
+          updatedCode = updatedCode.replace(pattern, `"${key}":"${value}"`)
+        }
+      })
+      
+      return updatedCode
+    }
+    
+    // 크롤링된 코드가 없는 경우, 기본 코드 생성
     const params: {[key: string]: string} = {}
     Object.entries(inputValues).forEach(([key, value]) => {
       if (pkg.urlPath === 'bond/market/mn_hist' || pkg.urlPath === 'stock/code') {

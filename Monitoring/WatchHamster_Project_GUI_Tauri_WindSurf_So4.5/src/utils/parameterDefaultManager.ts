@@ -61,36 +61,91 @@ class ParameterDefaultManager {
   }
 
   /**
-   * 초기 기본값 설정 (실제 API 문서 기반)
+   * 초기 기본값 설정 (실용적인 자동갱신 규칙 포함)
    */
   private setInitialDefaults(): void {
-    const now = new Date().toISOString();
     const yesterday = this.getYesterday();
+    const today = this.getToday();
+    const lastWeekStart = this.getLastWeekStart();
+    const lastWeekEnd = this.getLastWeekEnd();
+    const lastMonth = this.getLastMonth();
 
-    // 채권 체결정보 API 기본값
+    // 채권 관련 API - 실용적 자동갱신
     this.setParameterDefault('bond/market/mn_hist', 'stdcd', 'KR103502GE97', false);
     this.setParameterDefault('bond/market/mn_hist', 'market', '장외', false);
-    this.setParameterDefault('bond/market/mn_hist', 'startDate', '20250401', false);
-    this.setParameterDefault('bond/market/mn_hist', 'endDate', '20250401', false);
+    this.setParameterDefault('bond/market/mn_hist', 'startDate', lastWeekStart, true, {
+      enabled: true,
+      schedule: { daysOfWeek: [1], timeHour: 1, timeMinute: 0 }, // 매주 월요일 01:00
+      updateLogic: 'last_week_start'
+    });
+    this.setParameterDefault('bond/market/mn_hist', 'endDate', yesterday, true, {
+      enabled: true,
+      schedule: { daysOfWeek: [1, 2, 3, 4, 5], timeHour: 1, timeMinute: 0 }, // 평일 01:00
+      updateLogic: 'current_date_minus_1'
+    });
     
-    // 채권 시가평가 API - 자동 갱신 설정
+    // 채권 시가평가 API - 매일 자정 갱신
     this.setParameterDefault('bond/marketvaluation', 'stdcd', 'KR101501DA32', false);
     this.setParameterDefault('bond/marketvaluation', 'bonddate', yesterday, true, {
       enabled: true,
-      schedule: {
-        daysOfWeek: [1, 2], // 월요일, 화요일
-        timeHour: 4,        // 04:00
-        timeMinute: 0
-      },
+      schedule: { daysOfWeek: [1, 2, 3, 4, 5, 6, 0], timeHour: 0, timeMinute: 30 }, // 매일 00:30
       updateLogic: 'current_date_minus_1'
     });
 
-    // 주식 관련 API 기본값
+    // 주식 일별 API - 스마트 날짜 갱신
     this.setParameterDefault('stock/hist', 'code', '005930', false);
-    this.setParameterDefault('stock/code', 'type', 'EF', false);
+    this.setParameterDefault('stock/hist', 'startDate', lastMonth, true, {
+      enabled: true,
+      schedule: { daysOfWeek: [1], timeHour: 2, timeMinute: 0 }, // 매주 월요일 02:00
+      updateLogic: 'last_month_start'
+    });
+    this.setParameterDefault('stock/hist', 'endDate', yesterday, true, {
+      enabled: true,
+      schedule: { daysOfWeek: [1, 2, 3, 4, 5], timeHour: 0, timeMinute: 15 }, // 평일 00:15
+      updateLogic: 'current_date_minus_1'
+    });
+
+    // 주식 코드 검색 - 분기별 기본값 갱신
+    this.setParameterDefault('stock/code', 'type', 'ST', false);
+    this.setParameterDefault('stock/code', 'market', '1', true, {
+      enabled: true,
+      schedule: { daysOfWeek: [1], timeHour: 3, timeMinute: 0 }, // 매주 월요일 03:00  
+      updateLogic: 'trading_market_priority'
+    });
+
+    // ETF 관련 - NAV 데이터 자동갱신
+    this.setParameterDefault('etf/hist', 'code', '069500', false);
+    this.setParameterDefault('etf/intra', 'code', '069500', false);
+
+    // 외환 관련 - 매일 환율 갱신
+    this.setParameterDefault('fx/exchangerate/hist', 'currency', 'USD', false);
+    this.setParameterDefault('fx/exchangerate/hist', 'date', yesterday, true, {
+      enabled: true,
+      schedule: { daysOfWeek: [1, 2, 3, 4, 5], timeHour: 9, timeMinute: 30 }, // 평일 09:30 (장 시작 후)
+      updateLogic: 'current_date_minus_1'
+    });
+
+    // 뉴스 검색 - 매일 키워드 로테이션
+    this.setParameterDefault('news/search', 'keyword', '코스피', true, {
+      enabled: true,
+      schedule: { daysOfWeek: [1, 2, 3, 4, 5], timeHour: 6, timeMinute: 0 }, // 평일 06:00
+      updateLogic: 'rotate_keywords'
+    });
+    this.setParameterDefault('news/search', 'date', today, true, {
+      enabled: true,
+      schedule: { daysOfWeek: [1, 2, 3, 4, 5, 6, 0], timeHour: 0, timeMinute: 5 }, // 매일 00:05
+      updateLogic: 'current_date'
+    });
+
+    // 선물/옵션 - 만료일 기준 자동 갱신
+    this.setParameterDefault('future/code', 'month', this.getCurrentFutureMonth(), true, {
+      enabled: true,
+      schedule: { daysOfWeek: [4], timeHour: 16, timeMinute: 0 }, // 매주 목요일 16:00 (만료일 체크)
+      updateLogic: 'next_future_month'
+    });
 
     this.saveDefaults();
-    console.log('🎯 초기 파라미터 기본값 설정 완료');
+    console.log('🎯 실용적인 자동갱신 규칙으로 초기값 설정 완료');
   }
 
   /**
