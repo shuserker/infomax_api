@@ -1,0 +1,18 @@
+# WatchHamster Backend Dependencies
+# 안정적인 버전으로 고정
+
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+psutil==5.9.6
+python-multipart==0.0.6
+aiofiles==23.2.1
+
+# Pydantic 2.x 업그레이드 (코드 호환성 보완 필요)
+pydantic>=2.5,<3
+
+# 추가 유틸리티
+python-dotenv==1.0.0
+httpx==0.25.2
+websockets==12.0
+pydantic-settings==2.0.3
+requests==2.31.0

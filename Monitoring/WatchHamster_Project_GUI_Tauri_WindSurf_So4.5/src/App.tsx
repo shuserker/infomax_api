@@ -53,6 +53,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
             <Route path="companies" element={<CompanyManager />} />
             <Route path="services" element={<Services />} />
             <Route path="logs" element={<Logs />} />
