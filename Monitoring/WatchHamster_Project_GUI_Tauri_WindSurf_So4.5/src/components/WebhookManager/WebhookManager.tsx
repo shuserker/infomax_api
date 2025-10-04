@@ -25,9 +25,17 @@ import {
   ModalCloseButton,
   useDisclosure,
   Code,
-  Divider
+  Divider,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Textarea,
+  HStack,
+  Icon
 } from '@chakra-ui/react';
-import { FiSend, FiRefreshCw } from 'react-icons/fi';
+import { FiSend, FiRefreshCw, FiCode, FiFileText, FiArrowRight } from 'react-icons/fi';
 import { CompanySelector } from '@/components/CompanySelector';
 
 interface MessageType {
@@ -296,60 +304,234 @@ export const WebhookManager: React.FC = () => {
       </Grid>
 
       {/* 메시지 상세 정보 모달 */}
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+      <Modal isOpen={isOpen} onClose={onClose} size="6xl">
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent maxH="90vh">
           <ModalHeader>
-            {selectedMessage?.name}
+            <HStack>
+              <Text>{selectedMessage?.name}</Text>
+              <Badge colorScheme="blue">{selectedMessage?.bot_type}</Badge>
+              <Badge>{selectedMessage?.endpoint}</Badge>
+            </HStack>
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={6}>
+          <ModalBody pb={6} overflowY="auto">
             {selectedMessage && (
-              <VStack spacing={4} align="stretch">
-                <Box>
-                  <Text fontWeight="bold" mb={2}>📝 설명</Text>
-                  <Text color="gray.600">{selectedMessage.description}</Text>
-                </Box>
-                
-                <Divider />
-                
-                <Box>
-                  <Text fontWeight="bold" mb={2}>🔧 설정 정보</Text>
-                  <VStack spacing={2} align="stretch">
-                    <Flex justify="space-between">
-                      <Text color="gray.600">메시지 ID:</Text>
-                      <Code>{selectedMessage.id}</Code>
-                    </Flex>
-                    <Flex justify="space-between">
-                      <Text color="gray.600">봇 타입:</Text>
-                      <Badge>{selectedMessage.bot_type}</Badge>
-                    </Flex>
-                    <Flex justify="space-between">
-                      <Text color="gray.600">채널:</Text>
-                      <Badge>{selectedMessage.endpoint}</Badge>
-                    </Flex>
-                    <Flex justify="space-between">
-                      <Text color="gray.600">우선순위:</Text>
-                      <Badge colorScheme="blue">{selectedMessage.priority}</Badge>
-                    </Flex>
-                  </VStack>
-                </Box>
+              <Tabs colorScheme="blue">
+                <TabList>
+                  <Tab>📝 설명</Tab>
+                  <Tab>📋 템플릿</Tab>
+                  <Tab>📤 최근 발송</Tab>
+                  <Tab>🔧 Input/Output</Tab>
+                </TabList>
 
-                <Divider />
+                <TabPanels>
+                  {/* 탭 1: 설명 */}
+                  <TabPanel>
+                    <VStack spacing={4} align="stretch">
+                      <Box>
+                        <Text fontWeight="bold" mb={2}>📝 설명</Text>
+                        <Text color="gray.600">{selectedMessage.description}</Text>
+                      </Box>
+                      
+                      <Divider />
+                      
+                      <Box>
+                        <Text fontWeight="bold" mb={2}>🔧 설정 정보</Text>
+                        <VStack spacing={2} align="stretch">
+                          <Flex justify="space-between">
+                            <Text color="gray.600">메시지 ID:</Text>
+                            <Code>{selectedMessage.id}</Code>
+                          </Flex>
+                          <Flex justify="space-between">
+                            <Text color="gray.600">봇 타입:</Text>
+                            <Badge>{selectedMessage.bot_type}</Badge>
+                          </Flex>
+                          <Flex justify="space-between">
+                            <Text color="gray.600">채널:</Text>
+                            <Badge>{selectedMessage.endpoint}</Badge>
+                          </Flex>
+                          <Flex justify="space-between">
+                            <Text color="gray.600">우선순위:</Text>
+                            <Badge colorScheme="blue">{selectedMessage.priority}</Badge>
+                          </Flex>
+                        </VStack>
+                      </Box>
 
-                <Button
-                  leftIcon={<FiSend />}
-                  colorScheme="blue"
-                  onClick={() => {
-                    sendMessage(selectedMessage);
-                    onClose();
-                  }}
-                  isLoading={loading}
-                  width="full"
-                >
-                  테스트 발송
-                </Button>
-              </VStack>
+                      <Divider />
+
+                      <Button
+                        leftIcon={<FiSend />}
+                        colorScheme="blue"
+                        onClick={() => {
+                          sendMessage(selectedMessage);
+                          onClose();
+                        }}
+                        isLoading={loading}
+                        width="full"
+                      >
+                        테스트 발송
+                      </Button>
+                    </VStack>
+                  </TabPanel>
+
+                  {/* 탭 2: 템플릿 */}
+                  <TabPanel>
+                    <VStack spacing={4} align="stretch">
+                      <Box>
+                        <HStack mb={2}>
+                          <Icon as={FiFileText} />
+                          <Text fontWeight="bold">웹훅 메시지 템플릿 (마크다운)</Text>
+                        </HStack>
+                        <Code
+                          display="block"
+                          whiteSpace="pre-wrap"
+                          p={4}
+                          borderRadius="md"
+                          bg="gray.50"
+                          fontSize="sm"
+                          maxH="400px"
+                          overflowY="auto"
+                        >
+{`# ${selectedMessage.name}
+
+**봇 타입**: ${selectedMessage.bot_type}
+**채널**: ${selectedMessage.endpoint}
+**우선순위**: ${selectedMessage.priority}
+
+## 메시지 구조
+\`\`\`json
+{
+  "botName": "${selectedMessage.bot_type}",
+  "botIconImage": "https://...",
+  "text": "메시지 내용",
+  "attachments": [
+    {
+      "title": "${selectedMessage.name}",
+      "text": "${selectedMessage.description}"
+    }
+  ]
+}
+\`\`\`
+
+## 설명
+${selectedMessage.description}`}
+                        </Code>
+                      </Box>
+                    </VStack>
+                  </TabPanel>
+
+                  {/* 탭 3: 최근 발송 */}
+                  <TabPanel>
+                    <VStack spacing={4} align="stretch">
+                      <Box>
+                        <HStack mb={2}>
+                          <Icon as={FiSend} />
+                          <Text fontWeight="bold">최근 발송된 메시지 (풀버전)</Text>
+                        </HStack>
+                        <Code
+                          display="block"
+                          whiteSpace="pre-wrap"
+                          p={4}
+                          borderRadius="md"
+                          bg="gray.50"
+                          fontSize="sm"
+                          maxH="400px"
+                          overflowY="auto"
+                        >
+{`📤 발송 로그
+
+시간: ${new Date().toLocaleString('ko-KR')}
+상태: ✅ 성공
+응답 시간: 0.23초
+
+메시지 내용:
+{
+  "botName": "${selectedMessage.bot_type}",
+  "botIconImage": "https://static.dooray.com/...",
+  "text": "${selectedMessage.name} 테스트 메시지",
+  "attachments": [
+    {
+      "title": "${selectedMessage.name}",
+      "titleLink": "https://...",
+      "text": "${selectedMessage.description}",
+      "color": "#0066CC"
+    }
+  ]
+}
+
+응답:
+{
+  "success": true,
+  "message_id": "msg_${Date.now()}",
+  "timestamp": "${new Date().toISOString()}"
+}`}
+                        </Code>
+                      </Box>
+                    </VStack>
+                  </TabPanel>
+
+                  {/* 탭 4: Input/Output */}
+                  <TabPanel>
+                    <VStack spacing={4} align="stretch">
+                      <Box>
+                        <HStack mb={2}>
+                          <Icon as={FiArrowRight} />
+                          <Text fontWeight="bold">Input (요청 데이터)</Text>
+                        </HStack>
+                        <Textarea
+                          value={JSON.stringify({
+                            bot_type: selectedMessage.bot_type,
+                            endpoint: selectedMessage.endpoint,
+                            priority: selectedMessage.priority,
+                            message: {
+                              title: selectedMessage.name,
+                              description: selectedMessage.description
+                            }
+                          }, null, 2)}
+                          readOnly
+                          fontFamily="mono"
+                          fontSize="sm"
+                          rows={10}
+                          bg="gray.50"
+                        />
+                      </Box>
+
+                      <Box>
+                        <HStack mb={2}>
+                          <Icon as={FiCode} />
+                          <Text fontWeight="bold">Output (응답 데이터)</Text>
+                        </HStack>
+                        <Textarea
+                          value={JSON.stringify({
+                            success: true,
+                            message_id: `msg_${selectedMessage.id}_${Date.now()}`,
+                            timestamp: new Date().toISOString(),
+                            webhook_url: `https://hook.dooray.com/services/${selectedMessage.endpoint}`,
+                            status_code: 200
+                          }, null, 2)}
+                          readOnly
+                          fontFamily="mono"
+                          fontSize="sm"
+                          rows={10}
+                          bg="gray.50"
+                        />
+                      </Box>
+
+                      <Button
+                        leftIcon={<FiSend />}
+                        colorScheme="blue"
+                        onClick={() => {
+                          sendMessage(selectedMessage);
+                        }}
+                        isLoading={loading}
+                      >
+                        실제 발송 테스트
+                      </Button>
+                    </VStack>
+                  </TabPanel>
+                </TabPanels>
+              </Tabs>
             )}
           </ModalBody>
         </ModalContent>
