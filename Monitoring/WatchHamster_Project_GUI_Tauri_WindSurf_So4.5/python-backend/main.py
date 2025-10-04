@@ -197,6 +197,7 @@ registered_routers = []
 
 # 각 라우터를 개별적으로 등록
 router_configs = [
+    ("api.infomax", "/api", "infomax"),  # InfoMax API 프록시 (NEW) - 최우선 등록
     ("api.companies", "/api/companies", "companies"),  # 회사 관리 (NEW)
     ("api.services", "/api/services", "services"),  # 실제 서비스 관리 (업그레이드)
     ("api.health_monitor", "/api/health", "health-monitor"),  # 헬스체크 모니터링 (NEW)
@@ -306,6 +307,9 @@ async def check_legacy_compatibility():
 
 async def start_background_tasks():
     """백그라운드 태스크 시작"""
+    from utils.logger import get_logger
+    logger = get_logger(__name__)
+    
     try:
         # 로그 스트리밍 설정
         from utils.log_streamer import setup_log_streaming
@@ -332,6 +336,9 @@ async def start_background_tasks():
 
 async def stop_background_tasks():
     """백그라운드 태스크 중지"""
+    from utils.logger import get_logger
+    logger = get_logger(__name__)
+    
     try:
         # 모든 백그라운드 태스크 취소
         for task in background_tasks:
@@ -349,6 +356,9 @@ async def stop_background_tasks():
 
 async def cleanup_resources():
     """리소스 정리"""
+    from utils.logger import get_logger
+    logger = get_logger(__name__)
+    
     try:
         # WebSocket 연결 정리
         from api.websocket import manager

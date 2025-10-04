@@ -15,37 +15,41 @@ import Settings from '@/pages/Settings'
 import ConfigManager from '@/pages/ConfigManager'
 import WebhookManager from '@/pages/WebhookManager'
 import CompanyManager from '@/pages/CompanyManager'
+import ApiPackageManagement from '@/pages/ApiPackageManagement'
 import NotFound from '@/pages/NotFound'
 
-// 타입 정의
 interface BackendEvent {
   payload: string
 }
 
 function App() {
-  const { showInfo, showSuccess, showError } = useCustomToast()
+  const showToast = useCustomToast()
 
   useEffect(() => {
     // Tauri 이벤트 리스너 설정
     const setupEventListeners = async () => {
       // 백엔드 상태 이벤트
       await listen<BackendEvent>('backend-status', event => {
-        showInfo('백엔드 상태', String(event.payload))
+        showToast.showToast({
+          title: '백엔드 상태',
+          description: String(event.payload),
+          status: 'info'
+        })
       })
 
       // 백엔드 재시작 이벤트
       await listen<BackendEvent>('backend-restarted', event => {
-        showSuccess('백엔드 재시작', String(event.payload))
+        showToast.showSuccess('백엔드 재시작', String(event.payload))
       })
 
       // 백엔드 오류 이벤트
       await listen<BackendEvent>('backend-error', event => {
-        showError('백엔드 오류', String(event.payload))
+        showToast.showError('백엔드 오류', String(event.payload))
       })
     }
 
     setupEventListeners().catch(console.error)
-  }, [showInfo, showSuccess, showError])
+  }, [showToast])
 
   return (
     <ErrorBoundary>
@@ -56,6 +60,7 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="companies" element={<CompanyManager />} />
             <Route path="services" element={<Services />} />
+            <Route path="api-packages" element={<ApiPackageManagement />} />
             <Route path="logs" element={<Logs />} />
             <Route path="settings" element={<Settings />} />
             <Route path="config" element={<ConfigManager />} />

@@ -31,6 +31,7 @@ import {
   MdTune,
   MdWebhook,
   MdCorporateFare,
+  MdApi,
 } from 'react-icons/md'
 import { motion } from 'framer-motion'
 
@@ -63,6 +64,13 @@ const navItems: NavItem[] = [
     path: '/services',
     icon: MdList,
     tooltip: '시스템 서비스 제어 및 관리',
+  },
+  {
+    name: 'API 패키지 관리',
+    path: '/api-packages',
+    icon: MdApi,
+    tooltip: 'REST API 패키지 정보 관리 및 문서화',
+    badge: 'NEW',
   },
   {
     name: 'API 설정',

@@ -161,39 +161,39 @@ const ModernServiceCard: React.FC<ModernServiceCardProps> = ({
         _hover={{ shadow: "md" }}
         transition="shadow 0.2s"
       >
-      <CardHeader pb={3}>
-        <Flex align="center" justify="space-between">
-          <HStack spacing={3}>
-            <Box
-              p={2}
-              bg={`${statusColor}.100`}
-              _dark={{ bg: `${statusColor}.900` }}
-              borderRadius="md"
+        <CardHeader pb={3}>
+          <Flex align="center" justify="space-between">
+            <HStack spacing={3}>
+              <Box
+                p={2}
+                bg={`${statusColor}.100`}
+                _dark={{ bg: `${statusColor}.900` }}
+                borderRadius="md"
+              >
+                <StatusIcon 
+                  size={20} 
+                  color={statusColor === 'green' ? '#22C55E' : statusColor === 'red' ? '#EF4444' : '#6B7280'} 
+                />
+              </Box>
+              <Box>
+                <Heading size="md" fontWeight="semibold">
+                  {service.name || service.display_name}
+                </Heading>
+                <Text fontSize="sm" color="gray.500" _dark={{ color: "gray.400" }}>
+                  {service.description}
+                </Text>
+              </Box>
+            </HStack>
+            <Badge 
+              colorScheme={statusColor} 
+              variant="subtle" 
+              fontSize="xs"
+              px={2} 
+              py={1}
+              borderRadius="full"
             >
-              <StatusIcon 
-                size={20} 
-                color={statusColor === 'green' ? '#22C55E' : statusColor === 'red' ? '#EF4444' : '#6B7280'} 
-              />
-            </Box>
-            <Box>
-              <Heading size="md" fontWeight="semibold">
-                {service.name || service.display_name}
-              </Heading>
-              <Text fontSize="sm" color="gray.500" _dark={{ color: "gray.400" }}>
-                {service.description}
-              </Text>
-            </Box>
-          </HStack>
-          <Badge 
-            colorScheme={statusColor} 
-            variant="subtle" 
-            fontSize="xs"
-            px={2} 
-            py={1}
-            borderRadius="full"
-          >
-            {service.status.toUpperCase()}
-          </Badge>
+              {service.status.toUpperCase()}
+            </Badge>
         </Flex>
       </CardHeader>
 
@@ -599,14 +599,14 @@ const ModernServiceCard: React.FC<ModernServiceCardProps> = ({
       </CardBody>
     </Card>
 
-    {/* 서비스 설정 관리 모달 */}
-    <ServiceConfigManager
-      isOpen={showConfigModal}
-      onClose={() => setShowConfigModal(false)}
-      serviceId={service.id}
-      serviceName={service.name || service.display_name}
-    />
-  </>
+      {/* 서비스 설정 관리 모달 */}
+      <ServiceConfigManager
+        isOpen={showConfigModal}
+        onClose={() => setShowConfigModal(false)}
+        serviceId={service.id}
+        serviceName={service.name || service.display_name}
+      />
+    </>
   )
 }
 
