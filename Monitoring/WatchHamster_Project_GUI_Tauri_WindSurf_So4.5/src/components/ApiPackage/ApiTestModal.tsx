@@ -84,6 +84,7 @@ const ApiTestModal: React.FC<ApiTestModalProps> = ({
   const [isLoading, setIsLoading] = useState(false)
   const [testResult, setTestResult] = useState<any>(null)
   const [error, setError] = useState('')
+  const [refreshTrigger, setRefreshTrigger] = useState(0)
   const toast = useToast()
   const codeColor = useColorModeValue('gray.50', 'gray.700')
 
@@ -110,7 +111,7 @@ const ApiTestModal: React.FC<ApiTestModalProps> = ({
       setTestResult(null)
       setError('')
     }
-  }, [pkg, isOpen])
+  }, [pkg, isOpen, refreshTrigger])
 
   // 기존 하드코딩된 기본값 (fallback용)
   const getDefaultValue = (apiPath: string, paramName: string): string => {
@@ -557,6 +558,7 @@ finally:
                                                     updateLogic: 'current_date_minus_1'
                                                   }
                                                 );
+                                                setRefreshTrigger(prev => prev + 1);
                                               } else {
                                                 parameterDefaultManager.setParameterDefault(
                                                   pkg.urlPath,
@@ -564,6 +566,7 @@ finally:
                                                   inputValues[input.name] || '',
                                                   false
                                                 );
+                                                setRefreshTrigger(prev => prev + 1);
                                               }
                                             }}
                                           />
@@ -588,6 +591,7 @@ finally:
                                                       updateLogic: e.target.value as any
                                                     }
                                                   );
+                                                  setRefreshTrigger(prev => prev + 1);
                                                 }
                                               }}
                                             >
