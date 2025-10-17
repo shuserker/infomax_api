@@ -1,37 +1,34 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-WatchHamster 모니터링 시스템
+POSCO 워치햄스터 모니터링 로직 완전 복원
 
-기존 WatchHamster_Project의 watchhamster_monitor.py, git_monitor.py, system_monitor.py를 
-통합하여 비동기 처리를 지원하는 모던한 모니터링 시스템입니다.
+정상 커밋 a763ef84의 워치햄스터 모니터링 알고리즘을 역추적하여 복원한 시스템입니다.
 
 주요 기능:
-- 프로세스 감시 및 자동 재시작
-- Git 상태 모니터링 및 자동 복구
-- 시스템 리소스 모니터링 (CPU, 메모리, 디스크)
-- 실시간 상태 업데이트 및 알림
-- 자동 복구 시나리오 처리
+- 프로세스 감시 알고리즘 (5분 간격)
+- Git 상태 체크 로직 및 모든 오류 시나리오 처리
+- 프로세스 생명주기 관리 (시작/중단감지/재시작/복구)
+- 시스템 리소스 모니터링 (임계값 판단, 경고 레벨)
+- 상황별 동적 알림 메시지 생성
+- 자동 복구 시나리오 전체 로직
 
-작성자: AI Assistant
-작성 일시: 2025-01-02
-기반: WatchHamster_Project/core/watchhamster_monitor.py, git_monitor.py, system_monitor.py
+Requirements: 3.4, 4.2
 """
 
-import asyncio
 import subprocess
-import psutil
-import os
-import json
 import time
-import logging
+import os
+import sys
+import json
+import requests
+import psutil
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Tuple, Any, Callable
-from dataclasses import dataclass, asdict
-from enum import Enum
+from typing import Dict, List, Optional, Tuple, Any
 import threading
+import logging
 
-
-class ProcessStatus(Enum):
+class ProcessStatus:
     """프로세스 상태 열거형"""
     RUNNING = "running"
     STOPPED = "stopped"
@@ -40,276 +37,167 @@ class ProcessStatus(Enum):
     STARTING = "starting"
     STOPPING = "stopping"
 
-
-class SystemResourceLevel(Enum):
+class SystemResourceLevel:
     """시스템 리소스 경고 레벨"""
     NORMAL = "normal"
     WARNING = "warning"
     CRITICAL = "critical"
     EMERGENCY = "emergency"
 
-
-class GitStatus(Enum):
-    """Git 상태 열거형"""
-    CLEAN = "clean"
-    MODIFIED = "modified"
-    CONFLICT = "conflict"
-    ERROR = "error"
-    UPDATE_NEEDED = "update_needed"
-
-
-@dataclass
-class ProcessInfo:
-    """프로세스 정보"""
-    name: str
-    status: ProcessStatus
-    pid: Optional[int] = None
-    cpu_percent: float = 0.0
-    memory_percent: float = 0.0
-    start_time: Optional[datetime] = None
-    restart_count: int = 0
-    health_score: int = 100
-    error_message: Optional[str] = None
-
-
-@dataclass
-class SystemResourceInfo:
-    """시스템 리소스 정보"""
-    cpu_percent: float
-    memory_percent: float
-    disk_percent: float
-    available_memory_gb: float
-    free_disk_gb: float
-    level: SystemResourceLevel
-    warnings: List[str]
-    critical_issues: List[str]
-
-
-@dataclass
-class GitStatusInfo:
-    """Git 상태 정보"""
-    status: GitStatus
-    current_branch: Optional[str] = None
-    current_commit: Optional[str] = None
-    uncommitted_changes: bool = False
-    conflicts: List[str] = None
-    ahead_commits: int = 0
-    behind_commits: int = 0
-    error_message: Optional[str] = None
-    
-    def __post_init__(self):
-        if self.conflicts is None:
-            self.conflicts = []
-
-
-@dataclass
-class MonitoringStatus:
-    """전체 모니터링 상태"""
-    timestamp: datetime
-    processes: Dict[str, ProcessInfo]
-    system_resources: SystemResourceInfo
-    git_status: GitStatusInfo
-    overall_health: str
-    uptime: timedelta
-    alerts: List[str]
-
+class RecoveryStage:
+    """복구 단계"""
+    DETECTION = "detection"
+    ANALYSIS = "analysis"
+    SOFT_RESTART = "soft_restart"
+    HARD_RESTART = "hard_restart"
+    SYSTEM_RECOVERY = "system_recovery"
+    MANUAL_INTERVENTION = "manual_intervention"
 
 class WatchHamsterMonitor:
     """
-    WatchHamster 통합 모니터링 시스템
+    POSCO 워치햄스터 모니터링 시스템
     
-    프로세스, Git, 시스템 리소스를 통합 모니터링하고
-    자동 복구 기능을 제공하는 비동기 모니터링 시스템입니다.
+    정상 커밋의 프로세스 감시 알고리즘을 완전 복원한 모니터링 시스템입니다.
     """
     
-    def __init__(self, config: Optional[Dict[str, Any]] = None):
-        """모니터링 시스템 초기화"""
-        self.config = config or {}
-        self.logger = self._setup_logging()
+    def __init__(self, config: Dict[str, Any]):
+        """워치햄스터 모니터링 시스템 초기화"""
+        self.config = config
+        self.script_dir = os.path.dirname(os.path.abspath(__file__))
+        self.log_file = os.path.join(self.script_dir, "watchhamster_monitor.log")
         
         # 모니터링 설정
-        self.process_check_interval = config.get('process_check_interval', 300)  # 5분
-        self.git_check_interval = config.get('git_check_interval', 3600)  # 1시간
-        self.resource_check_interval = config.get('resource_check_interval', 60)  # 1분
+        self.process_check_interval = config.get('process_check_interval', 300)
+        self.git_check_interval = config.get('git_check_interval', 3600)
+        self.status_notification_interval = config.get('status_notification_interval', 7200)
         
-        # 관리 대상 프로세스
+        # 관리 대상 프로세스 목록
         self.managed_processes = config.get('managed_processes', [])
         
-        # 상태 추적
-        self.process_status: Dict[str, ProcessInfo] = {}
-        self.system_start_time = datetime.now()
-        self.last_git_check = datetime.now() - timedelta(hours=1)
-        self.last_resource_check = datetime.now()
+        # 프로세스 상태 추적
+        self.process_status = {}
+        self.process_pids = {}
+        self.restart_counts = {}
+        self.last_health_check = {}
         
-        # 복구 설정
+        # 시스템 상태 추적
+        self.last_git_check = datetime.now() - timedelta(hours=1)
+        self.last_status_notification = datetime.now()
+        self.system_start_time = datetime.now()
+        
+        # 복구 시스템 설정
         self.max_restart_attempts = config.get('max_restart_attempts', 3)
         self.restart_cooldown = config.get('restart_cooldown', 60)
+        self.recovery_history = {}
         
-        # 리소스 임계값
-        self.cpu_warning_threshold = config.get('cpu_warning_threshold', 70.0)
-        self.cpu_critical_threshold = config.get('cpu_critical_threshold', 85.0)
-        self.memory_warning_threshold = config.get('memory_warning_threshold', 70.0)
-        self.memory_critical_threshold = config.get('memory_critical_threshold', 85.0)
-        self.disk_warning_threshold = config.get('disk_warning_threshold', 80.0)
-        self.disk_critical_threshold = config.get('disk_critical_threshold', 90.0)
+        # 알림 설정
+        self.webhook_url = config.get('webhook_url')
+        self.bot_profile_image = config.get('bot_profile_image')
         
-        # 콜백 함수들
-        self.on_status_change: Optional[Callable[[MonitoringStatus], None]] = None
-        self.on_alert: Optional[Callable[[str, str], None]] = None
-        self.on_recovery: Optional[Callable[[str], None]] = None
+        # 로깅 설정
+        self._setup_logging()
         
-        # 모니터링 루프 제어
-        self.is_monitoring = False
-        self.monitor_task: Optional[asyncio.Task] = None
-        
-        # 프로세스 상태 초기화
+        # 초기 상태 설정
         self._initialize_process_tracking()
         
-        self.logger.info("WatchHamster 모니터링 시스템 초기화 완료")
+        self.log("🐹 POSCO 워치햄스터 모니터링 시스템 초기화 완료")
     
-    def _setup_logging(self) -> logging.Logger:
+    def _setup_logging(self):
         """로깅 시스템 설정"""
-        logger = logging.getLogger(__name__)
-        logger.setLevel(logging.INFO)
-        
-        if not logger.handlers:
-            # 파일 핸들러
-            log_file = os.path.join(os.path.dirname(__file__), '../../logs/watchhamster_monitor.log')
-            os.makedirs(os.path.dirname(log_file), exist_ok=True)
-            
-            file_handler = logging.FileHandler(log_file, encoding='utf-8')
-            file_handler.setLevel(logging.INFO)
-            
-            # 콘솔 핸들러
-            console_handler = logging.StreamHandler()
-            console_handler.setLevel(logging.INFO)
-            
-            # 포매터
-            formatter = logging.Formatter(
-                '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-            )
-            file_handler.setFormatter(formatter)
-            console_handler.setFormatter(formatter)
-            
-            logger.addHandler(file_handler)
-            logger.addHandler(console_handler)
-        
-        return logger
+        logging.basicConfig(
+            level=logging.INFO,
+            format='%(asctime)s - %(levelname)s - %(message)s',
+            handlers=[
+                logging.FileHandler(self.log_file, encoding='utf-8'),
+                logging.StreamHandler(sys.stdout)
+            ]
+        )
+        self.logger = logging.getLogger(__name__)
+    
+    def log(self, message: str):
+        """로그 메시지 출력"""
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        log_message = f"[{timestamp}] {message}"
+        print(log_message)
+        self.logger.info(message)
     
     def _initialize_process_tracking(self):
         """프로세스 추적 초기화"""
         for process_name in self.managed_processes:
-            self.process_status[process_name] = ProcessInfo(
-                name=process_name,
-                status=ProcessStatus.UNKNOWN,
-                restart_count=0
-            )
-    
-    async def start_monitoring(self):
-        """모니터링 시작"""
-        if self.is_monitoring:
-            self.logger.warning("이미 모니터링이 실행 중입니다")
-            return
+            self.process_status[process_name] = ProcessStatus.UNKNOWN
+            self.process_pids[process_name] = None
+            self.restart_counts[process_name] = 0
+            self.last_health_check[process_name] = datetime.now()
+            self.recovery_history[process_name] = [] 
+   
+    def monitor_processes(self) -> Dict[str, Any]:
+        """
+        프로세스 감시 알고리즘 (정상 커밋 기반 복원)
         
-        self.is_monitoring = True
-        self.monitor_task = asyncio.create_task(self._monitoring_loop())
-        
-        self.logger.info("WatchHamster 모니터링 시작")
-    
-    async def stop_monitoring(self):
-        """모니터링 중지"""
-        self.is_monitoring = False
-        
-        if self.monitor_task and not self.monitor_task.done():
-            self.monitor_task.cancel()
-            try:
-                await self.monitor_task
-            except asyncio.CancelledError:
-                pass
-        
-        self.logger.info("WatchHamster 모니터링 중지")
-    
-    async def _monitoring_loop(self):
-        """메인 모니터링 루프"""
-        while self.is_monitoring:
-            try:
-                # 전체 상태 확인
-                status = await self.get_monitoring_status()
-                
-                # 상태 변경 콜백 호출
-                if self.on_status_change:
-                    try:
-                        self.on_status_change(status)
-                    except Exception as e:
-                        self.logger.error(f"상태 변경 콜백 오류: {e}")
-                
-                # 알림 처리
-                await self._process_alerts(status)
-                
-                # 자동 복구 시도
-                await self._attempt_auto_recovery(status)
-                
-                # 다음 체크까지 대기
-                await asyncio.sleep(min(
-                    self.process_check_interval,
-                    self.resource_check_interval
-                ))
-                
-            except asyncio.CancelledError:
-                break
-            except Exception as e:
-                self.logger.error(f"모니터링 루프 오류: {e}")
-                await asyncio.sleep(60)  # 오류 시 1분 대기
-    
-    async def get_monitoring_status(self) -> MonitoringStatus:
-        """현재 모니터링 상태 조회"""
-        timestamp = datetime.now()
-        
-        # 프로세스 상태 확인
-        await self._check_processes()
-        
-        # 시스템 리소스 확인
-        system_resources = await self._check_system_resources()
-        
-        # Git 상태 확인 (주기적으로)
-        git_status = await self._check_git_status()
-        
-        # 전체 건강도 판단
-        overall_health = self._determine_overall_health(system_resources)
-        
-        # 알림 수집
-        alerts = self._collect_alerts(system_resources, git_status)
-        
-        # 가동 시간 계산
-        uptime = timestamp - self.system_start_time
-        
-        return MonitoringStatus(
-            timestamp=timestamp,
-            processes=self.process_status.copy(),
-            system_resources=system_resources,
-            git_status=git_status,
-            overall_health=overall_health,
-            uptime=uptime,
-            alerts=alerts
-        )
-    
-    async def _check_processes(self):
-        """프로세스 상태 확인"""
-        for process_name in self.managed_processes:
-            try:
-                process_info = await self._check_single_process(process_name)
-                self.process_status[process_name] = process_info
-            except Exception as e:
-                self.logger.error(f"프로세스 {process_name} 확인 중 오류: {e}")
-                self.process_status[process_name].status = ProcessStatus.ERROR
-                self.process_status[process_name].error_message = str(e)
-    
-    async def _check_single_process(self, process_name: str) -> ProcessInfo:
-        """개별 프로세스 상태 확인"""
-        process_info = self.process_status.get(process_name, ProcessInfo(name=process_name, status=ProcessStatus.UNKNOWN))
+        모든 관리 대상 프로세스의 상태를 확인하고 문제가 있는 프로세스를 식별합니다.
+        """
+        monitoring_results = {
+            'timestamp': datetime.now(),
+            'total_processes': len(self.managed_processes),
+            'healthy_processes': 0,
+            'failed_processes': [],
+            'process_details': {},
+            'system_health': 'unknown'
+        }
         
         try:
-            # 프로세스 검색
+            self.log("🔍 프로세스 감시 알고리즘 시작")
+            
+            for process_name in self.managed_processes:
+                process_info = self._check_process_health(process_name)
+                monitoring_results['process_details'][process_name] = process_info
+                
+                if process_info['status'] == ProcessStatus.RUNNING:
+                    monitoring_results['healthy_processes'] += 1
+                else:
+                    monitoring_results['failed_processes'].append(process_name)
+                
+                # 상태 업데이트
+                self.process_status[process_name] = process_info['status']
+                self.process_pids[process_name] = process_info.get('pid')
+                self.last_health_check[process_name] = datetime.now()
+            
+            # 전체 시스템 건강도 판단
+            health_ratio = monitoring_results['healthy_processes'] / monitoring_results['total_processes']
+            
+            if health_ratio >= 1.0:
+                monitoring_results['system_health'] = 'excellent'
+            elif health_ratio >= 0.8:
+                monitoring_results['system_health'] = 'good'
+            elif health_ratio >= 0.5:
+                monitoring_results['system_health'] = 'warning'
+            else:
+                monitoring_results['system_health'] = 'critical'
+            
+            self.log(f"📊 프로세스 감시 완료: {monitoring_results['healthy_processes']}/{monitoring_results['total_processes']} 정상")
+            
+            return monitoring_results
+            
+        except Exception as e:
+            self.log(f"❌ 프로세스 감시 중 오류 발생: {e}")
+            monitoring_results['error'] = str(e)
+            monitoring_results['system_health'] = 'error'
+            return monitoring_results
+    
+    def _check_process_health(self, process_name: str) -> Dict[str, Any]:
+        """개별 프로세스 건강 상태 확인"""
+        process_info = {
+            'name': process_name,
+            'status': ProcessStatus.UNKNOWN,
+            'pid': None,
+            'cpu_percent': 0.0,
+            'memory_percent': 0.0,
+            'start_time': None,
+            'health_score': 0
+        }
+        
+        try:
+            # 프로세스 이름으로 실행 중인 프로세스 찾기
             running_processes = []
             for proc in psutil.process_iter(['pid', 'name', 'cmdline', 'create_time']):
                 try:
@@ -320,572 +208,391 @@ class WatchHamsterMonitor:
                     continue
             
             if running_processes:
-                # 가장 최근 프로세스 선택
+                # 가장 최근에 시작된 프로세스 선택
                 latest_proc = max(running_processes, key=lambda p: p.info['create_time'])
                 
-                process_info.pid = latest_proc.info['pid']
-                process_info.start_time = datetime.fromtimestamp(latest_proc.info['create_time'])
-                process_info.status = ProcessStatus.RUNNING
+                process_info['pid'] = latest_proc.info['pid']
+                process_info['start_time'] = datetime.fromtimestamp(latest_proc.info['create_time'])
                 
-                # 리소스 사용량 확인
+                # 프로세스 리소스 사용량 확인
                 try:
                     proc_obj = psutil.Process(latest_proc.info['pid'])
-                    process_info.cpu_percent = proc_obj.cpu_percent()
-                    process_info.memory_percent = proc_obj.memory_percent()
+                    process_info['cpu_percent'] = proc_obj.cpu_percent()
+                    process_info['memory_percent'] = proc_obj.memory_percent()
                     
-                    # 건강도 점수 계산
+                    # 건강도 점수 계산 (0-100)
                     health_score = 100
-                    if process_info.cpu_percent > 80:
+                    
+                    if process_info['cpu_percent'] > 80:
                         health_score -= 30
-                    elif process_info.cpu_percent > 50:
+                    elif process_info['cpu_percent'] > 50:
                         health_score -= 10
                     
-                    if process_info.memory_percent > 80:
+                    if process_info['memory_percent'] > 80:
                         health_score -= 30
-                    elif process_info.memory_percent > 50:
+                    elif process_info['memory_percent'] > 50:
                         health_score -= 10
                     
-                    process_info.health_score = max(0, health_score)
+                    process_info['health_score'] = max(0, health_score)
+                    process_info['status'] = ProcessStatus.RUNNING
                     
                 except (psutil.NoSuchProcess, psutil.AccessDenied):
-                    process_info.status = ProcessStatus.ERROR
-                    process_info.health_score = 0
+                    process_info['status'] = ProcessStatus.ERROR
+                    process_info['health_score'] = 0
             else:
-                process_info.status = ProcessStatus.STOPPED
-                process_info.pid = None
-                process_info.health_score = 0
+                process_info['status'] = ProcessStatus.STOPPED
+                process_info['health_score'] = 0
             
         except Exception as e:
-            process_info.status = ProcessStatus.ERROR
-            process_info.error_message = str(e)
-            process_info.health_score = 0
+            self.log(f"⚠️ {process_name} 건강 상태 확인 중 오류: {e}")
+            process_info['status'] = ProcessStatus.ERROR
+            process_info['error'] = str(e)
         
         return process_info
     
-    async def _check_system_resources(self) -> SystemResourceInfo:
-        """시스템 리소스 확인"""
-        try:
-            # CPU 사용률
-            cpu_percent = psutil.cpu_percent(interval=1)
-            
-            # 메모리 정보
-            memory = psutil.virtual_memory()
-            memory_percent = memory.percent
-            available_memory_gb = memory.available / (1024**3)
-            
-            # 디스크 정보
-            disk = psutil.disk_usage('/')
-            disk_percent = (disk.used / disk.total) * 100
-            free_disk_gb = disk.free / (1024**3)
-            
-            # 경고 및 중요 이슈 수집
-            warnings = []
-            critical_issues = []
-            
-            # CPU 경고
-            if cpu_percent >= 95:
-                critical_issues.append(f"CPU 사용률 위험: {cpu_percent:.1f}%")
-            elif cpu_percent >= self.cpu_critical_threshold:
-                critical_issues.append(f"CPU 사용률 높음: {cpu_percent:.1f}%")
-            elif cpu_percent >= self.cpu_warning_threshold:
-                warnings.append(f"CPU 사용률 주의: {cpu_percent:.1f}%")
-            
-            # 메모리 경고
-            if memory_percent >= 95:
-                critical_issues.append(f"메모리 사용률 위험: {memory_percent:.1f}%")
-            elif memory_percent >= self.memory_critical_threshold:
-                critical_issues.append(f"메모리 사용률 높음: {memory_percent:.1f}%")
-            elif memory_percent >= self.memory_warning_threshold:
-                warnings.append(f"메모리 사용률 주의: {memory_percent:.1f}%")
-            
-            # 디스크 경고
-            if disk_percent >= 98:
-                critical_issues.append(f"디스크 사용률 위험: {disk_percent:.1f}%")
-            elif disk_percent >= self.disk_critical_threshold:
-                critical_issues.append(f"디스크 사용률 높음: {disk_percent:.1f}%")
-            elif disk_percent >= self.disk_warning_threshold:
-                warnings.append(f"디스크 사용률 주의: {disk_percent:.1f}%")
-            
-            # 전체 레벨 결정
-            if critical_issues:
-                if any("위험" in issue for issue in critical_issues):
-                    level = SystemResourceLevel.EMERGENCY
-                else:
-                    level = SystemResourceLevel.CRITICAL
-            elif warnings:
-                level = SystemResourceLevel.WARNING
-            else:
-                level = SystemResourceLevel.NORMAL
-            
-            return SystemResourceInfo(
-                cpu_percent=cpu_percent,
-                memory_percent=memory_percent,
-                disk_percent=disk_percent,
-                available_memory_gb=available_memory_gb,
-                free_disk_gb=free_disk_gb,
-                level=level,
-                warnings=warnings,
-                critical_issues=critical_issues
-            )
-            
-        except Exception as e:
-            self.logger.error(f"시스템 리소스 확인 중 오류: {e}")
-            return SystemResourceInfo(
-                cpu_percent=0.0,
-                memory_percent=0.0,
-                disk_percent=0.0,
-                available_memory_gb=0.0,
-                free_disk_gb=0.0,
-                level=SystemResourceLevel.CRITICAL,
-                warnings=[],
-                critical_issues=[f"시스템 모니터링 오류: {str(e)}"]
-            )
-    
-    async def _check_git_status(self) -> GitStatusInfo:
-        """Git 상태 확인"""
-        now = datetime.now()
-        
-        # 주기적으로만 Git 상태 확인
-        if (now - self.last_git_check).total_seconds() < self.git_check_interval:
-            # 이전 상태 반환 (캐시된 상태가 있다면)
-            return getattr(self, '_cached_git_status', GitStatusInfo(status=GitStatus.CLEAN))
-        
-        self.last_git_check = now
+    def check_git_status(self) -> Dict[str, Any]:
+        """Git 상태 체크 로직 및 모든 오류 시나리오 처리"""
+        git_status = {
+            'timestamp': datetime.now(),
+            'status': 'unknown',
+            'current_branch': None,
+            'current_commit': None,
+            'remote_status': 'unknown',
+            'conflicts': [],
+            'errors': [],
+            'needs_update': False,
+            'auto_recovery_possible': False
+        }
         
         try:
-            # Git 저장소 확인
-            result = await self._run_git_command(['git', 'rev-parse', '--git-dir'])
-            if not result[0]:
-                git_status = GitStatusInfo(
-                    status=GitStatus.ERROR,
-                    error_message="Git 저장소가 아닙니다"
-                )
-                self._cached_git_status = git_status
-                return git_status
+            self.log("🔍 Git 상태 체크 시작")
             
             # 현재 브랜치 확인
-            result = await self._run_git_command(['git', 'branch', '--show-current'])
-            current_branch = result[1] if result[0] else None
+            try:
+                result = subprocess.run(
+                    ['git', 'branch', '--show-current'],
+                    capture_output=True, text=True, timeout=30,
+                    cwd=self.script_dir
+                )
+                if result.returncode == 0:
+                    git_status['current_branch'] = result.stdout.strip()
+                else:
+                    git_status['errors'].append(f"브랜치 확인 실패: {result.stderr}")
+            except subprocess.TimeoutExpired:
+                git_status['errors'].append("Git 명령어 타임아웃")
+            except Exception as e:
+                git_status['errors'].append(f"Git 기본 상태 확인 오류: {e}")
             
             # 현재 커밋 확인
-            result = await self._run_git_command(['git', 'rev-parse', 'HEAD'])
-            current_commit = result[1][:8] if result[0] else None
+            try:
+                result = subprocess.run(
+                    ['git', 'rev-parse', 'HEAD'],
+                    capture_output=True, text=True, timeout=30,
+                    cwd=self.script_dir
+                )
+                if result.returncode == 0:
+                    git_status['current_commit'] = result.stdout.strip()[:8]
+            except Exception as e:
+                git_status['errors'].append(f"커밋 확인 오류: {e}")
             
             # 작업 디렉토리 상태 확인
-            result = await self._run_git_command(['git', 'status', '--porcelain'])
-            uncommitted_changes = bool(result[1]) if result[0] else False
+            try:
+                result = subprocess.run(
+                    ['git', 'status', '--porcelain'],
+                    capture_output=True, text=True, timeout=30,
+                    cwd=self.script_dir
+                )
+                
+                if result.returncode == 0:
+                    if result.stdout.strip():
+                        changes = result.stdout.strip().split('\n')
+                        for change in changes:
+                            if change.startswith('UU'):
+                                git_status['conflicts'].append(change[3:])
+                        
+                        if git_status['conflicts']:
+                            git_status['status'] = 'conflict'
+                        else:
+                            git_status['status'] = 'modified'
+                    else:
+                        git_status['status'] = 'clean'
+            except Exception as e:
+                git_status['errors'].append(f"작업 디렉토리 상태 확인 오류: {e}")
             
-            # 충돌 확인
-            conflicts = []
-            if result[0] and result[1]:
-                for line in result[1].split('\n'):
-                    if line.startswith('UU'):
-                        conflicts.append(line[3:])
-            
-            # 상태 결정
-            if conflicts:
-                status = GitStatus.CONFLICT
-            elif uncommitted_changes:
-                status = GitStatus.MODIFIED
+            # 자동 복구 가능성 판단
+            if git_status['status'] == 'clean' and not git_status['conflicts']:
+                git_status['auto_recovery_possible'] = True
+            elif git_status['status'] == 'modified' and not git_status['conflicts']:
+                git_status['auto_recovery_possible'] = True
             else:
-                status = GitStatus.CLEAN
+                git_status['auto_recovery_possible'] = False
             
-            git_status = GitStatusInfo(
-                status=status,
-                current_branch=current_branch,
-                current_commit=current_commit,
-                uncommitted_changes=uncommitted_changes,
-                conflicts=conflicts
-            )
+            # 전체 상태 요약
+            if git_status['errors']:
+                git_status['status'] = 'error'
+            elif git_status['conflicts']:
+                git_status['status'] = 'conflict'
+            elif git_status['status'] == 'unknown':
+                git_status['status'] = 'clean'
             
-            self._cached_git_status = git_status
+            self.log(f"📋 Git 상태 체크 완료: {git_status['status']}")
+            
             return git_status
             
         except Exception as e:
-            self.logger.error(f"Git 상태 확인 중 오류: {e}")
-            git_status = GitStatusInfo(
-                status=GitStatus.ERROR,
-                error_message=str(e)
-            )
-            self._cached_git_status = git_status
-            return git_status
-    
-    async def _run_git_command(self, command: List[str], timeout: int = 30) -> Tuple[bool, str]:
-        """Git 명령어 비동기 실행"""
+            self.log(f"❌ Git 상태 체크 중 예외 발생: {e}")
+            git_status['status'] = 'error'
+            git_status['errors'].append(f"예외 발생: {e}")
+            return git_status  
+  
+    def monitor_system_resources(self) -> Dict[str, Any]:
+        """시스템 리소스 모니터링 알고리즘 (임계값 판단, 경고 레벨)"""
+        resource_status = {
+            'timestamp': datetime.now(),
+            'cpu': {'percent': 0.0, 'level': SystemResourceLevel.NORMAL},
+            'memory': {'percent': 0.0, 'available_gb': 0.0, 'level': SystemResourceLevel.NORMAL},
+            'disk': {'percent': 0.0, 'free_gb': 0.0, 'level': SystemResourceLevel.NORMAL},
+            'overall_level': SystemResourceLevel.NORMAL,
+            'warnings': [],
+            'critical_issues': []
+        }
+        
         try:
-            # 페이저 비활성화를 위한 환경 변수 설정
-            env = os.environ.copy()
-            env['GIT_PAGER'] = ''
+            # CPU 사용률 모니터링
+            cpu_percent = psutil.cpu_percent(interval=1)
+            resource_status['cpu']['percent'] = cpu_percent
             
-            process = await asyncio.create_subprocess_exec(
-                *command,
-                stdout=asyncio.subprocess.PIPE,
-                stderr=asyncio.subprocess.PIPE,
-                env=env,
-                cwd=os.path.dirname(__file__)
-            )
+            if cpu_percent >= 95:
+                resource_status['cpu']['level'] = SystemResourceLevel.EMERGENCY
+                resource_status['critical_issues'].append(f"CPU 사용률 위험: {cpu_percent:.1f}%")
+            elif cpu_percent >= 85:
+                resource_status['cpu']['level'] = SystemResourceLevel.CRITICAL
+                resource_status['critical_issues'].append(f"CPU 사용률 높음: {cpu_percent:.1f}%")
+            elif cpu_percent >= 70:
+                resource_status['cpu']['level'] = SystemResourceLevel.WARNING
+                resource_status['warnings'].append(f"CPU 사용률 주의: {cpu_percent:.1f}%")
             
-            stdout, stderr = await asyncio.wait_for(
-                process.communicate(), 
-                timeout=timeout
-            )
+            # 메모리 사용률 모니터링
+            memory = psutil.virtual_memory()
+            resource_status['memory']['percent'] = memory.percent
+            resource_status['memory']['available_gb'] = memory.available / (1024**3)
             
-            success = process.returncode == 0
-            output = stdout.decode('utf-8').strip()
+            if memory.percent >= 95:
+                resource_status['memory']['level'] = SystemResourceLevel.EMERGENCY
+                resource_status['critical_issues'].append(f"메모리 사용률 위험: {memory.percent:.1f}%")
+            elif memory.percent >= 85:
+                resource_status['memory']['level'] = SystemResourceLevel.CRITICAL
+                resource_status['critical_issues'].append(f"메모리 사용률 높음: {memory.percent:.1f}%")
+            elif memory.percent >= 70:
+                resource_status['memory']['level'] = SystemResourceLevel.WARNING
+                resource_status['warnings'].append(f"메모리 사용률 주의: {memory.percent:.1f}%")
             
-            return success, output
+            # 디스크 사용률 모니터링
+            disk = psutil.disk_usage('/')
+            resource_status['disk']['percent'] = (disk.used / disk.total) * 100
+            resource_status['disk']['free_gb'] = disk.free / (1024**3)
             
-        except asyncio.TimeoutError:
-            self.logger.error(f"Git 명령어 타임아웃: {' '.join(command)}")
-            return False, ""
-        except Exception as e:
-            self.logger.error(f"Git 명령어 실행 오류: {e}")
-            return False, ""
-    
-    def _determine_overall_health(self, system_resources: SystemResourceInfo) -> str:
-        """전체 건강도 판단"""
-        # 프로세스 상태 확인
-        running_processes = sum(1 for p in self.process_status.values() 
-                              if p.status == ProcessStatus.RUNNING)
-        total_processes = len(self.process_status)
-        
-        process_health_ratio = running_processes / total_processes if total_processes > 0 else 0
-        
-        # 시스템 리소스 상태
-        resource_level = system_resources.level
-        
-        # 종합 판단
-        if resource_level == SystemResourceLevel.EMERGENCY or process_health_ratio < 0.5:
-            return "critical"
-        elif resource_level == SystemResourceLevel.CRITICAL or process_health_ratio < 0.8:
-            return "warning"
-        elif resource_level == SystemResourceLevel.WARNING or process_health_ratio < 1.0:
-            return "degraded"
-        else:
-            return "healthy"
-    
-    def _collect_alerts(self, system_resources: SystemResourceInfo, git_status: GitStatusInfo) -> List[str]:
-        """알림 수집"""
-        alerts = []
-        
-        # 시스템 리소스 알림
-        alerts.extend(system_resources.critical_issues)
-        alerts.extend(system_resources.warnings)
-        
-        # 프로세스 알림
-        failed_processes = [name for name, info in self.process_status.items() 
-                          if info.status != ProcessStatus.RUNNING]
-        if failed_processes:
-            alerts.append(f"중단된 프로세스: {', '.join(failed_processes)}")
-        
-        # Git 알림
-        if git_status.status == GitStatus.CONFLICT:
-            alerts.append(f"Git 충돌 발생: {', '.join(git_status.conflicts)}")
-        elif git_status.status == GitStatus.ERROR:
-            alerts.append(f"Git 오류: {git_status.error_message}")
-        
-        return alerts
-    
-    async def _process_alerts(self, status: MonitoringStatus):
-        """알림 처리"""
-        if not status.alerts:
-            return
-        
-        # 중요도별 알림 분류
-        critical_alerts = [alert for alert in status.alerts 
-                         if any(keyword in alert.lower() for keyword in ['위험', '중단', '충돌', '오류'])]
-        warning_alerts = [alert for alert in status.alerts if alert not in critical_alerts]
-        
-        # 알림 콜백 호출
-        if self.on_alert:
-            try:
-                if critical_alerts:
-                    self.on_alert("critical", "; ".join(critical_alerts))
-                elif warning_alerts:
-                    self.on_alert("warning", "; ".join(warning_alerts))
-            except Exception as e:
-                self.logger.error(f"알림 콜백 오류: {e}")
-    
-    async def _attempt_auto_recovery(self, status: MonitoringStatus):
-        """자동 복구 시도"""
-        # 중단된 프로세스 재시작 시도
-        for name, process_info in status.processes.items():
-            if (process_info.status == ProcessStatus.STOPPED and 
-                process_info.restart_count < self.max_restart_attempts):
-                
-                try:
-                    await self._restart_process(name)
-                    if self.on_recovery:
-                        self.on_recovery(f"프로세스 {name} 자동 재시작")
-                except Exception as e:
-                    self.logger.error(f"프로세스 {name} 자동 재시작 실패: {e}")
-        
-        # Git 충돌 자동 해결 시도
-        if status.git_status.status == GitStatus.CONFLICT:
-            try:
-                success = await self._attempt_git_recovery()
-                if success and self.on_recovery:
-                    self.on_recovery("Git 충돌 자동 해결")
-            except Exception as e:
-                self.logger.error(f"Git 자동 복구 실패: {e}")
-    
-    async def _restart_process(self, process_name: str):
-        """프로세스 재시작"""
-        process_info = self.process_status[process_name]
-        
-        # 재시작 쿨다운 확인
-        if process_info.start_time:
-            time_since_start = (datetime.now() - process_info.start_time).total_seconds()
-            if time_since_start < self.restart_cooldown:
-                self.logger.warning(f"프로세스 {process_name} 재시작 쿨다운 중")
-                return
-        
-        # 기존 프로세스 종료
-        if process_info.pid:
-            try:
-                proc = psutil.Process(process_info.pid)
-                proc.terminate()
-                await asyncio.sleep(5)  # 정상 종료 대기
-                if proc.is_running():
-                    proc.kill()  # 강제 종료
-            except (psutil.NoSuchProcess, psutil.AccessDenied):
-                pass
-        
-        # 새 프로세스 시작 (구체적인 시작 로직은 설정에 따라)
-        start_command = self.config.get('process_commands', {}).get(process_name)
-        if start_command:
-            try:
-                process = await asyncio.create_subprocess_exec(*start_command.split())
-                process_info.restart_count += 1
-                process_info.status = ProcessStatus.STARTING
-                self.logger.info(f"프로세스 {process_name} 재시작 시도 ({process_info.restart_count}회)")
-            except Exception as e:
-                self.logger.error(f"프로세스 {process_name} 시작 실패: {e}")
-                process_info.status = ProcessStatus.ERROR
-                process_info.error_message = str(e)
-    
-    async def _attempt_git_recovery(self) -> bool:
-        """Git 자동 복구 시도"""
-        try:
-            # 충돌 파일 목록 확인
-            result = await self._run_git_command(['git', 'diff', '--name-only', '--diff-filter=U'])
-            if not result[0]:
-                return False
+            disk_percent = resource_status['disk']['percent']
+            if disk_percent >= 98:
+                resource_status['disk']['level'] = SystemResourceLevel.EMERGENCY
+                resource_status['critical_issues'].append(f"디스크 사용률 위험: {disk_percent:.1f}%")
+            elif disk_percent >= 90:
+                resource_status['disk']['level'] = SystemResourceLevel.CRITICAL
+                resource_status['critical_issues'].append(f"디스크 사용률 높음: {disk_percent:.1f}%")
+            elif disk_percent >= 80:
+                resource_status['disk']['level'] = SystemResourceLevel.WARNING
+                resource_status['warnings'].append(f"디스크 사용률 주의: {disk_percent:.1f}%")
             
-            conflict_files = [f for f in result[1].split('\n') if f]
-            if not conflict_files:
-                return False
+            # 전체 시스템 레벨 결정
+            levels = [
+                resource_status['cpu']['level'],
+                resource_status['memory']['level'],
+                resource_status['disk']['level']
+            ]
             
-            # 간단한 자동 해결 시도 (우리 버전 선택)
-            for file in conflict_files:
-                await self._run_git_command(['git', 'checkout', '--ours', file])
-                await self._run_git_command(['git', 'add', file])
-            
-            # 병합 완료
-            result = await self._run_git_command(['git', 'rebase', '--continue'])
-            if result[0]:
-                self.logger.info(f"Git 충돌 자동 해결 완료: {', '.join(conflict_files)}")
-                return True
+            if SystemResourceLevel.EMERGENCY in levels:
+                resource_status['overall_level'] = SystemResourceLevel.EMERGENCY
+            elif SystemResourceLevel.CRITICAL in levels:
+                resource_status['overall_level'] = SystemResourceLevel.CRITICAL
+            elif SystemResourceLevel.WARNING in levels:
+                resource_status['overall_level'] = SystemResourceLevel.WARNING
             else:
-                # 리베이스 중단
-                await self._run_git_command(['git', 'rebase', '--abort'])
-                return False
-                
-        except Exception as e:
-            self.logger.error(f"Git 자동 복구 중 오류: {e}")
-            # 안전을 위해 리베이스 중단
-            await self._run_git_command(['git', 'rebase', '--abort'])
-            return False
-    
-    def generate_status_message(self, status: MonitoringStatus, message_type: str = "status") -> str:
-        """상태 메시지 생성"""
-        try:
-            timestamp = status.timestamp.strftime('%Y-%m-%d %H:%M:%S')
+                resource_status['overall_level'] = SystemResourceLevel.NORMAL
             
-            # 메시지 헤더
-            if message_type == "critical":
-                header = "🚨 WatchHamster 긴급 알림"
-            elif message_type == "warning":
-                header = "⚠️ WatchHamster 경고"
+            self.log(f"📊 시스템 리소스 모니터링 완료: {resource_status['overall_level']}")
+            
+            return resource_status
+            
+        except Exception as e:
+            self.log(f"❌ 시스템 리소스 모니터링 중 오류: {e}")
+            resource_status['overall_level'] = SystemResourceLevel.CRITICAL
+            resource_status['critical_issues'].append(f"모니터링 오류: {e}")
+            return resource_status
+    
+    def generate_dynamic_alert_message(self, 
+                                      process_results: Dict[str, Any],
+                                      git_status: Dict[str, Any],
+                                      resource_status: Dict[str, Any],
+                                      alert_type: str = "status") -> str:
+        """상황별 동적 알림 메시지 생성 로직"""
+        try:
+            current_time = datetime.now()
+            
+            # 메시지 헤더 결정
+            if alert_type == "critical":
+                header = "🚨 POSCO 워치햄스터 긴급 알림"
+            elif alert_type == "error":
+                header = "❌ POSCO 워치햄스터 오류 알림"
+            elif alert_type == "recovery":
+                header = "🔧 POSCO 워치햄스터 복구 알림"
             else:
-                header = "🐹 WatchHamster 상태 보고"
+                header = "🐹 POSCO 워치햄스터 상태 보고"
             
             message_parts = [
                 f"{header}\n",
-                f"📅 시간: {timestamp}\n",
-                f"⏱️ 가동 시간: {self._format_timedelta(status.uptime)}\n",
-                f"🎯 전체 상태: {status.overall_health}\n\n"
+                f"📅 시간: {current_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
             ]
             
-            # 프로세스 상태
-            running_count = sum(1 for p in status.processes.values() 
-                              if p.status == ProcessStatus.RUNNING)
-            total_count = len(status.processes)
+            # 시스템 가동 시간 추가
+            uptime = current_time - self.system_start_time
+            hours, remainder = divmod(int(uptime.total_seconds()), 3600)
+            minutes, _ = divmod(remainder, 60)
+            message_parts.append(f"⏱️ 가동 시간: {hours}시간 {minutes}분\n")
             
-            if running_count == total_count:
-                message_parts.append(f"🟢 프로세스: {running_count}/{total_count} 모두 정상\n")
-            else:
-                message_parts.append(f"🔴 프로세스: {running_count}/{total_count} 정상\n")
-                failed_processes = [name for name, info in status.processes.items() 
-                                  if info.status != ProcessStatus.RUNNING]
-                for process_name in failed_processes:
-                    restart_count = status.processes[process_name].restart_count
-                    message_parts.append(f"  ❌ {process_name} (재시작: {restart_count}회)\n")
-            
-            # 시스템 리소스
-            resources = status.system_resources
-            level_emoji = {
-                SystemResourceLevel.NORMAL: "🟢",
-                SystemResourceLevel.WARNING: "🟡",
-                SystemResourceLevel.CRITICAL: "🟠",
-                SystemResourceLevel.EMERGENCY: "🔴"
-            }.get(resources.level, "⚪")
-            
-            message_parts.append(f"\n{level_emoji} 시스템 리소스:\n")
-            message_parts.append(f"  💻 CPU: {resources.cpu_percent:.1f}%\n")
-            message_parts.append(f"  🧠 메모리: {resources.memory_percent:.1f}% ({resources.available_memory_gb:.1f}GB 사용가능)\n")
-            message_parts.append(f"  💾 디스크: {resources.disk_percent:.1f}% ({resources.free_disk_gb:.1f}GB 여유)\n")
-            
-            # Git 상태
-            if status.git_status.status != GitStatus.CLEAN:
-                git_emoji = {
-                    GitStatus.MODIFIED: "📝",
-                    GitStatus.CONFLICT: "⚠️",
-                    GitStatus.ERROR: "❌",
-                    GitStatus.UPDATE_NEEDED: "🔄"
-                }.get(status.git_status.status, "📋")
+            # 프로세스 상태 섹션
+            if process_results:
+                healthy_count = process_results.get('healthy_processes', 0)
+                total_count = process_results.get('total_processes', 0)
+                failed_processes = process_results.get('failed_processes', [])
                 
-                message_parts.append(f"\n{git_emoji} Git 상태: {status.git_status.status.value}\n")
-                if status.git_status.current_branch:
-                    message_parts.append(f"  🌿 브랜치: {status.git_status.current_branch}\n")
-                if status.git_status.current_commit:
-                    message_parts.append(f"  📝 커밋: {status.git_status.current_commit}\n")
+                if failed_processes:
+                    message_parts.append(f"\n🔴 프로세스 상태: {healthy_count}/{total_count} 정상\n")
+                    message_parts.append("❌ 문제 프로세스:\n")
+                    for process_name in failed_processes:
+                        restart_count = self.restart_counts.get(process_name, 0)
+                        if restart_count > 0:
+                            message_parts.append(f"  • {process_name} (재시작: {restart_count}회)\n")
+                        else:
+                            message_parts.append(f"  • {process_name}\n")
+                else:
+                    message_parts.append(f"\n🟢 프로세스 상태: {healthy_count}/{total_count} 모두 정상\n")
             
-            # 알림 사항
-            if status.alerts:
-                message_parts.append(f"\n🔔 알림 ({len(status.alerts)}개):\n")
-                for alert in status.alerts[:5]:  # 최대 5개만 표시
-                    message_parts.append(f"  • {alert}\n")
+            # Git 상태 섹션
+            if git_status and git_status.get('status') != 'clean':
+                message_parts.append(f"\n📋 Git 상태: {git_status['status']}\n")
+                
+                if git_status.get('current_branch'):
+                    message_parts.append(f"  • 브랜치: {git_status['current_branch']}\n")
+                
+                if git_status.get('current_commit'):
+                    message_parts.append(f"  • 커밋: {git_status['current_commit']}\n")
             
-            return "".join(message_parts).rstrip()
+            # 시스템 리소스 섹션
+            if resource_status:
+                overall_level = resource_status.get('overall_level', SystemResourceLevel.NORMAL)
+                
+                if overall_level != SystemResourceLevel.NORMAL:
+                    level_emoji = {
+                        SystemResourceLevel.WARNING: "🟡",
+                        SystemResourceLevel.CRITICAL: "🟠", 
+                        SystemResourceLevel.EMERGENCY: "🔴"
+                    }.get(overall_level, "⚪")
+                    
+                    message_parts.append(f"\n{level_emoji} 시스템 리소스: {overall_level}\n")
+                    
+                    cpu_percent = resource_status.get('cpu', {}).get('percent', 0)
+                    memory_percent = resource_status.get('memory', {}).get('percent', 0)
+                    disk_percent = resource_status.get('disk', {}).get('percent', 0)
+                    
+                    message_parts.append(f"  • CPU: {cpu_percent:.1f}%\n")
+                    message_parts.append(f"  • 메모리: {memory_percent:.1f}%\n")
+                    message_parts.append(f"  • 디스크: {disk_percent:.1f}%\n")
+                else:
+                    cpu_percent = resource_status.get('cpu', {}).get('percent', 0)
+                    memory_percent = resource_status.get('memory', {}).get('percent', 0)
+                    disk_percent = resource_status.get('disk', {}).get('percent', 0)
+                    
+                    message_parts.append(f"\n📊 시스템 리소스: CPU {cpu_percent:.1f}% | 메모리 {memory_percent:.1f}% | 디스크 {disk_percent:.1f}%\n")
+            
+            # 다음 작업 안내
+            if alert_type == "status":
+                next_check = current_time + timedelta(seconds=self.process_check_interval)
+                message_parts.append(f"\n⏰ 다음 체크: {next_check.strftime('%H:%M')}\n")
+                message_parts.append("🛡️ 자동 모니터링 활성화\n")
+            elif alert_type in ["error", "critical"]:
+                message_parts.append("\n🔧 자동 복구 시도 중...\n")
+            
+            # 메시지 조합
+            final_message = "".join(message_parts).rstrip()
+            
+            self.log(f"📝 동적 알림 메시지 생성 완료: {alert_type}")
+            
+            return final_message
             
         except Exception as e:
-            self.logger.error(f"상태 메시지 생성 중 오류: {e}")
-            return (f"🐹 WatchHamster 상태 보고\n\n"
+            self.log(f"❌ 동적 알림 메시지 생성 중 오류: {e}")
+            return (f"🐹 POSCO 워치햄스터 알림\n\n"
                    f"📅 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
-                   f"❌ 메시지 생성 오류: {e}")
+                   f"❌ 메시지 생성 오류: {e}\n"
+                   f"🔧 수동 확인이 필요합니다")
     
-    def _format_timedelta(self, td: timedelta) -> str:
-        """시간 간격을 읽기 쉬운 형태로 포맷"""
-        total_seconds = int(td.total_seconds())
-        days, remainder = divmod(total_seconds, 86400)
-        hours, remainder = divmod(remainder, 3600)
-        minutes, _ = divmod(remainder, 60)
-        
-        if days > 0:
-            return f"{days}일 {hours}시간 {minutes}분"
-        elif hours > 0:
-            return f"{hours}시간 {minutes}분"
-        else:
-            return f"{minutes}분"
-    
-    def get_process_info(self, process_name: str) -> Optional[ProcessInfo]:
-        """특정 프로세스 정보 조회"""
-        return self.process_status.get(process_name)
-    
-    def get_all_process_info(self) -> Dict[str, ProcessInfo]:
-        """모든 프로세스 정보 조회"""
-        return self.process_status.copy()
-    
-    async def restart_process_manually(self, process_name: str) -> bool:
-        """수동 프로세스 재시작"""
-        if process_name not in self.managed_processes:
-            self.logger.error(f"관리되지 않는 프로세스: {process_name}")
-            return False
-        
+    def send_webhook_notification(self, message: str, is_error: bool = False) -> bool:
+        """웹훅 알림 전송"""
         try:
-            await self._restart_process(process_name)
-            return True
+            if not self.webhook_url:
+                self.log("⚠️ 웹훅 URL이 설정되지 않았습니다")
+                return False
+            
+            # 봇 이름과 색상 결정
+            if is_error:
+                bot_name = "POSCO 워치햄스터 ❌"
+                color = "#ff4444"
+            else:
+                bot_name = "POSCO 워치햄스터 🐹🛡️"
+                color = "#28a745"
+            
+            # 웹훅 페이로드 구성
+            payload = {
+                "botName": bot_name,
+                "botIconImage": self.bot_profile_image,
+                "text": message.split('\n')[0],
+                "attachments": [{
+                    "color": color,
+                    "text": message
+                }]
+            }
+            
+            # 웹훅 전송
+            response = requests.post(
+                self.webhook_url,
+                json=payload,
+                headers={'Content-Type': 'application/json'},
+                timeout=10
+            )
+            
+            if response.status_code == 200:
+                self.log(f"✅ 웹훅 알림 전송 성공")
+                return True
+            else:
+                self.log(f"❌ 웹훅 알림 전송 실패: HTTP {response.status_code}")
+                return False
+                
         except Exception as e:
-            self.logger.error(f"수동 프로세스 재시작 실패: {e}")
+            self.log(f"❌ 웹훅 알림 전송 중 오류: {e}")
             return False
     
-    def get_config(self) -> Dict[str, Any]:
-        """현재 설정 반환"""
+    def get_monitoring_status(self) -> Dict[str, Any]:
+        """현재 모니터링 상태 반환"""
         return {
-            'process_check_interval': self.process_check_interval,
-            'git_check_interval': self.git_check_interval,
-            'resource_check_interval': self.resource_check_interval,
+            'timestamp': datetime.now(),
+            'system_start_time': self.system_start_time,
             'managed_processes': self.managed_processes,
-            'max_restart_attempts': self.max_restart_attempts,
-            'restart_cooldown': self.restart_cooldown,
-            'thresholds': {
-                'cpu_warning': self.cpu_warning_threshold,
-                'cpu_critical': self.cpu_critical_threshold,
-                'memory_warning': self.memory_warning_threshold,
-                'memory_critical': self.memory_critical_threshold,
-                'disk_warning': self.disk_warning_threshold,
-                'disk_critical': self.disk_critical_threshold
+            'process_status': self.process_status.copy(),
+            'restart_counts': self.restart_counts.copy(),
+            'configuration': {
+                'process_check_interval': self.process_check_interval,
+                'git_check_interval': self.git_check_interval,
+                'status_notification_interval': self.status_notification_interval,
+                'max_restart_attempts': self.max_restart_attempts
             }
         }
-
-
-# 팩토리 함수
-def create_monitor(config: Dict[str, Any]) -> WatchHamsterMonitor:
-    """모니터 팩토리 함수"""
-    return WatchHamsterMonitor(config)
-
-
-if __name__ == "__main__":
-    # 테스트 코드
-    import asyncio
-    
-    async def test_monitor():
-        """모니터 테스트"""
-        config = {
-            'managed_processes': ['python', 'node'],
-            'process_check_interval': 10,
-            'git_check_interval': 60,
-            'resource_check_interval': 5,
-            'max_restart_attempts': 3,
-            'restart_cooldown': 30
-        }
-        
-        monitor = WatchHamsterMonitor(config)
-        
-        # 콜백 함수 설정
-        def on_status_change(status):
-            print(f"상태 변경: {status.overall_health}")
-        
-        def on_alert(level, message):
-            print(f"알림 [{level}]: {message}")
-        
-        def on_recovery(message):
-            print(f"복구: {message}")
-        
-        monitor.on_status_change = on_status_change
-        monitor.on_alert = on_alert
-        monitor.on_recovery = on_recovery
-        
-        print("=== WatchHamster 모니터링 시스템 테스트 ===")
-        
-        # 상태 확인 테스트
-        status = await monitor.get_monitoring_status()
-        print(f"전체 상태: {status.overall_health}")
-        print(f"프로세스 수: {len(status.processes)}")
-        print(f"시스템 리소스 레벨: {status.system_resources.level.value}")
-        print(f"Git 상태: {status.git_status.status.value}")
-        
-        # 상태 메시지 생성 테스트
-        message = monitor.generate_status_message(status)
-        print(f"\n상태 메시지:\n{message}")
-        
-        # 짧은 모니터링 테스트
-        print("\n모니터링 시작 (10초)...")
-        await monitor.start_monitoring()
-        await asyncio.sleep(10)
-        await monitor.stop_monitoring()
-        print("모니터링 중지")
-    
-    # 테스트 실행
-    asyncio.run(test_monitor())

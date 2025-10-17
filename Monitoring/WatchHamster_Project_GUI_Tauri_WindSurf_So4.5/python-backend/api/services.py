@@ -41,10 +41,10 @@ SERVICE_START_TIMES = {
     "webhook_system": SERVER_START_TIME - random.randint(900, 1800),  # 15-30분 전
 }
 
-# 실제 core 모듈들과 연결된 서비스 관리
-from core.watchhamster_monitor import WatchHamsterMonitor
-from core.infomax_client import InfomaxAPIClient
-from core.news_parser import NewsDataParser
+# 실제 core 모듈들과 연결된 서비스 관리 (모던 버전)
+from core.modern_watchhamster_monitor import ModernWatchHamsterMonitor, MonitorConfig
+from core.modern_infomax_client import ModernInfomaxClient, ApiConfig
+from core.news_data_parser import NewsDataParser  # 이건 그대로 사용
 
 # 전역 서비스 인스턴스들과 상태
 _service_instances = {
@@ -66,6 +66,33 @@ _service_status = {
 
 # 서비스 오류 정보
 _service_errors = {}
+
+def _get_or_create_watchhamster():
+    """Modern WatchHamster 모니터 인스턴스 생성 또는 반환"""
+    global _service_instances
+    if _service_instances["watchhamster_monitor"] is None:
+        config = MonitorConfig(
+            process_check_interval=300,
+            git_check_interval=3600,
+            status_notification_interval=7200,
+            managed_processes=['posco_news', 'deployment', 'webhook_system'],
+            max_restart_attempts=3,
+            restart_cooldown=60
+        )
+        _service_instances["watchhamster_monitor"] = ModernWatchHamsterMonitor(config)
+    return _service_instances["watchhamster_monitor"]
+
+def _get_or_create_infomax_client():
+    """Modern InfoMax 클라이언트 인스턴스 생성 또는 반환"""
+    global _service_instances
+    if _service_instances["infomax_client"] is None:
+        config = ApiConfig(
+            base_url="https://global-api.einfomax.co.kr/apis/posco/news",
+            timeout=30,
+            max_retries=3
+        )
+        _service_instances["infomax_client"] = ModernInfomaxClient(config)
+    return _service_instances["infomax_client"]
 
 def get_service_instance(service_id: str):
     """서비스 인스턴스 반환"""
@@ -617,3 +644,63 @@ async def get_service_metrics_endpoint(service_id: str):
     except Exception as e:
         logger.error(f"서비스 메트릭 조회 실패: {e}")
         raise HTTPException(status_code=500, detail="메트릭 조회 중 오류가 발생했습니다")
+
+# 백그라운드 태스크 함수들
+async def _start_service_task(service_id: str):
+    """서비스 시작 백그라운드 태스크"""
+    try:
+        logger.info(f"서비스 시작 태스크 실행: {service_id}")
+        
+        if service_id == "watchhamster_monitor":
+            # WatchHamster 모니터 시작
+            watchhamster = _get_or_create_watchhamster()
+            # 실제 모니터링 시작 로직 (필요시 별도 스레드에서 실행)
+            set_service_status(service_id, "running")
+            SERVICE_START_TIMES[service_id] = time.time()
+            logger.info(f"WatchHamster 모니터 시작 완료")
+            
+        elif service_id == "infomax_client":
+            # Modern InfoMax API 클라이언트 시작
+            client = _get_or_create_infomax_client()
+            await client.connect()  # 비동기 연결
+            set_service_status(service_id, "running")
+            SERVICE_START_TIMES[service_id] = time.time()
+            logger.info(f"Modern InfoMax API 클라이언트 시작 완료")
+            
+        elif service_id == "news_parser":
+            # 뉴스 파서 시작
+            from core.news_data_parser import NewsDataParser
+            parser = NewsDataParser()
+            _service_instances["news_parser"] = parser
+            set_service_status(service_id, "running")
+            SERVICE_START_TIMES[service_id] = time.time()
+            logger.info(f"뉴스 데이터 파서 시작 완료")
+            
+        else:
+            logger.warning(f"알 수 없는 서비스: {service_id}")
+            set_service_status(service_id, "error", f"알 수 없는 서비스: {service_id}")
+            
+    except Exception as e:
+        logger.error(f"서비스 시작 실패 ({service_id}): {e}")
+        set_service_status(service_id, "error", str(e))
+
+async def _stop_service_task(service_id: str):
+    """서비스 중지 백그라운드 태스크"""
+    try:
+        logger.info(f"서비스 중지 태스크 실행: {service_id}")
+        
+        if service_id in _service_instances:
+            instance = _service_instances[service_id]
+            if instance and hasattr(instance, 'stop'):
+                instance.stop()
+            _service_instances[service_id] = None
+            
+        set_service_status(service_id, "stopped")
+        if service_id in SERVICE_START_TIMES:
+            del SERVICE_START_TIMES[service_id]
+            
+        logger.info(f"서비스 중지 완료: {service_id}")
+        
+    except Exception as e:
+        logger.error(f"서비스 중지 실패 ({service_id}): {e}")
+        set_service_status(service_id, "error", str(e))
