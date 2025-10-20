@@ -181,7 +181,7 @@ const ApiTestModal: React.FC<ApiTestModalProps> = ({
       })
 
       // 로컬 Python 백엔드 서버를 통한 프록시 호출
-      const localProxyUrl = `http://localhost:8001/api/infomax/${pkg.urlPath}`
+      const localProxyUrl = `http://localhost:9001/api/infomax/${pkg.urlPath}`
       
       console.log('🚀 로컬 Python 서버를 통한 API 호출:', {
         proxyUrl: localProxyUrl,
@@ -246,7 +246,7 @@ const ApiTestModal: React.FC<ApiTestModalProps> = ({
       
       if (err instanceof TypeError) {
         if (err.message.includes('Failed to fetch') || err.message.includes('Load failed')) {
-          errorMessage = '🔌 로컬 Python 서버 연결 실패!\n\n해결 방법:\n1. 워치햄스터 백엔드 서버가 실행 중인지 확인\n2. http://localhost:8001 접속 가능한지 확인\n3. 서버 재시작 후 다시 시도\n\n💡 백엔드 서버를 먼저 실행해주세요!'
+          errorMessage = '🔌 로컬 Python 서버 연결 실패!\n\n해결 방법:\n1. 워치햄스터 백엔드 서버가 실행 중인지 확인\n2. http://localhost:9001 접속 가능한지 확인\n3. 서버 재시작 후 다시 시도\n\n💡 백엔드 서버를 먼저 실행해주세요!'
         } else {
           errorMessage = `네트워크 오류: ${err.message}`
         }

@@ -80,9 +80,9 @@ export const useSystemMetrics = (options: UseSystemMetricsOptions = {}): SystemM
   //   reconnectInterval: 3000,
   // } : null;
 
-  const { lastMessage, isConnected } = webSocketOptions 
+  const { lastMessage } = webSocketOptions 
     ? useWebSocket(webSocketOptions)
-    : { lastMessage: null, isConnected: false };
+    : { lastMessage: null };
 
   // 히스토리 데이터 업데이트
   const updateHistory = useCallback((metricType: string, value: number) => {
@@ -131,17 +131,19 @@ export const useSystemMetrics = (options: UseSystemMetricsOptions = {}): SystemM
       free_gb: rawData.disk_free_gb || 0,
     };
 
-    // 네트워크는 API 연결 상태로 표시 (API 응답 여부로 판단)
-    const isApiConnected = !apiError && !!rawData;
-    const networkUsage = rawData.network_usage || 0; // 실제 사용률은 트렌드용으로 사용
+    // 네트워크 실제 사용률 표시
+    const networkUsage = rawData.network_usage || 0;
+    const networkStatus = rawData.network_status || 'unknown';
     
     const network: MetricData = {
-      value: isApiConnected ? 100 : 0, // 연결됨=100, 끊김=0
-      unit: isApiConnected ? '연결됨' : '연결끊김',
+      value: networkUsage, // 실제 네트워크 사용률 (%)
+      unit: '%',
       trend: historyRef.current.get('network') || [],
       timestamp,
-      status: isApiConnected ? 'normal' : 'critical',
-      threshold: { warning: 50, critical: 90 }, // 의미없지만 필수 필드
+      status: networkStatus === 'active' ? 'normal' : 
+              networkUsage > 80 ? 'critical' : 
+              networkUsage > 60 ? 'warning' : 'normal',
+      threshold: DEFAULT_THRESHOLDS.network,
     };
 
     // 히스토리 업데이트
@@ -202,7 +204,7 @@ export const useSystemMetrics = (options: UseSystemMetricsOptions = {}): SystemM
   }, [refetch]);
 
   // 연결 상태 확인: API가 정상 작동하면 연결된 것으로 간주
-  const actualConnectionStatus = !apiError && apiMetrics;
+  const actualConnectionStatus = !apiError && !!apiMetrics;
 
   return {
     metrics,

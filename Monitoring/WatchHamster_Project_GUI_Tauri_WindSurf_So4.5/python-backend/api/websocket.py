@@ -13,20 +13,22 @@ from typing import Dict, Set, Optional, List
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
 
-# Core 모듈 임포트 (안전한 방식)
+logger = logging.getLogger(__name__)
+
+# Core 모듈 임포트 (현대화된 버전)
 try:
-    from core.watchhamster_monitor import WatchHamsterMonitor
-    from core.news_parser import NewsDataParser
-    from core.infomax_client import InfomaxAPIClient
-    from core.webhook_sender import DoorayWebhookSender
+    from core.modern_watchhamster_monitor import ModernWatchHamsterMonitor, MonitorConfig
+    from core.modern_infomax_client import ModernInfomaxClient, ApiConfig
+    from core.news_data_parser import NewsDataParser
+    WatchHamsterMonitor = ModernWatchHamsterMonitor
+    InfomaxAPIClient = ModernInfomaxClient
+    DoorayWebhookSender = None  # 임시로 비활성화
 except ImportError as e:
     logger.warning(f"일부 core 모듈 임포트 실패: {e}")
     WatchHamsterMonitor = None
     NewsDataParser = None
     InfomaxAPIClient = None
     DoorayWebhookSender = None
-
-logger = logging.getLogger(__name__)
 router = APIRouter()
 
 # 전역 core 인스턴스들

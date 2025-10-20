@@ -15,7 +15,7 @@ import uvicorn
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 
 # 설정 및 로깅 유틸리티 임포트
@@ -229,6 +229,9 @@ for module_name, prefix, tag in router_configs:
 
 logger.info(f"총 {len(registered_routers)}개 라우터가 등록되었습니다: {', '.join(registered_routers)}")
 
+# 먼저 API 라우터들 등록하고 나서 정적 파일 설정
+# (라우트 우선순위를 위해 순서 변경)
+
 # 헬스 체크 엔드포인트
 @app.get("/health")
 async def health_check():
@@ -239,15 +242,51 @@ async def health_check():
         "version": "1.0.0"
     }
 
-# 루트 엔드포인트
-@app.get("/")
-async def root():
-    """루트 엔드포인트"""
-    return {
-        "message": "WatchHamster Backend API 서비스가 실행 중입니다",
-        "docs": "/docs",
-        "health": "/health"
-    }
+# API 라우터 등록 완료 후 React 프론트엔드 정적 파일 서빙 설정
+static_dir = Path(__file__).parent.parent / "dist"
+if static_dir.exists():
+    # React 빌드된 CSS, JS 파일들을 위한 정적 파일 서빙
+    app.mount("/assets", StaticFiles(directory=str(static_dir / "assets"), check_dir=False), name="assets")
+    app.mount("/css", StaticFiles(directory=str(static_dir / "css"), check_dir=False), name="css") 
+    app.mount("/js", StaticFiles(directory=str(static_dir / "js"), check_dir=False), name="js")
+    logger.info(f"✅ React 프론트엔드 정적 파일 서빙 설정: {static_dir}")
+    
+    # React 앱의 메인 페이지
+    @app.get("/")
+    async def serve_frontend():
+        """React 프론트엔드 메인 페이지 제공"""
+        index_path = static_dir / "index.html"
+        if index_path.exists():
+            return FileResponse(str(index_path))
+        return {"message": "프론트엔드 파일을 찾을 수 없습니다"}
+    
+    # 특정 SPA 라우트들만 처리 (catch-all 대신)
+    spa_routes = [
+        "dashboard", "services", "news", "settings", "metrics", 
+        "logs", "diagnostics", "config", "webhook-manager",
+        "api-packages", "company-management", "about"
+    ]
+    
+    for route in spa_routes:
+        @app.get(f"/{route}")
+        async def serve_spa_route():
+            """특정 SPA 라우트 처리"""
+            index_path = static_dir / "index.html"
+            if index_path.exists():
+                return FileResponse(str(index_path))
+            return {"message": "페이지를 찾을 수 없습니다"}
+
+else:
+    # React 빌드가 없을 때의 기본 루트 엔드포인트
+    @app.get("/")
+    async def root():
+        """루트 엔드포인트 (API 전용 모드)"""
+        return {
+            "message": "WatchHamster Backend API 서비스가 실행 중입니다",
+            "docs": "/docs",
+            "health": "/health",
+            "note": "React 프론트엔드가 빌드되지 않았습니다. npm run build를 실행하세요."
+        }
 
 
 

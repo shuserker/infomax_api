@@ -193,7 +193,7 @@ const ApiTestModalEnhanced: React.FC<ApiTestModalEnhancedProps> = ({
       });
 
       // 로컬 프록시 URL 구성
-      const localProxyUrl = `http://localhost:8001/api/infomax/${pkg.urlPath}`;
+      const localProxyUrl = `http://localhost:9001/api/infomax/${pkg.urlPath}`;
       const searchParams = new URLSearchParams();
       
       Object.entries(params).forEach(([key, value]) => {

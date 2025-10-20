@@ -24,20 +24,18 @@ export const SystemInfoSchema = z.object({
   timezone: z.string(),
 })
 
-// ===== 시스템 메트릭 스키마 =====
+// ===== 시스템 메트릭 스키마 (백엔드 응답에 맞춤) =====
 export const SystemMetricsSchema = z.object({
   cpu_percent: z.number().min(0).max(100),
   memory_percent: z.number().min(0).max(100),
-  memory_used: z.number().min(0), // bytes
-  memory_available: z.number().min(0), // bytes
   disk_usage: z.number().min(0).max(100),
-  disk_used: z.number().min(0), // bytes
-  disk_free: z.number().min(0), // bytes
-  network_status: z.enum(['connected', 'disconnected', 'limited']),
-  network_bytes_sent: z.number().min(0),
-  network_bytes_recv: z.number().min(0),
+  disk_used_gb: z.number().min(0), // GB 단위
+  disk_total_gb: z.number().min(0), // GB 단위
+  disk_free_gb: z.number().min(0), // GB 단위
+  network_status: z.enum(['active', 'inactive', 'unknown']),
+  network_usage: z.number().min(0), // 네트워크 사용률 (%)
+  network_speed_mbps: z.number().min(0), // 네트워크 속도 (Mbps)
   uptime: z.number().min(0), // seconds
-  load_average: z.array(z.number()).optional(), // 1, 5, 15분 평균
   active_services: z.number().min(0),
   timestamp: z.string(),
 })

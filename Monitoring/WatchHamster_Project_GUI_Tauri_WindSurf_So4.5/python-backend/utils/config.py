@@ -12,15 +12,16 @@ class Settings(BaseSettings):
     # 서버 설정
     app_name: str = "WatchHamster Backend"
     app_version: str = "1.0.0"
-    debug: bool = False
+    debug: bool = os.getenv("DEBUG", "true").lower() == "true"
     
     # API 설정
     api_host: str = "127.0.0.1"
-    api_port: int = 8000
+    api_port: int = 9001
     api_prefix: str = "/api"
     
-    # CORS 설정
-    cors_origins: str = "http://localhost:1420,http://localhost:3000,tauri://localhost,https://tauri.localhost"
+    # CORS 설정 (환경별로 설정 가능)
+    cors_origins: str = os.getenv("CORS_ORIGINS", 
+        "http://localhost:1420,http://localhost:3000,http://localhost:9001,http://127.0.0.1:9001,tauri://localhost,https://tauri.localhost")
     
     @property
     def cors_origins_list(self) -> List[str]:

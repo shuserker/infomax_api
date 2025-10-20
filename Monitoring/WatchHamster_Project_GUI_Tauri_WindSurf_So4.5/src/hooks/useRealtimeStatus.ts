@@ -56,7 +56,7 @@ export const useRealtimeStatus = () => {
     subscribe,
     requestStatus,
   } = useWebSocket({
-    url: `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/ws`,
+    url: 'ws://localhost:9001/ws',
     reconnectInterval: 3000,
     maxReconnectAttempts: 10,
     heartbeatInterval: 30000,

@@ -549,12 +549,12 @@ export const createWatchHamsterWebSocket = (
 }
 
 /**
- * 기본 WebSocket URL 생성
+ * 기본 WebSocket URL 생성 (고정값)
  */
 export const getWebSocketUrl = (path: string = '/ws', secure: boolean = false): string => {
   const protocol = secure ? 'wss:' : 'ws:'
-  const host = window.location.hostname
-  const port = import.meta.env.VITE_BACKEND_PORT || '8000'
+  const host = 'localhost'
+  const port = '9001'
   
   return `${protocol}//${host}:${port}${path}`
 }

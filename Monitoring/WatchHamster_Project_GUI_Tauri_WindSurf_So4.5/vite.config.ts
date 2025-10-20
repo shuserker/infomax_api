@@ -23,7 +23,7 @@ export default defineConfig(() => ({
     // API 프록시 설정 (윈드서프 브라우저 프리뷰 지원)
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: 'http://localhost:9001',
         changeOrigin: true,
         secure: false,
         ws: true, // WebSocket 지원
@@ -40,7 +40,7 @@ export default defineConfig(() => ({
         },
       },
       '/ws': {
-        target: 'ws://localhost:8000',
+        target: 'ws://localhost:9001',
         ws: true,
         changeOrigin: true,
       }

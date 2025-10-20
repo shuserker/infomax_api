@@ -305,7 +305,7 @@ export class ApiService {
    * 현재 시스템 메트릭 조회
    */
   async getSystemMetrics(): Promise<SystemMetrics> {
-    const response = await this.metricsClient.get('/api/metrics')
+    const response = await this.metricsClient.get('/api/metrics/')
     return response.data as SystemMetrics
   }
 

@@ -21,7 +21,7 @@ export interface ApiClientConfig {
 
 // 기본 설정
 const DEFAULT_CONFIG: Required<ApiClientConfig> = {
-  baseURL: import.meta.env.VITE_API_BASE_URL || '',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:9001',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
