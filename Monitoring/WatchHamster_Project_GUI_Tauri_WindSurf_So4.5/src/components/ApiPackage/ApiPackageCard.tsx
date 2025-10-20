@@ -68,7 +68,12 @@ interface ApiPackageCardProps {
   onTest: (pkg: ApiPackage) => void;
   onToggleFavorite: (pkg: ApiPackage) => void;
   viewMode?: 'grid' | 'list';
-  triggerHealthCheck?: boolean;
+  globalHealthStatus?: {
+    status: 'checking' | 'online' | 'warning' | 'offline' | 'unknown';
+    lastChecked: number;
+    error?: string;
+  };
+  onHealthStatusUpdate?: (pkgId: string, status: 'checking' | 'online' | 'warning' | 'offline' | 'unknown', error?: string) => void;
 }
 
 const ApiPackageCard: React.FC<ApiPackageCardProps> = ({
@@ -76,7 +81,8 @@ const ApiPackageCard: React.FC<ApiPackageCardProps> = ({
   onTest,
   onToggleFavorite,
   viewMode = 'grid',
-  triggerHealthCheck
+  globalHealthStatus,
+  onHealthStatusUpdate
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [healthStatus, setHealthStatus] = useState<'checking' | 'online' | 'warning' | 'offline' | 'unknown'>('unknown');
@@ -228,19 +234,29 @@ const ApiPackageCard: React.FC<ApiPackageCardProps> = ({
               }
             }
             
-            setHealthStatus('warning');
+            const status = 'warning';
+            setHealthStatus(status);
             setHealthError(errorMsg);
+            onHealthStatusUpdate?.(pkg.id, status, errorMsg);
           } else if (result.data.results && Array.isArray(result.data.results) && result.data.results.length > 0) {
             // 실제 데이터가 있는 경우만 정상
-            setHealthStatus('online');
+            const status = 'online';
+            setHealthStatus(status);
             setHealthError('');
+            onHealthStatusUpdate?.(pkg.id, status);
           } else {
-            setHealthStatus('warning');
-            setHealthError('데이터 없음');
+            const status = 'warning';
+            const error = '데이터 없음';
+            setHealthStatus(status);
+            setHealthError(error);
+            onHealthStatusUpdate?.(pkg.id, status, error);
           }
         } else {
-          setHealthStatus('warning');
-          setHealthError('응답 구조 이상');
+          const status = 'warning';
+          const error = '응답 구조 이상';
+          setHealthStatus(status);
+          setHealthError(error);
+          onHealthStatusUpdate?.(pkg.id, status, error);
         }
       } else {
         // 구체적인 HTTP 상태 코드별 오류 메시지
@@ -278,11 +294,15 @@ const ApiPackageCard: React.FC<ApiPackageCardProps> = ({
         }
         
         if (response.status >= 400 && response.status < 500) {
-          setHealthStatus('warning');
+          const status = 'warning';
+          setHealthStatus(status);
           setHealthError(errorMessage);
+          onHealthStatusUpdate?.(pkg.id, status, errorMessage);
         } else {
-          setHealthStatus('offline');
+          const status = 'offline';
+          setHealthStatus(status);
           setHealthError(errorMessage);
+          onHealthStatusUpdate?.(pkg.id, status, errorMessage);
         }
       }
     } catch (error) {
@@ -304,20 +324,49 @@ const ApiPackageCard: React.FC<ApiPackageCardProps> = ({
         errorMessage = '알 수 없는 오류';
       }
       
-      setHealthStatus('offline');
+      const status = 'offline';
+      setHealthStatus(status);
       setHealthError(errorMessage);
+      onHealthStatusUpdate?.(pkg.id, status, errorMessage);
     }
   };
 
   // 자동 헬스체크 제거 - 수동 실행으로 변경
   
-  // 외부에서 헬스체크 트리거 시 실행
+  // 전역 헬스체크 상태와 동기화 (캐시 및 중복 방지)
   useEffect(() => {
-    if (triggerHealthCheck) {
-      console.log(`외부 트리거로 헬스체크 시작: ${pkg.itemName}`);
-      performHealthCheck();
+    if (globalHealthStatus) {
+      // 캐시된 결과가 있고 최근 5분 이내인 경우 재사용
+      const fiveMinutesAgo = Date.now() - (5 * 60 * 1000);
+      const isCacheValid = globalHealthStatus.lastChecked > fiveMinutesAgo;
+      
+      if (globalHealthStatus.status !== healthStatus) {
+        console.log(`🔄 상태 업데이트: ${pkg.itemName} ${healthStatus} → ${globalHealthStatus.status}`);
+        
+        // 유효한 캐시가 있으면 바로 적용
+        if (isCacheValid && globalHealthStatus.status !== 'checking' && globalHealthStatus.status !== 'unknown') {
+          console.log(`📋 캐시 사용: ${pkg.itemName} (${Math.round((Date.now() - globalHealthStatus.lastChecked) / 1000)}초 전)`);
+          setHealthStatus(globalHealthStatus.status);
+          if (globalHealthStatus.error) {
+            setHealthError(globalHealthStatus.error);
+          }
+        }
+        // 캐시가 없거나 checking 상태이고 현재가 unknown일 때만 헬스체크 실행
+        else if (globalHealthStatus.status === 'checking' && healthStatus === 'unknown') {
+          console.log(`🔥 헬스체크 시작: ${pkg.itemName}`);
+          setHealthStatus('checking');
+          performHealthCheck();
+        }
+        // 다른 확정된 상태는 바로 동기화
+        else if (globalHealthStatus.status !== 'checking') {
+          setHealthStatus(globalHealthStatus.status);
+          if (globalHealthStatus.error) {
+            setHealthError(globalHealthStatus.error);
+          }
+        }
+      }
     }
-  }, [triggerHealthCheck, pkg.itemName]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [globalHealthStatus?.status, globalHealthStatus?.lastChecked]); // lastChecked 추가로 캐시 체크
 
 
   const healthInfo = getHealthStatusInfo();

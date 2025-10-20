@@ -6,7 +6,6 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Select,
   Button,
   ButtonGroup,
   Badge,
@@ -15,17 +14,7 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  MenuOptionGroup,
   MenuItemOption,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
-  PopoverArrow,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
   Text,
   Checkbox,
   CheckboxGroup,
@@ -41,18 +30,16 @@ import {
   FiX,
   FiStar,
   FiClock,
-  FiTrendingUp,
-  FiSettings
+  FiTrendingUp
 } from 'react-icons/fi';
 
 export interface FilterState {
   searchTerm: string;
   categories: string[];
-  complexity: string[];
+  healthErrorType: string[];
   showFavoritesOnly: boolean;
   sortBy: 'name' | 'category' | 'lastUsed' | 'popularity';
   sortOrder: 'asc' | 'desc';
-  parameterCount: [number, number];
 }
 
 interface ApiPackageFiltersProps {
@@ -83,20 +70,18 @@ const ApiPackageFilters: React.FC<ApiPackageFiltersProps> = ({
     onFiltersChange({
       searchTerm: '',
       categories: [],
-      complexity: [],
+      healthErrorType: [],
       showFavoritesOnly: false,
       sortBy: 'name',
-      sortOrder: 'asc',
-      parameterCount: [0, 20]
+      sortOrder: 'asc'
     });
   };
 
   const activeFilterCount = 
     (filters.categories.length > 0 ? 1 : 0) +
-    (filters.complexity.length > 0 ? 1 : 0) +
+    (filters.healthErrorType.length > 0 ? 1 : 0) +
     (filters.showFavoritesOnly ? 1 : 0) +
-    (filters.searchTerm.length > 0 ? 1 : 0) +
-    (filters.parameterCount[0] > 0 || filters.parameterCount[1] < 20 ? 1 : 0);
+    (filters.searchTerm.length > 0 ? 1 : 0);
 
   return (
     <Box
@@ -237,59 +222,38 @@ const ApiPackageFilters: React.FC<ApiPackageFiltersProps> = ({
                 </CheckboxGroup>
               </Box>
 
-              {/* 복잡도 필터 */}
+              {/* 헬스체크 오류 분류 필터 */}
               <Box>
                 <Text fontWeight="semibold" mb={2} fontSize="sm">
-                  🎯 복잡도
+                  🔍 헬스체크 오류 분류
                 </Text>
                 <CheckboxGroup
-                  value={filters.complexity}
-                  onChange={(values) => updateFilters({ complexity: values as string[] })}
+                  value={filters.healthErrorType}
+                  onChange={(values) => updateFilters({ healthErrorType: values as string[] })}
                 >
                   <Stack direction="row" spacing={6}>
-                    <Checkbox value="simple" colorScheme="green">
-                      <Badge colorScheme="green" variant="outline" mr={2}>간단</Badge>
-                      필수 파라미터 없음
+                    <Checkbox value="online" colorScheme="green">
+                      <Badge colorScheme="green" variant="outline" mr={2}>정상</Badge>
+                      API 정상 작동
                     </Checkbox>
-                    <Checkbox value="medium" colorScheme="yellow">
-                      <Badge colorScheme="yellow" variant="outline" mr={2}>보통</Badge>
-                      필수 파라미터 1-2개
+                    <Checkbox value="warning" colorScheme="yellow">
+                      <Badge colorScheme="yellow" variant="outline" mr={2}>경고</Badge>
+                      파라미터 오류 또는 인증 실패
                     </Checkbox>
-                    <Checkbox value="complex" colorScheme="red">
-                      <Badge colorScheme="red" variant="outline" mr={2}>복잡</Badge>
-                      필수 파라미터 3개 이상
+                    <Checkbox value="offline" colorScheme="red">
+                      <Badge colorScheme="red" variant="outline" mr={2}>오프라인</Badge>
+                      서버 오류 또는 연결 실패
+                    </Checkbox>
+                    <Checkbox value="checking" colorScheme="blue">
+                      <Badge colorScheme="blue" variant="outline" mr={2}>확인중</Badge>
+                      헬스체크 진행 중
+                    </Checkbox>
+                    <Checkbox value="unknown" colorScheme="gray">
+                      <Badge colorScheme="gray" variant="outline" mr={2}>미확인</Badge>
+                      헬스체크 미실행
                     </Checkbox>
                   </Stack>
                 </CheckboxGroup>
-              </Box>
-
-              {/* 파라미터 개수 범위 */}
-              <Box>
-                <HStack justify="space-between" mb={2}>
-                  <Text fontWeight="semibold" fontSize="sm">
-                    📋 파라미터 개수
-                  </Text>
-                  <Text fontSize="sm" color="gray.500">
-                    {filters.parameterCount[0]} - {filters.parameterCount[1]}개
-                  </Text>
-                </HStack>
-                <Slider
-                  min={0}
-                  max={20}
-                  step={1}
-                  value={filters.parameterCount}
-                  onChange={(value) => updateFilters({ parameterCount: value as [number, number] })}
-                >
-                  <SliderTrack>
-                    <SliderFilledTrack />
-                  </SliderTrack>
-                  <SliderThumb boxSize={4} index={0} />
-                  <SliderThumb boxSize={4} index={1} />
-                </Slider>
-                <HStack justify="space-between" mt={1}>
-                  <Text fontSize="xs" color="gray.400">0개</Text>
-                  <Text fontSize="xs" color="gray.400">20개+</Text>
-                </HStack>
               </Box>
 
               {/* 빠른 필터 프리셋 */}
@@ -311,10 +275,10 @@ const ApiPackageFilters: React.FC<ApiPackageFiltersProps> = ({
                     주식 API만
                   </Button>
                   <Button
-                    onClick={() => updateFilters({ complexity: ['simple'] })}
+                    onClick={() => updateFilters({ healthErrorType: ['online'] })}
                     colorScheme="green"
                   >
-                    간단한 API만
+                    정상 API만
                   </Button>
                   <Button
                     onClick={() => updateFilters({ 
@@ -357,22 +321,26 @@ const ApiPackageFilters: React.FC<ApiPackageFiltersProps> = ({
               </WrapItem>
             ))}
             
-            {filters.complexity.map(complexity => (
-              <WrapItem key={complexity}>
+            {filters.healthErrorType.map(healthType => (
+              <WrapItem key={healthType}>
                 <Badge
                   colorScheme={
-                    complexity === 'simple' ? 'green' :
-                    complexity === 'medium' ? 'yellow' : 'red'
+                    healthType === 'online' ? 'green' :
+                    healthType === 'warning' ? 'yellow' :
+                    healthType === 'offline' ? 'red' :
+                    healthType === 'checking' ? 'blue' : 'gray'
                   }
                   variant="solid"
                   cursor="pointer"
                   onClick={() => updateFilters({ 
-                    complexity: filters.complexity.filter(c => c !== complexity) 
+                    healthErrorType: filters.healthErrorType.filter(c => c !== healthType) 
                   })}
                   _hover={{ opacity: 0.8 }}
                 >
-                  {complexity === 'simple' ? '간단' :
-                   complexity === 'medium' ? '보통' : '복잡'} ✕
+                  {healthType === 'online' ? '정상' :
+                   healthType === 'warning' ? '경고' :
+                   healthType === 'offline' ? '오프라인' :
+                   healthType === 'checking' ? '확인중' : '미확인'} ✕
                 </Badge>
               </WrapItem>
             ))}

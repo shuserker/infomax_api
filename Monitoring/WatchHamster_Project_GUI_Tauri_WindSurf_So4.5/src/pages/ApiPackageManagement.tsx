@@ -72,14 +72,20 @@ const ApiPackageManagement_New: React.FC = () => {
   const [loading, setLoading] = useState(true)
   const [apiToken, setApiToken] = useState<string>('')
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
-  const [bulkHealthCheckTrigger, setBulkHealthCheckTrigger] = useState(false)
+  // 전역 헬스체크 상태 관리
+  const [globalHealthStatus, setGlobalHealthStatus] = useState<Record<string, {
+    status: 'checking' | 'online' | 'warning' | 'offline' | 'unknown',
+    lastChecked: number,
+    error?: string
+  }>>({})
   const [isPerformingBulkCheck, setIsPerformingBulkCheck] = useState(false)
+  const [lastBulkCheckTime, setLastBulkCheckTime] = useState(0)
   
   // 필터 상태
   const [filters, setFilters] = useState<FilterState>({
     searchTerm: '',
     categories: [],
-    complexity: [],
+    healthErrorType: [],
     showFavoritesOnly: false,
     sortBy: 'name',
     sortOrder: 'asc',
@@ -97,6 +103,10 @@ const ApiPackageManagement_New: React.FC = () => {
   const toast = useToast()
   const bgColor = useColorModeValue('gray.50', 'gray.900')
   const cardBg = useColorModeValue('white', 'gray.800')
+  
+  // 리스트뷰 헤더 색상 (Hook 규칙 준수)
+  const listHeaderBg = useColorModeValue('gray.50', 'gray.700')
+  const listHeaderBorderColor = useColorModeValue('gray.200', 'gray.600')
 
   // 토큰 관리 함수들
   const loadTokenFromStorage = (): string => {
@@ -225,18 +235,18 @@ const ApiPackageManagement_New: React.FC = () => {
     
     setFavorites(newFavorites)
     saveFavoritesToStorage(newFavorites)
-    
-    // 패키지 상태 업데이트
-    setPackages(prev => prev.map(p => 
-      p.id === pkg.id ? { ...p, isFavorite: newFavorites.has(pkg.id) } : p
-    ))
+  }
 
-    toast({
-      title: newFavorites.has(pkg.id) ? '즐겨찾기 추가' : '즐겨찾기 제거',
-      description: `${pkg.itemName}이(가) ${newFavorites.has(pkg.id) ? '즐겨찾기에 추가' : '즐겨찾기에서 제거'}되었습니다.`,
-      status: 'success',
-      duration: 2000
-    })
+  // 헬스체크 상태 업데이트 콜백
+  const handleHealthStatusUpdate = (pkgId: string, status: 'checking' | 'online' | 'warning' | 'offline' | 'unknown', error?: string) => {
+    setGlobalHealthStatus(prev => ({
+      ...prev,
+      [pkgId]: {
+        status,
+        lastChecked: Date.now(),
+        error
+      }
+    }))
   }
 
   // API 테스트 모달 열기
@@ -277,14 +287,11 @@ const ApiPackageManagement_New: React.FC = () => {
         return false
       }
 
-      // 복잡도 필터
-      if (filters.complexity.length > 0) {
-        const requiredParams = pkg.inputs.filter(input => input.required).length
-        const complexity = 
-          requiredParams === 0 ? 'simple' :
-          requiredParams <= 2 ? 'medium' : 'complex'
+      // 헬스체크 오류 분류 필터
+      if (filters.healthErrorType.length > 0) {
+        const healthStatus = globalHealthStatus[pkg.id]?.status || 'unknown'
         
-        if (!filters.complexity.includes(complexity)) return false
+        if (!filters.healthErrorType.includes(healthStatus)) return false
       }
 
       // 즐겨찾기 필터
@@ -492,7 +499,39 @@ const ApiPackageManagement_New: React.FC = () => {
                 variant="outline"
                 isLoading={isPerformingBulkCheck}
                 onClick={async () => {
+                  const now = Date.now();
+                  
+                  // 5분 이내에 이미 실행했으면 스킵
+                  if (now - lastBulkCheckTime < 5 * 60 * 1000) {
+                    toast({
+                      title: "최근에 실행됨",
+                      description: "5분 이내에 이미 일괄 헬스체크를 실행했습니다.",
+                      status: "info",
+                      duration: 3000,
+                      isClosable: true,
+                    });
+                    return;
+                  }
+
                   setIsPerformingBulkCheck(true);
+                  setLastBulkCheckTime(now);
+                  
+                  // 아직 확인하지 않은 패키지만 checking 상태로 설정
+                  const updatedStatus: Record<string, any> = {};
+                  filteredPackages.forEach(pkg => {
+                    // 기존에 상태가 없거나 unknown인 경우에만 checking으로 설정
+                    if (!globalHealthStatus[pkg.id] || globalHealthStatus[pkg.id].status === 'unknown') {
+                      updatedStatus[pkg.id] = {
+                        status: 'checking',
+                        lastChecked: now
+                      };
+                    }
+                  });
+                  
+                  if (Object.keys(updatedStatus).length > 0) {
+                    setGlobalHealthStatus(prev => ({ ...prev, ...updatedStatus }));
+                  }
+                  
                   toast({
                     title: "일괄 헬스체크 시작",
                     description: `${filteredPackages.length}개 API의 헬스체크를 시작합니다.`,
@@ -500,9 +539,6 @@ const ApiPackageManagement_New: React.FC = () => {
                     duration: 3000,
                     isClosable: true,
                   });
-                  
-                  // 트리거 상태를 토글하여 모든 카드에 헬스체크 신호 전송
-                  setBulkHealthCheckTrigger(prev => !prev);
                   
                   // 5초 후 완료로 표시 (실제로는 각 카드별로 완료 시점이 다름)
                   setTimeout(() => {
@@ -553,11 +589,11 @@ const ApiPackageManagement_New: React.FC = () => {
             <VStack spacing={2} align="stretch">
               {/* 리스트뷰 헤더 */}
               <Box
-                bg={useColorModeValue('gray.50', 'gray.700')}
+                bg={listHeaderBg}
                 borderRadius="lg"
                 p={3}
                 border="1px solid"
-                borderColor={useColorModeValue('gray.200', 'gray.600')}
+                borderColor={listHeaderBorderColor}
               >
                 <Flex align="center" gap={4}>
                   <Box minW="80px" textAlign="center">
@@ -606,7 +642,8 @@ const ApiPackageManagement_New: React.FC = () => {
                   onTest={handleTestApi}
                   onToggleFavorite={handleToggleFavorite}
                   viewMode={viewMode}
-                  triggerHealthCheck={bulkHealthCheckTrigger}
+                  globalHealthStatus={globalHealthStatus[pkg.id]}
+                  onHealthStatusUpdate={handleHealthStatusUpdate}
                 />
               ))}
             </VStack>
@@ -627,7 +664,8 @@ const ApiPackageManagement_New: React.FC = () => {
                   onTest={handleTestApi}
                   onToggleFavorite={handleToggleFavorite}
                   viewMode={viewMode}
-                  triggerHealthCheck={bulkHealthCheckTrigger}
+                  globalHealthStatus={globalHealthStatus[pkg.id]}
+                  onHealthStatusUpdate={handleHealthStatusUpdate}
                 />
               ))}
             </SimpleGrid>
