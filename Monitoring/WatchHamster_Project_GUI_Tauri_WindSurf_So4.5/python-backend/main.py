@@ -197,6 +197,7 @@ registered_routers = []
 
 # 각 라우터를 개별적으로 등록
 router_configs = [
+    ("api.health_check", "/api/health-check", "health-check"),  # API 헬스체크 프록시 (NEW)
     ("api.infomax", "/api", "infomax"),  # InfoMax API 프록시 (NEW) - 최우선 등록
     ("api.companies", "/api/companies", "companies"),  # 회사 관리 (NEW)
     ("api.services", "/api/services", "services"),  # 실제 서비스 관리 (업그레이드)

@@ -137,7 +137,7 @@ const SidebarContent: React.FC<SidebarProps> = ({ onClose }) => {
             WatchHamster
           </Text>
           <Text fontSize="xs" color="gray.500" _dark={{ color: 'gray.400' }}>
-            Tauri Edition
+            WatchHamster v4.5
           </Text>
         </Box>
       </MotionFlex>
@@ -249,7 +249,7 @@ const SidebarContent: React.FC<SidebarProps> = ({ onClose }) => {
             </Text>
           </Flex>
           <Text color="gray.500" _dark={{ color: 'gray.400' }} fontSize="xs">
-            v1.0.0 Tauri Edition
+            WatchHamster v4.5 WindSurf Edition
           </Text>
           <Flex align="center" mt={2}>
             <Box w={2} h={2} bg="green.400" borderRadius="full" mr={2} className="pulse" />

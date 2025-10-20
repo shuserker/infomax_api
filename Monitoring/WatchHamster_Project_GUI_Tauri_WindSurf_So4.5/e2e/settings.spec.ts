@@ -188,7 +188,7 @@ test.describe('설정 페이지', () => {
   test('시스템 정보가 올바르게 표시된다', async ({ page }) => {
     // 시스템 정보 섹션 확인
     await expect(page.locator('text=애플리케이션 버전')).toBeVisible()
-    await expect(page.locator('text=v1.0.0 Tauri Edition')).toBeVisible()
+    await expect(page.locator('text=WatchHamster v4.5 WindSurf Edition')).toBeVisible()
     
     await expect(page.locator('text=플랫폼')).toBeVisible()
     await expect(page.locator('text=백엔드 상태')).toBeVisible()

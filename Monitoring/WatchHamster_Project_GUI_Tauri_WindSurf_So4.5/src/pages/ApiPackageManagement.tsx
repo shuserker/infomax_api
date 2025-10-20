@@ -361,7 +361,7 @@ const ApiPackageManagement_New: React.FC = () => {
           {/* 헤더 */}
           <Box>
             <Heading size="xl" mb={2} color="blue.600">
-              🚀 InfoMax API 패키지 센터
+              📡 대고객 API 송출 관리 페이지
             </Heading>
             <Text color="gray.600" fontSize="lg">
               95개의 금융 API를 정확한 분류체계로 쉽고 빠르게 테스트하고 관리하세요
