@@ -137,7 +137,7 @@ const SidebarContent: React.FC<SidebarProps> = ({ onClose }) => {
             WatchHamster
           </Text>
           <Text fontSize="xs" color="gray.500" _dark={{ color: 'gray.400' }}>
-            WatchHamster v4.5
+            Base: WH v4.5
           </Text>
         </Box>
       </MotionFlex>

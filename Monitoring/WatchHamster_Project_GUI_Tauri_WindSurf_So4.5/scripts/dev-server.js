@@ -39,7 +39,7 @@ class DevServer {
     this.processes = new Map();
     this.isShuttingDown = false;
     this.isKillingProcesses = false; // 프로세스 정리 중 플래그
-    this.targetPorts = [9001]; // 통합 포트 (백엔드 + 프론트엔드)
+    this.targetPorts = [9001, 1420]; // 백엔드(9001) + 프론트엔드(1420)
     
     // 종료 시그널 처리
     process.on('SIGINT', () => this.shutdown());
@@ -198,32 +198,48 @@ class DevServer {
     log('백엔드 서버가 시작되었습니다 (포트: 9001)', colors.green, 'BACKEND');
   }
 
-  // 프론트엔드 빌드 (개발용)
-  async buildFrontend() {
-    log('React 프론트엔드를 빌드합니다...', colors.blue, 'BUILD');
+  // 프론트엔드 개발 서버 시작 (빌드 대신 dev 서버 사용)
+  async startFrontend() {
+    log('React 개발 서버를 시작합니다...', colors.blue, 'FRONTEND');
     
-    try {
-      const { stdout, stderr } = await execAsync('npm run build', { 
-        cwd: projectRoot,
-        env: { ...process.env, NODE_ENV: 'development' }
-      });
-      
-      if (stdout) {
-        const message = stdout.toString().trim();
-        log(message, colors.green, 'BUILD');
+    // 개발 모드에서는 빌드하지 않고 Vite dev 서버 시작
+    const frontendProcess = spawn('npm', ['run', 'dev:frontend'], {
+      cwd: projectRoot,
+      stdio: 'pipe',
+      env: {
+        ...process.env,
+        NODE_ENV: 'development',
+        PORT: '1420' // 프론트엔드 전용 포트
       }
-      
-      if (stderr && !stderr.includes('warning')) {
-        const message = stderr.toString().trim();
-        log(message, colors.yellow, 'BUILD');
+    });
+    
+    frontendProcess.stdout.on('data', (data) => {
+      const message = data.toString().trim();
+      if (message && !message.includes('watching for file changes')) {
+        log(message, colors.cyan, 'FRONTEND');
       }
-      
-      log('✅ 프론트엔드 빌드 완료! 백엔드에서 서빙됩니다.', colors.green, 'BUILD');
-      
-    } catch (error) {
-      log(`빌드 실패: ${error.message}`, colors.red, 'BUILD');
-      throw error;
-    }
+    });
+    
+    frontendProcess.stderr.on('data', (data) => {
+      const message = data.toString().trim();
+      if (message && !message.includes('warning')) {
+        log(message, colors.red, 'FRONTEND');
+      }
+    });
+    
+    frontendProcess.on('close', (code) => {
+      if (!this.isShuttingDown) {
+        log(`프론트엔드 서버가 종료되었습니다 (코드: ${code})`, colors.red, 'FRONTEND');
+        if (code !== 0 && !this.isKillingProcesses) {
+          log('프론트엔드 서버를 재시작합니다...', colors.yellow, 'FRONTEND');
+          setTimeout(() => this.startFrontend(), 3000);
+        }
+      }
+    });
+    
+    this.processes.set('frontend', frontendProcess);
+    log('✅ 프론트엔드 개발 서버가 시작되었습니다! (포트: 1420)', colors.green, 'FRONTEND');
+    return true;
   }
 
   // 파일 변경 감지 및 자동 빌드 (선택적)
@@ -325,17 +341,18 @@ class DevServer {
 
   // 모든 서버 시작
   async start() {
-    log('🚀 WatchHamster 통합 개발 서버를 시작합니다...', colors.bright);
-    log('🌐 모든 기능이 http://localhost:9001 에서 제공됩니다', colors.cyan);
+    log('🚀 WatchHamster 개발 서버를 시작합니다...', colors.bright);
+    log('🌐 프론트엔드: http://localhost:1420', colors.cyan);
+    log('🔧 백엔드 API: http://localhost:9001', colors.cyan);
     log('종료하려면 Ctrl+C를 누르세요', colors.yellow);
     
     // 🔥 기존 프로세스 강제 종료
     await this.killExistingProcesses();
     
-    // 1. 프론트엔드 빌드
-    await this.buildFrontend();
+    // 1. 프론트엔드 개발 서버 시작
+    await this.startFrontend();
     
-    // 2. 백엔드 시작 (정적 파일 + API)
+    // 2. 백엔드 시작 (API만)
     this.startBackend();
     
     // 백엔드가 완전히 시작될 시간을 기다림
@@ -352,10 +369,10 @@ class DevServer {
     // 상태 모니터링 시작
     setTimeout(() => this.startHealthCheck(), 10000);
     
-    log('✅ 통합 개발 서버가 시작되었습니다!', colors.green);
+    log('✅ 개발 서버가 시작되었습니다!', colors.green);
     log('', colors.reset);
     log('🌐 ===== 접속 주소 =====', colors.bright);
-    log('📱 프론트엔드: http://localhost:9001', colors.cyan);
+    log('📱 프론트엔드: http://localhost:1420', colors.cyan);
     log('🔧 백엔드 API: http://localhost:9001/api/*', colors.cyan);
     log('📚 API 문서: http://localhost:9001/docs', colors.cyan);
     log('🔌 WebSocket: ws://localhost:9001/ws', colors.cyan);

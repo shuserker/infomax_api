@@ -26,29 +26,39 @@ function App() {
   const showToast = useCustomToast()
 
   useEffect(() => {
-    // Tauri 이벤트 리스너 설정
+    // Tauri 이벤트 리스너 설정 (Tauri 환경에서만)
     const setupEventListeners = async () => {
-      // 백엔드 상태 이벤트
-      await listen<BackendEvent>('backend-status', event => {
-        showToast.showToast({
-          title: '백엔드 상태',
-          description: String(event.payload),
-          status: 'info'
-        })
-      })
+      try {
+        // 브라우저 환경에서는 Tauri API가 없으므로 체크
+        if (typeof window !== 'undefined' && (window as any).__TAURI_IPC__) {
+          // 백엔드 상태 이벤트
+          await listen<BackendEvent>('backend-status', event => {
+            showToast.showToast({
+              title: '백엔드 상태',
+              description: String(event.payload),
+              status: 'info'
+            })
+          })
 
-      // 백엔드 재시작 이벤트
-      await listen<BackendEvent>('backend-restarted', event => {
-        showToast.showSuccess('백엔드 재시작', String(event.payload))
-      })
+          // 백엔드 재시작 이벤트
+          await listen<BackendEvent>('backend-restarted', event => {
+            showToast.showSuccess('백엔드 재시작', String(event.payload))
+          })
 
-      // 백엔드 오류 이벤트
-      await listen<BackendEvent>('backend-error', event => {
-        showToast.showError('백엔드 오류', String(event.payload))
-      })
+          // 백엔드 오류 이벤트
+          await listen<BackendEvent>('backend-error', event => {
+            showToast.showError('백엔드 오류', String(event.payload))
+          })
+        } else {
+          // 브라우저 환경에서는 Tauri 이벤트 리스너를 설정하지 않음
+          console.log('브라우저 환경: Tauri 이벤트 리스너 생략')
+        }
+      } catch (error) {
+        console.log('Tauri API 초기화 실패 (브라우저 환경일 가능성):', error)
+      }
     }
 
-    setupEventListeners().catch(console.error)
+    setupEventListeners()
   }, [showToast])
 
   return (

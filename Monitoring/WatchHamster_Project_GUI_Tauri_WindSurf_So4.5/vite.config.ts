@@ -16,13 +16,16 @@ export default defineConfig(() => ({
   server: {
     port: 1420,
     strictPort: true,
+    // SPA 라우팅 지원 - 모든 라우트를 index.html로 리다이렉트
+    historyApiFallback: true,
     watch: {
       // 3. tell vite to ignore watching `src-tauri`
       ignored: ['**/src-tauri/**'],
     },
     // API 프록시 설정 (윈드서프 브라우저 프리뷰 지원)
     proxy: {
-      '/api': {
+      // 백엔드 API만 프록시 (프론트엔드 라우트는 제외)
+      '^/api/(?!packages).*': {
         target: 'http://localhost:9001',
         changeOrigin: true,
         secure: false,

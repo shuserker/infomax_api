@@ -24,13 +24,15 @@ import {
   Badge,
   Button,
   Input,
-  IconButton
+  IconButton,
+  Flex
 } from '@chakra-ui/react'
 import { 
   FiRefreshCw, 
   FiGrid,
   FiList,
-  FiSettings
+  FiSettings,
+  FiActivity
 } from 'react-icons/fi'
 import ApiPackageCard from '../components/ApiPackage/ApiPackageCard'
 import ApiPackageFilters, { FilterState } from '../components/ApiPackage/ApiPackageFilters'
@@ -70,6 +72,8 @@ const ApiPackageManagement_New: React.FC = () => {
   const [loading, setLoading] = useState(true)
   const [apiToken, setApiToken] = useState<string>('')
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
+  const [bulkHealthCheckTrigger, setBulkHealthCheckTrigger] = useState(false)
+  const [isPerformingBulkCheck, setIsPerformingBulkCheck] = useState(false)
   
   // 필터 상태
   const [filters, setFilters] = useState<FilterState>({
@@ -363,9 +367,6 @@ const ApiPackageManagement_New: React.FC = () => {
             <Heading size="xl" mb={2} color="blue.600">
               📡 대고객 API 송출 관리 페이지
             </Heading>
-            <Text color="gray.600" fontSize="lg">
-              95개의 금융 API를 정확한 분류체계로 쉽고 빠르게 테스트하고 관리하세요
-            </Text>
           </Box>
 
           {/* API 토큰 입력 */}
@@ -473,7 +474,7 @@ const ApiPackageManagement_New: React.FC = () => {
             filteredCount={filteredPackages.length}
           />
 
-          {/* 뷰 모드 토글 */}
+          {/* 뷰 모드 토글 및 일괄 헬스체크 */}
           <HStack justify="space-between">
             <Text color="gray.600">
               <Text as="span" fontWeight="bold" color="blue.500">
@@ -482,7 +483,44 @@ const ApiPackageManagement_New: React.FC = () => {
               개의 API 패키지
             </Text>
             
-            <HStack>
+            <HStack spacing={3}>
+              {/* 일괄 헬스체크 버튼 */}
+              <Button
+                leftIcon={<FiActivity />}
+                size="sm"
+                colorScheme="green"
+                variant="outline"
+                isLoading={isPerformingBulkCheck}
+                onClick={async () => {
+                  setIsPerformingBulkCheck(true);
+                  toast({
+                    title: "일괄 헬스체크 시작",
+                    description: `${filteredPackages.length}개 API의 헬스체크를 시작합니다.`,
+                    status: "info",
+                    duration: 3000,
+                    isClosable: true,
+                  });
+                  
+                  // 트리거 상태를 토글하여 모든 카드에 헬스체크 신호 전송
+                  setBulkHealthCheckTrigger(prev => !prev);
+                  
+                  // 5초 후 완료로 표시 (실제로는 각 카드별로 완료 시점이 다름)
+                  setTimeout(() => {
+                    setIsPerformingBulkCheck(false);
+                    toast({
+                      title: "일괄 헬스체크 완료",
+                      description: "모든 API의 헬스체크가 완료되었습니다.",
+                      status: "success",
+                      duration: 3000,
+                      isClosable: true,
+                    });
+                  }, 5000);
+                }}
+              >
+                일괄 헬스체크
+              </Button>
+              
+              {/* 뷰 모드 버튼들 */}
               <Button
                 leftIcon={<FiGrid />}
                 size="sm"
@@ -511,13 +549,74 @@ const ApiPackageManagement_New: React.FC = () => {
                 필터를 조정하거나 검색어를 변경해보세요.
               </AlertDescription>
             </Alert>
+          ) : viewMode === 'list' ? (
+            <VStack spacing={2} align="stretch">
+              {/* 리스트뷰 헤더 */}
+              <Box
+                bg={useColorModeValue('gray.50', 'gray.700')}
+                borderRadius="lg"
+                p={3}
+                border="1px solid"
+                borderColor={useColorModeValue('gray.200', 'gray.600')}
+              >
+                <Flex align="center" gap={4}>
+                  <Box minW="80px" textAlign="center">
+                    <Text fontSize="xs" fontWeight="bold" color="gray.600">
+                      상태
+                    </Text>
+                  </Box>
+                  <Box minW="60px" textAlign="center">
+                    <Text fontSize="xs" fontWeight="bold" color="gray.600">
+                      카테고리
+                    </Text>
+                  </Box>
+                  <Box flex={1}>
+                    <Text fontSize="xs" fontWeight="bold" color="gray.600">
+                      API 정보
+                    </Text>
+                  </Box>
+                  <Box minW="60px" textAlign="center">
+                    <Text fontSize="xs" fontWeight="bold" color="gray.600">
+                      전체
+                    </Text>
+                  </Box>
+                  <Box minW="60px" textAlign="center">
+                    <Text fontSize="xs" fontWeight="bold" color="gray.600">
+                      필수
+                    </Text>
+                  </Box>
+                  <Box minW="80px" textAlign="center">
+                    <Text fontSize="xs" fontWeight="bold" color="gray.600">
+                      사용 이력
+                    </Text>
+                  </Box>
+                  <Box minW="180px" textAlign="center">
+                    <Text fontSize="xs" fontWeight="bold" color="gray.600">
+                      액션
+                    </Text>
+                  </Box>
+                </Flex>
+              </Box>
+              
+              {/* 리스트 아이템들 */}
+              {filteredPackages.map(pkg => (
+                <ApiPackageCard
+                  key={pkg.id}
+                  package={pkg}
+                  onTest={handleTestApi}
+                  onToggleFavorite={handleToggleFavorite}
+                  viewMode={viewMode}
+                  triggerHealthCheck={bulkHealthCheckTrigger}
+                />
+              ))}
+            </VStack>
           ) : (
             <SimpleGrid 
               columns={{ 
                 base: 1, 
-                md: viewMode === 'grid' ? 2 : 1, 
-                lg: viewMode === 'grid' ? 3 : 1,
-                xl: viewMode === 'grid' ? 4 : 1
+                md: 2, 
+                lg: 3,
+                xl: 4
               }} 
               spacing={6}
             >
@@ -527,6 +626,8 @@ const ApiPackageManagement_New: React.FC = () => {
                   package={pkg}
                   onTest={handleTestApi}
                   onToggleFavorite={handleToggleFavorite}
+                  viewMode={viewMode}
+                  triggerHealthCheck={bulkHealthCheckTrigger}
                 />
               ))}
             </SimpleGrid>

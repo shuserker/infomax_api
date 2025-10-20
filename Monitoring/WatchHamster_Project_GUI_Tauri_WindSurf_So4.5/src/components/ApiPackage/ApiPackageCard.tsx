@@ -19,7 +19,8 @@ import {
   Code,
   Grid,
   GridItem,
-  Spinner
+  Spinner,
+  useToast
 } from '@chakra-ui/react';
 import { 
   FiStar, 
@@ -32,7 +33,8 @@ import {
   FiBookOpen,
   FiCheckCircle,
   FiAlertTriangle,
-  FiXCircle
+  FiXCircle,
+  FiCopy
 } from 'react-icons/fi';
 
 interface ApiParameter {
@@ -52,27 +54,34 @@ interface ApiPackage {
   baseUrl: string;
   fullUrl: string;
   inputs: ApiParameter[];
+  outputs: string[];
   description?: string;
   tags?: string[];
   isFavorite?: boolean;
   lastUsed?: string;
   usageCount?: number;
+  status: 'active' | 'inactive';
 }
 
 interface ApiPackageCardProps {
   package: ApiPackage;
   onTest: (pkg: ApiPackage) => void;
   onToggleFavorite: (pkg: ApiPackage) => void;
+  viewMode?: 'grid' | 'list';
+  triggerHealthCheck?: boolean;
 }
 
 const ApiPackageCard: React.FC<ApiPackageCardProps> = ({
   package: pkg,
   onTest,
-  onToggleFavorite
+  onToggleFavorite,
+  viewMode = 'grid',
+  triggerHealthCheck
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [healthStatus, setHealthStatus] = useState<'checking' | 'online' | 'warning' | 'offline'>('checking');
+  const [healthStatus, setHealthStatus] = useState<'checking' | 'online' | 'warning' | 'offline' | 'unknown'>('unknown');
   const [healthError, setHealthError] = useState<string>('');
+  const toast = useToast();
   
   const cardBg = useColorModeValue('white', 'gray.800');
   const hoverBg = useColorModeValue('gray.50', 'gray.700');
@@ -118,6 +127,14 @@ const ApiPackageCard: React.FC<ApiPackageCardProps> = ({
           icon: FiXCircle,
           bgColor: 'red.50',
           borderColor: 'red.200'
+        };
+      case 'unknown':
+        return { 
+          color: 'gray', 
+          text: '미확인', 
+          icon: null,
+          bgColor: 'gray.50',
+          borderColor: 'gray.200'
         };
       default: 
         return { 
@@ -292,18 +309,214 @@ const ApiPackageCard: React.FC<ApiPackageCardProps> = ({
     }
   };
 
-  // 컴포넌트 마운트 시 헬스체크 실행
+  // 자동 헬스체크 제거 - 수동 실행으로 변경
+  
+  // 외부에서 헬스체크 트리거 시 실행
   useEffect(() => {
-    // 2-5초 랜덤 딜레이로 동시 호출 방지
-    const delay = 2000 + Math.random() * 3000;
-    const timer = setTimeout(performHealthCheck, delay);
-    
-    return () => clearTimeout(timer);
-  }, [pkg.fullUrl]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (triggerHealthCheck) {
+      console.log(`외부 트리거로 헬스체크 시작: ${pkg.itemName}`);
+      performHealthCheck();
+    }
+  }, [triggerHealthCheck, pkg.itemName]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
   const healthInfo = getHealthStatusInfo();
 
+  // 리스트뷰일 때는 완전히 다른 레이아웃
+  if (viewMode === 'list') {
+    return (
+      <Box
+        bg={cardBg}
+        borderRadius="lg"
+        p={3}
+        border="1px solid"
+        borderColor={useColorModeValue('gray.200', 'gray.700')}
+        _hover={{
+          bg: hoverBg,
+          borderColor: useColorModeValue('blue.300', 'blue.600'),
+          boxShadow: 'md'
+        }}
+        transition="all 0.2s"
+        mb={2}
+      >
+        <Flex 
+          align="center" 
+          gap={4} 
+          onClick={(e) => {
+            console.log('Flex 클릭됨 - 전파 차단');
+            e.stopPropagation();
+          }}
+          onMouseDown={(e) => e.stopPropagation()}
+        >
+          {/* 헬스 상태 - 실제 Button 컴포넌트 사용 */}
+          <Button
+            px={2}
+            py={1}
+            h="32px"
+            minW="80px"
+            size="sm"
+            variant="outline"
+            colorScheme={healthInfo.color}
+            bg={healthInfo.bgColor}
+            borderColor={healthInfo.borderColor}
+            isLoading={healthStatus === 'checking'}
+            loadingText={healthInfo.text}
+            onClick={(e) => {
+              console.log('🔥 헬스체크 실행:', pkg.itemName);
+              e.stopPropagation();
+              performHealthCheck();
+            }}
+            _hover={{
+              bg: `${healthInfo.color}.100`,
+              borderColor: `${healthInfo.color}.300`,
+              transform: 'scale(1.05)'
+            }}
+            _active={{
+              transform: 'scale(0.95)'
+            }}
+            title="클릭하여 헬스체크 실행"
+          >
+            <HStack spacing={1}>
+              {healthStatus !== 'checking' && healthInfo.icon && (
+                <Box as={healthInfo.icon} w={3} h={3} />
+              )}
+              <Text fontSize="xs" fontWeight="semibold">
+                {healthInfo.text}
+              </Text>
+            </HStack>
+          </Button>
+
+          {/* 카테고리 */}
+          <Badge
+            colorScheme={getCategoryColor(pkg.category)}
+            variant="subtle"
+            fontSize="xs"
+            minW="60px"
+            textAlign="center"
+          >
+            {pkg.category}
+          </Badge>
+
+          {/* API 정보 */}
+          <Box flex={1}>
+            <HStack spacing={3} align="center" justify="space-between">
+              <VStack spacing={0} align="start" flex={1}>
+                <HStack spacing={2} align="center">
+                  <Text fontWeight="bold" fontSize="md" color="blue.600">
+                    {pkg.itemName}
+                  </Text>
+                  {pkg.isFavorite && (
+                    <Box as={FiStar} color="gold" w={3} h={3} />
+                  )}
+                </HStack>
+                <Text fontSize="xs" color="gray.500" noOfLines={1}>
+                  {pkg.fullName}
+                </Text>
+              </VStack>
+              
+              {/* URL 경로를 오른쪽으로 이동하여 가독성 향상 */}
+              <Box
+                px={2}
+                py={1}
+                bg={useColorModeValue('gray.100', 'gray.700')}
+                borderRadius="md"
+                minW="120px"
+              >
+                <Text fontSize="xs" fontFamily="mono" color="gray.600" textAlign="center">
+                  {pkg.urlPath}
+                </Text>
+              </Box>
+            </HStack>
+          </Box>
+
+          {/* 파라미터 수 */}
+          <VStack spacing={0} minW="60px" textAlign="center">
+            <Text fontSize="lg" fontWeight="bold" color="blue.500">
+              {pkg.inputs.length}
+            </Text>
+            <Text fontSize="xs" color="gray.500">파라미터</Text>
+          </VStack>
+
+          {/* 필수 파라미터 수 */}
+          <VStack spacing={0} minW="60px" textAlign="center">
+            <Text fontSize="lg" fontWeight="bold" color="red.500">
+              {pkg.inputs.filter(input => input.required).length}
+            </Text>
+            <Text fontSize="xs" color="gray.500">필수</Text>
+          </VStack>
+
+          {/* 마지막 사용 */}
+          <VStack spacing={0} minW="80px" textAlign="center">
+            <HStack spacing={1}>
+              <Box as={FiClock} w={3} h={3} color="gray.400" />
+              <Text fontSize="xs" color="gray.500">
+                {pkg.lastUsed || '미사용'}
+              </Text>
+            </HStack>
+            <Text fontSize="xs" color="gray.400">
+              {pkg.usageCount || 0}회 사용
+            </Text>
+          </VStack>
+
+          {/* 액션 버튼들 - 공간 효율적으로 재배치 */}
+          <HStack spacing={2} minW="180px">
+            {/* 즐겨찾기 */}
+            <Tooltip label="즐겨찾기 토글">
+              <IconButton
+                icon={<FiStar />}
+                size="sm"
+                variant={pkg.isFavorite ? "solid" : "outline"}
+                colorScheme={pkg.isFavorite ? "yellow" : "gray"}
+                onClick={() => onToggleFavorite(pkg)}
+                aria-label="즐겨찾기"
+              />
+            </Tooltip>
+            
+            {/* URL 복사 버튼 추가 */}
+            <Tooltip label="API URL 복사">
+              <IconButton
+                icon={<FiCopy />}
+                size="sm"
+                variant="outline"
+                colorScheme="gray"
+                onClick={() => {
+                  navigator.clipboard.writeText(pkg.fullUrl);
+                  toast({
+                    title: "URL 복사 완료",
+                    description: `${pkg.itemName} API URL이 클립보드에 복사되었습니다.`,
+                    status: "success",
+                    duration: 2000,
+                    isClosable: true,
+                    position: "top"
+                  });
+                }}
+                aria-label="URL 복사"
+              />
+            </Tooltip>
+            
+            {/* 테스트 버튼 */}
+            <Button
+              leftIcon={<FiZap />}
+              colorScheme="blue"
+              size="sm"
+              onClick={() => onTest(pkg)}
+              bgGradient="linear(to-r, blue.400, blue.600)"
+              _hover={{
+                bgGradient: "linear(to-r, blue.500, blue.700)",
+                transform: "translateY(-1px)",
+              }}
+              borderRadius="md"
+              minW="80px"
+            >
+              테스트
+            </Button>
+          </HStack>
+        </Flex>
+      </Box>
+    );
+  }
+
+  // 기존 카드뷰
   return (
     <Card
       bg={cardBg}
@@ -336,45 +549,49 @@ const ApiPackageCard: React.FC<ApiPackageCardProps> = ({
               <FiStar color="gold" />
             )}
             
-            {/* 개선된 헬스체크 배지 */}
-            <Box
+            {/* 개선된 헬스체크 배지 - 클릭 가능한 Button으로 변경 */}
+            <Button
               px={3}
               py={1.5}
-              borderRadius="full"
+              h="auto"
+              size="sm"
+              variant="outline"
+              colorScheme={healthInfo.color}
               bg={healthInfo.bgColor}
-              border="1px solid"
               borderColor={healthInfo.borderColor}
-              transition="all 0.2s"
-              _hover={{ transform: 'scale(1.05)', boxShadow: 'md' }}
+              borderRadius="full"
+              isLoading={healthStatus === 'checking'}
+              loadingText={healthInfo.text}
+              onClick={(e) => {
+                console.log('🔥 카드뷰 헬스체크 실행:', pkg.itemName);
+                e.stopPropagation();
+                performHealthCheck();
+              }}
+              _hover={{ 
+                bg: `${healthInfo.color}.100`,
+                borderColor: `${healthInfo.color}.300`,
+                transform: 'scale(1.05)', 
+                boxShadow: 'md' 
+              }}
+              _active={{
+                transform: 'scale(0.95)'
+              }}
+              title="클릭하여 헬스체크 실행"
             >
               <HStack spacing={1.5} align="center">
-                {healthStatus === 'checking' ? (
-                  <Spinner size="xs" color={`${healthInfo.color}.500`} />
-                ) : healthInfo.icon ? (
-                  <Box as={healthInfo.icon} w={3} h={3} color={`${healthInfo.color}.600`} />
-                ) : null}
+                {healthStatus !== 'checking' && healthInfo.icon && (
+                  <Box as={healthInfo.icon} w={3} h={3} />
+                )}
                 <Text 
                   fontSize="xs" 
-                  fontWeight="semibold" 
-                  color={`${healthInfo.color}.700`}
+                  fontWeight="semibold"
                   lineHeight={1}
                 >
                   {healthInfo.text}
                 </Text>
               </HStack>
-            </Box>
+            </Button>
           </HStack>
-          
-          <Tooltip label="즐겨찾기 토글">
-            <IconButton
-              icon={<FiStar />}
-              size="sm"
-              variant={pkg.isFavorite ? "solid" : "outline"}
-              colorScheme={pkg.isFavorite ? "yellow" : "gray"}
-              onClick={() => onToggleFavorite(pkg)}
-              aria-label="즐겨찾기"
-            />
-          </Tooltip>
         </Flex>
       </Box>
 
@@ -467,7 +684,6 @@ const ApiPackageCard: React.FC<ApiPackageCardProps> = ({
               colorScheme="blue"
               size="sm"
               onClick={() => onTest(pkg)}
-              flex={1}
               bgGradient="linear(to-r, blue.400, blue.600)"
               _hover={{
                 bgGradient: "linear(to-r, blue.500, blue.700)",
@@ -480,8 +696,9 @@ const ApiPackageCard: React.FC<ApiPackageCardProps> = ({
               }}
               fontWeight="semibold"
               borderRadius="lg"
+              minW="100px"
             >
-              🚀 API 테스트
+              API 테스트
             </Button>
             
             <Tooltip label="파라미터 상세보기">
@@ -500,6 +717,17 @@ const ApiPackageCard: React.FC<ApiPackageCardProps> = ({
                 size="sm"
                 variant="outline"
                 aria-label="문서보기"
+              />
+            </Tooltip>
+            
+            <Tooltip label="즐겨찾기 토글">
+              <IconButton
+                icon={<FiStar />}
+                size="sm"
+                variant={pkg.isFavorite ? "solid" : "outline"}
+                colorScheme={pkg.isFavorite ? "yellow" : "gray"}
+                onClick={() => onToggleFavorite(pkg)}
+                aria-label="즐겨찾기"
               />
             </Tooltip>
           </HStack>
