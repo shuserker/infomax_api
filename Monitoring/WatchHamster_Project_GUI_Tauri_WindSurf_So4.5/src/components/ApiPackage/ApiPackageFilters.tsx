@@ -231,28 +231,81 @@ const ApiPackageFilters: React.FC<ApiPackageFiltersProps> = ({
                   value={filters.healthErrorType}
                   onChange={(values) => updateFilters({ healthErrorType: values as string[] })}
                 >
-                  <Stack direction="row" spacing={6}>
+                  <VStack spacing={3} align="stretch">
+                    {/* 정상 상태 */}
                     <Checkbox value="online" colorScheme="green">
                       <Badge colorScheme="green" variant="outline" mr={2}>정상</Badge>
                       API 정상 작동
                     </Checkbox>
-                    <Checkbox value="warning" colorScheme="yellow">
-                      <Badge colorScheme="yellow" variant="outline" mr={2}>경고</Badge>
-                      파라미터 오류 또는 인증 실패
-                    </Checkbox>
-                    <Checkbox value="offline" colorScheme="red">
-                      <Badge colorScheme="red" variant="outline" mr={2}>오프라인</Badge>
-                      서버 오류 또는 연결 실패
-                    </Checkbox>
-                    <Checkbox value="checking" colorScheme="blue">
-                      <Badge colorScheme="blue" variant="outline" mr={2}>확인중</Badge>
-                      헬스체크 진행 중
-                    </Checkbox>
-                    <Checkbox value="unknown" colorScheme="gray">
-                      <Badge colorScheme="gray" variant="outline" mr={2}>미확인</Badge>
-                      헬스체크 미실행
-                    </Checkbox>
-                  </Stack>
+                    
+                    {/* 경고 상태 세부 분류 */}
+                    <Box>
+                      <Text fontSize="xs" color="orange.600" fontWeight="bold" mb={1}>⚠️ 경고 상태:</Text>
+                      <Stack direction="row" spacing={4} flexWrap="wrap">
+                        <Checkbox value="파라미터 오류" colorScheme="yellow" size="sm">
+                          파라미터 오류
+                        </Checkbox>
+                        <Checkbox value="인증 오류" colorScheme="yellow" size="sm">
+                          인증 오류
+                        </Checkbox>
+                        <Checkbox value="권한 없음" colorScheme="yellow" size="sm">
+                          권한 없음
+                        </Checkbox>
+                        <Checkbox value="데이터 없음" colorScheme="yellow" size="sm">
+                          데이터 없음
+                        </Checkbox>
+                        <Checkbox value="API 없음" colorScheme="yellow" size="sm">
+                          API 없음
+                        </Checkbox>
+                        <Checkbox value="요청 초과" colorScheme="yellow" size="sm">
+                          요청 초과
+                        </Checkbox>
+                        <Checkbox value="응답 구조 이상" colorScheme="yellow" size="sm">
+                          응답 구조 이상
+                        </Checkbox>
+                      </Stack>
+                    </Box>
+
+                    {/* 오프라인 상태 세부 분류 */}
+                    <Box>
+                      <Text fontSize="xs" color="red.600" fontWeight="bold" mb={1}>🔴 오프라인 상태:</Text>
+                      <Stack direction="row" spacing={4} flexWrap="wrap">
+                        <Checkbox value="서버 오류" colorScheme="red" size="sm">
+                          서버 오류
+                        </Checkbox>
+                        <Checkbox value="게이트웨이 오류" colorScheme="red" size="sm">
+                          게이트웨이 오류
+                        </Checkbox>
+                        <Checkbox value="서비스 중단" colorScheme="red" size="sm">
+                          서비스 중단
+                        </Checkbox>
+                        <Checkbox value="응답 지연" colorScheme="red" size="sm">
+                          응답 지연
+                        </Checkbox>
+                        <Checkbox value="연결 실패" colorScheme="red" size="sm">
+                          연결 실패
+                        </Checkbox>
+                        <Checkbox value="네트워크 오류" colorScheme="red" size="sm">
+                          네트워크 오류
+                        </Checkbox>
+                        <Checkbox value="알 수 없는 오류" colorScheme="red" size="sm">
+                          알 수 없는 오류
+                        </Checkbox>
+                      </Stack>
+                    </Box>
+
+                    {/* 기타 상태 */}
+                    <Stack direction="row" spacing={6}>
+                      <Checkbox value="checking" colorScheme="blue">
+                        <Badge colorScheme="blue" variant="outline" mr={2}>확인중</Badge>
+                        헬스체크 진행 중
+                      </Checkbox>
+                      <Checkbox value="unknown" colorScheme="gray">
+                        <Badge colorScheme="gray" variant="outline" mr={2}>미확인</Badge>
+                        헬스체크 미실행
+                      </Checkbox>
+                    </Stack>
+                  </VStack>
                 </CheckboxGroup>
               </Box>
 
@@ -279,6 +332,24 @@ const ApiPackageFilters: React.FC<ApiPackageFiltersProps> = ({
                     colorScheme="green"
                   >
                     정상 API만
+                  </Button>
+                  <Button
+                    onClick={() => updateFilters({ healthErrorType: ['파라미터 오류', '인증 오류'] })}
+                    colorScheme="yellow"
+                  >
+                    파라미터/인증 오류
+                  </Button>
+                  <Button
+                    onClick={() => updateFilters({ healthErrorType: ['데이터 없음'] })}
+                    colorScheme="orange"
+                  >
+                    데이터 없음
+                  </Button>
+                  <Button
+                    onClick={() => updateFilters({ healthErrorType: ['서버 오류', '연결 실패', '네트워크 오류'] })}
+                    colorScheme="red"
+                  >
+                    연결/서버 문제
                   </Button>
                   <Button
                     onClick={() => updateFilters({ 
@@ -321,29 +392,48 @@ const ApiPackageFilters: React.FC<ApiPackageFiltersProps> = ({
               </WrapItem>
             ))}
             
-            {filters.healthErrorType.map(healthType => (
-              <WrapItem key={healthType}>
-                <Badge
-                  colorScheme={
-                    healthType === 'online' ? 'green' :
-                    healthType === 'warning' ? 'yellow' :
-                    healthType === 'offline' ? 'red' :
-                    healthType === 'checking' ? 'blue' : 'gray'
-                  }
-                  variant="solid"
-                  cursor="pointer"
-                  onClick={() => updateFilters({ 
-                    healthErrorType: filters.healthErrorType.filter(c => c !== healthType) 
-                  })}
-                  _hover={{ opacity: 0.8 }}
-                >
-                  {healthType === 'online' ? '정상' :
-                   healthType === 'warning' ? '경고' :
-                   healthType === 'offline' ? '오프라인' :
-                   healthType === 'checking' ? '확인중' : '미확인'} ✕
-                </Badge>
-              </WrapItem>
-            ))}
+            {filters.healthErrorType.map(healthType => {
+              // 에러 타입별 색상 결정
+              const getColorScheme = (type: string) => {
+                if (type === 'online') return 'green';
+                if (type === 'checking') return 'blue';
+                if (type === 'unknown') return 'gray';
+                
+                // 경고 상태 에러들
+                const warningErrors = ['파라미터 오류', '인증 오류', '권한 없음', '데이터 없음', 'API 없음', '요청 초과', '응답 구조 이상'];
+                if (warningErrors.includes(type)) return 'yellow';
+                
+                // 오프라인 상태 에러들
+                const offlineErrors = ['서버 오류', '게이트웨이 오류', '서비스 중단', '응답 지연', '연결 실패', '네트워크 오류', '알 수 없는 오류'];
+                if (offlineErrors.includes(type)) return 'red';
+                
+                return 'gray';
+              };
+
+              // 표시할 라벨 결정 (상태는 그대로, 에러는 약간 축약)
+              const getDisplayLabel = (type: string) => {
+                if (type === 'online') return '정상';
+                if (type === 'checking') return '확인중';
+                if (type === 'unknown') return '미확인';
+                return type; // 나머지는 원본 그대로
+              };
+
+              return (
+                <WrapItem key={healthType}>
+                  <Badge
+                    colorScheme={getColorScheme(healthType)}
+                    variant="solid"
+                    cursor="pointer"
+                    onClick={() => updateFilters({ 
+                      healthErrorType: filters.healthErrorType.filter(c => c !== healthType) 
+                    })}
+                    _hover={{ opacity: 0.8 }}
+                  >
+                    {getDisplayLabel(healthType)} ✕
+                  </Badge>
+                </WrapItem>
+              );
+            })}
             
             {filters.showFavoritesOnly && (
               <WrapItem>
