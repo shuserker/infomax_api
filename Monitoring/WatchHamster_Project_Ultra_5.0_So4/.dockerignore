@@ -1,0 +1,47 @@
+# Docker 빌드 시 제외할 파일들
+
+# 의존성
+node_modules/
+python-backend/venv/
+src-tauri/target/
+
+# 빌드 결과물
+dist/
+dist-production/
+dist-cross-platform/
+build/
+
+# 개발 파일
+.env.development
+.env.local
+*.log
+debug-report-*.json
+
+# 테스트 파일
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+
+# IDE 설정
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS 파일
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# 임시 파일
+*.tmp
+*.temp
+temp/
+
+# 백업 파일
+*.backup
+*.bak
