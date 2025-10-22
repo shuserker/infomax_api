@@ -19,23 +19,49 @@
 
 #### 커밋 메시지 형식
 ```
-feat: [작업 번호] [작업명]
+[Task번호_카테고리] 작업명
 
 - [완료 항목 1]
 - [완료 항목 2]
 - [완료 항목 3]
-- 작업 [번호] 완료: [작업명]
 ```
+
+#### 카테고리 종류
+- `로직` - 백엔드 비즈니스 로직, 알고리즘, 데이터 처리
+- `UI` - 프론트엔드 컴포넌트, 페이지, 스타일
+- `API` - API 엔드포인트, 라우터
+- `모델` - 데이터 모델, 스키마
+- `설정` - 환경 설정, 의존성, 빌드 설정
+- `테스트` - 테스트 코드
+- `문서` - 문서화, README
 
 #### 예시
 ```bash
+# 메인 작업 완료 시
 git add .
-git commit -m "feat: 작업 2.1 디렉토리 구조 생성
+git commit -m "[Task1_설정] 프로젝트 환경 설정 및 의존성 설치
+
+- scikit-learn==1.3.2, numpy, pandas 설치
+- requirements.txt 업데이트
+- 가상환경 설정 완료"
+git push
+
+# 서브 작업 완료 시
+git add .
+git commit -m "[Task2.1_로직] AI 분석 엔진 디렉토리 구조 생성
 
 - python-backend/core/ai/ 디렉토리 생성
 - python-backend/core/ai/__init__.py 생성
-- python-backend/models/ai_models.py 생성
-- 작업 2.1 완료: 디렉토리 구조 생성"
+- python-backend/models/ai_models.py 생성"
+git push
+
+# UI 작업 완료 시
+git add .
+git commit -m "[Task8.3_UI] AIAnalysisWidget 컴포넌트 생성
+
+- src/components/AI/AIAnalysisWidget.tsx 생성
+- Chakra UI Card 레이아웃 구현
+- 로딩/에러 상태 표시 추가"
 git push
 ```
 
